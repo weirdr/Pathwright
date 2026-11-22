@@ -1,0 +1,132 @@
+# Arathi Highlands (32-33): the first visit to Hammerfall (Drum Fel, Tor'gan and Gor'mul, Doctor
+# Gregory Victor), the errands Tarren Mill sends there and the Dabyrie brothers for Undercity, for a
+# Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/arathi_highlands_32_33.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Arathi Highlands, area 45).
+# The quest list is section 13 of addon/guides/horde_1_40_allocation.md. The rest of Hammerfall's
+# quests (Call to Arms 678, Guile of the Raptor 701, The Princess Trapped 642...) are in Alterac
+# Mountains & Arathi Highlands (38-39).
+# Left to later guides: Final Passage (1394, from Parqual Fintallas in Undercity, after his Test of
+#   Lore), handed in by Thousand Needles (33-34).
+# Left out: This Must Be The Place (79976): it follows Eagle's Fist (79975), found at the
+#   Stonewrought Dam in Loch Modan after Wet Job (79974) in Stonetalon, and no guide takes those.
+#   Defiler's Basic Care Package (8263): it needs Friendly with the Defilers, earned in Arathi Basin.
+#   The Battle for Arathi Basin! (8170): its objectives are inside the Arathi Basin battleground.
+#   Crystal in the Mountains (635): it starts from the Pendant of Myzrael, a very rare world drop.
+#
+# The route: Tarren Mill (the Mudsnout Blossoms of Nethander Stead); a flight to Undercity and back
+# for the hand-ins and the Dabyrie quest; the road east through Thoradin's Wall, the Boulderfist
+# Outpost and the Dabyrie Farmstead on the way to Hammerfall; a loop south to the Witherbark trolls;
+# a loop west to Northfold Manor; the hearthstone back to Hammerfall and a flight to Undercity, where
+# the zeppelin to Orgrimmar leaves for the next guide.
+
+guide Arathi Highlands (32-33)
+faction horde
+levels 32 33
+leave 1394
+next Thousand Needles (33-34)
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+map Hillsbrad Foothills
+note "From the rest of Hillsbrad, ride to Tarren Mill (or fly there)" at 61.0,19.5
+accept 509
+accept 550
+tip High Executor Darthalia gives this commendation once you have finished the Battle of Hillsbrad. Not offered? Skip this step.
+accept 676
+do 509
+tip Nethander Stead is south of Tarren Mill, east of the river from Southshore: the Mudsnout Blossoms grow in its fields.
+turnin 509
+accept 513
+
+# Undercity -------------------------------------------------------------------------------------------
+
+fly "Undercity, Tirisfal" npc 2389
+map Undercity
+accept 1164
+tip Genavie Callow stands a few steps from the flight master.
+turnin 513
+tip Master Apothecary Faranell is in the Apothecarium.
+turnin 550
+tip Varimathras stands beside the Dark Lady in the Royal Quarter.
+accept 1394
+tip Parqual Fintallas gives this one once you passed his Test of Lore: keep it, the next guide hands it in at Thousand Needles. Not offered? Skip this step.
+fly "Tarren Mill, Hillsbrad" npc 4551
+tip Already have the Hammerfall flight path? Fly there instead and do the Boulderfist Outpost and the Dabyrie Farmstead from Hammerfall.
+
+# Thoradin's Wall, the Boulderfist Outpost and the Dabyrie Farmstead -----------------------------------
+
+map Arathi Highlands
+goto "Ride east from Tarren Mill and through the gate of Thoradin's Wall into the Arathi Highlands" at 21.0,30.5 r 40
+do 676.1
+tip The Boulderfist Outpost lies north-east of Stromgarde: the Boulderfist Ogres stand around the mound.
+do 676.2
+tip The Enforcers are inside the cave of the outpost.
+do 1164
+tip The Dabyrie Farmstead is on the way east to Hammerfall. Kenata and Marcel are inside the buildings; Fardel walks around the farm.
+
+# Hammerfall -----------------------------------------------------------------------------------------
+
+fpath 2851
+bind 9501
+turnin 676
+accept 677
+accept 655
+turnin 655
+accept 672 671
+accept 97539
+tip Doctor Gregory Victor is inside the longhouse.
+
+# South: the Witherbark trolls ------------------------------------------------------------------------
+
+do 672 bg
+tip The Highland raptors roam all over the highlands: kill every one you pass for their eyes.
+do 97539 bg
+tip Plains Creepers and Giant Plains Creepers are spread over the plains too.
+do 677.1
+tip The Witherbark trolls camp in the hills south of Hammerfall: Axe Throwers and Witch Doctors in the northern camps, Headhunters around Witherbark Village further south.
+do 677.3
+do 677.2
+accept 92707 at 68.5,79.6 icon kill "Kill the Witherbark Goliath for its Goliath's Wristguards, then use them: they start a quest"
+tip The Goliath, a level 35 elite, stands in the south of Witherbark Village: fight it together.
+do 92707
+goto "Return to Hammerfall" at 73.8,34.0 r 20
+turnin 677
+turnin 92707
+
+# West: Northfold Manor --------------------------------------------------------------------------------
+
+do 671
+tip The Syndicate hold Northfold Manor, in the north-west near Thoradin's Wall. Pathstalkers hide in stealth around the ruins.
+do 672 at 38.2,35.5
+tip Highland Thrashers prowl the hills between the manor and the middle of the highlands.
+do 97539 at 42.5,31.9
+tip The Giant Plains Creepers spin their webs east of Northfold Manor.
+grind 33 at 38.0,34.0
+tip Not quite 33 yet? The Highland Thrashers and the Giant Plains Creepers here finish the level.
+hearth npc 9501
+
+# Hammerfall ------------------------------------------------------------------------------------------
+
+turnin 671
+turnin 672
+accept 674
+turnin 674
+accept 675
+turnin 675
+turnin 97539
+
+# Undercity and the zeppelin ---------------------------------------------------------------------------
+
+fly "Undercity, Tirisfal" npc 2851
+map Undercity
+turnin 1164
+train 4593 260093 4582 4606 4566 4563
+tip Hunters, shamans and druids have no trainer here: train in Orgrimmar, where the next guide starts.
+map Tirisfal Glades
+note "Take the zeppelin from the tower outside Undercity to Durotar, for the next guide" npc 9566
+tip The tower stands just outside the ruins of Lordaeron, a short walk north of the way out of Undercity. Zapetta sends the zeppelin to Orgrimmar.
