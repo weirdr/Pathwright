@@ -1143,6 +1143,8 @@ do
         plate.namePlateUnitToken = unit
         plate.GetCenter = function() return x, y end
         plate.GetEffectiveScale = function() return 1 end
+        plate.IsForbidden = function() return false end
+        plate.IsAnchoringRestricted = function() return false end
         return plate
     end
     local list = {}
@@ -1187,6 +1189,15 @@ do
     UnitIsUnit = function(a, b) return (a == "nameplate2" and b == "target") or a == b end
     sword.PreClick(sword)
     assert(sword.aimed == strip.AimedMacro("nameplate2"), "the current target first")
+    -- A restricted nameplate (an instance): the game refuses to measure it; never asked.
+    local restricted = Plate("nameplate9", 500, 400)
+    restricted.IsForbidden = function() return true end
+    restricted.GetCenter = function() error("Can't measure restricted regions") end
+    mobs.nameplate9 = { name = "Kobold Vermin" }
+    table.insert(list, restricted)
+    assert(strip.Pick("Kobold Vermin"), "a restricted plate skipped, no error")
+    table.remove(list)
+    mobs.nameplate9 = nil
     UnitIsUnit = function(a, b) return a == b end
     -- The checker: the right mob gets the skull (and the ping); a wrong one is cleared at once.
     checker.PreClick(checker)
@@ -1240,6 +1251,24 @@ do
     InCombatLockdown = function() return false end
     fire("PLAYER_REGEN_DISABLED")
     assert(sword.aimed == strip.actions[1].macro and checker.macro == "", "by name in combat, the checker emptied")
+    -- Its step done during a fight: the button is locked, so it shows done (dimmed, a check),
+    -- then leaves once the fight is over (as PLAYER_REGEN_ENABLED does).
+    local steps = strip.steps
+    InCombatLockdown = function() return true end
+    strip:SetSteps({})
+    assert(strip.IsStale(sword) and sword:GetAlpha() < 0.5, "done in combat: dimmed")
+    assert(sword:IsShown() and rawget(sword, "action"), "still there while the fight lasts")
+    InCombatLockdown = function() return false end
+    strip:SetSteps(strip.steps)
+    assert(not sword:IsShown() and not rawget(sword, "action") and not strip.IsStale(sword), "gone after the fight")
+    -- Nothing left to show: the strip hides, and its buttons are emptied (keys still click them).
+    FG:Save("toolstripTrash", false)
+    strip:SetSteps(steps)
+    strip:SetSteps({})
+    assert(not rawget(sword, "action") and not sword:IsShown(), "hidden strip: buttons emptied")
+    FG:Save("toolstripTrash", nil)
+    strip:SetSteps(steps)
+    assert(sword:IsShown() and not strip.IsStale(sword) and sword:GetAlpha() == 1, "back, not marked")
     C_NamePlate, UnitName, UnitIsDead, UnitIsTapDenied = saved.plates, saved.name, saved.dead, saved.tapped
     UnitCanAttack, UnitExists, UnitIsUnit = saved.attack, saved.exists, saved.unit
     Press("next")
@@ -1520,6 +1549,96 @@ do
         table.remove(FG.Builtin.defs)
     end
     print("shipped guides ok: " .. count .. " routes")
+end
+
+-- Quest stats (Stats.lua): a quest's time runs from its first count to its last, only while in
+-- its area; drop rates of its items from the corpses looted; a score; friends' records.
+do
+    local S = FG.Stats
+    local realWhere = S.where
+    local clockNow, wallNow, at = 1000, 50000, { 0, 100, 100 }
+    S.clock, S.now = function() return clockNow end, function() return wallNow end
+    S.where = function() return at[1], at[2], at[3] end
+    local quests = S:Quests()
+    for id in pairs(quests) do
+        quests[id] = nil
+    end
+    local function Log(kills, claws)
+        return {
+            [900] = { { have = kills, need = 3, type = "monster", text = "Kobold slain: " .. kills .. "/3" } },
+            [901] = { { have = claws, need = 2, type = "item", text = "Wolf Claw: " .. claws .. "/2" } },
+        }
+    end
+    S:Apply(Log(0, 0), true)
+    S:Tick()
+    assert(_G.next(quests) == nil, "nothing under way yet")
+    S:Apply(Log(1, 0))
+    local rec = quests[900]
+    assert(rec and rec.s == wallNow and rec.t == 0, "the clock starts at the first count")
+    clockNow = clockNow + 5
+    S:Tick()
+    assert(rec.t == 5, "in its area: counted, " .. tostring(rec.t))
+    at = { 0, 2000, 2000 } -- a hearth to town
+    clockNow = clockNow + 5
+    S:Tick()
+    assert(rec.t == 5, "away from its area: not counted")
+    clockNow = clockNow + 3600 -- logged out
+    at = { 0, 120, 90 }
+    S:Tick()
+    assert(rec.t == 15, "a long gap counts " .. 10 .. " s at most: " .. tostring(rec.t))
+    -- Loot: of the corpses of the mobs that drop the claw, the share that had it.
+    S:Loot({ { npc = 5, items = { ["wolf claw"] = 1 } }, { npc = 5, items = {} }, { npc = 7, items = {} } })
+    S:Apply(Log(1, 1))
+    local wolf = quests[901]
+    assert(wolf and S.Rate(wolf) == 0.5, "drop rate of the corpses of its mobs: " .. tostring(S.Rate(wolf)))
+    -- Finished: the time stops, a score, the step's small line, a message to the friends.
+    local sent = {}
+    local realChat, realFriends = C_ChatInfo, C_FriendList
+    C_ChatInfo = {
+        SendAddonMessage = function(prefix, text, channel, target)
+            table.insert(sent, { prefix = prefix, text = text, channel = channel, target = target })
+        end,
+    }
+    C_FriendList = {
+        GetNumFriends = function() return 2 end,
+        GetFriendInfoByIndex = function(i)
+            return i == 1 and { name = "Ally", connected = true } or { name = "Offline", connected = false }
+        end,
+    }
+    clockNow = clockNow + 5
+    S:Apply(Log(3, 1))
+    assert(rec.e == wallNow and rec.t == 20 and rec.sc and rec.sc > 40, "finished: time and score")
+    assert(S.Score({ e = 1, s = 1, t = 60, need = 3, kills = 3 }) == 103, "40 + 3 + 60 at par")
+    assert(S.Score({ e = 1, s = 1, t = 60, need = 3, kills = 3, deaths = 1 }) == 88, "a death costs 15")
+    local line = S:StepLine({ k = "objective", q = 900 })
+    assert(line and line:find("0:20", 1, true) and line:find(tostring(rec.sc), 1, true), tostring(line))
+    local claw = S:StepLine({ k = "objective", q = 901, e = "item", n = "Wolf Claw" })
+    assert(claw and claw:find("50%", 1, true), tostring(claw))
+    local q = sent[1]
+    assert(q and q.prefix == "PWStats" and q.channel == "WHISPER" and q.target:find("^Ally%-"), "to online friends")
+    assert(q.text:find("^Q|900|20||" .. rec.sc .. "|"), q.text)
+    -- Friends' records: taken from friends only.
+    local friend = sent[1].target
+    S:Receive("H|1|500|1", friend)
+    S:Receive("Q|900|12|60|130|49000", friend)
+    S:Receive("H|1|9999|1", "Stranger-Realm")
+    local board = S:Standings()
+    assert(board[1].total == 500 and board[1].name == "Ally" and #board == 2, "the leaderboard: friends only")
+    local tip = S:TooltipLines({ q = 900 })
+    assert(tip and tip[#tip]:find("Ally", 1, true) and tip[#tip]:find("130", 1, true), "friends in the tooltip")
+    -- A request: our records finished after the time given.
+    sent = {}
+    S:Receive("R|0", friend)
+    assert(sent[1] and sent[1].text:find("^Q|900|"), "records sent on request")
+    S:ToggleBoard()
+    S:ToggleBoard()
+    C_ChatInfo, C_FriendList = realChat, realFriends
+    PathwrightDB.stats = nil
+    for id in pairs(quests) do
+        quests[id] = nil
+    end
+    S.clock, S.now, S.where = GetTime, time, realWhere
+    print("quest stats ok")
 end
 
 -- Death skip: done once back at the spirit healer the step stands at.

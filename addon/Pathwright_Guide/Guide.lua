@@ -844,6 +844,8 @@ local function TaskView(step, index, withProgress)
     FG.Group:Chips(step, index, function(text, color) Chip(v, text, color) end, IsDone(step, index))
     -- Drawn after the name (the name alone goes to the compass and the arrow).
     v.mark = NoteMark(step)
+    -- Your time on its quest, the drop rate of its item, the score (Stats.lua): small, under the count.
+    v.stats = FG.Stats and FG.Stats:StepLine(step)
     -- An objective guide done below the level its quests ask: said on the current step until reached.
     local recommended = route and route.recommendedLevel
     if recommended and state and index == state.step and UnitLevel("player") < recommended then
@@ -960,6 +962,9 @@ function Guide:StepTooltip(owner, index)
         GameTooltip:AddLine(NoteMark({ nt = { n } }, 12) .. " " .. (n.t or ""), c[1], c[2], c[3], true)
     end
     if step.fx or step.fk then GameTooltip:AddLine(L.farmTip, 0.75, 0.5, 1, true) end
+    for _, line in ipairs(FG.Stats and FG.Stats:TooltipLines(step) or {}) do
+        GameTooltip:AddLine(line, 0.65, 0.8, 1, true)
+    end
     GameTooltip:AddLine(L.pointHint, 0.6, 0.6, 0.6, true)
     GameTooltip:AddLine(L.skipHint, 0.6, 0.6, 0.6, true)
     GameTooltip:Show()

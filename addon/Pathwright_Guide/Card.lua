@@ -132,9 +132,13 @@ local function TaskRow(i)
     row.name = Skin:Text(row, 12, "text")
     row.name:SetPoint("TOPLEFT", TEXT_LEFT, -5)
     row.name:SetPoint("RIGHT", row.count, "LEFT", -6, 0)
+    -- The quest's stats (Stats.lua): lighter and smaller, under the count.
+    row.stats = Skin:Text(row, 9, "dim")
+    row.stats:SetPoint("TOPRIGHT", -PAD, -21)
+    row.stats:SetJustifyH("RIGHT")
     row.sub = Skin:Text(row, 10, "muted")
     row.sub:SetPoint("TOPLEFT", TEXT_LEFT, -21)
-    row.sub:SetPoint("RIGHT", -PAD, 0)
+    row.sub:SetPoint("RIGHT", row.stats, "LEFT", -6, 0)
     row.track = Skin:Fill(row, "ARTWORK", "text", 0.08)
     row.track:SetHeight(3)
     row.track:SetPoint("BOTTOMLEFT", TEXT_LEFT, 5)
@@ -190,6 +194,7 @@ local function DrawTask(row, v, view)
         row.icon:Hide()
         row.check:Hide()
         row.sub:Hide()
+        row.stats:Hide()
         row.track:Hide()
         row.fill:Hide()
         row.name:SetFontObject(Skin.FontObject(10))
@@ -226,6 +231,8 @@ local function DrawTask(row, v, view)
     if chips ~= "" then sub = sub ~= "" and (sub .. "  " .. chips) or chips end
     row.sub:SetText(sub)
     row.sub:SetShown(sub ~= "" and not v.done)
+    row.stats:SetText(v.stats or "")
+    row.stats:SetShown(v.stats ~= nil)
     local bar = (v.have and v.need and v.need > 0 and not v.done) and true or false
     row.track:SetShown(bar)
     row.fill:SetShown(bar)
@@ -234,7 +241,8 @@ local function DrawTask(row, v, view)
         row.fill:SetWidth(math.max(1, (WIDTH - TEXT_LEFT - PAD) * share))
         SetColor(row.fill, share >= 1 and "green" or "orange")
     end
-    if v.done or (sub == "" and not bar) then return 28 end
+    if v.done and v.stats then return 32 end
+    if v.done or (sub == "" and not bar and not v.stats) then return 28 end
     return bar and 42 or 36
 end
 

@@ -13,6 +13,7 @@ local L = {
     open = T("Open a guide"),
     close = T("Right-click: close the tab"),
     follow = T("Click: follow this guide"),
+    board = T("Leaderboard: your quest scores with your friends"),
 }
 
 local HEIGHT, MAX_W, PLUS_W, GAP = 18, 118, 22, 2
@@ -101,6 +102,21 @@ local function CreateBar()
     bar.plus:SetScript("OnClick", function() FG.GuideBrowser:Toggle() end)
     bar.plus:SetScript("OnEnter", function(self) Tooltip(self, { L.open }) end)
     bar.plus:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    -- At the right end, a crown: the leaderboard of quest scores with your friends (Stats.lua).
+    bar.board = CreateFrame("Button", nil, bar)
+    bar.board:SetSize(PLUS_W, HEIGHT)
+    bar.board:SetPoint("TOPRIGHT")
+    bar.board.bg = bar.board:CreateTexture(nil, "BACKGROUND")
+    bar.board.bg:SetAllPoints()
+    bar.board.icon = bar.board:CreateTexture(nil, "ARTWORK")
+    bar.board.icon:SetSize(12, 12)
+    bar.board.icon:SetPoint("CENTER")
+    bar.board.icon:SetTexture("Interface\\GroupFrame\\UI-Group-LeaderIcon")
+    bar.board:SetScript("OnClick", function()
+        if FG.Stats then FG.Stats:ToggleBoard() end
+    end)
+    bar.board:SetScript("OnEnter", function(self) Tooltip(self, { L.board }) end)
+    bar.board:SetScript("OnLeave", function() GameTooltip:Hide() end)
 end
 
 --- Draw the tabs at the guide's look of the moment (`ui`: FG.Card or FG.Mini).
@@ -122,6 +138,7 @@ function Tabs:Render(ui)
     local width = tonumber(host:GetWidth()) or 300
     bar:SetWidth(width)
     bar:Show()
+    Paint(bar.board.bg, "bg", 0.75)
 
     local names = FG.Guide:Tabs()
     local current = FG.Guide:RouteName()
@@ -133,7 +150,7 @@ function Tabs:Render(ui)
         wanted[i] = math.min(MAX_W, (tonumber(b.label:GetStringWidth()) or 60) + 14)
         total = total + wanted[i] + GAP
     end
-    local room = width - PLUS_W
+    local room = width - 2 * PLUS_W - GAP
     local factor = total > room and room / total or 1
     local x = 0
     for i, name in ipairs(names) do

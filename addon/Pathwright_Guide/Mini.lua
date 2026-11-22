@@ -626,6 +626,8 @@ function Mini:Render(view)
     for _, chip in ipairs(main.chips or {}) do
         sub = sub .. (sub ~= "" and "  " or "") .. Skin.Hex(chip.color) .. chip.text .. "|r"
     end
+    -- The quest's stats (Stats.lua), dimmer, at the end.
+    if main.stats then sub = sub .. (sub ~= "" and "  " or "") .. Skin.Hex("dim") .. main.stats .. "|r" end
     strip.sub:SetText(sub)
     -- A task with no place (abandon a quest...): no distance nor zone, the text takes the width.
     local placed = view.target ~= nil and view.target.m ~= nil

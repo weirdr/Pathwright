@@ -157,6 +157,8 @@ end
 function Nameplates:Update(unit)
     if not FG:Get("questNameplates") then return Release(unit) end
     local plate = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(unit)
+    -- A restricted nameplate (instances, some friendly ones) takes no frame of ours.
+    if not FG.PlateUsable(plate) then plate = nil end
     local p = plate and Nameplates.Progress(unit)
     if not p then return Release(unit) end
     local f = self.marks[unit] or Mark()

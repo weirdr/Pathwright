@@ -106,6 +106,7 @@ FG:On("LOOT_READY", function(autoLoot)
     lastLoot = GetTime()
     -- The collector reads the loot window first: once taken, the slots are gone.
     if FG.Collector then FG:Try("LOOT_READY collector", FG.Collector.ReadLoot, FG.Collector) end
+    if FG.Stats then FG:Try("LOOT_READY stats", FG.Stats.ReadLoot, FG.Stats) end
     for slot = GetNumLootItems(), 1, -1 do
         LootSlot(slot)
     end

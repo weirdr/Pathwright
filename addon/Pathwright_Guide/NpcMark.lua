@@ -53,7 +53,7 @@ end
 
 local function Hang(u)
     local plate = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(u)
-    if not plate or not Create() then return false end
+    if not FG.PlateUsable(plate) or not Create() then return false end
     unit = u
     mark:ClearAllPoints()
     mark:SetPoint("BOTTOM", plate, "TOP", 0, 2)

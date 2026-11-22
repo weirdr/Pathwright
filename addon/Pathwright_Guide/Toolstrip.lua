@@ -40,6 +40,11 @@ local function ActionOf(b)
     return type(a) == "table" and a or nil
 end
 local buttons = {}
+--- Buttons whose step got done during a fight (locked until it ends): button -> true.
+local staleOf = setmetatable({}, { __mode = "k" })
+
+--- Whether button `b` waits for the fight's end to leave (its step is done).
+function Toolstrip.IsStale(b) return staleOf[b] == true end
 
 -- The actions -----------------------------------------------------------------------------------
 
@@ -154,11 +159,16 @@ function Toolstrip.CheckMacro(want)
     return wrong and "/cleartarget" or ""
 end
 
+--- How far a nameplate is from the middle of the screen (squared); a restricted one, or one the
+--- game will not measure, counts as far.
 local function ScreenDistance(plate)
-    local x, y = plate:GetCenter()
+    if not FG.PlateUsable(plate) then return math.huge end
+    local ok, x, y = pcall(plate.GetCenter, plate)
     local cx, cy = UIParent:GetCenter()
-    if not (x and cx) then return math.huge end
-    local s, u = plate:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
+    if not ok or not (x and cx) then return math.huge end
+    local okScale, s = pcall(plate.GetEffectiveScale, plate)
+    s = okScale and s or 1
+    local u = UIParent:GetEffectiveScale() or 1
     return (x * s - cx * u) ^ 2 + (y * s - cy * u) ^ 2
 end
 
@@ -201,8 +211,10 @@ end
 --- tagged by someone else: dimmed, does nothing), "name" (none in sight).
 local function SetState(b, state)
     b.state = state
-    b.icon:SetDesaturated(state == "tapped")
-    b:SetAlpha(state == "tapped" and 0.45 or 1)
+    local stale = staleOf[b] == true
+    b.icon:SetDesaturated(state == "tapped" or stale)
+    b:SetAlpha(stale and 0.3 or state == "tapped" and 0.45 or 1)
+    if b.done then b.done:SetShown(stale) end
 end
 
 --- A press of `b` out of combat: the macro for the mobs in sight right now (see Aiming).
@@ -353,7 +365,15 @@ local function Tooltip(self)
     else
         GameTooltip:SetText(string.format(a.kind == "kill" and T("Kill: %s") or T("Talk to: %s"), a.name))
     end
-    if self.state == "aim" then
+    if staleOf[self] then
+        GameTooltip:AddLine(
+            T("Done: this button leaves the toolstrip when the fight ends (the game locks it until then)"),
+            0.3,
+            0.9,
+            0.5,
+            true
+        )
+    elseif self.state == "aim" then
         GameTooltip:AddLine(T("Aimed at one in sight, not tagged by another player"), 0.6, 0.9, 0.6, true)
     elseif self.state == "tapped" then
         GameTooltip:AddLine(
@@ -479,6 +499,12 @@ local function Button(i)
     local icon = b:CreateTexture(nil, "ARTWORK")
     icon:SetAllPoints()
     b.icon = icon
+    -- Its step done during a fight (the button is locked until it ends): a check over it.
+    b.done = b:CreateTexture(nil, "OVERLAY")
+    b.done:SetTexture("Interface\\RaidFrame\\ReadyCheck-Ready")
+    b.done:SetSize(SIZE * 0.6, SIZE * 0.6)
+    b.done:SetPoint("CENTER")
+    b.done:Hide()
     local cooldown = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
     cooldown:SetAllPoints()
     b.cooldown = cooldown
@@ -492,6 +518,8 @@ end
 --- Give button `b` its action (out of combat).
 local function Arm(b, a)
     b.action = a
+    staleOf[b] = nil
+    if b.done then b.done:Hide() end
     if a.kind == "item" then
         b:SetAttribute("type", "item")
         b:SetAttribute("item", a.link)
@@ -527,6 +555,13 @@ local function Apply(actions)
     if not Create() then return end
     local wanted = FG:Get("toolstrip") and (actions[1] ~= nil or FG:Get("toolstripTrash"))
     if not wanted then
+        -- The buttons emptied too: their keys still click them when the strip is hidden.
+        for _, b in ipairs(buttons) do
+            b.action, staleOf[b] = nil, nil
+            b:SetAttribute("type", nil)
+            b:SetAttribute("macrotext", nil)
+            b:Hide()
+        end
         strip:Hide()
         return
     end
@@ -556,7 +591,9 @@ local function Apply(actions)
     end
     for i = #actions + 1, #buttons do
         buttons[i].action = nil
+        staleOf[buttons[i]] = nil
         buttons[i]:SetAttribute("type", nil)
+        buttons[i]:SetAttribute("macrotext", nil)
         buttons[i]:Hide()
     end
     strip:SetWidth(x)
@@ -579,7 +616,20 @@ function Toolstrip:SetSteps(steps)
     self.actions = actions
     self.item = actions[1] and actions[1].kind == "item" and actions[1].link or nil
     if InCombatLockdown() then
+        -- The secure buttons and their keys are locked until the fight ends: a button whose step
+        -- is done now is shown so (dimmed, checked), then leaves when the fight ends.
         self.pending = true
+        local still = {}
+        for _, a in ipairs(actions) do
+            still[a.kind .. "\0" .. (a.link or a.macro or "")] = true
+        end
+        for _, b in ipairs(buttons) do
+            local a = ActionOf(b)
+            if a and b:IsShown() then
+                staleOf[b] = not still[a.kind .. "\0" .. (a.link or a.macro or "")] or nil
+                SetState(b, b.state)
+            end
+        end
         return
     end
     self.pending = false

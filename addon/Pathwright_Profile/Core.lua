@@ -117,6 +117,16 @@ end
 --- the end of the fight.
 function FG.CanLayout(frame) return not (InCombatLockdown() and frame:IsProtected()) end
 
+--- Whether a nameplate may be measured or have our frames anchored to it. The game restricts some
+--- (forbidden: in instances, some friendly plates; anchoring restricted): touching one raises
+--- "Can't measure restricted regions".
+function FG.PlateUsable(plate)
+    if not plate then return false end
+    if plate.IsForbidden and plate:IsForbidden() == true then return false end
+    if plate.IsAnchoringRestricted and plate:IsAnchoringRestricted() == true then return false end
+    return true
+end
+
 -- Name the function the game refused to us (the popup does not), once each, with where it came from.
 local blocked = {}
 for _, event in ipairs({ "ADDON_ACTION_BLOCKED", "ADDON_ACTION_FORBIDDEN" }) do
@@ -365,5 +375,7 @@ SlashCmdList.PATHWRIGHT = function(msg)
     if type(msg) == "string" and msg:lower():match("^%s*guides") and FG.GuideBrowser then
         return FG.GuideBrowser:Toggle()
     end
+    -- "/pw board": the quest stats leaderboard (the guide part).
+    if type(msg) == "string" and msg:lower():match("^%s*board") and FG.Stats then return FG.Stats:ToggleBoard() end
     FG.Options:Open()
 end
