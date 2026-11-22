@@ -82,9 +82,11 @@ function Toolstrip.KillMacro(name)
     return table.concat(lines, "\n")
 end
 
---- The talk macro: target the NPC; then the On My Way ping on it (when asked).
+--- The talk macro: target the NPC; then the On My Way ping on it (when asked). The target is
+--- cleared first: when the NPC is out of reach, /targetexact finds nothing and the target of
+--- before (the last step's NPC) would get the ping. This way there is no target and no ping.
 function Toolstrip.TalkMacro(name)
-    local lines = { "/targetexact " .. name }
+    local lines = { "/cleartarget", "/targetexact " .. name }
     Found(lines, "talk")
     return table.concat(lines, "\n")
 end
@@ -136,7 +138,7 @@ function Toolstrip.CheckedMacro(a)
     if a.kind == "kill" then
         return ThenChecked({ "/cleartarget", "/targetexact " .. a.name, "/cleartarget [dead]" }, "kill")
     end
-    return ThenChecked({ "/targetexact " .. a.name }, "talk")
+    return ThenChecked({ "/cleartarget", "/targetexact " .. a.name }, "talk")
 end
 
 --- What the checker does with the target taken: { name, kind, skipTapped } the press asked for.

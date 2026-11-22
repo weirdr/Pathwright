@@ -1069,14 +1069,15 @@ do
     assert(_G["BINDING_NAME_CLICK PWStrip1:LeftButton"], "the button's binding named")
     Press("next")
     assert(Kinds() == "talk:Marshal McBride", "a speech bubble for the turn-in's NPC: " .. Kinds())
-    assert(strip.actions[1].macro == "/targetexact Marshal McBride", strip.actions[1].macro)
+    -- Cleared first: an NPC out of reach is not found, and the last one must not stay targeted.
+    assert(strip.actions[1].macro == "/cleartarget\n/targetexact Marshal McBride", strip.actions[1].macro)
     -- The world ping (WoW Forever): Attack on a mob to kill, On My Way on an NPC to talk to, by
     -- the number of its ping type (the words only match on English clients).
     SLASH_PING1 = "/ping"
     assert(strip.KillMacro("Kobold Vermin"):find("/tm 8\n/ping [@target] 0", 1, true), "Attack ping")
     assert(
         strip.TalkMacro("Marshal McBride")
-            == "/targetexact Marshal McBride\n/stopmacro [@target,noexists]\n/ping [@target] 3",
+            == "/cleartarget\n/targetexact Marshal McBride\n/stopmacro [@target,noexists]\n/ping [@target] 3",
         "On My Way ping, no skull on an NPC: " .. strip.TalkMacro("Marshal McBride")
     )
     Enum = Enum or {}
@@ -1085,7 +1086,10 @@ do
     Enum.PingSubjectType = nil
     FG:Save("targetPing", false)
     assert(not strip.KillMacro("Kobold Vermin"):find("/ping", 1, true), "no ping when not asked")
-    assert(strip.TalkMacro("Marshal McBride") == "/targetexact Marshal McBride", "nothing after the talk target")
+    assert(
+        strip.TalkMacro("Marshal McBride") == "/cleartarget\n/targetexact Marshal McBride",
+        "nothing after the talk target"
+    )
     FG:Save("targetPing", nil)
     SLASH_PING1 = nil
     FG.Edition = "classic"
@@ -1219,6 +1223,15 @@ do
     checker.PreClick(checker)
     assert(checker.macro == "", "a tagged mob kept when not asked")
     FG:Save("targetSkipTapped", nil)
+    -- An NPC to talk to, out of reach: the target is cleared before looking for it (the last
+    -- step's NPC never stays targeted), and the checker clears any other NPC that got targeted.
+    local talk = strip.CheckedMacro({ kind = "talk", name = "Marshal McBride" })
+    assert(talk:find("^/cleartarget\n/targetexact Marshal McBride\n/click PWStripCheck"), talk)
+    strip.expect = { name = "Marshal McBride", kind = "talk" }
+    mobs.target = { name = "Deputy Willem", friend = true }
+    checker.PreClick(checker)
+    assert(checker.macro == "/cleartarget", "the last step's NPC cleared: " .. tostring(checker.macro))
+    mobs.target = nil
     -- In combat nothing changes; at its start the buttons go back to their macros by name.
     local before = sword.aimed
     InCombatLockdown = function() return true end
