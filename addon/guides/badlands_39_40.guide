@@ -35,9 +35,9 @@
 guide Badlands (39-40)
 faction horde
 levels 39 40
+carry 669 687 1106 1136 1276
+leave 669 1137 1420 95143
 next Riverglades (40-41)
-carry 1106 1136 1276 687
-leave 1137 1420 95143
 
 # Into the Badlands ---------------------------------------------------------------------------------
 

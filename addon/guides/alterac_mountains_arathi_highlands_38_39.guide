@@ -1,0 +1,263 @@
+# Alterac Mountains & Arathi Highlands (38-39): the Horde quests of Hammerfall, Stromgarde and
+# Faldir's Cove in the Arathi Highlands, and those of Tarren Mill in the Alterac Mountains, for a
+# Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/alterac_mountains_arathi_highlands_38_39.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Alterac Mountains, area 36;
+# Arathi Highlands, area 45). The quest list is section 18 of addon/guides/horde_1_40_allocation.md.
+# Left out: Battle of Warsong Gulch (8427), Conquering Arathi Basin (8436) and Conflict at Darkspear
+#   Islands (98887): they want battleground Marks of Honor, won in PvP battlegrounds, not by questing.
+# Carried in (skipped by those who lack them): Frostmaw (1136, Melor Stonehoof in Thunder Bluff; its
+#   mane is taken here, Badlands hands it in), and for warriors Cyclonian (1712) and Essence of the
+#   Exile (1714), both taken from Bath'rah the Windwatcher on an earlier visit to the Alterac
+#   Mountains: Cyclonian wants 30 Bloodscalp Tusks from Stranglethorn Vale, so it cannot be started
+#   and finished here. The charms of the Essence drop from the Exiles at the Stones of Binding, on
+#   this guide's way.
+# Left to later guides: Frostmaw (1136, Badlands), Theldurin the Lost (687, Badlands) and Sunken
+#   Treasure (669, Booty Bay, in Stranglethorn Vale & Swamp of Sorrows).
+# Bought, not farmed: the Liferoot of Cyclonian, in Undercity at the start.
+#
+# The route: the zeppelin to Undercity and a flight to Hammerfall; the east and middle of the
+# highlands (Drywhisker Gorge, the Stones of East and Outer Binding, Go'shek Farm, Boulderfist Hall);
+# a loop west (the Stone of West Binding, Stromgarde, the Boulderfist ogres, the Circle of Inner
+# Binding); a flight to Tarren Mill for the Alterac Mountains (the gryphons east of Tarren Mill,
+# Bath'rah, Strahnbrad, then the Ruins of Alterac, Dalaran and Frostmaw); back to Hammerfall,
+# Stromgarde again and Faldir's Cove; and the rest of Zengu's sigils, one trip to Stromgarde each.
+
+guide Alterac Mountains & Arathi Highlands (38-39)
+faction horde
+levels 38 39
+carry 1136 1712 1714
+leave 669 687 1136
+next Badlands (39-40)
+
+# Undercity ------------------------------------------------------------------------------------------
+
+map Durotar
+note "From Kalimdor, take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades, then walk into Undercity" at 50.8,13.4
+map Undercity
+ah 1712.1 npc 8672
+tip Warriors on Cyclonian need 8 Liferoot. Herbalists find it along streams; everyone else can buy it here.
+train 4593 260093 4582 4606 4566 4563
+tip Hunters, shamans and druids have no trainer here: train at your next visit to Orgrimmar or Thunder Bluff.
+fly "Hammerfall, Arathi" npc 4551
+
+# Hammerfall ------------------------------------------------------------------------------------------
+
+map Arathi Highlands
+bind 9501
+accept 639
+accept 678
+accept 701 673
+accept 92519
+tip Doctor Gregory Victor is inside the longhouse.
+
+# East and middle: Drywhisker Gorge, the Stones of Binding, Go'shek Farm, Boulderfist Hall ---------
+
+accept 642
+tip The Shards of Myzrael glitter on the ground west of Hammerfall.
+do 642
+tip The Drywhisker kobolds work the gorge east of Hammerfall; more are in the mine up the path.
+turnin 642
+tip The Iridescent Shards are at the top of the path inside the kobold mine.
+accept 651
+do 1714.3 bg at 66.7,30.6 mobs 2761
+tip Warriors on the Essence of the Exile: the Cresting Exiles around the stone drop the Cresting Charms.
+do 651.2
+tip The Stone of East Binding stands on a hill west of Hammerfall.
+do 92519
+tip The case of tonics is in Jorell's lab, the building of Go'shek Farm.
+do 1714.2 bg at 52.3,50.3 mobs 2762
+tip Warriors: the Thundering Exiles around this stone drop the Thundering Charms.
+do 651.3
+do 701 bg
+do 678
+tip The ogres of Boulderfist Hall stand around the cave and inside it.
+accept 79624 at 52.4,76.0 icon kill "Kill the Boulderfist ogres until one drops an Illegible Recipe, then read it"
+do 79624
+do 701
+tip The Highland Fleshstalkers roam the hills around Boulderfist Hall.
+turnin 79624
+tip Skonk cooks alone, east of Boulderfist Hall.
+accept 79677
+
+# Hammerfall ------------------------------------------------------------------------------------------
+
+turnin 701
+accept 702
+turnin 702
+accept 847
+turnin 847
+turnin 678
+accept 679
+accept 680
+turnin 92519
+
+# West: the Stone of West Binding, Stromgarde, the ogres, the Circle of Inner Binding ---------------
+
+do 1714.1 bg at 25.6,30.5 mobs 2760
+tip Warriors: the Burning Exiles around the stone drop the Burning Charms.
+do 651.1
+tip The Stone of West Binding stands in the far north-west of the highlands.
+do 639 bg
+do 673
+tip Marez Cowl, a level 40 elite, leads the Syndicate in the south of Stromgarde.
+do 639
+tip The Syndicate holds the south of Stromgarde. The sigil is a rare drop: kill them all.
+do 679 bg
+do 680
+tip Or'Kalar, a level 40 elite, stands in the Boulderfist camp south-west of Stromgarde.
+do 679
+turnin 651
+tip The Stone of Inner Binding stands in the circle of stones east of Stromgarde.
+accept 652
+do 652 at 34.2,57.7
+tip Fozruk, a level 42 elite giant, walks a long path across the middle of the highlands and passes by this circle: wait for him here.
+turnin 652
+accept 688
+hearth npc 9501
+
+# Hammerfall ------------------------------------------------------------------------------------------
+
+turnin 639
+accept 640
+turnin 673
+turnin 679 680
+turnin 688
+accept 687
+tip Zaruk sends you to Theldurin, in the Badlands: the next guide takes you there.
+
+# Tarren Mill and the gryphons ----------------------------------------------------------------------
+
+fly "Tarren Mill, Hillsbrad" npc 2851
+map Hillsbrad Foothills
+accept 545 557
+tip Magus Voidglare and Keeper Bel'varil stand indoors, side by side.
+accept 566
+tip The WANTED poster stands outside, next to High Executor Darthalia.
+accept 503
+tip Krusk is indoors, a little east of Magus Voidglare.
+do 79677.1 at 83.5,35.8
+tip Take the road east out of Tarren Mill toward the Hinterlands: the Wild Gryphons nest on the hills beside it.
+
+# Bath'rah the Windwatcher (warriors) ----------------------------------------------------------------
+
+map Alterac Mountains
+turnin 1714 at 79.3,66.8
+tip Bath'rah camps on the hill north-east of Tarren Mill. Put the three sets of charms in his cauldron for the Essence of the Exile.
+turnin 1712
+accept 1713
+do 1713 at 80.3,62.1
+tip Follow Bath'rah up the hill. Cyclonian is a level 40 elite: fight him together.
+turnin 1713
+accept 1792
+turnin 1792
+
+# Strahnbrad ------------------------------------------------------------------------------------------
+
+do 566 bg at 60.0,43.6
+tip Baron Vardus, level 40, is usually downstairs in the building where Gol'dir is held; he also turns up along the road north toward the Ruins of Alterac.
+do 503.2
+tip Jailor Borhuin carries the key. He is in one of the buildings of Strahnbrad, sometimes upstairs.
+do 503.3 at 60.2,43.9 icon text "Find Gol'dir, held upstairs in a building in the middle of Strahnbrad"
+turnin 503
+accept 506
+accept 95534 at 61.4,45.1 icon kill "Kill the Syndicate Wizards and Argus Shadow Mages of Strahnbrad until one drops a Singed Note, then read it"
+do 95534 at 59.7,46.7
+tip The bellows at Strahnbrad's forge come alive as an Ancient Fire Elemental.
+do 566 at 60.0,43.6
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+map Hillsbrad Foothills
+turnin 506
+accept 507
+turnin 95534 npc 2402
+tip Shara Blazen stands near Krusk.
+turnin 566
+
+# The Ruins of Alterac, Dalaran and Frostmaw ----------------------------------------------------------
+
+map Alterac Mountains
+do 507 at 39.2,14.9
+tip Lord Aliden Perenolde is upstairs in the manor of the Ruins of Alterac. Syndicate rogues in stealth guard the house.
+turnin 507
+accept 508
+do 557 bg at 23.0,54.0
+tip The Elemental Slaves drop the bracers; about one in six has a pair.
+do 545.1 at 24.4,57.3
+tip The Dalaran Summoners and their slaves work around the purple barrier of Dalaran.
+do 545.2 at 23.0,54.0
+do 557 at 18.9,76.5
+tip More Elemental Slaves gather south of the barrier.
+do 1136 at 37.5,66.2 "Kill a Mountain Lion for a Fresh Carcass, put it on the Flame of Uzel and kill Frostmaw for his mane"
+tip Mountain lions roam the slopes south and east of the cave. Frostmaw, a level 37 yeti, comes out of the small cave to the carcass.
+
+map Hillsbrad Foothills
+turnin 545 557
+turnin 508
+fly "Hammerfall, Arathi" npc 2389
+
+# Stromgarde and Faldir's Cove ----------------------------------------------------------------------
+
+map Arathi Highlands
+do 640
+tip The Stromgarde defenders (elites) drop the fragments: Troll Hunters, Defenders and Vindicators.
+accept 663
+tip Lolo the Lookout walks around the west side of Faldir's Cove.
+turnin 663
+accept 662
+accept 664
+accept 665
+do 665 at 33.9,80.5 "Escort Professor Phizzlethorpe up to the cave and back"
+tip Daggerspine nagas ambush him at the cave: keep them off him.
+turnin 665
+accept 666
+do 664 bg
+do 666
+tip Wear the Goggles of Gem Hunting to see the Calcified Elven Gems on the sea floor west of the cove.
+do 662
+tip The charts and logs are inside the two sunken ships; come up for air between them.
+do 79677.2
+tip The Sealed Barrel lies by the wrecks.
+do 664
+turnin 662
+turnin 664
+turnin 666
+accept 668
+turnin 668
+accept 669
+tip Shakes sends a gem to Booty Bay: a later guide takes it there.
+turnin 79677
+accept 79678
+turnin 79678
+hearth npc 9501
+
+# Hammerfall ------------------------------------------------------------------------------------------
+
+turnin 640
+accept 641
+turnin 641
+accept 643
+
+# Zengu's sigils: three more trips to Stromgarde --------------------------------------------------
+
+do 643
+tip Lieutenant Valorcall, a level 38 elite, walks between Stromgarde and the Circle of Inner Binding.
+goto "Return to Hammerfall" at 73.8,34.0 r 20
+turnin 643
+accept 644
+do 644
+tip Prince Galen Trollbane, a level 44 elite, holds the keep of Stromgarde, near Trollbane's Tomb.
+hearth npc 9501
+tip Hearthstone not ready yet? Walk back east along the road.
+turnin 644
+accept 645
+turnin 645
+tip Trollbane's Tomb is in the keep of Stromgarde.
+accept 646
+goto "Return to Hammerfall" at 73.8,34.0 r 20
+turnin 646

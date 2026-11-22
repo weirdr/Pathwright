@@ -24,7 +24,7 @@ write = "--write" in sys.argv
 
 guides = {}
 for path in glob.glob("addon/guides/*.guide"):
-    g = {"path": path, "name": None, "next": None, "accept": [], "turnin": [], "carry": set(), "leave": set()}
+    g = {"path": path, "name": None, "next": None, "accept": [], "turnin": [], "do": [], "carry": set(), "leave": set()}
     for line in open(path, encoding="utf-8"):
         t = line.split(" #")[0].strip()
         if t.startswith("#") or not t:
@@ -40,7 +40,7 @@ for path in glob.glob("addon/guides/*.guide"):
             g["name"] = rest.strip()
         elif word == "next":
             g["next"] = rest.strip()
-        elif word in ("accept", "turnin"):
+        elif word in ("accept", "turnin", "do"):
             g[word] += ids
         elif word in ("carry", "leave"):
             g[word].update(int(w) for w in rest.split())
@@ -87,14 +87,29 @@ def work(first):
                 want[k]["carry"].add(q)
                 want[k]["leave"].add(q)
             want[j]["carry"].add(q)
+    # Taken before the chain (its first guides say so with `carry`): carried from the first guide
+    # that uses it (does its objectives, hands it in, or carries it) to the one that hands it in.
+    first_use = {}
     for j, g in enumerate(chain):
-        for q in g["turnin"]:
+        for q in set(g["turnin"]) | set(g["do"]) | g["carry"]:
             if q not in taken_in:
-                # Taken before the chain: carried where it is handed in, if the author said so.
-                if q in g["carry"]:
-                    want[j]["carry"].add(q)
-                elif q not in g["accept"]:
-                    problems.append(f"quest {q} handed in by {g['name']} without being taken or carried")
+                first_use.setdefault(q, j)
+    for q, i in first_use.items():
+        j = handed_in.get(q)
+        if j is None:
+            if any(q in g["carry"] for g in chain):
+                # Handed in after the chain's end: carried through to it.
+                j = len(chain)
+            else:
+                problems.append(f"quest {q} used by {chain[i]['name']} but neither taken nor carried")
+                continue
+        if j < i:
+            continue
+        for k in range(i, min(j, len(chain) - 1) + 1):
+            if k < len(chain):
+                want[k]["carry"].add(q)
+                if k < j:
+                    want[k]["leave"].add(q)
 
 
     for g, w in zip(chain, want):

@@ -734,10 +734,18 @@ for s in steps:
 # Every variant's quests: each one handed in is taken before (or carried from the guide before),
 # after its objectives; each one taken is handed in (or left to the next guide).
 errors = []
+# A carried quest is for the characters who can have it (a class quest for its class).
+carried_who = {q: quest_who(quest(q, 0)) for q in carried}
+
+
+def carried_for(v):
+    return {q for q in carried if carried_who[q](v)}
+
+
 for vi in range(1, len(variants) + 1):
     v = variants[vi - 1]
     who_v = f"race {v['race']} class {v['class']}"
-    taken, handed = set(carried), {}
+    taken, handed = carried_for(v), {}
     mine = [s for s in steps if vi in s["_in"]]
     for s in mine:
         if s["k"] == "accept":
@@ -758,7 +766,7 @@ for vi in range(1, len(variants) + 1):
 LOG_MAX, LOG_WARN = 40, 36
 log_peak = 0
 for vi in range(1, len(variants) + 1):
-    log = set(carried)
+    log = carried_for(variants[vi - 1])
     worst, worst_line = len(log), 0
     for s in steps:
         if vi not in s["_in"]:
