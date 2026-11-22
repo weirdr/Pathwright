@@ -502,9 +502,6 @@ function Card:Hide()
     if frame and FG.CanLayout(frame) then frame:Hide() end
 end
 
---- Where the quest item button goes: left of the card, by the tasks.
-function Card:ItemAnchor(button) button:SetPoint("TOPRIGHT", frame, "TOPLEFT", -6, -46) end
-
 local function HideAll(list, from)
     for i = from, #list do
         list[i]:Hide()

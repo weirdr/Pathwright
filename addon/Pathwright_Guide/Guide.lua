@@ -1052,8 +1052,7 @@ function Guide:Refresh()
         end
     end
     AlongTheWay(false)
-    if FG.TargetMacro then FG.TargetMacro:SetSteps(todo) end
-    if FG.ItemButton then FG.ItemButton:SetSteps(todo) end
+    if FG.Toolstrip then FG.Toolstrip:SetSteps(todo) end
     if FG.MapPins then FG.MapPins:Refresh() end
     if not target then
         target, targetIndex = route.steps[state.step], state.step
@@ -1931,8 +1930,12 @@ function Guide:ToggleShown() FG:Save("guideShown", not FG:Get("guideShown")) end
 
 -- The key bindings (Bindings.xml, the game's key bindings: Pathwright). What they do while playing
 -- is not in the addon's options.
-BINDING_HEADER_PATHWRIGHT = "Pathwright"
-_G["BINDING_NAME_CLICK PWItemButton:LeftButton"] = T("Use the quest item")
+-- Their own category ("Pathwright", Bindings.xml), a header per group.
+BINDING_HEADER_PATHWRIGHT = T("Guide")
+BINDING_HEADER_PATHWRIGHTTOOLSTRIP = T("Toolstrip")
+for i = 1, 5 do
+    _G["BINDING_NAME_CLICK PWStrip" .. i .. ":LeftButton"] = string.format(T("Toolstrip button %d"), i)
+end
 BINDING_NAME_PATHWRIGHT_NEXT = T("Next step")
 BINDING_NAME_PATHWRIGHT_PREV = T("Previous step")
 BINDING_NAME_PATHWRIGHT_SKIP = T("Mark this step as done")

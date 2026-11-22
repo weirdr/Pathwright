@@ -43,8 +43,7 @@ Arrow.lua
 Nearby.lua
 NpcMark.lua
 Poulpix.lua
-Macro.lua
-ItemButton.lua
+Toolstrip.lua
 Merchant.lua
 Gear.lua
 Talents.lua

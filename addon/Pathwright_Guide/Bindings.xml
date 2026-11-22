@@ -1,34 +1,42 @@
 <Bindings>
-    <Binding name="CLICK PWItemButton:LeftButton" header="PATHWRIGHT" category="ADDONS">
-    </Binding>
-    <Binding name="PATHWRIGHT_NEXT" category="ADDONS">
+    <Binding name="PATHWRIGHT_NEXT" header="PATHWRIGHT" category="Pathwright">
         Pathwright.Guide:NextGroup()
     </Binding>
-    <Binding name="PATHWRIGHT_PREV" category="ADDONS">
+    <Binding name="PATHWRIGHT_PREV" category="Pathwright">
         Pathwright.Guide:PrevGroup()
     </Binding>
-    <Binding name="PATHWRIGHT_SKIP" category="ADDONS">
+    <Binding name="PATHWRIGHT_SKIP" category="Pathwright">
         Pathwright.Guide:SkipCurrent()
     </Binding>
-    <Binding name="PATHWRIGHT_UNDO" category="ADDONS">
+    <Binding name="PATHWRIGHT_UNDO" category="Pathwright">
         Pathwright.Guide:UndoLastMark()
     </Binding>
-    <Binding name="PATHWRIGHT_SPOT" category="ADDONS">
+    <Binding name="PATHWRIGHT_SPOT" category="Pathwright">
         Pathwright.Guide:NextSpot()
     </Binding>
-    <Binding name="PATHWRIGHT_MODE" category="ADDONS">
+    <Binding name="PATHWRIGHT_MODE" category="Pathwright">
         Pathwright.Guide:ToggleMode()
     </Binding>
-    <Binding name="PATHWRIGHT_GUIDE" category="ADDONS">
+    <Binding name="PATHWRIGHT_GUIDE" category="Pathwright">
         Pathwright.Guide:ToggleShown()
     </Binding>
-    <Binding name="PATHWRIGHT_UI" category="ADDONS">
+    <Binding name="PATHWRIGHT_UI" category="Pathwright">
         Pathwright:ToggleUI()
     </Binding>
-    <Binding name="PATHWRIGHT_TIME" category="ADDONS">
+    <Binding name="PATHWRIGHT_TIME" category="Pathwright">
         Pathwright.Timing:Print()
     </Binding>
-    <Binding name="PATHWRIGHT_OPTIONS" category="ADDONS">
+    <Binding name="PATHWRIGHT_OPTIONS" category="Pathwright">
         Pathwright:OpenSettings()
+    </Binding>
+    <Binding name="CLICK PWStrip1:LeftButton" header="PATHWRIGHTTOOLSTRIP" category="Pathwright">
+    </Binding>
+    <Binding name="CLICK PWStrip2:LeftButton" category="Pathwright">
+    </Binding>
+    <Binding name="CLICK PWStrip3:LeftButton" category="Pathwright">
+    </Binding>
+    <Binding name="CLICK PWStrip4:LeftButton" category="Pathwright">
+    </Binding>
+    <Binding name="CLICK PWStrip5:LeftButton" category="Pathwright">
     </Binding>
 </Bindings>

@@ -384,8 +384,8 @@ PathwrightAPI.version = 2
 
 --- Call `fn(frame, kind)` on every Pathwright frame, now and when created later. Kinds:
 --- "window", "panel", "button", "icon" (see Skin.lua). Frames are named PathwrightTodo (full
---- guide), PathwrightMini (minimal guide), PathwrightMiniNext, PathwrightTracker, PWItemButton,
---- PathwrightItemButton<n>.
+--- guide), PathwrightMini (minimal guide), PathwrightMiniNext, PathwrightTracker, PathwrightToolstrip
+--- (its buttons PWStrip<n> and PathwrightTrash), PathwrightItemButton<n>.
 function PathwrightAPI.RegisterSkin(name, fn)
     for _, skin in ipairs(external) do
         if skin.name == name then return end

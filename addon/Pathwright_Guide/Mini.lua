@@ -320,7 +320,7 @@ local function CreateButtons()
 
     local talent = FG:DragHandle(CreateFrame("Button", nil, buttons))
     talent:SetSize(36, 36)
-    talent:SetPoint("LEFT", 270, 0)
+    talent:SetPoint("LEFT", 4, 0)
     talent.icon = talent:CreateTexture(nil, "ARTWORK")
     talent.icon:SetAllPoints()
     talent.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
@@ -398,9 +398,6 @@ function Mini:Hide()
     strip:Hide()
     if FG.CanLayout(buttons) then buttons:Hide() end
 end
-
---- Where the quest item button goes: near the action bars, with its name.
-function Mini:ItemAnchor(button) button:SetPoint("CENTER", buttons.slot) end
 
 local function Count(v) return v.have and v.need and string.format("%d/%d", v.have, v.need) or "" end
 
@@ -538,20 +535,11 @@ local function DrawDrop(view, y)
 end
 
 local function DrawButtons(view)
-    local item = FG.ItemButton and FG.ItemButton.link
     local talent = view.talent
     if not FG.CanLayout(buttons) then return end
-    buttons:SetShown(item ~= nil or talent ~= nil)
-    buttons.itemLabel:SetShown(item ~= nil)
-    if item then
-        buttons.itemLabel.name:SetText(FG.ItemInfo(item) or "")
-        buttons.itemLabel:SetWidth(
-            math.max(
-                tonumber(buttons.itemLabel.name:GetStringWidth()) or 60,
-                tonumber(buttons.itemLabel.kind:GetStringWidth()) or 60
-            ) + 16
-        )
-    end
+    -- The quest item is on the toolstrip (Toolstrip.lua).
+    buttons:SetShown(talent ~= nil)
+    buttons.itemLabel:Hide()
     local t = buttons.talent
     t:SetShown(talent ~= nil)
     if talent then

@@ -258,7 +258,16 @@ GetDifficultyColor = function() return { r = 1, g = 0.8, b = 0 } end
 C_PlayerInfo = {
     GetContentDifficultyQuestForPlayer = function() return 1 end,
 }
-GameTooltip = { SetOwner = function() end, SetHyperlink = function() end, Show = function() end, Hide = function() end }
+GameTooltip = {
+    SetOwner = function(self, owner) self.owner = owner end,
+    SetHyperlink = function() end,
+    Show = function() end,
+    Hide = function(self) self.owner = nil end,
+    SetText = function(self, text) self.lines = { text } end,
+    AddLine = function(self, text) table.insert(self.lines, text) end,
+    AddDoubleLine = function(self, left, right) table.insert(self.lines, left .. " | " .. right) end,
+    IsOwned = function(self, frame) return self.owner == frame end,
+}
 -- Items: their class (12: quest items, the default) and how many are in the bags and the bank.
 local itemClasses, bags, bank = {}, {}, {}
 C_Item = {
@@ -482,7 +491,6 @@ do
         profile = function() Click("Save the profile now") end,
         import = function() Click("Import a guide…") end,
         clear = function() Click("Delete the imported guides") end,
-        macro = function() Click("Pick up the target macro") end,
         compassReset = function() Click("Compass back to the top") end,
         restart = function() Click("Start over") end,
         debug = function() Toggle("Pathwright_debug") end,
@@ -981,8 +989,8 @@ print("background ok")
 -- its quest while not done.
 do
     local listed
-    local set = FG.TargetMacro.SetSteps
-    FG.TargetMacro.SetSteps = function(self, steps)
+    local set = FG.Toolstrip.SetSteps
+    FG.Toolstrip.SetSteps = function(self, steps)
         listed = steps
         return set(self, steps)
     end
@@ -991,12 +999,12 @@ do
     assert(char.guide.step == 4, "on the turn-in, step " .. char.guide.step)
     assert(listed[1] and listed[1].k == "objective" and listed[1].q == 7001, "objective before its turn-in")
     assert(listed[2] and listed[2].k == "turnin", "then the turn-in")
-    FG.TargetMacro.SetSteps = set
+    FG.Toolstrip.SetSteps = set
     onQuest[7001], onQuest[7002] = nil, nil
 end
 print("in progress ok")
 
--- Target macro: created on demand, then follows the current step's mobs.
+-- Toolstrip: a sword per mob of the current step, a speech bubble for its NPC, the trash can.
 playerLevel = 5
 FG.Routes["macro-test"] = {
     race = 7,
@@ -1022,24 +1030,86 @@ FG.Routes["macro-test"] = {
 }
 onQuest[7101] = true
 useRoute("macro-test")
-Press("macro")
-local index = GetMacroIndexByName("FG Cible")
-assert(index > 0, "target macro created")
-assert(
-    macros[index].body:find("/targetexact Kobold Vermin", 1, true),
-    "macro targets the step's mobs: " .. macros[index].body
-)
--- The skull: WoW Forever blocks SetRaidTarget from a macro's /run (Classic Era and TBC do not).
-assert(FG.Edition == "forever" and not macros[index].body:find("/run", 1, true), "no skull on Forever")
-FG.Edition = "classic"
-Press("next")
-assert(
-    macros[index].body:find("/targetexact Marshal McBride", 1, true),
-    "macro follows the step: " .. macros[index].body
-)
-assert(macros[index].body:find("SetRaidTarget", 1, true), "skull on Classic")
-FG.Edition = "forever"
-print("target macro ok")
+do
+    local strip = FG.Toolstrip
+    local function named(name)
+        for i = #frames, 1, -1 do
+            if frames[i]:GetName() == name then return frames[i] end
+        end
+    end
+    local function Kinds()
+        local out = {}
+        for _, a in ipairs(strip.actions) do
+            table.insert(out, a.kind .. ":" .. a.name)
+        end
+        return table.concat(out, ", ")
+    end
+    assert(Kinds() == "kill:Kobold Vermin", "a sword for the step's mob: " .. Kinds())
+    local kill = strip.actions[1].macro
+    assert(kill:find("/targetexact Kobold Vermin", 1, true) and kill:find("/cleartarget [dead]", 1, true), kill)
+    -- The skull once the target is found: /tm on WoW Forever (its macros' /run SetRaidTarget is
+    -- blocked), cleared first so that a second press does not take it off.
+    assert(
+        FG.Edition == "forever"
+            and kill:find("/cleartarget [dead]\n/stopmacro [@target,noexists]\n/tm 0\n/tm 8", 1, true)
+            and not kill:find("/run", 1, true),
+        "the skull with /tm on Forever: " .. kill
+    )
+    assert(not kill:find("/ping", 1, true), "no ping without the client's ping system")
+    local first = named("PWStrip1")
+    assert(first and first.action == strip.actions[1] and first:IsShown(), "the first bound button armed")
+    assert(named("PathwrightToolstrip"):IsShown() and named("PathwrightTrash"):IsShown(), "strip and trash can shown")
+    -- The trash can first, then a separator, then the step's buttons.
+    local trashAt, firstAt = {}, {}
+    named("PathwrightTrash").SetPoint = function(_, ...) trashAt = { ... } end
+    named("PWStrip1").SetPoint = function(_, ...) firstAt = { ... } end
+    strip:Refresh()
+    assert(trashAt[4] and firstAt[4] and trashAt[4] < firstAt[4], "the trash can left of the step's buttons")
+    assert(firstAt[4] - trashAt[4] > 32 + 4, "a separator between them")
+    assert(_G["BINDING_NAME_CLICK PWStrip1:LeftButton"], "the button's binding named")
+    Press("next")
+    assert(Kinds() == "talk:Marshal McBride", "a speech bubble for the turn-in's NPC: " .. Kinds())
+    assert(strip.actions[1].macro == "/targetexact Marshal McBride", strip.actions[1].macro)
+    -- The world ping (WoW Forever): Attack on a mob to kill, On My Way on an NPC to talk to, by
+    -- the number of its ping type (the words only match on English clients).
+    SLASH_PING1 = "/ping"
+    assert(strip.KillMacro("Kobold Vermin"):find("/tm 8\n/ping [@target] 0", 1, true), "Attack ping")
+    assert(
+        strip.TalkMacro("Marshal McBride")
+            == "/targetexact Marshal McBride\n/stopmacro [@target,noexists]\n/ping [@target] 3",
+        "On My Way ping, no skull on an NPC: " .. strip.TalkMacro("Marshal McBride")
+    )
+    Enum = Enum or {}
+    Enum.PingSubjectType = { Attack = 7 }
+    assert(strip.KillMacro("Kobold Vermin"):find("/ping [@target] 7", 1, true), "the client's own number")
+    Enum.PingSubjectType = nil
+    FG:Save("targetPing", false)
+    assert(not strip.KillMacro("Kobold Vermin"):find("/ping", 1, true), "no ping when not asked")
+    assert(strip.TalkMacro("Marshal McBride") == "/targetexact Marshal McBride", "nothing after the talk target")
+    FG:Save("targetPing", nil)
+    SLASH_PING1 = nil
+    FG.Edition = "classic"
+    local classic = strip.KillMacro("Kobold Vermin")
+    assert(classic:find("SetRaidTarget", 1, true) and not classic:find("/tm", 1, true), "skull on Classic: /run")
+    FG:Save("targetMark", false)
+    assert(not strip.KillMacro("Kobold Vermin"):find("SetRaidTarget", 1, true), "no skull when not asked")
+    FG:Save("targetMark", nil)
+    FG.Edition = "forever"
+    -- In combat the secure buttons keep their actions; the change waits for the fight's end.
+    Press("prev")
+    InCombatLockdown = function() return true end
+    Press("next")
+    assert(strip.pending and named("PWStrip1").action.kind == "kill", "nothing changed in combat")
+    InCombatLockdown = function() return false end
+    fire("PLAYER_REGEN_ENABLED")
+    assert(not strip.pending and named("PWStrip1").action.kind == "talk", "changed when combat ended")
+    -- Turned off: the strip goes.
+    FG:Save("toolstrip", false)
+    assert(not named("PathwrightToolstrip"):IsShown(), "the strip hidden when turned off")
+    FG:Save("toolstrip", nil)
+    assert(named("PathwrightToolstrip"):IsShown(), "and back")
+end
+print("toolstrip ok")
 
 -- Talent plan: the next talent follows the class plan (mage: Improved Frostbolt x5, then
 -- Elemental Precision).
@@ -1380,6 +1450,58 @@ for _, f in ipairs(frames) do
 end
 assert(sold == 1, "one grey item sold, got " .. sold)
 print("merchant ok")
+
+-- The toolstrip's trash can: grey items only, the cheapest stack first; a plain click (or a key)
+-- destroys nothing, Shift-click destroys that stack, right-click keeps it for good.
+do
+    local bag = {
+        { itemID = 201, quality = 0, stackCount = 2 }, -- 2 x 5 copper
+        { itemID = 202, quality = 0, stackCount = 1 }, -- 1 x 5 copper: the cheapest
+        { itemID = 203, quality = 1, stackCount = 1 }, -- white: never offered
+        { itemID = 204, quality = 0, stackCount = 3 }, -- 3 x 5 copper
+    }
+    local realContainer, cursor, deleted = C_Container, nil, {}
+    C_Container = {
+        GetContainerNumSlots = function(b) return b == 0 and #bag or 0 end,
+        GetContainerItemInfo = function(b, slot) return b == 0 and bag[slot] or nil end,
+        PickupContainerItem = function(_, slot) cursor = bag[slot] end,
+    }
+    CursorHasItem = function() return cursor ~= nil end
+    DeleteCursorItem = function()
+        for slot, item in pairs(bag) do
+            if item == cursor then bag[slot] = false end
+        end
+        table.insert(deleted, cursor.itemID)
+        cursor = nil
+    end
+    local function Ids()
+        local out = {}
+        for _, j in ipairs(FG.Toolstrip.Junk()) do
+            table.insert(out, j.id)
+        end
+        return table.concat(out, ",")
+    end
+    assert(Ids() == "202,201,204", "grey items only, cheapest first: " .. Ids())
+    local trash
+    for i = #frames, 1, -1 do
+        if frames[i]:GetName() == "PathwrightTrash" then trash = trash or frames[i] end
+    end
+    assert(trash and trash.OnClick, "the trash can")
+    trash.OnEnter(trash)
+    assert(GameTooltip.lines[1] == "Maj+clic pour détruire :", "its tooltip: " .. tostring(GameTooltip.lines[1]))
+    trash.OnClick(trash, "LeftButton")
+    assert(#deleted == 0, "a plain click destroys nothing")
+    IsShiftKeyDown = function() return true end
+    trash.OnClick(trash, "LeftButton")
+    IsShiftKeyDown = function() return false end
+    assert(deleted[1] == 202 and #deleted == 1 and Ids() == "201,204", "Shift-click destroyed the cheapest")
+    trash.OnClick(trash, "RightButton")
+    assert(Ids() == "204" and #deleted == 1, "right-click kept the next one: " .. Ids())
+    assert(FG.Guide:State().keptJunk[201], "kept for this character")
+    FG.Guide:State().keptJunk = nil
+    C_Container, CursorHasItem, DeleteCursorItem = realContainer, nil, nil
+end
+print("trash can ok")
 
 -- Merchant, WoW Forever: the item a quest wants is read with C_MerchantFrame (the old
 -- GetMerchantItemInfo is gone) and bought.
@@ -3393,7 +3515,7 @@ end
 local oldItemInfo, oldQuestIndex = GetQuestLogSpecialItemInfo, GetQuestLogIndexByID
 GetQuestLogIndexByID = function() return 1 end
 GetQuestLogSpecialItemInfo = function() return "item:123", 123 end
-FG.ItemButton:SetSteps({ { q = 7101 } })
+FG.Toolstrip:SetSteps({ { q = 7101 } })
 GetQuestLogSpecialItemInfo, GetQuestLogIndexByID = oldItemInfo, oldQuestIndex
 local owned = {}
 for _, f in ipairs(frames) do
@@ -3405,7 +3527,7 @@ for _, name in ipairs({
     "PathwrightButtons",
     "PathwrightCompass",
     "PathwrightTracker",
-    "PWItemButton",
+    "PathwrightToolstrip",
 }) do
     assert(owned[name], name .. " hangs on the addon's parent frame")
 end
@@ -4852,8 +4974,8 @@ local function SettingsTest()
         end
     end
     assert(
-        After("targetMark").name == "Prendre la macro de ciblage",
-        "the macro's button: " .. After("targetMark").name
+        After("toolstripTrash").name == "Remettre la barre d'outils en place",
+        "the toolstrip's button: " .. After("toolstripTrash").name
     )
     assert(After("compassShown").name == "Remettre la boussole en haut", "the compass's button")
 
@@ -4864,7 +4986,24 @@ local function SettingsTest()
         assert(type(global) == "string" and global ~= "", "no name for the binding " .. name)
         names = names + 1
     end
-    assert(names == 11 and BINDING_HEADER_PATHWRIGHT == "Pathwright", "the bindings: " .. names)
+    assert(names == 15, "the bindings: " .. names)
+    -- In their own category of the game's key bindings, a header per group (Zygor's way).
+    local xml = assert(io.open("addon/Pathwright_Guide/Bindings.xml")):read("*a")
+    local tags, inCategory = 0, 0
+    for tag in xml:gmatch("<Binding [^>]+>") do
+        tags = tags + 1
+        if tag:find('category="Pathwright"', 1, true) then inCategory = inCategory + 1 end
+    end
+    assert(tags == 15 and inCategory == 15, "every binding in the Pathwright category")
+    assert(xml:find('<Binding name="PATHWRIGHT_NEXT" header="PATHWRIGHT"', 1, true), "the guide's header")
+    assert(
+        xml:find('<Binding name="CLICK PWStrip1:LeftButton" header="PATHWRIGHTTOOLSTRIP"', 1, true),
+        "the toolstrip's"
+    )
+    assert(
+        BINDING_HEADER_PATHWRIGHT == "Guide" and BINDING_HEADER_PATHWRIGHTTOOLSTRIP == "Barre d'outils",
+        "headers named"
+    )
     assert(BINDING_NAME_PATHWRIGHT_NEXT == "Étape suivante", "translated: " .. BINDING_NAME_PATHWRIGHT_NEXT)
     options.opened = nil
     Key("PATHWRIGHT_OPTIONS")
