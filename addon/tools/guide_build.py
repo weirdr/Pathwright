@@ -621,7 +621,9 @@ for n, text in lines:
                    from_type in ('npc','object') and chance is not null""", item)]
         chances = [c / 100 if c > 1 else c for c in chances]
         best = max(chances, default=0)
-        if not rows("select 1 from m_item_source where item_id=? and from_type in ('npc','object')", item):
+        if rows("select 1 from m_item_source where item_id=? and from_type='vendor'", item):
+            said = f"For {q['name']}: a vendor sells them too. Buy them here, or at the vendor, or farm them."
+        elif not rows("select 1 from m_item_source where item_id=? and from_type in ('npc','object')", item):
             said = f"For {q['name']}: nothing drops them, they are made by a craft. Buy them, or have a crafter make them."
         elif best and best < 0.3:
             said = f"For {q['name']}: they drop only {best:.0%} of the time. Skip it to farm them instead."

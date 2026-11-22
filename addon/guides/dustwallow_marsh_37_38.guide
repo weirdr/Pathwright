@@ -1,0 +1,148 @@
+# Dustwallow Marsh (37-38): the Horde quests of Brackenwall Village, the Shady Rest Inn and Swamplight
+# Manor, and Apothecary Zinge's errands in Undercity, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/dustwallow_marsh_37_38.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Dustwallow Marsh, area 15).
+# The quest list is section 17 of addon/guides/horde_1_40_allocation.md; the later Dustwallow quests
+# (Brackenwall's ogres and the Wyrmbog) are in Dustwallow Marsh (43-44).
+# Left out:
+#   Into The Scarlet Monastery (1048): its four bosses are inside the Scarlet Monastery, a dungeon.
+#   Jarl Needs a Blade (81570): the other version of 1203 (they exclude each other and share one
+#   completion flag); it wants item 217281, which is not in the realm's item data, and it has never
+#   been seen in the game. The guide does 1203, the one seen in the game.
+# Left to later guides: The Troll Witchdoctor (1240) and Stinky's Escape (1270), handed in by
+#   Stranglethorn Vale & Swamp of Sorrows (41-43); The Black Shield (1276), handed in by Badlands
+#   (39-40); Into the Field (243), handed in by Tanaris (43-43).
+# Bought, not farmed: the Moonsteel Broadsword for Jarl (a blacksmith's craft, nothing drops it) at the
+#   Orgrimmar auction house, and the Soothing Spices from a cooking supplier in Orgrimmar (no Horde
+#   vendor in the marsh sells them).
+#
+# The route: Orgrimmar (the auction house, the spices); a flight to Camp Taurajo and the road east to
+# the burned Shady Rest Inn; north past Mudcrush to Brackenwall Village; a loop east (Ogron and
+# Reethe, the Theramore spies, Stinky, Jarl at Swamplight Manor, the Mirefin murlocs) and back by
+# the Darkmist cave; Brackenwall; a second loop east (Jarl again, the Theramore docks) and back by
+# the road past Mudcrush; a flight to Orgrimmar and the zeppelin to Undercity for Zinge's errands,
+# where the next guide starts.
+
+guide Dustwallow Marsh (37-38)
+faction horde
+levels 37 38
+leave 243 1240 1270 1276
+next Alterac Mountains & Arathi Highlands (38-39)
+
+# Orgrimmar ------------------------------------------------------------------------------------------
+
+map Durotar
+note "From Stranglethorn Vale, take the zeppelin from Grom'gol to the tower outside Orgrimmar, then walk into the city" at 50.8,13.4
+tip Came by boat to Ratchet instead? Fly from Ratchet to Orgrimmar: the sword and the spices for Jarl are here.
+map Orgrimmar
+ah 1203.1 npc 8673
+tip "Swamp Eye" Jarl in the marsh wants a Moonsteel Broadsword. Nothing drops it: buy one each here, or have a blacksmith make it.
+note "Buy 3 Soothing Spices each from Xen'to, the cooking supplier, for Jarl" npc 3400
+tip Keep the spices: no Horde vendor in Dustwallow Marsh sells them.
+fly "Camp Taurajo, The Barrens" npc 3310
+tip Already have the flight path to Brackenwall Village? Fly there instead, and take the Shady Rest Inn on your first ride south.
+
+# The Shady Rest Inn ------------------------------------------------------------------------------
+
+map Dustwallow Marsh
+goto "Ride east from Camp Taurajo on the road into Dustwallow Marsh, to the burned Shady Rest Inn" at 29.7,47.6 r 25
+accept 1268
+tip Hoofprints, badge and shield are all on the ground at the inn, a few steps apart.
+accept 1269
+tip The badge is tiny: look closely.
+accept 1251
+
+# Brackenwall Village --------------------------------------------------------------------------------
+
+accept 1177
+tip Mudcrush Durtfeet, an ogre, stands by the way north to Brackenwall.
+fpath 11899
+accept 1201
+turnin 1268 1269 1251
+accept 1321
+turnin 1321
+accept 1322
+
+# East: Ogron and Reethe, the spies, Stinky, Jarl and the Mirefin murlocs ---------------------------
+
+do 1322 bg
+tip Every Darkfang spider of the marsh can drop the venom sacs: kill those on your way all through this loop. The Lurkers are stealthed.
+do 1201 bg
+tip The Theramore Infiltrators are stealthed too: watch for the shimmer around Brackenwall.
+accept 1273
+tip Ogron leads you to Reethe and they talk; then a group attacks. Let Ogron take some of the hits, but keep him alive.
+do 1273 at 42.6,38.1
+do 1201
+tip Most of the spies lurk northeast of Brackenwall.
+accept 1270
+tip Clear the raptors around Stinky first. If he is not there, someone is escorting him: wait for him.
+do 1270 at 48.9,24.6
+tip Follow Stinky south to the bogbean leaves and keep the raptors off him.
+accept 1218
+do 1218 at 55.4,26.3
+turnin 1218
+accept 1206
+tip Jarl lives alone in Swamplight Manor, a ruined house.
+accept 1238
+tip The Loose Dirt is a small mound of earth just north of Jarl's house.
+do 1177 at 56.9,15.7
+tip The Mirefin murlocs crowd the shore north and northeast of Swamplight Manor.
+do 1206
+tip The Darkmist spiders live in and around the Darkmist Cavern, northwest of Brackenwall. Each of you needs 40 eyes.
+do 1322 at 39.6,26.3
+
+# Brackenwall Village --------------------------------------------------------------------------------
+
+goto "Ride back to Brackenwall Village" at 36.0,31.0 r 25
+turnin 1201
+accept 1202
+turnin 1238
+turnin 1322
+accept 1323
+turnin 1323
+turnin 1273
+accept 1276
+tip The next Black Shield goes to Thunder Bluff: keep it, the Badlands guide hands it in.
+
+# East again: Jarl and the Theramore docks ---------------------------------------------------------
+
+turnin 1206
+accept 1203
+do 1203 at 55.4,26.3
+turnin 1203
+accept 1239
+tip Dig in the Loose Dirt again.
+do 1202
+tip The footlocker lies underwater beside the docks of Theramore. Swim in from the sea and keep clear of the guards on the piers.
+goto "Ride back west on the road toward the Shady Rest Inn, then north" at 35.1,38.3 r 25
+turnin 1177
+
+# Brackenwall Village ----------------------------------------------------------------------------------
+
+turnin 1202
+turnin 1239
+accept 1240
+tip Nazeer sends the head to a witchdoctor in Stranglethorn Vale: keep it, a later guide hands it in.
+grind 38 at 32.7,22.0
+tip Zinge in Undercity will only talk to you at level 38. Still short? The Darkmist spiders by their cavern northwest of Brackenwall are the closest good hunting.
+
+# Orgrimmar and Undercity ------------------------------------------------------------------------------
+
+fly "Orgrimmar, Durotar" npc 11899
+map Orgrimmar
+train 3352 3344
+tip Hunters and shamans train here: Undercity has no trainer for them. Everyone else trains in Undercity at the start of the next guide.
+map Durotar
+note "Take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades, then walk into Undercity" at 50.8,13.4
+map Undercity
+accept 232
+tip Apothecary Zinge works in the Apothecarium.
+turnin 232
+accept 238
+turnin 238
+accept 243
+tip Zinge sends you to Gadgetzan: keep the kit, a later guide takes it there.
