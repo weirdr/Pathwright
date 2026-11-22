@@ -1367,6 +1367,161 @@ runTimers()
 assert(char.guide.step == 3, "arrived, step " .. char.guide.step)
 print("teleport ok")
 
+-- Built-in guides (Builtin\*.lua): the character's variant of each, with its steps only; a "goto"
+-- step done once there, a "note" once marked.
+do
+    local routes, info = FG.Routes, FG.Import.info
+    FG.Builtin.Register({
+        name = "builtin-test",
+        origin = "test",
+        fromLevel = 1,
+        toLevel = 60,
+        locale = "enUS",
+        version = 1,
+        format = 2,
+        created = 1,
+        variants = { { race = 1, class = 1, faction = "Alliance" }, { race = 7, class = 8, faction = "Alliance" } },
+        steps = {
+            { k = "goto", t = "Here", m = 1426, x = 30.1, y = 71.3, lvl = 20 },
+            { k = "note", t = "Humans only", only = { 1 }, lvl = 20 },
+            { k = "note", t = "Read this", only = { 2 }, lvl = 20 },
+            { k = "goto", t = "Far away", m = 1426, x = 80, y = 20, r = 15, lvl = 20 },
+            { k = "grind", t = "Grind", lvl = 60 },
+        },
+    })
+    FG.Import:Apply()
+    -- The guides the tests before put in FG.Routes themselves.
+    for name, r in pairs(routes) do
+        FG.Routes[name] = FG.Routes[name] or r
+    end
+    local r = FG.Routes["builtin-test"]
+    assert(r and r.builtin and r.race == 7 and r.class == 8 and #r.steps == 4, "the gnome mage's variant")
+    assert(r.steps[2].t == "Read this" and r.steps[2].only == nil, "its own steps only")
+    assert(FG.Import.info["builtin-test"].source == "builtin", "a built-in guide")
+    local listed
+    for _, g in ipairs(FG.Import:List()) do
+        if g.name == "builtin-test" then listed = g end
+    end
+    assert(listed and listed.fits and listed.source == "builtin", "listed for the character")
+    -- Tabs: the guide followed is one; following another opens a tab beside it.
+    local before = FG.Guide:RouteName()
+    char.guide.tabs = nil -- the guides of the tests before
+    FG.Guide:Refresh()
+    assert(FG.Guide:Tabs()[1] == before, "the guide followed has a tab")
+    useRoute("builtin-test")
+    local tabs = FG.Guide:Tabs()
+    assert(#tabs == 2 and tabs[1] == before and tabs[2] == "builtin-test", "a second tab")
+    -- The guide browser: the guides by source, one picked and opened.
+    FG.GuideBrowser:Toggle()
+    assert(FG.GuideBrowser:IsShown(), "the browser opens")
+    FG.GuideBrowser.source = "all"
+    FG.GuideBrowser.picked = "builtin-test"
+    FG.GuideBrowser:Fill()
+    FG.GuideBrowser:Toggle()
+    assert(not FG.GuideBrowser:IsShown(), "and closes")
+    fire("QUEST_LOG_UPDATE")
+    runTimers()
+    assert(char.guide.step == 2, "there; the note waits, step " .. char.guide.step)
+    FG.Guide:ToggleSkip(2)
+    fire("QUEST_LOG_UPDATE")
+    runTimers()
+    assert(char.guide.step == 3, "the note marked; far from the next place, step " .. char.guide.step)
+    -- Back to the first tab and again: each guide where it was left.
+    FG.Guide:Choose(before)
+    FG.Guide:Choose("builtin-test")
+    assert(char.guide.step == 3, "progress kept per tab, step " .. char.guide.step)
+    -- Closing the tab followed follows the one beside it.
+    FG.Guide:CloseTab("builtin-test")
+    assert(FG.Guide:RouteName() == before and #FG.Guide:Tabs() == 1, "tab closed")
+    -- A finished guide naming the one after it: that one opens in a tab, once.
+    FG.Builtin.Register({
+        name = "builtin-first",
+        next = "builtin-test",
+        variants = { { race = 7, class = 8, faction = "Alliance" } },
+        steps = { { k = "note", t = "Read this", lvl = 1 } },
+    })
+    FG.Import:Apply()
+    for name, r in pairs(routes) do
+        FG.Routes[name] = FG.Routes[name] or r
+    end
+    assert(FG.Routes["builtin-first"].next == "builtin-test", "next passed on")
+    FG.Guide:Choose("builtin-first")
+    FG.Guide:ToggleSkip(1)
+    fire("QUEST_LOG_UPDATE")
+    runTimers()
+    assert(FG.Guide:RouteName() == "builtin-test", "the next guide opened: " .. tostring(FG.Guide:RouteName()))
+    FG.Guide:Choose("builtin-first")
+    assert(FG.Guide:RouteName() == "builtin-first", "back to the finished guide, it stays")
+    FG.Guide:CloseTab("builtin-first")
+    table.remove(FG.Builtin.defs)
+    -- A guide made for other characters: offered with the variant closest to this one.
+    FG.Builtin.Register({
+        name = "builtin-other",
+        variants = { { race = 2, class = 1, faction = "Horde" }, { race = 1, class = 8, faction = "Alliance" } },
+        steps = { { k = "note", t = "Hi", lvl = 1 } },
+    })
+    FG.Import:Apply()
+    local other = FG.Routes["builtin-other"]
+    assert(other and other.race == 1 and other.class == 8 and not FG.Import.Fits(other), "closest variant offered")
+    table.remove(FG.Builtin.defs)
+    table.remove(FG.Builtin.defs)
+    FG.Routes, FG.Import.info = routes, info
+    print("builtin ok")
+end
+
+-- The guides shipped (Builtin\*.lua): each one registers, and each of its variants is a route
+-- whose steps are of a kind the guide knows, with a place, and hand in only quests taken before.
+do
+    local before = #FG.Builtin.defs
+    local list = io.popen("ls addon/Pathwright_Guide/Builtin")
+    for name in list:lines() do
+        if name:match("%.lua$") then assert(loadfile("addon/Pathwright_Guide/Builtin/" .. name))() end
+    end
+    list:close()
+    local kinds = {
+        accept = true,
+        turnin = true,
+        objective = true,
+        train = true,
+        sell = true,
+        bind = true,
+        grind = true,
+        note = true,
+        ["goto"] = true,
+        flight_master = true,
+        fly = true,
+        hearth = true,
+    }
+    local count = 0
+    for i = before + 1, #FG.Builtin.defs do
+        local def = FG.Builtin.defs[i]
+        for v = 1, #def.variants do
+            local r = FG.Builtin.Expand(def, v)
+            assert(r.race and r.class and r.faction and #r.steps > 0, def.name .. ": variant " .. v)
+            local taken = {}
+            for _, q in ipairs(def.carry or {}) do
+                taken[q] = true
+            end
+            for n, s in ipairs(r.steps) do
+                local where = def.name .. " variant " .. v .. " step " .. n
+                assert(kinds[s.k], where .. ": kind " .. tostring(s.k))
+                assert(s.t and s.lvl, where .. ": text and level")
+                assert(s.k == "grind" or s.k == "note" or (s.m and s.x and s.y), where .. ": place")
+                if s.k == "accept" then taken[s.q] = true end
+                -- An item to buy at the auction house may come before its quest is taken.
+                if s.k == "turnin" or (s.k == "objective" and not s.by) then
+                    assert(taken[s.q], where .. ": quest not taken")
+                end
+            end
+            count = count + 1
+        end
+    end
+    for _ = before + 1, #FG.Builtin.defs do
+        table.remove(FG.Builtin.defs)
+    end
+    print("shipped guides ok: " .. count .. " routes")
+end
+
 -- Death skip: done once back at the spirit healer the step stands at.
 FG.Routes["deathskip-test"] = {
     race = 7,
@@ -1869,7 +2024,7 @@ print("merchant quest items ok")
 -- Skins: a skin registered through the public API styles every frame made so far.
 local skinned = {}
 PathwrightAPI.RegisterSkin("Test", function(frame, kind) skinned[kind] = (skinned[kind] or 0) + 1 end)
-assert(skinned.window == 2, "windows skinned: the card and the minimal strip")
+assert(skinned.window == 3, "windows skinned: the card, the minimal strip and the guide browser")
 assert((skinned.panel or 0) >= 1, "panels skinned")
 assert(#PathwrightAPI.GetFrames() >= 2)
 assert(FG.Skin:Suite() == nil, "no UI suite in the tests")
@@ -5329,7 +5484,7 @@ local function SettingsTest()
         assert(type(global) == "string" and global ~= "", "no name for the binding " .. name)
         names = names + 1
     end
-    assert(names == 15, "the bindings: " .. names)
+    assert(names == 16, "the bindings: " .. names)
     -- In their own category of the game's key bindings, a header per group (Zygor's way).
     local xml = assert(io.open("addon/Pathwright_Guide/Bindings.xml")):read("*a")
     local tags, inCategory = 0, 0
@@ -5337,7 +5492,7 @@ local function SettingsTest()
         tags = tags + 1
         if tag:find('category="Pathwright"', 1, true) then inCategory = inCategory + 1 end
     end
-    assert(tags == 15 and inCategory == 15, "every binding in the Pathwright category")
+    assert(tags == 16 and inCategory == 16, "every binding in the Pathwright category")
     assert(xml:find('<Binding name="PATHWRIGHT_NEXT" header="PATHWRIGHT"', 1, true), "the guide's header")
     assert(
         xml:find('<Binding name="CLICK PWStrip1:LeftButton" header="PATHWRIGHTTOOLSTRIP"', 1, true),

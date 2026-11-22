@@ -29,6 +29,9 @@
     <Binding name="PATHWRIGHT_OPTIONS" category="Pathwright">
         Pathwright:OpenSettings()
     </Binding>
+    <Binding name="PATHWRIGHT_GUIDES" category="Pathwright">
+        Pathwright.GuideBrowser:Toggle()
+    </Binding>
     <Binding name="CLICK PWStrip1:LeftButton" header="PATHWRIGHTTOOLSTRIP" category="Pathwright">
     </Binding>
     <Binding name="CLICK PWStrip2:LeftButton" category="Pathwright">

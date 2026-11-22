@@ -39,6 +39,20 @@ for addon in Pathwright_Profile Pathwright_Guide; do
         mkdir -p "$dest/Locales"
         cp "$src"/Locales/*.lua "$dest/Locales/"
     fi
+    # The built-in guides (Builtin/*.lua) and their index, Builtin.xml, which the TOC loads.
+    if [ "$addon" = Pathwright_Guide ]; then
+        rm -rf "$dest/Builtin"
+        mkdir -p "$dest/Builtin"
+        {
+            echo '<Ui xmlns="http://www.blizzard.com/wow/ui/">'
+            for f in "$src"/Builtin/*.lua; do
+                [ -e "$f" ] || continue
+                cp "$f" "$dest/Builtin/"
+                echo "    <Script file=\"$(basename "$f")\"/>"
+            done
+            echo '</Ui>'
+        } >"$dest/Builtin/Builtin.xml"
+    fi
     # Textures.
     if [ -d "$src/Media" ]; then
         mkdir -p "$dest/Media"

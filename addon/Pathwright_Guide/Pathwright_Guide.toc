@@ -24,6 +24,8 @@ Libs\LibDeflate\LibDeflate.lua
 Config.lua
 Routes.lua
 Services.lua
+Builtin.lua
+Builtin\Builtin.xml
 Import.lua
 SettingsSchema.lua
 Settings.lua
@@ -37,6 +39,8 @@ Group.lua
 Guide.lua
 Card.lua
 Mini.lua
+Tabs.lua
+GuideBrowser.lua
 Compass.lua
 Pathing.lua
 Arrow.lua

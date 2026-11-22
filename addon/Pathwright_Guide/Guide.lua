@@ -28,6 +28,7 @@ local L = {
     noRoute = T("No guide chosen for this character.\nType /pw and click Follow beside a guide."),
     noGuides = T("No guide yet.\nMake one in the Pathwright web app, then type /pw and click Import a guide…"),
     done = T("Route finished!"),
+    nextGuide = T("guide finished: on to %s"),
     yards = T("yd"),
     prevStep = T("Previous step"),
     nextStep = T("Next step"),
@@ -96,6 +97,9 @@ local KINDS = {
     deathskip = { icon = "Interface\\Icons\\Spell_Holy_Resurrection", color = "c0c0ff", label = T("Death skip") },
     bind = { icon = "Interface\\GossipFrame\\BinderGossipIcon", color = "40c0ff", label = T("Inn") },
     sell = { icon = "Interface\\GossipFrame\\VendorGossipIcon", color = "ffffff", label = T("Vendor") },
+    -- The built-in guides' own: a place to reach, something to read and mark done.
+    ["goto"] = { icon = "Interface\\Icons\\INV_Misc_Map_01", color = "40c0ff", label = T("Go to") },
+    note = { icon = "Interface\\Icons\\INV_Misc_Note_01", color = "ffffff", label = T("Note") },
     dungeon = { icon = "Interface\\Icons\\INV_Misc_Key_10", color = "ff4040", label = T("Dungeon") },
     profession = {
         icon = "Interface\\Icons\\Trade_BlackSmithing",
@@ -163,6 +167,8 @@ local GROUP_MAX = 6
 local PICKUP_AHEAD = 300
 -- Steps planned this many levels below the character are skipped.
 local OUTDATED_LEVELS = 4
+--- Yards from a "goto" step's place where it is reached, when the step gives none.
+local GOTO_RADIUS = 20
 
 local state -- per character: { route = name, step = n, point = {...}, flightLearned = id }
 local route
@@ -330,6 +336,8 @@ function IsDone(step, index)
     elseif step.k == "objective" then
         if QuestLog.IsQuestFlaggedCompleted(q) then return true end
         if AcceptSkipped(step, index or state.step) then return true, true end
+        -- A quest taken before this guide (a built-in guide's "carry") that the character has not.
+        if route.builtin and not acceptIndex[q] and not QuestLog.IsOnQuest(q) then return true, true end
         -- A child quest handed in on the way (Distracting Jarven for Bitter Rivals): done once
         -- turned in. Often repeatable, so the game does not keep it flagged.
         if step.cq then return state.handedIn[step.cq] or QuestLog.IsQuestFlaggedCompleted(step.cq) end
@@ -341,6 +349,8 @@ function IsDone(step, index)
         return QuestLog.IsComplete(q)
     elseif step.k == "turnin" then
         if QuestLog.IsQuestFlaggedCompleted(q) then return true end
+        -- A quest taken before this guide (a built-in guide's "carry") that the character has not.
+        if route.builtin and not acceptIndex[q] and not QuestLog.IsOnQuest(q) then return true, true end
         return AcceptSkipped(step, index or state.step), true
     elseif step.k == "abandon" then
         -- Done once the quest has left the log (or was never in it).
@@ -396,6 +406,14 @@ function IsDone(step, index)
     elseif step.k == "link" then
         local nextStep = route.steps[(index or state.step) + 1]
         return nextStep and nextStep.m and C_Map.GetBestMapForUnit("player") == nextStep.m or false
+    elseif step.k == "goto" then
+        -- A place to reach (built-in guides): done there, or marked.
+        if state.marks[index or state.step] then return true end
+        local d = Distance(step)
+        return d ~= nil and d < (step.r or GOTO_RADIUS)
+    elseif step.k == "note" then
+        -- Something only the player sees (built-in guides): done once marked.
+        return state.marks[index or state.step] or false
     elseif not KINDS[step.k] then
         return true, true
     end
@@ -956,6 +974,16 @@ local PICKUP_NEAR = 100
 function Guide:Refresh()
     local ui = self:UI()
     if not ui then return end
+    -- A guide finished that names the one after it: that one opens in a tab, once (closing it
+    -- and coming back to the finished guide does not open it again).
+    if route and not route.steps[state.step] and route.next and FG.Routes and FG.Routes[route.next] then
+        state.nextOpened = state.nextOpened or {}
+        if not state.nextOpened[state.route] then
+            state.nextOpened[state.route] = true
+            FG:Print(L.nextGuide, route.next)
+            return self:Choose(route.next)
+        end
+    end
     local shown = FG:Get("guideShown")
     if not shown or not route or not route.steps[state.step] then
         if FG.Compass then FG.Compass:SetPoints(nil) end
@@ -965,6 +993,7 @@ function Guide:Refresh()
             hidden = not shown,
             message = route and L.done or (next(FG.Routes or {}) and L.noRoute or L.noGuides),
         })
+        if FG.Tabs then FG.Tabs:Render(ui) end
         return
     end
 
@@ -1174,6 +1203,7 @@ function Guide:Refresh()
     end
     self.view = view
     ui:Render(view)
+    if FG.Tabs then FG.Tabs:Render(ui) end
 end
 
 -- Navigation -------------------------------------------------------------------
@@ -1476,20 +1506,22 @@ local function UseRoute(name)
 end
 
 --- The guide a character follows without having chosen one: the only guide made for its race
---- and class; else the one an older app assigned to it (FG.Assignments); else none.
+--- and class (the app's or imported, else built into the addon); else the one an older app
+--- assigned to it (FG.Assignments); else none.
 local function AutoRoute()
     local routes = FG.Routes or {}
-    local found
-    for name, r in pairs(routes) do
-        if FG.Import.Fits(r) then
-            if found then
-                found = nil
-                break
+    for _, builtin in ipairs({ false, true }) do
+        local found, several
+        for name, r in pairs(routes) do
+            if not r.builtin == not builtin and FG.Import.Fits(r) then
+                several = found ~= nil
+                found = found or name
+                if several then break end
             end
-            found = name
         end
+        if found and not several then return found end
+        if found then break end
     end
-    if found then return found end
     local assigned = FG.Assignments and FG.Assignments[FG:CharacterKey()]
     if assigned and routes[assigned] then return assigned end
 end
@@ -1517,6 +1549,62 @@ end
 
 --- The name of the guide followed, nil when none.
 function Guide:RouteName() return route and state.route end
+
+-- Tabs (Tabs.lua): the guides the character has open, each with its own progress (SwitchProgress).
+
+--- Guides open at most; opening another closes the oldest one not followed.
+local MAX_TABS = 6
+
+--- The guides open in tabs (names, in the order opened), the one followed among them; those gone
+--- (deleted) are left out.
+function Guide:Tabs()
+    if not state then return {} end
+    local out, seen = {}, {}
+    for _, name in ipairs(type(state.tabs) == "table" and state.tabs or {}) do
+        if FG.Routes and FG.Routes[name] and not seen[name] then
+            out[#out + 1], seen[name] = name, true
+        end
+    end
+    local current = self:RouteName()
+    if current and not seen[current] then out[#out + 1] = current end
+    while #out > MAX_TABS do
+        for i, name in ipairs(out) do
+            if name ~= current then
+                table.remove(out, i)
+                break
+            end
+        end
+    end
+    state.tabs = out
+    return out
+end
+
+--- Where the character is in the guide `name`: the step it is at (nil when never opened), the
+--- guide's step count.
+function Guide:Progress(name)
+    local r = FG.Routes and FG.Routes[name]
+    if not r or not state then return nil, r and #r.steps or 0 end
+    if name == self:RouteName() then return state.step, #r.steps end
+    local saved = type(state.saved) == "table" and state.saved[name]
+    return saved and saved.step, #r.steps
+end
+
+--- Close the tab of the guide `name`. Closing the guide followed follows the tab beside it (none
+--- left: the automatic choice).
+function Guide:CloseTab(name)
+    local tabs = self:Tabs()
+    for i, n in ipairs(tabs) do
+        if n == name then
+            table.remove(tabs, i)
+            if name == self:RouteName() then
+                self:Choose(tabs[i] or tabs[i - 1])
+            else
+                self:Refresh()
+            end
+            return
+        end
+    end
+end
 
 FG:On("PLAYER_LOGIN", function()
     local char = PathwrightDB.characters[FG:CharacterKey()]
@@ -1946,6 +2034,7 @@ BINDING_NAME_PATHWRIGHT_GUIDE = T("Show or hide the guide")
 BINDING_NAME_PATHWRIGHT_UI = T("Show or hide all the addon's windows")
 BINDING_NAME_PATHWRIGHT_TIME = T("Time per level (in the chat)")
 BINDING_NAME_PATHWRIGHT_OPTIONS = T("Pathwright options")
+BINDING_NAME_PATHWRIGHT_GUIDES = T("Guide browser")
 
 --- Index of the step shown (for the tracker).
 function Guide:CurrentStep() return state and state.step or 1 end

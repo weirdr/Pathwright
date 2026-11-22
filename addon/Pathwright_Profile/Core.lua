@@ -360,4 +360,10 @@ end)
 -- buttons or with key bindings.
 SLASH_PATHWRIGHT1 = "/pw"
 SLASH_PATHWRIGHT2 = "/pathwright"
-SlashCmdList.PATHWRIGHT = function() FG.Options:Open() end
+SlashCmdList.PATHWRIGHT = function(msg)
+    -- "/pw guides": the guide browser (the guide part, when loaded).
+    if type(msg) == "string" and msg:lower():match("^%s*guides") and FG.GuideBrowser then
+        return FG.GuideBrowser:Toggle()
+    end
+    FG.Options:Open()
+end

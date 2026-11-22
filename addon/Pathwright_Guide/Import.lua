@@ -187,7 +187,8 @@ local function Imported(name, entry)
 end
 
 --- Build FG.Routes, FG.Services... from the guides kept, those of Pathwright_Data and the files'.
---- `Import.info[name]` = { source = "import" or "app", created, version } of the guide in use.
+--- `Import.info[name]` = { source = "import", "app" or "builtin", created, version } of the guide in
+--- use.
 function Import:Apply()
     local db = DB()
     -- What the files set (Routes.lua and Services.lua ship empty; older apps wrote them), taken once.
@@ -218,6 +219,10 @@ function Import:Apply()
         if info[name] and info[name].created > created then return end
         routes[name] = r
         info[name] = { source = source, created = created, version = tonumber(r.version) }
+    end
+    -- The addon's own guides (Builtin\*.lua): this character's variant of each.
+    for name, r in pairs(FG.Builtin and FG.Builtin.Routes() or {}) do
+        Offer(name, r, "builtin", r.created)
     end
     for name, r in pairs(self.file.routes) do
         Offer(name, r, "app", type(r) == "table" and r.created)
@@ -372,7 +377,7 @@ function Import.Fits(r)
     return not (r.faction and faction) or r.faction == faction
 end
 
---- The guides in use: { name, route, source ("import" or "app"), created, version, fits }, those
+--- The guides in use: { name, route, source ("import", "app" or "builtin"), created, version, fits }, those
 --- made for this character first, then by name.
 function Import:List()
     local out = {}
@@ -600,6 +605,8 @@ function Import:AskClear()
 end
 
 FG:On("PLAYER_LOGIN", function()
+    -- The built-in guides are the character's variant: its race may not be known before the login.
+    if FG.Builtin and FG.Builtin.defs[1] then Import:Apply() end
     local fresh = PathwrightDB.guideImportFresh
     if Import.failed then
         FG:Print(
