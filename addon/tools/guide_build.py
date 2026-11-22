@@ -49,6 +49,7 @@ Options after a step, in any order:
     bg              an objective done along the way, while doing the steps after it
     icon <icon>     the step's icon (talk, use, kill, get, pickup, text...); not kill: no mobs
     nopre           take no prerequisite from the data (when it is wrong)
+    after <quest>.. its real prerequisites, in place of the data's (when they are wrong)
     only <who>...   alliance, horde and class names (warrior, mage...): who the step is for
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
@@ -226,6 +227,13 @@ def parse_opts(n, words, quiet=False):
             o["bg"] = True; i += 1
         elif w == "nopre":
             o["nopre"] = True; i += 1
+        elif w == "after":
+            o["after"] = []
+            i += 1
+            while i < len(words) and words[i].isdigit():
+                o["after"].append(int(words[i])); i += 1
+            if not o["after"]:
+                fail(n, "after <quest>...")
         elif w == "icon":
             o["icon"] = words[i + 1]; i += 2
         elif w == "npc":
@@ -251,7 +259,7 @@ def parse_opts(n, words, quiet=False):
     return o
 
 
-OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "icon", "npc", "mobs", "only"}
+OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "after", "icon", "npc", "mobs", "only"}
 
 
 def opts_ok(words):
@@ -438,6 +446,8 @@ for n, text in lines:
     if word in ("accept", "turnin"):
         for qs in ids:
             q = quest(int(qs), n)
+            if opts.get("after"):
+                q = dict(q, pre=list(opts["after"]), pa=[])
             kind, eid = relation(q["id"], "start" if word == "accept" else "end")
             if opts.get("npc"):
                 kind, eid = "npc", opts["npc"]

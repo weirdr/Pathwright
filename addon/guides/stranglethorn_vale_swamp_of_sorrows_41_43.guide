@@ -30,8 +30,8 @@
 guide Stranglethorn Vale & Swamp of Sorrows (41-43)
 faction horde
 levels 41 43
-carry 243 669 1137 1240 1270 1420
-leave 243 1117 1137 1183 1261 2864 2872 93464
+carry 243 669 1137 1240 1270 1373 1420
+leave 243 1117 1137 1183 1261 1373 2864 2872 93464
 next Desolace & Shen'dralas (43-43)
 
 map Stranglethorn Vale
@@ -193,6 +193,8 @@ do 93430
 tip The lure drops from a Lost One Fisherman; they fish along the banks.
 do 1389
 tip The crystals glow blue on the ground in the east of the Fallow Sanctuary.
+do 1373.1 at 65.1,22.0 mobs 5622 "Kill Ongeku for the Draenethyst Shard (Ongeku, from Desolace)"
+tip Ongeku, a level 37 ogre, stands in the north-east of the Fallow Sanctuary. Only if you took Ongeku from Uthek the Wise in the Desolace (34-36) guide: keep the shard for Desolace (43).
 accept 1393
 do 1393 at 65.5,18.2 icon text "Escort Galen Goodward out of the Fallow Sanctuary"
 do 93429 at 58.7,25.3 mobs 759 760 755 757 icon kill "Kill 10 Lost Ones in the Fallow Sanctuary"

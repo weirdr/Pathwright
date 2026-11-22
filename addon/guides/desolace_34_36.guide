@@ -1,0 +1,205 @@
+# Desolace (34-36): the Horde quests of Shadowprey Village and Ghost Walker Post, the first Gelkis
+# quests and the Gizelton Caravan, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/desolace_34_36.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Desolace, area 405).
+# The quest list is section 15 of addon/guides/horde_1_40_allocation.md. The later Desolace quests
+# (Kormek's Hut, the Valley of Spears, Mannoroc Coven, the Valley of Bones and Shen'dralas) are in
+# Desolace & Shen'dralas (43-43).
+#
+# The centaur clans: the Gelkis and the Magram are enemies, every quest for one costs reputation
+# with the other (Buying Friendship: Gelkis sets the Magram to -15000), and both start at Neutral
+# 2000. This guide sides with the Gelkis, as Desolace & Shen'dralas (43-43) does: Carved Centaur
+# Totems (93225) and Buying Friendship: Gelkis (94873), then Gelkis Alliance (1368), Stealing
+# Supplies (1370) and Ongeku (1373).
+# Carried in (skipped by those who lack them): The Kolkar of Desolace (1362, from Regthar Deathgate
+#   in the Barrens), Alliance Relations (1432, from Keldran in Orgrimmar) and Family Tree (5361,
+#   from Cliffwatcher Longhorn at Freewind Post, Thousand Needles).
+# Left to later guides: Hunting in Stranglethorn (5763), handed in by Stranglethorn Vale (36-37);
+#   Ongeku (1373): Ongeku, who drops the Draenethyst Shard, is in the Swamp of Sorrows.
+# Left out:
+# - The Magram side: Magram Alliance (1367), Broken Tears (1369), Gizmo for Warug (1371), Khan Shaka
+#   (1375), A New Need for Shadow Protection (92754) and Big, No, MASSIVE Iron Axes (92818) need a
+#   Friendly Magram reputation, which siding with the Gelkis rules out.
+# - Khan Jehn (1374) and Valley of Bones (93034) follow Ongeku (1373), handed in only after the
+#   Swamp of Sorrows; Test Your Theory (93045) follows A Cleansing Cry (93044), an Alliance quest.
+# Bought, not farmed: the Greater Mystic Essences (Halea) and the White Bandit Mask (Molkar) are
+#   crafted, nothing in Desolace drops them; the auction house stop is at the start, in Thunder Bluff.
+#
+# The route: Thunder Bluff (the auction house, if you pass it) and Shadowprey Village; Ghost Walker
+# Post and the Kodo Graveyard; north to Ethel Rethor and Thunder Axe Fortress; north-east to the
+# Kolkar Village and Sargeron, and south with the Gizelton Caravan; the Gelkis Village, Mannoroc
+# Coven with the caravan, the Magram Village; back to the Gelkis and Shadowprey; up the west coast
+# (the Drysnap crabs, the clams, the Slitherblade naga); Ghost Walker Post; the hearthstone to
+# Shadowprey and a flight to Orgrimmar, where the next guide's zeppelin leaves.
+
+guide Desolace (34-36)
+faction horde
+levels 34 36
+carry 1362 1432 5361
+leave 1373 5763
+next Stranglethorn Vale (36-37)
+
+# Thunder Bluff: the auction house, if you pass it --------------------------------------------------
+
+map Thunder Bluff
+ah 93225.1 npc 8674
+tip Passing through Thunder Bluff? Five Carved Centaur Totems are cheap here; else the centaurs drop them.
+note "Buy 3 Greater Mystic Essences and a White Bandit Mask at the auction house, for two Gelkis quests" npc 8674
+tip Nothing in Desolace drops them; an enchanter or a tailor can make them instead. Without them, skip Halea's and Molkar's quests.
+
+# Shadowprey Village ----------------------------------------------------------------------------------
+
+map Desolace
+goto "Fly to Shadowprey Village, on the west coast of Desolace" at 21.6,74.1 r 30
+tip No flight path to Shadowprey yet? Fly to Sun Rock Retreat in the Stonetalon Mountains and ride south-west into Desolace, then on to the coast.
+fpath 6726
+accept 6142
+tip Mai'Lahii sells fishing supplies inside a hut of the village.
+accept 6143
+accept 5763
+tip Roon sends his horn to Hemet Nesingwary in Stranglethorn Vale: keep it, the next guide hands it in.
+bind 11106
+accept 5381
+tip Taiga gives you the Demon Pick for the crystal in Thunder Axe Fortress.
+accept 97265
+
+# Ghost Walker Post and the Kodo Graveyard ---------------------------------------------------------
+
+goto "Ride east on the road to Ghost Walker Post, in the middle of Desolace" at 52.6,54.4 r 20
+turnin 1432
+accept 1433 1434
+turnin 1433
+accept 1435
+tip Maurin gives you the Burning Gem: use it on Burning Blade cultists at low health.
+turnin 5361
+accept 5386
+turnin 1362
+accept 1365
+accept 93225 1368
+tip Leave the Gelkis alone: killing them costs the reputation you need.
+accept 5561
+do 5561 at 51.5,59.0 mobs 4700 4701 4702 icon use "Tame 5 kodos with the Kodo Kombobulator and lead each one back to Smeed"
+tip Use the kombobulator on an Aged, Dying or Ancient Kodo in the Kodo Graveyard west of Smeed; it follows you. Talk to it by Smeed, then fetch the next.
+turnin 5561
+
+# North: Ethel Rethor and Thunder Axe Fortress -------------------------------------------------------
+
+accept 5741
+tip Azore lives in the tower on the cliffs of Ethel Rethor, west of Thunder Axe Fortress.
+accept 6161
+tip Rackmore's Log is a small book on the ground south-west of Azore's tower; its keys and chest are on the coast, later.
+do 1435 bg
+do 5741
+tip The Burning Blade Seer stands on top of the tower in the middle of the fortress.
+do 5381
+tip Clear the room, use the Demon Pick on the red crystal, then kill the Demon Spirit that comes out.
+note "Kill Burning Blade cultists until one drops a Flayed Demon Skin" at 54.5,28.5
+tip It is a rare drop from any Burning Blade cultist; it comes along with the gems.
+accept 1480 at 54.5,28.5 icon get "Open the Flayed Demon Skin: it starts a quest"
+do 1435
+turnin 1435
+turnin 1480
+accept 1481
+
+# North-east: the Kolkar Village, Sargeron and the Gizelton Caravan ----------------------------------
+
+do 93225 bg at 72.5,46.0 mobs 4632 4633 4634 4635 4636 4637 "Kill Kolkar centaurs for 5 Carved Centaur Totems"
+do 1365
+tip Khan Dez'hepah wanders among the tents of the Kolkar Village.
+do 1434 bg
+do 97265 bg
+do 1481
+tip The Hatefury Shadowstalkers are stealthed: watch for them around the satyr camps.
+do 1434
+do 97265
+do 93225 at 72.5,46.0 mobs 4632 4633 4634 4635 4636 4637 "Kill Kolkar centaurs for 5 Carved Centaur Totems"
+accept 5821
+tip Cork waits with the caravan on the road north of the Kolkar Village. Gone? It travels the road, wait for it here.
+do 5821 at 67.2,56.6 icon text "Escort the Gizelton Caravan south past the Kolkar Village"
+tip The caravan rolls south past the village: the Kolkar ambush it on the way.
+turnin 5821
+turnin 1365
+accept 1366
+turnin 93225
+accept 94873
+turnin 1434
+accept 1436
+tip Takata sends you to Keldran in Orgrimmar: keep it, you go there at the end.
+turnin 1481
+accept 1482
+
+# The Gelkis Village, Mannoroc Coven, the Magram Village ----------------------------------------------
+
+turnin 94873
+tip Molkar stands at the southern end of the Gelkis Village. The Magram now hate you.
+do 1368 at 35.7,92.2 icon text "Be Friendly with the Gelkis: Buying Friendship has done it"
+turnin 1368
+accept 1370
+accept 5943
+tip Rigger waits with the caravan on the road east of the Gelkis Village. Gone? Wait for it here.
+do 5943 at 55.7,67.8 icon text "Escort the Gizelton Caravan east past Mannoroc Coven"
+tip The demons of Mannoroc Coven attack the caravan as it passes.
+turnin 5943
+do 1366 bg at 69.5,74.0 mobs 4638 4639 4640 4641 4642 4643 4644 4645 "Kill Magram centaurs for 15 Centaur Ears"
+tip Every centaur clan drops the ears.
+do 1370.1
+tip The sacks of meat lie by the Magram tents.
+do 1366 at 69.5,74.0 mobs 4638 4639 4640 4641 4642 4643 4644 4645 "Kill Magram centaurs for 15 Centaur Ears"
+
+# The Gelkis Village and Shadowprey -------------------------------------------------------------------
+
+turnin 1370
+accept 1373
+tip Ongeku is in the Swamp of Sorrows: keep this one, later guides kill him and hand it in.
+accept 92814 at 35.7,92.2
+turnin 92814 at 35.7,92.2
+accept 92755 at 35.7,92.2
+tip Halea is a Gelkis quartermaster like Molkar; look for her by him. The data puts her in the Magram Village, which looks wrong.
+turnin 92755 at 35.7,92.2
+turnin 5381
+turnin 97265
+do 5386 icon talk "Ask Jinar'Zillen for 2 Bloodbelly Fish"
+tip Jinar'Zillen fishes on the docks of Shadowprey.
+
+# The west coast: the crabs, the clams, the Slitherblade naga ----------------------------------------
+
+do 6161.1 bg at 33.0,31.5
+tip The Drysnap crabs on the shore where the clams are sometimes carry the silver key.
+do 6142
+tip Ride north up the coast. Open the Soft-shelled Clams you take from the Giant Softshell Clams underwater and from the Reef Crawlers.
+do 6161.1 at 33.0,31.5
+turnin 5741
+accept 6027
+tip Azore gives you the Gem of the Serpent.
+do 6143 bg
+do 6161.2 bg
+do 1482 bg
+do 6027
+tip Use the gem at the Serpent Statue on Ranazjar Isle, off the north-west coast; Lord Kragaru comes to fight you.
+do 6161.2
+do 1482
+tip The Slitherblade Oracles are on the islands and in the water of the north shore.
+turnin 6161
+tip Rackmore's Chest is on Ranazjar Isle too, near the statue.
+do 6143
+turnin 6027
+
+# Ghost Walker Post and Orgrimmar ---------------------------------------------------------------------
+
+turnin 1482
+accept 1484
+turnin 1484
+turnin 5386
+turnin 1366
+hearth npc 11106
+turnin 6143
+turnin 6142
+fly "Orgrimmar, Durotar" npc 6726
+map Orgrimmar
+turnin 1436
+tip Keldran walks around on the far west side of the city.
+train 3353 3352 3401 6014 3344 5882 3326

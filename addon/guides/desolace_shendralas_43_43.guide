@@ -9,15 +9,24 @@
 # Shen'dralas, area 16651). The quest list is section 3 of addon/guides/horde_40_60_allocation.md.
 #
 # The centaur clans: the Gelkis and the Magram are enemies, every quest for one costs reputation
-# with the other, and Buying Friendship: Gelkis (94873) and Buying Friendship: Magram (94872) are
-# exclusive. This guide sides with the Gelkis: Carved Centaur Totems, Buying Friendship: Gelkis,
-# then Gelkis Alliance (1368) and Stealing Supplies (1370), the level 33-35 quests that open
-# Leather Technique (92817).
+# with the other. Desolace (34-36) sides with the Gelkis and does their first quests: Carved Centaur
+# Totems (93225), Buying Friendship: Gelkis (94873), Gelkis Alliance (1368), Stealing Supplies (1370)
+# and Taiga's Hand of Iruxos (5381); it takes Ongeku (1373) and leaves it, and Stranglethorn Vale &
+# Swamp of Sorrows (41-43) kills Ongeku for the Draenethyst Shard.
+# Carried in: Ongeku (1373), handed in to Uthek the Wise here. Then the Gelkis chain of the Valley of
+#   Bones: Valley of Bones (93034), Ravaging Ravagers (93035), Outing Outcasts (93037), Facing the
+#   Truth (93041), Test Your Theory (93045), Saving Our Own (93058), Bone Burying (93062), Checking
+#   Things Out (93122), Going Home (93125) and Khan Jehn (93128). Portals of the Legion (5581) and
+#   Leather Technique (92817) open here, after 5381 and 1370.
+# Test Your Theory (93045) follows A Cleansing Cry (93044) in the data, but A Cleansing Cry is an
+#   Alliance quest (its race mask, and its outof.games page), while Test Your Theory and the
+#   Horde-only Bone Burying, Checking Things Out and Going Home after it are Horde quests. The guide
+#   takes 93045 right after Facing the Truth (after 93041); a tip covers Uthek offering A Cleansing Cry.
 # Left out:
-# - Ongeku (1373): its Draenethyst Shard drops from Ongeku in the Swamp of Sorrows, which this
-#   guide never visits. The Gelkis quests of the Valley of Bones follow it (Outing Outcasts 93037,
-#   Saving Our Own 93058, Bone Burying 93062, Checking Things Out 93122, Going Home 93125, Khan Jehn
-#   93128) and Khan Hratha for Uthek (1380, after Khan Jehn 1374, after Ongeku).
+# - Khan Jehn (1374) and Khan Hratha for Uthek (1380): not in WoW Forever (no outof.games page; the
+#   chain goes from Ongeku straight to Valley of Bones). Khan Jehn is 93128 here, Khan Hratha is
+#   Umarak's 96222.
+# - A Cleansing Cry (93044): Alliance only (see above).
 # - The Magram chain: A Conqueror's Crown (92743) needs a crown from a crypt in the Badlands; Valley
 #   of Bones (92841), Outcast Necromancers (92846), Mountain of Bones (92844), Corrupting Tears
 #   (92847), Proof of Concept (92873), Bone Raising (92894), No Mercy for the Weak (92893), Bristleback
@@ -29,19 +38,21 @@
 # - Abridged Notes on Draenethyst (93678): handed in to Magtoor in the Swamp of Sorrows.
 # - Passing the Blame (93601) and Not on Squealing Terms (93606): they follow Rot and Regret
 #   (Maraudon) and Agamaggan's Blood (Razorfen Downs), dungeon quests.
-# The Corrupter (1488) is only offered to those who did Maurin Bonesplitter's earlier Corrupter
-# quests (1480-1484, level 33-35, the first started by a rare drop): its steps are for them.
+# The Corrupter (1488) follows Maurin Bonesplitter's Corrupter quests (1480-1484), which Desolace
+# (34-36) does; its steps are for those who have it.
 #
 # The route: Orgrimmar (the auction house) and a flight to Shadowprey Village; Ghost Walker Post;
-# the north (Kormek's Hut, the Kolkar, Thunder Axe Fortress, Azore's tower); the Valley of Spears;
-# the Gelkis Village; Mannoroc Coven, the Magram Village and Gimashi's tower; the Valley of Bones
-# into Shen'dralas and its pylons; back across Desolace for the pylon pieces and the hand-ins;
-# Shen'dralas again: the temple, its gardens and the wilds.
+# the north (Kormek's Hut, Thunder Axe Fortress, Azore's tower); the Valley of Spears; the Gelkis
+# Village; Mannoroc Coven, the Magram Village and Gimashi's tower; the Valley of Bones (Nerlokh) into
+# Shen'dralas and its pylons; back across Desolace for the pylon pieces and the hand-ins, and Uthek's
+# ritual by the pond; Nerlokh again, the temple's sieve, the captives, the bones and the pylons; the
+# temple, the Outcast Hideaway, the gardens and the wilds; Nerlokh, Khan Jehn in the Magram Village
+# and Uthek.
 
 guide Desolace & Shen'dralas (43-43)
 faction horde
 levels 43 43
-carry 243 1117 1137 1183 1261 2864 2872 93464
+carry 243 1117 1137 1183 1261 1373 2864 2872 93464
 leave 243 1117 1137 1183 1261 2864 2872 94895
 next Tanaris (43-43)
 
@@ -59,8 +70,8 @@ tip No flight path to Shadowprey yet? Fly to Sun Rock Retreat in the Stonetalon 
 map Desolace
 fpath 6726
 bind 11106
-accept 5381
-tip Taiga gives you the Demon Pick; use it on the red crystal in Thunder Axe Fortress.
+accept 5581
+tip Use the Hand of Iruxos at a portal of Mannoroc Coven once its guardian is dead.
 accept 94895
 tip The crate lies by the water south of the village. Its owner is in the Riverglades, for a later guide.
 
@@ -68,21 +79,16 @@ tip The crate lies by the water south of the village. Its owner is in the Riverg
 
 accept 96222
 tip Umarak, a Kolkar, stands east of the Gelkis Village.
-accept 93225 1368
 accept 1488
-tip Takata offers it only if you did Maurin Bonesplitter's earlier Corrupter quests; skip its steps otherwise.
+tip Takata offers it after Maurin Bonesplitter's earlier Corrupter quests; skip its steps without it.
 accept 6134
 accept 79229
 tip The burnt-out campsite is west of Ghost Walker Post.
 
-# The north: Kormek's Hut, the Kolkar, Thunder Axe Fortress, Azore -----------------------------------
+# The north: Kormek's Hut, Thunder Axe Fortress, Azore ------------------------------------------------
 
 turnin 79229
 accept 5501
-do 93225 bg at 71.5,45.5 mobs 4632 4633 4634 4635 4636 4637 "Kill Kolkar centaurs for Carved Centaur Totems"
-tip Leave the Gelkis alone: killing them costs the reputation you need.
-do 5381
-tip Use the Demon Pick on the red crystal deep in the fortress; the Demon Spirit comes out and drops the box.
 turnin 93464
 accept 93465
 
@@ -90,25 +96,20 @@ accept 93465
 
 do 96222 at 29.6,52.0 "Get a War Horn Mouthpiece from the Maraudine centaurs, sound it on the highest peak and kill Khan Hratha"
 tip The mouthpiece is a rare drop. Khan Hratha is elite; one summon is enough for both of you.
-do 93225 at 31.0,57.0 mobs 4654 4655 4656 4657 4658 4659 "Kill Maraudine centaurs until you have 5 Carved Centaur Totems"
 accept 6132
 do 6132 at 34.0,53.5 "Escort Melizza Brimbuzzle out of the Valley of Spears"
 tip Melizza runs east out of the valley; keep the centaurs off her.
 turnin 6132
 do 5501
 tip The bones lie among the kodo skeletons of the graveyard.
-turnin 93225
-accept 94873
 
-# Shadowprey Village and the Gelkis Village -----------------------------------------------------------
+# The Gelkis Village ----------------------------------------------------------------------------------
 
-turnin 5381
-accept 5581
-turnin 94873
-tip Molkar stands at the southern end of the Gelkis Village. The Magram turn hostile now.
-do 1368 at 35.7,92.2 icon text "Be Friendly with the Gelkis: Buying Friendship has done it"
-turnin 1368
-accept 1370
+turnin 1373
+accept 93034
+accept 92817
+turnin 92817
+tip Talra takes the Barbaric Harness from the auction house.
 turnin 96222
 
 # Mannoroc Coven, the Magram Village, Gimashi's tower -------------------------------------------------
@@ -118,30 +119,38 @@ do 5581
 tip Kill a Demon Portal Guardian, then use the Hand of Iruxos at its portal.
 do 1488
 tip Lord Azrethoc and Jugkar Grim'rod stand in the middle of the coven.
-do 1370.1
-tip The sacks of meat lie by the Magram tents.
 do 93465
 tip Gimashi is on top of her tower in the ravine south-east of the Magram Village.
 
-# The Valley of Bones ---------------------------------------------------------------------------------
+# The Valley of Bones: Nerlokh ------------------------------------------------------------------------
 
+map Shen'dralas
+turnin 93034
+tip Nerlokh, a Gelkis scout, waits at the entrance of the Valley of Bones, south of the Magram Village.
+accept 93035 93037
+do 93035 bg at 33.1,27.1 mobs 11561 "Kill 6 Undead Ravagers"
+do 93037 at 25.0,25.6 mobs 11559 "Kill Outcast Necromancers until one drops a Necromantic Garb"
+tip The Outcast Necromancers are the weaker necromancers near the entrance, not the Magram ones.
+note "Keep killing necromancers until one drops a Tattered Journal" at 25.0,25.6
+tip The Magram necromancers deeper in the valley drop it too.
+accept 93644 at 25.0,25.6 icon get "Open the Tattered Journal: it starts a quest"
+do 93644 at 25.0,25.6
+do 93035 at 33.1,27.1 mobs 11561 "Kill 6 Undead Ravagers"
+turnin 93035 93037
+accept 93041
+do 93041 at 31.3,24.3 icon pickup "Take the Accursed Skull from the jaws of a goliath skeleton"
 do 6134
 tip Set a Ghost Magnet down between the two Dead Goliaths, step back and kill the spectres it draws.
-note "Kill the necromancers of the Valley of Bones until one drops a Tattered Journal" at 63.0,90.0
-tip The Magram necromancers by the Magram Village drop it too.
-accept 93644 at 63.0,90.0 icon get "Open the Tattered Journal: it starts a quest"
-do 93644 at 63.0,90.0
 
 # Shen'dralas: the pylons and Mordent Evenshade --------------------------------------------------------
 
-map Shen'dralas
 accept 92914
 tip The pylon stands on the hill west of the road.
 do 92914 at 72.7,23.1
 turnin 92914 93644
 accept 96010
 
-# Back across Desolace: the pylon pieces, the Gelkis, Azore --------------------------------------------
+# Back across Desolace: the pylon pieces, the hand-ins, the Gelkis ------------------------------------
 
 goto "Take the path north out of Shen'dralas, up into the Valley of Bones" at 36.3,13.6 r 15
 tip Mordent stands on a ledge: drop down carefully to the east, then follow the path up north.
@@ -154,22 +163,32 @@ turnin 5501
 turnin 93465
 hearth npc 11106
 turnin 5581
-turnin 1370
-accept 92817
-turnin 92817
+turnin 93041
+accept 93045 after 93041
+tip Uthek gives you a Draenethyst Crystal. If she asks for A Cleansing Cry first (Mulara and the Tears of Theradras, in the cave of the village), do it.
 do 96010.2
+do 93045 at 42.2,82.2
+tip Uthek's Staff lies by the pond east of the village: join the crystal to it and dispel the skull beside it.
 
-# Shen'dralas: the pylons again -----------------------------------------------------------------------
+# The Valley of Bones again: Nerlokh, Mordent, the pylons, the captives and the bones ---------------
 
 map Shen'dralas
-goto "Ride east to the Valley of Bones and take the path down into Shen'dralas" at 36.3,13.6 r 15
+turnin 93045
+tip Ride east to the Valley of Bones and down into Shen'dralas; Nerlokh waits at the entrance.
+accept 93058 93062
 turnin 96010
 accept 96018
 do 96018.1 at 46.1,78.1
 tip Climb to the top floor of the temple; the sieve rests there.
+do 93062
+tip Use Uthek's Draenethyst Staff on the Haggard Bones stuck in the ground of the valley.
+do 93058 at 50.0,25.2 "Free 5 Gelkis Captives in the Valley of Bones"
+tip The captives are held deeper in the valley, among the Magram necromancers.
 do 96018.2 at 43.5,34.2
 tip Catch the floating mana sparks with the sieve on the way north; many drift around 45,55.
 do 96018.3 at 73.0,23.3
+turnin 93058 93062
+accept 93122
 turnin 96018
 accept 93016
 turnin 93016
@@ -194,6 +213,14 @@ turnin 93362
 turnin 93546
 accept 96060
 
+# The Outcast Hideaway --------------------------------------------------------------------------------
+
+do 93122 at 34.9,74.8
+tip The hideaway is the outcast camp west of the temple; Rokren is held in a tent there.
+accept 93125
+do 93125 at 34.1,77.9 icon text "Escort Rokren out of the Outcast Hideaway"
+tip The outcasts attack on the way out; keep them off Rokren.
+
 # The wilds north of the temple -------------------------------------------------------------------------
 
 do 96060 bg at 46.2,53.4 icon use "Finish off 8 beasts of Shen'dralas with the Phantasmal Blade"
@@ -210,5 +237,14 @@ accept 99258
 do 99258 at 57.2,77.1 "Throw the Depleted Crystal Heart into an Unstable Mana Rift and defeat what comes out"
 tip The protector from the rift is elite.
 turnin 99258
+
+# Nerlokh, Khan Jehn and Uthek ------------------------------------------------------------------------
+
+turnin 93122 93125
+accept 93128
+map Desolace
+do 93128 at 66.0,80.4 mobs 5601 "Kill Khan Jehn in the Magram Village"
+tip Khan Jehn is in the middle of the Magram Village; the Magram are hostile to you, so clear a path to him.
+turnin 93128
 hearth npc 11106
 note "Fly on toward Tanaris: Gadgetzan if you have its flight path, else Thunder Bluff or Orgrimmar first" npc 6726
