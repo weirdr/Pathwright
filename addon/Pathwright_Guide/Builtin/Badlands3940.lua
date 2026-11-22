@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795388933,
+    created = 1795389330,
     next = "Riverglades (40-41)",
-    carry = { 243, 669, 687, 1106, 1136, 1240, 1270, 1276 },
+    carry = { 243, 669, 687, 1106, 1136, 1240, 1270, 1276, 95141 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

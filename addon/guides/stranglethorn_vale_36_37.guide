@@ -1,0 +1,149 @@
+# Stranglethorn Vale (36-37): the first Horde quests of Grom'gol, Booty Bay and Nesingwary's
+# Expedition, and the Ruins of Zul'Kunda, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/stranglethorn_vale_36_37.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Stranglethorn Vale, area 33).
+# The quest list is section 16 of addon/guides/horde_1_40_allocation.md. The later Stranglethorn
+# quests (the next Mastery quests, Kin'weelay's, the ogres of Grom'gol...) are in Stranglethorn Vale
+# & Swamp of Sorrows (41-43) and the guides after it.
+# Carried in (skipped by those who lack them): Hemet Nesingwary (5762, from Kravel Koalbeard at the
+#   Shimmering Flats, Thousand Needles), Hunting in Stranglethorn (5763, from Roon Wildmane in
+#   Desolace), and for warriors Cyclonian (1712, from Bath'rah in the Alterac Mountains): its 30
+#   Bloodscalp Tusks drop only here; Alterac Mountains & Arathi Highlands (38-39) hands it in.
+# Left to later guides: Report to Rog'mar (95141), handed in by Riverglades (40-41), and Cyclonian
+#   (1712), handed in by Alterac Mountains & Arathi Highlands (38-39).
+#
+# The route: the zeppelin to Grom'gol; the road south to Booty Bay for its quests, the hearthstone
+# and the flight path; a flight back and the ride north to Nesingwary's camp; a loop around the camp
+# (young tigers, young panthers, crocolisks); a loop west (tigers, panthers, the Ruins of Zul'Kunda,
+# the raptors and basilisks south of them); a loop east and south (the Venture Co. geologists, the
+# Lashtail raptors, the elder tigers); the hearthstone to Booty Bay, a flight to Grom'gol and the
+# zeppelin to Orgrimmar, where the next guide starts.
+
+guide Stranglethorn Vale (36-37)
+faction horde
+levels 36 37
+carry 1712 5762 5763
+leave 1712 95141
+next Dustwallow Marsh (37-38)
+
+map Stranglethorn Vale
+
+# Grom'gol Base Camp --------------------------------------------------------------------------------
+
+goto "Ride the zeppelin from the tower outside Orgrimmar to Grom'gol Base Camp" at 31.5,29.5 r 30
+fpath 1387
+accept 568
+tip Commander Aggro'gosh paces around the middle of the camp.
+accept 95141
+tip Krom'rosh is in the Riverglades, far to the north-east: keep this one, the Riverglades guide hands it in.
+accept 581
+
+# Booty Bay -------------------------------------------------------------------------------------------
+
+goto "Follow the road south through the jungle to Booty Bay, at the southern tip of Stranglethorn" at 28.1,74.4 r 25
+tip Keep to the road: the trolls, ogres and raptors away from it are higher level than you.
+accept 201
+tip Krazek and Kebok stand on the top floor of the inn; Crank Fizzlebub is on its ground floor.
+accept 189 213
+accept 605
+bind 6807
+accept 575
+tip Drizzlik has a shop on the upper walkway on the far side of the bay.
+fpath 2858
+tip Gringer keeps his bats on the balcony at the top of the inn.
+fly "Grom'gol, Stranglethorn" npc 2858
+
+# Nesingwary's camp -----------------------------------------------------------------------------------
+
+do 201 at 35.7,10.6 icon text "Ride north on the road from Grom'gol to Nesingwary's camp, by the river"
+turnin 5762
+turnin 5763
+accept 583
+turnin 583
+accept 194
+accept 185
+accept 190
+
+# Around the camp: young tigers, young panthers, crocolisks -------------------------------------------
+
+do 575 bg
+tip The River Crocolisks swim in the river beside the camp and further east; not every one has a good skin.
+do 185
+tip The Young Stranglethorn Tigers prowl all around the camp.
+do 190
+tip The Young Panthers stalk the jungle east of the camp.
+do 575
+turnin 185
+accept 186
+turnin 190
+accept 191
+
+# West: tigers, panthers, the Ruins of Zul'Kunda, raptors and basilisks ------------------------------
+
+do 186 bg at 29.8,10.4
+do 191 bg
+tip Tigers and panthers share the hills between the camp and the ruins.
+accept 97328
+tip The Thoroughly Scavenged Supplies are the wreckage of a crashed zeppelin on the hill west of the camp.
+do 97328 bg
+tip The Stolen Shipments are crates lying around the Ruins of Zul'Kunda.
+do 189 bg
+do 581 bg
+do 1712.2 bg
+tip Warriors on Cyclonian: Bath'rah wants 30 tusks and Nimboya 9, so keep going until you have 39.
+accept 97329
+tip Zimmix Sputterspark, a goblin, is locked in a cage in the south of the ruins.
+do 97329
+tip The key is a rare drop from any of the Bloodscalp trolls in the ruins: it will come while you collect the rest.
+do 97328
+do 189
+do 581
+do 1712.2
+turnin 97329
+accept 97331
+do 97331 at 26.9,11.4 icon text "Escort Zimmix Sputterspark out of the ruins to the east"
+tip Zimmix makes for the east edge of the ruins: stay close and pull the trolls off him.
+do 605 bg
+do 194
+tip The Stranglethorn Raptors hunt in the jungle south of the ruins.
+do 605
+tip The Crystal Spine Basilisks bask on the rocks south of the ruins, beside the raptors.
+do 186 at 29.8,10.4
+do 191
+turnin 186
+accept 187
+turnin 191
+turnin 194
+accept 195
+
+# East and south: the geologists, the Lashtail raptors, the elder tigers ------------------------------
+
+do 213
+tip The Venture Co. Geologists work around the goblin camp on the shore of Lake Nazferiti, east of Nesingwary's.
+do 187 bg
+do 195 at 37.9,19.8
+tip The Lashtail Raptors hunt in the jungle south-west of Lake Nazferiti; more roam south toward Grom'gol.
+do 568 at 37.9,19.8
+do 187
+tip The Elder Stranglethorn Tigers keep to the hills south of Nesingwary's camp.
+turnin 187
+turnin 195
+
+# Booty Bay and Grom'gol ------------------------------------------------------------------------------
+
+hearth npc 6807
+turnin 201
+turnin 189 213
+turnin 605
+turnin 575
+turnin 97328
+tip Wharfmaster Lozgil stands on the docks at the north of the bay.
+turnin 97331
+fly "Grom'gol, Stranglethorn" npc 2858
+turnin 568
+turnin 581
+note "Take the zeppelin from the Grom'gol tower to Orgrimmar: the next guide starts there" at 31.5,29.5
