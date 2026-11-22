@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795385683,
+    created = 1795389379,
     next = "Swamp of Sorrows (47-47)",
     carry = { 1118, 2741, 3520, 95295, 95296 },
     variants = {
@@ -154,8 +154,6 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in The Singing Crystals to Kin'weelay", q = 589, n = "Kin'weelay", e = "npc", id = 2519, m = 1434, x = 32.27, y = 27.71, lvl = 46 },
         { k = "accept", t = "Accept The Mind's Eye from Kin'weelay", q = 591, n = "Kin'weelay", e = "npc", id = 2519, m = 1434, x = 32.27, y = 27.71, min = 30, pa = { 589 }, lvl = 46 },
         { k = "objective", t = "Elder Crocolisk Skin", q = 628, o = 1, ic = "get", n = "Elder Crocolisk Skin", e = "item", id = 4105, c = 1, m = 1434, x = 29.45, y = 23.84, mobs = { "Elder Saltwater Crocolisk" }, mi = { 2635 }, nt = { { l = 2, t = "The Elder Saltwater Crocolisks are level 38 elites on the coast north of Grom'gol." } }, lvl = 46 },
-        { k = "accept", t = "Accept Welcome to the Jungle from Barnil Stonepot", q = 583, n = "Barnil Stonepot", e = "npc", id = 716, m = 1434, x = 35.55, y = 10.37, min = 28, lvl = 46 },
-        { k = "turnin", t = "Turn in Welcome to the Jungle to Hemet Nesingwary", q = 583, n = "Hemet Nesingwary", e = "npc", id = 715, m = 1434, x = 35.62, y = 10.79, lvl = 46 },
         { k = "accept", t = "Accept The Green Hills of Stranglethorn from Barnil Stonepot", q = 338, n = "Barnil Stonepot", e = "npc", id = 716, m = 1434, x = 35.55, y = 10.37, min = 30, pa = { 583 }, lvl = 46 },
         { k = "accept", t = "Accept Chapter I from Barnil Stonepot", q = 339, n = "Barnil Stonepot", e = "npc", id = 716, m = 1434, x = 35.55, y = 10.37, min = 30, pa = { 583 }, lvl = 46 },
         { k = "accept", t = "Accept Chapter II from Barnil Stonepot", q = 340, n = "Barnil Stonepot", e = "npc", id = 716, m = 1434, x = 35.55, y = 10.37, min = 30, pa = { 583 }, lvl = 46 },
