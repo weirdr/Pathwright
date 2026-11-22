@@ -1,0 +1,174 @@
+# Thousand Needles (33-34): the Shimmering Flats (the Mirage Raceway and the silithid hive), the
+# errands they send you on to Ratchet, the Crossroads, Orgrimmar and Booty Bay, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/thousand_needles_33_34.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Thousand Needles, area 400).
+# The quest list is section 14 of addon/guides/horde_1_40_allocation.md. The Freewind Post and
+# Grimtotem quests are in Thousand Needles (28-30).
+# Carried in (skipped by those who lack them): Parts for Kravel (1112, from Wharfmaster Dizzywig in
+#   Ratchet, after Wharfmaster Dizzywig in Thousand Needles (28-30)), Final Passage (1394, from
+#   Parqual Fintallas in Undercity, after his Test of Lore) and, for shamans, Call of Water (96, from
+#   the Minor Manifestation of Water in Silverpine Forest).
+# Left to later guides: Family Tree (5361) for Desolace (34-36), Alliance Relations (1432) for
+#   Desolace (34-36), Hemet Nesingwary (5762) for Stranglethorn Vale (36-37), Martek the Exiled
+#   (1106) for Badlands (39-40), Frostmaw (1136) for Badlands (39-40).
+# Left out: the Gnomeregan quests, A Fine Mess (2904), Rig Wars (2841) and Grime-Encrusted Ring
+#   (2945): their objectives are inside the dungeon.
+#
+# The route: the zeppelin to Orgrimmar and a flight to Freewind Post; the Shimmering Flats, one loop
+# around them from the Mirage Raceway; a flight to Ratchet and the Crossroads, then Orgrimmar; the
+# zeppelin to Grom'gol for the murlocs of the Vile Reef and the road to Booty Bay; the hearthstone
+# to Freewind Post for the last hand-in at the raceway; a flight to Thunder Bluff, where the next
+# guide starts.
+
+guide Thousand Needles (33-34)
+faction horde
+levels 33 34
+carry 96 1112 1394
+leave 1106 1136 1432 5361 5762
+next Desolace (34-36)
+
+# Orgrimmar -------------------------------------------------------------------------------------------
+
+map Durotar
+note "From the Eastern Kingdoms, take the zeppelin to the tower outside Orgrimmar, then walk into the city" at 50.8,13.4
+map Orgrimmar
+accept 1146
+tip Belgrom Rockmaul stands in the Valley of Honor; he has this one for those who brought him Korran's report on the silithid.
+accept 1531
+tip Searn Firewarder, in the Valley of Wisdom, sends shamans on to Thousand Needles.
+fly "Freewind Post, Thousand Needles" npc 3310
+tip No flight path to Freewind Post yet? Fly to Camp Taurajo, ride south through the Great Lift and follow the road to the mesa of Freewind Post.
+
+# Freewind Post ---------------------------------------------------------------------------------------
+
+map Thousand Needles
+fpath 4317
+bind 11116
+tip Set your hearthstone here: it brings you back from Booty Bay at the end.
+accept 5361
+tip Cliffwatcher Longhorn wanders around the post. His quest is for Desolace: keep it, the next guide hands it in.
+turnin 1531
+tip Prate Cloudseer and Dorn Plainstalker stand together north-east of Freewind Post.
+turnin 1394
+
+# The Shimmering Flats: the Mirage Raceway -------------------------------------------------------------
+
+turnin 1146
+accept 1147
+tip Moktar Krin camps on the western edge of the Shimmering Flats, on the way from Freewind Post to the raceway.
+turnin 1112
+accept 1110 1114 5762
+tip Hemet Nesingwary is in Stranglethorn Vale: keep that one, a later guide hands it in.
+turnin 1114
+accept 1104
+accept 1115
+tip The Rumormonger is for Booty Bay: you go there later in this guide.
+accept 1105
+accept 1176
+accept 1175
+tip Trackmaster Zherin waits at the east end of the raceway's track.
+
+# One loop around the flats ---------------------------------------------------------------------------
+
+do 1110 bg
+tip The Rocket Car Rubble lies all over the flats: pick it up whenever you pass some.
+do 1176 bg
+tip Any vulture of the flats can carry the bones; most circle over the south.
+do 1175.2 bg
+do 1175.1 bg
+do 1104 bg
+do 1105
+tip Ride north from the raceway: the Sparkleshell tortoises crowd the north-east of the flats, and more live on the west side.
+do 1175.1
+tip The Saltstone Basilisks bask across the north and west of the flats; Crystalhides are among them.
+do 1104
+tip Any scorpid of the west side drops the venom.
+do 1147 bg
+accept 1148 at 67.9,86.1 icon get "Kill silithid until one drops a Cracked Silithid Carapace, then open it: it starts a quest"
+do 1148 bg
+do 1147
+tip The silithid hive is in the south-west of the flats: the Searchers outside, the Drones around the mouth, the Invaders deep inside. They call each other for help: pull them one at a time.
+do 1148
+do 1175.2
+do 1175.3
+tip The Saltstone Gazers and more Crystalhides are at the southern end of the flats, east of the hive.
+do 1176
+do 1110
+
+# Back at the raceway --------------------------------------------------------------------------------
+
+turnin 1110
+turnin 1104
+turnin 1105
+accept 1107
+tip Wizzle wants the fins of the Saltscale murlocs of the Vile Reef, in Stranglethorn Vale: you go there later in this guide.
+accept 1106
+tip Martek is in the Badlands: keep this one, a later guide hands it in.
+turnin 1176
+accept 1178
+turnin 1175
+turnin 1147
+tip Moktar Krin is on your way back west.
+fly "Ratchet, The Barrens" npc 4317
+tip Ride back west to Freewind Post for the flight.
+
+# Ratchet, the Crossroads and Orgrimmar ----------------------------------------------------------------
+
+map The Barrens
+turnin 1178
+accept 1180
+tip Gazlowe is upstairs in the big house in the middle of Ratchet.
+turnin 96
+tip Islen Waterseer stands on the shore south-east of Ratchet.
+fly "Crossroads, The Barrens" npc 16227
+turnin 1148
+accept 1184
+fly "Orgrimmar, Durotar" npc 3615
+map Orgrimmar
+turnin 1184
+accept 2842
+tip Sovik is in the building next to Nogg, in the Valley of Honor; ask him what else he has to say.
+accept 1432
+tip Keldran walks around in the Valley of Spirits, on the far west side of the city. His quest is for Desolace: keep it.
+note "Buy an Elixir of Water Breathing or two at the auction house, for the Vile Reef (optional)" npc 8673
+tip The Saltscale murlocs live under the sea: without a way to breathe you must keep coming up for air.
+train 3353 3352 3401 6014 3344 5882 3326
+map Durotar
+note "Take the zeppelin to Grom'gol Base Camp in Stranglethorn Vale" npc 12136
+tip The zeppelin tower stands in Durotar, a short ride from the gate of Orgrimmar.
+
+# Stranglethorn Vale: the Vile Reef and Booty Bay ------------------------------------------------------
+
+map Stranglethorn Vale
+fpath 1387
+do 1107
+tip The Vile Reef lies under the sea just west of Grom'gol. The Saltscale murlocs are elite: fight them together, and watch your breath.
+goto "Follow the road south through the jungle to Booty Bay" at 28.1,74.4 r 25
+tip Keep to the road: the trolls and raptors away from it are higher level than you.
+fpath 2858
+tip Gringer keeps his bats on the balcony at the top of the inn.
+turnin 1180
+tip Wharfmaster Lozgil stands on the docks at the north of the bay.
+turnin 1115
+tip Krazek is on the top floor of the inn.
+turnin 2842
+accept 2843
+do 2843 at 27.6,77.4 icon text "Wait by Scooty while he calibrates the Goblin Transponder"
+turnin 2843
+tip The transponder takes you to Gnomeregan from Scooty's pad; you don't need it for this guide.
+hearth npc 11116
+
+# Freewind Post, the raceway and Thunder Bluff --------------------------------------------------------
+
+map Thousand Needles
+turnin 1107
+tip Ride east from Freewind Post back to the raceway on the Shimmering Flats.
+fly "Thunder Bluff, Mulgore" npc 4317
+tip Ride back to Freewind Post for the flight.
+map Thunder Bluff
+accept 1136
+tip Melor Stonehoof is on Hunter Rise. Frostmaw lives in the Alterac Mountains: keep it, later guides kill him and hand it in.
