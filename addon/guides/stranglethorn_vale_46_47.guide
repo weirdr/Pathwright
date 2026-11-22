@@ -1,0 +1,279 @@
+# Stranglethorn Vale (46-47): the Horde quests of Grom'gol and Booty Bay, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/stranglethorn_vale_46_47.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Stranglethorn Vale, area 33).
+# The guide's quest list is section 9 of addon/guides/horde_40_60_allocation.md; the earlier
+# Stranglethorn quests are in Stranglethorn Vale & Swamp of Sorrows (41-43), the later ones (608,
+# Whiskey Slim, Cortello, the Monogrammed Sash...) in Stranglethorn Vale & Swamp of Sorrows (50-50).
+# Carried in: I Know a Guy (95295, Friz Frazzlespark at Powderfuse Port, Riverglades (44-45)) and
+# Back to Booty Bay (1118, Kravel Koalbeard at the Mirage Raceway, Tanaris (43-43)).
+# Added: Welcome to the Jungle (583), the prerequisite of the Green Hills chapters, and Unbagwa's
+# Stranglethorn Fever (349): ten Gorilla Fangs make him summon Mokk the Savage for Fin Fizracket's
+# Stranglethorn Fever (348).
+# Left out: Terror of the Desert Skies (78823): its Primitive Drawing drops only from the
+# Dustbelcher ogres of the Badlands, which no guide of the series visits.
+# Data filled in here: the Bloodsail Trunk of Get the Goods (95322) has no place in the data (on the
+# hill east of the Booty Bay tunnel); the Torn Mystical Scroll (95385) drops from Bloodsail Warlocks
+# (outof.games, the warlock's drops), the data knows no item for it.
+#
+# The route: Orgrimmar (the auction house for the Green Hills pages, level 46 training) and the
+# zeppelin to Grom'gol; the Skullsplitter trolls; a flight to Booty Bay and three loops from it (the
+# coast and the gorillas, the pirates of the Wild Shore, the Zanzil camps and the basilisks); back to
+# Grom'gol and one long loop north (the crocolisks, Nesingwary's camp, the Venture Co. camp,
+# Bhag'thera, the Mosh'Ogg mound); Booty Bay again and the south coast; Grom'gol; Powderfuse Port in
+# the Riverglades for Ruzzgot's shipment, and a flight to Stonard for the next guide.
+
+guide Stranglethorn Vale (46-47)
+faction horde
+levels 46 47
+carry 1118 2741 3520 95295 95296
+leave 580 2741 3520 95296
+next Swamp of Sorrows (47-47)
+
+# Orgrimmar: the auction house and training -----------------------------------------------------------
+
+map Orgrimmar
+note "Come to Orgrimmar: the zeppelin to Stranglethorn Vale leaves from the tower outside its gates" at 55.9,62.7
+ah 339.1 npc 8673
+tip Barnil Stonepot at Nesingwary's camp collects the 15 pages of The Green Hills of Stranglethorn. They drop rarely, from all over the jungle; the auction house sells them for a few silver each.
+ah 339.2 npc 8673
+ah 339.3 npc 8673
+ah 339.4 npc 8673
+ah 340.1 npc 8673
+ah 340.2 npc 8673
+ah 340.3 npc 8673
+ah 340.4 npc 8673
+ah 341.1 npc 8673
+ah 341.2 npc 8673
+ah 341.3 npc 8673
+ah 341.4 npc 8673
+ah 342.1 npc 8673
+ah 342.2 npc 8673
+ah 342.3 npc 8673
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity, druids in Thunder Bluff.
+
+map Durotar
+note "Take the zeppelin to Grom'gol Base Camp in Stranglethorn Vale" npc 12136
+tip The zeppelin tower stands in Durotar, a short ride from the gate of Orgrimmar; Snurk Bucksquick at the top knows which zeppelin goes to Grom'gol.
+
+# Grom'gol Base Camp ------------------------------------------------------------------------------------
+
+map Stranglethorn Vale
+fpath 1387
+bind 5814
+accept 586
+tip The Bubbling Cauldron stands next to Kin'weelay.
+accept 571
+
+# East: the Skullsplitter trolls ------------------------------------------------------------------------
+
+do 586.1 bg
+do 586.2 bg
+do 586.3 bg
+do 586.4
+tip Ana'thek the Cruel walks through the camp with company: clear the trolls around him before you pull him.
+do 586.1
+do 586.2
+do 586.3
+
+# Grom'gol ------------------------------------------------------------------------------------------------
+
+goto "Ride back west to Grom'gol Base Camp" at 32.3,28.5 r 30
+turnin 586
+accept 588
+turnin 588
+accept 589
+tip Keep the shards for later: the basilisks are on the way back from the Zanzil camps.
+
+# Booty Bay ------------------------------------------------------------------------------------------------
+
+fly "Booty Bay, Stranglethorn" npc 1387
+fpath 2858
+accept 580
+tip Whiskey Slim's Lost Grog: its bottles are on the Hinterlands beaches (a later guide), and it is handed in back here in the Stranglethorn Vale & Swamp of Sorrows (50-50) guide.
+turnin 95295
+accept 95322
+turnin 1118
+tip Bring Kravel's Scheme with you.
+accept 621
+accept 628
+accept 595
+accept 606
+accept 617
+tip Privateer Bloads walks around the docks.
+accept 348
+accept 8551
+
+# The hill, the cove and the naga north of Booty Bay ----------------------------------------------------------
+
+do 95322 at 29.9,71.0 icon use "Open the Bloodsail Trunk on the hill just outside Booty Bay"
+tip Pirates jump you when you open it.
+turnin 595
+tip The letter lies by the pirate camp in the cove north of Booty Bay.
+accept 597
+do 617
+tip The naga explorers hunt along the beach north of the cove.
+
+# The gorillas and Mokk the Savage, east of the cove ----------------------------------------------------------
+
+accept 349
+tip Witch Doctor Unbagwa hides in a small cave just north-east of the gorillas.
+do 606 bg
+do 349 bg mobs 1557 1558
+do 571
+tip The sinew is a rare drop: keep killing the Elder Mistvale Gorillas until one has it.
+do 606
+do 349 mobs 1557 1558
+turnin 349
+do 348
+tip Handing Unbagwa the fangs starts his summoning: angry gorillas come first, then Mokk the Savage.
+
+# Gorlash, on the coast east of Booty Bay ---------------------------------------------------------------------
+
+do 8551
+tip Gorlash is a level 47 elite sea giant who walks the shore; fight him together.
+
+# Booty Bay ----------------------------------------------------------------------------------------------------
+
+goto "Go back to Booty Bay" at 27.4,74.6 r 30
+turnin 95322
+accept 95325
+turnin 597
+accept 599
+turnin 599
+accept 604
+tip Fleet Master Seahorn stands on the balcony upstairs.
+accept 587
+tip Deeg is upstairs in the inn.
+accept 576
+turnin 606
+accept 607
+turnin 607
+accept 609
+turnin 348
+turnin 8551
+turnin 617
+
+# The Wild Shore: the Bloodsail pirates south of Booty Bay ---------------------------------------------------
+
+do 604.1 bg
+do 587 bg
+do 576 bg
+accept 95385 at 29.4,81.3 "Loot a Torn Mystical Scroll from a Bloodsail Warlock and read it"
+tip The warlocks fight in the pirate camps on the Wild Shore.
+do 604.2
+do 604.3
+tip The charts and the orders lie in the pirate camp on the Wild Shore.
+do 604.1
+do 587
+do 576
+
+# Booty Bay ----------------------------------------------------------------------------------------------------
+
+goto "Go back to Booty Bay" at 27.4,74.6 r 30
+turnin 604
+tip Leave the next Bloodsail quest for now: a later guide does it.
+turnin 587
+turnin 576
+turnin 95385
+
+# North-east: the Zanzil camps and the basilisks ---------------------------------------------------------------
+
+do 621 bg
+do 609.1
+do 609.2
+tip Maury and Jon-Jon stand with the Zanzil trolls at the Ruins of Jubuwal.
+do 609.3
+tip Chucky "Ten Thumbs" is at the Ruins of Aboraz, the Zanzil camp to the south-east.
+do 621
+tip Zanzil the Outcast calls up help: pull his trolls away from him.
+do 589
+tip The Ironjaw Basilisks live in and around the cave north-east of the Ruins of Aboraz.
+
+# Booty Bay ----------------------------------------------------------------------------------------------------
+
+goto "Go back to Booty Bay" at 27.4,74.6 r 30
+turnin 609
+accept 613
+turnin 621
+
+# Grom'gol -----------------------------------------------------------------------------------------------------
+
+fly "Grom'gol, Stranglethorn" npc 2858
+turnin 571
+accept 573
+turnin 589
+accept 591
+
+# North: the crocolisks, Nesingwary's camp, the Venture Co., Bhag'thera and the Mosh'Ogg ogres ----------------
+
+do 628
+tip The Elder Saltwater Crocolisks are level 38 elites on the coast north of Grom'gol.
+accept 583
+turnin 583
+accept 338 339 340 341 342
+accept 193
+tip Barnil Stonepot, Hemet Nesingwary and Sir S. J. Erlgadin stand together in the hunters' camp.
+do 339 340 341 342 bg
+tip Every page you loot or buy counts; you hand in the chapters on your way back.
+turnin 95325
+tip The ledger is upstairs in the Venture Co. building by the lake.
+accept 95326
+do 95326
+tip The agent waits inside the building.
+do 193
+tip Bhag'thera, a level 40 elite panther, prowls the hills between the lake and the Mosh'Ogg mound.
+do 613
+tip Every Mosh'Ogg ogre can drop the key; the lords and the butchers most often.
+do 591
+tip Mai'Zoth, a level 47 elite ogre, stands on top of the Mosh'Ogg mound.
+
+# Nesingwary's camp ----------------------------------------------------------------------------------------------
+
+goto "Ride back west to Nesingwary's camp" at 35.6,10.6 r 20
+turnin 193
+turnin 339 340 341 342
+do 338 at 35.66,10.53 icon get
+tip Barnil binds each chapter for you when you hand in its pages.
+turnin 338
+
+# Grom'gol -------------------------------------------------------------------------------------------------------
+
+goto "Ride south to Grom'gol Base Camp" at 32.3,28.5 r 30
+turnin 591
+accept 592
+
+# Booty Bay and the south coast ---------------------------------------------------------------------------------
+
+fly "Booty Bay, Stranglethorn" npc 1387
+turnin 613
+turnin 628
+turnin 95326
+accept 95327
+do 573.1 bg
+do 573.2
+tip The Holy Spring is a short way inland, east of the naga beach.
+do 573.1
+do 592 icon use "Use the Soul Gem on Yenniku once you have beaten him down"
+tip Yenniku is held by the Zanzil trolls at the Ruins of Aboraz.
+
+# Grom'gol -------------------------------------------------------------------------------------------------------
+
+hearth npc 5814
+tip If your hearthstone is not ready, ride north to Grom'gol.
+turnin 573
+turnin 592
+
+# Powderfuse Port, in the Riverglades -----------------------------------------------------------------------------
+
+fly "Rog'mar, Riverglades" npc 1387
+map Riverglades
+goto "Ride east to Powderfuse Port on the coast" at 76.9,52.6 r 20
+turnin 95327
+goto "Ride back west to Rog'mar" at 59.6,45.1 r 20
+fly "Stonard, Swamp of Sorrows" npc 255993
+tip The next guide starts in Stonard.

@@ -1,0 +1,2345 @@
+# Horde guides 40-60: which guide takes each quest
+
+Built from Zygor's Horde guides (where Zygor hands a quest in) and the game data (every Horde quest
+of the guides' zones Zygor skips, given to the visit whose levels fit). Each quest belongs to one
+guide: it is taken and handed in there.
+
+## 1. Riverglades (40-41) — 50 quests
+
+- 93786 A Message in Blood (level 36)
+- 93787 Food for the Taking (level 36)
+- 93976 The Goblin Trader (level 36); Zygor takes it in guide 1 and never hands it in
+- 94480 A Gift From Our Enemies (level 36)
+- 95062 Frazzlespark's Crate (level 36); Zygor takes it in guide 1 and never hands it in
+- 93788 Borrowed Blades (level 38)
+- 94481 A Serving of Strength (level 38)
+- 94532 Gnoll Infestation (level 38)
+- 94535 Bristle Hills Bandits (level 38)
+- 95141 Report to Rog'mar (level 38); Zygor hands it in, taken before Riverglades (40-41): carry
+- 95143 Finding Tan'jani (level 38); Zygor hands it in, taken before Riverglades (40-41): carry
+- 95951 Fetch 'n' Fletch (level 38)
+- 96063 Gaseous Gold (level 38)
+- 96103 A Feast for Buzzards (level 38)
+- 94483 Show Them How It's Done (level 39)
+- 95955 Stick 'Em (level 39)
+- 96104 Song of the Strider (level 39)
+- 94533 Snargl's Snout (level 40) **(added)**
+- 94727 Digging for Answers (level 40)
+- 94961 Biting the Hand (level 40)
+- 94963 Biting the Hand (level 40)
+- 95417 The Purple Ones (level 40)
+- 95418 Spread the Word (level 40) **(added)**
+- 95420 Land of Giants (level 40) **(added)**
+- 95601 The Purple Ones (level 40)
+- 95602 Sickening Lights (level 40)
+- 96067 Rock 'em and Sock 'em (level 40)
+- 96107 Feathers for Fletching (level 40)
+- 96108 Poison Tips (level 40)
+- 96109 A Hunter's Quiver (level 40)
+- 97884 Armory of Sunnyglade (level 40) **(added)**
+- 94668 Bloodmaster's Ring (level 41) **(added)**
+- 94669 Pay to Play (level 41) **(added)**
+- 94670 Bloodmaster's Ring (level 41) **(added)**
+- 94672 Encroaching Twilight (level 41)
+- 94680 Twilight Missives (level 41)
+- 94974 Key Ingredients (level 41) **(added)**
+- 95183 Step One: Rock (level 41) **(added)**
+- 95424 Might Makes Right (level 41) **(added)**
+- 95427 Twilight No More! (level 41) **(added)**
+- 95428 Clugfist's Decree (level 41) **(added)**
+- 96026 Step Two: More Rock (level 41) **(added)**
+- 96105 King of the Wild Plains (level 41)
+- 94739 Bloodmaster's Ring (level 42) **(added)**; level 42 vs guide 40-41
+- 94962 Bloodmaster's Ring (level 42) **(added)**; level 42 vs guide 40-41
+- 95120 WANTED: Old Rot-Chum (level 42) **(added)**; level 42 vs guide 40-41
+- 95425 Unworthy Champion (level 42) **(added)**; level 42 vs guide 40-41
+- 95792 Clear 'em Out (level 42)
+- 95934 Proof of Profit (level 42)
+- 95992 WANTED: Ghostmaw (level 42) **(added)**; level 42 vs guide 40-41
+
+## 2. Stranglethorn Vale & Swamp of Sorrows (41-43) — 50 quests
+
+- 1240 The Troll Witchdoctor (level 35); Zygor hands it in in guide 2 without taking it in these guides
+- 1389 Draenethyst Crystals (level 35)
+- 93429 Blood of My Blood (level 35); Zygor hands it in in guide 2 without taking it in these guides
+- 93430 Taking the Bait Back (level 35)
+- 577 Some Assembly Required (level 36)
+- 1116 Dream Dust in the Swamp (level 36)
+- 188 Tiger Mastery (level 37) **(added)**; level 37 vs guide 41-43
+- 569 The Defense of Grom'gol (level 37) **(added)**; level 37 vs guide 41-43
+- 582 Headhunting (level 37) **(added)**; level 37 vs guide 41-43
+- 596 Bloody Bone Necklaces (level 37) **(added)**; level 37 vs guide 41-43
+- 629 The Vile Reef (level 37) **(added)**; level 37 vs guide 41-43
+- 638 Trollbane (level 37) **(added)**; level 37 vs guide 41-43
+- 1181 Goblin Sponsorship (level 37) **(added)**; level 37 vs guide 41-43
+- 1182 Goblin Sponsorship (level 37) **(added)**; level 37 vs guide 41-43
+- 1270 Stinky's Escape (level 37); Zygor hands it in in guide 2 without taking it in these guides
+- 95773 Enemies in the Water (level 37) **(added)**; level 37 vs guide 41-43
+- 192 Panther Mastery (level 38) **(added)**; level 38 vs guide 41-43
+- 570 Mok'thardin's Enchantment (level 38) **(added)**; level 38 vs guide 41-43
+- 1393 Galen's Escape (level 38)
+- 93464 The Visiting Mage (level 38); Zygor takes it in guide 2 and never hands it in
+- 95776 The Only Good Brinescale... (level 38) **(added)**; level 38 vs guide 41-43
+- 97047 The Cook in the Cage (level 38) **(added)**; level 38 vs guide 41-43
+- 97048 Returning to Port (level 38) **(added)**; level 38 vs guide 41-43
+- 97453 Weed Whacked (level 38) **(added)**; level 38 vs guide 41-43
+- 1392 Noboru the Cudgel (level 39)
+- 585 Speaking with Nezzliok (level 40)
+- 669 Sunken Treasure (level 40); Zygor hands it in in guide 2 without taking it in these guides
+- 670 Sunken Treasure (level 40) **(added)**; level 40 vs guide 41-43
+- 698 Lack of Surplus (level 40)
+- 1420 Report to Helgrum (level 40); Zygor hands it in in guide 2 without taking it in these guides
+- 95384 Partial Mystical Notes (level 40)
+- 95748 The Gurubashi Legends of Old (level 40) **(added)**; level 40 vs guide 41-43
+- 95770 Locating the Lost City (level 40) **(added)**; level 40 vs guide 41-43
+- 95775 The Drowned City (level 40) **(added)**; level 40 vs guide 41-43
+- 95789 Shady Saltseers (level 40) **(added)**; level 40 vs guide 41-43
+- 95791 The Saltseer Captain (level 40) **(added)**; level 40 vs guide 41-43
+- 96078 A Tale Spun Around the Fire (level 40) **(added)**; level 40 vs guide 41-43
+- 97194 Learning to Ride (level 40); Zygor takes it in guide 2 and never hands it in
+- 196 Raptor Mastery (level 41); Zygor hands it in in guide 2 without taking it in these guides
+- 572 Mok'thardin's Enchantment (level 41)
+- 584 Bloodscalp Clan Heads (level 41)
+- 600 Venture Company Mining (level 41)
+- 97332 Twice Misplaced Trust (level 41) **(added)**
+- 209 Skullsplitter Tusks (level 42)
+- 598 Split Bone Necklace (level 42)
+- 1372 Nothing But The Truth (level 42)
+- 2932 Grim Message (level 42) **(added)**
+- 1424 Pool of Tears (level 43)
+- 1430 Fresh Meat (level 44) **(added)**; level 44 vs guide 41-43
+- 97386 The Offense of Grom'gol (level 44) **(added)**; level 44 vs guide 41-43
+
+## 3. Desolace & Shen'dralas (43-43) — 55 quests
+
+- 92817 Leather Technique (level 35)
+- 1373 Ongeku (level 37); Zygor hands it in in guide 3 without taking it in these guides
+- 5581 Portals of the Legion (level 38)
+- 5501 Bone Collector (level 39) **(added)**; level 39 vs guide 43-43
+- 6132 Get Me Out of Here! (level 39) **(added)**; level 39 vs guide 43-43
+- 6134 Ghost-o-plasm Round Up (level 39)
+- 1488 The Corrupter (level 40)
+- 79229 Highway Robbery (level 40) **(added)**; level 40 vs guide 43-43
+- 79235 On the Lam (level 40) **(added)**; level 40 vs guide 43-43
+- 79236 Cherry for Your Thoughts? (level 40) **(added)**; level 40 vs guide 41-43; moved after its prerequisite
+- 79242 No Honor Among Thieves (level 40) **(added)**; level 40 vs guide 41-43; moved after its prerequisite
+- 92743 A Conqueror's Crown (level 40) **(added)**; level 40 vs guide 43-43
+- 92841 Valley of Bones (level 40) **(added)**; level 40 vs guide 43-43
+- 92846 Outcast Necromancers (level 40) **(added)**; level 40 vs guide 43-43
+- 92894 Bone Raising (level 40) **(added)**; level 40 vs guide 43-43
+- 93037 Outing Outcasts (level 40) **(added)**; level 40 vs guide 43-43
+- 93225 Carved Centaur Totems (level 40) **(added)**; level 40 vs guide 43-43
+- 93465 Notes on Draenethyst (level 40) **(added)**; level 40 vs guide 43-43
+- 93678 Abridged Notes on Draenethyst (level 40) **(added)**; level 40 vs guide 43-43
+- 92873 Proof of Concept (level 41) **(added)**; level 41 vs guide 43-43
+- 96010 Fragments of the Pylons (level 41)
+- 1380 Khan Hratha (level 42) **(added)**; level 42 vs guide 43-43
+- 1381 Khan Hratha (level 42) **(added)**; level 42 vs guide 43-43
+- 92844 Mountain of Bones (level 42) **(added)**; level 42 vs guide 43-43
+- 92847 Corrupting Tears (level 42) **(added)**; level 42 vs guide 43-43
+- 92893 No Mercy for the Weak (level 42) **(added)**; level 42 vs guide 43-43
+- 93058 Saving Our Own (level 42) **(added)**; level 42 vs guide 43-43
+- 93062 Bone Burying (level 42) **(added)**; level 42 vs guide 43-43
+- 93128 Khan Jehn (level 42) **(added)**; level 42 vs guide 43-43
+- 93196 Khan Jehn (level 42) **(added)**; level 42 vs guide 43-43
+- 93450 Phantasmal Problems (level 42) **(added)**; level 42 vs guide 43-43
+- 93546 Spectral Iron Ore (level 42) **(added)**; level 42 vs guide 43-43
+- 96060 Tempered Expectations (level 42) **(added)**; level 42 vs guide 43-43
+- 96222 Khan Hratha (level 42) **(added)**; level 42 vs guide 43-43
+- 92914 Strange Pylons (level 43)
+- 93016 A Brief History Lesson (level 43)
+- 93066 Bristleback Retreat (level 43) **(added)**
+- 93072 Long-Term Solutions (level 43) **(added)**
+- 93122 Checking Things Out (level 43) **(added)**
+- 93125 Going Home (level 43) **(added)**
+- 93129 Threat of Starvation (level 43) **(added)**
+- 93188 Return to Orgrul (level 43) **(added)**
+- 93341 Forlorn Gardens (level 43) **(added)**
+- 93362 What They've Done to My Peonies (level 43) **(added)**
+- 93394 Meeting the Magister (level 43)
+- 93594 Word of the Woods (level 43) **(added)**
+- 96018 Powering the Pylons (level 43)
+- 99257 A Heart of Crystal (level 43)
+- 99258 Mana Mania (level 43) **(added)**
+- 93568 Partially Digested Collar (level 45) **(added)**; level 45 vs guide 43-43
+- 93601 Passing the Blame (level 45) **(added)**; level 45 vs guide 43-43
+- 93606 Not on Squealing Terms (level 45) **(added)**; level 45 vs guide 43-43
+- 93644 Tattered Journal (level 45)
+- 94872 Buying Friendship: Magram (level 45) **(added)**; level 45 vs guide 43-43
+- 94873 Buying Friendship: Gelkis (level 45) **(added)**; level 45 vs guide 43-43
+
+## 4. Tanaris (43-43) — 13 quests
+
+- 1117 Rumors for Kravel (level 36); Zygor takes it in guide 2, hands it in in guide 4
+- 1183 Goblin Sponsorship (level 37); Zygor takes it in guide 2, hands it in in guide 4
+- 1186 The Eighteenth Pilot (level 37)
+- 1137 News for Fizzle (level 38); Zygor hands it in in guide 4 without taking it in these guides
+- 1190 Keeping Pace (level 41)
+- 1194 Rizzle's Schematics (level 41)
+- 1690 Wastewander Justice (level 43)
+- 1707 Water Pouch Bounty (level 44)
+- 2864 Tran'rek (level 45); Zygor takes it in guide 2, hands it in in guide 4
+- 2872 Stoley's Debt (level 45); Zygor takes it in guide 2, hands it in in guide 4
+- 97534 Gritty Business (level 45)
+- 243 Into the Field (level 46); Zygor hands it in in guide 4 without taking it in these guides
+- 379 Slake That Thirst (level 46)
+
+## 5. Dustwallow Marsh (43-44) — 12 quests
+
+- 1261 Marg Speaks (level 40); Zygor takes it in guide 2, hands it in in guide 5
+- 1262 Report to Zor (level 40)
+- 7541 Service to the Horde (level 40); Zygor takes it in guide 5 and never hands it in
+- 1166 Overlord Mok'Morokk's Concern (level 43)
+- 1168 Army of the Black Dragon (level 43)
+- 1169 Identifying the Brood (level 43)
+- 1170 The Brood of Onyxia (level 43)
+- 1171 The Brood of Onyxia (level 43)
+- 98192 Skin Careful, Skin Sharp (level 43)
+- 98205 Whelps are the Worst! (level 44)
+- 98215 Dragon Scales, Post Burnt Tails (level 44)
+- 98231 Active Ingredient (level 44)
+
+## 6. Tanaris (44-44) — 3 quests
+
+- 2876 Ship Schedules (level 45) **(added)**; level 45 vs guide 44-44
+- 654 Tanaris Field Sampling (level 46)
+- 992 Gadgetzan Water Survey (level 46)
+
+## 7. Riverglades (44-45) — 38 quests
+
+- 94895 Lost Shipping Crate (level 38); Zygor takes it in guide 3, hands it in in guide 7
+- 95144 Overseas Delivery (level 38); Zygor takes it in guide 4, hands it in in guide 7
+- 95982 Not My Circus (level 38); Zygor takes it in guide 7 and never hands it in
+- 95121 A Taste of the Sea (level 40)
+- 95163 Drive Them Back (level 40)
+- 94733 Our Ogre Friend (level 41) **(added)**; moved after its prerequisite
+- 94734 A Boar's Delight (level 41) **(added)**; moved after its prerequisite
+- 94737 A Treat for a Friend (level 41) **(added)**; moved after its prerequisite
+- 95118 Saltwater Savages (level 41)
+- 95162 Paletusk Harvesting (level 41)
+- 95431 Rumblings of Discontent (level 41) **(added)**; moved after its prerequisite
+- 94556 Jom-jom's Escape (level 42)
+- 94975 A Token of Vengeance (level 42) **(added)**; level 42 vs guide 40-41; moved after its prerequisite
+- 95254 WANTED: Trapclaw (level 42)
+- 95260 Terrors From the Deep (level 42)
+- 95261 It Takes Guts (level 42)
+- 95267 The Monster Surfaces (level 42)
+- 95293 Smuggler's Special (level 42)
+- 95294 Smuggler's Bargain (level 42)
+- 94744 The Wayward Warrior (level 43) **(added)**; level 43 vs guide 44-45
+- 94964 Bloodmaster's Ring (level 43) **(added)**; level 43 vs guide 44-45
+- 95119 Unfriendly Competition (level 43); Zygor takes it in guide 7 and never hands it in
+- 95288 Smuggler's Paradise (level 43)
+- 95432 Rise Up! (level 43) **(added)**; level 43 vs guide 44-45
+- 95882 WANTED: Scoutmaster Vargas (level 43) **(added)**; level 43 vs guide 44-45
+- 94745 Carving a Path (level 44) **(added)**
+- 94748 Break Their Chains (level 44) **(added)**
+- 94965 Bloodmaster's Ring (level 44) **(added)**
+- 94972 Tome of Twilight (level 44) **(added)**
+- 95122 Unchecked Expansion (level 44)
+- 95123 A Blast Ye Scurvy Dogs! (level 44)
+- 95165 See Ya, Scallywags! (level 44)
+- 94968 Eye of Mugg (level 45) **(added)**
+- 95063 Bloodmaster's Ring (level 45) **(added)**
+- 95124 Admiral Lamora (level 45)
+- 95278 It Is Time, Brother... (level 45) **(added)**
+- 94768 Bring Me His Head (level 46) **(added)**; level 46 vs guide 44-45
+- 95433 Death to the Executioner (level 46) **(added)**; level 46 vs guide 44-45
+
+## 8. Feralas (45-46) — 26 quests
+
+- 95033 On the Other Side (level 41); Zygor takes it in guide 7, hands it in in guide 8
+- 2862 War on the Woodpaw (level 42)
+- 95599 The Old Key (level 42)
+- 2863 Alpha Strike (level 43)
+- 2902 Woodpaw Investigation (level 43)
+- 2903 The Battle Plans (level 43)
+- 2975 The Ogres of Feralas (level 43)
+- 2978 The Gordunni Scroll (level 43)
+- 2981 A Threat in Feralas (level 43); Zygor takes it in guide 5, hands it in in guide 8
+- 2987 Gordunni Cobalt (level 43)
+- 92878 Lost for Words (level 43) **(added)**; level 43 vs guide 45-46
+- 2980 The Ogres of Feralas (level 44)
+- 1205 Deadmire (level 45); Zygor hands it in in guide 8 without taking it in these guides
+- 2766 Find OOX-22/FE! (level 45); Zygor takes it in guide 8 and never hands it in
+- 2767 Rescue OOX-22/FE! (level 45) **(added)**
+- 2973 A New Cloak's Sheen (level 45)
+- 2974 A Grim Discovery (level 45)
+- 2976 A Grim Discovery (level 45)
+- 3121 A Strange Request (level 45)
+- 7730 Zukk'ash Infestation (level 45)
+- 2822 The Mark of Quality (level 46)
+- 2979 Dark Ceremony (level 46)
+- 3002 The Gordunni Orb (level 47)
+- 7731 Stinglasher (level 47)
+- 7732 Zukk'ash Report (level 48)
+- 97378 Mirrorscale (level 50); Zygor takes it in guide 8 and never hands it in
+
+## 9. Stranglethorn Vale (46-47) — 36 quests
+
+- 628 Excelsior (level 38); Zygor takes it in guide 2, hands it in in guide 9
+- 95326 The Big Payback (level 39)
+- 193 Panther Mastery (level 40); Zygor hands it in in guide 9 without taking it in these guides
+- 338 The Green Hills of Stranglethorn (level 40); Zygor takes it in guide 9 and never hands it in
+- 339 Chapter I (level 40); Zygor takes it in guide 9 and never hands it in
+- 340 Chapter II (level 40); Zygor takes it in guide 9 and never hands it in
+- 341 Chapter III (level 40); Zygor takes it in guide 9 and never hands it in
+- 342 Chapter IV (level 40); Zygor takes it in guide 9 and never hands it in
+- 78823 Terror of the Desert Skies (level 40); Zygor hands it in in guide 9 without taking it in these guides
+- 95295 I Know a Guy (level 40); Zygor takes it in guide 7, hands it in in guide 9
+- 95322 Get the Goods (level 40)
+- 95325 We've Been Robbed! (level 40)
+- 95327 All's Well That Ends Well (level 40); Zygor takes it in guide 9 and never hands it in
+- 571 Mok'thardin's Enchantment (level 41)
+- 587 Up to Snuff (level 41)
+- 595 The Bloodsail Buccaneers (level 41)
+- 597 The Bloodsail Buccaneers (level 41)
+- 599 The Bloodsail Buccaneers (level 41)
+- 606 Scaring Shaky (level 41)
+- 607 Return to MacKinley (level 41)
+- 576 Keep An Eye Out (level 42)
+- 604 The Bloodsail Buccaneers (level 43)
+- 617 Akiris by the Bundle (level 43)
+- 1118 Back to Booty Bay (level 43); Zygor takes it in guide 4, hands it in in guide 9
+- 95385 Torn Mystical Scroll (level 43); Zygor hands it in in guide 9 without taking it in these guides
+- 573 Mok'thardin's Enchantment (level 44)
+- 609 Voodoo Dues (level 44)
+- 613 Cracking Maury's Foot (level 44) **(added)**; level 44 vs guide 41-43; moved after its prerequisite
+- 621 Zanzil's Secret (level 44)
+- 348 Stranglethorn Fever (level 45) **(added)**; level 45 vs guide 46-47
+- 588 The Fate of Yenniku (level 45)
+- 589 The Singing Crystals (level 45)
+- 586 Speaking with Gan'zulah (level 46)
+- 591 The Mind's Eye (level 46) **(added)**
+- 592 Saving Yenniku (level 46) **(added)**
+- 8551 The Captain's Chest (level 47) **(added)**
+
+## 10. Swamp of Sorrows (47-47) — 9 quests
+
+- 699 Lack of Surplus (level 42)
+- 1426 Threat From the Sea (level 43)
+- 1427 Threat From the Sea (level 43)
+- 1422 Threat From the Sea (level 45)
+- 1428 Continued Threat (level 45)
+- 3122 Return to Witch Doctor Uzer'i (level 45); Zygor takes it in guide 8, hands it in in guide 10
+- 2621 The Disgraced One (level 50)
+- 2622 The Missing Orders (level 50)
+- 2784 Fall From Grace (level 50)
+
+## 11. Tanaris & Dustwallow Marsh (47-48) — 47 quests
+
+- 95296 Shipping and Handling (level 40); Zygor takes it in guide 7, hands it in in guide 11
+- 95312 Coming to Collect (level 40)
+- 95321 Tazzik's Dues (level 40)
+- 95383 Shipping and Handling (level 40)
+- 95472 Consolation Prize (level 40) **(added)**; moved after its prerequisite
+- 1187 Razzeric's Tweaking (level 41); Zygor takes it in guide 4, hands it in in guide 11
+- 1188 Safety First (level 41)
+- 1189 Safety First (level 41) **(added)**; level 41 vs guide 43-43; moved after its prerequisite
+- 1119 Zanzil's Mixture and a Fool's Stout (level 44); Zygor takes it in guide 10, hands it in in guide 11
+- 1120 Get the Gnomes Drunk (level 44)
+- 1691 More Wastewander Justice (level 44)
+- 3520 Screecher Spirits (level 44); Zygor takes it in guide 4, hands it in in guide 11
+- 1172 The Brood of Onyxia (level 45)
+- 2865 Scarab Shells (level 45)
+- 2873 Stoley's Shipment (level 45)
+- 2875 WANTED: Andre Firebeard (level 45)
+- 3042 Troll Temper (level 45)
+- 8365 Pirate Hats Ahoy! (level 45)
+- 8366 Southsea Shakedown (level 45)
+- 2781 WANTED: Caliph Scorpidsting (level 46)
+- 2846 Tiara of the Deep (level 46)
+- 82 Noxious Lair Investigation (level 47)
+- 2741 The Super Egg-O-Matic (level 47); Zygor takes it in guide 11 and never hands it in
+- 2768 Divino-matic Rod (level 47)
+- 3527 The Prophecy of Mosh'aru (level 47)
+- 97530 Dunemaul Dues (level 47)
+- 10 The Scrimshank Redemption (level 48)
+- 32 Rise of the Silithid (level 48)
+- 110 Insect Part Analysis (level 48)
+- 113 Insect Part Analysis (level 48)
+- 351 Find OOX-17/TN! (level 48); Zygor hands it in in guide 11 without taking it in these guides
+- 648 Rescue OOX-17/TN! (level 48) **(added)**
+- 649 Ripple Recovery (level 48)
+- 3161 Gahz'ridian (level 48)
+- 2605 The Thirsty Goblin (level 49)
+- 2606 In Good Taste (level 49)
+- 5863 The Dunemaul Compound (level 49)
+- 1560 Tooga's Quest (level 50) **(added)**; level 50 vs guide 47-48
+- 2954 The Stone Watcher (level 50) **(added)**; level 50 vs guide 47-48
+- 2967 Return to Thunder Bluff (level 50) **(added)**; level 50 vs guide 47-48
+- 3362 Thistleshrub Valley (level 50)
+- 97540 Oasis (level 50) **(added)**; level 50 vs guide 47-48
+- 3380 The Sunken Temple (level 51); Zygor takes it in guide 10, hands it in in guide 11
+- 2747 An Extraordinary Egg (level 60); Zygor takes it in guide 11 and never hands it in
+- 2748 A Fine Egg (level 60); Zygor takes it in guide 11 and never hands it in
+- 2749 An Ordinary Egg (level 60); Zygor takes it in guide 11 and never hands it in
+- 2750 A Bad Egg (level 60); Zygor takes it in guide 11 and never hands it in
+
+## 12. The Hinterlands (48-49) — 37 quests
+
+- 2933 Venom Bottles (level 43)
+- 1429 The Atal'ai Exile (level 44); Zygor takes it in guide 10, hands it in in guide 12
+- 2934 Undamaged Venom Sac (level 45)
+- 2935 Consult Master Gadrin (level 45) **(added)**; level 45 vs guide 48-49
+- 864 Return to Apothecary Zinge (level 46); Zygor takes it in guide 11, hands it in in guide 12
+- 2742 Rin'ji is Trapped! (level 47)
+- 2782 Rin'ji's Secret (level 47)
+- 2995 Lines of Communication (level 47)
+- 8273 Oran's Gratitude (level 47); Zygor takes it in guide 12 and never hands it in
+- 77 A Sticky Situation (level 48)
+- 485 Find OOX-09/HL! (level 48); Zygor takes it in guide 12 and never hands it in
+- 650 Ripple Recovery (level 48); Zygor takes it in guide 11, hands it in in guide 12
+- 836 Rescue OOX-09/HL! (level 48) **(added)**
+- 7828 Stalking the Stalkers (level 48)
+- 7829 Hunt the Savages (level 48)
+- 7830 Avenging the Fallen (level 48)
+- 7839 Vilebranch Hooligans (level 48)
+- 7841 Message to the Wildhammer (level 48)
+- 7842 Another Message to the Wildhammer (level 48)
+- 7844 Cannibalistic Cousins (level 48)
+- 2641 Sprinkle's Secret Ingredient (level 49); Zygor takes it in guide 11, hands it in in guide 12
+- 2661 Delivery for Marin (level 49)
+- 2662 Noggenfogger Elixir (level 49)
+- 7840 Lard Lost His Lunch (level 49)
+- 8428 Battle of Warsong Gulch (level 49) **(added)**
+- 8437 Conquering Arathi Basin (level 49) **(added)**
+- 98203 Witch Doctor Ti'ik (level 49); Zygor takes it in guide 12 and never hands it in
+- 98889 Conflict at Darkspear Islands (level 49) **(added)**
+- 4787 The Ancient Egg (level 50) **(added)**; level 50 vs guide 48-49
+- 7815 Snapjaws, Mon! (level 50)
+- 7843 The Final Message to the Wildhammer (level 50)
+- 7849 Separation Anxiety (level 50) **(added)**; level 50 vs guide 48-49
+- 7850 Dark Vessels (level 50) **(added)**; level 50 vs guide 48-49
+- 7845 Kidnapped Elder Torntusk! (level 51) **(added)**; level 51 vs guide 48-49
+- 7847 Return to Primal Torntusk (level 51) **(added)**; level 51 vs guide 48-49
+- 7861 Wanted: Vile Priestess Hexx and Her Minions (level 51) **(added)**; level 51 vs guide 48-49
+- 7862 Job Opening: Guard Captain of Revantusk Village (level 51) **(added)**; level 51 vs guide 48-49
+
+## 13. Feralas & Un'Goro Crater (49-50) — 30 quests
+
+- 3125 Faerie Dragon Muisek (level 45)
+- 3123 Testing the Vessel (level 47); Zygor takes it in guide 10, hands it in in guide 13
+- 3124 Hippogryph Muisek (level 47)
+- 7028 Twisted Evils (level 47)
+- 7029 Vyletongue Corruption (level 47)
+- 81 Ripple Delivery (level 48); Zygor takes it in guide 12, hands it in in guide 13
+- 7003 Zapped Giants (level 48)
+- 7067 The Pariah's Instructions (level 48)
+- 7721 Fuel for the Zapping (level 48)
+- 7734 Improved Quality (level 48)
+- 7738 Perfect Yeti Hide (level 48); Zygor takes it in guide 13 and never hands it in
+- 7044 Legends of Maraudon (level 49)
+- 7046 The Scepter of Celebras (level 49)
+- 3062 Dark Heart (level 50)
+- 3063 Vengeance on the Northspring (level 50)
+- 3126 Treant Muisek (level 50)
+- 3127 Mountain Giant Muisek (level 50)
+- 3128 Natural Materials (level 50)
+- 3129 Weapons of Spirit (level 50)
+- 3884 Williden's Journal (level 50)
+- 3444 The Stone Circle (level 51); Zygor takes it in guide 11, hands it in in guide 13
+- 7064 Corruption of Earth and Seed (level 51)
+- 7066 Seed of Life (level 51)
+- 3844 It's a Secret to Everybody (level 52)
+- 3845 It's a Secret to Everybody (level 52)
+- 4300 Bone-Bladed Weapons (level 52); Zygor takes it in guide 11, hands it in in guide 13
+- 4284 Crystals of Power (level 53)
+- 4290 The Fare of Lar'korwi (level 53)
+- 4291 The Scent of Lar'korwi (level 53)
+- 7725 Again With the Zapped Giants (level 55); Zygor takes it in guide 13 and never hands it in
+
+## 14. Stranglethorn Vale & Swamp of Sorrows (50-50) — 19 quests
+
+- 197 Raptor Mastery (level 43); Zygor takes it in guide 2, hands it in in guide 14
+- 208 Big Game Hunter (level 43)
+- 624 Cortello's Riddle (level 43)
+- 625 Cortello's Riddle (level 43)
+- 1122 Report Back to Fizzlebub (level 44); Zygor takes it in guide 11, hands it in in guide 14
+- 1444 Return to Fel'Zerul (level 44); Zygor takes it in guide 12, hands it in in guide 14
+- 594 Message in a Bottle (level 45)
+- 608 The Bloodsail Buccaneers (level 45); Zygor takes it in guide 9, hands it in in guide 14
+- 1173 Challenge Overlord Mok'Morokk (level 45)
+- 2874 Deliver to MacKinley (level 45); Zygor takes it in guide 11, hands it in in guide 14
+- 580 Whiskey Slim's Lost Grog (level 50); Zygor takes it in guide 9, hands it in in guide 14
+- 3721 An OOX of Your Own (level 50) **(added)**
+- 8552 The Monogrammed Sash (level 50) **(added)**
+- 8553 The Captain's Cutlass (level 50) **(added)**
+- 8554 Facing Negolash (level 50) **(added)**
+- 630 Message in a Bottle (level 51) **(added)**; level 51 vs guide 50-50
+- 96379 State Secrets (level 53) **(added)**; level 53 vs guide 50-50
+- 2623 The Swamp Talker (level 55)
+- 2801 A Tale of Sorrow (level 57)
+
+## 15. Blasted Lands (50-51) — 9 quests
+
+- 2581 Snickerfang Jowls (level 50)
+- 2583 A Boar's Vitality (level 50)
+- 2585 The Decisive Striker (level 50)
+- 2601 The Basilisk's Bite (level 50)
+- 2603 Vulture's Vigor (level 50)
+- 87295 Deflective Surface (level 52) **(added)**; level 52 vs guide 50-51
+- 81917 Chains That Bind (level 54) **(added)**; level 54 vs guide 50-51
+- 2521 To Serve Kum'isha (level 55); Zygor takes it in guide 15 and never hands it in
+- 3501 Everything Counts In Large Amounts (level 55); Zygor takes it in guide 15 and never hands it in
+
+## 16. Searing Gorge (51-51) — 19 quests
+
+- 4449 Caught! (level 45)
+- 4451 The Key to Freedom (level 47)
+- 3441 Divine Retribution (level 48)
+- 3442 The Flawless Flame (level 48)
+- 3443 Forging the Shaft (level 48)
+- 7728 STOLEN: Smithing Tuyere and Lookout's Spyglass (level 48)
+- 7729 JOB OPPORTUNITY: Culling the Competition (level 48)
+- 7723 Curse These Fat Fingers (level 49)
+- 7724 Fiery Menace! (level 49)
+- 7727 Incendosaurs? Whateverosaur is More Like It (level 49)
+- 3452 The Flame's Casing (level 50)
+- 3453 The Torch of Retribution (level 50)
+- 3454 The Torch of Retribution (level 50)
+- 3462 Squire Maltrake (level 50)
+- 3481 Trinkets... (level 50)
+- 7701 WANTED: Overseer Maltorius (level 50) **(added)**; level 50 vs guide 51-51
+- 7722 What the Flux? (level 50) **(added)**; level 50 vs guide 51-51
+- 3463 Set Them Ablaze! (level 52)
+- 81900 The Burning Beast (level 54) **(added)**; level 54 vs guide 51-51
+
+## 17. Burning Steppes & Azshara (51-52) — 38 quests
+
+- 5535 Spiritual Unrest (level 47)
+- 5536 A Land Filled with Hatred (level 47)
+- 98096 Sisters In Duty (level 47) **(added)**; level 47 vs guide 51-52
+- 91488 Home on the Range (level 48) **(added)**; level 48 vs guide 51-52
+- 91608 Gettin' Buzzed (level 48) **(added)**; level 48 vs guide 51-52
+- 91610 Winter Frontier Fishery (level 48) **(added)**; level 48 vs guide 51-52
+- 4296 Tablet of the Seven (level 50)
+- 91568 Long Walks on the Beach (level 51) **(added)**
+- 3517 Stealing Knowledge (level 52)
+- 3561 Delivery to Archmage Xylem (level 52)
+- 3565 Xylem's Payment to Jediga (level 52)
+- 3801 Dark Iron Legacy (level 52) **(added)**
+- 3802 Dark Iron Legacy (level 52) **(added)**
+- 3821 Dreadmaul Rock (level 52); Zygor takes it in guide 16, hands it in in guide 17
+- 4726 Broodling Essence (level 52)
+- 91734 Remote Contact (level 52) **(added)**
+- 91735 Remote Contact (level 52) **(added)**
+- 91737 Remote Contact (level 52) **(added)**
+- 3504 Betrayed (level 53)
+- 3822 Krom'Grul (level 53) **(added)**; level 53 vs guide 51-52
+- 4136 Ribbly Screwspigot (level 53) **(added)**; level 53 vs guide 51-52
+- 86746 The Legashi Threat (level 53) **(added)**; level 53 vs guide 51-52
+- 86752 Report to Rageroar (level 53) **(added)**; level 53 vs guide 51-52
+- 86777 Master Feardred (level 53) **(added)**; level 53 vs guide 51-52
+- 86791 Missing Blackmaw Scouts (level 53) **(added)**; level 53 vs guide 51-52
+- 86797 Return to Rageroar (level 53) **(added)**; level 53 vs guide 51-52
+- 86799 Encroaching Corruption (level 53) **(added)**; level 53 vs guide 51-52
+- 86804 An Unlikely Source (level 53) **(added)**; level 53 vs guide 51-52
+- 86812 Transmuted Tincture (level 53) **(added)**; level 53 vs guide 51-52
+- 86813 Potential Panacea (level 53) **(added)**; level 53 vs guide 51-52
+- 86925 Toil and Trouble (level 53) **(added)**; level 53 vs guide 51-52
+- 86926 Felfire Burn, Cauldron Bubble (level 53) **(added)**; level 53 vs guide 51-52
+- 86927 Running Firewater (level 53) **(added)**; level 53 vs guide 51-52
+- 91569 Blue Gold (level 53) **(added)**; level 53 vs guide 51-52
+- 4022 A Taste of Flame (level 54); Zygor takes it in guide 17 and never hands it in
+- 4023 A Taste of Flame (level 54) **(added)**; level 54 vs guide 51-52
+- 4061 The Rise of the Machines (level 54) **(added)**; level 54 vs guide 51-52
+- 4123 The Heart of the Mountain (level 55) **(added)**; level 55 vs guide 51-52
+
+## 18. Felwood & Winterspring (52-53) — 13 quests
+
+- 8460 Timbermaw Ally (level 48)
+- 5155 Forces of Jaedenar (level 51)
+- 6162 A Husband's Last Battle (level 51)
+- 3541 Delivery to Jes'rimon (level 52); Zygor takes it in guide 17, hands it in in guide 18
+- 3908 It's a Secret to Everybody (level 52); Zygor takes it in guide 13, hands it in in guide 18
+- 5157 Collection of the Corrupt Water (level 52)
+- 4505 Well of Corruption (level 54)
+- 4808 Felnok Steelspring (level 54); Zygor takes it in guide 17, hands it in in guide 18
+- 5156 Verifying the Corruption (level 54)
+- 4102 Cleansing Felwood (level 55)
+- 8462 Speak to Nafien (level 55)
+- 5082 Threat of the Winterfall (level 56)
+- 5083 Winterfall Firewater (level 56)
+
+## 19. Un'Goro Crater (53-54) — 35 quests
+
+- 3761 Un'Goro Soil (level 50)
+- 3762 Assisting Arch Druid Runetotem (level 50)
+- 3782 Morrowgrain Research (level 50)
+- 3882 Roll the Bones (level 51)
+- 4503 Shizzle's Flyer (level 51)
+- 3518 Delivery to Magatha (level 52); Zygor takes it in guide 17, hands it in in guide 19
+- 3883 Alien Ecology (level 52)
+- 4120 The Strength of Corruption (level 52); Zygor takes it in guide 13, hands it in in guide 19
+- 4145 Larion and Muigin (level 52)
+- 4146 Zapper Fuel (level 52) **(added)**; level 52 vs guide 53-54
+- 4147 Marvon's Workshop (level 52)
+- 5158 Seeking Spiritual Aid (level 52); Zygor takes it in guide 18, hands it in in guide 19
+- 3881 Expedition Salvation (level 53)
+- 4148 Bloodpetal Zapper (level 53) **(added)**
+- 4243 Chasing A-Me 01 (level 53)
+- 4244 Chasing A-Me 01 (level 53); Zygor takes it in guide 19 and never hands it in
+- 4245 Chasing A-Me 01 (level 53) **(added)**
+- 4285 The Northern Pylon (level 53)
+- 4287 The Eastern Pylon (level 53)
+- 4288 The Western Pylon (level 53)
+- 4321 Making Sense of It (level 53)
+- 4494 March of the Silithid (level 53); Zygor takes it in guide 17, hands it in in guide 19
+- 4496 Bungle in the Jungle (level 53)
+- 974 Finding the Source (level 55)
+- 1000 The New Frontier (level 55)
+- 4289 The Apes of Un'Goro (level 55); Zygor takes it in guide 13, hands it in in guide 19
+- 4301 The Mighty U'cha (level 55)
+- 4491 A Little Help From My Friends (level 55)
+- 4492 Lost! (level 55)
+- 4501 Beware of Pterrordax (level 55)
+- 4502 Volcanic Activity (level 55); Zygor takes it in guide 13, hands it in in guide 19
+- 87492 Uncanny Crystal (level 55) **(added)**; level 55 vs guide 53-54
+- 92020 Hol'anyee's Big Book of Big Lizards (level 55) **(added)**; level 55 vs guide 53-54
+- 3962 It's Dangerous to Go Alone (level 56) **(added)**; level 56 vs guide 53-54
+- 4292 The Bait for Lar'korwi (level 56); Zygor takes it in guide 13, hands it in in guide 19
+
+## 20. Azshara (54-54) — 22 quests
+
+- 3562 Magatha's Payment to Jediga (level 52); Zygor takes it in guide 19, hands it in in guide 20
+- 3563 Jes'rimon's Payment to Jediga (level 52); Zygor takes it in guide 18, hands it in in guide 20
+- 3505 Betrayed (level 53)
+- 3601 Kim'jael Indeed! (level 53)
+- 5534 Kim'jael's "Missing" Equipment (level 53)
+- 91497 Seals of the Sin'dorei (level 53) **(added)**; level 53 vs guide 51-52; moved after its prerequisite
+- 86792 Thinning Their Forces (level 54) **(added)**
+- 86796 Later, Satyr (level 54) **(added)**
+- 91685 Ley of the Land (level 54) **(added)**
+- 86798 Timbermaw Reinforcements (level 55) **(added)**; level 55 vs guide 54-54
+- 91500 An Explosive Gambit (level 55) **(added)**; level 55 vs guide 54-54
+- 91531 Revenge Exacted (level 55) **(added)**; level 55 vs guide 54-54
+- 91538 Sin'dorei Tome of Summoning (level 55) **(added)**; level 55 vs guide 54-54
+- 91547 Sin'dorei Tome of Summoning (level 55) **(added)**; level 55 vs guide 54-54
+- 91877 Demon Hunter's Hunter (level 55) **(added)**; level 55 vs guide 54-54
+- 92066 The Twin Bears (level 55) **(added)**; level 55 vs guide 54-54
+- 92346 Beneath Nordrassil (level 55) **(added)**; level 55 vs guide 54-54
+- 3506 Betrayed (level 56)
+- 6804 Poisoned Water (level 56) **(added)**; level 56 vs guide 54-54
+- 91611 Deadliest Catch (level 56) **(added)**; level 56 vs guide 54-54
+- 3141 Loramus (level 57) **(added)**; level 57 vs guide 54-54
+- 6805 Stormers and Rumblers (level 57) **(added)**; level 57 vs guide 54-54
+
+## 21. Felwood & Winterspring (54-56) — 57 quests
+
+- 7816 Gammerita, Mon! (level 48)
+- 626 Cortello's Riddle (level 51); Zygor takes it in guide 14, hands it in in guide 21
+- 3542 Delivery to Andron Gant (level 52); Zygor takes it in guide 20, hands it in in guide 21
+- 3568 Seeping Corruption (level 52); Zygor takes it in guide 12, hands it in in guide 21
+- 3569 Seeping Corruption (level 52)
+- 3570 Seeping Corruption (level 52); Zygor takes it in guide 21 and never hands it in
+- 3909 The Videre Elixir (level 52); Zygor takes it in guide 18, hands it in in guide 21
+- 3912 Meet at the Grave (level 52)
+- 3913 A Grave Situation (level 52)
+- 3914 Linken's Sword (level 52)
+- 3941 A Gnome's Assistance (level 52)
+- 3942 Linken's Memory (level 54)
+- 4084 Silver Heart (level 54)
+- 4504 Super Sticky (level 54)
+- 4506 Corrupted Sabers (level 54)
+- 5159 Cleansed Water Returns to Felwood (level 54); Zygor takes it in guide 19, hands it in in guide 21
+- 6605 A Strange One (level 54) **(added)**
+- 980 The New Springs (level 55); Zygor takes it in guide 19, hands it in in guide 21
+- 5165 Dousing the Flames of Protection (level 55)
+- 5202 A Strange Red Key (level 55)
+- 5203 Rescue From Jaedenar (level 55) **(added)**
+- 5887 Salve via Hunting (level 55); Zygor takes it in guide 21 and never hands it in
+- 8461 Deadwood of the North (level 55)
+- 8465 Speak to Salfa (level 55)
+- 8467 Feathers for Nafien (level 55); Zygor takes it in guide 21 and never hands it in
+- 8470 Deadwood Ritual Totem (level 55)
+- 86577 A Sampling of Putrescence (level 55) **(added)**
+- 86612 Stag Lord's Bauble (level 55) **(added)**
+- 86814 Blackmaw Counter-Offensive (level 55) **(added)**
+- 87346 Chieftain Bloodmaw (level 55) **(added)**
+- 91952 The Source of the Corruption (level 55) **(added)**
+- 3507 Betrayed (level 56); Zygor takes it in guide 20, hands it in in guide 21
+- 3783 Are We There, Yeti? (level 56)
+- 4521 Wild Guardians (level 56)
+- 4842 Strange Sources (level 56)
+- 5054 Ursius of the Shardtooth (level 56) **(added)**
+- 5084 Falling to Corruption (level 56); Zygor takes it in guide 18, hands it in in guide 21
+- 5085 Mystery Goo (level 56)
+- 5086 Toxic Horrors (level 56)
+- 6603 Trouble in Winterspring! (level 56) **(added)**
+- 90487 Ancient Allies (level 56) **(added)**
+- 92009 Crate Expectations (level 56) **(added)**
+- 93406 Unfrozen Deliveries (level 56) **(added)**
+- 93747 Violence Into Verdure (level 56) **(added)**
+- 93759 The Bounty of Nature (level 56) **(added)**
+- 95568 Seeds for a New Season (level 56) **(added)**
+- 95569 Hope for Hatchlings (level 56) **(added)**
+- 95611 Rites of Respect (level 56) **(added)**
+- 96796 Woods Workshop (level 56) **(added)**
+- 5087 Winterfall Runners (level 57)
+- 5204 Retribution of the Light (level 57) **(added)**; level 57 vs guide 54-56
+- 5385 The Remains of Trey Lightforge (level 57) **(added)**; level 57 vs guide 54-56
+- 90647 The Staff of the Mountain (level 57) **(added)**; level 57 vs guide 54-56
+- 5242 A Final Blow (level 58) **(added)**; level 58 vs guide 54-56
+- 92171 Taking to New Heights (level 58) **(added)**; level 58 vs guide 54-56
+- 92612 Aid from Moonglade (level 58) **(added)**; level 58 vs guide 54-56
+- 96930 The Capricious Corvid (level 58) **(added)**; level 58 vs guide 54-56
+
+## 22. Western & Eastern Plaguelands (56-58) — 138 quests
+
+- 5094 A Call to Arms: The Plaguelands! (level 50); Zygor takes it in guide 22 and never hands it in
+- 3564 Andron's Payment to Jediga (level 52); Zygor takes it in guide 21, hands it in in guide 22
+- 5021 Better Late Than Never (level 52)
+- 5023 Better Late Than Never (level 52)
+- 5049 The Jeremiah Blues (level 52)
+- 5050 Good Luck Charm (level 52)
+- 6029 The Everlook Report (level 52); Zygor takes it in guide 21, hands it in in guide 22
+- 6030 Duke Nicholas Zverenhoff (level 52); Zygor takes it in guide 21, hands it in in guide 22
+- 5096 Scarlet Diversions (level 53)
+- 5228 The Scourge Cauldrons (level 53)
+- 5229 Target: Felstone Field (level 53)
+- 5230 Return to the Bulwark (level 53)
+- 4984 The Wildlife Suffers Too (level 54)
+- 5051 Two Halves Become One (level 54)
+- 838 Scholomance (level 55)
+- 5058 Mrs. Dalson's Diary (level 55); Zygor takes it in guide 22 and never hands it in
+- 5060 Locked Away (level 55); Zygor takes it in guide 22 and never hands it in
+- 5142 Little Pamela (level 55) **(added)**; level 55 vs guide 56-58
+- 5149 Pamela's Doll (level 55)
+- 5211 Defenders of Darrowshire (level 55)
+- 5231 Target: Dalson's Tears (level 55)
+- 5232 Return to the Bulwark (level 55)
+- 5233 Target: Writhing Haunt (level 55)
+- 5234 Return to the Bulwark (level 55)
+- 5401 Argent Dawn Commission (level 55) **(added)**; level 55 vs guide 56-58
+- 5405 Argent Dawn Commission (level 55); Zygor takes it in guide 22 and never hands it in
+- 5503 Argent Dawn Commission (level 55) **(added)**; level 55 vs guide 56-58
+- 5601 Sister Pamela (level 55); Zygor takes it in guide 21, hands it in in guide 22
+- 5901 A Plague Upon Thee (level 55)
+- 5902 A Plague Upon Thee (level 55)
+- 6021 Zaeldarr the Outcast (level 55)
+- 6164 Augustus' Receipt Book (level 55)
+- 6390 A Plague Upon Thee (level 55)
+- 92842 A Cousin Abroad (level 55) **(added)**; level 55 vs guide 56-58
+- 97319 A Cousin Abroad (level 55) **(added)**; level 55 vs guide 56-58
+- 4971 A Matter of Time (level 56)
+- 4972 Counting Out Time (level 56)
+- 4985 The Wildlife Suffers Too (level 56)
+- 5098 All Along the Watchtowers (level 56)
+- 5152 Auntie Marlene (level 56)
+- 5153 A Strange Historian (level 56)
+- 5154 The Annals of Darrowshire (level 56)
+- 5168 Heroes of Darrowshire (level 56) **(added)**
+- 5210 Brother Carlin (level 56)
+- 5241 Uncle Carlin (level 56)
+- 5542 Demon Dogs (level 56)
+- 5543 Blood Tinged Skies (level 56)
+- 5544 Carrion Grubbage (level 56)
+- 5742 Redemption (level 56)
+- 6004 Unfinished Business (level 56)
+- 964 Skeletal Fragments (level 57)
+- 5181 Villains of Darrowshire (level 57)
+- 5514 Mold Rhymes With... (level 57) **(added)**
+- 5781 Of Forgotten Memories (level 57) **(added)**
+- 6023 Unfinished Business (level 57)
+- 97986 Argent Arbiter (level 57) **(added)**
+- 97988 Orgrimmar's Windshapers (level 57) **(added)**
+- 98109 Bleeding Edge (level 57) **(added)**
+- 5065 The Lost Tablets of Mosh'aru (level 58) **(added)**
+- 5235 Target: Gahrron's Withering (level 58)
+- 5236 Return to the Bulwark (level 58)
+- 5238 Mission Accomplished! (level 58); Zygor takes it in guide 22 and never hands it in
+- 5845 Of Lost Honor (level 58) **(added)**
+- 5846 Of Love and Family (level 58) **(added)**
+- 6022 To Kill With Purpose (level 58)
+- 6025 Unfinished Business (level 58) **(added)**
+- 6026 That's Asking A Lot (level 58) **(added)**
+- 6041 When Smokey Sings, I Get Violent (level 58) **(added)**
+- 6042 Un-Life's Little Annoyances (level 58)
+- 105 Alas, Andorhal (level 60) **(added)**; level 60 vs guide 56-58
+- 5164 Catalogue of the Wayward (level 60) **(added)**; level 60 vs guide 56-58
+- 5166 Breastplate of the Chromatic Flight (level 60) **(added)**; level 60 vs guide 56-58
+- 5167 Legplates of the Chromatic Defier (level 60) **(added)**; level 60 vs guide 56-58
+- 5206 Marauders of Darrowshire (level 60) **(added)**; level 60 vs guide 56-58
+- 5264 Lord Maxwell Tyrosus (level 60) **(added)**; level 60 vs guide 56-58
+- 5265 The Argent Hold (level 60) **(added)**; level 60 vs guide 56-58
+- 5281 The Restless Souls (level 60)
+- 5342 The Last Barov (level 60) **(added)**; level 60 vs guide 56-58
+- 5461 The Human, Ras Frostwhisper (level 60) **(added)**; level 60 vs guide 56-58
+- 5462 The Dying, Ras Frostwhisper (level 60) **(added)**; level 60 vs guide 56-58
+- 5464 Menethil's Gift (level 60) **(added)**; level 60 vs guide 56-58
+- 5465 Soulbound Keepsake (level 60) **(added)**; level 60 vs guide 56-58
+- 5504 Mantles of the Dawn (level 60) **(added)**; level 60 vs guide 56-58
+- 5511 The Key to Scholomance (level 60) **(added)**; level 60 vs guide 56-58
+- 5513 Mantles of the Dawn (level 60) **(added)**; level 60 vs guide 56-58
+- 5517 Chromatic Mantle of the Dawn (level 60) **(added)**; level 60 vs guide 56-58
+- 5524 Chromatic Mantle of the Dawn (level 60) **(added)**; level 60 vs guide 56-58
+- 5721 The Battle of Darrowshire (level 60) **(added)**; level 60 vs guide 56-58
+- 5804 Araj's Scarab (level 60) **(added)**; level 60 vs guide 56-58
+- 5861 Find Myranda (level 60) **(added)**; level 60 vs guide 56-58
+- 5862 Scarlet Subterfuge (level 60) **(added)**; level 60 vs guide 56-58
+- 5941 Return to Chromie (level 60) **(added)**; level 60 vs guide 56-58
+- 5942 Hidden Treasures (level 60) **(added)**; level 60 vs guide 56-58
+- 5944 In Dreams (level 60) **(added)**; level 60 vs guide 56-58
+- 6024 Hameya's Plea (level 60) **(added)**; level 60 vs guide 56-58
+- 6133 The Ranger Lord's Behest (level 60) **(added)**; level 60 vs guide 56-58
+- 6135 Duskwing, Oh How I Hate Thee... (level 60) **(added)**; level 60 vs guide 56-58
+- 6136 The Corpulent One (level 60) **(added)**; level 60 vs guide 56-58
+- 6144 The Call to Command (level 60) **(added)**; level 60 vs guide 56-58
+- 6145 The Crimson Courier (level 60) **(added)**; level 60 vs guide 56-58
+- 6146 Nathanos' Ruse (level 60) **(added)**; level 60 vs guide 56-58
+- 6147 Return to Nathanos (level 60) **(added)**; level 60 vs guide 56-58
+- 6148 The Scarlet Oracle, Demetria (level 60) **(added)**; level 60 vs guide 56-58
+- 6569 Oculus Illusions (level 60) **(added)**; level 60 vs guide 56-58
+- 6570 Emberstrife (level 60) **(added)**; level 60 vs guide 56-58
+- 7813 A Donation of Wool (level 60); Zygor takes it in guide 22 and never hands it in
+- 7814 A Donation of Silk (level 60); Zygor takes it in guide 22 and never hands it in
+- 7817 A Donation of Mageweave (level 60); Zygor takes it in guide 22 and never hands it in
+- 7818 A Donation of Runecloth (level 60); Zygor takes it in guide 22 and never hands it in
+- 7824 A Donation of Runecloth (level 60); Zygor takes it in guide 22 and never hands it in
+- 7826 A Donation of Wool (level 60); Zygor takes it in guide 22 and never hands it in
+- 7827 A Donation of Silk (level 60); Zygor takes it in guide 22 and never hands it in
+- 7831 A Donation of Mageweave (level 60); Zygor takes it in guide 22 and never hands it in
+- 7833 A Donation of Wool (level 60); Zygor takes it in guide 22 and never hands it in
+- 7834 A Donation of Silk (level 60); Zygor takes it in guide 22 and never hands it in
+- 7835 A Donation of Mageweave (level 60); Zygor takes it in guide 22 and never hands it in
+- 7836 A Donation of Runecloth (level 60); Zygor takes it in guide 22 and never hands it in
+- 8930 In Search of Anthion (level 60) **(added)**; level 60 vs guide 56-58
+- 8946 Proof of Life (level 60) **(added)**; level 60 vs guide 56-58
+- 8947 Anthion's Strange Request (level 60) **(added)**; level 60 vs guide 56-58
+- 9121 The Dread Citadel - Naxxramas (level 60) **(added)**; level 60 vs guide 56-58
+- 9122 The Dread Citadel - Naxxramas (level 60) **(added)**; level 60 vs guide 56-58
+- 9123 The Dread Citadel - Naxxramas (level 60) **(added)**; level 60 vs guide 56-58
+- 9124 Cryptstalker Armor Doesn't Make Itself... (level 60) **(added)**; level 60 vs guide 56-58
+- 9126 Bonescythe Digs (level 60) **(added)**; level 60 vs guide 56-58
+- 9128 The Elemental Equation (level 60) **(added)**; level 60 vs guide 56-58
+- 9131 Binding the Dreadnaught (level 60) **(added)**; level 60 vs guide 56-58
+- 9136 Savage Flora (level 60) **(added)**; level 60 vs guide 56-58
+- 9141 They Call Me "The Rooster" (level 60) **(added)**; level 60 vs guide 56-58
+- 9665 Bolstering Our Defenses (level 60) **(added)**; level 60 vs guide 56-58
+- 84188 Anthion's Parting Words (level 60) **(added)**; level 60 vs guide 56-58
+- 84192 Anthion's Parting Words (level 60) **(added)**; level 60 vs guide 56-58
+- 84194 Anthion's Parting Words (level 60) **(added)**; level 60 vs guide 56-58
+- 84395 Undead Potatoes (level 60) **(added)**; level 60 vs guide 56-58
+- 84398 A Study of the Light (level 60) **(added)**; level 60 vs guide 56-58
+- 84400 The Knight and the Lady (level 60) **(added)**; level 60 vs guide 56-58
+- 84401 Scourge: Undead Menace or Misunderstood? (level 60) **(added)**; level 60 vs guide 56-58
+- 84402 Necromancy 101 (level 60) **(added)**; level 60 vs guide 56-58
+
+## 23. Winterspring (58-59) — 39 quests
+
+- 3961 Linken's Adventure (level 54)
+- 4005 Aquementas (level 54); Zygor takes it in guide 21, hands it in in guide 23
+- 4809 Chillwind Horns (level 54)
+- 4810 Return to Tinkee (level 54) **(added)**; moved after its prerequisite
+- 1123 Rabine Saturna (level 55); Zygor takes it in guide 19, hands it in in guide 23
+- 6031 Runecloth (level 55)
+- 4987 Glyphed Oaken Branch (level 56); Zygor takes it in guide 22, hands it in in guide 23
+- 8471 Winterfall Ritual Totem (level 56)
+- 7492 Camp Mojache (level 57)
+- 977 Are We There, Yeti? (level 58)
+- 4741 Wild Guardians (level 58); Zygor takes it in guide 21, hands it in in guide 23
+- 5055 Brumeran of the Chillwind (level 58) **(added)**
+- 8464 Winterfall Activity (level 58); Zygor takes it in guide 21, hands it in in guide 23
+- 93269 Top of the Post (level 58) **(added)**
+- 97264 Shardtooth Pulling (level 58) **(added)**
+- 4721 Wild Guardians (level 59)
+- 4882 Guarding Secrets (level 59)
+- 4883 Guarding Secrets (level 59)
+- 5121 High Chief Winterfall (level 59) **(added)**
+- 5123 The Final Piece (level 59) **(added)**
+- 5128 Words of the High Chief (level 59) **(added)**
+- 97403 Two-Headed Ravagers (level 59) **(added)**
+- 97404 Too Bad to Bear (level 59) **(added)**
+- 969 Luck Be With You (level 60) **(added)**; level 60 vs guide 58-59
+- 975 Cache of Mau'ari (level 60) **(added)**; level 60 vs guide 58-59
+- 4907 Tinkee Steamboil (level 60) **(added)**; level 60 vs guide 58-59
+- 5056 Shy-Rotam (level 60) **(added)**; level 60 vs guide 58-59
+- 5057 Past Endeavors (level 60) **(added)**; level 60 vs guide 58-59
+- 5161 Wrath of the Blue Flight (level 60) **(added)**; level 60 vs guide 58-59
+- 5162 Wrath of the Blue Flight (level 60) **(added)**; level 60 vs guide 58-59
+- 7820 A Donation of Wool (level 60); Zygor takes it in guide 23 and never hands it in
+- 7821 A Donation of Silk (level 60); Zygor takes it in guide 23 and never hands it in
+- 7822 A Donation of Mageweave (level 60); Zygor takes it in guide 23 and never hands it in
+- 7823 A Donation of Runecloth (level 60); Zygor takes it in guide 23 and never hands it in
+- 84146 Red Bag Blues (level 60) **(added)**; level 60 vs guide 58-59
+- 84212 Bookin' it Back (level 60) **(added)**; level 60 vs guide 58-59
+- 84399 Ka-Boom! (level 60) **(added)**; level 60 vs guide 58-59
+- 92859 Shroud of the Winter Wilds (level 60) **(added)**; level 60 vs guide 58-59
+- 97490 Halt the Hail (level 60) **(added)**; level 60 vs guide 58-59
+
+## 24. Silithus (59-60) — 49 quests
+
+- 1124 Wasteland (level 55); Zygor takes it in guide 23, hands it in in guide 24
+- 1125 The Spirits of Southwind (level 55)
+- 8276 Taking Back Silithus (level 55); Zygor takes it in guide 22, hands it in in guide 24
+- 8277 Deadly Desert Venom (level 55)
+- 8280 Securing the Supply Lines (level 55)
+- 1126 Hive in the Tower (level 57) **(added)**; level 57 vs guide 59-60
+- 6844 Umber, Archivist (level 57) **(added)**; level 57 vs guide 59-60
+- 8278 Noggle's Last Hope (level 57)
+- 8281 Stepping Up Security (level 57)
+- 5163 Are We There, Yeti? (level 58); Zygor takes it in guide 23, hands it in in guide 24
+- 8282 Noggle's Lost Satchel (level 58) **(added)**; level 58 vs guide 59-60
+- 8284 The Twilight Mystery (level 58)
+- 8283 Wanted - Deathclasp, Terror of the Sands (level 59) **(added)**
+- 8285 The Deserter (level 59)
+- 8323 True Believers (level 59) **(added)**
+- 5527 A Reliquary of Purity (level 60); Zygor takes it in guide 23, hands it in in guide 24
+- 8279 The Twilight Lexicon (level 60)
+- 8286 What Tomorrow Brings (level 60) **(added)**
+- 8287 A Terrible Purpose (level 60)
+- 8301 The Path of the Righteous (level 60) **(added)**
+- 8303 Anachronos (level 60) **(added)**
+- 8304 Dearest Natalia (level 60)
+- 8305 Long Forgotten Memories (level 60) **(added)**
+- 8306 Into The Maw of Madness (level 60) **(added)**
+- 8308 Brann Bronzebeard's Lost Letter (level 60); Zygor takes it in guide 24 and never hands it in
+- 8309 Glyph Chasing (level 60) **(added)**
+- 8310 Breaking the Code (level 60) **(added)**
+- 8314 Unraveling the Mystery (level 60) **(added)**
+- 8315 The Calling (level 60) **(added)**
+- 8318 Secret Communication (level 60)
+- 8320 Twilight Geolords (level 60) **(added)**
+- 8321 Vyral the Vile (level 60) **(added)**
+- 8331 Aurel Goldleaf (level 60) **(added)**
+- 8332 Dukes of the Council (level 60) **(added)**
+- 8341 Lords of the Council (level 60) **(added)**
+- 8343 Goldleaf's Discovery (level 60) **(added)**
+- 8348 Signet of the Dukes (level 60) **(added)**
+- 8349 Bor Wildmane (level 60) **(added)**
+- 8351 Bor Wishes to Speak (level 60) **(added)**
+- 8352 Scepter of the Council (level 60) **(added)**
+- 8361 Abyssal Contacts (level 60) **(added)**
+- 8519 A Pawn on the Eternal Board (level 60) **(added)**
+- 8743 Bang a Gong! (level 60) **(added)**
+- 8745 Treasure of the Timeless One (level 60) **(added)**
+- 8800 Cenarion Battlegear (level 60) **(added)**
+- 9023 The Perfect Poison (level 60) **(added)**
+- 9248 A Humble Offering (level 60) **(added)**
+- 9416 Report to General Kirika (level 60) **(added)**
+- 9422 Scouring the Desert (level 60) **(added)**
+
+## Left out
+
+- 3381 A Meeting with the Master (level 48, Azshara): not available (removed)
+- 3382 A Crew Under Fire (level 57, Azshara): repeatable
+- 3383 <UNUSED> (level 55, Azshara): not available (removed)
+- 3384 <UNUSED> (level 55, Azshara): not available (removed)
+- 3401 <UNUSED> (level 48, Azshara): not available (removed)
+- 3403 <UNUSED> (level 48, Azshara): not available (removed)
+- 3404 <UNUSED> (level 48, Azshara): not available (removed)
+- 3405 <UNUSED> (level 48, Azshara): not available (removed)
+- 3421 Return Trip (level 55, Azshara): not in the game client
+- 3422 <UNUSED> (level 45, Azshara): not available (removed)
+- 3423 <UNUSED> (level 45, Azshara): not available (removed)
+- 3424 <UNUSED> (level 45, Azshara): not available (removed)
+- 3425 <UNUSED> (level 48, Azshara): not available (removed)
+- 3461 Return to Tymor (level 52, Azshara): Alliance only
+- 3503 Meeting with the Master (level 55, Azshara): not in the game client
+- 3508 Breaking the Ward (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3509 The Name of the Beast (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3510 The Name of the Beast (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3511 The Name of the Beast (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3515 <UNUSED> (level 42, Azshara): not available (removed)
+- 3529 <UNUSED> (level 52, Azshara): not available (removed)
+- 3602 Azsharite (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3621 The Formation of Felbane (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 5141 Dragonscale Leatherworking (level 55, Azshara): Alliance only
+- 6821 Eye of the Emberseer (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6822 The Molten Core (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6823 Agent of Hydraxis (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6824 Hands of the Enemy (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 7486 A Hero's Reward (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8153 Courser Antlers (level 52, Azshara): class quest
+- 8231 Wavethrashing (level 52, Azshara): class quest
+- 8232 The Green Drake (level 52, Azshara): class quest
+- 8235 Encoded Fragments (level 52, Azshara): class quest
+- 8236 The Azure Key (level 52, Azshara): class quest
+- 8251 Magic Dust (level 52, Azshara): class quest
+- 8252 The Siren's Coral (level 52, Azshara): class quest
+- 8253 Destroy Morphaz (level 52, Azshara): class quest
+- 8255 Of Coursers We Know (level 52, Azshara): class quest
+- 8256 The Ichor of Undeath (level 52, Azshara): class quest
+- 8257 Blood of Morphaz (level 52, Azshara): class quest
+- 8575 Azuregos's Magical Ledger (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8720 Skygleam the Elder (level 60, Azshara): not available (removed)
+- 9362 Warlord Krellian (level 60, Azshara): class quest
+- 9364 Fragmented Magic (level 60, Azshara): class quest
+- 86747 Legashi Horns (level 47, Azshara): not available (incomplete)
+- 88807 Slay the Spitelash (level 48, Azshara): Alliance only
+- 88809 Preserving Eldarath (level 52, Azshara): Alliance only
+- 88812 Reclaiming Ravencrest (level 55, Azshara): Alliance only
+- 88813 The Head of the Serpent (level 55, Azshara): Alliance only
+- 88821 Making Contact (level 51, Azshara): Alliance only
+- 88857 Saving a Sentinel (level 47, Azshara): Alliance only
+- 88884 Highborne Tablets (level 52, Azshara): Alliance only
+- 88917 Slithering Looters (level 52, Azshara): Alliance only
+- 89001 Home on the Range (level 48, Azshara): Alliance only
+- 89013 Gettin' Buzzed (level 48, Azshara): Alliance only
+- 89015 Deadliest Catch (level 56, Azshara): Alliance only
+- 89037 Murloc Thieves (level 52, Azshara): Alliance only
+- 89038 A Monumental Task (level 55, Azshara): Alliance only
+- 89053 Your Final Reward (level 55, Azshara): Alliance only
+- 89228 Winter Frontier Fishery (level 48, Azshara): Alliance only
+- 89470 Ill Tidings (level 55, Azshara): Alliance only
+- 90789 Scalebeard (level 60, Azshara): class quest
+- 90813 Pay Dirt! (level 53, Azshara): not available (incomplete)
+- 91607 Pay Dirt! (level 53, Azshara): not available (incomplete)
+- 92065 Blackmaw Reclamation (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 92069 Claws That Rend, Tusks that Gore (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
+- 92345 Beneath Nordrassil (level 55, Azshara): Alliance only
+- 94316 Craftsman's Writ: Potion of Demonslaying (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 96246 Blackmaw Pouches (level 60, Azshara): not in the game client
+- 97327 Blackmaw Pouches (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8729 The Wrath of Neptulon (level 60, Azshara, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 2522 Kum'isha's Endeavors (level 55, Blasted Lands): not in the game client
+- 2582 Rage of Ages (level 50, Blasted Lands): not in the game client
+- 2584 Spirit of the Boar (level 50, Blasted Lands): not in the game client
+- 2586 Salt of the Scorpok (level 50, Blasted Lands): not in the game client
+- 2602 Infallible Mind (level 50, Blasted Lands): not in the game client
+- 2604 Spiritual Domination (level 50, Blasted Lands): not in the game client
+- 2743 The Cover of Darkness (level 60, Blasted Lands): level 60: no visit of these guides fits (an earlier guide's quest)
+- 2783 Petty Squabbles (level 57, Blasted Lands): Alliance only
+- 2991 Nekrum's Medallion (level 47, Blasted Lands): Alliance only
+- 3502 One Draenei's Junk... (level 55, Blasted Lands): not in the game client
+- 4128 Ragnar Thunderbrew (level 55, Blasted Lands): Alliance only
+- 7581 The Prison's Bindings (level 60, Blasted Lands): class quest
+- 7582 The Prison's Casing (level 60, Blasted Lands): class quest
+- 7583 Suppression (level 60, Blasted Lands): class quest
+- 8647 Bellowrage the Elder (level 60, Blasted Lands): not available (removed)
+- 81919 Brought to Heel (level 54, Blasted Lands): class quest
+- 87451 Memories of Rockard (level 55, Blasted Lands): not available (incomplete)
+- 91548 Vek'zol (level 55, Blasted Lands): level 55: no visit of these guides fits (an earlier guide's quest)
+- 91882 The Grand Alliance (level 55, Blasted Lands): level 55: no visit of these guides fits (an earlier guide's quest)
+- 93572 To Serve The Draenei (level 55, Blasted Lands): not available (incomplete)
+- 93685 To Serve Kum'isha (level 55, Blasted Lands): level 55: no visit of these guides fits (an earlier guide's quest)
+- 96797 The Orphan (level 54, Blasted Lands): Alliance only
+- 96798 Into the Darkness (level 54, Blasted Lands): Alliance only
+- 96799 A Heavy Responsibility (level 54, Blasted Lands): Alliance only
+- 96811 Escaping the Shadows (level 54, Blasted Lands): Alliance only
+- 96812 Thicker Than Water (level 54, Blasted Lands): Alliance only
+- 2681 The Stones That Bind Us (level 57, Blasted Lands, Swamp of Sorrows): level 57: no visit of these guides fits (an earlier guide's quest)
+- 2701 Heroes of Old (level 57, Blasted Lands, Swamp of Sorrows): level 57: no visit of these guides fits (an earlier guide's quest)
+- 2702 Heroes of Old (level 57, Blasted Lands, Swamp of Sorrows): level 57: no visit of these guides fits (an earlier guide's quest)
+- 2721 Kirith (level 58, Blasted Lands, Swamp of Sorrows): level 58: no visit of these guides fits (an earlier guide's quest)
+- 2744 The Demon Hunter (level 60, Blasted Lands, Swamp of Sorrows): level 60: no visit of these guides fits (an earlier guide's quest)
+- 3627 Uniting the Shattered Amulet (level 60, Blasted Lands, Swamp of Sorrows): level 60: no visit of these guides fits (an earlier guide's quest)
+- 3628 You Are Rakh'likh, Demon (level 60, Blasted Lands, Swamp of Sorrows): level 60: no visit of these guides fits (an earlier guide's quest)
+- 93684 The Found One (level 55, Blasted Lands, Swamp of Sorrows): level 55: no visit of these guides fits (an earlier guide's quest)
+- 2992 The Divination (level 47, Blasted Lands, The Hinterlands): Alliance only
+- 2993 Return to the Hinterlands (level 47, Blasted Lands, The Hinterlands): Alliance only
+- 3823 Extinguish the Firegut (level 52, Burning Steppes): Alliance only
+- 3824 Gor'tesh the Brute Lord (level 53, Burning Steppes): Alliance only
+- 3825 Ogre Head On A Stick = Party (level 53, Burning Steppes): Alliance only
+- 4024 A Taste of Flame (level 58, Burning Steppes): level 58: no visit of these guides fits (an earlier guide's quest)
+- 4121 Precarious Predicament (level 58, Burning Steppes): level 58: no visit of these guides fits (an earlier guide's quest)
+- 4182 Dragonkin Menace (level 54, Burning Steppes): Alliance only
+- 4183 The True Masters (level 54, Burning Steppes): Alliance only
+- 4184 The True Masters (level 54, Burning Steppes): Alliance only
+- 4185 The True Masters (level 54, Burning Steppes): Alliance only
+- 4186 The True Masters (level 54, Burning Steppes): Alliance only
+- 4223 The True Masters (level 54, Burning Steppes): Alliance only
+- 4224 The True Masters (level 54, Burning Steppes): Alliance only
+- 4241 Marshal Windsor (level 54, Burning Steppes): Alliance only
+- 4262 Overmaster Pyron (level 52, Burning Steppes): Alliance only
+- 4263 Incendius! (level 56, Burning Steppes): Alliance only
+- 4283 FIFTY! YEP! (level 56, Burning Steppes): Alliance only
+- 4286 The Good Stuff (level 56, Burning Steppes): Alliance only
+- 4463 Libram of Rumination (level 55, Burning Steppes): not in the game client
+- 4481 Libram of Constitution (level 55, Burning Steppes): not in the game client
+- 4482 Libram of Tenacity (level 55, Burning Steppes): not in the game client
+- 4483 Libram of Resilience (level 55, Burning Steppes): not in the game client
+- 4484 Libram of Voracity (level 55, Burning Steppes): not in the game client
+- 4701 Put Her Down (level 59, Burning Steppes): Alliance only
+- 4729 Kibler's Exotic Pets (level 59, Burning Steppes): level 59: no visit of these guides fits (an earlier guide's quest)
+- 4734 Egg Freezing (level 60, Burning Steppes): level 60: no visit of these guides fits (an earlier guide's quest)
+- 4735 Egg Collection (level 60, Burning Steppes): level 60: no visit of these guides fits (an earlier guide's quest)
+- 4764 Doomrigger's Clasp (level 60, Burning Steppes): Alliance only
+- 4765 Delivery to Ridgewell (level 60, Burning Steppes): Alliance only
+- 4862 En-Ay-Es-Tee-Why (level 59, Burning Steppes): level 59: no visit of these guides fits (an earlier guide's quest)
+- 4866 Mother's Milk (level 60, Burning Steppes): level 60: no visit of these guides fits (an earlier guide's quest)
+- 5081 Maxwell's Mission (level 60, Burning Steppes): Alliance only
+- 5102 General Drakkisath's Demise (level 60, Burning Steppes): Alliance only
+- 5522 Leonid Barthalomew (level 60, Burning Steppes): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6402 Stormwind Rendezvous (level 60, Burning Steppes): Alliance only
+- 7563 Rage of Blood (level 58, Burning Steppes): class quest
+- 7564 Wildeyes (level 58, Burning Steppes): class quest
+- 7623 Lord Banehollow (level 58, Burning Steppes): class quest
+- 7626 Bell of Dethmoora (level 60, Burning Steppes): class quest
+- 7627 Wheel of the Black March (level 60, Burning Steppes): class quest
+- 7628 Doomsday Candle (level 60, Burning Steppes): class quest
+- 7629 Imp Delivery (level 60, Burning Steppes): class quest
+- 7630 Arcanite (level 60, Burning Steppes): class quest
+- 7631 Dreadsteed of Xoroth (level 60, Burning Steppes): class quest
+- 8636 Rumblerock the Elder (level 60, Burning Steppes): not available (removed)
+- 8683 Dawnstrider the Elder (level 60, Burning Steppes): not available (removed)
+- 84211 Poacher's Den (level 60, Burning Steppes): class quest
+- 84396 Magma or Lava? (level 60, Burning Steppes): level 60: no visit of these guides fits (an earlier guide's quest)
+- 7487 Attunement to the Core (level 60, Burning Steppes, Searing Gorge): not available (removed)
+- 7848 Attunement to the Core (level 60, Burning Steppes, Searing Gorge): dungeon quest
+- 261 Down the Scarlet Path (level 39, Desolace): Alliance only
+- 1052 Down the Scarlet Path (level 40, Desolace): Alliance only
+- 1277 <nyi> <TXT> The Centaur Hoofprints (level 40, Desolace): not available (removed)
+- 1361 Regthar Deathgate (level 32, Desolace): level 32: no visit of these guides fits (an earlier guide's quest)
+- 1362 The Kolkar of Desolace (level 32, Desolace): level 32: no visit of these guides fits (an earlier guide's quest)
+- 1365 Khan Dez'hepah (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1366 Centaur Bounty (level 31, Desolace): level 31: no visit of these guides fits (an earlier guide's quest)
+- 1367 Magram Alliance (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1368 Gelkis Alliance (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1369 Broken Tears (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1370 Stealing Supplies (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1371 Gizmo for Warug (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1374 Khan Jehn (level 37, Desolace): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1375 Khan Shaka (level 37, Desolace): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1382 Strange Alliance (level 35, Desolace): Alliance only
+- 1384 Raid on the Kolkar (level 32, Desolace): Alliance only
+- 1385 Brutal Politics (level 35, Desolace): Alliance only
+- 1386 Assault on the Kolkar (level 32, Desolace): Alliance only
+- 1387 Centaur Bounty (level 31, Desolace): Alliance only
+- 1433 Alliance Relations (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1434 Befouled by Satyr (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1435 The Burning of Spirits (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1436 Alliance Relations (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1437 Vahlarriel's Search (level 33, Desolace): Alliance only
+- 1438 Vahlarriel's Search (level 33, Desolace): Alliance only
+- 1439 Search for Tyranis (level 33, Desolace): Alliance only
+- 1440 Return to Vahlarriel (level 33, Desolace): Alliance only
+- 1441 <UNUSED> (level 33, Desolace): not available (removed)
+- 1454 The Karnitol Shipwreck (level 39, Desolace): Alliance only
+- 1455 The Karnitol Shipwreck (level 39, Desolace): Alliance only
+- 1456 The Karnitol Shipwreck (level 39, Desolace): Alliance only
+- 1457 The Karnitol Shipwreck (level 39, Desolace): Alliance only
+- 1458 Reagents for Reclaimers Inc. (level 33, Desolace): Alliance only
+- 1459 Reagents for Reclaimers Inc. (level 35, Desolace): Alliance only
+- 1460 <UNUSED> (level 37, Desolace): not available (removed)
+- 1461 <UNUSED> (level 37, Desolace): not available (removed)
+- 1465 Vahlarriel's Search (level 33, Desolace): Alliance only
+- 1466 Reagents for Reclaimers Inc. (level 40, Desolace): Alliance only
+- 1467 Reagents for Reclaimers Inc. (level 40, Desolace): Alliance only
+- 1480 The Corrupter (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1481 The Corrupter (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 1482 The Corrupter (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1484 The Corrupter (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 5381 Hand of Iruxos (level 38, Desolace): level 38: no visit of these guides fits (an earlier guide's quest)
+- 5386 Catch of the Day (level 37, Desolace): level 37: no visit of these guides fits (an earlier guide's quest)
+- 5421 Fish in a Bucket (level 25, Desolace): not in the game client
+- 5561 Kodo Roundup (level 34, Desolace): level 34: no visit of these guides fits (an earlier guide's quest)
+- 5741 Sceptre of Light (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 5763 Hunting in Stranglethorn (level 31, Desolace): level 31: no visit of these guides fits (an earlier guide's quest)
+- 5821 Bodyguard for Hire (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 5943 Gizelton Caravan (level 38, Desolace): level 38: no visit of these guides fits (an earlier guide's quest)
+- 6027 Book of the Ancients (level 38, Desolace): level 38: no visit of these guides fits (an earlier guide's quest)
+- 6141 Brother Anton (level 39, Desolace): Alliance only
+- 6142 Clam Bait (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 6143 Other Fish to Fry (level 36, Desolace): level 36: no visit of these guides fits (an earlier guide's quest)
+- 6161 Claim Rackmore's Treasure! (level 36, Desolace): level 36: no visit of these guides fits (an earlier guide's quest)
+- 6568 The Testament of Rexxar (level 60, Desolace): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6602 Blood of the Black Dragon Champion (level 60, Desolace): level 60: no visit of these guides fits (an earlier guide's quest)
+- 7041 Vyletongue Corruption (level 47, Desolace): Alliance only
+- 7065 Corruption of Earth and Seed (level 51, Desolace): Alliance only
+- 8458 <UNUSED> (level 33, Desolace): not available (removed)
+- 8635 Splitrock the Elder (level 60, Desolace): not available (removed)
+- 79939 The Broken Hammer (level 40, Desolace): Alliance only
+- 92754 A New Need for Shadow Protection (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 92755 Mysterious Mysticism (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 92811 Economic Warfare (level 60, Desolace): not in the game client
+- 92812 Economic Warfare (level 60, Desolace): not in the game client
+- 92814 I Need a Tailor (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 92818 Big, No, MASSIVE Iron Axes (level 35, Desolace): level 35: no visit of these guides fits (an earlier guide's quest)
+- 93044 A Cleansing Cry (level 38, Desolace): Alliance only
+- 93045 Test Your Theory (level 38, Desolace): level 38: no visit of these guides fits (an earlier guide's quest)
+- 93224 Carved Centaur Totems (level 40, Desolace): Alliance only
+- 93226 Buying Friendship: Magram (level 45, Desolace): Alliance only
+- 93227 Buying Friendship: Gelkis (level 45, Desolace): Alliance only
+- 94841 Lost Shipping Crate (level 38, Desolace): Alliance only
+- 97265 Hate the Hatefury (level 33, Desolace): level 33: no visit of these guides fits (an earlier guide's quest)
+- 97284 Vahlarriel's Vengeance (level 33, Desolace): Alliance only
+- 93034 Valley of Bones (level 38, Desolace, Shen'dralas): level 38: no visit of these guides fits (an earlier guide's quest)
+- 1 The "Chow" Quest (123)aa (level 4, Dustwallow Marsh): not available (removed)
+- 1133 Journey to Astranaar (level 20, Dustwallow Marsh): Alliance only
+- 1135 Highperch Venom (level 30, Dustwallow Marsh): Alliance only
+- 1177 Hungry! (level 36, Dustwallow Marsh): level 36: no visit of these guides fits (an earlier guide's quest)
+- 1201 Theramore Spies (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1202 The Theramore Docks (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1203 Jarl Needs a Blade (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1204 Mudrock Soup and Bugs (level 38, Dustwallow Marsh): Alliance only
+- 1206 Jarl Needs Eyes (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1218 Soothing Spices (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1219 The Orc Report (level 35, Dustwallow Marsh): Alliance only
+- 1220 Captain Vimes (level 35, Dustwallow Marsh): Alliance only
+- 1222 Stinky's Escape (level 37, Dustwallow Marsh): Alliance only
+- 1238 The Lost Report (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1239 The Severed Head (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1251 The Black Shield (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1252 Lieutenant Paval Reethe (level 40, Dustwallow Marsh): Alliance only
+- 1253 The Black Shield (level 35, Dustwallow Marsh): Alliance only
+- 1258 ... and Bugs (level 40, Dustwallow Marsh): Alliance only
+- 1259 Lieutenant Paval Reethe (level 40, Dustwallow Marsh): Alliance only
+- 1260 Morgan Stern (level 38, Dustwallow Marsh): Alliance only
+- 1263 The Burning Inn <CHANGE TO GOSSIP> (level 35, Dustwallow Marsh): not available (removed)
+- 1265 The Missing Diplomat (level 35, Dustwallow Marsh): Alliance only
+- 1266 The Missing Diplomat (level 36, Dustwallow Marsh): Alliance only
+- 1267 The Missing Diplomat (level 38, Dustwallow Marsh): Alliance only
+- 1268 Suspicious Hoofprints (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1269 Lieutenant Paval Reethe (level 37, Dustwallow Marsh): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1271 Feast at the Blue Recluse (level 37, Dustwallow Marsh): Alliance only
+- 1273 Questioning Reethe (level 37, Dustwallow Marsh): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1276 The Black Shield (level 37, Dustwallow Marsh): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1280 <nyi> <TXT>The Centaur Hoofprints (level 0, Dustwallow Marsh): not available (removed)
+- 1281 Jim's Song <CHANGE TO GOSSIP> (level 35, Dustwallow Marsh): not available (removed)
+- 1282 They Call Him Smiling Jim (level 35, Dustwallow Marsh): Alliance only
+- 1283 Fire at the Shady Rest <CHANGE TO GOSSIP> (level 35, Dustwallow Marsh): not available (incomplete)
+- 1284 Suspicious Hoofprints (level 35, Dustwallow Marsh): Alliance only
+- 1285 Daelin's Men (level 38, Dustwallow Marsh): Alliance only
+- 1286 The Deserters (level 38, Dustwallow Marsh): Alliance only
+- 1287 The Deserters (level 38, Dustwallow Marsh): Alliance only
+- 1288 Vimes's Report (level 38, Dustwallow Marsh): not available (removed)
+- 1289 Vimes's Report (level 38, Dustwallow Marsh): not available (removed)
+- 1292 <nyi><TXT> Centaur Hoofprints (level None, Dustwallow Marsh): not available (removed)
+- 1293 <nyi> <TXT> Centaur Hoofprints (level 0, Dustwallow Marsh): not available (removed)
+- 1294 <nyi> <TXT>Centaur Sympathies (level 0, Dustwallow Marsh): not available (removed)
+- 1295 <nyi> <TXT> Course of Action (level 0, Dustwallow Marsh): not available (removed)
+- 1296 <nyi> <TXT> Course of Action (level 0, Dustwallow Marsh): not available (removed)
+- 1297 <nyi> <TXT> Course of Action (level 0, Dustwallow Marsh): not available (removed)
+- 1319 The Black Shield (level 35, Dustwallow Marsh): Alliance only
+- 1320 The Black Shield (level 35, Dustwallow Marsh): Alliance only
+- 1321 The Black Shield (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1322 The Black Shield (level 37, Dustwallow Marsh): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1323 The Black Shield (level 37, Dustwallow Marsh): level 37: no visit of these guides fits (an earlier guide's quest)
+- 1324 The Missing Diplomat (level 38, Dustwallow Marsh): Alliance only
+- 1390 Oops, We Killed Them Again. (level 60, Dustwallow Marsh): not available (removed)
+- 1948 Items of Power (level 40, Dustwallow Marsh): class quest
+- 1949 Hidden Secrets (level 38, Dustwallow Marsh): class quest
+- 1952 Mage's Wand (level 40, Dustwallow Marsh): class quest
+- 1954 The Infernal Orb (level 40, Dustwallow Marsh): class quest
+- 1955 The Exorcism (level 40, Dustwallow Marsh): class quest
+- 1956 Power in Uldaman (level 40, Dustwallow Marsh): class quest
+- 1957 Mana Surges (level 40, Dustwallow Marsh): class quest
+- 1958 Celestial Power (level 40, Dustwallow Marsh): class quest
+- 3861 CLUCK! (level 1, Dustwallow Marsh): not in the game client
+- 4961 Cleansing of the Orb of Orahil (level 40, Dustwallow Marsh): class quest
+- 4976 Returning the Cleansed Orb (level 40, Dustwallow Marsh): class quest
+- 6582 The Test of Skulls, Scryer (level 60, Dustwallow Marsh): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6583 The Test of Skulls, Somnus (level 60, Dustwallow Marsh): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6584 The Test of Skulls, Chronalis (level 60, Dustwallow Marsh): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6585 The Test of Skulls, Axtroz (level 60, Dustwallow Marsh): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6601 Ascension... (level 60, Dustwallow Marsh): level 60: no visit of these guides fits (an earlier guide's quest)
+- 6607 Nat Pagle, Angler Extreme (level 45, Dustwallow Marsh): profession quest
+- 6624 Triage (level 45, Dustwallow Marsh): Alliance only
+- 7070 Shadowshard Fragments (level 42, Dustwallow Marsh): Alliance only
+- 9065 The "Chow" Quest (123)aa (level 4, Dustwallow Marsh): not available (removed)
+- 81570 Jarl Needs a Blade (level 35, Dustwallow Marsh): level 35: no visit of these guides fits (an earlier guide's quest)
+- 81765 Elrick, Paladin of the Silver Hand (level 50, Dustwallow Marsh): Alliance only
+- 95194 Our Man in Theramore (level 53, Dustwallow Marsh): Alliance only
+- 95196 Watch Yer Back (level 53, Dustwallow Marsh): Alliance only
+- 95198 The Return of the King? (level 53, Dustwallow Marsh): Alliance only
+- 95262 The Secret Prison (level 53, Dustwallow Marsh): Alliance only
+- 95264 Shaw Needs To Know (level 53, Dustwallow Marsh): Alliance only
+- 95283 The Missing Kor'kron (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 95284 The Elite of the Elite (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 95285 Right Place, Wrong Time (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 95309 No Orc Left Behind (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 96332 A Little Payback (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 96334 Blood Red Bandanas (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 96381 A Bit of Wet Work (level 53, Dustwallow Marsh): Alliance only
+- 98166 Your First Horse (level 40, Dustwallow Marsh): Alliance only
+- 98233 Sword in the Slime (level 42, Dustwallow Marsh): Alliance only
+- 4771 Dawn's Gambit (level 60, Eastern Plaguelands): dungeon quest
+- 5212 The Flesh Does Not Lie (level 60, Eastern Plaguelands): dungeon quest
+- 5213 The Active Agent (level 60, Eastern Plaguelands): dungeon quest
+- 5214 The Great Fras Siabi (level 60, Eastern Plaguelands): dungeon quest
+- 5243 Houses of the Holy (level 60, Eastern Plaguelands): dungeon quest
+- 5246 Fragments of the Past (level 56, Eastern Plaguelands): Alliance only
+- 5247 Fragments of the Past (level 57, Eastern Plaguelands): Alliance only
+- 5248 Tormented By the Past (level 58, Eastern Plaguelands): Alliance only
+- 5251 The Archivist (level 60, Eastern Plaguelands): dungeon quest
+- 5263 Above and Beyond (level 60, Eastern Plaguelands): dungeon quest
+- 5282 The Restless Souls (level 60, Eastern Plaguelands): dungeon quest
+- 5463 Menethil's Gift (level 60, Eastern Plaguelands): dungeon quest
+- 5508 Corruptor's Scourgestones (level 55, Eastern Plaguelands): not in the game client
+- 5509 Invader's Scourgestones (level 55, Eastern Plaguelands): not in the game client
+- 5510 Minion's Scourgestones (level 55, Eastern Plaguelands): not in the game client
+- 5529 Plagued Hatchlings (level 58, Eastern Plaguelands): dungeon quest
+- 5530 <NYI> <TXT> Necklace of the Dawn (level 60, Eastern Plaguelands): not available (removed)
+- 5531 Betina Bigglezink (level 60, Eastern Plaguelands): dungeon quest
+- 5532 <NYI> <TXT> Ring of the Dawn (level 58, Eastern Plaguelands): not available (removed)
+- 6163 Ramstein (level 60, Eastern Plaguelands): dungeon quest
+- 6187 Order Must Be Restored (level 60, Eastern Plaguelands): Alliance only
+- 7621 A Warning (level 60, Eastern Plaguelands): class quest
+- 7622 The Balance of Light and Shadow (level 60, Eastern Plaguelands): class quest
+- 8650 Snowcrown the Elder (level 60, Eastern Plaguelands): not available (removed)
+- 8688 Windrun the Elder (level 60, Eastern Plaguelands): not available (removed)
+- 8727 Farwhisper the Elder (level 60, Eastern Plaguelands): not available (removed)
+- 8929 In Search of Anthion (level 60, Eastern Plaguelands): Alliance only
+- 8945 Dead Man's Plea (level 60, Eastern Plaguelands): dungeon quest
+- 8948 Anthion's Old Friend (level 60, Eastern Plaguelands): dungeon quest
+- 8951 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8952 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8953 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8954 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8955 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8956 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8957 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 8958 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 8959 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 9016 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9017 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9018 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9019 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9020 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9021 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9022 Anthion's Parting Words (level 60, Eastern Plaguelands): class quest
+- 9033 Echoes of War (level 60, Eastern Plaguelands): dungeon quest
+- 9034 Dreadnaught Breastplate (level 60, Eastern Plaguelands): not in the game client
+- 9036 Dreadnaught Legplates (level 60, Eastern Plaguelands): not in the game client
+- 9037 Dreadnaught Helmet (level 60, Eastern Plaguelands): not in the game client
+- 9038 Dreadnaught Pauldrons (level 60, Eastern Plaguelands): not in the game client
+- 9039 Dreadnaught Sabatons (level 60, Eastern Plaguelands): not in the game client
+- 9040 Dreadnaught Gauntlets (level 60, Eastern Plaguelands): not in the game client
+- 9041 Dreadnaught Waistguard (level 60, Eastern Plaguelands): not in the game client
+- 9042 Dreadnaught Bracers (level 60, Eastern Plaguelands): not in the game client
+- 9043 Redemption Tunic (level 60, Eastern Plaguelands): not in the game client
+- 9044 Redemption Legguards (level 60, Eastern Plaguelands): not in the game client
+- 9045 Redemption Headpiece (level 60, Eastern Plaguelands): not in the game client
+- 9046 Redemption Spaulders (level 60, Eastern Plaguelands): not in the game client
+- 9047 Redemption Boots (level 60, Eastern Plaguelands): not in the game client
+- 9048 Redemption Handguards (level 60, Eastern Plaguelands): not in the game client
+- 9049 Redemption Girdle (level 60, Eastern Plaguelands): not in the game client
+- 9050 Redemption Wristguards (level 60, Eastern Plaguelands): not in the game client
+- 9054 Cryptstalker Tunic (level 60, Eastern Plaguelands): not in the game client
+- 9055 Cryptstalker Legguards (level 60, Eastern Plaguelands): not in the game client
+- 9056 Cryptstalker Headpiece (level 60, Eastern Plaguelands): not in the game client
+- 9057 Cryptstalker Spaulders (level 60, Eastern Plaguelands): not in the game client
+- 9058 Cryptstalker Boots (level 60, Eastern Plaguelands): not in the game client
+- 9059 Cryptstalker Handguards (level 60, Eastern Plaguelands): not in the game client
+- 9060 Cryptstalker Girdle (level 60, Eastern Plaguelands): not in the game client
+- 9061 Cryptstalker Wristguards (level 60, Eastern Plaguelands): not in the game client
+- 9068 Earthshatter Tunic (level 60, Eastern Plaguelands): not in the game client
+- 9069 Earthshatter Legguards (level 60, Eastern Plaguelands): not in the game client
+- 9070 Earthshatter Headpiece (level 60, Eastern Plaguelands): not in the game client
+- 9071 Earthshatter Spaulders (level 60, Eastern Plaguelands): not in the game client
+- 9072 Earthshatter Boots (level 60, Eastern Plaguelands): not in the game client
+- 9073 Earthshatter Handguards (level 60, Eastern Plaguelands): not in the game client
+- 9074 Earthshatter Girdle (level 60, Eastern Plaguelands): not in the game client
+- 9075 Earthshatter Wristguards (level 60, Eastern Plaguelands): not in the game client
+- 9077 Bonescythe Breastplate (level 60, Eastern Plaguelands): not in the game client
+- 9078 Bonescythe Legplates (level 60, Eastern Plaguelands): not in the game client
+- 9079 Bonescythe Helmet (level 60, Eastern Plaguelands): not in the game client
+- 9080 Bonescythe Pauldrons (level 60, Eastern Plaguelands): not in the game client
+- 9081 Bonescythe Sabatons (level 60, Eastern Plaguelands): not in the game client
+- 9082 Bonescythe Gauntlets (level 60, Eastern Plaguelands): not in the game client
+- 9083 Bonescythe Waistguard (level 60, Eastern Plaguelands): not in the game client
+- 9084 Bonescythe Bracers (level 60, Eastern Plaguelands): not in the game client
+- 9085 Shadows of Doom (level 60, Eastern Plaguelands): category -368 (class, profession, holiday or seasonal)
+- 9086 Dreamwalker Tunic (level 60, Eastern Plaguelands): not in the game client
+- 9087 Dreamwalker Legguards (level 60, Eastern Plaguelands): not in the game client
+- 9088 Dreamwalker Headpiece (level 60, Eastern Plaguelands): not in the game client
+- 9089 Dreamwalker Spaulders (level 60, Eastern Plaguelands): not in the game client
+- 9090 Dreamwalker Boots (level 60, Eastern Plaguelands): not in the game client
+- 9091 Dreamwalker Handguards (level 60, Eastern Plaguelands): not in the game client
+- 9092 Dreamwalker Girdle (level 60, Eastern Plaguelands): not in the game client
+- 9093 Dreamwalker Wristguards (level 60, Eastern Plaguelands): not in the game client
+- 9094 Argent Dawn Gloves (level 60, Eastern Plaguelands): not in the game client
+- 9095 Frostfire Robe (level 60, Eastern Plaguelands): not in the game client
+- 9096 Frostfire Leggings (level 60, Eastern Plaguelands): not in the game client
+- 9097 Frostfire Circlet (level 60, Eastern Plaguelands): not in the game client
+- 9098 Frostfire Shoulderpads (level 60, Eastern Plaguelands): not in the game client
+- 9099 Frostfire Sandals (level 60, Eastern Plaguelands): not in the game client
+- 9100 Frostfire Gloves (level 60, Eastern Plaguelands): not in the game client
+- 9101 Frostfire Belt (level 60, Eastern Plaguelands): not in the game client
+- 9102 Frostfire Bindings (level 60, Eastern Plaguelands): not in the game client
+- 9103 Plagueheart Robe (level 60, Eastern Plaguelands): not in the game client
+- 9104 Plagueheart Leggings (level 60, Eastern Plaguelands): not in the game client
+- 9105 Plagueheart Circlet (level 60, Eastern Plaguelands): not in the game client
+- 9106 Plagueheart Shoulderpads (level 60, Eastern Plaguelands): not in the game client
+- 9107 Plagueheart Sandals (level 60, Eastern Plaguelands): not in the game client
+- 9108 Plagueheart Gloves (level 60, Eastern Plaguelands): not in the game client
+- 9109 Plagueheart Belt (level 60, Eastern Plaguelands): not in the game client
+- 9110 Plagueheart Bindings (level 60, Eastern Plaguelands): not in the game client
+- 9111 Robe of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9112 Leggings of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9113 Circlet of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9114 Shoulderpads of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9115 Sandals of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9116 Gloves of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9117 Belt of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9118 Bindings of Faith (level 60, Eastern Plaguelands): not in the game client
+- 9125 Crypt Fiend Parts (level 60, Eastern Plaguelands): not in the game client
+- 9127 Bone Fragments (level 60, Eastern Plaguelands): not in the game client
+- 9129 Core of Elements (level 60, Eastern Plaguelands): not in the game client
+- 9132 Dark Iron Scraps (level 60, Eastern Plaguelands): not in the game client
+- 9137 Savage Fronds (level 60, Eastern Plaguelands): not in the game client
+- 9142 Craftsman's Writ (level 60, Eastern Plaguelands): not in the game client
+- 9153 Under the Shadow (level 60, Eastern Plaguelands): category -368 (class, profession, holiday or seasonal)
+- 9165 Writ of Safe Passage (level 60, Eastern Plaguelands): not in the game client
+- 9178 Craftsman's Writ - Dense Weightstone (level 60, Eastern Plaguelands): not in the game client
+- 9179 Craftsman's Writ - Imperial Plate Chest (level 60, Eastern Plaguelands): not in the game client
+- 9181 Craftsman's Writ - Volcanic Hammer (level 60, Eastern Plaguelands): not in the game client
+- 9182 Craftsman's Writ - Huge Thorium Battleaxe (level 60, Eastern Plaguelands): not in the game client
+- 9183 Craftsman's Writ - Radiant Circlet (level 60, Eastern Plaguelands): not in the game client
+- 9184 Craftsman's Writ - Wicked Leather Headband (level 60, Eastern Plaguelands): not in the game client
+- 9185 Craftsman's Writ - Rugged Armor Kit (level 60, Eastern Plaguelands): not in the game client
+- 9186 Craftsman's Writ - Wicked Leather Belt (level 60, Eastern Plaguelands): not in the game client
+- 9187 Craftsman's Writ - Runic Leather Pants (level 60, Eastern Plaguelands): not in the game client
+- 9188 Craftsman's Writ - Brightcloth Pants (level 60, Eastern Plaguelands): not in the game client
+- 9190 Craftsman's Writ - Runecloth Boots (level 60, Eastern Plaguelands): not in the game client
+- 9191 Craftsman's Writ - Runecloth Bag (level 60, Eastern Plaguelands): not in the game client
+- 9194 Craftsman's Writ - Runecloth Robe (level 60, Eastern Plaguelands): not in the game client
+- 9195 Craftsman's Writ - Goblin Sapper Charge (level 60, Eastern Plaguelands): not in the game client
+- 9196 Craftsman's Writ - Thorium Grenade (level 60, Eastern Plaguelands): not in the game client
+- 9197 Craftsman's Writ - Gnomish Battle Chicken (level 60, Eastern Plaguelands): not in the game client
+- 9198 Craftsman's Writ - Thorium Tube (level 60, Eastern Plaguelands): not in the game client
+- 9200 Craftsman's Writ - Major Mana Potion (level 60, Eastern Plaguelands): not in the game client
+- 9201 Craftsman's Writ - Greater Arcane Protection Potion (level 60, Eastern Plaguelands): not in the game client
+- 9202 Craftsman's Writ - Major Healing Potion (level 60, Eastern Plaguelands): not in the game client
+- 9203 Craftsman's Writ - Flask of Petrification (level 60, Eastern Plaguelands): not in the game client
+- 9204 Craftsman's Writ - Stonescale Eel (level 60, Eastern Plaguelands): not in the game client
+- 9205 Craftsman's Writ - Plated Armorfish (level 60, Eastern Plaguelands): not in the game client
+- 9206 Craftsman's Writ - Lightning Eel (level 60, Eastern Plaguelands): not in the game client
+- 9211 The Ice Guard (level 60, Eastern Plaguelands): not in the game client
+- 9213 The Shadow Guard (level 60, Eastern Plaguelands): not in the game client
+- 9221 Superior Armaments of Battle - Friend of the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9222 Epic Armaments of Battle - Friend of the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9223 Superior Armaments of Battle - Honored Amongst the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9224 Epic Armaments of Battle - Honored Amongst the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9225 Epic Armaments of Battle - Revered Amongst the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9226 Superior Armaments of Battle - Revered Amongst the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9227 Superior Armaments of Battle - Exalted Amongst the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9228 Epic Armaments of Battle - Exalted Amongst the Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9229 The Fate of Ramaladni (level 60, Eastern Plaguelands): dungeon quest
+- 9230 Ramaladni's Icy Grasp (level 60, Eastern Plaguelands): dungeon quest
+- 9232 The Only Song I Know... (level 60, Eastern Plaguelands): dungeon quest
+- 9234 Icebane Gauntlets (level 60, Eastern Plaguelands): class quest
+- 9235 Icebane Bracers (level 60, Eastern Plaguelands): class quest
+- 9236 Icebane Breastplate (level 60, Eastern Plaguelands): class quest
+- 9237 Glacial Cloak (level 60, Eastern Plaguelands): dungeon quest
+- 9238 Glacial Wrists (level 60, Eastern Plaguelands): class quest
+- 9239 Glacial Gloves (level 60, Eastern Plaguelands): class quest
+- 9240 Glacial Vest (level 60, Eastern Plaguelands): class quest
+- 9241 Polar Bracers (level 60, Eastern Plaguelands): class quest
+- 9242 Polar Gloves (level 60, Eastern Plaguelands): class quest
+- 9243 Polar Tunic (level 60, Eastern Plaguelands): class quest
+- 9244 Icy Scale Bracers (level 60, Eastern Plaguelands): class quest
+- 9245 Icy Scale Gauntlets (level 60, Eastern Plaguelands): class quest
+- 9246 Icy Scale Breastplate (level 60, Eastern Plaguelands): class quest
+- 9317 Consecrated Sharpening Stones (level 60, Eastern Plaguelands): not in the game client
+- 9318 Blessed Wizard Oil (level 60, Eastern Plaguelands): not in the game client
+- 9320 Major Mana Potion (level 60, Eastern Plaguelands): not in the game client
+- 9321 Major Healing Potion (level 60, Eastern Plaguelands): not in the game client
+- 9333 Argent Dawn Gloves (level 60, Eastern Plaguelands): not in the game client
+- 9334 Blessed Wizard Oil (level 60, Eastern Plaguelands): not in the game client
+- 9335 Consecrated Sharpening Stones (level 60, Eastern Plaguelands): not in the game client
+- 9336 Major Healing Potion (level 60, Eastern Plaguelands): not in the game client
+- 9337 Major Mana Potion (level 60, Eastern Plaguelands): not in the game client
+- 9341 Tabard of the Argent Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9343 Tabard of the Argent Dawn (level 60, Eastern Plaguelands): not in the game client
+- 9378 DND FLAG The Dread Citadel - Naxxramas (level 60, Eastern Plaguelands): not available (removed)
+- 9664 Establishing New Outposts (level 60, Eastern Plaguelands): Alliance only
+- 84179 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84180 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84181 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84182 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84183 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84184 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 84186 Anthion's Parting Words (level 60, Eastern Plaguelands): Alliance only
+- 84187 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84189 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84190 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84191 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84193 Anthion's Parting Words (level 60, Eastern Plaguelands): not available (removed)
+- 84318 Oi! (level 57, Eastern Plaguelands): Alliance only
+- 84319 Oh No Ye Don't! (level 58, Eastern Plaguelands): category -141 (class, profession, holiday or seasonal)
+- 84330 A Wee Bit O' Necromancy (level 59, Eastern Plaguelands): Alliance only
+- 84332 A Thane's Gratitude (level 59, Eastern Plaguelands): class quest
+- 84414 Send Me On Me Way (level 59, Eastern Plaguelands): class quest
+- 97987 Stormwind's High Order (level 57, Eastern Plaguelands): Alliance only
+- 6185 The Eastern Plagues (level 60, Eastern Plaguelands, Western Plaguelands): Alliance only
+- 7790 REUSE (level 57, Eastern Plaguelands, Western Plaguelands): not available (removed)
+- 8152 Rapid Escape (level None, Eastern Plaguelands, Western Plaguelands): not available (removed)
+- 939 Flute of Xavaric (level 54, Felwood): Alliance only
+- 996 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 998 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 1514 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 2523 Corrupted Songflower (level 55, Felwood): not in the game client
+- 3363 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4101 Cleansing Felwood (level 55, Felwood): Alliance only
+- 4103 Salve via Hunting (level 55, Felwood): not in the game client
+- 4104 Salve via Mining (level 55, Felwood): not in the game client
+- 4105 Salve via Gathering (level 55, Felwood): not in the game client
+- 4106 Salve via Skinning (level 55, Felwood): not in the game client
+- 4107 Salve via Disenchanting (level 55, Felwood): not in the game client
+- 4108 Salve via Hunting (level 55, Felwood): not in the game client
+- 4109 Salve via Mining (level 55, Felwood): not in the game client
+- 4110 Salve via Gathering (level 55, Felwood): not in the game client
+- 4111 Salve via Skinning (level 55, Felwood): not in the game client
+- 4112 Salve via Disenchanting (level 55, Felwood): not in the game client
+- 4113 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4114 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4115 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4116 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4117 Corrupted Whipper Root (level 55, Felwood): not in the game client
+- 4118 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4119 Corrupted Night Dragon (level 55, Felwood): not in the game client
+- 4221 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4222 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4261 Ancient Spirit (level 56, Felwood): Alliance only
+- 4343 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4401 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4403 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4421 The Corruption of the Jadefire (level 54, Felwood): Alliance only
+- 4441 Felbound Ancients (level 54, Felwood): Alliance only
+- 4442 Purified! (level 54, Felwood): Alliance only
+- 4443 Corrupted Whipper Root (level 55, Felwood): not in the game client
+- 4444 Corrupted Whipper Root (level 55, Felwood): not in the game client
+- 4445 Corrupted Whipper Root (level 55, Felwood): not in the game client
+- 4446 Corrupted Whipper Root (level 55, Felwood): not in the game client
+- 4447 Corrupted Night Dragon (level 55, Felwood): not in the game client
+- 4448 Corrupted Night Dragon (level 55, Felwood): not in the game client
+- 4461 Corrupted Whipper Root (level 55, Felwood): not in the game client
+- 4462 Corrupted Night Dragon (level 55, Felwood): not in the game client
+- 4464 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4465 Corrupted Songflower (level 55, Felwood): not in the game client
+- 4466 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4467 Corrupted Windblossom (level 55, Felwood): not in the game client
+- 4906 Further Corruption (level 54, Felwood): Alliance only
+- 5207 <NYI> <TXT> The True Summoner (level 49, Felwood): not available (removed)
+- 5208 <NYI> <TXT> The Blessing of Evil (level 49, Felwood): not available (removed)
+- 5209 <UNUSED> (level 49, Felwood): not available (removed)
+- 5249 To Winterspring! (level 56, Felwood): Alliance only
+- 5882 Salve via Hunting (level 55, Felwood): Alliance only
+- 5883 Salve via Mining (level 55, Felwood): Alliance only
+- 5884 Salve via Gathering (level 55, Felwood): Alliance only
+- 5885 Salve via Skinning (level 55, Felwood): Alliance only
+- 5886 Salve via Disenchanting (level 55, Felwood): Alliance only
+- 5888 Salve via Mining (level 55, Felwood): profession quest
+- 5889 Salve via Gathering (level 55, Felwood): profession quest
+- 5890 Salve via Skinning (level 55, Felwood): profession quest
+- 5891 Salve via Disenchanting (level 55, Felwood): profession quest
+- 6032 Sacred Cloth (level 55, Felwood): profession quest
+- 6131 Timbermaw Ally (level 48, Felwood): not available (removed)
+- 6221 Deadwood of the North (level 55, Felwood): not available (removed)
+- 7601 What Niby Commands (level 50, Felwood): class quest
+- 7602 Flawless Fel Essence (level 55, Felwood): class quest
+- 7603 Kroshius' Infernal Core (level 55, Felwood): class quest
+- 7624 Ulathek the Traitor (level 58, Felwood): class quest
+- 7625 Xorothian Stardust (level 60, Felwood): class quest
+- 7633 An Introduction (level 60, Felwood): class quest
+- 7634 Ancient Sinew Wrapped Lamina (level 60, Felwood): class quest
+- 7635 A Proper String (level 60, Felwood): class quest
+- 7636 Stave of the Ancients (level 60, Felwood): class quest
+- 7741 Praise from the Emerald Circle <NYI> <TXT> (level None, Felwood): not available (removed)
+- 8420 Hot and Itchy (level 52, Felwood): class quest
+- 8421 The Wrong Stuff (level 52, Felwood): class quest
+- 8422 Trolls of a Feather (level 52, Felwood): class quest
+- 8466 Feathers for Grazle (level 55, Felwood): not in the game client
+- 8481 The Root of All Evil (level 60, Felwood): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8484 The Brokering of Peace (level 60, Felwood): Alliance only
+- 8485 The Brokering of Peace (level 60, Felwood): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8723 Nightwind the Elder (level 60, Felwood): not available (removed)
+- 81790 Materials of Significance (level 53, Felwood): Alliance only
+- 81885 The Ritual (level 53, Felwood): Alliance only
+- 82135 The Price of Hope (level 53, Felwood): Alliance only
+- 84397 Northern Kalimdor - A Comprehensive Guide (level 60, Felwood): level 60: no visit of these guides fits (an earlier guide's quest)
+- 86611 Stag Lord's Bauble (level 55, Felwood): Alliance only
+- 93925 Beads for Brerufa (level 54, Felwood): not in the game client
+- 2878 Corrupted Songflower (level 55, Felwood, Feralas): not in the game client
+- 8469 Beads for Salfa (level 56, Felwood, Winterspring): not in the game client
+- 1101 The Crone of the Kraul (level 34, Feralas): Alliance only
+- 2821 The Mark of Quality (level 46, Feralas): Alliance only
+- 2844 The Giant Guardian (level 49, Feralas): Alliance only
+- 2845 Wandering Shay (level 49, Feralas): Alliance only
+- 2847 Wild Leather Armor (level 45, Feralas): Alliance only
+- 2848 Wild Leather Shoulders (level 45, Feralas): Alliance only
+- 2849 Wild Leather Vest (level 45, Feralas): Alliance only
+- 2850 Wild Leather Helmet (level 45, Feralas): Alliance only
+- 2851 Wild Leather Boots (level 45, Feralas): Alliance only
+- 2852 Wild Leather Leggings (level 45, Feralas): Alliance only
+- 2853 Master of the Wild Leather (level 45, Feralas): Alliance only
+- 2854 Wild Leather Armor (level 45, Feralas): profession quest
+- 2855 Wild Leather Shoulders (level 45, Feralas): profession quest
+- 2856 Wild Leather Vest (level 45, Feralas): profession quest
+- 2857 Wild Leather Helmet (level 45, Feralas): profession quest
+- 2858 Wild Leather Boots (level 45, Feralas): profession quest
+- 2859 Wild Leather Leggings (level 45, Feralas): profession quest
+- 2860 Master of the Wild Leather (level 45, Feralas): profession quest
+- 2866 The Ruins of Solarsal (level 43, Feralas): Alliance only
+- 2867 Return to Feathermoon Stronghold (level 43, Feralas): Alliance only
+- 2869 Against the Hatecrest (level 43, Feralas): Alliance only
+- 2870 Against Lord Shalzaru (level 45, Feralas): Alliance only
+- 2871 Delivering the Relic (level 45, Feralas): Alliance only
+- 2879 The Stave of Equinex (level 50, Feralas): Alliance only
+- 2939 In Search of Knowledge (level 47, Feralas): Alliance only
+- 2940 Feralas: A History (level 47, Feralas): Alliance only
+- 2941 The Borrower (level 48, Feralas): Alliance only
+- 2942 The Morrow Stone (level 50, Feralas): Alliance only
+- 2943 Return to Troyas (level 48, Feralas): Alliance only
+- 2969 Freedom for All Creatures (level 47, Feralas): Alliance only
+- 2970 Doling Justice (level 47, Feralas): Alliance only
+- 2972 Doling Justice (level 47, Feralas): Alliance only
+- 2982 The High Wilderness (level 44, Feralas): Alliance only
+- 3130 Against the Hatecrest (level 43, Feralas): Alliance only
+- 3445 The Sunken Temple (level 51, Feralas): Alliance only
+- 3567 To the Top (level 25, Feralas): not in the game client
+- 3788 Jonespyre's Request (level 50, Feralas): Alliance only
+- 3791 The Mystery of Morrowgrain (level 50, Feralas): Alliance only
+- 3792 Morrowgrain to Feathermoon Stronghold (level 55, Feralas): not in the game client
+- 3841 An Orphan Looking For a Home (level 47, Feralas): Alliance only
+- 3842 A Short Incubation (level 47, Feralas): Alliance only
+- 3843 The Newest Member of the Family (level 47, Feralas): Alliance only
+- 4041 The Videre Elixir (level 52, Feralas): not in the game client
+- 4124 The Missing Courier (level 43, Feralas): Alliance only
+- 4125 The Missing Courier (level 43, Feralas): Alliance only
+- 4127 Boat Wreckage (level 44, Feralas): Alliance only
+- 4129 The Knife Revealed (level 44, Feralas): Alliance only
+- 4130 Psychometric Reading (level 44, Feralas): Alliance only
+- 4131 The Woodpaw Gnolls (level 44, Feralas): Alliance only
+- 4135 The Writhing Deep (level 46, Feralas): Alliance only
+- 4265 Freed from the Hive (level 46, Feralas): Alliance only
+- 4266 A Hero's Welcome (level 46, Feralas): Alliance only
+- 4267 Rise of the Silithid (level 46, Feralas): Alliance only
+- 4281 Thalanaar Delivery (level 44, Feralas): Alliance only
+- 5143 Tribal Leatherworking (level 55, Feralas): Alliance only
+- 7441 Pusillin and the Elder Azj'Tordin (level 58, Feralas): dungeon quest
+- 7481 Elven Legends (level 60, Feralas): dungeon quest
+- 7482 Elven Legends (level 60, Feralas): Alliance only
+- 7488 Lethtendris's Web (level 57, Feralas): Alliance only
+- 7489 Lethtendris's Web (level 57, Feralas): dungeon quest
+- 7726 Refuel for the Zapping (level 55, Feralas): not in the game client
+- 7733 Improved Quality (level 48, Feralas): Alliance only
+- 7735 Pristine Yeti Hide (level 48, Feralas): not in the game client
+- 8679 Grimtotem the Elder (level 60, Feralas): not available (removed)
+- 8685 Mistwalker the Elder (level 60, Feralas): not available (removed)
+- 81855 Feralas Mission I: Defeat Children of Cenarius (level 52, Feralas): not available (removed)
+- 81856 Feralas Mission II: Defeat Harpies (level 52, Feralas): not available (removed)
+- 81857 Feralas Mission III: Defeat Dragonkin (level 52, Feralas): not available (removed)
+- 81858 Feralas Mission IV: Dragon Intelligence (level 52, Feralas): not available (removed)
+- 81859 Feralas Mission V: Cenarion Intelligence (level 52, Feralas): not available (removed)
+- 81860 Feralas Mission VI: Harpy Intelligence (level 52, Feralas): not available (removed)
+- 81861 Feralas Mission VII: Recover Moonglow Dragonegg (level 52, Feralas): not available (removed)
+- 81863 Feralas Mission VIII: Recover Keeper's Notes (level 52, Feralas): not available (removed)
+- 81864 Feralas Mission IX: Recover Harpy Screed (level 52, Feralas): not available (removed)
+- 81865 Feralas Mission X: Moonroot (level 52, Feralas): not available (removed)
+- 81866 Feralas Mission XI: Greater Moonstone (level 52, Feralas): not available (removed)
+- 81867 Feralas Mission XII: Greater Moondragon Scales (level 52, Feralas): not available (removed)
+- 81868 Feralas Mission XIII: Defeat Tyrannikus (level 52, Feralas): not available (removed)
+- 81870 Feralas Mission XIV: Defeat Alondrius (level 52, Feralas): not available (removed)
+- 81871 Feralas Mission XV: Defeat Slirena (level 52, Feralas): not available (removed)
+- 81872 Feralas Mission XVI: Rescue Mellias Earthtender (level 52, Feralas): not available (removed)
+- 81873 Feralas Mission XVII: Rescue Nerene Brooksinger (level 52, Feralas): not available (removed)
+- 81874 Feralas Mission XVIII: Rescue Jamniss Treemender (level 52, Feralas): not available (removed)
+- 81924 Wisdom of the Guardians (level 50, Feralas): class quest
+- 82656 Wild Leather Vest (level 45, Feralas): not available (removed)
+- 82657 Wild Leather Vest (level 45, Feralas): not available (removed)
+- 92858 WANTED: Ohk'zi (level 43, Feralas): Alliance only
+- 95555 Corrupted Nature (level 40, Feralas): not available (incomplete)
+- 98155 Pristine Pesterhide Pelts (level 31, Feralas): Alliance only
+- 98156 Packaged Pristine Pelts (level 31, Feralas): Alliance only
+- 2944 The Super Snapper FX (level 48, Feralas, Tanaris): Alliance only
+- 4297 Food for Baby (level 47, Feralas, The Hinterlands): Alliance only
+- 4298 Becoming a Parent (level 48, Feralas, The Hinterlands): Alliance only
+- 82068 Fight the Nightmare Incursions (level 52, Feralas, The Hinterlands): not available (removed)
+- 4143 Haze of Evil (level 52, Feralas, Un'Goro Crater): Alliance only
+- 93971 Farholde Scouting Report (level 45, Riverglades): not available (incomplete)
+- 94613 My Kingdom for a Horse (level 38, Riverglades): Alliance only
+- 94614 Freshwater Fiends (level 38, Riverglades): Alliance only
+- 94615 Foal Play (level 38, Riverglades): Alliance only
+- 94617 Coyote Huntin' (level 38, Riverglades): Alliance only
+- 94618 Wheeler's Fleeing Steeds (level 38, Riverglades): Alliance only
+- 94678 Gnoll Infestation (level 38, Riverglades): Alliance only
+- 94679 Snargl's Snout (level 40, Riverglades): Alliance only
+- 94829 What We Lost (level 40, Riverglades): Alliance only
+- 94832 Belle's Ring (level 58, Riverglades): Alliance only
+- 94842 Unsavory Plant Food (level 38, Riverglades): Alliance only
+- 94843 From Seed to Sprout (level 38, Riverglades): Alliance only
+- 94857 If a Tree Falls, and No One Hears... (level 39, Riverglades): Alliance only
+- 94858 All That's Left (level 40, Riverglades): Alliance only
+- 94861 Helping Hands (level 39, Riverglades): Alliance only
+- 94877 Saving Sunnyglade (level 40, Riverglades): Alliance only
+- 94879 Scraps of Knowledge (level 40, Riverglades): Alliance only
+- 94881 Curious Trinkets (level 38, Riverglades): Alliance only
+- 94884 An Unsettling Discovery (level 41, Riverglades): Alliance only
+- 94885 Field Marshal's Log (level 40, Riverglades): Alliance only
+- 94886 The Western Front (level 44, Riverglades): Alliance only
+- 94887 Saving Marshal Ryan (level 47, Riverglades): Alliance only
+- 94888 No Soldier Left Behind (level 44, Riverglades): Alliance only
+- 94889 Carving a Path (level 44, Riverglades): Alliance only
+- 94890 Bring Me His Head (level 46, Riverglades): Alliance only
+- 94891 News to Farholde (level 46, Riverglades): Alliance only
+- 94892 Dying Wish (level 47, Riverglades): Alliance only
+- 94893 Delivering Closure (level 47, Riverglades): Alliance only
+- 94894 The Twilight Threat (level 45, Riverglades): Alliance only
+- 94907 A Small Favor (level 44, Riverglades): Alliance only
+- 94923 Hats Off (level 38, Riverglades): Alliance only
+- 94924 Hunting the Hunters (level 39, Riverglades): Alliance only
+- 94925 A Fur Trade (level 39, Riverglades): Alliance only
+- 94926 Drop the Hammer (level 45, Riverglades): Alliance only
+- 94927 Dunston Checks Out (level 44, Riverglades): Alliance only
+- 94928 A Few Furs for Friz (level 39, Riverglades): Alliance only
+- 94931 Stolen Saws (level 38, Riverglades): Alliance only
+- 94981 Key Ingredients (level 41, Riverglades): Alliance only
+- 94982 Eye of Mugg (level 45, Riverglades): Alliance only
+- 94983 Twilight Mementos (level 42, Riverglades): Alliance only
+- 94984 Tome of Twilight (level 44, Riverglades): Alliance only
+- 94992 Rescue Roundup (level 38, Riverglades): Alliance only
+- 94997 Lingering Essence (level 42, Riverglades): Alliance only
+- 94998 Curios of Curiosity (level 42, Riverglades): Alliance only
+- 94999 Eyes for the Watchman (level 36, Riverglades): Alliance only
+- 95059 Frazzlespark's Crate (level 36, Riverglades): Alliance only
+- 95064 Preventative Measures (level 39, Riverglades): Alliance only
+- 95066 The Rog'mar Situation (level 39, Riverglades): Alliance only
+- 95147 The Lost Scout (level 37, Riverglades): Alliance only
+- 95148 Southern Watch Gnoll Report (level 37, Riverglades): Alliance only
+- 95156 Stuff 'Em and Stick 'Em (level 37, Riverglades): Alliance only
+- 95181 Twilight Scouting Report (level 42, Riverglades): not available (incomplete)
+- 95184 The Sharpest of Blades (level 38, Riverglades): Alliance only
+- 95219 From Port to Port (level 41, Riverglades): Alliance only
+- 95329 Out in the Field (level 38, Riverglades): Alliance only
+- 95330 Love Thy Neighbor (level 37, Riverglades): Alliance only
+- 95331 REUSE ME (level None, Riverglades): not available (incomplete)
+- 95426 Rog'mar Supplies (level 39, Riverglades): Alliance only
+- 95561 Apple of My Eye (level 38, Riverglades): Alliance only
+- 95562 Cut Off the Heads (level 41, Riverglades): Alliance only
+- 95603 Bats in the Belfry (level 38, Riverglades): Alliance only
+- 95613 Keeping the Light On (level 38, Riverglades): Alliance only
+- 95615 In Memoriam (level 38, Riverglades): Alliance only
+- 95642 Abominable Magics (level 40, Riverglades): Alliance only
+- 95643 Indiscriminate Purge (level 40, Riverglades): Alliance only
+- 95912 WANTED: Blademaster Kaijo (level 42, Riverglades): Alliance only
+- 95913 Fit for a Princess (level 38, Riverglades): Alliance only
+- 95935 Hail the Dragonslayer (level 43, Riverglades): Alliance only
+- 95936 Hail the Dragonslayer (level 43, Riverglades): not available (incomplete)
+- 95943 Foreman's Plight (level 38, Riverglades): Alliance only
+- 95957 Drink Up! (level 38, Riverglades): Alliance only
+- 95961 Stepped Out (level 38, Riverglades): Alliance only
+- 95975 Her World (level 41, Riverglades): Alliance only
+- 95983 A Feast for Buzzards (level 38, Riverglades): Alliance only
+- 95984 Song of the Strider (level 39, Riverglades): Alliance only
+- 95986 King of the Wild Plains (level 41, Riverglades): Alliance only
+- 95988 Goes Down Smooth (level 38, Riverglades): Alliance only
+- 95991 WANTED: Ghostmaw (level 42, Riverglades): Alliance only
+- 96009 High Stakes (level 38, Riverglades): Alliance only
+- 96015 A Miner Problem (level 43, Riverglades): Alliance only
+- 96027 Might Over Magic (level 41, Riverglades): not available (removed)
+- 96028 Magic Over Might (level 40, Riverglades): not available (removed)
+- 96081 Wound Dressings (level 40, Riverglades): Alliance only
+- 96082 Doctor's Orderly (level 40, Riverglades): Alliance only
+- 96083 Clerical Quarantine (level 40, Riverglades): Alliance only
+- 96084 Something's in the Water (level 40, Riverglades): Alliance only
+- 96085 Upstream Contamination (level 42, Riverglades): Alliance only
+- 96125 In Need of Relief (level 43, Riverglades): Alliance only
+- 96126 An Ogre's Captive (level 44, Riverglades): Alliance only
+- 98426 REUSEME (level 38, Riverglades): not available (incomplete)
+- 3181 The Horn of the Beast (level 48, Searing Gorge): Alliance only
+- 3367 Suntara Stones (level 48, Searing Gorge): Alliance only
+- 3368 Suntara Stones (level 48, Searing Gorge): Alliance only
+- 3372 Release Them (level 52, Searing Gorge): Alliance only
+- 3377 Prayer to Elune (level 50, Searing Gorge): Alliance only
+- 3378 Prayer to Elune (level 50, Searing Gorge): Alliance only
+- 3379 Shadoweaver (level 50, Searing Gorge): profession quest
+- 3385 The Undermarket (level 50, Searing Gorge): profession quest
+- 3402 The Undermarket (level 50, Searing Gorge): profession quest
+- 3566 Rise, Obsidion! (level 52, Searing Gorge): Alliance only
+- 4450 Ledger from Tanaris (level 46, Searing Gorge): level 46: no visit of these guides fits (an earlier guide's quest)
+- 5144 Elemental Leatherworking (level 55, Searing Gorge): Alliance only
+- 7704 Look at the Size of It! (level 50, Searing Gorge): not available (removed)
+- 7736 Restoring Fiery Flux Supplies via Kingsblood (level 60, Searing Gorge): not in the game client
+- 7737 Gaining Acceptance (level 60, Searing Gorge): not in the game client
+- 8241 Restoring Fiery Flux Supplies via Iron (level 60, Searing Gorge): not in the game client
+- 8242 Restoring Fiery Flux Supplies via Heavy Leather (level 60, Searing Gorge): not in the game client
+- 8651 Ironband the Elder (level 60, Searing Gorge): not available (removed)
+- 93163 Heart of the Obliterator (level 40, Searing Gorge): not available (incomplete)
+- 93035 Ravaging Ravagers (level 38, Shen'dralas): level 38: no visit of these guides fits (an earlier guide's quest)
+- 93041 Facing the Truth (level 38, Shen'dralas): level 38: no visit of these guides fits (an earlier guide's quest)
+- 93404 Rot and Regret (level 49, Shen'dralas): dungeon quest
+- 93451 Phantasmal Problems (level 35, Shen'dralas): not available (incomplete)
+- 93574 Corpsefeeder's Carapace (level 45, Shen'dralas): not available (incomplete)
+- 93604 Agamaggan's Blood (level 45, Shen'dralas): dungeon quest
+- 93609 Forlorn Necklace (level 45, Shen'dralas): not available (incomplete)
+- 1155 <NYI> <TXT> bug crystal side quest (level 55, Silithus): not available (removed)
+- 1156 <NYI> <TXT> speak to alchemist pestlezugg (level 58, Silithus): not available (removed)
+- 1161 <NYI> <TXT> gossip shade of ambermoon (level 58, Silithus): not available (removed)
+- 1162 <NYI> <TXT> speak to hamuul runetotem (level 58, Silithus): not available (removed)
+- 1163 <NYI> <TXT> speak to tyrande whisperwind (level 58, Silithus): not available (removed)
+- 6842 <UNUSED> (level 58, Silithus): not available (removed)
+- 7786 Thunderaan the Windseeker (level 60, Silithus): category -344 (class, profession, holiday or seasonal)
+- 8288 Only One May Rise (level 60, Silithus): dungeon quest
+- 8302 The Hand of the Righteous (level 60, Silithus): not in the game client
+- 8307 Desert Recipe (level 57, Silithus): profession quest
+- 8313 Sharing the Knowledge (level 57, Silithus): profession quest
+- 8316 Armaments of War (level 60, Silithus): class quest
+- 8317 Kitchen Assistance (level 57, Silithus): profession quest
+- 8319 Encrypted Twilight Texts (level 60, Silithus): not in the game client
+- 8324 Still Believing (level 59, Silithus): not in the game client
+- 8333 Medallion of Station (level 60, Silithus): not in the game client
+- 8342 Twilight Ring of Lordship (level 60, Silithus): not in the game client
+- 8362 Abyssal Crests (level 60, Silithus): not in the game client
+- 8363 Abyssal Signets (level 60, Silithus): not in the game client
+- 8364 Abyssal Scepters (level 60, Silithus): not in the game client
+- 8376 Armaments of War (level 60, Silithus): Alliance only
+- 8377 Armaments of War (level 60, Silithus): class quest
+- 8378 Armaments of War (level 60, Silithus): class quest
+- 8379 Armaments of War (level 60, Silithus): class quest
+- 8380 Armaments of War (level 60, Silithus): class quest
+- 8381 Armaments of War (level 60, Silithus): class quest
+- 8382 Armaments of War (level 60, Silithus): class quest
+- 8444 <NYI> <TXT> gossip shade of ambermoon (level 58, Silithus): not available (removed)
+- 8445 <NYI> <TXT> gossip shade of ambermoon (level 58, Silithus): not available (removed)
+- 8496 Bandages for the Field (level 60, Silithus): not in the game client
+- 8497 Desert Survival Kits (level 60, Silithus): not in the game client
+- 8498 Twilight Battle Orders (level 60, Silithus): not in the game client
+- 8501 Target: Hive'Ashi Stingers (level 60, Silithus): not in the game client
+- 8502 Target: Hive'Ashi Workers (level 60, Silithus): not in the game client
+- 8507 Field Duty (level 60, Silithus): not in the game client
+- 8508 Field Duty Papers (level 60, Silithus): not in the game client
+- 8534 Hive'Zora Scout Report (level 60, Silithus): not in the game client
+- 8535 Hoary Templar (level 60, Silithus): not in the game client
+- 8536 Earthen Templar (level 60, Silithus): not in the game client
+- 8537 Crimson Templar (level 60, Silithus): not in the game client
+- 8538 The Four Dukes (level 60, Silithus): not in the game client
+- 8539 Target: Hive'Zora Hive Sisters (level 60, Silithus): not in the game client
+- 8540 Boots for the Guard (level 60, Silithus): not in the game client
+- 8541 Grinding Stones for the Guard (level 60, Silithus): not in the game client
+- 8548 Volunteer's Battlegear (level 60, Silithus): not in the game client
+- 8556 Signet of Unyielding Strength (level 60, Silithus): class quest
+- 8557 Drape of Unyielding Strength (level 60, Silithus): class quest
+- 8558 Sickle of Unyielding Strength (level 60, Silithus): class quest
+- 8572 Veteran's Battlegear (level 60, Silithus): not in the game client
+- 8573 Champion's Battlegear (level 60, Silithus): not in the game client
+- 8574 Stalwart's Battlegear (level 60, Silithus): not in the game client
+- 8654 Primestone the Elder (level 60, Silithus): not available (removed)
+- 8687 Target: Hive'Zora Tunnelers (level 60, Silithus): not in the game client
+- 8689 Shroud of Infinite Wisdom (level 60, Silithus): class quest
+- 8690 Cloak of the Gathering Storm (level 60, Silithus): class quest
+- 8691 Drape of Vaulted Secrets (level 60, Silithus): class quest
+- 8692 Cloak of Unending Life (level 60, Silithus): class quest
+- 8693 Cloak of Veiled Shadows (level 60, Silithus): class quest
+- 8694 Shroud of Unspoken Names (level 60, Silithus): class quest
+- 8695 Cape of Eternal Justice (level 60, Silithus): Alliance only
+- 8696 Cloak of the Unseen Path (level 60, Silithus): class quest
+- 8697 Ring of Infinite Wisdom (level 60, Silithus): class quest
+- 8698 Ring of the Gathering Storm (level 60, Silithus): class quest
+- 8699 Band of Vaulted Secrets (level 60, Silithus): class quest
+- 8700 Band of Unending Life (level 60, Silithus): class quest
+- 8701 Band of Veiled Shadows (level 60, Silithus): class quest
+- 8702 Ring of Unspoken Names (level 60, Silithus): class quest
+- 8703 Ring of Eternal Justice (level 60, Silithus): Alliance only
+- 8704 Signet of the Unseen Path (level 60, Silithus): class quest
+- 8705 Gavel of Infinite Wisdom (level 60, Silithus): class quest
+- 8706 Hammer of the Gathering Storm (level 60, Silithus): class quest
+- 8707 Blade of Vaulted Secrets (level 60, Silithus): class quest
+- 8708 Mace of Unending Life (level 60, Silithus): class quest
+- 8709 Dagger of Veiled Shadows (level 60, Silithus): class quest
+- 8710 Kris of Unspoken Names (level 60, Silithus): class quest
+- 8711 Blade of Eternal Justice (level 60, Silithus): Alliance only
+- 8712 Scythe of the Unseen Path (level 60, Silithus): class quest
+- 8719 Bladesing the Elder (level 60, Silithus): not available (removed)
+- 8731 Field Duty (level 60, Silithus): not in the game client
+- 8732 Field Duty Papers (level 60, Silithus): not in the game client
+- 8737 Azure Templar (level 60, Silithus): not in the game client
+- 8738 Hive'Regal Scout Report (level 60, Silithus): not in the game client
+- 8739 Hive'Ashi Scout Report (level 60, Silithus): not in the game client
+- 8740 Twilight Marauders (level 60, Silithus): not in the game client
+- 8770 Target: Hive'Ashi Defenders (level 60, Silithus): not in the game client
+- 8771 Target: Hive'Ashi Sandstalkers (level 60, Silithus): not in the game client
+- 8772 Target: Hive'Zora Waywatchers (level 60, Silithus): not in the game client
+- 8773 Target: Hive'Zora Reavers (level 60, Silithus): not in the game client
+- 8774 Target: Hive'Regal Ambushers (level 60, Silithus): not in the game client
+- 8775 Target: Hive'Regal Spitfires (level 60, Silithus): not in the game client
+- 8776 Target: Hive'Regal Slavemakers (level 60, Silithus): not in the game client
+- 8777 Target: Hive'Regal Burrowers (level 60, Silithus): not in the game client
+- 8778 The Ironforge Brigade Needs Explosives! (level 60, Silithus): not in the game client
+- 8779 Scrying Materials (level 60, Silithus): not in the game client
+- 8780 Armor Kits for the Field (level 60, Silithus): not in the game client
+- 8781 Arms for the Field (level 60, Silithus): not in the game client
+- 8782 Uniform Supplies (level 60, Silithus): not in the game client
+- 8783 Extraordinary Materials (level 60, Silithus): not in the game client
+- 8785 The Orgrimmar Legion Needs Mojo! (level 60, Silithus): not in the game client
+- 8786 Arms for the Field (level 60, Silithus): not in the game client
+- 8787 Armor Kits for the Field (level 60, Silithus): not in the game client
+- 8802 The Savior of Kalimdor (level 60, Silithus): dungeon quest
+- 8804 Desert Survival Kits (level 60, Silithus): not in the game client
+- 8805 Boots for the Guard (level 60, Silithus): not in the game client
+- 8806 Grinding Stones for the Guard (level 60, Silithus): not in the game client
+- 8807 Scrying Materials (level 60, Silithus): not in the game client
+- 8808 Uniform Supplies (level 60, Silithus): not in the game client
+- 8809 Extraordinary Materials (level 60, Silithus): not in the game client
+- 8810 Bandages for the Field (level 60, Silithus): not in the game client
+- 8829 The Ultimate Deception (level 60, Silithus): not in the game client
+- 8856 Desert Survival Kits (level 0, Silithus): not available (removed)
+- 8857 Secrets of the Colossus - Ashi (level 60, Silithus): not available (removed)
+- 8858 Secrets of the Colossus - Regal (level 60, Silithus): not available (removed)
+- 8859 Secrets of the Colossus - Zora (level 60, Silithus): not available (removed)
+- 9338 Allegiance to Cenarion Circle (level 60, Silithus): not in the game client
+- 9415 Report to Marshal Bluewall (level 60, Silithus): Alliance only
+- 9419 Scouring the Desert (level 60, Silithus): Alliance only
+- 185 Tiger Mastery (level 31, Stranglethorn Vale): level 31: no visit of these guides fits (an earlier guide's quest)
+- 186 Tiger Mastery (level 33, Stranglethorn Vale): level 33: no visit of these guides fits (an earlier guide's quest)
+- 187 Tiger Mastery (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 189 Bloodscalp Ears (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 190 Panther Mastery (level 31, Stranglethorn Vale): level 31: no visit of these guides fits (an earlier guide's quest)
+- 191 Panther Mastery (level 33, Stranglethorn Vale): level 33: no visit of these guides fits (an earlier guide's quest)
+- 194 Raptor Mastery (level 34, Stranglethorn Vale): level 34: no visit of these guides fits (an earlier guide's quest)
+- 195 Raptor Mastery (level 36, Stranglethorn Vale): level 36: no visit of these guides fits (an earlier guide's quest)
+- 198 Supplies to Private Thorsen (level 32, Stranglethorn Vale): Alliance only
+- 200 Bookie Herod (level 35, Stranglethorn Vale): Alliance only
+- 201 Investigate the Camp (level 32, Stranglethorn Vale): level 32: no visit of these guides fits (an earlier guide's quest)
+- 202 Colonel Kurzen (level 40, Stranglethorn Vale): Alliance only
+- 203 The Second Rebellion (level 33, Stranglethorn Vale): Alliance only
+- 204 Bad Medicine (level 34, Stranglethorn Vale): Alliance only
+- 205 Troll Witchery (level 40, Stranglethorn Vale): Alliance only
+- 206 Mai'Zoth (level 46, Stranglethorn Vale): Alliance only
+- 207 Kurzen's Mystery (level 38, Stranglethorn Vale): Alliance only
+- 210 Krazek's Cookery (level 37, Stranglethorn Vale): Alliance only
+- 213 Hostile Takeover (level 36, Stranglethorn Vale): level 36: no visit of these guides fits (an earlier guide's quest)
+- 215 Jungle Secrets (level 33, Stranglethorn Vale): Alliance only
+- 328 The Hidden Key (level 37, Stranglethorn Vale): Alliance only
+- 329 The Spy Revealed! (level 37, Stranglethorn Vale): Alliance only
+- 330 Patrol Schedules (level 37, Stranglethorn Vale): Alliance only
+- 331 Report to Doren (level 37, Stranglethorn Vale): Alliance only
+- 349 Stranglethorn Fever (level 35, Stranglethorn Vale): not in the game client
+- 568 The Defense of Grom'gol (level 36, Stranglethorn Vale): level 36: no visit of these guides fits (an earlier guide's quest)
+- 574 Special Forces (level 38, Stranglethorn Vale): Alliance only
+- 575 Supply and Demand (level 31, Stranglethorn Vale): level 31: no visit of these guides fits (an earlier guide's quest)
+- 578 The Stone of the Tides (level 37, Stranglethorn Vale): Alliance only
+- 581 Hunt for Yenniku (level 34, Stranglethorn Vale): level 34: no visit of these guides fits (an earlier guide's quest)
+- 583 Welcome to the Jungle (level 30, Stranglethorn Vale): level 30: no visit of these guides fits (an earlier guide's quest)
+- 593 Filling the Soul Gem (level 46, Stranglethorn Vale): not in the game client
+- 601 Water Elementals (level 37, Stranglethorn Vale): Alliance only
+- 602 Magical Analysis (level 37, Stranglethorn Vale): Alliance only
+- 603 Ansirem's Key (level 37, Stranglethorn Vale): Alliance only
+- 605 Singing Blue Shards (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 610 "Pretty Boy" Duncan (level 39, Stranglethorn Vale): Alliance only
+- 611 The Curse of the Tides (level 40, Stranglethorn Vale): Alliance only
+- 614 The Captain's Chest (level 47, Stranglethorn Vale): not available (removed)
+- 615 The Captain's Cutlass (level 50, Stranglethorn Vale): not available (removed)
+- 616 The Haunted Isle (level 37, Stranglethorn Vale): Alliance only
+- 618 Facing Negolash (level 50, Stranglethorn Vale): not available (removed)
+- 619 Enticing Negolash (level 52, Stranglethorn Vale): not in the game client
+- 620 The Monogrammed Sash (level 50, Stranglethorn Vale): not available (removed)
+- 622 Return to Corporal Kaleb (level 37, Stranglethorn Vale): Alliance only
+- 623 Akiris by the Bundle (level 43, Stranglethorn Vale): Alliance only
+- 627 Favor for Krazek (level 37, Stranglethorn Vale): Alliance only
+- 796 <UNUSED> (level 1, Stranglethorn Vale): not available (removed)
+- 797 <UNUSED> (level 1, Stranglethorn Vale): not available (removed)
+- 798 <UNUSED> (level 1, Stranglethorn Vale): not available (removed)
+- 799 <UNUSED> (level 1, Stranglethorn Vale): not available (removed)
+- 1036 Avast Ye, Scallywag (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 1041 The Caravan Road (level 30, Stranglethorn Vale): Alliance only
+- 1127 Fool's Stout (level 44, Stranglethorn Vale): not available (removed)
+- 2760 The Mithril Order (level 40, Stranglethorn Vale): profession quest
+- 2761 Smelt On, Smelt Off (level 45, Stranglethorn Vale): profession quest
+- 2762 The Great Silver Deceiver (level 45, Stranglethorn Vale): profession quest
+- 2763 The Art of the Imbue (level 45, Stranglethorn Vale): profession quest
+- 2764 Galvan's Finest Pupil (level 45, Stranglethorn Vale): profession quest
+- 2765 Expert Blacksmith! (level 45, Stranglethorn Vale): profession quest
+- 2843 Gnomer-gooooone! (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 3625 Enchanted Azsharite Fel Weaponry (level 58, Stranglethorn Vale): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3626 Return to the Blasted Lands (level 58, Stranglethorn Vale): level 58: no visit of these guides fits (an earlier guide's quest)
+- 3642 The Pledge of Secrecy (level 47, Stranglethorn Vale): profession quest
+- 3643 Show Your Work (level 47, Stranglethorn Vale): profession quest
+- 3645 Membership Card Renewal (level 47, Stranglethorn Vale): not in the game client
+- 4621 Avast Ye, Admiral! (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 4782 Components for the Enchanted Gold Bloodrobe (level 34, Stranglethorn Vale): class quest
+- 4785 Fine Gold Thread (level 37, Stranglethorn Vale): not in the game client
+- 5148 Tribal Leatherworking (level 55, Stranglethorn Vale): profession quest
+- 7810 Arena Master (level 55, Stranglethorn Vale): level 55: no visit of these guides fits (an earlier guide's quest)
+- 7838 Arena Grandmaster (level 55, Stranglethorn Vale): not in the game client
+- 7908 Arena Master (level 55, Stranglethorn Vale): not available (removed)
+- 8041 Strength of Mount Mugamba (level 60, Stranglethorn Vale): class quest
+- 8042 Strength of Mount Mugamba (level 60, Stranglethorn Vale): class quest
+- 8043 Strength of Mount Mugamba (level 60, Stranglethorn Vale): class quest
+- 8044 The Rage of Mugamba (level 60, Stranglethorn Vale): class quest
+- 8045 The Heathen's Brand (level 60, Stranglethorn Vale): Alliance only
+- 8046 The Heathen's Brand (level 60, Stranglethorn Vale): Alliance only
+- 8047 The Heathen's Brand (level 60, Stranglethorn Vale): Alliance only
+- 8048 The Hero's Brand (level 60, Stranglethorn Vale): Alliance only
+- 8049 The Eye of Zuldazar (level 60, Stranglethorn Vale): class quest
+- 8050 The Eye of Zuldazar (level 60, Stranglethorn Vale): class quest
+- 8051 The Eye of Zuldazar (level 60, Stranglethorn Vale): class quest
+- 8052 The All-Seeing Eye of Zuldazar (level 60, Stranglethorn Vale): class quest
+- 8053 Paragons of Power: The Freethinker's Armguards (level 60, Stranglethorn Vale): class quest
+- 8054 Paragons of Power: The Freethinker's Belt (level 60, Stranglethorn Vale): class quest
+- 8055 Paragons of Power: The Freethinker's Breastplate (level 60, Stranglethorn Vale): class quest
+- 8056 Paragons of Power: The Augur's Bracers (level 60, Stranglethorn Vale): class quest
+- 8057 Paragons of Power: The Haruspex's Bracers (level 60, Stranglethorn Vale): class quest
+- 8058 Paragons of Power: The Vindicator's Armguards (level 60, Stranglethorn Vale): class quest
+- 8059 Paragons of Power: The Demoniac's Wraps (level 60, Stranglethorn Vale): class quest
+- 8060 Paragons of Power: The Illusionist's Wraps (level 60, Stranglethorn Vale): class quest
+- 8061 Paragons of Power: The Confessor's Wraps (level 60, Stranglethorn Vale): class quest
+- 8062 Paragons of Power: The Predator's Bracers (level 60, Stranglethorn Vale): class quest
+- 8063 Paragons of Power: The Madcap's Bracers (level 60, Stranglethorn Vale): class quest
+- 8064 Paragons of Power: The Haruspex's Belt (level 60, Stranglethorn Vale): class quest
+- 8065 Paragons of Power: The Haruspex's Tunic (level 60, Stranglethorn Vale): class quest
+- 8066 Paragons of Power: The Predator's Belt (level 60, Stranglethorn Vale): class quest
+- 8067 Paragons of Power: The Predator's Mantle (level 60, Stranglethorn Vale): class quest
+- 8068 Paragons of Power: The Illusionist's Mantle (level 60, Stranglethorn Vale): class quest
+- 8069 Paragons of Power: The Illusionist's Robes (level 60, Stranglethorn Vale): class quest
+- 8070 Paragons of Power: The Confessor's Bindings (level 60, Stranglethorn Vale): class quest
+- 8071 Paragons of Power: The Confessor's Mantle (level 60, Stranglethorn Vale): class quest
+- 8072 Paragons of Power: The Madcap's Mantle (level 60, Stranglethorn Vale): class quest
+- 8073 Paragons of Power: The Madcap's Tunic (level 60, Stranglethorn Vale): class quest
+- 8074 Paragons of Power: The Augur's Belt (level 60, Stranglethorn Vale): class quest
+- 8075 Paragons of Power: The Augur's Hauberk (level 60, Stranglethorn Vale): class quest
+- 8076 Paragons of Power: The Demoniac's Mantle (level 60, Stranglethorn Vale): class quest
+- 8077 Paragons of Power: The Demoniac's Robes (level 60, Stranglethorn Vale): class quest
+- 8078 Paragons of Power: The Vindicator's Belt (level 60, Stranglethorn Vale): class quest
+- 8079 Paragons of Power: The Vindicator's Breastplate (level 60, Stranglethorn Vale): class quest
+- 8101 The Pebble of Kajaro (level 60, Stranglethorn Vale): class quest
+- 8102 The Pebble of Kajaro (level 60, Stranglethorn Vale): class quest
+- 8103 The Pebble of Kajaro (level 60, Stranglethorn Vale): class quest
+- 8104 The Jewel of Kajaro (level 60, Stranglethorn Vale): class quest
+- 8106 Kezan's Taint (level 60, Stranglethorn Vale): class quest
+- 8107 Kezan's Taint (level 60, Stranglethorn Vale): class quest
+- 8108 Kezan's Taint (level 60, Stranglethorn Vale): class quest
+- 8109 Kezan's Unstoppable Taint (level 60, Stranglethorn Vale): class quest
+- 8110 Enchanted South Seas Kelp (level 60, Stranglethorn Vale): class quest
+- 8111 Enchanted South Seas Kelp (level 60, Stranglethorn Vale): class quest
+- 8112 Enchanted South Seas Kelp (level 60, Stranglethorn Vale): class quest
+- 8113 Pristine Enchanted South Seas Kelp (level 60, Stranglethorn Vale): class quest
+- 8116 Vision of Voodress (level 60, Stranglethorn Vale): class quest
+- 8117 Vision of Voodress (level 60, Stranglethorn Vale): class quest
+- 8118 Vision of Voodress (level 60, Stranglethorn Vale): class quest
+- 8119 The Unmarred Vision of Voodress (level 60, Stranglethorn Vale): class quest
+- 8141 Zandalarian Shadow Talisman (level 60, Stranglethorn Vale): class quest
+- 8142 Zandalarian Shadow Talisman (level 60, Stranglethorn Vale): class quest
+- 8143 Zandalarian Shadow Talisman (level 60, Stranglethorn Vale): class quest
+- 8144 Zandalarian Shadow Mastery Talisman (level 60, Stranglethorn Vale): class quest
+- 8145 The Maelstrom's Tendril (level 60, Stranglethorn Vale): class quest
+- 8146 The Maelstrom's Tendril (level 60, Stranglethorn Vale): class quest
+- 8147 The Maelstrom's Tendril (level 60, Stranglethorn Vale): class quest
+- 8148 Maelstrom's Wrath (level 60, Stranglethorn Vale): class quest
+- 8193 Master Angler (level 60, Stranglethorn Vale): profession quest
+- 8194 Apprentice Angler (level 60, Stranglethorn Vale): not in the game client
+- 8195 Zulian, Razzashi, and Hakkari Coins (level 60, Stranglethorn Vale): not in the game client
+- 8196 Essence Mangoes (level 60, Stranglethorn Vale): not in the game client
+- 8201 A Collection of Heads (level 60, Stranglethorn Vale): dungeon quest
+- 8221 Rare Fish - Keefer's Angelfish (level 60, Stranglethorn Vale): not in the game client
+- 8224 Rare Fish - Dezian Queenfish (level 60, Stranglethorn Vale): not in the game client
+- 8225 Rare Fish - Brownell's Blue Striped Racer (level 60, Stranglethorn Vale): not in the game client
+- 8238 Gurubashi, Vilebranch, and Witherbark Coins (level 60, Stranglethorn Vale): not in the game client
+- 8239 Sandfury, Skullsplitter, and Bloodscalp Coins (level 60, Stranglethorn Vale): not in the game client
+- 8240 A Bijou for Zanza (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8243 Zanza's Potent Potables (level 60, Stranglethorn Vale): not in the game client
+- 8246 Signets of the Zandalar (level 60, Stranglethorn Vale): not in the game client
+- 8674 Winterhoof the Elder (level 60, Stranglethorn Vale): not available (removed)
+- 8716 Starglade the Elder (level 60, Stranglethorn Vale): not available (removed)
+- 9259 Traitor to the Bloodsail (level 60, Stranglethorn Vale): not in the game client
+- 9272 Dressing the Part (level 55, Stranglethorn Vale): level 55: no visit of these guides fits (an earlier guide's quest)
+- 60870 A Special Gift (level None, Stranglethorn Vale): not available (removed)
+- 78830 Terror of the Desert Skies (level 40, Stranglethorn Vale): class quest
+- 83934 Show Me the Money! (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 93443 Lost Shipping Crate (level 36, Stranglethorn Vale): Alliance only
+- 95786 An Acquaintance in Southshore (level 40, Stranglethorn Vale): Alliance only
+- 96075 In Demand - Blackrock Legal Records (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 96076 In Demand - Ancient Elven Curiosities (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 96087 In Demand - Plague Records (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 96088 In Demand - Titan Relics (level 60, Stranglethorn Vale): level 60: no visit of these guides fits (an earlier guide's quest)
+- 97065 Tip the Scales - Keefer's Angelfish (level 60, Stranglethorn Vale): not in the game client
+- 97066 Tip the Scales - Brownell's Blue Striped Racer (level 60, Stranglethorn Vale): not in the game client
+- 97067 Tip the Scales - Dezian Queenfish (level 60, Stranglethorn Vale): not in the game client
+- 97328 Anything of Value (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 97329 Where's the Key? (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 97331 Zimmix's Great Escape (level 35, Stranglethorn Vale): level 35: no visit of these guides fits (an earlier guide's quest)
+- 97405 Noise Complaints (level 44, Stranglethorn Vale): Alliance only
+- 97420 Reduce, Reuse, Reconcile (level 36, Stranglethorn Vale): Alliance only
+- 98463 Talk of the Town (level 33, Stranglethorn Vale): Alliance only
+- 8827 Winter's Presents (level 1, Stranglethorn Vale, Tanaris): not available (removed)
+- 8828 Winter's Presents (level 1, Stranglethorn Vale, Tanaris): not available (removed)
+- 8860 New Year Celebrations! (level 60, Stranglethorn Vale, Tanaris): not available (removed)
+- 8861 New Year Celebrations! (level 60, Stranglethorn Vale, Tanaris): not available (removed)
+- 1396 Encroaching Wildlife (level 37, Swamp of Sorrows): Alliance only
+- 1398 Driftwood (level 42, Swamp of Sorrows): Alliance only
+- 1418 Neeka Bloodscar (level 35, Swamp of Sorrows): level 35: no visit of these guides fits (an earlier guide's quest)
+- 1421 The Lost Caravan (level 35, Swamp of Sorrows): Alliance only
+- 1423 The Lost Supplies (level 40, Swamp of Sorrows): not in the game client
+- 1425 Deliver the First Shipment (level 42, Swamp of Sorrows): Alliance only
+- 1445 The Temple of Atal'Hakkar (level 50, Swamp of Sorrows): dungeon quest
+- 3374 The Essence of Eranikus (level 55, Swamp of Sorrows): level 55: no visit of these guides fits (an earlier guide's quest)
+- 3512 In Eranikus' Own Words (level 55, Swamp of Sorrows): level 55: no visit of these guides fits (an earlier guide's quest)
+- 7562 Mor'zul Bloodbringer (level 58, Swamp of Sorrows): class quest
+- 8423 Warrior Kinship (level 52, Swamp of Sorrows): class quest
+- 8424 War on the Shadowsworn (level 52, Swamp of Sorrows): class quest
+- 8425 Voodoo Feathers (level 52, Swamp of Sorrows): class quest
+- 8713 Starsong the Elder (level 60, Swamp of Sorrows): not available (removed)
+- 93176 My Little Friends (level 35, Swamp of Sorrows): level 35: no visit of these guides fits (an earlier guide's quest)
+- 93585 This Light of Mine (level 34, Swamp of Sorrows): Alliance only
+- 93663 Lost in Transit (level 35, Swamp of Sorrows): level 35: no visit of these guides fits (an earlier guide's quest)
+- 93679 Visions of Another (level 55, Swamp of Sorrows): level 55: no visit of these guides fits (an earlier guide's quest)
+- 94929 Deliver the Second Shipment (level 38, Swamp of Sorrows): Alliance only
+- 162 Rise of the Silithid (level 49, Tanaris): Alliance only
+- 841 Another Power Source? (level 46, Tanaris): not in the game client
+- 1157 <NYI> <TXT> pestlezugg needs items (level 57, Tanaris): not available (removed)
+- 1158 <NYI> <TXT> speak to rabine saturna (level 58, Tanaris): not available (removed)
+- 1878 Water Pouch Bounty (level 44, Tanaris): not in the game client
+- 2771 A Good Head On Your Shoulders (level 45, Tanaris): profession quest
+- 2772 The World At Your Feet (level 45, Tanaris): profession quest
+- 2773 The Mithril Kid (level 45, Tanaris): profession quest
+- 2977 Return to Ironforge (level 50, Tanaris): Alliance only
+- 3022 Handle With Care (level 47, Tanaris): Alliance only
+- 3064 <NYI> <TXT> Pirate Hats (level 45, Tanaris): not available (removed)
+- 3321 Did You Lose This? (level 50, Tanaris): profession quest
+- 3446 Into the Depths (level 51, Tanaris): dungeon quest
+- 3447 Secret of the Circle (level 51, Tanaris): dungeon quest
+- 3528 The God Hakkar (level 53, Tanaris): dungeon quest
+- 3638 The Pledge of Secrecy (level 47, Tanaris): profession quest
+- 3639 Show Your Work (level 47, Tanaris): profession quest
+- 3644 Membership Card Renewal (level 47, Tanaris): not in the game client
+- 4324 Yuka Screwspigot (level 53, Tanaris): level 53: no visit of these guides fits (an earlier guide's quest)
+- 4507 Pawn Captures Queen (level 54, Tanaris): level 54: no visit of these guides fits (an earlier guide's quest)
+- 4508 Calm Before the Storm (level 54, Tanaris): Alliance only
+- 4509 Calm Before the Storm (level 54, Tanaris): level 54: no visit of these guides fits (an earlier guide's quest)
+- 4788 The Final Tablets (level 58, Tanaris): level 58: no visit of these guides fits (an earlier guide's quest)
+- 5801 Fire Plume Forged (level 57, Tanaris): Alliance only
+- 5802 Fire Plume Forged (level 57, Tanaris): level 57: no visit of these guides fits (an earlier guide's quest)
+- 6610 Clamlette Surprise (level 45, Tanaris): profession quest
+- 7652 A Blue Light Bargain (level 60, Tanaris): profession quest
+- 7653 Imperial Plate Belt (level 60, Tanaris): profession quest
+- 7654 Imperial Plate Boots (level 60, Tanaris): profession quest
+- 7655 Imperial Plate Bracer (level 60, Tanaris): profession quest
+- 7656 Imperial Plate Chest (level 60, Tanaris): profession quest
+- 7657 Imperial Plate Helm (level 60, Tanaris): profession quest
+- 7658 Imperial Plate Leggings (level 60, Tanaris): profession quest
+- 7659 Imperial Plate Shoulders (level 60, Tanaris): profession quest
+- 8181 Confront Yeh'kinya (level 58, Tanaris): level 58: no visit of these guides fits (an earlier guide's quest)
+- 8182 The Hand of Rastakhan (level 58, Tanaris): level 58: no visit of these guides fits (an earlier guide's quest)
+- 8555 The Charge of the Dragonflights (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8576 Translating the Ledger (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8577 Stewvul, Ex-B.F.F. (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8584 Never Ask Me About My Business (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8585 The Isle of Dread! (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8586 Dirge's Kickin' Chimaerok Chops (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8587 Return to Narain (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8597 Draconic for Dummies (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8598 rAnS0m (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8599 Love Song for Narain (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8606 Decoy! (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8620 The Only Prescription (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8671 Ragetotem the Elder (level 60, Tanaris): not available (removed)
+- 8676 Wildmane the Elder (level 60, Tanaris): not available (removed)
+- 8684 Dreamseer the Elder (level 60, Tanaris): not available (removed)
+- 8728 The Good News and The Bad News (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8742 The Might of Kalimdor (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8747 The Path of the Protector (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8748 The Path of the Protector (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8749 The Path of the Protector (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8750 The Path of the Protector (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8751 The Protector of Kalimdor (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8752 The Path of the Conqueror (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8753 The Path of the Conqueror (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8754 The Path of the Conqueror (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8755 The Path of the Conqueror (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8756 The Qiraji Conqueror (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8757 The Path of the Invoker (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8758 The Path of the Invoker (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8759 The Path of the Invoker (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8760 The Path of the Invoker (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8761 The Grand Invoker (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8764 The Changing of Paths - Protector No More (level 60, Tanaris): not in the game client
+- 8765 The Changing of Paths - Invoker No More (level 60, Tanaris): not in the game client
+- 8766 The Changing of Paths - Conqueror No More (level 60, Tanaris): not in the game client
+- 8893 The Super Egg-O-Matic (level 47, Tanaris): not in the game client
+- 8921 The Ectoplasmic Distiller (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8922 A Supernatural Device (level 60, Tanaris): Alliance only
+- 8923 A Supernatural Device (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8924 Hunting for Ectoplasm (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8925 A Portable Power Source (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8928 A Shifty Merchant (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8977 Return to Deliana (level 60, Tanaris): Alliance only
+- 8978 Return to Mokvar (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 9251 Atiesh, the Befouled Greatstaff (level 60, Tanaris): class quest
+- 9257 Atiesh, Greatstaff of the Guardian (level 60, Tanaris): class quest
+- 9268 War at Sea (level 60, Tanaris): not in the game client
+- 9269 Atiesh, Greatstaff of the Guardian (level 60, Tanaris): class quest
+- 9270 Atiesh, Greatstaff of the Guardian (level 60, Tanaris): class quest
+- 9271 Atiesh, Greatstaff of the Guardian (level 60, Tanaris): class quest
+- 84135 Beach Bot (level 60, Tanaris): class quest
+- 84137 Mechanical Romance (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 84138 Frosty Favors (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 84213 Rift Away (level 62, Tanaris): class quest
+- 95753 Challenge of the Desert Wolf (level 45, Tanaris): class quest
+- 96912 Field of Honor: Week 1 (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 96913 Field of Honor: Week 2 (level 60, Tanaris): level 60: no visit of these guides fits (an earlier guide's quest)
+- 96914 Field of Honor: Week 3 (level 60, Tanaris): not available (removed)
+- 97536 Gnomish Garbage (level 45, Tanaris): Alliance only
+- 1446 Jammal'an the Prophet (level 53, The Hinterlands): dungeon quest
+- 1450 Gryphon Master Talonaxe (level 43, The Hinterlands): Alliance only
+- 1451 Rhapsody Shindigger (level 43, The Hinterlands): Alliance only
+- 1452 Rhapsody's Kalimdor Kocktail (level 43, The Hinterlands): Alliance only
+- 1469 Rhapsody's Tale (level 43, The Hinterlands): Alliance only
+- 2877 Skulk Rock Clean-up (level 48, The Hinterlands): Alliance only
+- 2880 Troll Necklace Bounty (level 45, The Hinterlands): Alliance only
+- 2881 Troll Necklace Bounty (level 45, The Hinterlands): not in the game client
+- 2937 Summoning Shadra (level 55, The Hinterlands): level 55: no visit of these guides fits (an earlier guide's quest)
+- 2938 Venom to the Undercity (level 55, The Hinterlands): level 55: no visit of these guides fits (an earlier guide's quest)
+- 2988 Witherbark Cages (level 45, The Hinterlands): Alliance only
+- 2989 The Altar of Zul (level 48, The Hinterlands): Alliance only
+- 2990 Thadius Grimshade (level 47, The Hinterlands): Alliance only
+- 2994 Saving Sharpbeak (level 51, The Hinterlands): Alliance only
+- 7846 Recover the Key! (level 51, The Hinterlands): repeatable
+- 8367 For Great Honor (level 60, The Hinterlands): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8368 Battle of Warsong Gulch (level 19, The Hinterlands): low level (19)
+- 8369 Invaders of Alterac Valley (level 60, The Hinterlands): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8370 Conquering Arathi Basin (level 29, The Hinterlands): low level (29)
+- 8387 Invaders of Alterac Valley (level 60, The Hinterlands): not in the game client
+- 8388 For Great Honor (level 60, The Hinterlands): not in the game client
+- 8389 Battle of Warsong Gulch (level 19, The Hinterlands): not in the game client
+- 8390 Conquering Arathi Basin (level 29, The Hinterlands): not in the game client
+- 8426 Battle of Warsong Gulch (level 29, The Hinterlands): low level (29)
+- 8427 Battle of Warsong Gulch (level 39, The Hinterlands): level 39: no visit of these guides fits (an earlier guide's quest)
+- 8429 Battle of Warsong Gulch (level 59, The Hinterlands): level 59: no visit of these guides fits (an earlier guide's quest)
+- 8430 Battle of Warsong Gulch (level 60, The Hinterlands): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8431 Battle of Warsong Gulch (level 29, The Hinterlands): not in the game client
+- 8432 Battle of Warsong Gulch (level 39, The Hinterlands): not in the game client
+- 8433 Battle of Warsong Gulch (level 49, The Hinterlands): not in the game client
+- 8434 Battle of Warsong Gulch (level 59, The Hinterlands): not in the game client
+- 8435 Battle of Warsong Gulch (level 60, The Hinterlands): not in the game client
+- 8436 Conquering Arathi Basin (level 39, The Hinterlands): level 39: no visit of these guides fits (an earlier guide's quest)
+- 8438 Conquering Arathi Basin (level 59, The Hinterlands): level 59: no visit of these guides fits (an earlier guide's quest)
+- 8439 Conquering Arathi Basin (level 60, The Hinterlands): level 60: no visit of these guides fits (an earlier guide's quest)
+- 8440 Conquering Arathi Basin (level 39, The Hinterlands): not in the game client
+- 8441 Conquering Arathi Basin (level 49, The Hinterlands): not in the game client
+- 8442 Conquering Arathi Basin (level 59, The Hinterlands): not in the game client
+- 8443 Conquering Arathi Basin (level 60, The Hinterlands): not in the game client
+- 8566 Past Victories in Arathi (level 1, The Hinterlands): not available (removed)
+- 8568 Past Victories in Warsong Gulch (level 1, The Hinterlands): not available (removed)
+- 8570 Past Efforts in Warsong Gulch (level 1, The Hinterlands): not available (removed)
+- 8643 Highpeak the Elder (level 60, The Hinterlands): not available (removed)
+- 81786 Hinterlands Mission I: Defeat Moonkin (level 52, The Hinterlands): not available (removed)
+- 81787 Hinterlands Mission II: Defeat Giant Turtles (level 52, The Hinterlands): not available (removed)
+- 81788 Hinterlands Mission III: Defeat Dragonkin (level 52, The Hinterlands): not available (removed)
+- 81789 Hinterlands Mission IV: Dragon Intelligence (level 52, The Hinterlands): not available (removed)
+- 81817 Hinterlands Mission V: Turtle Intelligence (level 52, The Hinterlands): not available (removed)
+- 81820 Hinterlands Mission VI: Moonkin Intelligence (level 52, The Hinterlands): not available (removed)
+- 81826 Hinterlands Mission VII: Recover Star-Touched Dragonegg (level 52, The Hinterlands): not available (removed)
+- 81830 Hinterlands Mission VIII: Recover Elunar Relic (level 52, The Hinterlands): not available (removed)
+- 81832 Hinterlands Mission IX: Recover Dreampearl (level 52, The Hinterlands): not available (removed)
+- 81833 Hinterlands Mission X: Star Lotus (level 52, The Hinterlands): not available (removed)
+- 81834 Hinterlands Mission XI: Starsilver Ore (level 52, The Hinterlands): not available (removed)
+- 81835 Hinterlands Mission XII: Starshells (level 52, The Hinterlands): not available (removed)
+- 81837 Hinterlands Mission XIII: Defeat Florius (level 52, The Hinterlands): not available (removed)
+- 81838 Hinterlands Mission XIV: Defeat Doomkin (level 52, The Hinterlands): not available (removed)
+- 81839 Hinterlands Mission XV: Defeat Ghamoo-Raja (level 52, The Hinterlands): not available (removed)
+- 81850 Hinterlands Mission XVI: Rescue Elianar Shadowdrinker (level 52, The Hinterlands): not available (removed)
+- 81851 Hinterlands Mission XVII: Rescue Serlina Starbright (level 52, The Hinterlands): not available (removed)
+- 81852 Hinterlands Mission XVIII: Rescue Veanna Cloudsleeper (level 52, The Hinterlands): not available (removed)
+- 86615 Treaty Obligations (level 51, The Hinterlands): Alliance only
+- 86616 Repurposed Totems (level 48, The Hinterlands): Alliance only
+- 86620 Fledgling Rescue (level 51, The Hinterlands): Alliance only
+- 98887 Conflict at Darkspear Islands (level 39, The Hinterlands): level 39: no visit of these guides fits (an earlier guide's quest)
+- 98888 Conflict at Darkspear Islands (level 39, The Hinterlands): not in the game client
+- 98890 Conflict at Darkspear Islands (level 49, The Hinterlands): not in the game client
+- 98891 Conflict at Darkspear Islands (level 59, The Hinterlands): level 59: no visit of these guides fits (an earlier guide's quest)
+- 98892 Conflict at Darkspear Islands (level 59, The Hinterlands): not in the game client
+- 98893 Conflict at Darkspear Islands (level 60, The Hinterlands): level 60: no visit of these guides fits (an earlier guide's quest)
+- 98894 Conflict at Darkspear Islands (level 60, The Hinterlands): not in the game client
+- 3885 <NYI> <TXT> The Gadgetzan Run (level 55, Un'Goro Crater): not available (removed)
+- 4141 Muigin and Larion (level 52, Un'Goro Crater): Alliance only
+- 4142 A Visit to Gregan (level 52, Un'Goro Crater): Alliance only
+- 4144 Bloodpetal Sprouts (level 53, Un'Goro Crater): Alliance only
+- 4381 Crystal Restore (level 53, Un'Goro Crater): not in the game client
+- 4382 Crystal Force (level 53, Un'Goro Crater): not in the game client
+- 4383 Crystal Ward (level 53, Un'Goro Crater): not in the game client
+- 4384 Crystal Yield (level 53, Un'Goro Crater): not in the game client
+- 4385 Crystal Charge (level 53, Un'Goro Crater): not in the game client
+- 4386 Crystal Spire (level 53, Un'Goro Crater): not in the game client
+- 5150 Dadanga is Hungry! (level 55, Un'Goro Crater): not in the game client
+- 8681 Thunderhorn the Elder (level 60, Un'Goro Crater): not available (removed)
+- 9051 Toxic Test (level 52, Un'Goro Crater): class quest
+- 9052 Bloodpetal Poison (level 52, Un'Goro Crater): class quest
+- 9053 A Better Ingredient (level 52, Un'Goro Crater): class quest
+- 87494 Microcrystal Contamination (level 55, Un'Goro Crater): not available (incomplete)
+- 94399 Ravasaur Provisions (level 60, Un'Goro Crater): not in the game client
+- 211 Alas, Andorhal (level 60, Western Plaguelands): Alliance only
+- 4973 Counting Out Time (level 56, Western Plaguelands): not in the game client
+- 4986 Glyphed Oaken Branch (level 56, Western Plaguelands): Alliance only
+- 5022 Better Late Than Never (level 52, Western Plaguelands): Alliance only
+- 5059 Locked Away (level 55, Western Plaguelands): not in the game client
+- 5092 Clear the Way (level 52, Western Plaguelands): Alliance only
+- 5093 A Call to Arms: The Plaguelands! (level 50, Western Plaguelands): level 50: no visit of these guides fits (an earlier guide's quest)
+- 5095 A Call to Arms: The Plaguelands! (level 50, Western Plaguelands): level 50: no visit of these guides fits (an earlier guide's quest)
+- 5097 All Along the Watchtowers (level 56, Western Plaguelands): Alliance only
+- 5215 The Scourge Cauldrons (level 53, Western Plaguelands): Alliance only
+- 5216 Target: Felstone Field (level 53, Western Plaguelands): Alliance only
+- 5217 Return to Chillwind Camp (level 53, Western Plaguelands): Alliance only
+- 5218 Felstone Field Cauldron (level 53, Western Plaguelands): not in the game client
+- 5219 Target: Dalson's Tears (level 55, Western Plaguelands): Alliance only
+- 5220 Return to Chillwind Camp (level 55, Western Plaguelands): Alliance only
+- 5221 Dalson's Tears Cauldron (level 55, Western Plaguelands): not in the game client
+- 5222 Target: Writhing Haunt (level 55, Western Plaguelands): Alliance only
+- 5223 Return to Chillwind Camp (level 55, Western Plaguelands): Alliance only
+- 5224 Writhing Haunt Cauldron (level 55, Western Plaguelands): not in the game client
+- 5225 Target: Gahrron's Withering (level 58, Western Plaguelands): Alliance only
+- 5226 Return to Chillwind Camp (level 58, Western Plaguelands): Alliance only
+- 5227 Gahrron's Withering Cauldron (level 58, Western Plaguelands): not in the game client
+- 5237 Mission Accomplished! (level 58, Western Plaguelands): Alliance only
+- 5343 Barov Family Fortune (level 60, Western Plaguelands): Alliance only
+- 5344 The Last Barov (level 60, Western Plaguelands): Alliance only
+- 5382 Doctor Theolen Krastinov, the Butcher (level 60, Western Plaguelands): dungeon quest
+- 5384 Kirtonos the Herald (level 60, Western Plaguelands): dungeon quest
+- 5402 Minion's Scourgestones (level 55, Western Plaguelands): not in the game client
+- 5403 Invader's Scourgestones (level 55, Western Plaguelands): not in the game client
+- 5404 Corruptor's Scourgestones (level 55, Western Plaguelands): not in the game client
+- 5406 Corruptor's Scourgestones (level 55, Western Plaguelands): not in the game client
+- 5407 Invader's Scourgestones (level 55, Western Plaguelands): not in the game client
+- 5408 Minion's Scourgestones (level 55, Western Plaguelands): not in the game client
+- 5466 The Lich, Ras Frostwhisper (level 60, Western Plaguelands): dungeon quest
+- 5505 The Key to Scholomance (level 60, Western Plaguelands): Alliance only
+- 5507 Mantles of the Dawn (level 60, Western Plaguelands): Alliance only
+- 5515 Krastinov's Bag of Horrors (level 60, Western Plaguelands): dungeon quest
+- 5521 Chromatic Mantle of the Dawn (level 60, Western Plaguelands): Alliance only
+- 5533 Scholomance (level 55, Western Plaguelands): Alliance only
+- 5537 Skeletal Fragments (level 57, Western Plaguelands): Alliance only
+- 5538 Mold Rhymes With... (level 57, Western Plaguelands): Alliance only
+- 5803 Araj's Scarab (level 60, Western Plaguelands): Alliance only
+- 5848 Of Love and Family (level 60, Western Plaguelands): dungeon quest
+- 5903 A Plague Upon Thee (level 55, Western Plaguelands): Alliance only
+- 5904 A Plague Upon Thee (level 55, Western Plaguelands): Alliance only
+- 6165 <NYI> <TXT> Archmage Timolain's Remains (level 58, Western Plaguelands): not available (removed)
+- 6184 Flint Shadowmore (level 60, Western Plaguelands): Alliance only
+- 6186 The Blightcaller Cometh (level 60, Western Plaguelands): Alliance only
+- 6389 A Plague Upon Thee (level 55, Western Plaguelands): Alliance only
+- 8414 Dispelling Evil (level 52, Western Plaguelands): Alliance only
+- 8416 Inert Scourgestones (level 52, Western Plaguelands): Alliance only
+- 8418 Forging the Mightstone (level 52, Western Plaguelands): Alliance only
+- 8714 Moonstrike the Elder (level 60, Western Plaguelands): not available (removed)
+- 8722 Meadowrun the Elder (level 60, Western Plaguelands): not available (removed)
+- 4801 Frostsaber E'ko (level 60, Winterspring): not in the game client
+- 4802 Winterfall E'ko (level 60, Winterspring): not in the game client
+- 4803 Shardtooth E'ko (level 60, Winterspring): not in the game client
+- 4804 Chillwind E'ko (level 60, Winterspring): not in the game client
+- 4805 Ice Thistle E'ko (level 60, Winterspring): not in the game client
+- 4806 Frostmaul E'ko (level 60, Winterspring): not in the game client
+- 4807 Wildkin E'ko (level 60, Winterspring): not in the game client
+- 4861 Enraged Wildkin (level 59, Winterspring): Alliance only
+- 4863 Enraged Wildkin (level 59, Winterspring): Alliance only
+- 4864 Enraged Wildkin (level 59, Winterspring): Alliance only
+- 4901 Guardians of the Altar (level 59, Winterspring): Alliance only
+- 4902 Wildkin of Elune (level 57, Winterspring): Alliance only
+- 4970 Frostsaber Provisions (level 60, Winterspring): not in the game client
+- 5063 Cap of the Scarlet Savant (level 60, Winterspring): not in the game client
+- 5067 Leggings of Arcana (level 60, Winterspring): not in the game client
+- 5068 Breastplate of Bloodthirst (level 60, Winterspring): not in the game client
+- 5124 Fiery Plate Gauntlets (level 60, Winterspring): profession quest
+- 5126 Lorax's Tale (level 60, Winterspring): class quest
+- 5127 The Demon Forge (level 60, Winterspring): profession quest
+- 5201 Winterfall Intrusion (level 60, Winterspring): not in the game client
+- 5244 The Ruins of Kel'Theril (level 56, Winterspring): Alliance only
+- 5245 Troubled Spirits of Kel'Theril (level 56, Winterspring): Alliance only
+- 5252 Remorseful Highborne (level 58, Winterspring): Alliance only
+- 5253 The Crystal of Zin-Malor (level 58, Winterspring): Alliance only
+- 5305 Sweet Serenity (level 60, Winterspring): profession quest
+- 5306 Snakestone of the Shadow Huntress (level 60, Winterspring): profession quest
+- 5307 Corruption (level 60, Winterspring): profession quest
+- 5981 Rampaging Giants (level 60, Winterspring): not in the game client
+- 6028 The Everlook Report (level 52, Winterspring): Alliance only
+- 6241 Winterfall Activity (level 56, Winterspring): not available (removed)
+- 6502 Drakefire Amulet (level 60, Winterspring): Alliance only
+- 6604 Enraged Wildkin (level 59, Winterspring): Alliance only
+- 6606 A Little Luck (level 60, Winterspring): not available (removed)
+- 8672 Stonespire the Elder (level 60, Winterspring): not available (removed)
+- 8726 Brightspear the Elder (level 60, Winterspring): not available (removed)
+- 8798 A Yeti of Your Own (level 60, Winterspring): profession quest
+- 9266 Making Amends (level 60, Winterspring): not in the game client
+- 96265 Secret of the Barrow Deeps (level 60, Winterspring): not available (incomplete)
+- 98462 Shroud of the Winter Wilds (level 60, Winterspring): not in the game client

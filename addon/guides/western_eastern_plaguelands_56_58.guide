@@ -1,0 +1,483 @@
+# Western & Eastern Plaguelands (56-58): the Bulwark, Andorhal, Light's Hope and the Scarlet and
+# Scourge camps of both Plaguelands, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/western_eastern_plaguelands_56_58.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Western Plaguelands, area
+# 28, and Eastern Plaguelands, area 139). The guide's quest list is section 22 of
+# addon/guides/horde_40_60_allocation.md.
+# Data fixed here: most Eastern Plaguelands spawns from Wowhead use an older map of the zone
+# (x about 1.11 * x + 1.7, y about 1.10 * y + 4.6 of today's), so the places of its NPCs and mobs
+# are given by hand with "at" (Tirion Fordring, Nathanos Blightcaller, Caretaker Alen...).
+# Locked Away (5060) needs a hidden quest 5059 in the data: "nopre".
+# Added: River Ends (7790) and Rapid Escape (8152), the start of the Argent Arbiter chain (outof.games;
+# the data marks them removed). Rapid Escape is handed in to the Argent Medic at Light's Hope.
+# Carried in from Felwood & Winterspring (54-56): Andron's Payment to Jediga (3564, from Andron Gant
+# in Undercity), The Everlook Report (6029), Duke Nicholas Zverenhoff (6030) and Sister Pamela (5601),
+# from Everlook.
+# Left to later guides: Glyphed Oaken Branch (4987, Thunder Bluff) and Taking Back Silithus (8276).
+#
+# The route: Undercity (the auction house) and the Bulwark; four loops from the Bulwark
+# (the Scarlet tent; Felstone, Dalson's Tears and Andorhal; Dalson's cauldron; the Writhing Haunt,
+# Northridge and Hearthglen); up the Thondroril River into the Eastern Plaguelands: Tirion, Nathanos,
+# Darrowshire, Corin's Crossing, Light's Hope, the north and Plaguewood, back to the south-west; the
+# hearthstone to Undercity; the second visit of the Western Plaguelands (Janice, Marlene, Chromie,
+# Gahrron's Withering); Light's Hope and the north-east; Caer Darrow, Andorhal, Hearthglen and the
+# Bulwark; Undercity and the flight to Light's Hope for the Noxious Glade and Nathanos' Scarlet
+# missions; Chromie and the Battle of Darrowshire; Undercity, Orgrimmar and Azshara.
+
+guide Western & Eastern Plaguelands (56-58)
+faction horde
+levels 56 58
+carry 1123 3564 5601 6029 6030
+leave 1123 4987 8276
+next Winterspring (58-59)
+
+# Undercity -----------------------------------------------------------------------------------------
+
+map Undercity
+accept 5094
+tip Harbinger Balthazad walks a slow circle around the Trade Quarter.
+bind 6741
+train 4593 260093 4582 4606 4566 4563
+ah 6026.1 npc 8672
+ah 6026.2 npc 8672
+ah 6026.3 npc 8672
+ah 6026.4 npc 8672
+tip Smokey LaRue at Light's Hope wants 2 Thorium Bars, a Golden Rod, 8 Hi-Explosive Bombs and 8 Unstable Triggers. They come from blacksmiths and engineers: buy them here, or bring a crafter.
+
+# The Bulwark ---------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+turnin 5094
+accept 5096
+turnin 6029
+accept 5405
+turnin 5405
+tip Put the Argent Dawn Commission on as a trinket while you quest here: the Scourge then drop Minion's Scourgestones for the Argent Dawn.
+accept 5901
+tip Pick up a Flame in a Bottle from the Box of Incendiaries next to High Executor Derrington before you go: it burns the Scarlet tent.
+
+# The Scarlet tent ----------------------------------------------------------------------------------
+
+map Western Plaguelands
+do 5096 at 40.7,52.0 icon use "Burn the Scarlet command tent with the Flame in a Bottle and plant the Scourge Banner"
+map Tirisfal Glades
+turnin 5096
+accept 5098 5228
+turnin 5228
+accept 5229
+
+# Felstone Field, Dalson's Tears and Andorhal ------------------------------------------------------
+
+map Western Plaguelands
+accept 5021
+tip Janice is a ghost by the farmhouse; her parcel waits in the barn with her horse.
+turnin 5021
+accept 5023
+accept 84395 at 38.2,54.6
+do 84395
+tip The book lies in the Felstone farmhouse. Oran Snakewrithe in Undercity collects it, with four more of the zone's books.
+do 5229
+tip Cauldron Lord Bilemaw guards the cauldron at the center of the field. Keep the Empty Felstone Field Bottle Vandis gave you.
+turnin 5229
+accept 5230
+accept 5058
+turnin 5058
+accept 5060 nopre
+note "Kill the Wandering Skeleton near the Dalson farm for the Dalson Outhouse Key, then open the outhouse" at 48.1,49.7
+tip Opening the outhouse calls Farmer Dalson: he carries the key to the cabinet upstairs.
+do 5060
+turnin 5060
+accept 4971
+tip Chromie waits in the ruined inn at the west end of Andorhal.
+do 5098.2 at 42.3,66.2 icon use "Stand in the doorway of Tower Two and use the Beacon Torch"
+do 5098.3 at 44.3,63.2 icon use "Stand in the doorway of Tower Three and use the Beacon Torch"
+do 4971 at 47.8,64.6
+tip Use the Temporal Displacer beside the silos: the Temporal Parasites come out of hiding.
+do 5098.4 at 46.6,71.0 icon use "Stand in the doorway of Tower Four and use the Beacon Torch"
+do 5098.1 at 40.0,71.6 icon use "Stand in the doorway of Tower One and use the Beacon Torch"
+turnin 4971
+accept 4972
+do 4972
+tip The Small Lockboxes sit in the rubble all over Andorhal.
+turnin 4972
+accept 5142
+tip Marlene Redpath haunts the farm south of Andorhal. Skip this one if you carry Sister Pamela from Everlook: both lead to Pamela.
+
+# The Bulwark ---------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+turnin 5230
+turnin 5098
+accept 838 105
+turnin 838
+accept 964
+accept 5231
+
+# Dalson's Tears and the skeletons ------------------------------------------------------------------
+
+map Western Plaguelands
+do 964 bg
+tip Every skeleton of the Plaguelands farms can drop Skeletal Fragments.
+do 5231
+turnin 5231
+accept 5232
+do 964 at 37.5,56.3
+map Tirisfal Glades
+turnin 5232
+turnin 964
+accept 5233
+
+# The Writhing Haunt, Northridge and Hearthglen -----------------------------------------------------
+
+map Western Plaguelands
+accept 4984
+tip Mulgris Deepriver hides in the hut behind the Writhing Haunt.
+do 5233
+turnin 5233
+accept 5234
+do 4984 bg
+accept 6004
+tip Kirsta Deepshadow stands on the hill above Northridge Lumber Camp.
+do 6004.1 at 51.9,44.7
+do 6004.2 at 51.8,44.3
+do 6004.4 at 50.8,40.6
+do 6004.3 at 52.3,38.5
+tip Medics and hunters guard the lumber camp; the knights and magi stand further north and east.
+turnin 6004
+accept 6023
+do 6023.1
+do 6023.2
+turnin 6023
+accept 6025
+do 6025 at 45.8,18.3
+tip Climb the tower at the edge of Hearthglen and look down over the town.
+turnin 6025
+do 4984 at 45.3,46.4
+turnin 4984
+accept 4985
+do 4985 bg at 56.7,52.2
+tip The grizzlies roam between the Writhing Haunt and Gahrron's Withering; Mulgris takes them in on your next visit.
+
+# Up the Thondroril River ---------------------------------------------------------------------------
+
+accept 7790 at 70.1,44.1 "Accept River Ends from the Fallen Skyborne"
+tip The two dead elves lie on the riverbank, where the river crosses into the Eastern Plaguelands.
+map Eastern Plaguelands
+do 7790 at 4.0,33.0 icon text "Follow the Thondroril River north to the waterfall"
+turnin 7790 "Turn in River Ends at the Argent Wayfinder"
+accept 8152
+
+# Tirion Fordring and the south-west ----------------------------------------------------------------
+
+accept 5542 5543 5544 at 5.2,35.6
+tip Tirion lives in the little house by the river.
+accept 6022 6042 6133 at 22.4,63.8
+tip Nathanos Blightcaller keeps to the yard of Marris Stead.
+accept 6024
+tip The Torn Scroll lies at the mouth of the Undercroft, the crypt south of Marris Stead. Its writer, Infiltrator Hameya, walks far to the north-east.
+turnin 5601 5142
+accept 5149
+do 5149 at 33.0,78.8 icon pickup "Find the doll's head, left side and right side in the ruins of Darrowshire"
+tip Each piece lies in one of the ruined houses; some are false and call up a ghoul. Combine the three in your bags.
+turnin 5149
+accept 5152 5241
+
+# The southern fields and Corin's Crossing -----------------------------------------------------------
+
+do 5544 bg at 36.6,70.1
+do 5543 bg at 29.6,71.7
+do 5542.1 at 28.6,71.0
+do 5543 at 37.8,71.1
+do 5544 at 42.8,52.3
+tip Carrion Grubs crawl all over the south, Carrion Devourers in the north; both drop the meat.
+do 6042.1 bg at 42.1,53.6
+do 5542.2 bg at 46.5,47.8
+do 6022 mobs 8531 8525 8526 8543 at 52.5,59.0
+tip Corin's Crossing is full of Scourge: once you loot the first Living Rot you have 10 minutes for the other six. Then use the Mortar and Pestle.
+do 5542.2 at 59.3,58.3
+do 6042.1 at 58.8,54.2
+
+# Light's Hope Chapel -------------------------------------------------------------------------------
+
+fpath 12636
+accept 9665
+tip Emissary Gormok stands by the flight master.
+turnin 8152 npc 16284 at 70.9,48.2
+accept 97986 at 70.9,48.2
+accept 6026
+do 6026 at 70.9,48.4 icon get
+tip If you bought Smokey's parts in Undercity, give them now; otherwise bring them on your next visit.
+turnin 6026
+accept 6041
+accept 84398 at 71.9,48.3
+do 84398
+tip The book lies inside the chapel.
+turnin 6030
+turnin 5241
+accept 5211
+accept 6021 5281 at 69.9,53.7
+tip Caretaker Alen tends the graves south of the chapel.
+
+# The north: Eastwall, Blackwood Lake, Northpass and Quel'Lithien ----------------------------------
+
+do 5211 bg at 57.3,31.1 icon talk "Free 15 Darrowshire Spirits: talk to the spirits that rise from slain ghouls and flayers"
+tip Kill the ghouls and flayers of the Plaguelands: a Darrowshire Spirit rises from some of them. Talk to it to free it.
+do 9665.2 at 59.0,39.4 icon use "Capture Eastwall Tower: stand by its banner until it turns to the Horde"
+accept 84400 at 47.3,42.2
+do 84400
+turnin 97986
+tip The other Argent Dawn field camp stands north-west of Blackwood Lake.
+accept 98109
+do 5542.3 bg at 42.8,31.1
+do 6042.2 bg at 42.3,31.5
+do 9665.3 at 49.2,18.2 icon use "Capture Northpass Tower: stand by its banner until it turns to the Horde"
+do 6133.1 at 45.4,13.0
+do 6133.2 at 45.4,13.0
+do 6133.3 at 45.4,13.0
+do 6133.4 at 45.3,12.7
+tip The Quel'Thalas Registry lies upstairs in the Quel'Lithien Lodge.
+turnin 98109
+tip Adon lives in the hut north-west of Northdale, by the road to Quel'Thalas.
+accept 97988
+tip Corswyn Aseril waits in Orgrimmar: keep this for the end of the guide.
+
+# Plaguewood and Terrordale ------------------------------------------------------------------------
+
+do 5901 bg at 37.0,19.9 icon use "Gather 100 Plagueland Termites with the Empty Termite Jar"
+tip Use the Empty Termite Jar on the Large Termite Mounds.
+do 6041 at 27.4,23.9 icon use "Use Smokey's Special Compound at the Mark of Detonation inside 8 ziggurats and slaughterhouses"
+tip Plant the bomb and run out of the building before it blows.
+accept 84401 at 26.4,15.1
+do 84401
+do 9665.4 at 18.2,25.1 icon use "Capture Plaguewood Tower: stand by its banner until it turns to the Horde"
+do 5901 at 23.0,28.4 icon use "Gather 100 Plagueland Termites with the Empty Termite Jar"
+do 6042.2 at 27.0,33.0
+do 5542.3 at 28.3,32.8
+accept 6164 at 11.4,26.4
+tip Augustus the Touched hides in a hut in Terrordale. He sells to you once he has his book back.
+do 6164
+turnin 6164 at 11.4,26.4
+turnin 5281 at 11.4,26.6
+
+# Back to the south-west ---------------------------------------------------------------------------
+
+turnin 5542 5543 5544 at 5.2,35.6
+accept 5742 at 5.2,35.6
+do 5742 at 5.2,35.6
+turnin 5742 at 5.2,35.6
+accept 5781 at 5.2,35.6
+turnin 6022 6042 6133 at 22.4,63.8
+accept 6135 6136 at 22.4,63.8
+do 6021 at 23.1,72.6
+tip Zaeldarr the Outcast walks inside the Undercroft.
+do 5781 at 23.9,74.2
+tip Mercutio Filthgorger stands deep in the Undercroft with a few guards.
+do 6135 at 25.8,58.7
+tip Duskwing, a level 60 white bat, flies a wide circle north and east of Marris Stead.
+do 9665.1 at 34.1,64.1 icon use "Capture Crown Guard Tower: stand by its banner until it turns to the Horde"
+turnin 6135 at 22.4,63.8
+hearth npc 6741
+
+# Undercity -----------------------------------------------------------------------------------------
+
+map Undercity
+turnin 5023
+accept 5049
+turnin 5049
+accept 5050
+
+# The Bulwark ---------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+turnin 5234
+accept 5235
+turnin 5901
+accept 5902
+
+# The Western Plaguelands again: Janice, Marlene, Chromie, Gahrron's Withering ---------------------
+
+map Western Plaguelands
+turnin 5050
+accept 5051
+do 5051 mobs 10801 at 37.6,56.3
+tip The Jabbering Ghouls in Felstone Field carry the other half. Combine the halves in your bags.
+turnin 5051
+turnin 5152
+accept 5153
+do 5153
+tip Joseph's Wedding Ring is at his monument, just east of Marlene.
+turnin 5153
+accept 5154
+do 5154
+tip The Musty Tomes lie in the ruins of Andorhal; only one of them is the Annals.
+turnin 5154
+accept 5210
+do 4985 at 56.3,60.9
+turnin 4985
+accept 4987
+tip Glyphed Oaken Branch goes to Nara Wildmane in Thunder Bluff: the Winterspring guide hands it in.
+do 5235
+turnin 5235
+accept 5236
+turnin 5902
+accept 6390
+tip The barrel goes in the middle of Northridge Lumber Camp. Take the empty barrel back to Mickey Levine.
+
+# The Eastern Plaguelands again: Light's Hope and the north-east -----------------------------------
+
+map Eastern Plaguelands
+turnin 5781 at 5.2,35.6
+accept 5845 at 5.2,35.6
+turnin 5211
+turnin 6021 at 69.9,53.7
+turnin 6041
+turnin 9665
+turnin 5210
+accept 5181 5168
+do 5845
+tip The Symbol of Lost Honor lies in the ruined church of Northdale.
+do 6136 at 48.7,25.3
+tip Borelgore, a level 61 elite abomination, roams the wastes between Northdale and Plaguewood.
+do 6024 at 61.9,11.3
+tip Infiltrator Hameya walks the road north-east of Northdale, towards Zul'Mashar.
+do 5181.1
+tip Horgus' skull sits on a pike by the shore west of Blackwood Lake.
+do 5181.2
+tip The Shattered Sword of Marduk lies by a wrecked wagon on the road north of Corin's Crossing.
+turnin 6136 at 22.4,63.8
+accept 6144 at 22.4,63.8
+turnin 6024
+tip Dig up Hameya's chest at the Mound of Dirt behind the Undercroft.
+turnin 5845 at 5.2,35.6
+accept 5846 at 5.2,35.6
+
+# Caer Darrow, Andorhal, Gahrron's Withering and Hearthglen ----------------------------------------
+
+map Western Plaguelands
+turnin 5846
+tip Artist Renfray's ghost stands on the beach of Caer Darrow, the island of Scholomance. Its next step is inside Scholomance.
+accept 84402 at 69.4,72.8
+do 84402
+do 105 mobs 1852 at 45.3,69.2
+tip Araj the Summoner is a level 61 elite with guards, in the middle of Andorhal. Clear the guards first; loot the shard from his phylactery once he falls.
+do 5168.2
+tip Redpath's Shield lies by the barn of Gahrron's Withering.
+do 5168.1
+tip Davil's Libram is upstairs in the town hall of Hearthglen, among many Scarlets.
+
+# The Bulwark and Undercity ------------------------------------------------------------------------
+
+map Tirisfal Glades
+turnin 5236
+accept 5238
+turnin 5238
+turnin 6390
+turnin 105
+map Undercity
+turnin 6144
+accept 6145
+turnin 84395 84398 84400 84401 84402
+tip Oran Snakewrithe stands in the Apothecarium.
+fly "Light's Hope Chapel, Eastern Plaguelands" npc 4551
+
+# Light's Hope and the Noxious Glade ---------------------------------------------------------------
+
+map Eastern Plaguelands
+turnin 5168 5181
+accept 5206
+do 5206 mobs 8529 at 73.0,34.5
+tip Scourge Champions drop Fetid Skulls: wave the Mystic Crystal over each one, and only some turn into Resonating Skulls. More champions walk the Fungal Vale in the west.
+turnin 5206
+accept 5941
+
+# Nathanos' Scarlet missions -----------------------------------------------------------------------
+
+do 6145 mobs 12337 at 54.8,46.8
+tip The Crimson Courier, a level 60 elite, rides the roads between Tyr's Hand and Stratholme.
+turnin 6145 at 22.4,63.8
+accept 6146 at 22.4,63.8
+do 6146 at 22.4,63.8 icon use "Open Nathanos' Chest: the Grand Crusader's Command and the Rotten Apple"
+turnin 6146 at 75.2,71.2
+tip Eat the Rotten Apple at the gate of Tyr's Hand: the guise lets you walk to Crusader Lord Valdelmar.
+accept 6147 at 75.2,71.2
+turnin 6147 at 22.4,63.8
+accept 6148 at 22.4,63.8
+do 6148 at 57.2,64.9
+tip Demetria, a level 61 elite, rides from Tyr's Hand towards Stratholme with her guards. Wait for her on the road.
+turnin 6148 at 22.4,63.8
+
+# Chromie and the Battle of Darrowshire ------------------------------------------------------------
+
+map Western Plaguelands
+turnin 5941
+accept 5721
+map Eastern Plaguelands
+do 5721 at 33.6,78.5 icon talk "Place the Relic Bundle in the Darrowshire square, win the battle and speak with Joseph Redpath"
+tip Keep Davil Lightfire alive until Horgus the Ravager dies, and Captain Redpath until he turns into Redpath the Corrupted, a level 60 elite. Hard for two: bring friends if you can.
+turnin 5721
+accept 5942
+turnin 5942
+tip Joseph's Chest stands behind Pamela's house.
+hearth npc 6741
+
+# Undercity ----------------------------------------------------------------------------------------
+
+map Undercity
+ah 7813.1 npc 8672
+ah 7814.1 npc 8672
+ah 7817.1 npc 8672
+ah 7818.1 npc 8672
+tip The cloth quartermasters of Undercity and Orgrimmar take 60 of each cloth: buy what your bags lack.
+accept 7813 7814 7817
+do 7813 at 71.7,29.2 icon get "Bring 60 Wool Cloth"
+do 7814 at 71.7,29.2 icon get "Bring 60 Silk Cloth"
+do 7817 at 71.7,29.2 icon get "Bring 60 Mageweave Cloth"
+turnin 7813 7814 7817
+accept 7818
+do 7818 at 71.7,29.2 icon get "Bring 60 Runecloth"
+turnin 7818
+tip Ralston Farnsley stands in the Rogues' Quarter.
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+note "Take the zeppelin to Orgrimmar from the tower west of Undercity" at 61.0,58.9
+map Orgrimmar
+turnin 97988
+tip Corswyn Aseril stands in the Valley of Wisdom.
+ah 7826.1 npc 8673
+ah 7827.1 npc 8673
+ah 7831.1 npc 8673
+ah 7824.1 npc 8673
+tip Two quartermasters here: buy 120 of each cloth for both.
+accept 7826 7827 7831
+do 7826 at 63.6,51.2 icon get "Bring 60 Wool Cloth"
+do 7827 at 63.6,51.2 icon get "Bring 60 Silk Cloth"
+do 7831 at 63.6,51.2 icon get "Bring 60 Mageweave Cloth"
+turnin 7826 7827 7831
+accept 7824
+do 7824 at 63.6,51.2 icon get "Bring 60 Runecloth"
+turnin 7824
+accept 7833 7834 7835
+do 7833 at 37.7,87.9 icon get "Bring 60 Wool Cloth"
+do 7834 at 37.7,87.9 icon get "Bring 60 Silk Cloth"
+do 7835 at 37.7,87.9 icon get "Bring 60 Mageweave Cloth"
+turnin 7833 7834 7835
+accept 7836
+do 7836 at 37.7,87.9 icon get "Bring 60 Runecloth"
+turnin 7836
+accept 8276
+tip Taking Back Silithus is handed in at Cenarion Hold, in the Silithus guide.
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+fly "Valormok, Azshara" npc 3310
+
+# Azshara ------------------------------------------------------------------------------------------
+
+map Azshara
+turnin 3564
+note "The Plaguelands are done: the next guide starts with a flight from here to Orgrimmar" npc 8610

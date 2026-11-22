@@ -1,0 +1,89 @@
+# Tanaris (43-43): the Shimmering Flats and Gadgetzan, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/tanaris_43_43.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Tanaris, area 440, and the
+# quest pages). The guide's quest list is section 4 of addon/guides/horde_40_60_allocation.md; the
+# other Tanaris quests are in Tanaris (44-44) and Tanaris & Dustwallow Marsh (47-48).
+#
+# Carried in: Rumors for Kravel, Goblin Sponsorship, Tran'rek and Stoley's Debt are taken in Booty
+# Bay (Stranglethorn Vale & Swamp of Sorrows, 41-43); News for Fizzle (Martek the Exiled, Badlands)
+# and Into the Field (Apothecary Zinge, Undercity) before these guides. Keeping Pace needs News for
+# Fizzle, Slake That Thirst needs Into the Field.
+#
+# The route: a flight from Desolace to Freewind Post; the Shimmering Flats (the Mirage Raceway
+# goblins and gnomes); the road south to Gadgetzan; a loop east of Gadgetzan (Steamwheedle Port, the
+# Wastewander camps, the gnomish garbage on the way back); Gadgetzan to finish.
+
+guide Tanaris (43-43)
+faction horde
+levels 43 43
+carry 243 1117 1137 1183 1261 2864 2872 94895
+leave 1118 1261 94895
+next Dustwallow Marsh (43-44)
+# Marg Speaks (1261): taken in Stranglethorn (guide 2), handed in at Brackenwall (guide 5).
+
+# Desolace to Thousand Needles ------------------------------------------------------------------------
+
+map Desolace
+fly "Freewind Post, Thousand Needles" npc 6726
+tip The flight crosses Thunder Bluff. Already know Gadgetzan? Fly there instead and do the Shimmering Flats at the end, riding north out of Tanaris.
+
+# The Shimmering Flats: the Mirage Raceway ---------------------------------------------------------
+
+map Thousand Needles
+goto "Ride east from Freewind Post down to the salt flats and the Mirage Raceway, in the middle of the Shimmering Flats" at 78.6,76.8 r 40
+turnin 1117
+accept 1118
+tip Back to Booty Bay is handed in by the Stranglethorn Vale (46-47) guide: keep it.
+tip Kravel's next errand, Back to Booty Bay, belongs to a later guide: leave it for now.
+turnin 1137
+turnin 1183
+accept 1186 1190
+turnin 1186
+tip Razzeric's Tweaking is for a later guide: leave it.
+note "Talk to Zamek and let him set off his distraction: Rizzle Brassbolts runs out to look" npc 4709 at 79.8,76.9
+tip Zamek offers the distraction as a short quest of its own; take it and he does the rest.
+turnin 1190
+tip While Rizzle is away, his plans lie unguarded in the Brassbolts' workshop. If he is back, ask Zamek again.
+accept 1194
+turnin 1194
+tip The Indurium Ore quest that follows is not in these guides.
+
+# Gadgetzan ----------------------------------------------------------------------------------------
+
+map Tanaris
+goto "Ride south out of the Shimmering Flats on the road into Tanaris and on to Gadgetzan" at 52.0,27.5 r 30
+fpath 7824 at 51.6,25.4
+tip Bulkrek Ragefist, the wind rider master, stands at the north edge of town.
+turnin 2864
+tip Tran'rek's Scarab Shells is for a later guide.
+accept 97534 at 51.1,27.9
+turnin 243
+accept 379 1690
+accept 1707
+bind 7733
+tip The innkeeper stands inside the inn.
+
+# East of Gadgetzan: Steamwheedle Port and the Wastewander camps ----------------------------------
+
+do 97534 bg
+tip The Gnomish Garbage piles lie all over the sand around Gadgetzan: loot them whenever you pass one.
+turnin 2872
+tip Stoley is inside the building. His shipment quest is for a later guide.
+do 379 bg at 64.4,32.8
+do 1690
+tip The bandits and thieves fill the camp south of Steamwheedle Port. The shadow mages and assassins further south-west hit harder and are not needed.
+do 1707 at 64.4,32.8 "Collect 10 Wastewander Water Pouches: Slake That Thirst and Water Pouch Bounty each take 5"
+tip Every Wastewander drops pouches. The quest log counts only 5, so keep killing until the bags hold 10, and don't sell them.
+do 97534
+tip Loot the garbage piles south of Gadgetzan on the way back.
+
+# Gadgetzan ----------------------------------------------------------------------------------------
+
+turnin 97534 at 51.1,27.9
+turnin 379 1690
+turnin 1707
+note "For the next guide, take the flight to Brackenwall Village in Dustwallow Marsh if you know it" npc 7824 at 51.6,25.4

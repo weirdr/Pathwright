@@ -1,0 +1,237 @@
+# Tanaris & Dustwallow Marsh (47-48): the last Gadgetzan and Steamwheedle Port quests, the Brood of
+# Onyxia and Razzeric's booster, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/tanaris_dustwallow_marsh_47_48.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Tanaris, area 440, and
+# Dustwallow Marsh, area 15, and the quest pages). The quest list is section 11 of
+# addon/guides/horde_40_60_allocation.md.
+#
+# Carried in: Zanzil's Mixture and a Fool's Stout (1119, Booty Bay, a two-hour timer: the first
+# stop), The Sunken Temple (3380, Witch Doctor Uzer'i in Feralas), Shipping and Handling (95296,
+# Friz Frazzlespark in Riverglades), Screecher Spirits (3520, Yeh'kinya; its screechers are in
+# Feralas) and The Super Egg-O-Matic (2741, Gadgetzan; its Hippogryph Egg is in Feralas).
+# Left out: the Zul'Farrak dungeon quests (Scarab Shells, Troll Temper, Divino-matic Rod, The
+# Prophecy of Mosh'aru, Tiara of the Deep), The Stone Watcher and Return to Thunder Bluff (they
+# follow The Platinum Discs from the Uldaman dungeon). The four egg quests of Curgle Cranklehop
+# (one random egg from the Egg Crate, repeatable) are a note.
+#
+# The route: Orgrimmar and a flight to Freewind Post; the Shimmering Flats (Kravel, Razzeric);
+# Gadgetzan; a loop east (Steamwheedle Port, Lost Rigger Cove, the Wastewander camps); Dustwallow
+# Marsh (the Seaforium Booster, the eggs of Onyxia) and the hearthstone back; the Shimmering Flats
+# and Gadgetzan for the booster; a long loop south-west (Broken Pillar, the Noxious Lair, the
+# Dunemaul Compound, Thistleshrub Valley) ending with Tooga's walk home to Steamwheedle Port; the
+# Gaping Chasm and OOX-17/TN; Gadgetzan; the Shimmering Flats; Orgrimmar; Booty Bay and Riverglades
+# on the way to the Hinterlands.
+
+guide Tanaris & Dustwallow Marsh (47-48)
+faction horde
+levels 47 48
+carry 580 1119 1429 2741 3123 3380 3520 95296
+leave 580 650 864 1122 1429 2641 2874 3123 3444
+next The Hinterlands (48-49)
+# Follow-ups for later guides: Report Back to Fizzlebub and Deliver to MacKinley (14), The Stone
+# Circle (13), Sprinkle's Secret Ingredient, Return to Apothecary Zinge and Ripple Recovery (12).
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+map Orgrimmar
+fly "Freewind Post, Thousand Needles" npc 3310
+tip Coming from the Eastern Kingdoms: take the zeppelin from Grom'gol to Orgrimmar first. Doras, the wind rider master, stands on the tower by the Valley of Strength.
+
+# The Shimmering Flats -----------------------------------------------------------------------------
+
+map Thousand Needles
+goto "Ride east from Freewind Post down to the Mirage Raceway on the Shimmering Flats" at 78.6,76.8 r 40
+turnin 1119
+tip Kravel first: the Fool's Stout from Booty Bay has a two-hour timer.
+accept 1120
+turnin 1120
+tip Give the stout to the Gnome Pit Boss next to Kravel and let the gnomes drink it.
+accept 1122
+tip Report Back to Fizzlebub is handed in at Booty Bay by a later guide: keep it.
+accept 1187
+tip Razzeric's Seaforium Booster waits in a crate in Dustwallow Marsh; this guide goes there soon.
+
+# Gadgetzan ----------------------------------------------------------------------------------------
+
+map Tanaris
+goto "Ride south out of the Shimmering Flats on the road to Gadgetzan" at 52.0,27.5 r 30
+accept 3362
+accept 82
+accept 2781 at 51.8,27.0
+accept 2875 at 51.8,27.0
+tip The two WANTED notes hang on the poster by the north gate.
+turnin 2741
+note "Open the Egg Crate and hand the egg inside to Curgle Cranklehop, next to the Egg-O-Matic (only if you brought a Hippogryph Egg from Feralas)" npc 7763
+accept 5863
+accept 1691
+accept 864
+tip Return to Apothecary Zinge goes to Undercity with the next guide: keep the Sealed Field Testing Kit.
+accept 2605
+bind 7733
+tip Any mob in Tanaris can drop an OOX-17/TN Distress Beacon, about one in a hundred: keep it if one drops, this guide uses it later.
+
+# East: Steamwheedle Port, Lost Rigger Cove, the Wastewander camps ---------------------------------
+
+goto "Ride east to Steamwheedle Port on the coast" at 66.8,23.5 r 30
+turnin 95296
+accept 95383
+turnin 95383
+accept 95312
+accept 8365
+turnin 3520
+accept 8366
+accept 97530
+accept 2873
+tip Stoley and Security Chief Bilgewhizzle stand inside the building by the docks.
+goto "Ride south along the coast to Lost Rigger Cove, the Southsea pirate camp" at 72.4,45.9 r 30
+do 8365 bg
+tip Every Southsea pirate can drop a hat. You each need 20, so kill everything in the cove.
+do 8366
+tip Dock workers fill the piers; more pirates stand on the wooden platforms and inside the huts.
+do 2873
+tip The stolen cargo is upstairs in the building on the west side of the cove.
+do 2875
+tip Andre Firebeard stands in the middle of the cove with guards around him: pull them apart.
+do 8365
+goto "Ride back north to Steamwheedle Port" at 66.8,23.5 r 30
+turnin 8365
+turnin 8366
+turnin 2873
+accept 2874
+tip Deliver to MacKinley is for a later guide in Booty Bay: keep it.
+turnin 2875
+do 2781 bg
+tip Caliph Scorpidsting walks a wide loop around the Wastewander camps with two guards.
+do 1691 at 58.7,37.8
+tip The Wastewander Rogues and Assassins are stealthed: they show only when close.
+do 2781
+goto "Ride back to Gadgetzan" at 52.0,27.5 r 30
+turnin 1691
+turnin 2781
+turnin 95312
+accept 95321
+
+# Dustwallow Marsh --------------------------------------------------------------------------------
+
+fly "Brackenwall Village" npc 7824
+map Dustwallow Marsh
+accept 1172
+tip Draz'Zilb stands in the small cave at the south end of the village.
+do 1187
+tip The Gizmorium Shipping Crate lies at the water's edge, south of Theramore.
+do 1172
+tip The eggs lie in the dragon caves of the Wyrmbog. Breaking one hatches whelps: clear the cave first.
+turnin 1172
+hearth npc 7733
+
+# The Shimmering Flats and back -------------------------------------------------------------------
+
+map Thousand Needles
+goto "Ride north out of Gadgetzan to the Mirage Raceway" at 80.3,76.1 r 30
+turnin 1187
+accept 1188
+map Tanaris
+goto "Ride back south to Gadgetzan" at 52.0,27.5 r 30
+turnin 1188
+accept 1189
+tip Keep the Modified Seaforium Booster: it goes back to Razzeric at the end of the guide.
+
+# South-west: Broken Pillar, the Noxious Lair, Dunemaul, Thistleshrub Valley ----------------------
+
+turnin 3380
+accept 3444
+tip The Stone Circle is for a later guide: keep it.
+accept 3161
+do 3161 bg
+tip Use the Gahz'ridian Detector: the buried ornaments show as mounds of sand. Many lie around Broken Pillar, more south-west among the ogres.
+do 82
+tip The Centipaar insects fill the Noxious Lair, the hive west of Broken Pillar.
+do 97530 bg
+do 5863
+tip Gor'marok the Ravager waits in the small cave at the back of the compound.
+do 97530
+tip Any Dunemaul ogre can drop the bangle, but it is rare: keep killing them.
+do 3161 at 45.5,65.8
+tip The richest ornament fields are south of the compound and further south-west.
+do 2605 bg
+do 3362
+do 2605
+tip Only the Thistleshrub Dew Collectors drop the gland, and only now and then.
+accept 1560
+tip Tooga has half an hour to get home, so do everything else first. He follows you on foot: walk, keep him alive.
+accept 97540 "Take Oasis from Tooga too, if he offers it"
+turnin 97540 "Hand Oasis back to Tooga"
+tip Oasis starts and ends with Tooga himself. If he only offers it later, when he stops to drink at water on the way, take it and hand it back there.
+do 1560 bg
+turnin 3161
+tip Walk Tooga past Broken Pillar to hand in the ornaments on the way.
+turnin 1560
+turnin 95321
+accept 95472
+tip Tazzik's shirt goes back to Friz in Riverglades at the end of the guide.
+turnin 97530
+goto "Ride back to Gadgetzan" at 52.0,27.5 r 30
+turnin 82
+accept 10
+turnin 3362
+turnin 2605
+accept 2606
+turnin 2606
+accept 2641
+tip Sprinkle's Secret Ingredient is for the next guide: keep it.
+turnin 5863
+
+# South: the Gaping Chasm and OOX-17/TN ------------------------------------------------------------
+
+goto "Ride south to the Gaping Chasm and go into the cave" at 55.8,68.9 r 20
+do 10
+tip Scrimshank's gear lies deep in the cave, among the Centipaar.
+accept 351 at 60.2,64.7 "Use the OOX-17/TN Distress Beacon, if one dropped"
+tip No beacon yet? Kill what is around you for a while, or skip the robot.
+turnin 351
+accept 648
+do 648 at 66.8,24.0 "Escort OOX-17/TN to Steamwheedle Port"
+tip The robot walks on its own; ambushes jump it on the way.
+
+# Gadgetzan ----------------------------------------------------------------------------------------
+
+goto "Ride back to Gadgetzan" at 52.0,27.5 r 30
+turnin 10
+accept 110
+turnin 110
+accept 113
+turnin 113
+accept 32
+
+# The Shimmering Flats and Orgrimmar -------------------------------------------------------------
+
+map Thousand Needles
+goto "Ride north to the Mirage Raceway" at 80.3,76.1 r 30
+turnin 1189
+fly "Orgrimmar, Durotar" npc 4317
+tip Ride west to Freewind Post for the wind rider.
+map Orgrimmar
+turnin 32
+accept 649
+turnin 649
+accept 650
+tip Ripple Recovery continues in the Hinterlands with the next guide: keep it.
+train 3353 3352 3401 3344 5882 3324 6014
+tip Paladins train in Undercity, druids in Thunder Bluff.
+
+# Booty Bay and Riverglades ------------------------------------------------------------------------
+
+note "Take the zeppelin to Grom'gol in Stranglethorn Vale from the tower outside Orgrimmar" npc 12136 at 50.7,12.9 in Durotar
+map Stranglethorn Vale
+fly "Booty Bay, Stranglethorn" npc 1387
+turnin 648
+tip Oglethorpe Obnoticus works upstairs in the building by the Booty Bay flight master.
+fly "Rog'mar, Riverglades" npc 2858
+map Riverglades
+goto "Ride east to Powderfuse Port" at 77.1,52.9 r 20
+turnin 95472
+note "For the next guide, fly from Rog'mar to the Hinterlands: to Revantusk Village if you know it, else to Hammerfall in the Arathi Highlands and ride north into the Hinterlands" npc 255993

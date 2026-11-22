@@ -1,0 +1,231 @@
+# Un'Goro Crater (53-54): the Horde visit of Un'Goro Crater, with the Thunder Bluff and Ratchet
+# quests tied to it, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/ungoro_crater_53_54.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Un'Goro Crater, area 490).
+# The guide's quest list is section 19 of addon/guides/horde_40_60_allocation.md. Crystals of Power
+# (4284, the pylons' prerequisite), The Scent of Lar'korwi (4291) and the Marshal's Refuge flight
+# path come from Feralas & Un'Goro Crater (49-50).
+# Carried in: Delivery to Magatha (3518, from Jediga in Azshara), March of the Silithid (4494, from
+# Zilzibin Drumlore in Orgrimmar), The Strength of Corruption (4120,
+# taken at Camp Mojache, its bears and wolves killed in Felwood) and Seeking Spiritual Aid (5158,
+# from Greta Mosshoof in Felwood).
+# Left to later guides: Magatha's Payment to Jediga (3562, Azshara), Cleansed Water Returns to
+# Felwood (5159), The New Springs (980, Winterspring) and Rabine Saturna (1123, Moonglade).
+# Left out: Zapper Fuel (4146) and Bloodpetal Zapper (4148): the Atal'ai Haze drops only inside the
+# Temple of Atal'Hakkar dungeon. It's Dangerous to Go Alone (3962): it needs Linken's Adventure
+# (3961), the end of Linken's chain done in Winterspring (58-59). Hol'anyee's Big Book of Big Lizards
+# (92020): level 55 to take, handed in at the summit of Mount Hyjal, where no guide goes.
+#
+# The route: Orgrimmar (the auction house); Ratchet; Gadgetzan; down the
+# slope into Un'Goro to Torwa Pathfinder, then north along the east side (Lar'korwi, the gorillas) to
+# Marshal's Refuge; one big loop (the north and east, Torwa again, the hive, Terror Run, the west,
+# Fire Plume Ridge and Ringo back to the refuge); U'cha and A-Me 01 in the gorilla cave; Torwa a last
+# time and the hearthstone to Gadgetzan; Camp Mojache, Thunder Bluff, Ratchet and Orgrimmar.
+
+guide Un'Goro Crater (53-54)
+faction horde
+levels 53 54
+carry 3518 3563 3568 3909 4120 4494 5084 5158
+leave 980 1123 3562 3563 3568 3909 5084 5159
+next Azshara (54-54)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Orgrimmar
+note "Fly to Orgrimmar from Bloodvenom Post in Felwood, for its auction house" npc 3310
+ah 4244.1 npc 8673
+tip A-Me 01, a robot in Un'Goro Crater, needs a Mithril Casing. Nothing in the crater drops it: buy it here, or have an engineer make it.
+ah 4496.2 npc 8673
+ah 3761.1 npc 8673
+tip Un'Goro Soil: 5 for Alchemist Pestlezugg and 20 for Thunder Bluff, so 25 in all. It also comes from the dirt piles all over the crater.
+fly "Ratchet, The Barrens" npc 3310
+
+# Ratchet -------------------------------------------------------------------------------------------
+
+map The Barrens
+accept 4502
+turnin 5158
+accept 5159
+tip Cleansed Water Returns to Felwood is handed in by a later guide.
+fly "Gadgetzan, Tanaris" npc 16227
+
+# Gadgetzan ------------------------------------------------------------------------------------------
+
+map Tanaris
+turnin 4494
+accept 4496
+bind 7733
+
+# Un'Goro Crater: Torwa Pathfinder, then north along the east side ---------------------------------
+
+map Un'Goro Crater
+accept 4289 4292 87492
+tip Ride south-west out of Gadgetzan and down the slope into the crater: Torwa camps at its foot.
+do 4496.2 bg icon pickup at 44.5,53.5
+tip Un'Goro Dirt Piles lie all over the crater, and the oozes and tar beasts drop soil too. Gather 25: 20 of them are for Thunder Bluff.
+do 87492
+tip The damaged crystal lies just west of Torwa's camp.
+turnin 87492
+do 4292
+tip Open Torwa's Pouch. Follow the trail up into the eastern hills to the clearing strewn with huge bones: put the meat down there, then use the pheromone mixture on it to call Lar'korwi, a level 56 raptor.
+do 4289
+tip The gorillas, stompers and thunderers live in and around the cave in the north-east.
+
+# Marshal's Refuge ------------------------------------------------------------------------------------
+
+accept 4145
+accept 3881
+accept 3883
+accept 3882
+tip Larion, Williden, Hol'anyee and Spark stand together at the refuge.
+accept 4288 4285 4287
+tip J.D. Collie is inside the cave at the back of the refuge.
+accept 4501
+tip The sign by Spraggle Frock starts it.
+accept 4492
+accept 4503
+accept 4243
+
+# The north: the Northern Pylon and the Pterrordax --------------------------------------------------
+
+do 4503.2 bg
+do 4503.1 bg
+tip Every pterrordax and diemetradon of the crater can drop the scales.
+do 4501.1 bg
+do 4285
+tip The Northern Crystal Pylon stands on the hill east of the refuge.
+
+# The marsh in the east ------------------------------------------------------------------------------
+
+do 4145.4
+do 4145.1
+do 3881.1
+tip The crate lies in the marsh among the Bloodpetals.
+do 3882 bg mobs 9162 at 72.2,34.9
+tip The young diemetradons of the marsh drop Dinosaur Bones; so do the stegodons of Terror Run later.
+
+# The Eastern Pylon, and Torwa ----------------------------------------------------------------------
+
+do 4287
+tip The Eastern Crystal Pylon stands on the ledge near Lar'korwi's lair.
+turnin 4289 4292
+accept 4301
+
+# The south: the Pterrordax and the Gorishi hive ----------------------------------------------------
+
+do 4501.1 at 57.0,89.7
+do 4496.1 bg
+do 3883 at 48.7,85.3 icon use "Use the Unused Scraping Vial on the Gorishi Hive Hatchery"
+tip The hatchery is deep inside the hive, in a chamber with larvae hanging from the walls. Clear the way as you go: the hive is crowded.
+do 4496.1
+tip Every Gorishi can drop the gland, but only about one in seven does.
+do 4145.3
+tip The Bloodpetal Flayers stand north-west of the hive, on the way to Fire Plume Ridge.
+
+# Terror Run and the west -------------------------------------------------------------------------
+
+do 3881.2 icon pickup at 38.5,66.1
+tip The Research Equipment lies at the wrecked camp in Terror Run.
+do 4145.2 at 39.0,69.3
+do 3882 at 32.0,71.8
+tip The bones lie on the ground in Terror Run; the stegodons drop them too.
+do 4288
+tip The Western Crystal Pylon is on the ridge west of Terror Run.
+do 4501.2
+do 4503
+tip The Frenzied Pterrordax and Elder Diemetradons roam the west of the crater.
+accept 974
+tip Krakle stands by the hot springs.
+
+# Fire Plume Ridge -----------------------------------------------------------------------------------
+
+do 974 icon use "Use Krakle's Thermometer at the top of Fire Plume Ridge"
+tip The hottest spot is at the lava lake on the very top.
+do 4502 mobs 6521 6520 at 49.1,48.1
+tip The Living Blazes and Scorching Elementals of the ridge drop the ash.
+do 4496.2 icon pickup at 51.1,47.0
+note "Gather Un'Goro Soil until you have 25: 5 for Gadgetzan, 20 for Thunder Bluff" at 51.1,47.0
+turnin 974
+accept 980
+tip The New Springs is handed in by a later guide, in Winterspring.
+turnin 4492
+accept 4491
+tip Ringo sits at the foot of Fire Plume Ridge.
+do 4491 at 51.9,49.9 "Escort Ringo to Spraggle Frock at Marshal's Refuge"
+tip When Ringo faints, use Spraggle's Canteen on him.
+
+# Marshal's Refuge -----------------------------------------------------------------------------------
+
+turnin 4491 4501
+turnin 3882
+turnin 3881
+turnin 3883
+turnin 4145
+accept 4147
+turnin 4503
+turnin 4288 4285 4287
+accept 4321
+turnin 4321
+
+# The gorilla cave: U'cha and A-Me 01 -------------------------------------------------------------
+
+do 4301
+tip U'cha, a level 55 gorilla, waits on the ledge above the cave: take the path up inside the cave.
+turnin 4243
+tip A-Me 01 sits inside the cave.
+accept 4244
+do 4244 at 67.7,16.8 icon text "Give A-Me 01 the Mithril Casing"
+turnin 4244
+accept 4245
+do 4245 at 67.7,16.8 "Escort A-Me 01 to Karna Remtravel at Marshal's Refuge"
+tip The robot walks slowly; keep the gorillas off her on the way out of the cave.
+turnin 4245
+
+# Torwa, then out to Gadgetzan ------------------------------------------------------------------------
+
+turnin 4301
+grind 54 at 69.0,72.0
+tip The New Frontier in Thunder Bluff needs level 54. Most duos are there by now; if not, the ravasaurs around Torwa are a quick finish.
+hearth npc 7733
+turnin 4496
+
+# Camp Mojache --------------------------------------------------------------------------------------
+
+fly "Camp Mojache, Feralas" npc 7824
+map Feralas
+turnin 4120
+tip Talo Thornhoof stands inside the big tent.
+
+# Thunder Bluff -------------------------------------------------------------------------------------
+
+fly "Thunder Bluff, Mulgore" npc 8020
+map Thunder Bluff
+accept 3762
+tip If you took this errand from the innkeeper of Orgrimmar instead, skip this step.
+accept 1000
+turnin 3518
+accept 3562
+tip Magatha's Payment to Jediga is handed in by the next guide, in Azshara.
+turnin 3762 1000
+accept 3761 1123
+tip Rabine Saturna is handed in by a later guide, in Moonglade.
+do 3761 at 77.5,22.0 icon text "Bring Ghede the 20 Un'Goro Soil you gathered in the crater"
+turnin 3761
+accept 3782
+turnin 3782
+train 3033 246344
+tip Druids and paladins train here; the other classes train in Orgrimmar.
+
+# Ratchet and Orgrimmar ------------------------------------------------------------------------------
+
+fly "Ratchet, The Barrens" npc 2995
+map The Barrens
+turnin 4147 4502
+fly "Orgrimmar, Durotar" npc 16227
+map Orgrimmar
+train 3353 3352 3401 6014 3344 5882 3326
+note "The next guide, Azshara: from Doras, fly to Valormok" npc 3310

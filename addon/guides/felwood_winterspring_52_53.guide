@@ -1,0 +1,148 @@
+# Felwood & Winterspring (52-53): the first Horde visit of Felwood and Winterspring, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/felwood_winterspring_52_53.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Felwood, area 361, and
+# Winterspring, area 618). The guide's quest list is section 18 of
+# addon/guides/horde_40_60_allocation.md; the rest of Felwood and Winterspring is in Felwood &
+# Winterspring (54-56) and Winterspring (58-59).
+# Carried in: Delivery to Jes'rimon (3541), from Jediga in Azshara (Burning Steppes & Azshara);
+# It's a Secret to Everybody (3908), from Linken at Marshal's Refuge in Un'Goro Crater (Feralas &
+# Un'Goro Crater); Felnok Steelspring (4808), from Tinkee Steamboil in the Burning Steppes (Burning
+# Steppes & Azshara).
+# Left to later guides: Jes'rimon's Payment to Jediga (3563, Azshara), Seeking Spiritual Aid (5158,
+# the Barrens), The Videre Elixir (3909) and Falling to Corruption (5084): follow-ups taken where
+# this guide hands in their quest.
+# Passed through: The Strength of Corruption (4120), from Talo Thornhoof at Camp Mojache in Feralas,
+# handed in by a later guide; its grizzlies and Felpaw Ravagers live only in northern Felwood, so
+# this guide kills them (the steps skip themselves without the quest).
+# Timbermaw Hold starts Hostile: the Deadwood kills and Timbermaw Ally bring it to Unfriendly, which
+# lets you through the furbolg tunnel to Winterspring.
+#
+# The route: Orgrimmar (Jes'rimon, training); a flight to Splintertree Post and a ride north to the
+# Emerald Sanctuary; Jaedenar and Bloodvenom Post; the Ruins of Constellas, the Deadwood camp and
+# Overlord Ror; the Emerald Sanctuary; the Jaedenar moonwell, Bloodvenom Post again, Shatter Scar
+# Vale and Irontree Woods; Nafien and the Timbermaw tunnel to Winterspring; Donova Snowden and the
+# Winterfall camps; Everlook; a flight back to Bloodvenom Post, the Emerald Sanctuary, and a flight
+# to Gadgetzan for Un'Goro Crater.
+
+guide Felwood & Winterspring (52-53)
+faction horde
+levels 52 53
+carry 3518 3541 3568 3908 4120 4494 4808
+leave 3518 3563 3568 3909 4120 4494 5084 5158
+next Un'Goro Crater (53-54)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Orgrimmar
+hearth npc 6929
+tip The last guide set your hearthstone in Orgrimmar. Already in Orgrimmar? Skip it.
+turnin 3541
+tip Jes'rimon stands in the Cleft of Shadow.
+accept 3563
+tip Keep his note: Jediga gets it in a later Azshara guide.
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+fly "Splintertree Post, Ashenvale" npc 3310
+tip Ride west along the road, then take the road north into Felwood: the Emerald Sanctuary is just past the border. If you already know Bloodvenom Post, fly there and ride south down the road instead.
+
+# The Emerald Sanctuary ------------------------------------------------------------------------------
+
+map Felwood
+accept 8460
+accept 5155
+accept 5156
+tip Taronn Redfeather is inside the building.
+accept 4102
+tip Maybess Riverbreeze stands a little west of the sanctuary.
+
+# Jaedenar and Bloodvenom Post ------------------------------------------------------------------------
+
+do 5155
+tip Jaedenar is the Shadow Council camp along the road north-west. More of them are inside the caves; leave the moonwell in the middle for later.
+fpath 11900
+accept 4505
+accept 6162
+
+# The Ruins of Constellas, the Deadwood camp and Overlord Ror ----------------------------------------
+
+do 4505 icon use "Use the Hardened Flasket at the corrupted moonwell in the Ruins of Constellas"
+tip Jadefire Shadowstalkers are stealthed: watch your back on the way in.
+do 8460
+tip The Deadwood camp is just south-west of the Emerald Sanctuary. The kills and the quest bring Timbermaw Hold from Hostile to Unfriendly; kill a few extra furbolgs to be safe, as the Timbermaw in the tunnel to Winterspring attack anyone still Hostile.
+do 6162
+tip Overlord Ror stands at the south end of the Deadwood camp, near the Ashenvale border.
+
+# The Emerald Sanctuary -------------------------------------------------------------------------------
+
+turnin 8460
+accept 8462
+turnin 5155
+accept 5157
+
+# Jaedenar, Bloodvenom Post, Shatter Scar Vale and Irontree Woods ------------------------------------
+
+do 5157 icon use "Fill the Empty Canteen at the moonwell in the middle of Jaedenar"
+tip Cultists and guardians stand around the moonwell: clear them before you fill the canteen.
+turnin 4505
+tip Leave Winna's next task, Corrupted Sabers, for the later Felwood guide.
+turnin 6162
+do 5156.1 bg
+do 5156.2 bg
+do 5156.3 at 41.0,42.0 icon text "Explore the craters of Shatter Scar Vale"
+tip The vale is east of the road north of Bloodvenom Post. Infernals walk it too: they hit hard, so pull them alone or go around.
+do 5156.1
+do 5156.2
+do 4120.1 bg
+do 4120.2 bg
+do 4102
+tip Moss Flayers and Shredders, the treants of Irontree Woods, drop the Blood Amber. Dessecus, a rare elite treant, walks there too.
+do 4120.1
+do 4120.2
+tip Only if you took The Strength of Corruption from Talo Thornhoof at Camp Mojache: the grizzlies and the Felpaw Ravagers roam the woods on both sides of the road from Irontree Woods up to Timbermaw Hold.
+turnin 8462
+tip Nafien guards the mouth of Timbermaw Hold at the north end of the road. Leave his next task, Deadwood of the North, for the later Felwood guide.
+
+# Winterspring ----------------------------------------------------------------------------------------
+
+goto "Walk through the Timbermaw Hold tunnel to Winterspring" at 28.0,34.6 in Winterspring r 40
+tip Keep to the main path: the branch to Moonglade leaves halfway through.
+map Winterspring
+turnin 3908
+accept 3909
+tip The Videre Elixir is for a later guide: keep it in your log.
+accept 5082
+tip Donova Snowden camps by the hot springs.
+do 5082.1 bg at 32.3,36.3
+do 5082.2 bg at 31.6,36.4
+do 5082.3 bg at 31.8,36.7
+accept 5083 at 32.0,36.5
+tip The Empty Firewater Flask drops from the Winterfall furbolgs: right-click it to start the quest.
+do 5082.1 at 32.3,36.3
+do 5082.3 at 31.8,36.7
+tip The Winterfall camp is just north of Donova; a second camp of Pathfinders and Totemics sits on the hills to the east, around 40,43.
+do 5082.2 at 31.6,36.4
+tip Only a handful of Den Watchers live in this camp: kill the others while they come back.
+turnin 5082 5083
+accept 5084
+
+# Everlook --------------------------------------------------------------------------------------------
+
+turnin 4808
+tip Felnok Steelspring is upstairs in the inn. Leave his next task, Chillwind Horns, for a later guide.
+fpath 11139
+fly "Bloodvenom Post, Felwood" npc 11139
+
+# The Emerald Sanctuary, then on to Un'Goro Crater -------------------------------------------------
+
+map Felwood
+turnin 5156
+turnin 4102
+turnin 5157
+accept 5158
+tip Keep the water: a later guide takes it to Islen Waterseer in the Barrens.
+fly "Orgrimmar, Durotar" npc 11900
+tip Ride back up the road to Bloodvenom Post for the flight. The Un'Goro Crater guide starts in Orgrimmar (the auction house), then Ratchet and Gadgetzan.

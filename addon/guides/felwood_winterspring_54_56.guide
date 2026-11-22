@@ -1,0 +1,336 @@
+# Felwood & Winterspring (54-56): the second Horde visit of Felwood and Winterspring, with the
+# Linken chain through Tanaris and Un'Goro Crater, Ketharas and the Wild God on Mount Hyjal, and the
+# road home through Azshara, Orgrimmar and Undercity, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/felwood_winterspring_54_56.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Felwood, area 361,
+# Winterspring, area 618, and Mount Hyjal, area 616). The guide's quest list is section 21 of
+# addon/guides/horde_40_60_allocation.md.
+# Carried in: The Videre Elixir (3909) and Falling to Corruption (5084), from Donova Snowden (guide
+# 18); Cleansed Water Returns to Felwood (5159), from Islen Waterseer; The New Springs (980), from
+# the Un'Goro guide; Delivery to Andron Gant (3542), from Jediga in Azshara; Seeping Corruption
+# (3568), from Chemist Cuely in Undercity, its vials filled in Azshara.
+# Left to later guides: The Everlook Report (6029), Duke Nicholas Zverenhoff (6030), Sister Pamela
+# (5601) and Andron's Payment to Jediga (3564), for the Plaguelands. Wild Guardians (4741) and
+# Aquementas (4005) are taken by Winterspring (58-59) itself.
+# Left out: Cortello's Riddle (626) and Gammerita, Mon! (7816), handed in in the Hinterlands, which
+# this guide does not visit; Betrayed (3507), which can no longer be taken (Betrayed 3506 is gone);
+# Feathers for Nafien (8467), not in the game client; The Staff of the Mountain (90647), which needs
+# three level 58-59 Mount Hyjal chains (Stolen Life, Ashes of the Legion Ascent, A Bit of the Sky).
+# Added, to open quests of the list: One Person's Trash (94479, the Loose Cog by Ketharas' cave),
+# Premiere Parts (92008, Kaylaena), Mending Communications (93197, Sebelia), The Dying God (96321,
+# Velician), An Oldstone But An Old Friend (96131, the Curious Crow), The Ancient, Orokai (96209),
+# Stolen Power (95006) and The Pact (93773), in Moonglade.
+#
+# The route: Timbermaw Hold (where the Azshara guide ends) and the Deadwood of Felpaw Village;
+# through the tunnel to Winterspring (Salfa, Donova Snowden) and Everlook; a flight south for
+# Gaeriyan in Tanaris and Linken in Un'Goro Crater; Bloodvenom Post, the Emerald Sanctuary and
+# Jaedenar; the Irontree Woods; east into Mount Hyjal to Ketharas and up to the summit; Everlook,
+# Moonglade and back to Hyjal; the last of Winterspring and Donova; Felwood's hand-ins; Azshara's
+# Legashi Stronghold; Orgrimmar and the zeppelin to Undercity.
+
+guide Felwood & Winterspring (54-56)
+faction horde
+levels 54 56
+carry 980 1123 3542 3568 3909 5084 5159
+leave 1123 3564 5601 6029 6030
+next Western & Eastern Plaguelands (56-58)
+
+# Timbermaw Hold and Felpaw Village ----------------------------------------------------------------
+
+map Felwood
+accept 87346
+tip Gorn One Eye stands inside Timbermaw Hold, where the Azshara guide ends.
+accept 8461
+tip Nafien waits at the foot of the ramp up to the Timbermaw tunnel.
+do 8461 bg
+do 87346
+tip Chieftain Bloodmaw, a level 55 elite, walks among the huts of Felpaw Village. Clear around him first.
+turnin 5084
+accept 5085
+tip The Deadwood Cauldron bubbles at the north end of the village.
+do 8461
+accept 8470
+tip The Deadwood Ritual Totem is a rare drop from any Deadwood furbolg here: keep killing them until it drops.
+do 8470 mobs 7156 7157 7158 at 62.2,9.0 "Kill Deadwood furbolgs until you are Neutral with Timbermaw Hold"
+tip Each Deadwood killed raises your Timbermaw reputation. Kernda takes the totem only at Neutral; you pass her again at the end of the guide.
+turnin 8461
+accept 8465
+turnin 87346
+accept 86814
+tip Keep the Timbermaw War Banner: this one is done in Azshara at the end of the guide.
+
+# Winterspring: Salfa and Donova Snowden ------------------------------------------------------------
+
+map Winterspring
+turnin 8465
+tip Salfa stands guard just outside the Winterspring end of the Timbermaw tunnel.
+do 3909 "Have the Videre Elixir from Gregan Brewspewer in northern Feralas"
+tip The Un'Goro guide gets the elixir. Without it, Gregan (Feralas 45.1,25.6) makes one from an Evoroot.
+turnin 980
+accept 4842
+turnin 3909
+accept 3912
+tip Do not drink the Videre Elixir yet: it kills you, and only in the Gadgetzan graveyard is that useful.
+turnin 5085
+accept 5086
+
+# Everlook ----------------------------------------------------------------------------------------
+
+fpath 11139
+bind 11118
+accept 3783
+accept 5054
+accept 6603
+accept 6605
+accept 6029 6030
+accept 5601
+tip These three lead to the Plaguelands; the next guide hands them in.
+do 3783 bg
+do 5054
+tip Ursius, a level 56 elite bear, prowls the hills north of Everlook.
+do 3783 at 67.0,42.3
+tip The Ice Thistle yetis crowd the hills east of Everlook; every kind drops the fur.
+turnin 3783
+turnin 5054
+fly "Gadgetzan, Tanaris" npc 11139
+
+# Gadgetzan: the graveyard -----------------------------------------------------------------------
+
+map Tanaris
+accept 4504
+note "Drink the Videre Elixir in the Gadgetzan graveyard. It kills you: release your spirit and stay a ghost" at 54.0,28.8
+turnin 3912
+tip As a ghost, ride north to the mountains: Gaeriyan waits in a crevice, visible only to the dead.
+accept 3913
+note "Go back to your body and resurrect" at 54.0,28.8
+turnin 3913
+tip The conspicuous gravestone stands in the graveyard itself.
+accept 3914
+fly "Marshal's Refuge, Un'Goro Crater" npc 7824
+
+# Marshal's Refuge -------------------------------------------------------------------------------
+
+map Un'Goro Crater
+turnin 3914
+accept 3941
+turnin 3941
+accept 3942
+tip J.D. Collie is inside the cave at the back of Marshal's Refuge. Listen to him and Linken talk before you leave.
+do 4504 at 45.5,18.5
+tip Every tar elemental drops the tar: the Lurkers and Lords pool just south of the refuge.
+fly "Gadgetzan, Tanaris" npc 10583
+map Tanaris
+turnin 4504
+fly "Bloodvenom Post, Felwood" npc 7824
+
+# Bloodvenom Post and Winna's kitten -------------------------------------------------------------
+
+map Felwood
+fpath 11900
+turnin 6605
+accept 4506
+accept 4521
+tip Trull's owlbeasts are in Winterspring: they come later in the guide.
+note "Release the kitten from Winna's Kitten Carrier by the corrupted moonwell in the Ruins of Constellas" at 32.4,66.5
+tip Wait for the corrupted saber to follow you, then walk it back to Winna.
+do 4506 at 34.2,52.3 icon talk "Bring the corrupted saber back to Winna Hazzard and release it to her"
+turnin 4506
+
+# Shadow Hold: Arko'narin --------------------------------------------------------------------------
+
+accept 5202 at 36.5,56.0
+tip The Blood Red Key is a rare drop from the Jaedenar satyrs and demons inside Shadow Hold, the cave at the south end of Jaedenar.
+turnin 5202
+accept 5203
+tip Captured Arko'narin is caged on the upper floor of the cave.
+do 5203 at 35.5,59.1 "Escort Arko'narin out of Shadow Hold"
+tip Keep her alive until she is out of the cave.
+
+# The Emerald Sanctuary ----------------------------------------------------------------------------
+
+turnin 5203
+accept 5204
+turnin 5159
+accept 5165 91952
+accept 86577
+accept 5887
+turnin 3942
+accept 4084
+tip The Emerald Sanctuary is the night elf camp at the south end of Felwood; Horde are welcome.
+do 4084.1 bg
+do 86577.1 at 46.5,74.3
+do 86577.2 at 49.5,81.1
+tip The Felpaw wolves and Angerclaw bears roam all around the sanctuary; both also drop Silvery Claws.
+do 5887 mobs 7086 7097 7099 at 40.0,71.2
+tip The Cursed Oozes pool west of the road; the Ironbeak owls in the trees drop the shards too.
+turnin 86577
+turnin 5887
+
+# Jaedenar: the braziers and Rakaiah ---------------------------------------------------------------
+
+do 5165
+tip Two braziers burn on the upper floor of Shadow Hold, two on the lower one: walk around the hole in the floor to get down.
+do 5204
+tip Rakaiah, a succubus, stands among the satyrs north of the cave mouth.
+turnin 5204
+accept 5385
+turnin 5165
+accept 5242
+turnin 5385
+
+# Jaedenar's masters, the statue, the Irontree Woods -------------------------------------------------
+
+do 5242
+tip Shadow Lord Fel'dan stands with Moora and Salia at the north end of Jaedenar. Pull the two felhounds first, then the warlock.
+accept 86612
+tip The Statue of Malorne stands on the rise east of Jaedenar; take the bauble at its feet. Winna wants it, at the end of the guide.
+do 5086 bg
+do 4084.2
+tip Irontree Stompers walk the dead woods of the north; the Toxic Horrors pool among them and drop their droplets rarely.
+do 5086 at 49.7,25.0
+do 4084.1 mobs 8957 8961 8960 at 54.0,24.0
+tip The Angerclaw Grizzlies and Felpaw Ravagers east of the woods finish the claws.
+
+# Mount Hyjal: Velician and the Curious Crow ---------------------------------------------------------
+
+map Mount Hyjal
+goto "Ride back south and turn east off the Felwood road, level with Bloodvenom Post, into Mount Hyjal" at 12.0,52.0
+goto "Follow the western slopes south to the foothills" at 22.0,72.0
+accept 96321
+tip Velician, a dying Wild God, lies in the foothills. Take the Faintly Glowing Staff he leaves.
+turnin 96321
+accept 96131
+fpath 260626
+tip Bluebell, the flight mistress, stands at the outpost of ancients and dryads.
+
+# Ketharas' cave ---------------------------------------------------------------------------------
+
+turnin 91952
+turnin 96131
+accept 92612
+accept 95568 95569
+tip Ketharas lives in the cave at the east end of the Tainted Foothills.
+accept 94479
+tip The Loose Cog lies in the scrap just north of the cave.
+do 95568
+tip The Untainted Seeds come from the small red and yellow flowers east and north of the cave.
+do 95569
+tip The Hyjal Owl Eggs sit in abandoned nests at the foot of the trees around the cave.
+turnin 94479
+turnin 95568 95569
+accept 93747 93759 96796
+note "Plant the Enchanted Seeds by the Ruined Ballista, the Ruined Catapult and the Ruined Flying Machine" at 70.0,78.0
+tip The rusting war machines stand in the foothills around the cave; use the Bag of Enchanted Seeds next to each.
+do 93759
+tip Only untainted Hyjal Stags give the venison; the tubers grow in the green places nearby.
+turnin 93747 93759
+accept 95611
+note "Bury the Sacred Stag Bundle at Ketharas' shrine" at 73.3,81.9
+turnin 95611
+accept 90487
+
+# The lower slopes and the summit ------------------------------------------------------------------
+
+turnin 90487
+turnin 96796
+accept 92008
+tip Kaylaena's workshop is up the slope north of the foothills.
+accept 93197
+tip Sebelia keeps the inn of the summit camp. Mending Communications needs level 56.
+fpath 41861
+fly "Everlook, Winterspring" npc 41861
+
+# Everlook, Moonglade and back to Hyjal -------------------------------------------------------------
+
+map Winterspring
+turnin 92008
+accept 92009
+tip The crate must reach Kaylaena within two hours: fly to Moonglade and on to Hyjal without stopping to farm.
+turnin 93197
+accept 93406
+fly "Moonglade" npc 11139
+map Moonglade
+turnin 92612
+accept 96209
+turnin 96209
+accept 95006
+tip Orokai, an ancient, stands south-west of Nighthaven.
+turnin 95006
+accept 93773
+fly "Tainted Foothills, Mount Hyjal" npc 12740
+map Mount Hyjal
+turnin 93773
+accept 96930 92171
+turnin 96930
+turnin 92171
+tip Skylord Omnuron waits at the Shrine of Aviana.
+do 92009 at 60.4,62.1 "Bring the Crate of Exotic Parts to Kaylaena's workshop"
+turnin 92009
+fly "Everlook, Winterspring" npc 41861
+
+# Winterspring: the owlbeasts, the mail and Darkwhisper Gorge -----------------------------------------
+
+map Winterspring
+do 93406 bg
+do 4521.1
+tip The Raging Owlbeasts roam the hills north of Everlook.
+do 93406 at 67.0,42.3
+tip The yetis east of Everlook carry the Missing Mail.
+turnin 93406
+do 4842 at 59.8,74.2 "Discover Darkwhisper Gorge"
+tip Follow the road south from Everlook to the mouth of Darkwhisper Gorge; turn back once you see it, the demons inside are stronger.
+do 4521.2
+tip The Ragged Owlbeasts roam the slopes between Lake Kel'Theril and the hot springs.
+
+# Donova Snowden -----------------------------------------------------------------------------------
+
+turnin 6603
+turnin 4842
+turnin 5086
+accept 5087
+do 5087
+tip Three Winterfall Runners walk the road between the hot springs and the Timbermaw tunnel; kill all three.
+turnin 5087
+
+# Felwood's hand-ins -------------------------------------------------------------------------------
+
+map Felwood
+turnin 8470
+tip Kernda paces the tunnel inside Timbermaw Hold. She only speaks to those Neutral with the Timbermaw: kill more Deadwood if you are not.
+turnin 4521
+turnin 86612
+turnin 4084
+turnin 5242
+fly "Valormok, Azshara" npc 11900
+
+# Azshara: the Legashi Stronghold ------------------------------------------------------------------
+
+map Azshara
+do 86814
+tip Plant the Timbermaw War Banner in Prince Halanox's summoning circle to draw him out. He is an elite: fight him together.
+turnin 86814
+tip Gatekeeper Rageroar stands at Ursolan.
+fly "Orgrimmar, Durotar" npc 8610
+
+# Orgrimmar and Undercity --------------------------------------------------------------------------
+
+map Orgrimmar
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity, druids in Thunder Bluff or Moonglade.
+map Durotar
+note "Take the zeppelin from the tower outside Orgrimmar to Undercity" at 50.6,12.6
+map Undercity
+turnin 3568
+accept 3569
+turnin 3569
+accept 3570
+turnin 3570
+tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
+turnin 3542
+accept 3564
+tip Andron's Payment is handed in by the next guide.
+note "The next guide starts here in Undercity: the Plaguelands are north and east of Tirisfal Glades" at 66.0,44.0

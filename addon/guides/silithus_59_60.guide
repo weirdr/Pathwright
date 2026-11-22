@@ -1,0 +1,242 @@
+# Silithus (59-60): the Horde quests of Silithus and Cenarion Hold, for a Horde duo. The last guide
+# of the Horde 40-60 sequence.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/silithus_59_60.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Silithus, area 1377). The
+# guide's quest list is section 24 of addon/guides/horde_40_60_allocation.md.
+# Carried in: Wasteland (1124) and A Reliquary of Purity (5527), from Rabine Saturna in Moonglade;
+# Taking Back Silithus (8276), from Cenarion Emissary Blackhoof in Orgrimmar.
+# Not handed in here: Are We There, Yeti? (5163), Umi Rumplesnicker in Everlook; this guide's route
+# does not go to Everlook.
+# Left out:
+# - The Calling (8315): a raid quest; the Qiraji emissary it summons is a level 63 boss.
+# - The Path of the Righteous (8301), Anachronos (8303), Long Forgotten Memories (8305) and A Pawn
+#   on the Eternal Board (8519): the Scepter of the Shifting Sands chain, after Only One May Rise
+#   (Blackwing Lair).
+# - Bang a Gong! (8743) and Treasure of the Timeless One (8745): the opening of the gates of
+#   Ahn'Qiraj, after the Scepter.
+# - The Perfect Poison (9023): its venom sacs drop in Zul'Gurub and the Ruins of Ahn'Qiraj.
+# - Goldleaf's Discovery (8343), Lords of the Council (8341) and Bor Wishes to Speak (8351): they
+#   need Revered with the Cenarion Circle. Scepter of the Council (8352) and A Humble Offering (9248):
+#   their Abyssal Scepter drops from the Abyssal Lords, level 63 raid bosses.
+#
+# The route: Valor's Rest and Southwind Village on the way in; Cenarion Hold; the north (Dredge
+# Strikers, scorpids, Layo), the Twilight tablets in the north-west and the cultists' base camp;
+# the south (the Southwind tower, Hermit Ortell, General Kirika, Bronzebeard's Encampment, the
+# south-western and central Twilight camps); the hives (Hive'Regal, Hive'Zora, Hive'Ashi) with the
+# dwarves' glyphs and brains, finishing level 60; the central Twilight camp (geolords, Templars);
+# the dwarves, Ortell, Layo and Vyral the Vile in one loop; the Abyssal Council; the Caverns of
+# Time; Moonglade for the last hand-ins.
+# No auction house stop: the guide before ends in Un'Goro Crater and the route passes no Horde city.
+# The one Large Brilliant Shard Aurel Goldleaf wants comes from an enchanter or any auction house.
+
+guide Silithus (59-60)
+faction horde
+levels 59 60
+carry 1124 8276 5527
+
+# Valor's Rest and Southwind Village ---------------------------------------------------------------
+
+map Silithus
+note "Ride from Marshal's Refuge out of Un'Goro Crater by the pass on its western rim: the road comes out in Silithus at Valor's Rest" at 81.9,18.9
+turnin 1124
+tip Layo Starstrike stands among the graves of Valor's Rest.
+accept 1125
+do 1125 bg
+do 5527 icon use "Open the Dusty Reliquary"
+tip The Dusty Reliquary sits inside the ruined building on the east side of Southwind Village.
+do 1125
+tip Silithid roam the village too: pull carefully and fight close together.
+
+# Cenarion Hold -------------------------------------------------------------------------------------
+
+fpath 15178
+accept 9416
+tip Scout Bloodfist stands next to the flight master.
+bind 15174
+turnin 8276
+accept 8280
+accept 8277
+accept 8283
+tip The Wanted poster for Deathclasp hangs by the inn.
+accept 8284
+accept 8318
+accept 8304
+
+# The north: Dredge Strikers, scorpids, Valor's Rest ------------------------------------------------
+
+do 8280 bg at 53.1,18.8
+do 8277.1 bg at 61.4,26.4
+tip Keep any Twilight Cultist Cowl, Mantle or Robe that drops from the cultists of Silithus: wearing all three lets you summon the Abyssal Templars later.
+turnin 1125
+accept 1126
+do 8277.1 at 61.4,26.4
+do 8280 at 54.2,31.4
+
+# The north-west: the Twilight tablets and the cultists' base camp ----------------------------------
+
+do 8277.2 at 35.7,20.3
+do 8284 at 22.0,10.0
+tip The fragments glow blue on the ground around the Twilight camp in the north-west; the Dust Stormers and Desert Rumblers there carry them too.
+do 8318 at 25.4,38.8
+tip Twilight Prophets are level 60 elites and always drop a text; the other cultists drop them now and then.
+
+# Cenarion Hold -------------------------------------------------------------------------------------
+
+turnin 8277
+accept 8278
+turnin 8280
+accept 8281
+turnin 8284
+accept 8285
+turnin 8318
+
+# The south: Southwind tower, Hermit Ortell, General Kirika -----------------------------------------
+
+do 8281 bg at 49.4,56.7
+do 1126 at 60.2,52.5
+tip Climb to the top of the Southwind tower and disturb the hive there: Hive'Ashi Ambushers burst out, and one carries the object.
+turnin 8285
+tip Hermit Ortell hides in a small cave in the eastern hills.
+accept 8279
+turnin 9416
+accept 9422
+do 9422 at 60.6,63.0 icon use "Pick up Silithyst at a geyser and bring it to the Horde extractor by General Kirika"
+tip Silithyst Geysers erupt at different places in the desert and leave a glowing mound: walk over it to carry the Silithyst, then walk into the extractor. The Alliance can take it from you.
+turnin 9422
+
+# Bronzebeard's Encampment and the south-west -------------------------------------------------------
+
+do 8278.3 bg at 43.9,86.1
+do 8304.1 icon talk
+do 8304.2 icon talk
+tip Rutgar and Frankal stand in the dwarves' tents. Listen to their whole stories.
+do 8278.3 at 43.9,86.1
+do 8278.1 at 34.7,70.5
+do 8279.2 at 16.1,86.4
+tip Twilight Keeper Exeter walks around the Twilight camp in the south-west.
+do 8278.2 at 32.5,36.7
+do 8281 at 29.4,42.2
+do 8279.1 at 26.4,36.6
+tip Twilight Keeper Mayna walks the cultists' base camp in the north-west.
+do 8279.3 at 40.9,42.2
+tip Twilight Keeper Havunth walks the Twilight camp west of Cenarion Hold.
+
+# Cenarion Hold -------------------------------------------------------------------------------------
+
+turnin 8281
+turnin 8278
+accept 8282
+tip Noggle stands next to Beetix.
+turnin 8304
+accept 8306
+
+# Back south: Hermit Ortell, the dwarves, Deathclasp, Hive'Regal ------------------------------------
+
+turnin 8279
+accept 8287 8323
+accept 8309 8310
+do 8282 at 44.6,91.4 icon pickup "Pick up Noggle's Satchel"
+do 8283
+tip Deathclasp is a level 59 elite scorpion in the mountains south of the dwarves' camp; Noggle's Satchel lies near her.
+do 8310.3 bg
+do 8306
+tip Mistress Natalia Mar'alith is a level 62 elite deep in Hive'Regal. Clear the way to her first and fight her together.
+do 8309.3 at 52.0,99.0 icon use "Use the Geologist's Transcription Kit at the Hive'Regal Glyphed Crystal"
+tip The crystal is at the bottom of Hive'Regal.
+do 8310.3
+
+# The south-western Twilight camp and Hive'Zora -----------------------------------------------------
+
+do 8323 at 21.6,80.9
+tip The Twilight Prophets here always drop a text.
+do 8310.2 bg at 23.6,64.1
+do 8309.2 at 37.3,62.5 icon use "Use the Geologist's Transcription Kit at the Hive'Zora Glyphed Crystal"
+do 8310.2 at 23.6,64.1
+
+# Hive'Ashi -----------------------------------------------------------------------------------------
+
+do 8309.1 at 50.9,26.8 icon use "Use the Geologist's Transcription Kit at the Hive'Ashi Glyphed Crystal"
+do 8310.1 at 47.7,28.5
+grind 60 at 47.7,28.5
+tip The quests waiting in Cenarion Hold need level 60: finish it on the silithid here.
+accept 8308 at 47.7,28.5
+tip Brann Bronzebeard's Lost Letter is a rare drop from the silithid of all three hives. If it has not dropped yet, keep killing silithid while you finish level 60.
+
+# Cenarion Hold -------------------------------------------------------------------------------------
+
+turnin 8306 8287
+turnin 8282
+turnin 8283
+accept 8320
+accept 8361
+accept 8286
+accept 8800
+turnin 8800
+
+# The Twilight camp west of Cenarion Hold -----------------------------------------------------------
+
+do 8320 at 39.3,43.9
+do 8361 at 39.0,42.4 icon kill "Wear the Twilight Trappings and summon an Abyssal Templar at the Lesser Wind Stone"
+tip Put on the Twilight Cultist Cowl, Mantle and Robe and use the Lesser Wind Stone: an Abyssal Templar (a level 60 elite) answers. Each Templar drops one crest, so summon one for each of you. If the pieces have not dropped, the auction house sells them.
+note "Summon three more Templars each and keep their crests for Aurel Goldleaf" at 38.3,46.5
+tip The crests are not quest items: they stay in your bags until Aurel Goldleaf asks for them.
+
+# Cenarion Hold -------------------------------------------------------------------------------------
+
+turnin 8320
+accept 8321
+turnin 8361
+
+# The dwarves, Hermit Ortell, Valor's Rest, Vyral the Vile ------------------------------------------
+
+turnin 8309 8310
+accept 8314
+turnin 8308
+turnin 8323
+turnin 1126
+accept 6844
+do 8321
+tip Vyral the Vile waits at the back of Twilight's Run, the cultists' cave in the north-east.
+
+# Cenarion Hold and the Abyssal Council -------------------------------------------------------------
+
+turnin 8321
+turnin 8314
+accept 8331
+tip Huum offers it from Friendly with the Cenarion Circle, which the quests of Silithus bring you close to. If you are short, kill Twilight Prophets (5 reputation each) or summon more Templars.
+turnin 8331
+accept 8332
+do 8332.1 at 52.0,38.2 icon get "Get a Large Brilliant Shard"
+tip From an enchanter or the auction house.
+do 8332.2 at 39.0,42.4
+turnin 8332
+accept 8349
+turnin 8349
+accept 8348
+do 8348 at 37.6,44.8 icon kill "Wear the Twilight Trappings and the Medallion of Station and summon an Abyssal Duke at the Wind Stone"
+tip The Dukes are level 62 elites, as tough as Natalia: rest to full before you summon one.
+turnin 8348
+
+# The Caverns of Time -------------------------------------------------------------------------------
+
+fly "Gadgetzan, Tanaris" npc 15178
+map Tanaris
+do 8286.1
+tip Anachronos waits on the ridge outside the Caverns of Time, east of Gadgetzan.
+do 8286.2 at 64.6,50.4 icon text "Find the Brood of Nozdormu by Anachronos"
+hearth npc 15174
+map Silithus
+turnin 8286
+
+# Moonglade -----------------------------------------------------------------------------------------
+
+fly "Moonglade" npc 15178
+map Moonglade
+turnin 5527
+turnin 6844
+tip Umber, the Cenarion Circle's archivist, is in Nighthaven.
+note "Every quest of the Horde 40-60 guides is done: the sequence is complete" at 51.7,45.1

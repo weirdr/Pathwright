@@ -1,0 +1,262 @@
+# Winterspring (58-59): the last Horde visit of Winterspring, then a sweep of the hand-ins left in
+# the Eastern Kingdoms, Thunder Bluff, Feralas, Tanaris and Un'Goro Crater, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/winterspring_58_59.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Winterspring, area 618).
+# The guide's quest list is section 23 of addon/guides/horde_40_60_allocation.md.
+# Carried in: Rabine Saturna (1123), from Hamuul Runetotem in Thunder Bluff (Un'Goro Crater 53-54);
+# Glyphed Oaken Branch (4987), from Mulgris Deepriver in the Western Plaguelands (56-58).
+# Left to Silithus (59-60): Wasteland (1124) and A Reliquary of Purity (5527), from Rabine Saturna;
+# Are We There, Yeti? (5163) is left out: it is handed in to Umi in Everlook, and the scares are
+# only on the way out of Winterspring.
+# Left out: Tinkee Steamboil (4907): it opens only once Return to Tinkee is handed in at Flame Crest,
+# starts back in Everlook and leads to a Blackrock Spire dungeon quest. Wrath of the Blue Flight
+# (5161, 5162): they need The Matron Protectorate, given by Awbee inside Blackrock Spire. Red Bag
+# Blues (84146) and Bookin' it Back (84212): Red Bag Blues needs Frosty Favors (84138, D.E.L.T.A lab
+# in southern Tanaris, on no guide's list) and Bookin' it Back needs Poacher's Den (84211), a
+# warrior-only quest in the Burning Steppes.
+# Data note: outof.games lists A Little Luck (6606) before Luck Be With You (969); 6606 is removed
+# from the game and the data gives 969 no prerequisite, so 969 is taken straight from Mau'ari.
+#
+# The route: Undercity and the zeppelin to Orgrimmar (the auction house, the hearthstone); Trull
+# Failbane at Bloodvenom Post; Timbermaw Hold and Rabine Saturna in Moonglade; the tunnel to
+# Winterspring, Salfa and Donova Snowden; Everlook and the mail to Mount Hyjal; the Winterfall
+# village, the yetis and the owlbeasts east of Everlook; west again to Donova, Salfa and Timbermaw,
+# and Bloodvenom Post; the south (Brumeran, Hailspite, the Frostmaul giants); the north (the
+# Shardtooth camp, Shy-Rotam); Bloodvenom Post and the Emerald Sanctuary; Undercity and Flame Crest;
+# the hearthstone to Orgrimmar, Thunder Bluff, Camp Mojache, Tanaris and Marshal's Refuge.
+
+guide Winterspring (58-59)
+faction horde
+levels 58 59
+carry 1123 4987 8276
+leave 1124 5527 8276
+next Silithus (59-60)
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+map Azshara
+fly "Orgrimmar, Durotar" npc 8610
+tip The last guide ends at Valormok in Azshara.
+map Orgrimmar
+bind 6929
+tip The hearthstone brings you back here from the Burning Steppes near the end of the guide.
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff or Moonglade.
+accept 7492
+tip Warcaller Gorlach walks the Valley of Strength. Talo Thornhoof in Feralas takes it near the end of the guide.
+ah 6031.1 npc 8673
+ah 7823.1 npc 8673
+tip Runecloth: 30 for Meilosh in Timbermaw Hold and 60 for Rumstag in Thunder Bluff, 90 in all. The Winterfall furbolgs drop a lot of it, so buy only what you won't farm.
+ah 7820.1 npc 8673
+ah 7821.1 npc 8673
+ah 7822.1 npc 8673
+tip Rumstag Proudstrider in Thunder Bluff takes 60 Wool, 60 Silk and 60 Mageweave Cloth at the end of the guide. Nothing in Winterspring drops them: buy them here or bring your own.
+fly "Bloodvenom Post, Felwood" npc 3310
+
+# Bloodvenom Post, Timbermaw Hold, Moonglade ---------------------------------------------------------
+
+map Felwood
+accept 4741
+tip Trull Failbane stands at the north end of the post.
+accept 6031 at 65.7,2.8
+tip Ride north up the road to Timbermaw Hold, at the top of Felwood. Meilosh stands inside, in the first hall.
+map Moonglade
+fpath 12740
+tip Take the branch of the tunnel to Moonglade. Faustron waits on the west side of the lake.
+turnin 1123
+accept 1124 5527
+tip Both are for Silithus, the next guide: keep them.
+
+# West Winterspring --------------------------------------------------------------------------------
+
+goto "Walk back through the Timbermaw tunnel to Winterspring" at 28.0,34.6 in Winterspring r 40
+map Winterspring
+accept 8464
+tip Salfa waits just outside the tunnel.
+accept 5121
+tip Donova Snowden camps by the hot springs south-east of the tunnel.
+
+# Everlook -----------------------------------------------------------------------------------------
+
+accept 4809
+accept 977
+accept 5055 969
+accept 97490
+tip Storm Shadowhoof, Witch Doctor Mau'ari and Umaron Stragarelm stand together on the east side of town.
+accept 92859
+accept 93269
+accept 84399
+tip The Book lies in the tavern. Looting it gives you Ka-Boom!, for the librarian in Undercity.
+do 84399 icon pickup "Loot Ka-Boom! from the Book"
+
+# Mount Hyjal: the mail ----------------------------------------------------------------------------
+
+fly "Summit of Eternity, Mount Hyjal" npc 11139
+tip You learned the summit's flight path when you first met Sebelia, who gave you the mail run.
+map Mount Hyjal
+turnin 93269
+fly "Everlook, Winterspring" npc 41861
+
+# East of Everlook: the Winterfall village, the yetis, the owlbeasts ---------------------------------
+
+map Winterspring
+do 4809 bg
+do 92859 bg
+tip Every chimaera can drop an Uncracked Chillwind Horn and Chillwind Chimaera Fur; every owl and screecher drops feathers. Kill them whenever they are in your way, all over the zone.
+do 6031 bg mobs 7438 7439 7440 7441 7442 at 67.0,37.0
+tip Winterfall furbolgs drop plenty of Runecloth: keep it for Meilosh and Rumstag.
+do 8464
+tip The Winterfall village lies just east of Everlook. One furbolg in about thirty drops a Winterfall Ritual Totem.
+do 5121
+tip High Chief Winterfall is a level 59 elite at the back of the cave above the village, with guards: clear your way in and fight him together.
+accept 5123
+tip Loot his Crudely-written Log and open it.
+accept 8471
+tip No totem yet? Keep killing Winterfall: the western camps on your way later have more of them.
+do 977
+tip Only the Ice Thistle Matriarchs and Patriarchs, on the hill just south of the village, drop Pristine Yeti Horns.
+do 4741
+tip The Moontouched Owlbeasts live in Owl Wing Thicket, north-east of Everlook.
+
+# Everlook -----------------------------------------------------------------------------------------
+
+turnin 977
+
+# West again: Donova, Salfa, Timbermaw Hold, Bloodvenom Post ----------------------------------------
+
+turnin 5121 5123
+accept 5128
+tip Kelek Skykeeper takes the log in the Emerald Sanctuary, on the way out of Felwood at the end of the guide.
+turnin 8464
+map Felwood
+do 8471 at 65.5,3.5 icon text "Be at least Neutral with the Timbermaw Hold"
+turnin 8471
+tip Kernda is in Timbermaw Hold, by Meilosh. The Timbermaw speak to you only at Neutral or better.
+turnin 6031
+tip Short of Runecloth? The Winterfall Pathfinders and Totemics in the camps just east of the tunnel drop it too.
+map Moonglade
+fly "Bloodvenom Post, Felwood" npc 12740
+map Felwood
+turnin 4741
+accept 4721
+fly "Everlook, Winterspring" npc 11900
+
+# South of Everlook: Brumeran, Hailspite, the Frostmaul giants -------------------------------------
+
+map Winterspring
+do 5055
+tip Brumeran is a level 58 elite chimaera who glides among the chimaeras south of Everlook.
+do 97490
+tip Hailspite, a level 60 elite giant, walks the hills of southern Winterspring.
+do 969
+tip The Frostmaul Shards glitter on the ground in Frostwhisper Gorge, among the level 59-60 elite Frostmaul giants: pull carefully.
+
+# Everlook -----------------------------------------------------------------------------------------
+
+turnin 5055
+accept 5056
+turnin 97490
+turnin 969
+accept 975
+turnin 975
+tip Mau'ari takes a moment to make the charm: wait by her and talk to her again.
+
+# North: the owlbeasts, the Shardtooth camp, Shy-Rotam ------------------------------------------------
+
+do 4721 bg
+do 4721
+tip The Berserk Owlbeasts share Owl Wing Thicket with the Moontouched ones. Owlbeasts drop a Blue-feathered Necklace.
+accept 4882
+accept 97264
+accept 97403
+tip Sarna Brownhorn and Rilan Howard camp in the north, past Owl Wing Thicket.
+do 97403 bg
+do 97264
+tip Elder Shardtooth bears roam the slopes around the camp; the Chillwind Ravagers fly over the same ground.
+do 97403
+turnin 97264
+accept 97404
+do 97404
+tip Kuroma and Kamuro, the old shardtooth matriarchs, stand together just north-east of the camp.
+turnin 97403 97404
+do 5056
+tip Kill Frostsaber Huntresses and Pride Watchers around Frostsaber Rock, west of the camp, for Sacred Frostsaber Meat. Place it on the Stone of Shy-Rotam, at the top, to call Shy-Rotam, a level 60 elite.
+
+# Everlook -----------------------------------------------------------------------------------------
+
+turnin 5056
+accept 5057
+turnin 5057
+turnin 4809
+accept 4810
+turnin 92859
+fly "Bloodvenom Post, Felwood" npc 11139
+
+# Bloodvenom Post and the Emerald Sanctuary ---------------------------------------------------------
+
+map Felwood
+turnin 4721 4882
+accept 4883
+turnin 5128
+tip Ride south down the road to the Emerald Sanctuary.
+accept 4005
+tip Open Eridan's Supplies: the Book of Aquor, the Silvery Claws and the Irontree Heart are inside. Keep them for Tanaris.
+map Ashenvale
+fly "Orgrimmar, Durotar" npc 12616
+tip Ride on south into Ashenvale and east to Splintertree Post.
+
+# Undercity and the Burning Steppes -----------------------------------------------------------------
+
+map Durotar
+note "Take the zeppelin from the tower outside Orgrimmar to Undercity" at 50.8,13.5
+map Undercity
+turnin 84399
+tip Oran Snakewrithe stands in the Magic Quarter.
+fly "Flame Crest, Burning Steppes" npc 4551
+map Burning Steppes
+turnin 4810
+tip Tinkee Steamboil stands by the wind rider master at Flame Crest.
+hearth npc 6929
+
+# Orgrimmar and Thunder Bluff ----------------------------------------------------------------------
+
+map Orgrimmar
+train 3353 3352 3401 6014 3344 5882 3326
+fly "Thunder Bluff, Mulgore" npc 3310
+map Thunder Bluff
+turnin 4883 4987
+tip Nara Wildmane is in the Hall of Elders on Elder Rise.
+accept 7820 7821 7822
+do 7820 at 43.0,42.7 icon get "Bring 60 Wool Cloth"
+do 7821 at 43.0,42.7 icon get "Bring 60 Silk Cloth"
+do 7822 at 43.0,42.7 icon get "Bring 60 Mageweave Cloth"
+tip Short of cloth? The auction house is just below, by the bank.
+turnin 7820 7821 7822
+accept 7823
+do 7823 at 43.0,42.7 icon get "Bring 60 Runecloth"
+turnin 7823
+fly "Camp Mojache, Feralas" npc 2995
+
+# Camp Mojache, Gadgetzan, Lost Rigger Cove ---------------------------------------------------------
+
+map Feralas
+turnin 7492
+tip Talo Thornhoof stands in the big tent.
+fly "Gadgetzan, Tanaris" npc 8020
+map Tanaris
+do 4005
+tip Ride east to Lost Rigger Cove. Stand in the circle of stones on the easternmost point and read the Book of Aquor to call Aquementas; stay inside the circle until it is beaten.
+fly "Marshal's Refuge, Un'Goro Crater" npc 7824
+
+# Marshal's Refuge ---------------------------------------------------------------------------------
+
+map Un'Goro Crater
+turnin 4005
+accept 3961
+tip J.D. Collie is in the cave at the back of the refuge.
+turnin 3961
+note "Silithus is next: ride west out of the crater through the pass in the north-west, then on to Valor's Rest. Or fly to Cenarion Hold if you know it" npc 10583

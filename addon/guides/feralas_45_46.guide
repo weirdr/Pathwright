@@ -1,0 +1,202 @@
+# Feralas (45-46): the Horde quests of Camp Mojache, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/feralas_45_46.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Feralas, area 357).
+# The guide's quest list is section 8 of addon/guides/horde_40_60_allocation.md; the higher
+# Feralas quests are in Feralas & Un'Goro Crater (49-50).
+# Carried in: On the Other Side (95033), taken from Tan'jani in Rog'mar, Riverglades.
+# Deadmire (1205) and Mirrorscale (97378) come from Melor Stonehoof in Thunder Bluff: Deadmire is a
+# crocolisk of Dustwallow Marsh, so the guide flies there before it goes to Feralas, and Mirrorscale
+# (its follow-up) is a wind serpent of the Forgotten Coast.
+# Rescue OOX-22/FE! (2767) is handed in to Oglethorpe in Booty Bay: the guide ends there, in
+# Stranglethorn Vale, where the next guide begins.
+# No auction house stop: none of the quest items is sold there.
+#
+# The route: the zeppelin to Orgrimmar; Thunder Bluff; a flight to Brackenwall for Deadmire and back;
+# Freewind Post and the ride west to Camp Mojache; four loops from the camp (the ogres and gnolls to
+# the north, the Grimtotem camps and the Woodpaw alphas, the gnoll battle plans, then the Zukk'ash
+# hive, the southern Gordunni, Feral Scar Vale, OOX-22/FE and Mirrorscale on the coast); Thunder
+# Bluff and Orgrimmar to hand in and train; the zeppelin to Grom'gol and Booty Bay.
+
+guide Feralas (45-46)
+faction horde
+levels 45 46
+carry 1118 2741 3520 95033 95295 95296
+leave 1118 2741 3520 95295 95296
+next Stranglethorn Vale (46-47)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Durotar
+note "Take the zeppelin to Durotar: from the tower outside Undercity, or from Grom'gol in Stranglethorn Vale" at 50.8,13.4
+map Orgrimmar
+accept 2981
+tip Belgrom Rockmaul stands in the Valley of Honor.
+fly "Thunder Bluff, Mulgore" npc 3310
+
+# Thunder Bluff and Dustwallow Marsh: Deadmire -------------------------------------------------------
+
+map Thunder Bluff
+accept 1205
+tip Melor Stonehoof is on Hunter Rise.
+fly "Brackenwall Village" npc 2995
+map Dustwallow Marsh
+do 1205
+tip Deadmire, an old level 45 crocolisk, wades through the pools south-east of Brackenwall Village.
+fly "Thunder Bluff, Mulgore" npc 11899
+map Thunder Bluff
+turnin 1205
+accept 97378
+
+# To Camp Mojache -----------------------------------------------------------------------------------
+
+fly "Freewind Post" npc 2995
+tip If you already know Camp Mojache, fly straight there. Without Freewind Post, fly to Camp Taurajo and ride south into Thousand Needles.
+map Feralas
+goto "Ride west out of Thousand Needles along the road into Feralas, to Camp Mojache" at 75.5,44.4 r 30
+fpath 8020
+turnin 95033
+accept 3121
+tip Keep the Shrunken Head: Neeru Fireblade in Orgrimmar wants it, at the end of the guide.
+turnin 2981 at 75.8,43.6
+tip Rok Orhan wanders around the camp in red armor.
+accept 2975 at 75.8,43.6
+accept 2987
+accept 92878
+tip Blaise Montgomery cannot speak: he lost his jaw to the Grimtotem.
+accept 2973
+accept 2862
+accept 2822
+bind 7737
+
+# North: the Woodpaw gnolls, the Gordunni ogres, the Grimtotem -----------------------------------------
+
+do 2862 at 72.6,37.6 mobs 5249 5251 5253
+tip The Woodpaw camp just north of Camp Mojache is the nearest; every Woodpaw gnoll can drop a mane.
+do 2975.1 bg
+do 2975.2 bg
+do 2975.3 bg at 77.6,33.9
+do 2987
+tip Use Orwin's Shovel on the Gordunni Dirt Mounds among the ogres.
+accept 2978 at 75.1,29.7 "Pick up the Gordunni Scroll lying in the ogre camp and read it"
+tip Scrolls also lie at 74.5,27.9 and 80.5,34.3.
+do 2975.1
+do 2975.2
+do 2975.3 at 77.6,33.9
+do 92878
+tip Namida Grimtotem, a level 43 elite druid, walks through the Grimtotem camp north-west of Camp Mojache.
+do 2973
+tip The Sprite Darters flutter over the grass west of Camp Mojache; the Captured Sprite Darters in the Grimtotem camp drop them too.
+
+# Camp Mojache --------------------------------------------------------------------------------------
+
+goto "Return to Camp Mojache" at 75.0,43.8 r 20
+turnin 2862
+accept 2863
+tip Alpha Strike has a one-hour timer: go for the alphas soon.
+turnin 2975 at 75.8,43.6
+accept 2980 at 75.8,43.6
+turnin 2978 at 75.8,43.6
+accept 2979 at 75.8,43.6
+turnin 2987
+turnin 92878
+turnin 2973
+accept 2974
+
+# West and south: the Grimtotem horns, the Woodpaw alphas -------------------------------------------
+
+do 2974
+tip The Grimtotem camp west of Camp Mojache is the closest; every Grimtotem there can drop a horn.
+do 2863
+tip The alphas lead the gnolls of the camps south-west of Camp Mojache; more stand in the camp to the south.
+turnin 2863
+accept 2902
+turnin 2974
+accept 2976
+tip Keep the Crate of Grimtotem Horns for Belgrom Rockmaul in Orgrimmar.
+
+# South-east: the old key, the battle plans -----------------------------------------------------------
+
+accept 95599 at 76.6,48.0 icon pickup "Take the Old Key from the Old Crate south-east of Camp Mojache"
+turnin 95599
+tip The Old Chest is a short walk east of the crate.
+turnin 2902
+tip The battle map lies in the gnoll camp south of Camp Mojache.
+accept 2903
+turnin 2903
+accept 7730
+accept 7731
+
+# The Zukk'ash hive, the southern Gordunni, Feral Scar Vale and the coast ----------------------------
+
+do 7730 bg
+do 7731
+do 2741 at 57.1,76.3 icon pickup "Take a Hippogryph Egg from the nests (for the Super Egg-O-Matic)"
+tip Only if you have The Super Egg-O-Matic from Gadgetzan; otherwise skip it.
+tip Stinglasher, a level 47 wasp, crawls in the Writhing Deep, the tunnels of the Zukk'ash hive south of Camp Mojache.
+do 7730
+do 2979 bg
+do 2980.1
+tip The shamans, warlocks and mage-lords hold the Gordunni camp in the south-west.
+do 2980.2
+do 2979
+tip Only the Gordunni Mage-Lords drop the orb, and not often: each of you needs one.
+do 2980.3
+tip The maulers guard the ogre camp further north, with more warlocks.
+do 2822
+tip The yetis of Feral Scar Vale drop a thick hide one time in four.
+accept 2766
+tip The OOX-22/FE Distress Beacon is a rare drop of almost any mob in Feralas. Only one of you found it? Share the quest. Neither? Skip the OOX-22/FE steps, here and in Booty Bay.
+turnin 2766
+tip The robot lies in a cave at the edge of Feral Scar Vale.
+accept 2767
+do 2767 at 45.6,43.4 icon text "Escort OOX-22/FE to the dock on the Forgotten Coast"
+tip Start the escort only when both of you have the quest. Ambushes wait along the way.
+do 3520 bg
+tip Screecher Spirits: when a Screecher is almost dead, use Yeh'kinya's Bramble on it to capture its spirit (only if you have the quest).
+do 97378
+tip Mirrorscale, a level 48 wind serpent, lairs below the waterfall near the dock.
+hearth npc 7737
+
+# Camp Mojache --------------------------------------------------------------------------------------
+
+turnin 2822
+turnin 7730 7731
+accept 7732
+turnin 2980 at 75.8,43.6
+turnin 2979 at 75.8,43.6
+accept 3002 at 75.8,43.6
+
+# Thunder Bluff and Orgrimmar ------------------------------------------------------------------------
+
+fly "Thunder Bluff, Mulgore" npc 8020
+map Thunder Bluff
+turnin 97378
+train 3033 246344
+tip Only druids and paladins train here; the others train in Orgrimmar.
+fly "Orgrimmar, Durotar" npc 2995
+map Orgrimmar
+turnin 3002
+tip Uthel'nay is in the Darkbriar Lodge, in the Valley of Spirits.
+train 5882 6014
+turnin 3121
+tip Neeru Fireblade is in the Cleft of Shadow.
+tip Leave Neeru's next quest for now: the Swamp of Sorrows guide comes back for it.
+train 3401 3326 3344
+turnin 7732
+tip Zilzibin Drumlore stands in the Drag.
+turnin 2976
+train 3353 3352
+
+# Stranglethorn Vale --------------------------------------------------------------------------------
+
+map Durotar
+note "Take the zeppelin to Grom'gol, in Stranglethorn Vale, from the tower outside Orgrimmar" at 50.6,12.6
+map Stranglethorn Vale
+fly "Booty Bay" npc 1387
+turnin 2767
+tip Oglethorpe Obnoticus works in his shop on the docks of Booty Bay.
+note "The next guide, Stranglethorn Vale (46-47), starts at Grom'gol: fly back there from Gringer" npc 2858

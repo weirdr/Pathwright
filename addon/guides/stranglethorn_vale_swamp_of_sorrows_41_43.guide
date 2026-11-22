@@ -1,0 +1,259 @@
+# Stranglethorn Vale & Swamp of Sorrows (41-43): the Horde quests of Grom'gol, Booty Bay,
+# Nesingwary's camp, Stonard and the Harborage, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/stranglethorn_vale_swamp_of_sorrows_41_43.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Stranglethorn Vale, area
+# 33; Swamp of Sorrows, area 8). The quest list is section 2 of addon/guides/horde_40_60_allocation.md.
+# Several quests here follow 30-40 Stranglethorn quests (Hunt for Yenniku, Singing Blue Shards,
+# Bloodscalp Ears, the first Mastery quests...) that an earlier guide does.
+# Left out:
+#   The Drowned City (95775), The Only Good Brinescale... (95776), Shady Saltseers (95789) and
+#   The Saltseer Captain (95791): inside the Drowned City, a dungeon. A Tale Spun Around the Fire
+#   (96078) follows The Drowned City.
+#   Trollbane (638) and Sunken Treasure (670): handed in in the Arathi Highlands.
+#   Grim Message (2932): its pike is planted in a Witherbark village of the Hinterlands.
+#   Twice Misplaced Trust (97332): handed in at Powderfuse Port in the Riverglades.
+#
+# The route: Grom'gol and three short trips west (the Vile Reef, the Bloodscalp ruins); Booty Bay
+# to take its quests; a loop north (Nesingwary's camp, the Kurzen compound, the Venture Co. camp,
+# the panthers); a loop east (the jungle stalkers, Lake Nazferiti, the Skullsplitter ruins, the
+# Mosh'Ogg mound); north through Duskwood to the Swamp of Sorrows; the hearthstone to Booty Bay;
+# the boat to Ratchet and a flight to Orgrimmar.
+
+# Carried from earlier guides (skipped by those who lack them): The Troll Witchdoctor, Sunken
+# Treasure, Report to Helgrum, Stinky's Escape. Left to later guides: The Visiting Mage, Rumors for
+# Kravel, Goblin Sponsorship (1183), Tran'rek, Stoley's Debt, Marg Speaks.
+
+guide Stranglethorn Vale & Swamp of Sorrows (41-43)
+faction horde
+levels 41 43
+next Desolace & Shen'dralas (43-43)
+carry 1240 669 1420 1270
+leave 93464 1117 1183 2864 2872 1261
+
+map Stranglethorn Vale
+
+# Grom'gol Base Camp --------------------------------------------------------------------------------
+
+goto "Ride the zeppelin from Tirisfal Glades to Grom'gol Base Camp" at 31.5,29.4 r 30
+fpath 1387
+turnin 1240
+accept 1261
+tip Marg Speaks comes from the Bubbling Cauldron next to Kin'weelay, only after The Troll Witchdoctor; a later guide finishes it.
+accept 596 629
+accept 582
+accept 569
+accept 570
+accept 97453
+tip Gemmil is a child standing inside the camp.
+
+# Around the camp: the weeds and the ogres ----------------------------------------------------------
+
+do 97453
+do 569
+tip The ogres camp on the hill just east of Grom'gol.
+turnin 97453
+turnin 569
+accept 97386
+
+# West: the Vile Reef -------------------------------------------------------------------------------
+
+do 629
+tip The tablet lies on the sea floor among the sunken ruins. Elite murlocs guard it: pull them one at a time and watch your breath.
+turnin 629
+accept 95748
+
+# West: the Bloodscalp ruins ------------------------------------------------------------------------
+
+do 582 bg
+do 596 bg
+do 95748
+tip Use the hide and charcoal on the tablet in the ruins on the hill.
+do 582
+do 596
+turnin 582
+accept 584
+turnin 596
+accept 598
+turnin 95748
+accept 95770
+accept 95773
+
+# West again: the reef and the Bloodscalp chiefs -----------------------------------------------------
+
+do 95773 bg
+do 95770 at 22.4,27.2 icon text "Swim west of the Vile Reef to the cavern entrance of the Drowned City"
+do 95773
+do 584
+tip Gan'zulah and Nezzliok are in the upper ruins of the Bloodscalp camp, among many trolls: clear a path first.
+turnin 95773
+turnin 95770
+turnin 584
+accept 585
+
+# Booty Bay: its quests and the hearthstone ---------------------------------------------------------
+
+fly "Booty Bay, Stranglethorn" npc 1387
+accept 1181
+tip Wharfmaster Lozgil is on the docks at the north of the bay.
+turnin 1181
+accept 1182
+tip Baron Revilgaz is on the top floor of the inn.
+turnin 669
+accept 209
+accept 1116 2864
+accept 600
+bind 6807
+accept 2872
+accept 577
+tip Drizzlik is on the upper level of the docks.
+fly "Grom'gol, Stranglethorn" npc 2858
+
+# North: Nesingwary's camp, the Kurzen compound, the Venture Co. camp --------------------------------
+
+accept 188
+accept 192
+accept 196
+do 188
+tip Sin'Dall, a rare silver tigress, prowls the top of the hill south-west of the camp.
+turnin 188
+do 192 bg at 48.7,21.9
+accept 97047
+tip Wendel is locked in a cage at the edge of the Kurzen compound.
+do 97047
+tip The key drops from the Kurzen soldiers; the uniform is in a supply crate inside the compound.
+turnin 97047
+accept 97048
+do 1182
+tip Kill Foreman Cozzle in his house in the Venture Co. camp for his key, then open the footlocker beside him.
+do 577 bg
+do 570 at 48.7,22.2
+tip The fang drops rarely from the Stranglethorn Tigresses: kill every tigress you see.
+do 577
+fly "Grom'gol, Stranglethorn" npc 1387
+tip Or ride back: the panthers are only a few minutes from the camp.
+turnin 570
+accept 572
+
+# East: the jungle stalkers, Lake Nazferiti, the Skullsplitter ruins, the Mosh'Ogg mound -------------
+
+do 572 bg
+do 196
+do 572
+do 600
+tip The Venture Co. goblins work the mine and the shore of Lake Nazferiti.
+do 209 bg
+do 598 bg
+do 192 bg
+accept 95384 at 45.4,35.6 "Kill Skullsplitter Mystics until one drops the Partial Mystical Notes, and read them to start the quest"
+do 95384
+do 585.2
+tip The three trophy skull piles stand in three different Skullsplitter ruins.
+do 585.3
+do 585.1
+do 209
+do 598
+do 192
+do 97386
+tip The Mosh'Ogg of the mound are level 43-44: fight them together and one at a time.
+turnin 97386
+turnin 572
+turnin 598
+turnin 585
+
+# North to Nesingwary's camp and Duskwood -----------------------------------------------------------
+
+turnin 192
+turnin 196
+
+map Duskwood
+
+goto "Ride north into Duskwood and east along the road to Beggar's Haunt, around Darkshire" at 87.0,36.0 r 30
+tip The guards of Darkshire attack the Horde: leave the road before the town.
+accept 1372
+turnin 1372
+
+# Swamp of Sorrows: the Harborage and the Fallow Sanctuary ------------------------------------------
+
+map Swamp of Sorrows
+
+goto "Ride east through Deadwind Pass into the Swamp of Sorrows" at 6.0,60.0 r 40
+do 1116 bg at 13.4,61.0 mobs 741 740
+tip The whelps at the western entrance of the swamp drop the dust; the dragonkin of the east drop it too.
+accept 1389
+accept 93430
+accept 93429
+do 93429 bg at 56.3,28.7 mobs 755 757 759 760 icon kill "Kill 10 Lost Ones in the Fallow Sanctuary"
+accept 1392 at 41.4,38.8 "Kill Noboru the Cudgel and pick up his cudgel to start the quest"
+tip Noboru walks around the swamp north of Stonard with two guards.
+do 93430
+tip The lure drops from a Lost One Fisherman; they fish along the banks.
+do 1389
+tip The crystals glow blue on the ground in the east of the Fallow Sanctuary.
+accept 1393
+do 1393 at 65.5,18.2 icon text "Escort Galen Goodward out of the Fallow Sanctuary"
+do 93429 at 58.7,25.3 mobs 759 760 755 757 icon kill "Kill 10 Lost Ones in the Fallow Sanctuary"
+turnin 1393
+tip The strongbox is in Galen's camp, north of Stonard.
+
+# Stonard and the east ------------------------------------------------------------------------------
+
+fpath 6026
+turnin 1420
+tip Helgrum is upstairs in the great hall.
+accept 1424
+tip Fel'zerul stands upstairs too.
+accept 698 1430
+do 698 bg mobs 1082 1087
+do 1424
+tip The artifacts lie on the ground around the Pool of Tears and its ruins.
+do 1116
+do 1430
+do 698
+turnin 698
+tip Tok'Kar camps on the south-eastern shore.
+turnin 1424
+turnin 1430
+
+# The Harborage ------------------------------------------------------------------------------------
+
+turnin 1389
+accept 93464
+turnin 1392
+turnin 93430
+turnin 93429
+
+# Booty Bay ----------------------------------------------------------------------------------------
+
+map Stranglethorn Vale
+
+hearth npc 6807
+turnin 1116
+accept 1117
+turnin 209
+turnin 600
+turnin 1182
+accept 1183
+turnin 97048
+turnin 95384
+turnin 577
+note "Take the boat from the Booty Bay pier to Ratchet, on Kalimdor" at 25.9,73.1
+
+# Ratchet and Orgrimmar ----------------------------------------------------------------------------
+
+map The Barrens
+
+turnin 1270
+fly "Orgrimmar, Durotar" npc 16227
+
+map Orgrimmar
+
+train 3353 3352 3327 6018 3344 5885 3326
+tip Druids have no trainer here: train at your next visit to Thunder Bluff.
+accept 97194
+do 97194 at 69.4,13.1 icon talk "Pay Kildar to learn Apprentice Riding"
+turnin 97194
+note "You are in Orgrimmar for the next guide, in Desolace: fly to Shadowprey Village if you know it, otherwise to Sun Rock Retreat in the Stonetalon Mountains and ride south-west into Desolace"

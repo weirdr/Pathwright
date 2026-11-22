@@ -1,0 +1,79 @@
+# Tanaris (44-44): the Gadgetzan errands left after Tanaris (43-43), and a pirate's ship schedule,
+# for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/tanaris_44_44.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives and the places of mobs and objects from the game
+# data (data/forever.sqlite), checked against outof.games (Tanaris, area 440). The quest list is
+# section 6 of addon/guides/horde_40_60_allocation.md. The other Tanaris quests are in Tanaris
+# (43-43) and Tanaris & Dustwallow Marsh (47-48).
+# Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source, the reward of Slake That
+# Thirst (379, in Tanaris 43-43), and needs the Field Testing Kit from Into the Field (243, same
+# guide). Ship Schedules (2876) starts from a Ship Schedule found in a Pirate's Footlocker, which
+# the Southsea pirates of Lost Rigger Cove drop.
+#
+# The route: the flight from Brackenwall Village to Gadgetzan; one loop south and west of Gadgetzan
+# to Sandsorrow Watch for the samples and the water; Lost Rigger Cove and Steamwheedle Port; the
+# flight to Orgrimmar (training) and the zeppelin to the Eastern Kingdoms.
+
+guide Tanaris (44-44)
+faction horde
+levels 44 44
+carry 1118 94895
+leave 1118 2741 3520 94895 95144
+next Riverglades (44-45)
+# Overseas Delivery (95144): taken at the Gadgetzan inn, handed in by Riverglades (44-45).
+
+# Brackenwall Village to Gadgetzan -----------------------------------------------------------------
+
+map Dustwallow Marsh
+fly "Gadgetzan, Tanaris" npc 11899
+
+# Gadgetzan ------------------------------------------------------------------------------------------
+
+map Tanaris
+accept 992
+accept 95144
+accept 2741
+tip The Super Egg-O-Matic is the machine in Gadgetzan; its Hippogryph Egg is found in Feralas in a later guide, so keep the quest.
+tip Overseas Delivery is handed in at the start of the next guide, in Riverglades: keep it.
+accept 654 at 53.2,31.2 "Just south of Gadgetzan, use the Model 4711-FTZ Power Source to start Tanaris Field Sampling"
+tip Using the Power Source starts a two-hour timer: use it only once outside the town, ready to hunt. Each of you needs your own Power Source and Field Testing Kit (the kit from Into the Field).
+
+# South and west of Gadgetzan: the samples, Sandsorrow Watch ---------------------------------------
+
+do 654.3 bg mobs 5422 5423 at 53.9,33.8 icon get
+do 654.2 bg mobs 5425 5426 8208 at 52.3,33.5 icon get
+tip Use each Untested Sample you loot: the Field Testing Kit turns it into an Acceptable one.
+do 654.1 mobs 5419 5420 at 50.0,37.5 icon get
+tip The Glasshide basilisks also graze west toward Sandsorrow Watch.
+do 992 at 39.0,29.0 icon use "Use the Untapped Dowsing Widget at the pool by Sandsorrow Watch"
+tip The Sandfury trolls around the pool are level 42-44 elites: clear the nearest ones together, or tap the water and run.
+do 654.2 mobs 5425 5426 8208 at 44.7,26.2 icon get
+do 654.3 mobs 5422 5423 at 48.7,28.9 icon get
+
+# Gadgetzan ------------------------------------------------------------------------------------------
+
+turnin 654
+tip Hand it in before the two hours run out, or the samples are lost.
+turnin 992
+
+# Lost Rigger Cove and Steamwheedle Port ------------------------------------------------------------
+
+goto "Ride east to Lost Rigger Cove, the Southsea pirate camp on the coast" at 72.4,45.9 r 30
+accept 2876 at 73.6,46.6 "Kill Southsea pirates until a Pirate's Footlocker drops, open it, and use the Ship Schedule inside"
+tip Not every footlocker holds a schedule, and each of you needs one. Kregg Keelhaul, a level 47 rare in the cove, drops footlockers too.
+turnin 2876
+accept 3520
+tip Screecher Spirits is done in Feralas in a later guide: keep Yeh'kinya's Bramble.
+tip Security Chief Bilgewhizzle stands in Steamwheedle Port, up the coast to the north.
+
+# Orgrimmar and the zeppelin ------------------------------------------------------------------------
+
+goto "Ride back to Gadgetzan" at 51.6,26.6 r 30
+fly "Orgrimmar, Durotar" npc 7824
+map Orgrimmar
+train 3353 3352 3401 3344 5882 3324 6014
+tip Paladins train in Undercity, druids in Thunder Bluff.
+note "Take the zeppelin from the tower outside Orgrimmar to Undercity and fly to Rog'mar, or to Grom'gol and fly to Stonard, then ride north-east to Rog'mar, for the next guide" at 50.8,13.5 in Durotar

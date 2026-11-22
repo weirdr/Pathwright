@@ -1,0 +1,380 @@
+# Skyborne Starter (1-13): every quest of Zephras Isle, for both Skyborne races.
+#
+# Built into the addon with:  python3 addon/tools/guide_build.py addon/guides/skyborne_starter.guide
+#
+# Research (November 2026): the quests, their givers, objectives, prerequisites and the places of
+# their mobs and objects come from the game data (data/forever.sqlite.zst: Questie, Wowhead, ATT),
+# checked against https://outof.games/realms/forever/quests/zone/16593-zephras-isle/ (all 129 of its
+# quests: the 7 it has that the data lacks are unused "DNT" quests or have no quest giver).
+# Left out: The Ancient Hilt, Eluvi'ana and More Al'Aketh Ears (not in the game client), A Sacrifice
+# in Vain (the alternative start of Unnerving Silence), the riding quests (level 40 and 60).
+#
+# The route: Thendal Grove (1-5), Shen'dar Village and the highlands (5-9), Valanaar and the
+# Gustberry Lowlands (9-11), Shadowgale Forest (11-12), the assault on the Shrine of Akir (12-13).
+
+guide Skyborne Starter (1-13)
+map Zephras Isle
+races 95 96
+levels 1 13
+
+# Thendal Grove ------------------------------------------------------------------------------------
+
+accept 92460
+turnin 92460
+accept 92461
+accept 92462
+do 92461
+do 92462
+tip The Pesky Cirrusflies fly over the meadow east of the vuldren.
+turnin 92462
+accept 92463
+turnin 92461
+accept 92464
+accept 92481 92482 92483 92484 92485 92532
+turnin 92481 92482 92485 92484
+turnin 92532 92483
+train 251379 251373 251376 251374 251964 251389
+accept 92598
+accept 92597
+accept 93552
+accept 92474
+accept 94414
+do 94414
+turnin 94414
+do 92474 at 43.7,24.1
+tip Climb to the top of the watchtower, jump off and use Walk on Air before you land.
+do 93552 bg
+tip Raw Windstones sit on the ground around the grove; the most are south of the watchtower.
+do 92463
+turnin 92464
+accept 92465
+do 92598 at 48.3,20.6 icon use "Use Skysight at the Elemental Convergence"
+do 92465
+do 92597 at 46.3,17.9 icon use "Use Read Leyline at the leyline"
+turnin 92465
+accept 92469
+turnin 92598
+turnin 92597
+turnin 93552
+turnin 92463
+turnin 92469 92474
+accept 92471
+turnin 92471
+accept 92470
+accept 92473
+accept 92466
+train 251379 251373 251376 251374 251964 251389
+sell 251537
+do 92473
+do 92470
+accept 92544
+do 92544
+do 92466 bg mobs 251145 251448
+tip The Signet of Akir drops from the Al'Aketh here.
+turnin 92544
+turnin 92473
+turnin 92470
+accept 92472
+accept 96638
+turnin 92466
+accept 92467
+do 92467 at 49.7,23.8 icon use "Drink the Earth Sapta at the Rise of Spirits"
+turnin 92467
+accept 92468
+turnin 92468
+
+# Shen'dar Village and the highlands ---------------------------------------------------------------
+
+turnin 96638
+accept 96101
+do 96101 icon use "Sit by Raan's Basic Campfire until you have Boosted Rest"
+turnin 96101
+accept 96646
+accept 97963 97964 97965 97967 97968 97969 97970 97971 97972 97973 98284 98286
+tip The Camping 101 quests show for the professions you have; Cooking can be learned here.
+turnin 92472
+accept 92514 93461
+do 92514 93461
+turnin 92514 93461
+bind 254089
+turnin 96646 97963 97964 97965 97967 97969 97970 97971 97972 97973 98284 98286
+turnin 97968 npc 257021
+accept 92595
+do 92595 icon talk
+turnin 92595
+accept 92596
+do 92596 icon talk
+turnin 92596
+accept 94411
+accept 94413
+accept 92517
+accept 92515
+accept 92553
+accept 92516 93319
+accept 93951
+accept 93318
+train 254081 254084 254087 254082 254088 254086
+sell 254358
+do 92553.2 bg
+tip Galestriders roam the grass north and west of the village.
+do 92553.1 bg mobs 251661 250928 251291
+tip Zygor's guide takes the Small Eggs from the Galestriders; the game data also lists the highlands ursera and the hippogryphs.
+do 94411
+do 92517
+do 93319 bg mobs 251918 255534
+turnin 92517
+accept 93036
+turnin 93036
+accept 92529
+tip Sania gives you the Mark of Akir: keep it on to walk among the cultists.
+turnin 93319
+turnin 94411
+do 94413
+do 92515 at 38.9,47.6
+do 93318
+do 92516
+do 93951
+turnin 92529
+accept 92528
+do 92528 icon use "Search the Wardrobe in Falaath Village"
+turnin 92515
+turnin 92553
+turnin 92516
+turnin 93951
+turnin 93318
+turnin 94413
+turnin 92528
+accept 92550
+accept 93926
+accept 92551
+train 254081 254084 254087 254082 254088 254086
+do 92550
+do 92551 at 49.3,55.8 mobs 252068
+tip Open the Supply Caches in Falaath Village; the Stormcallers carry some too.
+turnin 93926
+accept 93927
+do 93927
+turnin 92550
+turnin 93927
+turnin 92551
+accept 92579 92701
+accept 93948
+
+# Valanaar --------------------------------------------------------------------------------------------
+
+turnin 92579 92701
+turnin 93948
+accept 93949
+accept 92700 92699
+turnin 92700
+turnin 92699
+accept 92708 92709
+do 92708 92709
+turnin 92708 92709
+accept 93735
+turnin 93735
+accept 93737
+do 93737.1 icon talk
+accept 93736
+accept 92727
+accept 92741
+accept 94896 94897
+accept 94484
+accept 92679
+do 92679.2
+accept 93317
+bind 255940
+train 252359 252389 252379 252382 252377 252373
+do 93949 mobs 251727 "Kill Skyhoppers until you have the enchanted ones"
+turnin 93949
+
+# The Gustberry Lowlands, south-west of Valanaar
+
+do 93317 at 53.7,73.2
+tip The Windsong Crawlers live along the water west of Valanaar.
+turnin 92727
+accept 92849
+do 92849.1
+do 92849.2 at 52.1,69.4 "Carry Fillion Flamebreeze to safety"
+tip Stay clear of the Shrieklings on the way.
+turnin 92849
+accept 92850
+do 92850
+do 93737.2
+do 92679.1
+turnin 92679
+accept 92682 92683 92684
+accept 92698
+turnin 92698
+do 92682 92683
+tip Use the Flutterfly Swatter on the Flutterflies.
+do 92684 at 50.3,81.3
+do 93737.4
+turnin 92682 92683 92684
+accept 92685
+do 92685
+turnin 92685
+accept 92693
+do 92693.1 icon talk
+do 92693.2
+turnin 92693 at 47.5,78.5
+tip Aamelia stays where you fought Ferauu.
+accept 92703 at 47.5,78.5
+turnin 92703
+turnin 93317
+turnin 92850 npc 253285
+accept 99260
+turnin 99260
+accept 92840
+
+# Class quests at level 10
+
+train 252359 252389 252379 252382 252377 252373
+accept 94978 nopre
+do 94978 mobs 254588 at 53.7,73.2 "Tame a Windsong Crawler with the Taming Rod"
+turnin 94978
+accept 94979
+do 94979 mobs 251707 at 56.0,71.2 "Tame an Ornery Galestrider with the Taming Rod"
+turnin 94979
+accept 94013
+do 94013 mobs 250874 at 56.0,70.7 "Tame a Vuldren Alpha with the Taming Rod"
+turnin 94013
+accept 94050
+turnin 94050
+accept 94003
+accept 94006
+accept 93791
+turnin 93791
+accept 93797
+accept 97243 npc 252382
+turnin 97243
+accept 97244
+do 97244
+turnin 97244
+accept 97245
+do 97245
+turnin 97245
+accept 97257
+do 97257.1 icon use "Wait for Olariaan's ritual at the Brazier of Offering"
+do 97257.2 icon use "Carry the Eternal Flame to the brazier in Valanaar before the timer ends"
+turnin 97257
+
+# West of the lowlands: the standing stones
+
+do 92840 icon use "Use the Index Esoteria on the Windstone Formations"
+do 93797
+turnin 92840
+accept 92834
+turnin 93797
+
+# Shadowgale Forest ---------------------------------------------------------------------------------
+
+do 93737.3
+tip A single Construct Parts also lies at 55.2,69.7, by Valanaar.
+accept 93159
+do 93159 icon talk
+turnin 93159
+accept 93160 93172
+accept 98285
+turnin 98285
+do 93172
+do 93736
+do 94896
+do 94897
+do 93160
+turnin 93160 93172
+turnin 94484
+accept 94486 94487 94485
+accept 93165
+do 94486
+do 92741
+do 94485
+do 94487
+do 93165 mobs 252664 252665
+do 92834 bg mobs 252664 252665 only alliance
+tip Al'Aketh Windstone Charms drop from the cultists here and at the Shrine of Akir.
+turnin 93165
+turnin 94486 94487 94485
+accept 94488 94489
+do 94488
+accept 94490 at 65.5,36.3
+tip The Ripped Missive is on Commander Haalien: loot it.
+do 94489.1 icon talk
+do 94489.2 icon use "Heal the wounded druids in the Nightfang Den"
+turnin 94488 94489
+turnin 94490
+accept 94491
+
+# Back to Valanaar, the story goes on -----------------------------------------------------------------
+
+turnin 94491
+turnin 94896 94897
+turnin 92741
+turnin 93736
+turnin 93737
+accept 93738
+turnin 93738
+accept 93746
+turnin 92834
+accept 92860
+train 252359 252389 252379 252382 252377 252373
+sell 252390
+do 93746
+turnin 93746
+accept 93740 92871
+turnin 92860 92871
+accept 93320
+
+# The eastern watchtower
+
+turnin 93320
+accept 92642 92645
+turnin 94006
+accept 94638
+do 92642
+do 92645
+turnin 92642 92645
+accept 92880
+turnin 92880
+accept 92881
+turnin 92881
+accept 92643
+accept 98512
+do 92643.2
+turnin 92643
+do 98512
+turnin 98512
+accept 92644
+do 94638
+turnin 92644
+accept 94568
+do 94568 icon talk "Speak with Talaanis Shadowsong and watch the conversation"
+turnin 94568
+accept 92640
+do 92640
+turnin 92640
+accept 93065
+turnin 93065
+accept 92947
+
+# The Shrine of Akir
+
+do 92947.1 92947.2 92947.3
+do 93740 bg mobs 252762 252763 252765 252764
+do 94003
+turnin 92947
+accept 93958
+turnin 93958
+accept 92646 93835
+do 92646 93835 at 65.2,50.4 icon use "Take the portal to the Rohashi Spires and confront Lorthuna"
+turnin 92646 93835
+accept 93836 94369
+turnin 93836 94369
+turnin 93740
+turnin 94003
+turnin 94638
+accept 93090 93089
+turnin 93090 93089
+accept 95349 94946
+tip Take the skycutter: Horde to Mulgore, Alliance to Dalaran.
+turnin 95349 94946

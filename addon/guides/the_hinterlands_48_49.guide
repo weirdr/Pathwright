@@ -1,0 +1,252 @@
+# The Hinterlands (48-49): the Horde quests of Revantusk Village, Quel'Danil and Jintha'Alor, for a
+# Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/the_hinterlands_48_49.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (The Hinterlands, area 47).
+# The guide's quest list is section 12 of addon/guides/horde_40_60_allocation.md.
+# Carried in: The Atal'ai Exile (1429, Fel'zerul in Stonard), Testing the Vessel (3123, Uzer'i in
+# Feralas: its wildkin are here, it is handed in by Feralas & Un'Goro Crater (49-50)), Whiskey Slim's
+# Lost Grog (580, Booty Bay: its bottles are here, it is handed in by a later guide), Return to
+# Apothecary Zinge (864) and Sprinkle's Secret Ingredient (2641), both from Gadgetzan in Tanaris &
+# Dustwallow Marsh (47-48). The Ancient Egg (4787) is left out: it follows a Zul'Farrak quest.
+# Added: Recover the Key! (7846): Elder Torntusk gives it between Kidnapped Elder Torntusk! and
+# Return to Primal Torntusk, which needs it (the allocation left it out as repeatable).
+# Left out: Battle of Warsong Gulch (8428), Conquering Arathi Basin (8437) and Conflict at Darkspear
+# Islands (98889): they want battleground Marks of Honor, won in PvP battlegrounds, not by questing.
+#
+# The route: Orgrimmar (Ripple Recovery, the auction house), the zeppelin to Undercity, a flight to
+# Tarren Mill and the ride in; Revantusk Village; one long loop north along the coast, through the
+# wilds and Skulk Rock, west to Quel'Danil and back by the Altar of Zul; a flight to Tarren Mill, the
+# Final Message at Aerie Peak, Shadra'Alor and Jintha'Alor; the OOX robot and Rin'ji's secret; then
+# Tarren Mill, Undercity, Booty Bay, Orgrimmar, Sen'jin and Gadgetzan to hand everything in.
+
+guide The Hinterlands (48-49)
+faction horde
+levels 48 49
+carry 580 650 864 1122 1429 2641 2874 3123 3444
+leave 81 580 1122 1444 2874 3123 3444 3568
+next Feralas & Un'Goro Crater (49-50)
+
+# Undercity -----------------------------------------------------------------------------------------
+
+map Undercity
+ah 7842.1 npc 8672
+accept 3568
+tip Seeping Corruption is done much later, in Azshara and Felwood & Winterspring (54-56): keep its empty vials.
+tip Otho in Revantusk wants 10 of these feathers later. Buying them saves farming gryphons at a one-in-three drop rate.
+turnin 864
+tip Apothecary Zinge works in the Apothecarium.
+accept 2995
+tip Oran Snakewrithe stands in the Magic Quarter.
+fly "Tarren Mill, Hillsbrad" npc 4551
+
+# Into the Hinterlands --------------------------------------------------------------------------------
+
+map The Hinterlands
+turnin 650
+tip From Tarren Mill take the road east past Durnholde Keep up into the Hinterlands. Aerie Peak, the Wildhammer town by the road, is hostile: ride past it. Gilveradin camps by the road east of it.
+accept 77
+
+# Revantusk Village -----------------------------------------------------------------------------------
+
+goto "Ride east across the Hinterlands to Revantusk Village, the troll village on the east coast" at 80.9,80.3 r 30
+fpath 4314
+bind 14731
+accept 7850 7845
+accept 7840
+accept 7815
+accept 7839
+accept 98203
+accept 7828 7829 7830 7849
+accept 7841
+accept 7844
+accept 7861 7862
+tip The Jintha'Alor quests and the Call to Arms board are level 50-51 elites: they are done last, on the second loop.
+
+# North along the coast -------------------------------------------------------------------------------
+
+do 7815 bg
+do 580 bg
+tip Whiskey Slim's Pupellyverbos Port: small bottles on the beaches either side of Revantusk. Booty Bay wants them in a later guide.
+do 7840
+tip Lard's picnic basket is on the island off the north coast. Vilebranch Kidnappers guard it.
+do 7815
+tip The Saltwater Snapjaws crawl along the whole coast between Revantusk and the island.
+do 580
+
+# Shaol'watha, the wilds and Skulk Rock --------------------------------------------------------------
+
+do 7844 bg
+do 7828 bg
+do 7829 bg
+do 3123 bg mobs 2929 2928 2927
+tip Use the Wildkin Muisek Vessel on the corpses of owlbeasts you kill.
+do 7830 bg
+tip The Razorbeak Skylord is a big eagle that shares the wilds with the wolves and owlbeasts.
+tip Keep every Long Elegant Feather the gryphons and Skylords drop: Otho wants 10 later.
+do 7839
+tip The tools sit at one Vilebranch temple at a time: Skulk Rock, Agol'watha (53,39) or Shaol'watha (71,49 and 73,53). Check each as you pass.
+do 77
+tip The Horde Supply Crates are in the caves of Skulk Rock, east and west of the river's head.
+do 7828
+do 7829
+do 3123 mobs 2929 2928 2927
+do 7830
+
+# Quel'Danil Lodge ------------------------------------------------------------------------------------
+
+do 7841 bg
+do 2995.1
+tip The records lie inside the lodge.
+do 2995.2
+do 2995.3
+accept 2742
+tip Rin'ji is a prisoner inside the lodge. If he is gone, someone just took him: wait for him to come back.
+do 2742 at 34.6,56.3 "Escort Rin'ji out of Quel'Danil Lodge"
+tip Two groups of three elves jump you on the way out.
+do 7841
+turnin 77
+accept 81
+tip Ripple Delivery is for a later guide: keep the barrel.
+
+# Hiri'watha, the river and the Altar of Zul ------------------------------------------------------------
+
+accept 2933
+tip The Venom Bottle lies on the ground south of Gilveradin's camp; taking it starts the quest.
+do 98203
+tip Ti'ik is in a cave west of Hiri'watha. He hits hard: fight him together.
+do 2641
+tip The Violet Tragan grows under the water of the river, in the pools south-east of Hiri'watha.
+do 7844.2
+tip The Altar of Zul is full of Soothsayers and Scalpers.
+do 7844.1 at 46.4,66.6
+hearth npc 14731
+
+# Revantusk Village -----------------------------------------------------------------------------------
+
+turnin 7815
+turnin 7840
+turnin 7839
+turnin 98203
+turnin 7828 7829 7830
+turnin 7844
+turnin 7841
+accept 7842
+do 7842 mobs 2659 221324 at 63.2,47.2
+tip Short of feathers? Razorbeak Skylords and Grief-Crazed Gryphons drop them in the wilds north-west of the village.
+turnin 7842
+accept 7843
+tip The Call to Arms! board stands in the middle of the village.
+
+# Tarren Mill and Aerie Peak ----------------------------------------------------------------------------
+
+fly "Tarren Mill, Hillsbrad" npc 4314
+map Hillsbrad Foothills
+turnin 2933
+accept 2934
+map The Hinterlands
+do 7843 at 14.4,48.0 icon use "Use the Final Message to the Wildhammer by the well in the middle of Aerie Peak"
+tip It flags you for PvP and the Wildhammer guards are elite: ride straight to the well, use the spear and ride out.
+
+# Shadra'Alor -----------------------------------------------------------------------------------------
+
+do 2934
+tip Only about one Witherbark Broodguard in seven drops an Undamaged Venom Sac; each of you needs one.
+turnin 1429
+tip The Atal'ai Exile stands up on a ledge at Shadra'Alor.
+accept 1444
+tip Return to Fel'Zerul is for a later guide.
+
+# Jintha'Alor -----------------------------------------------------------------------------------------
+
+do 7850 bg
+do 7862 bg
+do 7849.1
+tip The Pile of Skulls is by the lower ruins at the north end of Jintha'Alor. Every troll here is elite: pull one at a time.
+do 7862.1
+do 7862.2
+do 7849.2
+do 7862.3
+do 7862.4
+do 7850
+tip The Vessels of Tainted Blood stand all over the terraces.
+turnin 7845
+tip Elder Torntusk is chained at the top of Jintha'Alor.
+accept 7846
+do 7861.1
+tip Vile Priestess Hexx stands by the altar at the top; clear the guards around her first.
+do 7846
+tip Hitah'ya the Keeper is in the cave behind the amphitheater at the top. The Ancient Egg is in the same cave.
+do 7861.2
+turnin 7846
+accept 7847
+
+# Revantusk Village -----------------------------------------------------------------------------------
+
+goto "Ride back to Revantusk Village" at 79.0,79.5 r 30
+turnin 7843
+turnin 7849
+turnin 7850
+turnin 7847
+turnin 7861 7862
+
+# The OOX robot and Rin'ji's secret ----------------------------------------------------------------
+
+accept 485 at 49.4,37.7 "Use the OOX-09/HL Distress Beacon"
+tip The beacon drops rarely from any mob here, and each of you needs one. If neither of you has one, skip ahead to Rin'ji's secret.
+turnin 485
+accept 836
+do 836 at 79.1,61.4 "Escort OOX-09/HL to the shore beyond Overlook Cliff"
+tip The robot walks east from the head of the river to the coast; stay with it.
+turnin 2742
+tip Rin'ji's secret is hidden on the Overlook Cliffs, above the coast north of Revantusk.
+accept 2782
+
+# Tarren Mill and Undercity ------------------------------------------------------------------------
+
+goto "Ride back to Revantusk Village" at 81.7,81.8 r 20
+fly "Tarren Mill, Hillsbrad" npc 4314
+map Hillsbrad Foothills
+turnin 2934
+accept 2935
+fly "Undercity, Tirisfal" npc 2389
+map Undercity
+turnin 2995
+turnin 2782
+accept 8273
+turnin 8273
+train 4593 260093 4582 4606 4566 4563
+tip Hunters and shamans train in Orgrimmar later in this guide; druids in Thunder Bluff.
+
+# Booty Bay -----------------------------------------------------------------------------------------
+
+note "Take the zeppelin from the tower outside Undercity to Grom'gol, in Stranglethorn Vale" at 61.0,58.9 in Tirisfal_Glades
+tip Without Rescue OOX-09/HL, take the zeppelin to Orgrimmar instead and skip to Orgrimmar.
+map Stranglethorn Vale
+fly "Booty Bay, Stranglethorn" npc 1387
+turnin 836
+tip Oglethorpe Obnoticus has his workshop up on the cliff side of Booty Bay.
+note "Take the boat from the Booty Bay docks to Ratchet" at 25.9,73.1
+
+# Orgrimmar, Sen'jin and Gadgetzan ------------------------------------------------------------------
+
+map The Barrens
+fly "Orgrimmar, Durotar" npc 16227
+map Orgrimmar
+train 3352 3344
+map Durotar
+turnin 2935
+tip Master Gadrin is in Sen'jin Village, south of Orgrimmar.
+map Orgrimmar
+fly "Gadgetzan, Tanaris" npc 3310
+map Tanaris
+turnin 2641
+accept 2661
+turnin 2661
+accept 2662
+turnin 2662
+tip Marin needs a moment to brew the elixir: talk to him again.
+note "Fly from Gadgetzan to Camp Mojache in Feralas for the next guide" at 50.6,26.5

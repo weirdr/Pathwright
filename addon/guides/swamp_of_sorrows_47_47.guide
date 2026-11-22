@@ -1,0 +1,114 @@
+# Swamp of Sorrows (47-47): the Horde quests of Stonard, the Fallen Hero and the Tok'Kar camp, for a
+# Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/swamp_of_sorrows_47_47.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Swamp of Sorrows, area 8:
+# all 32 of its quests). The guide's quest list is section 10 of addon/guides/horde_40_60_allocation.md;
+# the lower Swamp quests are in Stranglethorn Vale & Swamp of Sorrows (41-43), the higher ones (The
+# Swamp Talker, A Tale of Sorrow, Return to Fel'Zerul) in Stranglethorn Vale & Swamp of Sorrows (50-50).
+# Nothing added: the Swamp quests on no guide's list are Alliance, level 35 or 55+, or not in the game.
+#
+# Taken here for later guides: The Atal'ai Exile (1429, Fel'zerul in Stonard, handed in at the
+# Hinterlands), Zanzil's Mixture and a Fool's Stout (1119, Booty Bay, handed in at the Shimmering
+# Flats, a 2 hour timer), Testing the Vessel (3123, its wildkin are in the Hinterlands) and The Sunken
+# Temple (3380, handed in at Tanaris), both from Witch Doctor Uzer'i in Feralas.
+#
+# The route: Stonard; the Fallen Hero by the road to the Blasted Lands and back to Stonard; the
+# Tok'Kar camp on the south-east coast (the snappers, then the murlocs of the coast and of the huts
+# west of the camp); back to Stonard and a flight to Booty Bay; Grom'gol and the zeppelin to
+# Orgrimmar (Neeru Fireblade, training); a flight to Camp Mojache in Feralas for Witch Doctor Uzer'i.
+
+guide Swamp of Sorrows (47-47)
+faction horde
+levels 47 47
+carry 580 2741 3520 95296
+leave 580 1119 1429 2741 3123 3380 3520 95296
+next Tanaris & Dustwallow Marsh (47-48)
+
+map Swamp of Sorrows
+
+# Stonard ------------------------------------------------------------------------------------------
+
+goto "Fly or ride to Stonard, the Horde town in the middle of the Swamp of Sorrows" at 46.1,54.8 r 30
+fpath 6026
+accept 1429
+tip Fel'zerul stands upstairs in the big building, next to Dispatch Commander Ruag. The bundle is for the Atal'ai Exile in the Hinterlands: a later guide hands it in.
+
+# The Fallen Hero ----------------------------------------------------------------------------------
+
+accept 2784
+tip The Fallen Hero of the Horde stands alone by the road south-west of Stonard, toward the Blasted Lands.
+do 2784 icon talk "Ask the Fallen Hero of the Horde why he is here and hear his story to the end"
+turnin 2784
+accept 2621
+
+# Stonard ------------------------------------------------------------------------------------------
+
+turnin 2621
+tip Dispatch Commander Ruag is upstairs in the big building.
+accept 2622
+turnin 2622
+tip Bengor stands inside a building by the south gate. Leave his next quest, The Swamp Talker, for a later guide.
+
+# The Tok'Kar camp on the south-east coast ---------------------------------------------------------
+
+accept 699
+tip Tok'Kar and Katar camp on the shore at the south-east corner of the swamp.
+do 699 at 81.9,71.4
+tip The Sawtooth Snappers lie along the shore north of the camp; about one in four drops a claw.
+turnin 699
+accept 1422
+turnin 1422
+accept 1426
+do 1426.2 bg
+do 1426.3 bg at 91.8,67.9
+do 1426.1
+tip Only about nine Marsh Murlocs live on the beach south of the camp: kill them as they come back.
+do 1426.2 at 83.3,90.6
+do 1426.3 at 91.8,67.9
+tip Most Marsh Flesheaters are up the east coast, north of the snappers.
+turnin 1426
+accept 1427
+turnin 1427
+accept 1428
+
+# The murloc huts west of the camp -----------------------------------------------------------------
+
+do 1428.1 bg at 64.6,81.8
+do 1428.2 bg at 63.1,84.4
+do 1428.3
+tip The Marsh Oracles live only in the murloc huts west of the camp. The Swamp Talker, a level 50 murloc, walks among them: a later guide wants him, not this one.
+do 1428.1 at 64.6,81.8
+do 1428.2 at 63.1,84.4
+turnin 1428
+
+# Booty Bay ----------------------------------------------------------------------------------------
+
+goto "Ride back to Stonard" at 46.1,54.8 r 30
+fly "Booty Bay, Stranglethorn" npc 6026
+tip Is your hearthstone set in Booty Bay? Use it from the Tok'Kar camp instead.
+map Stranglethorn Vale
+accept 1119
+tip The Fool's Stout spoils two hours after you take it: the next guide hands it in at the Shimmering Flats, so do not stop for long on the way.
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+fly "Grom'gol, Stranglethorn" npc 2858
+note "Take the zeppelin to Orgrimmar from the tower at Grom'gol" at 31.2,29.5
+map Orgrimmar
+accept 3122
+tip Neeru Fireblade stands in the Cleft of Shadow.
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+
+# Camp Mojache, Feralas ----------------------------------------------------------------------------
+
+fly "Camp Mojache, Feralas" npc 3310
+map Feralas
+turnin 3122
+accept 3123 3380
+tip Testing the Vessel is for the Hinterlands' wildkin, The Sunken Temple for Marvon Rivetseeker in Tanaris: later guides do them.
+note "For the next guide, fly from Camp Mojache to Gadgetzan in Tanaris, or to Freewind Post in Thousand Needles to bring the Fool's Stout to the Shimmering Flats first" npc 8020

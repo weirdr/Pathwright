@@ -1,0 +1,113 @@
+# Dustwallow Marsh (43-44): the Horde quests of Brackenwall Village and the Wyrmbog, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/dustwallow_marsh_43_44.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Dustwallow Marsh, area 15).
+# The guide's quest list is section 5 of addon/guides/horde_40_60_allocation.md; the later
+# Dustwallow quests (The Brood of Onyxia 1172, Tiara of the Deep) are in Tanaris & Dustwallow Marsh
+# (47-48).
+# Carried in: Marg Speaks (1261), taken from the Bubbling Cauldron at Grom'gol in Stranglethorn Vale
+# (Stranglethorn Vale & Swamp of Sorrows (41-43)); its Jeweled Pendant drops from the Muckshells here.
+#
+# The route: a flight from Gadgetzan to Brackenwall; one long loop south into the Wyrmbog (the
+# goblin camp, Stonemaul Ruins, the Den of Flame, the Bloodfen raptors, the whelp hills) and the
+# Muckshell coast; back to Brackenwall; a flight to Orgrimmar for Zor Lonetree and level 44 training;
+# back to Gadgetzan for the next guide.
+
+guide Dustwallow Marsh (43-44)
+faction horde
+levels 43 44
+carry 1118 1261 94895
+leave 1118 94895
+next Tanaris (44-44)
+
+# Gadgetzan -----------------------------------------------------------------------------------------
+
+map Tanaris
+fly "Brackenwall Village" npc 7824
+tip If Brackenwall is not on your flight map yet, fly to Camp Taurajo and ride east into the marsh.
+
+# Brackenwall Village -------------------------------------------------------------------------------
+
+map Dustwallow Marsh
+fpath 11899
+accept 1166
+tip The ogre overlord sits on his throne in the middle of the village.
+accept 98192
+accept 1168
+accept 1169
+tip Draz'Zilb stands in the small cave at the south end of the village.
+
+# The Wyrmbog: the goblin camp ----------------------------------------------------------------------
+
+goto "Ride south into the Wyrmbog, to the goblin camp among the whelps" at 41.0,75.2 r 30
+accept 98205 98215
+accept 98231
+tip Drazzit and Gizzix stand by their pack kodo, Miss Melly.
+
+# Stonemaul Ruins, the Den of Flame and the Bloodfen raptors ---------------------------------------------
+
+do 98215 bg
+tip Black Shed Dark Dragonscales lie on the ground everywhere in the Wyrmbog; the dragonkin drop them too.
+do 1169 bg
+do 98205 bg
+do 1168.1 bg
+do 1168.2 bg
+do 1166.1
+tip The snuff sits in Stonemaul Ruins, the old ogre village north of the goblins, now full of Firemane dragonkin.
+do 1168.1
+do 1168.2
+do 1166.2
+tip The grog is by the mouth of the Den of Flame, the cave west of Stonemaul Ruins.
+do 1168.3
+tip The Firemane Scalebanes guard the Den of Flame: pull them one at a time.
+do 1166.3
+tip The strongbox is at the back of the Den of Flame.
+do 98192
+tip The red Bloodfen raptors roam the Dragonmurk, just west of the Den of Flame.
+
+# The whelp hills south of the goblins ---------------------------------------------------------------
+
+do 98231
+tip Wyrmtail is a small plant growing among the whelps, most of it east of the goblin camp.
+do 98205
+do 1169
+tip Tongues and hearts drop from both the hatchlings and the whelps.
+do 98215
+turnin 98205 98215
+turnin 98231
+
+# The Muckshell coast ---------------------------------------------------------------------------------
+
+do 1261 mobs 4405 4404 4403 4401 4402 14236 at 56.0,63.5
+tip Every Muckshell can drop the pendant, but only about one in twenty does: each of you needs one, so keep killing.
+
+# Brackenwall Village ---------------------------------------------------------------------------------
+
+goto "Ride back north to Brackenwall Village" at 36.4,31.5 r 30
+turnin 1166
+turnin 1168
+turnin 98192
+turnin 1169
+accept 1170
+turnin 1170
+accept 1171
+turnin 1171
+tip Leave the next Brood of Onyxia quest for later: a later guide does it.
+turnin 1261
+accept 1262
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+fly "Orgrimmar, Durotar" npc 11899
+map Orgrimmar
+turnin 1262
+tip Zor Lonetree stands in the Valley of Wisdom.
+accept 7541
+turnin 7541
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+hearth npc 7733
+tip The next guide starts in Gadgetzan. If your hearthstone is not set there, take a wind rider from Doras, on the tower by the Valley of Strength.

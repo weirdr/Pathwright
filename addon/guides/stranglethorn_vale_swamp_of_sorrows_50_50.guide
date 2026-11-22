@@ -1,0 +1,152 @@
+# Stranglethorn Vale & Swamp of Sorrows (50-50): the last Horde visit of Stranglethorn and the
+# Swamp of Sorrows, with a short trip back to Dustwallow Marsh, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/stranglethorn_vale_swamp_of_sorrows_50_50.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Stranglethorn Vale, area
+# 33; Swamp of Sorrows, area 8). The quest list is section 14 of addon/guides/horde_40_60_allocation.md:
+# the last Mastery quests of Nesingwary, the Bloodsail captains, Captain Smotts and Negolash, the
+# messages in bottles, the OOX reward, Cortello's riddles, the Swamp Talker and the Fallen Hero, and
+# the challenge of Overlord Mok'Morokk in Brackenwall.
+# Carried from earlier guides (skipped by those who lack them): Deliver to MacKinley (2874, Stoley in
+# Tanaris), Report Back to Fizzlebub (1122, Kravel Koalbeard in Thousand Needles), Whiskey Slim's
+# Lost Grog (580, taken in Booty Bay, its port found in the Hinterlands), Return to Fel'Zerul (1444,
+# the Atal'ai Exile in the Hinterlands) and the three OOX rescues (2767 Feralas, 648 Tanaris, 836 the
+# Hinterlands), handed in to Oglethorpe in Booty Bay before An OOX of Your Own.
+# Cortello's Riddle (626) is left out: its treasure is in the Hinterlands, which no later guide visits.
+# Data fixed here: State Secrets (96379) has no quest before it (outof.games lists only level 48);
+# the Document Box it wants is sold at the auction house.
+#
+# The route: Orgrimmar (the auction house) and the zeppelin to Grom'gol; Nesingwary's camp for
+# Tethis and King Bangalash; Booty Bay and a loop south (Mok'rash, the Bloodsail ships, Negolash, the
+# beaches and Jaguero Isle); a flight to Stonard and a loop through the Swamp (the Swamp Talker, the
+# Fallen Hero, the bridge); the flight and zeppelin to Orgrimmar and on to Brackenwall Village for
+# Mok'Morokk and the second riddle; the hearthstone back to Stonard for the Blasted Lands.
+
+guide Stranglethorn Vale & Swamp of Sorrows (50-50)
+faction horde
+levels 50 50
+carry 580 1122 1444 2874 3568 3908 4120
+leave 3568 3908 4120
+next Blasted Lands (50-51)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Orgrimmar
+ah 96379.1 npc 8673
+tip State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 28 gold, more than the quest pays). Skip State Secrets if you would rather keep the gold.
+
+# Nesingwary's camp ---------------------------------------------------------------------------------
+
+map Stranglethorn Vale
+goto "Take the zeppelin from the towers outside Orgrimmar's gate to Grom'gol Base Camp" at 31.5,29.4 r 30
+accept 197
+tip Ride north from Grom'gol to Nesingwary's camp.
+do 197
+tip Tethis is a level 43 elite raptor that roams the hills south of Grom'gol.
+turnin 197
+accept 208
+do 208
+tip King Bangalash, a level 43 elite white tiger, stands on the hilltop south-east of Grom'gol and calls two tigers to help him at half health.
+turnin 208
+
+# Booty Bay -----------------------------------------------------------------------------------------
+
+fly "Booty Bay, Stranglethorn" npc 1387
+turnin 2874
+tip "Sea Wolf" MacKinley is inside the inn.
+turnin 1122
+turnin 580
+tip Crank Fizzlebub and Whiskey Slim are on the ground floor of the inn.
+accept 608
+tip Fleet Master Seahorn is up on the balcony of the inn.
+accept 3721
+turnin 3721
+accept 96379 nopre
+do 96379 at 28.5,75.8 icon text "Give Rix Xizzix the Document Box"
+turnin 96379
+
+# Mok'rash and Captain Smotts -----------------------------------------------------------------------
+
+accept 8552 at 23.3,72.1 "Kill Mok'rash for the Monogrammed Sash, then read it"
+tip Mok'rash is a level 50 elite ogre who walks the shore just north-west of Booty Bay.
+turnin 8552
+accept 8553
+turnin 8553
+accept 8554
+
+# The Bloodsail ships -------------------------------------------------------------------------------
+
+do 608.2
+tip The three captains are on the middle decks of the three Bloodsail ships south of Booty Bay; the ships are full of buccaneers.
+do 608.3
+do 608.1
+accept 624 at 30.6,90.2 "Find Cortello's Riddle, a rolled-up scroll below deck on one of the ships, and read it"
+tip The scroll lies on the middle or lower deck of one ship only: look on each as you clear it.
+
+# Negolash, the beaches and Jaguero Isle ------------------------------------------------------------
+
+do 8554
+tip Negolash is a level 52 elite giant by the Ruined Lifeboat on the shore north of the ships.
+accept 594 at 36.6,77.1 "Open Half-Buried Bottles on the beach until one holds a Carefully Folded Note, then read it"
+tip The small green bottles lie at the water's edge along the beaches east of Booty Bay; only some hold a note, and each of you needs one.
+turnin 594
+tip Princess Poobah is on Jaguero Isle, just off the beach.
+accept 630
+do 630
+tip King Mukla is a level 50 elite ape on the south of the isle.
+turnin 630
+
+# Booty Bay -----------------------------------------------------------------------------------------
+
+turnin 608
+turnin 8554
+
+# Stonard -------------------------------------------------------------------------------------------
+
+fly "Stonard, Swamp of Sorrows" npc 2858
+map Swamp of Sorrows
+turnin 1444
+tip Fel'zerul is upstairs in the great hall.
+accept 2623
+bind 6930
+
+# The Swamp Talker, the Fallen Hero and the bridge --------------------------------------------------
+
+do 2623
+tip The Swamp Talker walks the cave in the south-east of the swamp (its mouth is near 66,77); look on the upper level at the back first.
+turnin 2623
+tip The Fallen Hero of the Horde stands alone in the south-west of the swamp.
+accept 2801
+do 2801 icon talk "Listen to the Fallen Hero of the Horde tell his tale"
+turnin 2801
+turnin 624
+tip The Soggy Scroll is under water, below the bridge on the road west to Deadwind Pass.
+accept 625
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+fly "Grom'gol, Stranglethorn" npc 6026
+note "Take the zeppelin at Grom'gol to Orgrimmar" at 31.5,29.4 in Stranglethorn_Vale
+map Orgrimmar
+train 3353 3352 3327 6018 3344 5885 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+fly "Brackenwall Village, Dustwallow Marsh" npc 3310
+
+# Brackenwall Village and the riddle cave -----------------------------------------------------------
+
+map Dustwallow Marsh
+accept 1173
+do 1173 at 36.4,31.4 mobs 4500 icon kill "Fight Overlord Mok'Morokk until he gives up"
+tip He is a level 45 elite and turns on you as soon as you accept; he yields at about a third of his health.
+turnin 1173
+tip Draz'Zilb is in the small cave at the south end of the village.
+turnin 625
+tip The Musty Scroll is in a small cave in the south-west of the marsh.
+
+# Back to Stonard -----------------------------------------------------------------------------------
+
+hearth npc 6930
+note "Ride south out of Stonard along the road into the Blasted Lands for the next guide" npc 6930

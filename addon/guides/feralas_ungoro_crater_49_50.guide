@@ -1,0 +1,182 @@
+# Feralas & Un'Goro Crater (49-50): the later Horde quests of Camp Mojache and the first of Un'Goro
+# Crater, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/feralas_ungoro_crater_49_50.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Feralas, area 357, and
+# Un'Goro Crater, area 490). The guide's quest list is section 13 of
+# addon/guides/horde_40_60_allocation.md; the rest of Un'Goro is in Un'Goro Crater (53-54).
+# Carried in: Ripple Delivery (81), from Gilveradin Sunchaser in the Hinterlands; Testing the Vessel
+# (3123), from Witch Doctor Uzer'i, its wildkin done in the Hinterlands; The Stone Circle (3444), from
+# Marvon Rivetseeker in Gadgetzan.
+# Left out: the Maraudon quests (Twisted Evils 7028, Vyletongue Corruption 7029, Legends of Maraudon
+# 7044, The Scepter of Celebras 7046, Corruption of Earth and Seed 7064, Seed of Life 7066, The
+# Pariah's Instructions 7067): their objectives are inside the Maraudon dungeon. Perfect Yeti Hide
+# (7738): it starts from a rare hide only skinners find on the yetis.
+#
+# The route: Orgrimmar (Ripple Delivery, Bone-Bladed Weapons, the auction house); Ratchet for the
+# Stone Circle; Camp Mojache and the Muisek chain around the camp (hippogryphs, faerie dragons,
+# treants); one loop west (the Rage Scar yetis, the giants, the Northspring harpies and Edana, Zorbin
+# on the Forgotten Coast) and the hearthstone back; Gadgetzan; south-east Un'Goro (Torwa Pathfinder,
+# the ravasaurs, the wrecked raft) and Marshal's Refuge; Orgrimmar and the zeppelin to Grom'gol.
+
+guide Feralas & Un'Goro Crater (49-50)
+faction horde
+levels 49 50
+carry 81 580 1122 1444 2874 3123 3444 3568
+leave 580 1122 1444 2874 3568 3908 4120
+next Stranglethorn Vale & Swamp of Sorrows (50-50)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Durotar
+note "Take the zeppelin to Durotar: from the tower outside Undercity, or from Grom'gol in Stranglethorn Vale" at 50.8,13.4
+map Orgrimmar
+turnin 81
+accept 4300
+tip Jes'rimon waits on a balcony above the Drag.
+ah 4284.1 npc 8673
+ah 4284.2 npc 8673
+tip J.D. Collie in Un'Goro Crater wants 7 Power Crystals of each color. Red and yellow are the slow ones to find; green and blue are cheap here too if you see them.
+fly "Ratchet, The Barrens" npc 3310
+
+# Ratchet: the Stone Circle -------------------------------------------------------------------------
+
+map The Barrens
+do 3444
+tip Marvon's Chest sits in his workshop in Ratchet.
+fly "Camp Mojache, Feralas" npc 16227
+
+# Camp Mojache -------------------------------------------------------------------------------------
+
+map Feralas
+bind 7737
+turnin 3123
+accept 3124 3128
+accept 7734
+accept 3062 3063
+tip Talo Thornhoof stands inside the big tent.
+accept 4120
+tip The Strength of Corruption's bears and wolves are in Felwood: a later guide kills them and comes back here.
+
+# The hippogryphs south-west of the camp ------------------------------------------------------------
+
+do 3128.1 bg at 55.0,67.5
+tip A few Wandering Forest Walkers roam among the hippogryphs: kill them for Splintered Logs.
+do 3124
+tip Kill a hippogryph, then use the Hippogryph Muisek Vessel on its corpse.
+do 3128.3
+do 3128.4 mobs 5305 5304 5300 5306 at 55.1,71.8
+turnin 3124
+accept 3125
+
+# The faerie dragons and treants by the camp -------------------------------------------------------
+
+do 3128.2 bg mobs 5278 at 68.0,47.6
+do 3125 mobs 5278 at 68.0,47.6
+tip Use the Faerie Dragon Muisek Vessel on each dead Sprite Darter.
+turnin 3125
+accept 3126
+do 3126 at 76.0,40.5
+tip The Wandering Forest Walkers walk a long path around Camp Mojache and respawn slowly: wait on their path rather than chase them.
+do 3128.1 at 76.0,40.5
+turnin 3126
+accept 3127
+
+# West: the Rage Scar yetis, the giants, the Northspring harpies -----------------------------------
+
+do 7734
+tip The yetis live in and around Rage Scar Hold, a cave north-west of the camp.
+do 3128.4 bg mobs 5357 5358 at 39.4,23.2
+do 3127
+tip Land Walkers and Cliff Giants are level 48-50 elites: pull one at a time and fight it together, then use the Mountain Giant Muisek Vessel on the corpse.
+do 3128.2 mobs 5357 5358 at 39.4,23.2
+do 3063 bg
+do 3062 at 40.5,8.6
+tip Every harpy can drop a Horn of Hatetalon. Blow it by the Hatetalon stones at the north end of the ruins to call Edana Hatetalon, a level 50 elite.
+do 3063
+
+# The Forgotten Coast: Zorbin Fandazzle -------------------------------------------------------------
+
+accept 7003 7721
+tip Zorbin stands at the end of the dock.
+do 7721 bg
+do 7003 mobs 5361 5359 5360 14638 14603 14639 at 45.0,50.5
+tip Zap a strider with Zorbin's Ultra-Shrinker first: only the zapped giants drop the residue, and they are no longer elite.
+do 7721
+tip The Sea Elementals and Sea Sprays float along the shore just south of the dock.
+turnin 7003 7721
+accept 7725
+do 7725 mobs 5361 5359 5360 14638 14603 14639 at 46.0,58.0
+tip More striders wade along the shore further south.
+turnin 7725
+hearth npc 7737
+
+# Camp Mojache --------------------------------------------------------------------------------------
+
+turnin 3062 3063
+turnin 7734
+turnin 3127 3128
+accept 3129
+turnin 3129
+tip Uzer'i takes a moment to make the weapons: wait by him and talk to him again.
+fly "Gadgetzan, Tanaris" npc 8020
+
+# Gadgetzan ----------------------------------------------------------------------------------------
+
+map Tanaris
+turnin 3444
+
+# Un'Goro Crater: the south-east --------------------------------------------------------------------
+
+map Un'Goro Crater
+accept 4290
+tip Torwa Pathfinder camps at the foot of the slope down from Tanaris.
+do 4300 bg
+tip Any beast of the crater can drop A Mangled Journal: keep it for Williden Marshal.
+accept 3844
+tip The wrecked raft lies at the edge of the small pond west of Torwa.
+turnin 3844
+accept 3845
+tip The pack is under water, just off the raft.
+do 3845.1 at 63.1,69.1 icon use "Open A Small Pack: the Large Compass"
+do 3845.2 at 63.1,69.1 icon use "Open A Small Pack: the Curled Map Parchment"
+do 3845.3 at 63.1,69.1 icon use "Open A Small Pack: the Lion-headed Key"
+do 4290
+tip Lar'korwi's kill lies in the open plain to the north. Watch for the devilsaurs that roam there.
+turnin 4290
+accept 4291
+do 4291 at 67.2,73.0
+tip Walk onto the ravasaur egg nests: a Lar'korwi Mate runs in to defend them.
+do 4300
+tip Ravasaurs of every kind drop the claws, but only about one in five.
+turnin 4291
+tip Leave Torwa's next task, The Bait for Lar'korwi, for the later Un'Goro guide.
+accept 3884 at 61.8,73.5
+tip If the journal has not dropped yet, keep killing ravasaurs.
+
+# Marshal's Refuge ---------------------------------------------------------------------------------
+
+fpath 10583
+turnin 3845
+tip Linken camps by the pool at the north end of the refuge.
+accept 3908
+tip It's a Secret to Everybody goes to Donova Snowden in Winterspring, in a later guide: keep Linken's sword.
+turnin 3884
+accept 4284
+tip J.D. Collie is inside the cave at the back of Marshal's Refuge.
+do 4284 at 57.0,10.5 icon pickup
+tip The Power Crystals grow in colored clusters all over the crater; many are on the slopes just east of the refuge. Looting one makes another color spawn nearby.
+turnin 4284
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+fly "Orgrimmar, Durotar" npc 10583
+map Orgrimmar
+turnin 4300
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+map Durotar
+note "Take the zeppelin from the tower outside Orgrimmar to Grom'gol, in Stranglethorn Vale, for the next guide" at 50.6,12.6

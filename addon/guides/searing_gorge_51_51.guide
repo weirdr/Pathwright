@@ -1,0 +1,149 @@
+# Searing Gorge (51-51): the Thorium Point bounties, the Slag Pit and Velarok's Torch of Retribution,
+# for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/searing_gorge_51_51.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Searing Gorge, area 51).
+# The guide's quest list is section 16 of addon/guides/horde_40_60_allocation.md.
+# Left out: The Burning Beast (81900). Its Weathered Etching stands in the Twilight camp here, but it
+# is handed in to Bloodmage Lynnore in the Blasted Lands, which neither this guide nor any later one
+# visits (and its follow-up, Chains That Bind, sits in the Blasted Lands guide before this one).
+# Left to the next guide: Dreadmaul Rock (3821), taken from Thal'trak Proudtusk in Kargath and handed
+# in to Sha'ni Proudtusk in the Burning Steppes.
+#
+# The route: a flight from Stonard to Kargath (Dreadmaul Rock) and the gate into the Gorge; Thorium
+# Point (flight path, the bounty board, Hansel and Burninate); Velarok Windblade at the Cauldron and
+# his Flawless Flame; the Cauldron and the Slag Pit (dwarves, Incendosaurs, Overseer Maltorius); the
+# Twilight camp on Firewatch Ridge for the Symbol of Ragnaros; the Torch of Retribution and the four
+# sentry towers; the outhouse at the Grimesilt Dig Site; Thorium Point and Velarok again, and south to
+# Blackrock Mountain for the Burning Steppes.
+
+guide Searing Gorge (51-51)
+faction horde
+levels 51 51
+carry 3568 3908 4120
+leave 3568 3821 3908 4120
+next Burning Steppes & Azshara (51-52)
+
+# Only if you pass Orgrimmar ----------------------------------------------------------------------
+
+map Orgrimmar
+ah 4449.2 npc 8673
+tip Only worth it if you pass a Horde city first. The outhouse prisoner wants 15 Silk Cloth each at the end of this guide, and silk drops slowly in the Gorge. Silk you already carry counts, so take any from your bank.
+
+# Stonard and Kargath ------------------------------------------------------------------------------
+
+map Swamp of Sorrows
+fly "Kargath, Badlands" npc 6026
+tip Even if you know Thorium Point, fly to Kargath: Dreadmaul Rock starts there.
+
+map Badlands
+accept 3821
+tip Thal'trak Proudtusk paces the road at the west end of Kargath and only offers the quest when he stops. Its hand-in is in the Burning Steppes, in the next guide.
+
+# Into the Gorge and Thorium Point -----------------------------------------------------------------
+
+map Searing Gorge
+goto "Ride north from Kargath to the gate of Searing Gorge" at 78.7,17.2 r 25
+tip The gate only opens from the inside or with the Key to Searing Gorge. If it is shut, climb the rocks beside it and drop down into the Gorge.
+fpath 3305
+tip Grisha keeps the wind riders on the ledge at the south-west end of Thorium Point.
+accept 7728 7729 7701
+tip The bounties hang on the Wanted board by the camp. Overseer Maltorius is an elite deep in the Slag Pit.
+accept 7723 7724 7727
+accept 7722
+
+# Velarok Windblade and the Flawless Flame ---------------------------------------------------------
+
+accept 3441
+tip Velarok stands on the north-west edge of the Cauldron, south of Thorium Point.
+do 3441
+tip Ask what drives his vengeance and keep listening to the end.
+turnin 3441
+accept 3442
+do 7723 bg
+do 3442.1 at 39.5,40.5
+tip Inferno, Blazing and Magma Elementals all drop the hearts; a few Inferno Elementals roam right below Velarok.
+do 3442.2 mobs 5854 5855 5853 at 44.8,40.0
+tip Golem Oil drops from the war golems and the Magma Elementals.
+turnin 3442
+accept 3443
+
+# The Cauldron and the Slag Pit ----------------------------------------------------------------------
+
+do 3443 bg
+do 7729.1 bg
+do 7729.2 bg
+do 7728.2 bg
+tip Every Dark Iron dwarf and Slave Worker can drop the daggers; the Lookouts with the spyglass stand by the sentry towers on the Cauldron's rim.
+do 7728.1
+tip The Steamsmiths work at the forges in the west of the Cauldron. Only one in four drops the Tuyere, and each of you needs one.
+goto "Enter the Slag Pit, the mine under the north side of the Cauldron" at 49.6,45.5 r 15
+do 7727
+tip Drop down from the bridge inside to reach the lava pools where the Incendosaurs live.
+do 7701
+tip Overseer Maltorius is an elite in the middle level of the Slag Pit, guarded by elite Dark Iron Sentries: pull the sentries first.
+do 7722
+tip The plans lie on the ground beside Maltorius.
+do 7729.1
+do 7729.2
+do 3443 at 43.4,33.8
+accept 4451 at 43.4,33.8
+tip The Grimesilt Outhouse Key drops rarely from the Dark Iron dwarves here, Slave Workers excepted. Keep killing until each of you has one.
+
+# Firewatch Ridge and the Symbol of Ragnaros ------------------------------------------------------------
+
+turnin 3443
+accept 3452
+do 7724 bg at 29.5,45.0
+do 3452 at 23.0,37.0
+tip Every Twilight cultist can drop the symbol. They are elites in groups: pull them one at a time, on the low camp west of the spiders or up on Firewatch Ridge.
+turnin 3452
+accept 3453
+do 3453 "Wait while Velarok forges the Torch of Retribution"
+turnin 3453
+accept 3454
+turnin 3454
+tip Take the torch from where Velarok laid it, right beside him.
+accept 3462
+turnin 3462
+accept 3463
+
+# The sentry towers ---------------------------------------------------------------------------------------
+
+do 7724 at 29.5,58.0
+tip The lava spiders roam the plateaus and lava pools along the west rim of the Cauldron.
+do 7728.2 bg
+do 7723 bg
+do 3463.4
+tip Equip the Torch of Retribution and use the brazier at the top of the tower, then put your weapon back on. An elite Dark Iron Sentry guards each one.
+do 3463.1
+do 3463.2
+do 3463.3
+do 7728.2
+do 7723
+tip The Heavy War Golems walk all around the Cauldron.
+
+# The outhouse at the Grimesilt Dig Site ---------------------------------------------------------------
+
+accept 4449
+tip Someone is locked inside the Wooden Outhouse at the Grimesilt Dig Site.
+do 4449.1
+do 4449.2 mobs 5839 8637 5843 at 63.3,60.6
+tip Silk drops from the Geologists and Watchmen here, and from the Slave Workers in the Cauldron.
+turnin 4449 4451
+
+# Thorium Point, Velarok and on to the Burning Steppes -----------------------------------------------------
+
+turnin 7723 7724 7727
+turnin 7728 7729
+turnin 7701
+turnin 7722
+turnin 3463
+accept 3481
+turnin 3481
+tip Keep the Black Dragonflight Molt from the hoard: the next guide's A Taste of Flame needs it.
+note "Ride south across the Cauldron into Blackrock Mountain, follow the path through to the far doorway and down into the Burning Steppes for the next guide" at 34.8,84.0
+tip Flame Crest, the Horde camp in the Burning Steppes, is in the east: learn its flight path when you get there.

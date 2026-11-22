@@ -1,0 +1,141 @@
+# Azshara (54-54): the second Horde visit of Azshara, for a Horde duo: Magus Rimtori and the
+# Thalassian Base Camp, Kim'jael, the Legashi Stronghold, the sharks and Lake Mennar.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/azshara_54_54.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Azshara, area 16). The
+# guide's quest list is section 20 of addon/guides/horde_40_60_allocation.md; the first visit of
+# Azshara is in Burning Steppes & Azshara (51-52).
+# Carried in: Magatha's Payment to Jediga (3562, from Thunder Bluff) and Jes'rimon's Payment to
+# Jediga (3563, from Orgrimmar).
+# Left to a later guide: Delivery to Andron Gant (3542, Undercity), for Felwood & Winterspring (54-56).
+# Left out: Betrayed (3506): on WoW Forever, Betrayed (3505) leads to Seals of the Sin'dorei, An
+# Explosive Gambit and Revenge Exacted instead (outof.games has no page for 3506 or 3507).
+# Loramus (3141): it needs The Demon Hunter (2744), the end of a level 60 chain. The Twin Bears
+# (92066): done inside the Blackmaw Hold dungeon. Demon Hunter's Hunter (91877): level 55 to take,
+# handed in on Mount Hyjal, where no guide goes. Poisoned Water (6804) and Stormers and Rumblers
+# (6805): level 55 to take, their objectives are in the Eastern Plaguelands and Silithus, and Duke
+# Hydraxis is never visited again.
+#
+# The route: a flight from Orgrimmar to Valormok; Ursolan and Kim'jael; the Thalassian Base Camp,
+# the seal bearers and Magus Rimtori; Korsa, the Legashi Stronghold and the sharks of the north
+# coast; Kim'jael again, the Ruins of Eldarath and Lake Mennar; back by Kim'jael to Valormok;
+# Orgrimmar, Thunder Bluff, and a flight to Bloodvenom Post and the ride up to Timbermaw Hold.
+
+guide Azshara (54-54)
+faction horde
+levels 54 54
+carry 980 1123 3562 3563 3568 3909 5084 5159
+leave 980 1123 3542 3568 3909 5084 5159
+next Felwood & Winterspring (54-56)
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+map Orgrimmar
+fly "Valormok, Azshara" npc 3310
+
+# Valormok -----------------------------------------------------------------------------------------
+
+map Azshara
+turnin 3562 3563
+accept 92346
+tip Beneath Nordrassil is handed in to Nara Wildmane in Thunder Bluff, at the end of this guide.
+accept 3542
+tip Delivery to Andron Gant goes to Undercity, for a later guide: keep the tablet in your bags.
+accept 3505
+accept 91685
+accept 91611
+tip The Mammoth Sharks are level 56-57 elites: fight them together.
+
+# Ursolan and Kim'jael -----------------------------------------------------------------------------
+
+accept 86798
+tip Gatekeeper Rageroar's errand is handed in at Timbermaw Hold, at the end of this guide.
+accept 3601
+tip Kim'jael camps on top of the hill north of the blood elf camp.
+
+# The Thalassian Base Camp and Magus Rimtori --------------------------------------------------------
+
+do 3601 bg
+tip Kim'jael's things are in the wooden boxes all over the camp. Many are empty, and they come back quickly.
+do 3505.1
+do 3505.2
+do 3505.3 at 59.5,31.5 "Find Magus Rimtori's camp"
+turnin 3505
+accept 91497
+tip The Sin'dorei Tome of Summoning lies by the tome you just read.
+do 91497.2
+tip Magister Hawkhelm stands in the middle of the base camp.
+do 3601
+do 91497.1
+tip Lieutenant Suncrest holds the camp to the east.
+do 91497.3
+tip Ranger Lydrea is further east, on the bluff by the sea.
+turnin 91497
+accept 91500 91538
+do 91500 at 59.5,31.4 "Use the Seals of the Sin'dorei by the arcane crystals, then kill Magus Rimtori"
+tip Breaking the seals makes Rimtori appear. She is level 55 and comes with her guards.
+
+# Korsa and the Legashi Stronghold -----------------------------------------------------------------
+
+accept 86792
+tip Korsa hides on the hill south-west of the stronghold.
+do 86792 bg
+accept 86796
+tip Graal is locked in a cage at the north end of the stronghold.
+do 86796 at 66.6,14.6 "Free Graal and escort him out of the stronghold"
+do 86792
+do 91611 at 65.9,6.1
+tip The sharks swim far out off the north coast, where the sea floor drops away; a few more swim off the south-east coast.
+turnin 86792 86796
+
+# Kim'jael, the Ruins of Eldarath and Lake Mennar ----------------------------------------------------
+
+turnin 3601
+accept 5534
+do 5534 bg mobs 6195 6196 at 45.5,57.0
+do 91685 at 40.4,80.8 "Use the Mana-Siphoning Wand on the Leyline Rift over Lake Mennar, then kill Celegosa for the Tear of Mennar"
+tip Celegosa, a level 54 elite, swims in the lake.
+do 5534 mobs 6195 6196 at 45.5,57.0
+tip Every Spitelash naga of the Ruins of Eldarath can drop the rune, but rarely: the Sirens and Myrmidons are the most numerous.
+turnin 5534
+
+# Valormok -----------------------------------------------------------------------------------------
+
+turnin 91500
+accept 91531
+turnin 91538
+accept 91547
+turnin 91685
+turnin 91611
+fly "Orgrimmar, Durotar" npc 8610
+
+# Orgrimmar ----------------------------------------------------------------------------------------
+
+map Orgrimmar
+turnin 91531
+tip Belgrom Rockmaul is in the Valley of Honor.
+turnin 91547
+tip Zevrost is in the Cleft of Shadow. His next task, Vek'zol, is in the Blasted Lands: no guide takes it.
+train 3353 3352 3401 6014 3344 5882 3326
+tip Druids and paladins train in Thunder Bluff, the next stop.
+fly "Thunder Bluff, Mulgore" npc 3310
+
+# Thunder Bluff ------------------------------------------------------------------------------------
+
+map Thunder Bluff
+turnin 92346
+tip Nara Wildmane is on Elder Rise. Her next task is done inside the Blackmaw Hold dungeon.
+train 3033 246344
+fly "Bloodvenom Post, Felwood" npc 2995
+
+# Timbermaw Hold -----------------------------------------------------------------------------------
+
+map Felwood
+goto "Ride north along the road to Timbermaw Hold" at 64.8,8.1 r 30
+tip Nafien guards the mouth of the furbolg tunnel.
+turnin 86798
+tip Gorn One Eye stands inside the hold, along the tunnel.
+note "Azshara is done: the next guide, Felwood & Winterspring, goes on from Timbermaw Hold" npc 11555

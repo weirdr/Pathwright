@@ -1,0 +1,215 @@
+# Burning Steppes & Azshara (51-52): Flame Crest and Dreadmaul Rock, then Valormok and the Blackmaw
+# of Ursolan, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/burning_steppes_azshara_51_52.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Burning Steppes, area 46;
+# Azshara, area 16). The guide's quest list is section 17 of addon/guides/horde_40_60_allocation.md.
+# Left out: Dark Iron Legacy (3802), Ribbly Screwspigot (4136) and The Heart of the Mountain (4123):
+# done inside Blackrock Depths. Sisters In Duty (98096): its giver is in Darnassus and it follows an
+# Alliance quest. Remote Contact 91734 (Undercity) and 91737 (Thunder Bluff): the same quest as
+# 91735 from Orgrimmar, only one of the three can be done.
+# Carried: Dreadmaul Rock (3821), taken from Thal'trak Proudtusk in Kargath.
+# Left to later guides: Felnok Steelspring (4808, Everlook) and Delivery to Jes'rimon (3541,
+# Orgrimmar) for Felwood & Winterspring (52-53); Delivery to Magatha (3518, Thunder Bluff) and March
+# of the Silithid (4494, Gadgetzan) for Un'Goro Crater (53-54).
+#
+# The route: Franclorn in Blackrock Mountain; Flame Crest; the east (Dreadmaul Rock, the broodlings,
+# Cyrus Therepentous); Kargath and back for The Rise of the Machines; the reavers and the Ruins of
+# Thaurissan; Kargath again, Grom'gol and the zeppelin to Orgrimmar; a flight to Splintertree Post
+# and the road into Azshara; Valormok and its fields; the Ruins of Eldarath and the shore; Ursolan
+# and the Legashi camps; back by Valormok to Loh'atu and out west toward Felwood.
+
+guide Burning Steppes & Azshara (51-52)
+faction horde
+levels 51 52
+carry 3568 3821 3908 4120
+leave 3518 3541 3568 3908 4120 4494 4808
+next Felwood & Winterspring (52-53)
+
+# Blackrock Mountain ---------------------------------------------------------------------------------
+
+map Burning Steppes
+accept 3801
+tip Franclorn's spirit stands on his monument in the middle of Blackrock Mountain and only the dead see him: fall into the lava, release, and walk back as a ghost.
+turnin 3801
+tip His next task is inside Blackrock Depths: leave it. Resurrect at your body and step out of the lava quickly.
+
+# Flame Crest ----------------------------------------------------------------------------------------
+
+fpath 13177
+tip Leave Blackrock Mountain by the Burning Steppes side and ride east to the orc camp on the ridge.
+accept 4726
+accept 4296
+tip Maxwort's Heart of the Mountain and Yuka's Ribbly Screwspigot are Blackrock Depths quests: leave them.
+
+# The east: Dreadmaul Rock, the broodlings and Cyrus ----------------------------------------------------
+
+do 4726 bg
+tip Use the Draco-Incarcinatrix 900 on a Black Broodling, kill it, then pick up the essence it leaves.
+turnin 3821
+tip Sha'ni's remains lie on the altar at the top of Dreadmaul Rock: click them and her spirit appears.
+accept 3822
+do 3822
+tip Krom'Grul walks the caves of Dreadmaul Rock, just north of the altar.
+grind 52 at 88.5,45.0
+tip Cyrus and Kargath's next quest want level 52: kill the broodlings and ogres on the way east until you get there.
+accept 4022
+tip Cyrus waits in the small cave at the eastern edge. This one is for whoever has the Black Dragonflight Molt: open the Hoard of the Black Dragonflight from Trinkets... in the Searing Gorge.
+do 4022.1 at 95.1,31.6 icon use "Open the Hoard of the Black Dragonflight for its Black Dragonflight Molt"
+do 4022.2 icon talk "Show the Black Dragonflight Molt to Cyrus Therepentous"
+turnin 4022
+accept 4023
+tip Without the molt, Cyrus asks for proof instead.
+do 4023
+tip The Frenzied Black Drake is a level 54 elite next to Cyrus' cave: fight it together.
+turnin 4023
+do 4726
+tip The broodlings fly in small groups along the eastern cliffs, around Cyrus' cave and south of Dreadmaul Rock.
+
+# Flame Crest, and Kargath ---------------------------------------------------------------------------
+
+turnin 4726
+accept 4808
+tip Felnok is in Everlook: the next guide hands this in.
+fly "Kargath, Badlands" npc 13177
+map Badlands
+turnin 3822
+accept 4061
+fly "Flame Crest, Burning Steppes" npc 2861
+
+# The reavers and the Ruins of Thaurissan ---------------------------------------------------------------
+
+map Burning Steppes
+do 4061 mobs 7039 7032 228725
+tip War Reavers walk the slopes just south of Flame Crest; the Greater Obsidian Elementals and Firesworn drop shards too.
+do 4296 icon use "Transcribe the Tablet of the Seven"
+tip The tablet stands in the Ruins of Thaurissan, west of the reavers.
+turnin 4296
+
+# Kargath, Grom'gol and Orgrimmar --------------------------------------------------------------------
+
+fly "Kargath, Badlands" npc 13177
+map Badlands
+turnin 4061
+fly "Grom'gol, Stranglethorn" npc 2861
+map Stranglethorn Vale
+note "Take the zeppelin from the Grom'gol tower to Orgrimmar" at 31.5,29.5
+map Orgrimmar
+bind 6929
+ah 91610.1 npc 8673
+tip Kurll in Azshara wants 10 Winter Squid. Fishers can catch them on the Azshara coast instead.
+accept 4494
+tip Zilzibin is in the Drag. This one is handed in at Gadgetzan in a later guide.
+accept 91735
+tip Jes'rimon hides upstairs in one of the tall buildings of the Drag.
+accept 3504
+train 3353 3352 3401 6014 3344 5882 3326
+tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+fly "Splintertree Post, Ashenvale" npc 3310
+tip Ride east from Splintertree Post along the road into Azshara. With the Valormok flight path, fly there instead and take Loh'atu's quests at the end.
+
+# Into Azshara: Loh'atu, Shadowsong Shrine and the Haldarr ------------------------------------------------
+
+map Azshara
+accept 5535 5536
+tip Loh'atu camps by the road at Talrendis Point, just inside Azshara.
+do 5535
+tip The Highborne spirits haunt Shadowsong Shrine, north of Loh'atu.
+do 5536
+tip The Haldarr satyrs camp on the hill south of Valormok. Hand both in at the end, on the way out.
+
+# Valormok ---------------------------------------------------------------------------------------------
+
+fpath 8610
+turnin 3504
+accept 91488
+accept 91568 91569
+turnin 91735
+accept 3517
+do 91488 mobs 8759 8760 8761 at 19.7,53.3
+tip Mosshoof Runners graze around Valormok; any kind of mosshoof drops the hides.
+turnin 91488
+accept 91608 91610
+do 91608
+tip Shoot the wasp nests out of the trees west of Valormok with the Pellet Gun and pick up the honey. Kill the wasps that come out.
+turnin 91608
+
+# The Ruins of Eldarath and the shore --------------------------------------------------------------------
+
+do 3517
+tip The four tablets lie in the ruins; each kind has several spots, so click the first of each you see.
+do 91568
+tip Use the Treasure Trowel 3000 on the sand mounds along the shore east of the ruins.
+do 91610 at 46.0,52.0 icon use "Fish up 10 Winter Squid along the shore"
+tip Needs Fishing. Without it, buy them at an auction house.
+accept 86746 86752
+tip Ekkal stands in the north of the ruins.
+
+# Valormok ---------------------------------------------------------------------------------------------
+
+turnin 3517 91568 91610
+accept 3561 3541 3518
+tip Jes'rimon and Magatha are handed in by later guides, in Orgrimmar and Thunder Bluff.
+
+# Archmage Xylem and Ursolan ------------------------------------------------------------------------------
+
+turnin 3561
+tip Xylem walks the floors of his tower north of Valormok.
+accept 3565
+turnin 86752
+accept 86791
+accept 86799
+tip Furze lies sick at the east end of Ursolan.
+turnin 86799
+accept 86804
+
+# The Legashi camps --------------------------------------------------------------------------------------
+
+do 86746 bg
+turnin 86804
+tip The cauldron stands in the middle of the Legashi Encampment.
+accept 86925
+turnin 86791
+tip Korsa and the surviving scouts hide on the hill east of the encampment.
+accept 86777
+do 86925 at 61.5,25.0
+tip Any Legashi satyr can carry the recipe.
+turnin 86925
+accept 86926
+do 86926.1
+tip Satyrweed grows around the cauldron.
+do 86777
+tip Master Feardred holds the camp south of Korsa.
+do 86926.2
+tip The Fel Mote floats in Feardred's camp.
+turnin 86926
+accept 86927
+turnin 86777
+accept 86797
+do 86746
+tip The last satyrs are in the camp north-east of Korsa.
+do 91569
+tip The Blood Elf Arcanists camp along the cliffs east of Korsa.
+
+# Ursolan ------------------------------------------------------------------------------------------------
+
+turnin 86797
+turnin 86927
+accept 86812
+do 86812 at 48.4,22.6 icon use "Weaken 3 Mosshoof Coursers or Thunderhead Skystormers, then use the Satyrweed Tincture on them"
+tip Coursers and Skystormers roam just east of Ursolan.
+turnin 86812
+accept 86813
+do 86813 at 45.3,22.4 icon use "Give Bramblesnap's Panacea to Furze"
+turnin 86813
+
+# Back south: Ekkal, Valormok and Loh'atu ------------------------------------------------------------------
+
+turnin 86746
+turnin 3565
+turnin 91569
+turnin 5535 5536
+note "Azshara is done: the next guide starts with your hearthstone to Orgrimmar" npc 11548
