@@ -51,13 +51,17 @@ end
 --- Run a guide's Lua text in a sandbox holding only a fresh `Pathwright` table (no game API, no
 --- globals): returns the table it filled and its PathwrightSent, or nil and the error. The text
 --- may come from someone else: data only, no function.
+---
+--- Guides made by the upstream Factoruide app (`local FG = Factoruide`) are read too: `Factoruide`
+--- is the same table. Their `FactoruideSent` is not taken: it holds the seqs of upstream's own
+--- recordings, which mean nothing for this addon's (taking it would drop rows never sent).
 function Import.Run(text)
     -- Precompiled chunks can get out of a sandbox: source text only.
     if type(text) ~= "string" or text:byte(1) == 27 then return nil, "not Lua source" end
     local chunk, err = loadstring(text, "=import")
     if not chunk then return nil, err end
     local ns = {}
-    local env = { Pathwright = ns }
+    local env = { Pathwright = ns, Factoruide = ns }
     setfenv(chunk, env)
     local ok, runErr = pcall(chunk)
     if not ok then return nil, runErr end

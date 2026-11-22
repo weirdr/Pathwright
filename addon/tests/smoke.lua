@@ -4331,6 +4331,26 @@ local function ExportImport()
         FG.Import.Run("os.exit(1)") == nil and FG.Import.Run(string.dump(function() end)) == nil,
         "no os, no bytecode"
     )
+    -- Guides made by the upstream Factoruide app (`local FG = Factoruide`) are read as they are;
+    -- their FactoruideSent (upstream's recordings) is not taken.
+    local upstream, upstreamSent = FG.Import.Run(
+        'local FG = Factoruide\nFG.Routes = FG.Routes or {}\nFG.Routes["up"] = { class = 8, steps = {} }\n'
+            .. 'FactoruideSent = { ["Brouz-Realm"] = 9999 }\n'
+    )
+    assert(upstream and upstream.Routes.up and upstream.Routes.up.class == 8, "Factoruide guides read")
+    assert(upstreamSent == nil, "FactoruideSent not taken")
+    local sentBefore = PathwrightDB.sent["Brouz-Realm"]
+    reloaded = false
+    local upstreamLua = GuideLua("upstream-mage", 3000):gsub("local FG = Pathwright", "local FG = Factoruide")
+        .. 'FactoruideSent = { ["Brouz-Realm"] = 9999 }\n'
+    assert(not upstreamLua:find("Pathwright", 1, true), "the upstream text names Factoruide only")
+    Click(Encode(upstreamLua))
+    assert(
+        reloaded and PathwrightDB.guides["upstream-mage"] and PathwrightDB.guides["upstream-mage"].created == 3000,
+        "a Factoruide guide string imports: " .. status:GetText()
+    )
+    assert(PathwrightDB.sent["Brouz-Realm"] == sentBefore, "its FactoruideSent left out")
+    PathwrightDB.guides["upstream-mage"] = nil
     -- WoW's integer formatter can be signed 32-bit even when Lua numbers hold wider masks.
     -- Exercise the pasted-string preparation path, then reload the text kept for that guide.
     local wide = Encode([[
