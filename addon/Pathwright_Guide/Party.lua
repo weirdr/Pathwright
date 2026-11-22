@@ -1,5 +1,6 @@
 -- Group sync: members running Pathwright send their quest progress (objectives fulfilled) to
--- the party; the tracker shows theirs next to each objective.
+-- the party; Questie players' progress comes in through QuestieShare.lua. The tracker shows
+-- theirs next to each objective, the guide a line under each objective step (Party:Line).
 
 local FG = Pathwright
 local QuestLog = FG.QuestLog
@@ -77,7 +78,40 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
         mine[tonumber(id)] = list
     end
     if FG.Tracker then FG.Tracker:Refresh() end
+    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
 end)
+
+--- Keep a party member's progress on a quest (from Questie: counts, "x" when finished).
+function Party:Store(name, questID, counts)
+    if not name or not questID then return end
+    self.progress[name] = self.progress[name] or {}
+    self.progress[name][questID] = counts
+end
+
+--- A party member no longer has the quest (handed in, abandoned).
+function Party:Forget(name, questID)
+    if self.progress[name] then self.progress[name][questID] = nil end
+end
+
+--- The party's progress on objective `objective` (its index in the log) of a quest, at most
+--- 4 players, by name: { { name, have, need, done } }. `need`: the objective's count.
+function Party:Members(questID, objective, need)
+    if not FG:Get("partySync") then return {} end
+    local out = {}
+    for name, quests in pairs(self.progress) do
+        local c = quests[questID] and quests[questID][objective]
+        if c then
+            local done = c == "x" or (need and tonumber(c) and tonumber(c) >= need) or false
+            local have = c == "x" and need or tonumber(c) or 0
+            out[#out + 1] = { name = name, have = have, need = need, done = done and true or false }
+        end
+    end
+    table.sort(out, function(a, b) return a.name < b.name end)
+    while #out > 4 do
+        table.remove(out)
+    end
+    return out
+end
 
 --- " (Name 3, Name ✓)" for an objective of a quest the party also has.
 function Party:Suffix(questID, objective, required)

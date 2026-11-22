@@ -117,14 +117,19 @@ end
 --- the end of the fight.
 function FG.CanLayout(frame) return not (InCombatLockdown() and frame:IsProtected()) end
 
---- Whether a nameplate may be measured or have our frames anchored to it. The game restricts some
---- (forbidden: in instances, some friendly plates; anchoring restricted): touching one raises
---- "Can't measure restricted regions".
+--- Whether our frames may be put on a nameplate: not on a forbidden one (in instances, some
+--- friendly plates), which takes nothing of ours. Others take our marks even when the game
+--- restricts measuring them (see FG.PlateMeasurable).
 function FG.PlateUsable(plate)
     if not plate then return false end
-    if plate.IsForbidden and plate:IsForbidden() == true then return false end
-    if plate.IsAnchoringRestricted and plate:IsAnchoringRestricted() == true then return false end
-    return true
+    return not (plate.IsForbidden and plate:IsForbidden() == true)
+end
+
+--- Whether a nameplate's place on screen may be read (GetCenter): not when forbidden, nor when
+--- the game restricts it ("Can't measure restricted regions").
+function FG.PlateMeasurable(plate)
+    if not FG.PlateUsable(plate) then return false end
+    return not (plate.IsAnchoringRestricted and plate:IsAnchoringRestricted() == true)
 end
 
 -- Name the function the game refused to us (the popup does not), once each, with where it came from.
@@ -261,7 +266,36 @@ function FG.PlayerPosition()
     return mapID, math.floor(x * 10000 + 0.5) / 100, math.floor(y * 10000 + 0.5) / 100
 end
 
-function FG:CharacterKey() return UnitName("player") .. "-" .. (GetNormalizedRealmName() or GetRealmName() or "") end
+local characterKey -- once known, for the session
+
+--- This character's key in the saved variables: "Name-Realm". WoW Forever gives no realm name at
+--- login: the realm's number from the character's GUID then ("Name-#1234"), so that characters
+--- of the same name on different realms do not share their guides and progress. The entry an
+--- older version kept as "Name-" goes to the character it was made for (its race and class).
+function FG:CharacterKey()
+    if characterKey then return characterKey end
+    local name = UnitName("player") or ""
+    local realm = GetNormalizedRealmName and GetNormalizedRealmName() or nil
+    if not realm or realm == "" then realm = GetRealmName and GetRealmName() or "" end
+    if realm == "" then
+        local guid = UnitGUID and FG.Readable(UnitGUID("player"))
+        local server = type(guid) == "string" and guid:match("^Player%-(%d+)%-")
+        if server then realm = "#" .. server end
+    end
+    local key = name .. "-" .. realm
+    if name == "" or realm == "" then return key end
+    characterKey = key
+    local chars = type(PathwrightDB) == "table" and type(PathwrightDB.characters) == "table" and PathwrightDB.characters
+    local old = chars and realm:sub(1, 1) == "#" and chars[name .. "-"]
+    if old and not chars[key] then
+        local _, classFile = UnitClass("player")
+        local _, _, raceID = UnitRace("player")
+        if old.class == classFile and old.race == raceID then
+            chars[key], chars[name .. "-"] = old, nil
+        end
+    end
+    return key
+end
 
 -- Skill names in the skills list, for clients without GetProfessions (matched by name).
 local SKILL_NAMES = {

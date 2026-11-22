@@ -162,7 +162,7 @@ end
 --- How far a nameplate is from the middle of the screen (squared); a restricted one, or one the
 --- game will not measure, counts as far.
 local function ScreenDistance(plate)
-    if not FG.PlateUsable(plate) then return math.huge end
+    if not FG.PlateMeasurable(plate) then return math.huge end
     local ok, x, y = pcall(plate.GetCenter, plate)
     local cx, cy = UIParent:GetCenter()
     if not ok or not (x and cx) then return math.huge end

@@ -437,6 +437,41 @@ function QuestieShare:Receive(message, channel, sender)
     if packet.msgId == REQUEST_LIST then self:SendLog("WHISPER", sender) end
 end
 
+--- Questie players' progress, kept for the guide's party line (Party:Members): their updates,
+--- their whole logs, the quests they no longer have. Read whether or not we share ours.
+function QuestieShare:Store(message, sender)
+    local Party = FG.Party
+    if not Party or not sender or not FromGroup(sender) then return end
+    local name = Ambiguate and Ambiguate(sender, "short") or sender
+    if name == UnitName("player") then return end
+    local packet = QuestieShare.Deserialize(message)
+    if type(packet) ~= "table" or type(packet.msgVer) ~= "number" then return end
+    if packet.msgId == UPDATE and type(packet.quest) == "table" then
+        local counts = {}
+        for i, o in ipairs(type(packet.quest.objectives) == "table" and packet.quest.objectives or {}) do
+            counts[i] = o.fin and "x" or tostring(tonumber(o.ful) or 0)
+        end
+        Party:Store(name, tonumber(packet.quest.id), counts)
+    elseif packet.msgId == REMOVE then
+        Party:Forget(name, tonumber(packet.id))
+    elseif packet.msgId == FULL_LIST and type(packet[1]) == "table" then
+        -- { count, quest, objectives n, (id, type, fulfilled, required) x n, quest... }
+        local b, at = packet[1], 2
+        for _ = 1, tonumber(b[1]) or 0 do
+            local questID, n = tonumber(b[at]), tonumber(b[at + 1]) or 0
+            local counts = {}
+            for i = 1, n do
+                local base = at + 2 + (i - 1) * 4
+                local ful, req = tonumber(b[base + 2]) or 0, tonumber(b[base + 3]) or 0
+                counts[i] = (req > 0 and ful >= req) and "x" or tostring(ful)
+            end
+            Party:Store(name, questID, counts)
+            at = at + 2 + n * 4
+        end
+    end
+    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
+end
+
 -- Events ---------------------------------------------------------------------------------
 
 local pending = false
@@ -470,7 +505,10 @@ FG:On("PLAYER_LOGIN", function()
 end)
 FG:On("QUEST_LOG_UPDATE", Later)
 FG:On("CHAT_MSG_ADDON", function(prefix, message, channel, sender)
-    if prefix == PREFIX then QuestieShare:Receive(message, channel, sender) end
+    if prefix == PREFIX then
+        QuestieShare:Receive(message, channel, sender)
+        FG:Try("questie progress", QuestieShare.Store, QuestieShare, message, sender)
+    end
 end)
 -- Joining a group: the whole log to the Questie players in it.
 FG:On("GROUP_ROSTER_UPDATE", function()

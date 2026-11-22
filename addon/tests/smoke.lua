@@ -1641,6 +1641,42 @@ do
     print("quest stats ok")
 end
 
+-- The party's progress for the guide's step lines (Party.lua): Pathwright members and Questie
+-- players alike, at most 4, done ones flagged; Questie's whole-log message read.
+do
+    local P = FG.Party
+    local saved = P.progress
+    P.progress = {}
+    P:Store("Zed", 900, { "3", "x" })
+    P:Store("Amy", 900, { "8" })
+    for _, n in ipairs({ "Bo", "Cy", "Di" }) do
+        P:Store(n, 900, { "1" })
+    end
+    local m = P:Members(900, 1, 8)
+    assert(#m == 4 and m[1].name == "Amy" and m[1].done and m[1].have == 8, "4 at most, by name, done flagged")
+    assert(P:Members(900, 2, 5)[1].name == "Zed" and P:Members(900, 2, 5)[1].done, "a finished one")
+    P:Forget("Zed", 900)
+    assert(#P:Members(900, 2, 5) == 0, "forgotten once gone")
+    -- A Questie player's whole log: { count, quest, n, (id, type, fulfilled, required) x n ... }.
+    P.progress = {}
+    local realParty = UnitInParty
+    UnitInParty = function(name) return name == "Questy-Realm" end
+    local QS = FG.QuestieShare
+    local data =
+        QS.Serialize({ ver = "1.0.0", msgVer = 5, msgId = 12, [1] = { 1, 900, 2, 0, 109, 3, 10, 0, 105, 2, 2 } })
+    QS:Store(data, "Questy-Realm")
+    local q = P.progress.Questy or P.progress["Questy-Realm"]
+    assert(q and q[900] and q[900][1] == "3" and q[900][2] == "x", "Questie's counts kept")
+    QS:Store(QS.Serialize({ ver = "1.0.0", msgVer = 5, msgId = 2, id = 900 }), "Questy-Realm")
+    q = P.progress.Questy or P.progress["Questy-Realm"]
+    assert(q[900] == nil, "Questie's quest gone")
+    QS:Store(data, "Stranger-Realm")
+    assert(not P.progress.Stranger and not P.progress["Stranger-Realm"], "only from the group")
+    UnitInParty = realParty
+    P.progress = saved
+    print("party lines ok")
+end
+
 -- Death skip: done once back at the spirit healer the step stands at.
 FG.Routes["deathskip-test"] = {
     race = 7,
@@ -1967,6 +2003,16 @@ do
     np:Update("nameplate1")
     local mark = np.marks.nameplate1
     assert(mark and mark:IsShown() and mark.progress.kind == "kill", "a sword on a mob to kill")
+    -- A plate the game will not let us measure still takes the mark; a forbidden one does not.
+    plates.nameplate1.IsAnchoringRestricted = function() return true end
+    np:Update("nameplate1")
+    assert(np.marks.nameplate1, "marked though measuring it is restricted")
+    plates.nameplate1.IsForbidden = function() return true end
+    np:Update("nameplate1")
+    assert(not np.marks.nameplate1, "no mark on a forbidden plate")
+    plates.nameplate1.IsForbidden, plates.nameplate1.IsAnchoringRestricted = nil, nil
+    np:Update("nameplate1")
+    mark = np.marks.nameplate1
     assert(np.Count(mark.progress) == "3/10" and mark.count.text == "3/10", "its count")
     -- A mob that drops a quest item: the money bag.
     plates.nameplate2 = CreateFrame("Frame", nil, UIParent)

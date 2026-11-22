@@ -139,6 +139,11 @@ local function TaskRow(i)
     row.sub = Skin:Text(row, 10, "muted")
     row.sub:SetPoint("TOPLEFT", TEXT_LEFT, -21)
     row.sub:SetPoint("RIGHT", row.stats, "LEFT", -6, 0)
+    -- The party's progress on the same objective: one line, left, at the bottom (PartyLine).
+    row.party = Skin:Text(row, 9, "muted")
+    row.party:SetPoint("BOTTOMLEFT", TEXT_LEFT, 3)
+    row.party:SetJustifyH("LEFT")
+    row.party:SetWordWrap(false)
     row.track = Skin:Fill(row, "ARTWORK", "text", 0.08)
     row.track:SetHeight(3)
     row.track:SetPoint("BOTTOMLEFT", TEXT_LEFT, 5)
@@ -184,6 +189,39 @@ local function HideSegments(row)
     end
 end
 
+--- Room for the party line, left of nothing (the row's text width).
+local PARTY_WIDTH = WIDTH - TEXT_LEFT - PAD
+-- The party line's sizes, the largest that fits on one line; then names cut short.
+local PARTY_SIZES = { 9, 8, 7 }
+local PARTY_NAME_CUTS = { 8, 5, 3 }
+
+--- "Name (3/8), Name (8/8)": each member, done ones in green.
+local function PartyText(members, cut)
+    local parts = {}
+    for i, m in ipairs(members) do
+        local name = m.name
+        if cut and #name > cut then name = name:sub(1, cut) .. "." end
+        local count = m.need and string.format("%d/%d", m.have or 0, m.need) or tostring(m.have or 0)
+        local color = m.done and Skin.Hex("green") or ""
+        parts[i] = color .. name .. " (" .. count .. ")" .. (m.done and "|r" or "")
+    end
+    return table.concat(parts, ", ")
+end
+
+--- Draw the party line on one line: the largest size it fits in, then shorter names.
+local function PartyLine(row, members)
+    row.party:SetWidth(PARTY_WIDTH)
+    for _, cut in ipairs({ false, unpack(PARTY_NAME_CUTS) }) do
+        local text = PartyText(members, cut or nil)
+        for _, size in ipairs(PARTY_SIZES) do
+            row.party:SetFontObject(Skin.FontObject(size))
+            row.party:SetText(text)
+            local w = tonumber(row.party:GetStringWidth()) or 0
+            if w <= PARTY_WIDTH then return end
+        end
+    end
+end
+
 --- Draw a task row; returns its height.
 local function DrawTask(row, v, view)
     row.index = v.index
@@ -195,6 +233,7 @@ local function DrawTask(row, v, view)
         row.check:Hide()
         row.sub:Hide()
         row.stats:Hide()
+        row.party:Hide()
         row.track:Hide()
         row.fill:Hide()
         row.name:SetFontObject(Skin.FontObject(10))
@@ -234,6 +273,13 @@ local function DrawTask(row, v, view)
     row.stats:SetText(v.stats or "")
     row.stats:SetShown(v.stats ~= nil)
     local bar = (v.have and v.need and v.need > 0 and not v.done) and true or false
+    local party = v.party and not v.done
+    row.party:SetShown(party and true or false)
+    if party then PartyLine(row, v.party) end
+    -- The bar over the party line when there is one.
+    row.track:ClearAllPoints()
+    row.track:SetPoint("BOTTOMLEFT", TEXT_LEFT, party and 16 or 5)
+    row.track:SetPoint("BOTTOMRIGHT", -PAD, party and 16 or 5)
     row.track:SetShown(bar)
     row.fill:SetShown(bar)
     if bar then
@@ -242,8 +288,8 @@ local function DrawTask(row, v, view)
         SetColor(row.fill, share >= 1 and "green" or "orange")
     end
     if v.done and v.stats then return 32 end
-    if v.done or (sub == "" and not bar and not v.stats) then return 28 end
-    return bar and 42 or 36
+    if v.done or (sub == "" and not bar and not v.stats and not party) then return 28 end
+    return (bar and 42 or 36) + (party and 11 or 0)
 end
 
 local function NextRow(i)

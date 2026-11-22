@@ -204,6 +204,29 @@ local function QuestTitle(step) return step.q and QuestLog.GetTitleForQuestID(st
 --- Game objective matching the step's target name. When several hold the name ("Night Web
 --- Spider slain" and "Young Night Web Spider slain"), the one with the least else around it
 --- (counts, spaces and punctuation aside), then the one at the step's objective index.
+--- The step's objective in the log and its index there (the party's counts are by index).
+local function FindObjectiveIndex(step)
+    local objectives = QuestLog.GetQuestObjectives(step.q)
+    if not objectives then return nil end
+    if not step.n then
+        if #objectives == 1 then return objectives[1], 1 end
+        return nil
+    end
+    local name = step.n:lower()
+    local best, bestIndex, bestRest
+    for i, o in ipairs(objectives) do
+        local text = o.text and o.text:lower()
+        local at = text and text:find(name, 1, true)
+        if at then
+            local rest = #((text:sub(1, at - 1) .. text:sub(at + #name)):gsub("[%d%p%s]", ""))
+            if not best or rest < bestRest or (rest == bestRest and i == step.o) then
+                best, bestIndex, bestRest = o, i, rest
+            end
+        end
+    end
+    return best, bestIndex
+end
+
 local function FindObjective(step)
     local objectives = QuestLog.GetQuestObjectives(step.q)
     if not objectives or not step.n then return nil end
@@ -393,14 +416,17 @@ function IsDone(step, index)
         if inside and inside.di then return mark == "inside" or mark == true end
         return mark == true
     elseif step.k == "hearth" then
+        if state.marks[index or state.step] then return true end
         local d = Distance(step)
         return d ~= nil and d < 100
     elseif step.k == "deathskip" then
         -- Died on purpose: done once back at the spirit healer the step stands at.
+        if state.marks[index or state.step] then return true end
         local d = Distance(step)
         return d ~= nil and d < 100
     elseif step.k == "teleport" then
         -- Placed at the class trainer of the city, a little off where the spell lands.
+        if state.marks[index or state.step] then return true end
         local d = Distance(step)
         return d ~= nil and d < 300
     elseif step.k == "link" then
@@ -846,6 +872,12 @@ local function TaskView(step, index, withProgress)
     v.mark = NoteMark(step)
     -- Your time on its quest, the drop rate of its item, the score (Stats.lua): small, under the count.
     v.stats = FG.Stats and FG.Stats:StepLine(step)
+    -- The party's progress on the same objective (Party.lua): "Name (3/8)" for each member.
+    if step.k == "objective" and step.q and FG.Party and QuestLog.IsOnQuest(step.q) then
+        local o, at = FindObjectiveIndex(step)
+        if at then v.party = FG.Party:Members(step.q, at, o and o.numRequired) end
+        if v.party and not v.party[1] then v.party = nil end
+    end
     -- An objective guide done below the level its quests ask: said on the current step until reached.
     local recommended = route and route.recommendedLevel
     if recommended and state and index == state.step and UnitLevel("player") < recommended then
@@ -1291,7 +1323,21 @@ function Guide:PrevGroup()
     self:Go(GroupOf(math.max(1, first - 1)))
 end
 
-local VISITS = { flight_master = true, train = true, sell = true, bind = true, profession = true }
+-- Steps the game cannot tell were done (visits, notes, places, flights): passed once a quest step
+-- after them is done.
+local VISITS = {
+    flight_master = true,
+    train = true,
+    sell = true,
+    bind = true,
+    profession = true,
+    note = true,
+    ["goto"] = true,
+    fly = true,
+    hearth = true,
+    deathskip = true,
+    teleport = true,
+}
 
 local QUEST_STEPS = { accept = true, turnin = true, objective = true }
 
