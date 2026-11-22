@@ -41,9 +41,9 @@
 guide Desolace & Shen'dralas (43-43)
 faction horde
 levels 43 43
+carry 1117 1137 1183 1261 2864 2872 93464
+leave 1117 1137 1183 1261 2864 2872 94895
 next Tanaris (43-43)
-carry 93464 1117 1183 2864 2872 1261
-leave 94895 1117 1183 2864 2872 1261
 
 # Orgrimmar: the auction house ------------------------------------------------------------------------
 

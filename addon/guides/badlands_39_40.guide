@@ -1,0 +1,185 @@
+# Badlands (39-40): the Horde quests of Kargath, Lotwil's camp, Rigglefuzz and Theldurin, for a
+# Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/badlands_39_40.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Badlands, area 3). The
+# quest list is section 19 of addon/guides/horde_1_40_allocation.md.
+# Left out:
+#   Solution to Doom (709): the Tablet of Ryun'eh is in a chest inside Uldaman, a dungeon; To the
+#   Undercity for Yagyin's Digest (728) follows it. Forbidden Knowledge (737) follows 728 and The
+#   Star, the Hand and the Heart (736), whose three items drop in Swamp of Sorrows, Stranglethorn
+#   Vale and Alterac Mountains.
+#   Uldaman Reagent Run (2202): the Magenta Cap Clusters grow inside Uldaman.
+#   Translating the Journal (2338): the journal comes from the Remains of a Paladin inside Uldaman.
+#   Compendium of the Fallen (1049): the book is in the Scarlet Monastery library, a dungeon.
+# Carried in (skipped by those who lack them): Martek the Exiled (1106, Fizzle Brassbolts in
+# Thousand Needles), Frostmaw (1136, Frostmaw's Mane from Alterac Mountains), The Black Shield
+# (1276, Krog in Dustwallow Marsh), Theldurin the Lost (687, Zaruk in Hammerfall).
+# Left to later guides: News for Fizzle (1137, Tanaris), Report to Helgrum (1420, Stonard) and
+# Finding Tan'jani (95143, Rog'mar).
+# Bought, not farmed: Lotwil's and Lucien's engineering quests want Frost Oil, a Gyrochronatom, a
+# Healing Potion, a Lesser Invisibility Potion and Patterned Bronze Bracers, and Rigglefuzz wants
+# Blue Pearls from Stranglethorn Vale: the guide buys them in Undercity halfway through.
+#
+# The route: Hammerfall, Thandol Span, the Wetlands and Loch Modan on foot into the Badlands;
+# Rigglefuzz, Lotwil and Kargath to take the quests; a loop west of Kargath (the lesser rock
+# elementals, the buzzards, the Dustbowl ogres); a flight to Undercity for the auction house, the
+# zeppelin and Thunder Bluff, and the hearthstone back to Kargath; Lotwil; south to the rock
+# elementals, Theldurin and the troggs, back by Martek and Rigglefuzz; the Shadowforge dig site;
+# west again to Camp Boff and the greater rock elementals; Lotwil's last quests; south out of the
+# Badlands into the Riverglades.
+
+guide Badlands (39-40)
+faction horde
+levels 39 40
+next Riverglades (40-41)
+carry 1106 1136 1276 687
+leave 1137 1420 95143
+
+# Into the Badlands ---------------------------------------------------------------------------------
+
+map Undercity
+fly "Hammerfall, Arathi" npc 4551
+tip Already in the Arathi Highlands? Skip the flight and make for Hammerfall, or straight for Thandol Span if Tor'gan has nothing for you.
+map Arathi Highlands
+accept 95143
+tip Tor'gan's brother went south through the Badlands to the Riverglades: you will find him at the start of the next guide.
+goto "Ride west from Hammerfall and take the road south past Refuge Pointe to Thandol Span, the great bridge into the Wetlands" at 45.5,89.0 r 30
+tip Refuge Pointe is an Alliance camp: keep to the road and give it room.
+map Wetlands
+goto "Cross Thandol Span and follow the road south through the Wetlands to Dun Algaz" at 53.0,71.0 r 40
+map Badlands
+goto "Go through Dun Algaz into Loch Modan, follow the road south past Thelsamar, then the trail south over the mountains into the Badlands" at 47.5,16.0 r 40
+tip Thelsamar is a dwarf town: ride around it. The trail comes down near the Shadowforge dig site in the north; you will be back there later.
+
+# Rigglefuzz, Lotwil and Kargath --------------------------------------------------------------------
+
+accept 703 705 2418
+tip Rigglefuzz and Martek share a small camp by the road in the middle of the Badlands.
+turnin 1106
+accept 1108
+accept 710 713
+tip Lotwil paces around his machine; Lucien stands next to it. Frost Oil comes later, from the Undercity auction house.
+accept 1419 1420
+tip Neeka Bloodscar keeps watch from the top of a tower. Report to Helgrum is for Stonard, in a later guide: keep it.
+accept 97663
+accept 2258
+tip Jarkal is upstairs in the building at the back of Kargath.
+fpath 2861
+bind 9356
+
+# West of Kargath: the lesser rock elementals, the buzzards and the Dustbowl ogres ------------------
+
+do 1419 bg at 18.5,78.7
+do 2258.2 bg at 18.5,78.7
+tip Every Crag Coyote drops a jawbone; only about one in three drops a fang. The Elder Crag Coyotes roam all of the west.
+do 2258.3 bg
+do 710
+tip The Lesser Rock Elementals crowd the slopes west of Lotwil's camp.
+do 703 mobs 2831 at 16.4,60.3
+do 2258.1 mobs 2831 at 16.4,60.3
+tip The Giant Buzzards circle the canyon south-east of Kargath.
+do 97663.1 at 27.2,63.6
+tip Ogres camp in the Dustbowl, south of Lotwil's camp.
+do 97663.2 at 31.7,60.9 icon use "Use Mus'hale's Stolen Supplies on the small etched stone"
+do 97663.3 at 28.2,60.3 icon use "Use Mus'hale's Stolen Supplies on the large etched stone"
+turnin 710
+accept 711
+turnin 97663
+
+# Undercity and Thunder Bluff ------------------------------------------------------------------------
+
+fly "Undercity, Tirisfal" npc 2861
+map Undercity
+ah 713.1 npc 8672
+tip Lotwil and Lucien want five crafted things: Frost Oil, a Gyrochronatom, a Healing Potion, a Lesser Invisibility Potion and Patterned Bronze Bracers. Nothing in the Badlands drops them: buy them here, or bring your own if you are an alchemist, engineer or blacksmith.
+ah 714.1 npc 8672
+tip Elizabeth Van Talen, the engineering supplier in the Rogues' Quarter, also sells Gyrochronatoms.
+ah 715.1 npc 8672
+ah 715.2 npc 8672
+ah 716.1 npc 8672
+ah 705.1 npc 8672
+tip Rigglefuzz's 9 Blue Pearls come from the clams of the Vile Reef in Stranglethorn Vale. Buy them here, or skip Pearl Diving.
+map Durotar
+note "Take the zeppelin from the tower outside Undercity to Durotar" at 50.8,13.4
+map Orgrimmar
+fly "Thunder Bluff, Mulgore" npc 3310
+map Thunder Bluff
+turnin 1276
+tip Mosarn must see the Blackened Iron Shield: take it out of the bank first if you stored it there.
+turnin 1136
+tip Melor Stonehoof is on Hunter Rise.
+hearth npc 9356
+
+# Lotwil's camp -------------------------------------------------------------------------------------
+
+map Badlands
+turnin 713
+tip No Frost Oil? Then skip Gyro... What?, Liquid Stone and This Is Going to Be Hard: they all follow it.
+accept 714
+turnin 714
+accept 715
+turnin 715
+
+# South: the rock elementals, Theldurin and the troggs ----------------------------------------------
+
+do 711 at 39.0,75.9
+tip Large Stone Slabs drop rarely: the shards for Jarkal come along on the way.
+turnin 687
+accept 692
+tip Theldurin the Lost sits alone by the southern mountains.
+do 692
+tip The Enraged Rock Elementals (level 42-43) fight over the fragments south-east of Theldurin; any of them can drop each of the three.
+turnin 692
+do 1108
+tip The Stonevault troggs camp north of Theldurin; the Bonesnappers and Shamans both drop the flakes.
+turnin 1108
+accept 1137
+tip Martek has news for Fizzle in Thousand Needles: a later guide takes it there.
+turnin 703
+turnin 705
+
+# The Shadowforge dig site ---------------------------------------------------------------------------
+
+do 2418
+tip The Shadowforge dwarves (elites, level 35-37) work the dig site in the north. An'Alleum stones drop often, Dentrium stones about one time in five.
+turnin 2418
+
+# West again: Camp Boff and the greater rock elementals -----------------------------------------------
+
+turnin 711
+accept 712
+grind 40 at 19.4,42.8
+tip Gorn, in Kargath, gives Broken Alliances from level 40. The kills so far have most likely brought you there; if not, the lesser rock elementals on the way finish it.
+accept 782
+do 782 at 12.6,75.5
+tip Boss Tho'grun (level 41-42) leads the Dustbelcher ogres of Camp Boff, in the south-west; he may be out walking among their camps.
+do 712
+tip The Greater Rock Elementals (level 42-44) stand in the far south-west corner, just past Camp Boff.
+do 2258.3 mobs 2736 at 3.6,80.2
+do 1419 at 12.2,65.6
+do 2258.2 at 12.2,65.6
+do 2258.1 mobs 2831 at 16.4,60.3
+turnin 782
+turnin 1419
+turnin 2258
+
+# Lotwil's last quests -------------------------------------------------------------------------------
+
+turnin 712
+accept 734
+turnin 734
+accept 777
+accept 716
+turnin 716
+turnin 777
+tip Lotwil's next quest is a level 45 fight: leave it.
+
+# On to the Riverglades ------------------------------------------------------------------------------
+
+goto "Ride south-east past the rock elementals and Theldurin to the pass at the southern edge of the Badlands" at 54.0,86.0 r 30
+note "The next guide starts at Rog'mar: ride down the pass into the Riverglades and follow the road east to Rog'mar" at 54.0,86.0
+tip A Twilight camp (levels 42-45) sits by the road at the foot of the pass: keep riding.

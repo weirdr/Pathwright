@@ -1,0 +1,160 @@
+[
+ [
+  "Undead Starter (1-13)",
+  1,
+  13,
+  [
+   "Tirisfal Glades",
+   "Undercity"
+  ]
+ ],
+ [
+  "Tauren Starter (1-13)",
+  1,
+  13,
+  [
+   "Mulgore",
+   "Thunder Bluff"
+  ]
+ ],
+ [
+  "Orc & Troll Starter (1-13)",
+  1,
+  13,
+  [
+   "Durotar",
+   "Orgrimmar"
+  ]
+ ],
+ [
+  "Silverpine Forest (13-15)",
+  13,
+  15,
+  [
+   "Silverpine Forest"
+  ]
+ ],
+ [
+  "The Barrens & Stonetalon Mountain (15-21)",
+  15,
+  21,
+  [
+   "The Barrens",
+   "Stonetalon Mountains"
+  ]
+ ],
+ [
+  "Ashenvale (21-22)",
+  21,
+  22,
+  [
+   "Ashenvale"
+  ]
+ ],
+ [
+  "Hillsbrad Foothills (22-24)",
+  22,
+  24,
+  [
+   "Hillsbrad Foothills"
+  ]
+ ],
+ [
+  "The Barrens (24-25)",
+  24,
+  25,
+  [
+   "The Barrens"
+  ]
+ ],
+ [
+  "Stonetalon Mountains (25-26)",
+  25,
+  26,
+  [
+   "Stonetalon Mountains"
+  ]
+ ],
+ [
+  "Ashenvale (26-28)",
+  26,
+  28,
+  [
+   "Ashenvale"
+  ]
+ ],
+ [
+  "Thousand Needles (28-30)",
+  28,
+  30,
+  [
+   "Thousand Needles"
+  ]
+ ],
+ [
+  "Hillsbrad Foothills (30-32)",
+  30,
+  32,
+  [
+   "Hillsbrad Foothills",
+   "Alterac Mountains"
+  ]
+ ],
+ [
+  "Arathi Highlands (32-33)",
+  32,
+  33,
+  [
+   "Arathi Highlands"
+  ]
+ ],
+ [
+  "Thousand Needles (33-34)",
+  33,
+  34,
+  [
+   "Thousand Needles"
+  ]
+ ],
+ [
+  "Desolace (34-36)",
+  34,
+  36,
+  [
+   "Desolace"
+  ]
+ ],
+ [
+  "Stranglethorn Vale (36-37)",
+  36,
+  37,
+  [
+   "Stranglethorn Vale"
+  ]
+ ],
+ [
+  "Dustwallow Marsh (37-38)",
+  37,
+  38,
+  [
+   "Dustwallow Marsh"
+  ]
+ ],
+ [
+  "Alterac Mountains & Arathi Highlands (38-39)",
+  38,
+  39,
+  [
+   "Alterac Mountains",
+   "Arathi Highlands"
+  ]
+ ],
+ [
+  "Badlands (39-40)",
+  39,
+  40,
+  [
+   "Badlands"
+  ]
+ ]
+]

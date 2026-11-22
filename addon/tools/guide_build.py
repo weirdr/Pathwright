@@ -54,7 +54,8 @@ Options after a step, in any order:
     "<text>"        the step's text (tip, note and goto take the rest of the line)
 
 Checks: the build stops on a quest taken and never handed in (unless left to the next guide), a
-quest handed in without being taken or before its objectives are done, and warns of a quest taken
+quest handed in without being taken or before its objectives are done, a quest log over 40 (the
+game's limit, the quests carried in counted; over 36 warns), and warns of a quest taken
 at a giver met earlier in the guide while it could already be taken there (take everything a hub
 gives at once), and of a quest taken whose objectives no step does.
 """
@@ -615,9 +616,18 @@ for n, text in lines:
         step = {"k": "objective", "q": q["id"], "o": int(oi), "ic": "buy", "n": nm, "e": "item", "id": item,
                 "c": amount, "by": True, "bg": True,
                 "t": f"Buy {amount} {nm} at the auction house (optional)"}
-        best = one("select max(chance) from m_item_source where item_id=? and from_type in ('npc','object')", item)[0]
-        rate = f"they drop {float(best):.0%} of the time" if best else "few mobs drop them"
-        step["nt"] = [{"l": 1, "t": f"For {q['name']}: {rate}. Skip it to farm them instead."}]
+        # The best single drop chance (some sources give a percent, not a fraction).
+        chances = [float(c) for (c,) in rows("""select chance from m_item_source where item_id=? and
+                   from_type in ('npc','object') and chance is not null""", item)]
+        chances = [c / 100 if c > 1 else c for c in chances]
+        best = max(chances, default=0)
+        if not rows("select 1 from m_item_source where item_id=? and from_type in ('npc','object')", item):
+            said = f"For {q['name']}: nothing drops them, they are made by a craft. Buy them, or have a crafter make them."
+        elif best and best < 0.3:
+            said = f"For {q['name']}: they drop only {best:.0%} of the time. Skip it to farm them instead."
+        else:
+            said = f"For {q['name']}: buying them saves the farming. Skip it to farm them instead."
+        step["nt"] = [{"l": 1, "t": said}]
         emit(step, n, opts, lambda v, a=filt, b=quest_who(q): a(v) and b(v))
         place(step, place_of("npc", opts["npc"], area))
         step["_q"] = q
@@ -743,6 +753,29 @@ for vi in range(1, len(variants) + 1):
         line = next((s["_line"] for s in mine if s.get("q") == q), 0)
         errors.append(f"{args.script}:{line}: quest {q} is taken and never handed in ({who_v}): hand it in, "
                       f"or 'leave' it to the next guide when it is a breadcrumb there")
+# The quest log holds 40 quests (WoW Forever): count each character's along the route, the quests
+# carried in included; a profession's optional quests are left out.
+LOG_MAX, LOG_WARN = 40, 36
+log_peak = 0
+for vi in range(1, len(variants) + 1):
+    log = set(carried)
+    worst, worst_line = len(log), 0
+    for s in steps:
+        if vi not in s["_in"]:
+            continue
+        if s["k"] == "accept" and not s.get("line"):
+            log.add(s["q"])
+        elif s["k"] == "turnin":
+            log.discard(s["q"])
+        if len(log) > worst:
+            worst, worst_line = len(log), s["_line"]
+    log_peak = max(log_peak, worst)
+    v = variants[vi - 1]
+    if worst > LOG_MAX:
+        errors.append(f"{args.script}:{worst_line}: {worst} quests in the log here (race {v['race']} class "
+                      f"{v['class']}): the log holds {LOG_MAX}")
+    elif worst > LOG_WARN:
+        warn(worst_line, f"{worst} quests in the log here (race {v['race']} class {v['class']}): close to {LOG_MAX}")
 if errors:
     # The same mistake for many characters: once.
     seen = []
@@ -794,6 +827,11 @@ for qid in sorted({s["q"] for s in steps if s["k"] == "accept"} - left):
     if has_obj and not any(s["k"] == "objective" and s["q"] == qid for s in steps):
         line = next(s["_line"] for s in steps if s.get("q") == qid)
         warn(line, f"quest {qid} has objectives but no 'do' step")
+# A quest planned before the character can take it (its minimum level): a grind first.
+for s in steps:
+    if s["k"] == "accept" and s.get("min") and s.get("lvl") and s["lvl"] < s["min"] and not s.get("line"):
+        warn(s["_line"], f"{s['_q']['name']} ({s['q']}) needs level {s['min']}, planned at {s['lvl']}: add a grind "
+             f"before it, or take it later")
 for w in WARNINGS:
     print(w, file=sys.stderr)
 
@@ -848,7 +886,7 @@ counts = {}
 for s in steps:
     counts[s["k"]] = counts.get(s["k"], 0) + 1
 quests = {s["q"] for s in steps if s.get("q")}
-print(f"{guide['name']}: {len(WARNINGS)} warning(s), {len(steps)} steps ({', '.join(f'{k} {c}' for k, c in sorted(counts.items()))}), "
+print(f"{guide['name']}: {len(WARNINGS)} warning(s), log at most {log_peak}, {len(steps)} steps ({', '.join(f'{k} {c}' for k, c in sorted(counts.items()))}), "
       f"{len(quests)} quests, {len(variants)} variants -> {path}")
 if tmp:
     os.unlink(tmp.name)

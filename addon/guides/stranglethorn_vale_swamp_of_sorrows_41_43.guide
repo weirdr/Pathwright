@@ -30,9 +30,9 @@
 guide Stranglethorn Vale & Swamp of Sorrows (41-43)
 faction horde
 levels 41 43
+carry 669 1137 1240 1270 1420
+leave 1117 1137 1183 1261 2864 2872 93464
 next Desolace & Shen'dralas (43-43)
-carry 1240 669 1420 1270
-leave 93464 1117 1183 2864 2872 1261
 
 map Stranglethorn Vale
 

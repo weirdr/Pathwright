@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Check a chain of built-in guides (linked by `next`) and set their `carry` and `leave` lines.
 
-    python3 -I addon/tools/guide_chain.py "<first guide name>" [--write]
+    python3 -I addon/tools/guide_chain.py "<first guide name>" ["<another first guide>" ...] [--write]
+
+Several first guides (the starters of each race) may lead into the same chain: each chain is
+worked out, and a guide they share carries and leaves what any of them needs.
 
 A quest taken in one guide and handed in by a later one (a breadcrumb into the next zones) is left
 by the guide that takes it, carried and left again by each guide in between, and carried by the
@@ -16,7 +19,7 @@ It also reports, across the chain:
 """
 import glob, os, re, sys
 
-first = sys.argv[1]
+firsts = [a for a in sys.argv[1:] if not a.startswith("--")]
 write = "--write" in sys.argv
 
 guides = {}
@@ -44,52 +47,66 @@ for path in glob.glob("addon/guides/*.guide"):
     if g["name"]:
         guides[g["name"]] = g
 
-chain, name = [], first
-while name:
-    if name not in guides:
-        print(f"missing guide: {name}")
-        break
-    chain.append(guides[name])
-    name = guides[name]["next"]
-print(f"{len(chain)} guides in the chain")
-
-taken_in, handed_in = {}, {}
 problems = []
-for i, g in enumerate(chain):
-    for q in g["accept"]:
-        if q in taken_in and taken_in[q] != i:
-            problems.append(f"quest {q} taken by {chain[taken_in[q]]['name']} and {g['name']}")
-        taken_in.setdefault(q, i)
-    for q in g["turnin"]:
-        if q in handed_in and handed_in[q] != i:
-            problems.append(f"quest {q} handed in by {chain[handed_in[q]]['name']} and {g['name']}")
-        handed_in.setdefault(q, i)
+wants = {}
 
-want = [{"carry": set(), "leave": set()} for _ in chain]
-for q, i in taken_in.items():
-    j = handed_in.get(q)
-    if j is None:
-        problems.append(f"quest {q} taken by {chain[i]['name']} and handed in by no guide")
-        continue
-    if j < i:
-        problems.append(f"quest {q} handed in by {chain[j]['name']} before {chain[i]['name']} takes it")
-        continue
-    if j > i:
-        want[i]["leave"].add(q)
-        for k in range(i + 1, j):
-            want[k]["carry"].add(q)
-            want[k]["leave"].add(q)
-        want[j]["carry"].add(q)
-for j, g in enumerate(chain):
-    for q in g["turnin"]:
-        if q not in taken_in:
-            # Taken before the chain: carried where it is handed in, if the author said so.
-            if q in g["carry"]:
-                want[j]["carry"].add(q)
-            elif q not in g["accept"]:
-                problems.append(f"quest {q} handed in by {g['name']} without being taken or carried")
 
-for g, w in zip(chain, want):
+def work(first):
+    chain, name = [], first
+    while name:
+        if name not in guides:
+            print(f"missing guide: {name}")
+            break
+        chain.append(guides[name])
+        name = guides[name]["next"]
+    print(f"{first}: {len(chain)} guides in the chain")
+
+    taken_in, handed_in = {}, {}
+    for i, g in enumerate(chain):
+        for q in g["accept"]:
+            if q in taken_in and taken_in[q] != i:
+                problems.append(f"quest {q} taken by {chain[taken_in[q]]['name']} and {g['name']}")
+            taken_in.setdefault(q, i)
+        for q in g["turnin"]:
+            if q in handed_in and handed_in[q] != i:
+                problems.append(f"quest {q} handed in by {chain[handed_in[q]]['name']} and {g['name']}")
+            handed_in.setdefault(q, i)
+
+    want = [{"carry": set(), "leave": set()} for _ in chain]
+    for q, i in taken_in.items():
+        j = handed_in.get(q)
+        if j is None:
+            problems.append(f"quest {q} taken by {chain[i]['name']} and handed in by no guide")
+            continue
+        if j < i:
+            problems.append(f"quest {q} handed in by {chain[j]['name']} before {chain[i]['name']} takes it")
+            continue
+        if j > i:
+            want[i]["leave"].add(q)
+            for k in range(i + 1, j):
+                want[k]["carry"].add(q)
+                want[k]["leave"].add(q)
+            want[j]["carry"].add(q)
+    for j, g in enumerate(chain):
+        for q in g["turnin"]:
+            if q not in taken_in:
+                # Taken before the chain: carried where it is handed in, if the author said so.
+                if q in g["carry"]:
+                    want[j]["carry"].add(q)
+                elif q not in g["accept"]:
+                    problems.append(f"quest {q} handed in by {g['name']} without being taken or carried")
+
+
+    for g, w in zip(chain, want):
+        acc = wants.setdefault(g["name"], {"carry": set(), "leave": set(), "g": g})
+        acc["carry"] |= w["carry"]
+        acc["leave"] |= w["leave"]
+
+
+for f in firsts:
+    work(f)
+for name, w in wants.items():
+    g = w["g"]
     if (w["carry"], w["leave"]) != (g["carry"], g["leave"]):
         print(f"{g['name']}: carry {sorted(w['carry'])} (was {sorted(g['carry'])}), "
               f"leave {sorted(w['leave'])} (was {sorted(g['leave'])})")
@@ -107,5 +124,5 @@ for g, w in zip(chain, want):
                     if w["leave"]:
                         out.append("leave " + " ".join(str(q) for q in sorted(w["leave"])))
             open(g["path"], "w", encoding="utf-8").write("\n".join(out))
-for p in problems:
+for p in sorted(set(problems)):
     print("problem:", p)

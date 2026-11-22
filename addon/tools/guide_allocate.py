@@ -1,10 +1,23 @@
-"""Allocate every Horde quest of the 40-60 zones to one of the 24 guides.
+"""Give each quest of a chain of guides' zones to one guide of the chain.
 
-    python3 -I allocate.py <db> <ref.tsv> <out.json> <out.md>
+    python3 -I addon/tools/guide_allocate.py <db> <ref.tsv> <out.json> <out.md> [<guides.json>]
+        [--exclude <alloc.json> ...]
+
+ref.tsv: the steps of Zygor's guides of the chain, converted (debug/zygor/dumpref.lua). The quests
+Zygor hands in go to that guide; the quests of the guides' zones Zygor skips go to the guide whose
+levels fit, chains kept in order. guides.json: [[title, from, to, [zone names]], ...] (default:
+the Horde 40-60 chain). --exclude: allocations already made (their quests stay where they are).
 """
 import json, re, sqlite3, sys, math
 from collections import defaultdict
 
+argv = [a for a in sys.argv[1:]]
+excluded = set()
+while "--exclude" in argv:
+    i = argv.index("--exclude")
+    excluded |= set(int(q) for q in json.load(open(argv[i + 1]))["quests"])
+    del argv[i:i + 2]
+sys.argv = [sys.argv[0]] + argv
 db = sqlite3.connect(sys.argv[1])
 rows = lambda sql, *a: db.execute(sql, a).fetchall()
 one = lambda sql, *a: db.execute(sql, a).fetchone()
@@ -40,6 +53,10 @@ GUIDES = [
 def area_of(name):
     r = one("select ID from client_areatable where AreaName_lang=? and ParentAreaID=0 order by ID", name)
     return int(r[0]) if r else None
+
+if len(sys.argv) > 5:
+    GUIDES = [tuple(g) for g in json.load(open(sys.argv[5]))]
+LOW_LEVEL = min(g[1] for g in GUIDES) - 5
 
 zone_area = {}
 for g in GUIDES:
@@ -127,10 +144,12 @@ for q, zones in cands.items():
         why = f"category {sort} (class, profession, holiday or seasonal)"
     elif sort is not None and int(sort) in instance_areas:
         why = "dungeon quest"
-    elif level is not None and 0 < level < 30:
+    elif level is not None and 0 < level < LOW_LEVEL:
         why = f"low level ({level})"
     elif level is not None and level > 62:
         why = f"level {level}"
+    if q in excluded:
+        continue
     if why and q not in z_acc and q not in z_turn:
         reasons_out[q] = (name, level, ", ".join(sorted(zones)), why)
         continue
@@ -138,7 +157,7 @@ for q, zones in cands.items():
 
 # Zygor's quests outside the home zones too (city hand-ins, breadcrumbs).
 for q in set(z_acc) | set(z_turn):
-    if q not in keep:
+    if q not in keep and q not in excluded:
         r = quest_info(q)
         if r:
             keep[q] = {"id": q, "name": r[1], "level": r[2], "min": r[3], "zones": []}
@@ -148,6 +167,10 @@ alloc, notes = {}, defaultdict(list)
 for q, info in keep.items():
     if q in z_turn or q in z_acc:
         g = z_turn.get(q) or z_acc.get(q)
+        if q in z_acc and q not in z_turn and z_acc[q] == len(GUIDES):
+            # Taken by the chain's last guide and handed in after it: a breadcrumb into the next
+            # chain (e.g. into Riverglades): left to its taker.
+            pass
         alloc[q] = g
         if q in z_acc and q in z_turn and z_acc[q] != z_turn[q]:
             notes[q].append(f"Zygor takes it in guide {z_acc[q]}, hands it in in guide {z_turn[q]}")

@@ -21,8 +21,9 @@
 guide Riverglades (40-41)
 faction horde
 levels 40 41
+carry 1137 1420 95141 95143
+leave 1137 1420
 next Stranglethorn Vale & Swamp of Sorrows (41-43)
-carry 95141 95143
 
 map Riverglades
 
