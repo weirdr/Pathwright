@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Draw the toolstrip's icons (Pathwright_Guide/Media/Kill.tga, Talk.tga, Trash.tga).
+"""Draw the toolstrip's icons (Pathwright_Guide/Media/Kill.tga, Talk.tga, Trash.tga) and the
+nameplates' money bag (Loot.tga).
 
 Each is a 64x64 image: a flat coloured symbol (a red sword, a green speech bubble, a grey trash can)
 on a clear background (the toolstrip has its own). Drawn here from simple shapes, supersampled
@@ -170,11 +171,33 @@ def render(layers):
     return header + bytes(px)
 
 
+def bag_layers():
+    """A money bag: a tied sack with a gold coin (quest items to loot, on nameplates)."""
+
+    def sack(pad):
+        return union(
+            ellipse(31, 41, 18 + pad, 16 + pad),
+            polygon([(24 - pad, 31), (38 + pad, 31), (36 + pad, 22), (26 - pad, 22)]),
+            ellipse(31, 18, 10 + pad, 5 + pad),
+        )
+
+    brown = lambda x, y: lerp((214, 164, 94), (128, 82, 36), (y - 13) / 44)
+    return [
+        (sack(1.8), lambda x, y: (52, 30, 10)),
+        (sack(0), brown),
+        (rounded(23, 23, 39, 27, 2), lambda x, y: (236, 196, 72)),  # the drawstring
+        (ellipse(25, 38, 6, 7), lambda x, y: (238, 186, 104)),  # the light on the sack
+        (ellipse(42, 47, 8.5, 8.5), lambda x, y: (96, 62, 8)),  # the coin's rim
+        (ellipse(42, 47, 7, 7), lambda x, y: lerp((255, 226, 96), (214, 150, 20), (y - 40) / 14)),
+    ]
+
+
 def main():
     icons = (
         ("Kill", sword_layers()),
         ("Talk", bubble_layers()),
         ("Trash", trash_layers()),
+        ("Loot", bag_layers()),
     )
     for name, layers in icons:
         path = os.path.join(OUT, name + ".tga")

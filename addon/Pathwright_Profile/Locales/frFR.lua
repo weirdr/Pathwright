@@ -290,4 +290,7 @@ FG.Locales.frFR = {
     ["Reset"] = "Remettre",
     ["Puts the toolstrip back above the action bars. Drag it by its left edge to move it."] = "Remet la barre d'outils au-dessus des barres d'action. Faites-la glisser par son bord gauche pour la déplacer.",
     ["Toolstrip"] = "Barre d'outils",
+    ["Aimed at one in sight, not tagged by another player"] = "Vise un mob en vue, non engagé par un autre joueur",
+    ["Every one in sight is tagged by another player: the button does nothing"] = "Tous ceux en vue sont engagés par un autre joueur : le bouton ne fait rien",
+    ["None in sight: targets the nearest by name"] = "Aucun en vue : cible le plus proche par son nom",
 }

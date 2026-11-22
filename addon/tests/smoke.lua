@@ -1111,6 +1111,128 @@ do
 end
 print("toolstrip ok")
 
+-- The sword's press, out of combat: one mob in sight, alive and not tagged by someone else, then
+-- the checker clears a wrong target at once, else puts the skull and the ping on it.
+do
+    local strip = FG.Toolstrip
+    local function named(name)
+        for i = #frames, 1, -1 do
+            if frames[i]:GetName() == name then return frames[i] end
+        end
+    end
+    Press("prev")
+    assert(strip.actions[1] and strip.actions[1].kind == "kill", "back on the kill step")
+    local sword, checker = named("PWStrip1"), named("PWStripCheck")
+    assert(sword.PreClick and checker and checker.PreClick, "the press and the checker")
+    local saved = {
+        plates = C_NamePlate,
+        name = UnitName,
+        dead = UnitIsDead,
+        tapped = UnitIsTapDenied,
+        attack = UnitCanAttack,
+        exists = UnitExists,
+        unit = UnitIsUnit,
+    }
+    local mobs = {}
+    local function Plate(unit, x, y)
+        local plate = CreateFrame("Frame", nil, UIParent)
+        plate.namePlateUnitToken = unit
+        plate.GetCenter = function() return x, y end
+        plate.GetEffectiveScale = function() return 1 end
+        return plate
+    end
+    local list = {}
+    C_NamePlate = { GetNamePlates = function() return list end, GetNamePlateForUnit = function() end }
+    UIParent.GetCenter = function() return 500, 400 end
+    UIParent.GetEffectiveScale = function() return 1 end
+    UnitName = function(u) return mobs[u] and mobs[u].name or "Brouz" end
+    UnitIsDead = function(u) return mobs[u] and mobs[u].dead or false end
+    UnitIsTapDenied = function(u) return mobs[u] and mobs[u].tapped or false end
+    UnitCanAttack = function(_, u) return mobs[u] ~= nil and not mobs[u].friend end
+    UnitExists = function(u) return mobs[u] ~= nil end
+    UnitIsUnit = function(a, b) return a == b end
+    mobs.nameplate1 = { name = "Kobold Vermin", tapped = true }
+    mobs.nameplate2 = { name = "Kobold Vermin" }
+    mobs.nameplate3 = { name = "Kobold Vermin" }
+    mobs.nameplate4 = { name = "Kobold Vermin", dead = true }
+    mobs.nameplate5 = { name = "Kobold Worker" }
+    list = {
+        Plate("nameplate1", 500, 400), -- tagged, right in the middle
+        Plate("nameplate2", 900, 100), -- far from the middle
+        Plate("nameplate3", 560, 420), -- the closest one to aim at
+        Plate("nameplate4", 501, 401), -- dead
+        Plate("nameplate5", 500, 400), -- another name
+    }
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.AimedMacro("nameplate3") and sword.state == "aim", "aimed: " .. tostring(sword.aimed))
+    assert(sword.aimed:find("/target [@nameplate3,exists,harm,nodead]", 1, true), "only that unit, alive and hostile")
+    assert(
+        sword.aimed:find("/click PWStripCheck\n/stopmacro [@target,noexists]\n/tm 0\n/tm 8", 1, true),
+        "then the checker, then the skull (stopped when the checker cleared the target): " .. sword.aimed
+    )
+    assert(strip.expect.name == "Kobold Vermin" and strip.expect.kind == "kill", "the checker told what to expect")
+    -- The ping in the sword's own macro, after the checker: the game does not ping from a macro
+    -- run by /click.
+    SLASH_PING1 = "/ping"
+    local pinged = strip.AimedMacro("nameplate3")
+    SLASH_PING1 = nil
+    local click, ping = pinged:find("/click PWStripCheck", 1, true), pinged:find("/ping [@target]", 1, true)
+    assert(click and ping and click < ping, "the ping after the checker, in the sword's macro: " .. pinged)
+    -- The current target, when one of them, first.
+    mobs.target = mobs.nameplate2
+    UnitIsUnit = function(a, b) return (a == "nameplate2" and b == "target") or a == b end
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.AimedMacro("nameplate2"), "the current target first")
+    UnitIsUnit = function(a, b) return a == b end
+    -- The checker: the right mob gets the skull (and the ping); a wrong one is cleared at once.
+    checker.PreClick(checker)
+    assert(checker.macro == "", "the right mob: nothing for the checker to do: " .. tostring(checker.macro))
+    assert(strip.expect == nil, "one check per press")
+    for _, wrong in ipairs({
+        { name = "Kobold Worker" },
+        { name = "Kobold Vermin", tapped = true },
+        { name = "Kobold Vermin", dead = true },
+        { name = "Kobold Vermin", friend = true },
+    }) do
+        sword.PreClick(sword)
+        mobs.target = wrong
+        checker.PreClick(checker)
+        assert(checker.macro == "/cleartarget", "a wrong target cleared at once: " .. tostring(checker.macro))
+    end
+    sword.PreClick(sword)
+    mobs.target = nil
+    checker.PreClick(checker)
+    assert(checker.macro == "", "no target: nothing to do")
+    -- Every one in sight tagged: the press does nothing, the button dimmed.
+    mobs.nameplate2.tapped, mobs.nameplate3.tapped = true, true
+    sword.PreClick(sword)
+    assert(sword.aimed == "" and sword.state == "tapped" and sword:GetAlpha() < 1, "all tagged: nothing, dimmed")
+    -- None in sight: by name, then the checker.
+    list = {}
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.CheckedMacro(strip.actions[1]) and sword.state == "name", "none in sight: by name")
+    assert(sword.aimed:find("/targetexact Kobold Vermin", 1, true) and sword.aimed:find("/click PWStripCheck", 1, true))
+    -- Turned off: by name and the checker, a tagged mob kept.
+    FG:Save("targetSkipTapped", false)
+    sword.PreClick(sword)
+    mobs.target = { name = "Kobold Vermin", tapped = true }
+    checker.PreClick(checker)
+    assert(checker.macro == "", "a tagged mob kept when not asked")
+    FG:Save("targetSkipTapped", nil)
+    -- In combat nothing changes; at its start the buttons go back to their macros by name.
+    local before = sword.aimed
+    InCombatLockdown = function() return true end
+    sword.PreClick(sword)
+    assert(sword.aimed == before, "no change in combat")
+    InCombatLockdown = function() return false end
+    fire("PLAYER_REGEN_DISABLED")
+    assert(sword.aimed == strip.actions[1].macro and checker.macro == "", "by name in combat, the checker emptied")
+    C_NamePlate, UnitName, UnitIsDead, UnitIsTapDenied = saved.plates, saved.name, saved.dead, saved.tapped
+    UnitCanAttack, UnitExists, UnitIsUnit = saved.attack, saved.exists, saved.unit
+    Press("next")
+end
+print("aiming ok")
+
 -- Talent plan: the next talent follows the class plan (mage: Improved Frostbolt x5, then
 -- Elemental Precision).
 local frostbolt = 2
@@ -1502,6 +1624,214 @@ do
     C_Container, CursorHasItem, DeleteCursorItem = realContainer, nil, nil
 end
 print("trash can ok")
+
+-- Quest mobs' nameplates: a sword or a money bag with the count, read from the game's own unit
+-- tooltip, then a green check once done; dimmed when tagged by someone else.
+do
+    local saved = {
+        tooltip = C_TooltipInfo,
+        plate = C_NamePlate,
+        objectives = C_QuestLog.GetQuestObjectives,
+        onQuest = C_QuestLog.IsOnQuest,
+        name = UnitName,
+        tapped = UnitIsTapDenied,
+    }
+    Enum = Enum or {}
+    Enum.TooltipDataLineType = { QuestObjective = 8, QuestTitle = 17 }
+    local plates, lines, names, tapped = {}, {}, {}, {}
+    C_NamePlate = {
+        GetNamePlateForUnit = function(unit) return plates[unit] end,
+        GetNamePlates = function()
+            local list = {}
+            for unit, plate in pairs(plates) do
+                plate.namePlateUnitToken = unit
+                table.insert(list, plate)
+            end
+            return list
+        end,
+    }
+    local realExists = UnitExists
+    UnitExists = function(unit) return plates[unit] ~= nil or realExists(unit) end
+    C_TooltipInfo = { GetUnit = function(unit) return { lines = lines[unit] or {} } end }
+    UnitName = function(unit) return names[unit] or "Brouz" end
+    UnitIsTapDenied = function(unit) return tapped[unit] or false end
+    local objectives = {
+        [5001] = {
+            {
+                text = "Kobold Vermin slain: 3/10",
+                type = "monster",
+                finished = false,
+                numFulfilled = 3,
+                numRequired = 10,
+            },
+            { text = "Candle: 1/8", type = "item", finished = false, numFulfilled = 1, numRequired = 8 },
+        },
+    }
+    C_QuestLog.GetQuestObjectives = function(q) return objectives[q] end
+    C_QuestLog.IsOnQuest = function(q) return objectives[q] ~= nil end
+    local function Title(q) return { type = 17, id = q } end
+    local function Objective(text, done, have, need)
+        return { type = 8, leftText = text, completed = done, numFulfilled = have, numRequired = need }
+    end
+    local np = FG.Nameplates
+    plates.nameplate1 = CreateFrame("Frame", nil, UIParent)
+    names.nameplate1 = "Kobold Vermin"
+    lines.nameplate1 = { Title(5001), Objective("Kobold Vermin slain: 3/10", false, 3, 10) }
+    np:Update("nameplate1")
+    local mark = np.marks.nameplate1
+    assert(mark and mark:IsShown() and mark.progress.kind == "kill", "a sword on a mob to kill")
+    assert(np.Count(mark.progress) == "3/10" and mark.count.text == "3/10", "its count")
+    -- A mob that drops a quest item: the money bag.
+    plates.nameplate2 = CreateFrame("Frame", nil, UIParent)
+    names.nameplate2 = "Kobold Tunneler"
+    lines.nameplate2 = { Title(5001), Objective("Candle: 1/8", false, 1, 8) }
+    np:Update("nameplate2")
+    assert(np.marks.nameplate2.progress.kind == "loot", "a money bag on a mob that drops a quest item")
+    -- Tagged by another player: dimmed.
+    tapped.nameplate2 = true
+    np:Update("nameplate2")
+    assert(np.marks.nameplate2.tapped and np.marks.nameplate2:GetAlpha() < 1, "dimmed when tagged by someone else")
+    FG:Save("questNameplatesTapped", false)
+    np:Update("nameplate2")
+    assert(np.marks.nameplate2:GetAlpha() == 1, "not dimmed when not asked")
+    FG:Save("questNameplatesTapped", nil)
+    -- Every objective done: the check, no count.
+    objectives[5001][1].finished, objectives[5001][1].numFulfilled = true, 10
+    lines.nameplate1 = { Title(5001), Objective("Kobold Vermin slain: 10/10", true, 10, 10) }
+    np:Update("nameplate1")
+    assert(np.marks.nameplate1.progress.done and np.marks.nameplate1.count.text == "", "the check once done")
+    -- The game stops listing a finished objective: the check stays (the mob was seen with it).
+    objectives[5001][1].text = "Kobold Vermin slain: 10/10"
+    lines.nameplate1 = {}
+    fire("QUEST_LOG_UPDATE")
+    runTimers()
+    assert(np.marks.nameplate1 and np.marks.nameplate1.progress.done, "still the check once the game stops listing it")
+    -- Not on our quests: nothing; secret values (instances on WoW Forever): nothing either.
+    plates.nameplate3 = CreateFrame("Frame", nil, UIParent)
+    names.nameplate3 = "Stray Wolf"
+    np:Update("nameplate3")
+    assert(not np.marks.nameplate3, "no mark on a mob of no quest")
+    local secret = issecretvalue
+    issecretvalue = function() return true end
+    np:Update("nameplate2")
+    assert(not np.marks.nameplate2, "nothing from secret values")
+    issecretvalue = secret
+    -- Turned off: the marks go.
+    FG:Save("questNameplates", false)
+    np:Update("nameplate1")
+    assert(not np.marks.nameplate1, "no mark when turned off")
+    FG:Save("questNameplates", nil)
+    C_TooltipInfo, C_NamePlate, UnitName, UnitIsTapDenied = saved.tooltip, saved.plate, saved.name, saved.tapped
+    UnitExists = realExists
+    C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest = saved.objectives, saved.onQuest
+end
+print("nameplates ok")
+
+-- Our progress for the group's Questie players, in Questie's own messages (prefix "questie").
+do
+    local share = FG.QuestieShare
+    local p = {
+        ver = "1.0.0",
+        msgVer = 5,
+        msgId = 1,
+        quest = { id = 783, objectives = { { id = 6, typ = "m", ful = 3, req = 10 } } },
+    }
+    local wire = share.Serialize(p)
+    assert(not wire:find("\0", 1, true), "no zero byte on the wire")
+    local back = share.Deserialize(wire)
+    assert(back.msgId == 1 and back.quest.objectives[1].ful == 3 and back.quest.objectives[1].typ == "m", "read back")
+    assert(share.Deserialize("not a packet") == nil, "garbage refused")
+
+    local saved = {
+        group = IsInGroup,
+        raid = IsInRaid,
+        members = GetNumGroupMembers,
+        chat = C_ChatInfo,
+        addons = C_AddOns,
+        count = C_QuestLog.GetNumQuestLogEntries,
+        info = C_QuestLog.GetInfo,
+        objectives = C_QuestLog.GetQuestObjectives,
+        party = UnitInParty,
+    }
+    local sent = {}
+    C_ChatInfo = {
+        SendAddonMessage = function(prefix, message, channel, target)
+            table.insert(
+                sent,
+                { prefix = prefix, packet = share.Deserialize(message), channel = channel, target = target }
+            )
+        end,
+    }
+    local questieHere = false
+    C_AddOns = { IsAddOnLoaded = function(name) return name == "Questie" and questieHere end }
+    IsInGroup, IsInRaid, GetNumGroupMembers =
+        function() return true end, function() return false end, function() return 3 end
+    UnitInParty = function(name) return name == "Friend" end
+    local log = { 7101 }
+    local progress = { [7101] = 2 }
+    C_QuestLog.GetNumQuestLogEntries = function() return #log end
+    C_QuestLog.GetInfo = function(i) return { questID = log[i], title = "Q", level = 5 } end
+    C_QuestLog.GetQuestObjectives = function(q)
+        return {
+            {
+                text = "Kobold Vermin slain",
+                type = "monster",
+                finished = false,
+                numFulfilled = progress[q],
+                numRequired = 8,
+            },
+        }
+    end
+    share.sent = {}
+    share:Update(true)
+    assert(#sent == 0, "the log taken as it is, nothing sent")
+    progress[7101] = 3
+    share:Update()
+    local update = sent[1]
+    assert(update and update.prefix == "questie" and update.channel == "PARTY", "a progress change sent to the party")
+    assert(
+        update.packet.msgId == 1 and update.packet.msgVer == 5 and update.packet.ver == "1.0.0",
+        "as Questie's message 1"
+    )
+    local o = update.packet.quest.objectives[1]
+    assert(update.packet.quest.id == 7101 and o.ful == 3 and o.req == 8 and o.typ == "m", "its objective")
+    assert(o.id == 6, "the mob's ID from the guide: " .. tostring(o.id))
+    share:Update()
+    assert(#sent == 1, "nothing again while nothing changed")
+    -- A friend's Questie asks for our quests: the whole log, whispered back (message 12).
+    local request = share.Serialize({ ver = "12.12.0", msgVer = 5, msgId = 11 })
+    share:Receive(request, "PARTY", "Friend")
+    local reply = sent[2]
+    assert(reply and reply.channel == "WHISPER" and reply.target == "Friend" and reply.packet.msgId == 12, "answered")
+    local block = reply.packet[1]
+    assert(block[1] == 1 and block[2] == 7101 and block[3] == 1 and block[4] == 6, "the quest and its objective")
+    assert(block[5] == ("m"):byte() and block[6] == 3 and block[7] == 8, "its type and counts")
+    share:Receive(request, "PARTY", "Stranger")
+    assert(#sent == 2, "not answered outside the group")
+    -- The quest gone from the log: message 2.
+    log = {}
+    share:Update()
+    assert(sent[3] and sent[3].packet.msgId == 2 and sent[3].packet.id == 7101, "a quest gone: message 2")
+    -- Questie runs here too: it shares already, we send nothing.
+    questieHere = true
+    log, progress[7101] = { 7101 }, 4
+    share:Update()
+    share:Receive(request, "PARTY", "Friend")
+    assert(#sent == 3, "nothing sent while Questie runs here")
+    questieHere = false
+    FG:Save("questieShare", false)
+    progress[7101] = 5
+    share:Update()
+    assert(#sent == 3, "nothing sent when turned off")
+    FG:Save("questieShare", nil)
+    share.sent = {}
+    IsInGroup, IsInRaid, GetNumGroupMembers, C_ChatInfo, C_AddOns =
+        saved.group, saved.raid, saved.members, saved.chat, saved.addons
+    C_QuestLog.GetNumQuestLogEntries, C_QuestLog.GetInfo, C_QuestLog.GetQuestObjectives =
+        saved.count, saved.info, saved.objectives
+    UnitInParty = saved.party
+end
+print("questie sharing ok")
 
 -- Merchant, WoW Forever: the item a quest wants is read with C_MerchantFrame (the old
 -- GetMerchantItemInfo is gone) and bought.

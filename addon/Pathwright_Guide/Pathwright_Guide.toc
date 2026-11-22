@@ -44,6 +44,8 @@ Nearby.lua
 NpcMark.lua
 Poulpix.lua
 Toolstrip.lua
+Nameplates.lua
+QuestieShare.lua
 Merchant.lua
 Gear.lua
 Talents.lua

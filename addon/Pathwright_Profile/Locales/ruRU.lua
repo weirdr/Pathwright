@@ -196,4 +196,7 @@ FG.Locales.ruRU = {
     ["Puts the toolstrip back above the action bars. Drag it by its left edge to move it."] = "Возвращает панель инструментов над панелями действий. Чтобы переместить, тяните за левый край.",
     ["Toolstrip"] = "Панель инструментов",
     ["Guide"] = "Гид",
+    ["Aimed at one in sight, not tagged by another player"] = "Нацелен на видимого, не отмеченного другим игроком",
+    ["Every one in sight is tagged by another player: the button does nothing"] = "Все видимые отмечены другим игроком: кнопка ничего не делает",
+    ["None in sight: targets the nearest by name"] = "Никого не видно: выбирает ближайшего по имени",
 }

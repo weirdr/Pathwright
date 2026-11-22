@@ -196,4 +196,7 @@ FG.Locales.deDE = {
     ["Puts the toolstrip back above the action bars. Drag it by its left edge to move it."] = "Setzt die Werkzeugleiste wieder über die Aktionsleisten. Zum Verschieben am linken Rand ziehen.",
     ["Toolstrip"] = "Werkzeugleiste",
     ["Guide"] = "Guide",
+    ["Aimed at one in sight, not tagged by another player"] = "Zielt auf einen sichtbaren, von niemandem markierten Gegner",
+    ["Every one in sight is tagged by another player: the button does nothing"] = "Alle sichtbaren sind von anderen Spielern markiert: die Schaltfläche tut nichts",
+    ["None in sight: targets the nearest by name"] = "Keiner in Sicht: zielt auf den nächsten nach Namen",
 }

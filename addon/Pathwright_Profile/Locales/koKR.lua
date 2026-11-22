@@ -196,4 +196,7 @@ FG.Locales.koKR = {
     ["Puts the toolstrip back above the action bars. Drag it by its left edge to move it."] = "도구 모음을 행동 단축바 위로 되돌립니다. 왼쪽 가장자리를 끌어 이동하세요.",
     ["Toolstrip"] = "도구 모음",
     ["Guide"] = "가이드",
+    ["Aimed at one in sight, not tagged by another player"] = "보이는 몹 중 다른 플레이어가 선점하지 않은 몹을 겨냥",
+    ["Every one in sight is tagged by another player: the button does nothing"] = "보이는 몹이 모두 다른 플레이어에게 선점됨: 버튼이 아무것도 하지 않습니다",
+    ["None in sight: targets the nearest by name"] = "보이는 몹 없음: 이름으로 가장 가까운 몹을 대상으로",
 }

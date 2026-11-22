@@ -196,4 +196,7 @@ FG.Locales.zhTW = {
     ["Puts the toolstrip back above the action bars. Drag it by its left edge to move it."] = "把工具列放回快捷列上方。拖曳其左邊緣可移動它。",
     ["Toolstrip"] = "工具列",
     ["Guide"] = "指南",
+    ["Aimed at one in sight, not tagged by another player"] = "瞄準視野內未被其他玩家佔據的一隻",
+    ["Every one in sight is tagged by another player: the button does nothing"] = "視野內全部被其他玩家佔據：按鈕不做任何事",
+    ["None in sight: targets the nearest by name"] = "視野內沒有：按名字選擇最近的",
 }

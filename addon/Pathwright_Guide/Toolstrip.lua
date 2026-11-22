@@ -1,7 +1,7 @@
 -- Toolstrip: a floating bar of buttons for the current steps. First the trash can (Shift-click
 -- destroys the cheapest grey item of the bags, right-click keeps that item: no longer offered),
--- a separator, then the quest item to use, a sword for each mob to kill (one press targets it;
--- with "Mark the target with a skull", a skull on it too) and a speech bubble for the NPC to talk
+-- a separator, then the quest item to use, a sword for each mob to kill (one press targets one
+-- not tagged by another player, see Aiming; with "Mark the target with a skull", a skull on it too) and a speech bubble for the NPC to talk
 -- to. Those five first buttons after the separator have key bindings (the game's key bindings,
 -- "Pathwright" > "Toolstrip"); the trash can has none: a key press never destroys anything.
 --
@@ -33,6 +33,12 @@ local Toolstrip = { actions = {}, steps = {}, signature = nil, pending = false, 
 FG.Toolstrip = Toolstrip
 
 local strip, trash, separator
+
+--- A button's action, nil when it has none.
+local function ActionOf(b)
+    local a = b.action
+    return type(a) == "table" and a or nil
+end
 local buttons = {}
 
 -- The actions -----------------------------------------------------------------------------------
@@ -81,6 +87,143 @@ function Toolstrip.TalkMacro(name)
     local lines = { "/targetexact " .. name }
     Found(lines, "talk")
     return table.concat(lines, "\n")
+end
+
+-- Aiming -----------------------------------------------------------------------------------
+-- Out of combat, a press of a sword button decides then and there (its PreClick, which runs just
+-- before the button's macro and may still change it): it picks one mob of its name among the
+-- nameplates shown, alive, hostile and not tagged by another player (no credit for us), the
+-- current target first, then in interact range, then the closest to the middle of the screen,
+-- and targets that very unit. When every one in sight is tagged, the press does nothing; when
+-- none is in sight (or enemy nameplates are off), it targets by name. Either way the macro then
+-- clicks the checker (a hidden secure button): its own PreClick runs once the target is taken
+-- and looks at it. Not the mob asked for, dead, or tagged by someone else: the checker clears
+-- the target at once. The sword's macro goes on with the skull and the ping, which stop when the
+-- target is gone: so none ever goes on a wrong target. (The ping stays in the sword's own macro:
+-- the game does not ping from a macro run by /click.) In combat nothing may change: at its start
+-- every button goes back to its macro by name (skull and ping without the checks), the checker
+-- to nothing.
+
+--- Seconds between two aims while nothing else asks for one.
+local AIM_EVERY = 0.25
+
+local Readable = FG.Readable
+
+--- A unit fact, nil when the game lacks the function or keeps the value secret.
+local function Fact(f, ...)
+    if not f then return nil end
+    return Readable(f(...))
+end
+
+local CHECK = "PWStripCheck"
+
+--- The checker's click, then what a found target gets (skull, ping), stopped by its own guard
+--- when the checker cleared the target.
+local function ThenChecked(lines, kind)
+    table.insert(lines, "/click " .. CHECK)
+    Found(lines, kind)
+    return table.concat(lines, "\n")
+end
+
+--- Out of combat, a press aimed at a nameplate's unit: that very mob (alive and hostile, or
+--- nothing), then the checker, then the skull and the ping.
+function Toolstrip.AimedMacro(unit)
+    return ThenChecked({ "/cleartarget", string.format("/target [@%s,exists,harm,nodead]", unit) }, "kill")
+end
+
+--- Out of combat, a press with no mob in sight: by name, then the checker, the skull and the ping.
+function Toolstrip.CheckedMacro(a)
+    if a.kind == "kill" then
+        return ThenChecked({ "/cleartarget", "/targetexact " .. a.name, "/cleartarget [dead]" }, "kill")
+    end
+    return ThenChecked({ "/targetexact " .. a.name }, "talk")
+end
+
+--- What the checker does with the target taken: { name, kind, skipTapped } the press asked for.
+function Toolstrip.CheckMacro(want)
+    if not want or not Fact(UnitExists, "target") then return "" end
+    local wrong = Fact(UnitName, "target") ~= want.name or Fact(UnitIsDead, "target")
+    if want.kind == "kill" then
+        wrong = wrong
+            or (UnitCanAttack and not Fact(UnitCanAttack, "player", "target"))
+            or (want.skipTapped and Fact(UnitIsTapDenied, "target"))
+    end
+    -- A right target: nothing to do here (the sword's macro marks and pings it).
+    return wrong and "/cleartarget" or ""
+end
+
+local function ScreenDistance(plate)
+    local x, y = plate:GetCenter()
+    local cx, cy = UIParent:GetCenter()
+    if not (x and cx) then return math.huge end
+    local s, u = plate:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
+    return (x * s - cx * u) ^ 2 + (y * s - cy * u) ^ 2
+end
+
+--- The mob of this name to aim at among the nameplates shown: its unit, or nil and whether one
+--- was seen tagged by someone else.
+function Toolstrip.Pick(name)
+    local best, bestScore, tapped
+    local plates = C_NamePlate and C_NamePlate.GetNamePlates and C_NamePlate.GetNamePlates() or {}
+    for _, plate in ipairs(plates) do
+        local unit = plate.namePlateUnitToken or (plate.UnitFrame and plate.UnitFrame.unit)
+        local hostile = not UnitCanAttack or Fact(UnitCanAttack, "player", unit)
+        if unit and hostile and Fact(UnitName, unit) == name and not Fact(UnitIsDead, unit) then
+            if Fact(UnitIsTapDenied, unit) then
+                tapped = true
+            else
+                local score = ScreenDistance(plate)
+                if Fact(UnitIsUnit, unit, "target") then
+                    score = -2
+                elseif Fact(CheckInteractDistance, unit, 4) then
+                    score = -1 / (1 + score)
+                end
+                if not bestScore or score < bestScore then
+                    best, bestScore = unit, score
+                end
+            end
+        end
+    end
+    return best, tapped
+end
+
+--- Give button `b` this macro (out of combat), when it changed.
+local function SetMacro(b, macro)
+    if b.aimed ~= macro then
+        b:SetAttribute("macrotext", macro)
+        b.aimed = macro
+    end
+end
+
+--- How a sword button stands: "aim" (a mob in sight to target), "tapped" (every one in sight is
+--- tagged by someone else: dimmed, does nothing), "name" (none in sight).
+local function SetState(b, state)
+    b.state = state
+    b.icon:SetDesaturated(state == "tapped")
+    b:SetAlpha(state == "tapped" and 0.45 or 1)
+end
+
+--- A press of `b` out of combat: the macro for the mobs in sight right now (see Aiming).
+function Toolstrip:Press(b)
+    local a = ActionOf(b)
+    if InCombatLockdown() or not a or (a.kind ~= "kill" and a.kind ~= "talk") then return end
+    local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false
+    self.expect = { name = a.name, kind = a.kind, skipTapped = skip }
+    if not skip then
+        SetMacro(b, Toolstrip.CheckedMacro(a))
+        return
+    end
+    local unit, tapped = Toolstrip.Pick(a.name)
+    if unit then
+        SetMacro(b, Toolstrip.AimedMacro(unit))
+        SetState(b, "aim")
+    elseif tapped then
+        SetMacro(b, "")
+        SetState(b, "tapped")
+    else
+        SetMacro(b, Toolstrip.CheckedMacro(a))
+        SetState(b, "name")
+    end
 end
 
 --- The first quest item of these steps (quests in the log with a usable item): link, texture.
@@ -208,6 +351,19 @@ local function Tooltip(self)
     else
         GameTooltip:SetText(string.format(a.kind == "kill" and T("Kill: %s") or T("Talk to: %s"), a.name))
     end
+    if self.state == "aim" then
+        GameTooltip:AddLine(T("Aimed at one in sight, not tagged by another player"), 0.6, 0.9, 0.6, true)
+    elseif self.state == "tapped" then
+        GameTooltip:AddLine(
+            T("Every one in sight is tagged by another player: the button does nothing"),
+            1,
+            0.5,
+            0.4,
+            true
+        )
+    elseif self.state == "name" then
+        GameTooltip:AddLine(T("None in sight: targets the nearest by name"), 0.6, 0.6, 0.6, true)
+    end
     local key = self.binding and GetBindingKey and GetBindingKey(self.binding)
     if key then GameTooltip:AddLine(string.format(T("Key: %s"), key), 0.6, 0.6, 0.6) end
     GameTooltip:Show()
@@ -267,6 +423,24 @@ local function Create()
     Skin:Style(strip, "panel")
     strip:Hide()
 
+    -- The checker (see Aiming): hidden, clicked by the swords' macros. Its macro runs on the up
+    -- edge whatever the player's "cast on key down" (a /click is an up), and its PreClick looks
+    -- at the target taken.
+    local check = CreateFrame("Button", CHECK, strip, "SecureActionButtonTemplate")
+    check:SetSize(1, 1)
+    check:SetAttribute("type", "macro")
+    check:SetAttribute("useOnKeyDown", false)
+    check:SetAttribute("macrotext", "")
+    check:RegisterForClicks("AnyUp")
+    check:EnableMouse(false)
+    check:SetScript("PreClick", function(self)
+        if InCombatLockdown() then return end
+        self.macro = Toolstrip.CheckMacro(Toolstrip.expect)
+        self:SetAttribute("macrotext", self.macro)
+        Toolstrip.expect = nil
+    end)
+    Toolstrip.checker = check
+
     separator = strip:CreateTexture(nil, "ARTWORK")
     separator:SetSize(SEPARATOR, SIZE - 6)
     separator:SetColorTexture(0.55, 0.55, 0.58, 0.8)
@@ -308,6 +482,7 @@ local function Button(i)
     b.cooldown = cooldown
     b:SetScript("OnEnter", Tooltip)
     b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    b:SetScript("PreClick", function(self) Toolstrip:Press(self) end)
     buttons[i] = b
     return b
 end
@@ -324,6 +499,9 @@ local function Arm(b, a)
         b:SetAttribute("macrotext", a.macro)
         b:SetAttribute("item", nil)
     end
+    b.aimed, b.state = a.macro, a.kind == "kill" and "name" or nil
+    b.icon:SetDesaturated(false)
+    b:SetAlpha(1)
     -- An item's own icon without the game's edge, like the others.
     if a.kind == "item" then
         b.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
@@ -387,6 +565,7 @@ local function Apply(actions)
     strip:SetPoint(point[1], _G[point[2]] or UIParent, point[3], point[4], point[5])
     strip:Show()
     Toolstrip:Cooldowns()
+    Toolstrip:Aim()
 end
 
 --- Follow these steps (the guide's steps to do, Guide.lua): now, or when combat ends.
@@ -416,7 +595,7 @@ end
 function Toolstrip:Cooldowns()
     if not GetItemCooldown then return end
     for _, b in ipairs(buttons) do
-        local a = b.action
+        local a = ActionOf(b)
         if a and a.kind == "item" and b:IsShown() then
             local id = tonumber(a.link:match("item:(%d+)"))
             local start, duration = GetItemCooldown(id)
@@ -425,8 +604,61 @@ function Toolstrip:Cooldowns()
     end
 end
 
+--- Show how every sword button stands with the mobs in sight (the press decides for itself).
+function Toolstrip:Aim()
+    if not strip or not strip:IsShown() then return end
+    local on = FG:Get("targetSkipTapped")
+    for _, b in ipairs(buttons) do
+        local a = ActionOf(b)
+        if a and a.kind == "kill" and b:IsShown() then
+            local state = "name"
+            if on and not InCombatLockdown() then
+                local unit, tapped = Toolstrip.Pick(a.name)
+                state = unit and "aim" or tapped and "tapped" or "name"
+            end
+            SetState(b, state)
+            if GameTooltip:IsOwned(b) then Tooltip(b) end
+        end
+    end
+end
+
+--- Back to targeting by name (combat starts: the buttons are fixed until it ends).
+function Toolstrip:Unaim()
+    if InCombatLockdown() then return end
+    for _, b in ipairs(buttons) do
+        local a = ActionOf(b)
+        if a and (a.kind == "kill" or a.kind == "talk") then SetMacro(b, a.macro) end
+        if a and a.kind == "kill" then SetState(b, "name") end
+    end
+    if self.checker then
+        self.checker.macro = ""
+        self.checker:SetAttribute("macrotext", "")
+    end
+    self.expect = nil
+end
+
+-- Aimed again when the mobs in sight change, and every AIM_EVERY seconds (the camera turns).
+local aimer = CreateFrame("Frame")
+local sinceAim = 0
+aimer:SetScript("OnUpdate", function(_, elapsed)
+    sinceAim = sinceAim + (elapsed or 0)
+    if sinceAim >= AIM_EVERY then
+        sinceAim = 0
+        Toolstrip:Aim()
+    end
+end)
+for _, event in ipairs({ "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED", "PLAYER_TARGET_CHANGED" }) do
+    FG:On(event, function() Toolstrip:Aim() end)
+end
+FG:On("UNIT_FLAGS", function(unit)
+    if type(unit) == "string" and unit:find("^nameplate") then Toolstrip:Aim() end
+end)
+-- The game still lets protected frames change while this event runs, before the lockdown.
+FG:On("PLAYER_REGEN_DISABLED", function() Toolstrip:Unaim() end)
+
 FG:On("PLAYER_REGEN_ENABLED", function()
     if Toolstrip.pending then Toolstrip:SetSteps(Toolstrip.steps) end
+    Toolstrip:Aim()
 end)
 FG:On("BAG_UPDATE_COOLDOWN", function() Toolstrip:Cooldowns() end)
 FG:On("BAG_UPDATE_DELAYED", function()
@@ -434,7 +666,14 @@ FG:On("BAG_UPDATE_DELAYED", function()
     if trash and GameTooltip:IsOwned(trash) then TrashTooltip(trash) end
 end)
 FG:On("PLAYER_LOGIN", function()
-    for _, key in ipairs({ "toolstrip", "toolstripTrash", "targetMark", "targetPing", "questItemButton" }) do
+    for _, key in ipairs({
+        "toolstrip",
+        "toolstripTrash",
+        "targetMark",
+        "targetPing",
+        "targetSkipTapped",
+        "questItemButton",
+    }) do
         FG:OnSetting(key, function() Toolstrip:Refresh() end)
     end
 end)

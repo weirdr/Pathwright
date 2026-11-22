@@ -196,4 +196,7 @@ FG.Locales.esES = {
     ["Puts the toolstrip back above the action bars. Drag it by its left edge to move it."] = "Vuelve a poner la barra de herramientas sobre las barras de acción. Arrástrala por su borde izquierdo para moverla.",
     ["Toolstrip"] = "Barra de herramientas",
     ["Guide"] = "Guía",
+    ["Aimed at one in sight, not tagged by another player"] = "Apunta a uno a la vista, no marcado por otro jugador",
+    ["Every one in sight is tagged by another player: the button does nothing"] = "Todos los visibles están marcados por otro jugador: el botón no hace nada",
+    ["None in sight: targets the nearest by name"] = "Ninguno a la vista: apunta al más cercano por nombre",
 }
