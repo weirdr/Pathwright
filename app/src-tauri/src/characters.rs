@@ -12,7 +12,7 @@ use super::{
 
 // Characters -------------------------------------------------------------------------
 
-/// A character the addon recorded (`/fg profile`, or at each logout), to start a guide from.
+/// A character the addon recorded (`/pw profile`, or at each logout), to start a guide from.
 #[derive(Serialize)]
 pub(crate) struct CharacterInfo {
     /// Full name when the game gives characters one (WoW Forever: first and last name), from the
@@ -60,7 +60,7 @@ pub(crate) fn full_names(files: &[PathBuf]) -> HashMap<String, Vec<String>> {
     out
 }
 
-/// Other players' characters pasted from their export (in game: /fg, "Export my character"), by
+/// Other players' characters pasted from their export (in game: /pw, "Export my character"), by
 /// game version then "Name-Realm": for group guides, not played here.
 type Imported = BTreeMap<String, BTreeMap<String, serde_json::Value>>;
 

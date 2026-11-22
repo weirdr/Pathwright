@@ -451,7 +451,7 @@ impl Studio {
 
     // Guides --------------------------------------------------------------------------
 
-    /// What the player pastes in game with `/fg import`: version `n` of a guide of the edition
+    /// What the player pastes in game with `/pw import`: version `n` of a guide of the edition
     /// the app is set to (the addon adds it to the guides it has, or replaces the one of its name).
     ///
     /// # Errors

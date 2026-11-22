@@ -4,7 +4,7 @@
 # section. Releases publish them on their own (scripts/release.sh).
 #
 #   scripts/publish-addons.sh 0.14.0                        # both, beta
-#   scripts/publish-addons.sh 0.14.0 Factoruide_Guide alpha
+#   scripts/publish-addons.sh 0.14.0 Pathwright_Guide alpha
 #   scripts/publish-addons.sh 0.14.0 both release
 set -eu
 cd "$(dirname "$0")/.."
@@ -15,11 +15,11 @@ channel=${3:-beta}
 case $version in
     [0-9]*.[0-9]*.[0-9]*) ;;
     *)
-        echo "usage: $0 X.Y.Z [both|Factoruide_Profile|Factoruide_Guide] [beta|alpha|release]" >&2
+        echo "usage: $0 X.Y.Z [both|Pathwright_Profile|Pathwright_Guide] [beta|alpha|release]" >&2
         exit 2
         ;;
 esac
-case $addons in both | Factoruide_Profile | Factoruide_Guide) ;; *)
+case $addons in both | Pathwright_Profile | Pathwright_Guide) ;; *)
     echo "unknown addon: $addons" >&2
     exit 2
     ;;
@@ -34,11 +34,11 @@ git fetch -q origin main
 [ -z "$(git status --porcelain addon)" ] || echo "note: uncommitted addon changes are not published" >&2
 [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || echo "note: publishing origin/main, not HEAD" >&2
 
-for addon in Factoruide_Profile Factoruide_Guide; do
+for addon in Pathwright_Profile Pathwright_Guide; do
     [ "$addons" = both ] || [ "$addons" = "$addon" ] || continue
     echo "== $addon $version ($channel)"
     scripts/addon-changes.sh "$addon" || echo "(no Unreleased changes)"
 done
 
 gh workflow run addons.yml -f ref=main -f version="$version" -f addons="$addons" -f channel="$channel"
-echo "started: https://github.com/brouznouf/factoruide/actions/workflows/addons.yml"
+echo "started: https://github.com/weirdr/Pathwright/actions/workflows/addons.yml"

@@ -1,0 +1,2 @@
+-- Empty in the published addon. Older versions of the Pathwright app wrote the addon's
+-- settings here; they are now chosen in game (`/pw`) and this file is ignored.

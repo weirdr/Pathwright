@@ -9,8 +9,8 @@ use std::time::SystemTime;
 
 /// The addon's two parts (folders under Interface/AddOns): the profile and recordings, always
 /// installed, and the guide, which depends on it.
-pub const PROFILE_ADDON: &str = "Factoruide_Profile";
-pub const GUIDE_ADDON: &str = "Factoruide_Guide";
+pub const PROFILE_ADDON: &str = "Pathwright_Profile";
+pub const GUIDE_ADDON: &str = "Pathwright_Guide";
 
 /// Game version folders found in a folder (_retail_, _classic_era_...).
 pub fn client_folders(dir: &Path) -> Vec<String> {
@@ -249,7 +249,7 @@ pub fn toc_files(toc: &str) -> Vec<String> {
         .collect()
 }
 
-/// When the addon last ran in game and in which version (`FactoruideDB.seen`, written when it
+/// When the addon last ran in game and in which version (`PathwrightDB.seen`, written when it
 /// loads; the game saves it at a /reload, a logout or when it quits).
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct Seen {
@@ -257,7 +257,7 @@ pub struct Seen {
     pub version: String,
 }
 
-/// `FactoruideDB.seen` in a SavedVariables file, read from its text (the whole file need not run).
+/// `PathwrightDB.seen` in a SavedVariables file, read from its text (the whole file need not run).
 pub fn seen_in(saved_variables: &str) -> Option<Seen> {
     let start = saved_variables.find("[\"seen\"] = {")?;
     let body = &saved_variables[start..];
@@ -343,7 +343,7 @@ pub fn addon_health(root: &Path, edition: Edition, required: &str) -> AddonHealt
                 newest_other = newest_other.max(modified_secs(&path));
             }
         }
-        // <account>/<realm>/<character>/AddOns.txt: "Factoruide_Profile: disabled".
+        // <account>/<realm>/<character>/AddOns.txt: "Pathwright_Profile: disabled".
         for realm in std::fs::read_dir(account.path()).into_iter().flatten().flatten() {
             for character in std::fs::read_dir(realm.path()).into_iter().flatten().flatten() {
                 let Ok(list) = std::fs::read_to_string(character.path().join("AddOns.txt")) else {
@@ -426,7 +426,7 @@ mod tests {
 
     #[test]
     fn the_last_run_is_read_from_the_saved_variables() {
-        let text = "FactoruideDB = {\n[\"version\"] = 3,\n[\"seen\"] = {\n[\"version\"] = \"0.13.0\",\n[\"time\"] = 1760000000,\n},\n}\n";
+        let text = "PathwrightDB = {\n[\"version\"] = 3,\n[\"seen\"] = {\n[\"version\"] = \"0.13.0\",\n[\"time\"] = 1760000000,\n},\n}\n";
         assert_eq!(
             seen_in(text),
             Some(Seen {
@@ -434,7 +434,7 @@ mod tests {
                 version: "0.13.0".into()
             })
         );
-        assert_eq!(seen_in("FactoruideDB = {}"), None);
+        assert_eq!(seen_in("PathwrightDB = {}"), None);
     }
 
     /// The game saved other addons' data after the install, not this one's: it did not load it;
@@ -451,7 +451,7 @@ mod tests {
         std::fs::create_dir_all(account.join("Realm/Thrall")).unwrap();
         std::fs::write(
             account.join("Realm/Thrall/AddOns.txt"),
-            "Factoruide_Profile: disabled\n",
+            "Pathwright_Profile: disabled\n",
         )
         .unwrap();
         let health = addon_health(&root, Edition::Classic, "0.14.0");
@@ -478,7 +478,7 @@ mod tests {
         let now = modified_secs(&other).unwrap();
         std::fs::write(
             account.join(format!("SavedVariables/{PROFILE_ADDON}.lua")),
-            format!("FactoruideDB = {{\n[\"seen\"] = {{\n[\"time\"] = {now},\n[\"version\"] = \"0.13.0\",\n}},\n}}\n"),
+            format!("PathwrightDB = {{\n[\"seen\"] = {{\n[\"time\"] = {now},\n[\"version\"] = \"0.13.0\",\n}},\n}}\n"),
         )
         .unwrap();
         let health = addon_health(&root, Edition::Classic, "0.13.0");

@@ -1,4 +1,4 @@
-//! Starting a route from a character met in game: what the addon's profile says (`/fg profile`,
+//! Starting a route from a character met in game: what the addon's profile says (`/pw profile`,
 //! saved at each logout) becomes the planner's initial state, so that the guide goes on from
 //! where the character stands.
 
@@ -31,7 +31,7 @@ fn side_or_none<'de, D: serde::Deserializer<'de>>(deserializer: D) -> Result<Opt
     Ok(Option::<String>::deserialize(deserializer)?.and_then(|name| Faction::parse(&name)))
 }
 
-/// A character as the addon saw it (its `FactoruideDB.profiles` entry).
+/// A character as the addon saw it (its `PathwrightDB.profiles` entry).
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(default)]
 pub struct StartState {

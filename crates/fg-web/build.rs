@@ -38,7 +38,7 @@ fn main() {
     let mut overrides = Vec::new();
     files(&root.join("overrides"), "", &["toml"], &[], &mut overrides);
     // The game versions the guide addon declares, for the data addon's .toc.
-    let toc_path = root.join("addon/Factoruide_Guide/Factoruide_Guide.toc");
+    let toc_path = root.join("addon/Pathwright_Guide/Pathwright_Guide.toc");
     println!("cargo:rerun-if-changed={}", toc_path.display());
     let toc = std::fs::read_to_string(&toc_path).unwrap();
     let interface = toc
@@ -46,7 +46,7 @@ fn main() {
         .find(|l| l.starts_with("## Interface:"))
         .unwrap_or("## Interface: 11508");
     // The oldest addon this app works with: the version of its .toc in this repository.
-    let profile_toc = root.join("addon/Factoruide_Profile/Factoruide_Profile.toc");
+    let profile_toc = root.join("addon/Pathwright_Profile/Pathwright_Profile.toc");
     println!("cargo:rerun-if-changed={}", profile_toc.display());
     let addon_version = std::fs::read_to_string(&profile_toc)
         .unwrap()

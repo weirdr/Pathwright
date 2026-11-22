@@ -26,11 +26,9 @@ concurrency:
 
 env:
   CARGO_TERM_COLOR: always
-  # Built into the app: where the "Contribute" page sends the players' data (the web app's host
-  # relays /v1/* to the contribution server: web/functions).
-  FG_CONTRIBUTION_SERVER: https://factoruide.brouznouf.com
-  # A published build: it checks for updates (local and development builds do not).
-  FG_RELEASE: "1"
+  # No contribution server is built in (upstream's was factoruide.brouznouf.com): contributions
+  # and problem reports go nowhere unless a server is set on the app's Settings page. No
+  # FG_RELEASE either: this fork's builds never check for updates (main.rs, updates_enabled).
   # The addon's page the apps link to (repository variable, once its CurseForge project exists).
   VITE_FG_ADDON_URL: ${{ vars.ADDON_URL }}
 
@@ -80,7 +78,7 @@ jobs:
           releaseBody: ${{ steps.tag.outputs.notes }}
           releaseDraft: false
           prerelease: false
-          uploadUpdaterJson: true
+          uploadUpdaterJson: false
           updaterJsonPreferNsis: true
 
   # Added to the release the Windows job published (or the one given by hand), one after the other:
@@ -134,7 +132,7 @@ jobs:
         with:
           projectPath: app
           tagName: ${{ env.TAG }}
-          uploadUpdaterJson: true
+          uploadUpdaterJson: false
           # The .dmg to install, the .app.tar.gz for the updates (left out of local builds). The
           # signature too, for the tags older than tauri.macos.conf.json. Single quotes:
           # tauri-action drops the double ones around an argument.
@@ -188,7 +186,7 @@ jobs:
         with:
           projectPath: app
           tagName: ${{ env.TAG }}
-          uploadUpdaterJson: true
+          uploadUpdaterJson: false
           # The signature (left out of local builds) for the updates; single quotes as above.
           args: >-
             --bundles appimage

@@ -6,7 +6,7 @@
 -- Output on stdout.
 
 local dir = (arg and arg[0] or ""):match("^(.*)[/\\]") or "."
-local LibDeflate = assert(loadfile(dir .. "/../Factoruide_Guide/Libs/LibDeflate/LibDeflate.lua"))()
+local LibDeflate = assert(loadfile(dir .. "/../Pathwright_Guide/Libs/LibDeflate/LibDeflate.lua"))()
 
 local function Read(path)
     local f = assert(io.open(path, "rb"))

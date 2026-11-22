@@ -14,6 +14,6 @@ cd "$(dirname "$0")/.."
 
 out=app/src/assets/example-guide.fgguide
 cargo build --release --locked --quiet -p fg
-fg="${CARGO_TARGET_DIR:-target}/release/fg"
+fg="${CARGO_TARGET_DIR:-target}/release/pw"
 "$fg" --edition forever share --race human --class paladin --from-level 1 --to-level 30 --effort 3 \
     --name "Exemple — Humain paladin 1-30" --out "$out"

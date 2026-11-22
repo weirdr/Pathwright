@@ -175,14 +175,14 @@ fn guides(edition: Edition) -> Library<'static, store::Browser> {
 
 // The guides for the game ---------------------------------------------------------------------
 
-/// What the player pastes in game with `/fg import`: one guide version (the addon adds it to the
+/// What the player pastes in game with `/pw import`: one guide version (the addon adds it to the
 /// guides it has, or replaces the one of its name).
 fn guide_text(guide: &GuideId, n: u32) -> CmdResult<serde_json::Value> {
     Ok(serde_json::json!({ "text": STUDIO.guide_text(&WebHost, guide, n)? }))
 }
 
 /// Every guide (see `followed_guides`) as the data addon the desktop app writes
-/// (Factoruide_Data): a zip to unzip in the game's AddOns folder.
+/// (Pathwright_Data): a zip to unzip in the game's AddOns folder.
 fn data_zip() -> CmdResult<serde_json::Value> {
     let edition = edition();
     let guides = followed_guides(edition)?;

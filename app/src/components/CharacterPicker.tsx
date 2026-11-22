@@ -39,9 +39,9 @@ export function CharacterPicker({ characters, start, onPick, options, recorded, 
         <Hint
           text={
             start
-              ? t("Le guide part de ce personnage : ses quêtes faites sont ignorées ; celles de son journal sont reprises si elles servent, sinon abandonnées en première étape. En jeu, /fg puis « Enregistrer le profil maintenant » (ou une déconnexion) met le profil à jour.")
+              ? t("Le guide part de ce personnage : ses quêtes faites sont ignorées ; celles de son journal sont reprises si elles servent, sinon abandonnées en première étape. En jeu, /pw puis « Enregistrer le profil maintenant » (ou une déconnexion) met le profil à jour.")
               : characters?.length === 0
-                ? t("Aucun personnage enregistré : connectez-vous en jeu avec l'addon installé, puis /fg et « Enregistrer le profil maintenant » (ou déconnectez-vous).")
+                ? t("Aucun personnage enregistré : connectez-vous en jeu avec l'addon installé, puis /pw et « Enregistrer le profil maintenant » (ou déconnectez-vous).")
                 : t("Choisissez un personnage enregistré en jeu pour reprendre là où il en est.")
           }
         />
@@ -57,7 +57,7 @@ export function CharacterPicker({ characters, start, onPick, options, recorded, 
       </select>
       {!pasting && (
         <button className="link" onClick={() => setPasting(true)}>
-          {t("Coller l'export d'un personnage (en jeu : /fg, « Exporter mon personnage »)…")}
+          {t("Coller l'export d'un personnage (en jeu : /pw, « Exporter mon personnage »)…")}
         </button>
       )}
       {pasting && (

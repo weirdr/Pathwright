@@ -80,7 +80,7 @@ fn main() {
         dir.display()
     );
     // The addon is installed from an addon site: the app only checks its version.
-    let toc_path = root.join("addon/Factoruide_Profile/Factoruide_Profile.toc");
+    let toc_path = root.join("addon/Pathwright_Profile/Pathwright_Profile.toc");
     println!("cargo:rerun-if-changed={}", toc_path.display());
     let toc = std::fs::read_to_string(&toc_path).unwrap();
     let field = |name: &str| {

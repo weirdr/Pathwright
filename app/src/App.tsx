@@ -22,7 +22,7 @@ import { ADDON_URL } from "./web/components/AddonInstall";
 import logo from "./assets/logo.svg";
 
 /** Where problems are reported from the web app (it sends nothing anywhere itself). */
-const ISSUES_URL = "https://github.com/brouznouf/factoruide/issues";
+const ISSUES_URL = "https://github.com/weirdr/Pathwright/issues";
 
 const EDITION_LABELS: Record<Edition, string> = { forever: "Forever", classic: "Classic", tbc: "TBC" };
 
@@ -33,7 +33,7 @@ const PAGES: { id: Page; label: string }[] = [
   { id: "plan", label: "Nouveau guide" },
   { id: "objectives", label: "Objectifs" },
   { id: "results", label: "Guides" },
-  // The addon is installed, updated and set up in game (CurseForge, its page in the game's options: /fg).
+  // The addon is installed, updated and set up in game (CurseForge, its page in the game's options: /pw).
   // In a browser, nothing is sent anywhere and the settings are in the menu.
   ...(IS_WEB
     ? []

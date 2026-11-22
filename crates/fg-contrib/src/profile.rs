@@ -1,4 +1,4 @@
-//! Characters' profiles the addon saves in its SavedVariables (`FactoruideDB.profiles`, see
+//! Characters' profiles the addon saves in its SavedVariables (`PathwrightDB.profiles`, see
 //! the addon's Profile.lua): level, quests done and in the log, position, flight paths... for
 //! the app to plan a guide from where a character stands. Never part of a contribution.
 
@@ -22,7 +22,7 @@ pub fn read(files: &[PathBuf]) -> Result<Vec<serde_json::Value>> {
             continue;
         }
         let lua = lua::new_lua();
-        let Some(db) = lua::load_globals(&lua, file, &["FactoruideDB"])?.pop() else {
+        let Some(db) = lua::load_globals(&lua, file, &["PathwrightDB"])?.pop() else {
             continue;
         };
         for (key, p) in db.field("profiles").str_entries() {
@@ -44,7 +44,7 @@ pub fn read(files: &[PathBuf]) -> Result<Vec<serde_json::Value>> {
             }
             out.push(json);
         }
-        // Other players' profiles received in a party (`/fg share`, the addon's Share.lua), for
+        // Other players' profiles received in a party (`/pw share`, the addon's Share.lua), for
         // group guides: marked `shared`, under the name of who sent them.
         for (key, p) in db.field("shared").str_entries() {
             if p.field("level").int().is_none() {
@@ -81,10 +81,10 @@ mod tests {
     fn profiles_with_flights_from_the_profile_and_the_flight_maps() {
         let dir = std::env::temp_dir().join(format!("fg-profile-{}", std::process::id()));
         std::fs::create_dir_all(&dir).unwrap();
-        let file = dir.join("Factoruide.lua");
+        let file = dir.join("Pathwright_Profile.lua");
         std::fs::write(
             &file,
-            r#"FactoruideDB = {
+            r#"PathwrightDB = {
                 ["characters"] = { ["Brouz-Realm"] = { ["seq"] = 2, ["events"] = {
                     { 1, 100, "taxi", false, false, false, 1411, 50, 50, 12,
                       { ["map"] = 1411, ["nodes"] = { { ["id"] = 25, ["state"] = 0 }, { ["id"] = 22, ["state"] = 2 } } } },

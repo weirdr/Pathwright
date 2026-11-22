@@ -1,0 +1,34 @@
+<Bindings>
+    <Binding name="CLICK PWItemButton:LeftButton" header="PATHWRIGHT" category="ADDONS">
+    </Binding>
+    <Binding name="PATHWRIGHT_NEXT" category="ADDONS">
+        Pathwright.Guide:NextGroup()
+    </Binding>
+    <Binding name="PATHWRIGHT_PREV" category="ADDONS">
+        Pathwright.Guide:PrevGroup()
+    </Binding>
+    <Binding name="PATHWRIGHT_SKIP" category="ADDONS">
+        Pathwright.Guide:SkipCurrent()
+    </Binding>
+    <Binding name="PATHWRIGHT_UNDO" category="ADDONS">
+        Pathwright.Guide:UndoLastMark()
+    </Binding>
+    <Binding name="PATHWRIGHT_SPOT" category="ADDONS">
+        Pathwright.Guide:NextSpot()
+    </Binding>
+    <Binding name="PATHWRIGHT_MODE" category="ADDONS">
+        Pathwright.Guide:ToggleMode()
+    </Binding>
+    <Binding name="PATHWRIGHT_GUIDE" category="ADDONS">
+        Pathwright.Guide:ToggleShown()
+    </Binding>
+    <Binding name="PATHWRIGHT_UI" category="ADDONS">
+        Pathwright:ToggleUI()
+    </Binding>
+    <Binding name="PATHWRIGHT_TIME" category="ADDONS">
+        Pathwright.Timing:Print()
+    </Binding>
+    <Binding name="PATHWRIGHT_OPTIONS" category="ADDONS">
+        Pathwright:OpenSettings()
+    </Binding>
+</Bindings>

@@ -30,7 +30,7 @@ pub fn decode(prefix: &str, text: &str) -> Result<Vec<u8>, String> {
     miniz_oxide::inflate::decompress_to_vec_with_limit(&packed, MAX_DECODED).map_err(|_| "corrupt".to_owned())
 }
 
-/// What a character's export holds (`/fg export`, see the addon's Profile.lua).
+/// What a character's export holds (`/pw export`, see the addon's Profile.lua).
 #[derive(Debug, serde::Deserialize)]
 pub struct ProfileExport {
     format: String,

@@ -1,0 +1,2 @@
+-- Empty in the published addon. Older versions of the Pathwright app wrote here the rows
+-- the contribution server has (`PathwrightSent`); they now come with Pathwright_Data.

@@ -7,14 +7,14 @@
 # The panel is FG_PANEL ("edition:race:class ..."), planned at effort 0 up to FG_TO_LEVEL (default 30;
 # 60 for the whole leveling). Only the planner and the data change the routes: skip this for the
 # addon and the interface. The cache is $FG_COMPARE (default /tmp/fg-compare); `fg` is
-# target/release/fg, built here. Same steps and times means no change at all.
+# target/release/pw, built here. Same steps and times means no change at all.
 set -eu
 cd "$(dirname "$0")/.."
 
 root=${FG_COMPARE:-/tmp/fg-compare}
 panel=${FG_PANEL:-"forever:orc:warrior classic:orc:warlock forever:human:mage tbc:bloodelf:paladin"}
 to=${FG_TO_LEVEL:-30}
-fg=target/release/fg
+fg=target/release/pw
 
 plan() { # DIR
     mkdir -p "$1"

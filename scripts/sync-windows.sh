@@ -8,8 +8,8 @@ mkdir -p "$dest"
 rsync -a --delete \
     --exclude target/ --exclude node_modules/ --exclude 'app/dist/' --exclude 'app/src-tauri/gen/' \
     --exclude '.git/' --exclude '/data/*.sqlite' --exclude '/routes/' --exclude '/debug/' \
-    --exclude 'addon/Factoruide_Guide/Config.lua' --exclude 'addon/Factoruide_Guide/Routes.lua' \
-    --exclude 'addon/Factoruide_Guide/Services.lua' \
-    --exclude 'addon/Factoruide_Profile/Sent.lua' --exclude '/web/dist/' --exclude 'app/src/web/fg_web.wasm' \
+    --exclude 'addon/Pathwright_Guide/Config.lua' --exclude 'addon/Pathwright_Guide/Routes.lua' \
+    --exclude 'addon/Pathwright_Guide/Services.lua' \
+    --exclude 'addon/Pathwright_Profile/Sent.lua' --exclude '/web/dist/' --exclude 'app/src/web/fg_web.wasm' \
     "$src/" "$dest/"
 echo "synced to $dest"

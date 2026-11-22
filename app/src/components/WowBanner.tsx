@@ -106,7 +106,7 @@ export function WowBanner({ editionName, onSettings, onAddon }: Props) {
     return (
       <div className="wow-banner outdated" role="status">
         <span className="wow-banner-text">
-          <strong>{t("Redémarrez le jeu s'il est ouvert.")}</strong> {t("Vos guides sont dans un nouveau dossier d'addon (Factoruide_Data), que le jeu ne découvre qu'au démarrage : un /reload ne suffit pas cette fois.")}
+          <strong>{t("Redémarrez le jeu s'il est ouvert.")}</strong> {t("Vos guides sont dans un nouveau dossier d'addon (Pathwright_Data), que le jeu ne découvre qu'au démarrage : un /reload ne suffit pas cette fois.")}
         </span>
       </div>
     );

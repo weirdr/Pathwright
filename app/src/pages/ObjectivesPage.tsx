@@ -203,7 +203,7 @@ export function ObjectivesPage({ options, initial, busy, onGenerate }: Props) {
     />
   ) : (
     <button className="link" onClick={() => setPasting(true)}>
-      {t("Coller l'export d'un personnage (en jeu : /fg, « Exporter mon personnage »)…")}
+      {t("Coller l'export d'un personnage (en jeu : /pw, « Exporter mon personnage »)…")}
     </button>
   );
 

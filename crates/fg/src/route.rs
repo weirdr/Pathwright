@@ -191,7 +191,7 @@ fn read_profile(path: &Path) -> Result<job::StartState> {
     serde_json::from_str(&text).with_context(|| format!("{} is not a profile", path.display()))
 }
 
-/// Write the data addon (`addon_dir`, Factoruide_Data) from every route JSON (each in its own
+/// Write the data addon (`addon_dir`, Pathwright_Data) from every route JSON (each in its own
 /// language): copy it into the game next to the addon.
 pub fn write_addon_routes(conn: &Connection, overrides_dir: &Path, routes_dir: &Path, addon_dir: &Path) -> Result<()> {
     let overrides = Overrides::load_edition(overrides_dir, crate::edition())?;
@@ -199,7 +199,7 @@ pub fn write_addon_routes(conn: &Connection, overrides_dir: &Path, routes_dir: &
     let guide_toc = addon_dir
         .parent()
         .unwrap_or(Path::new("."))
-        .join("Factoruide_Guide/Factoruide_Guide.toc");
+        .join("Pathwright_Guide/Pathwright_Guide.toc");
     let interface = std::fs::read_to_string(&guide_toc)
         .ok()
         .and_then(|toc| toc.lines().find(|l| l.starts_with("## Interface:")).map(str::to_owned))

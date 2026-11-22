@@ -1,0 +1,2 @@
+-- Empty in the published addon. Older versions of the Pathwright app wrote the places that
+-- serve the character here; they now come with the guides (Pathwright_Data or an import in game).

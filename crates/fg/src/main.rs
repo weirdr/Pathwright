@@ -27,8 +27,8 @@ struct Cli {
     /// Directory of the planned routes (JSON)
     #[arg(long, env = "FG_ROUTES", default_value = "routes", global = true)]
     routes: PathBuf,
-    /// The data addon folder receiving the guides (Factoruide_Data: copy it into the game's AddOns)
-    #[arg(long, env = "FG_ADDON_DIR", default_value = "addon/Factoruide_Data", global = true)]
+    /// The data addon folder receiving the guides (Pathwright_Data: copy it into the game's AddOns)
+    #[arg(long, env = "FG_ADDON_DIR", default_value = "addon/Pathwright_Data", global = true)]
     addon_dir: PathBuf,
     #[command(subcommand)]
     command: Command,
@@ -126,7 +126,7 @@ enum Command {
         #[arg(long)]
         json: bool,
     },
-    /// Regenerate the data addon (Factoruide_Data) from routes/*.json
+    /// Regenerate the data addon (Pathwright_Data) from routes/*.json
     Addon {
         /// Write instead the guides' Lua as the apps export them (the text of an in-game import
         /// and of the data addon), stamped computed at 0, version 1: the same text each time
@@ -135,8 +135,8 @@ enum Command {
     },
     /// Write the guide pack for the Polestar addon (WoW Forever) from every route JSON
     Polestar {
-        /// The pack's addon folder (e.g. <WoW>/_classic_beta_/Interface/AddOns/Factoruide_Polestar)
-        #[arg(long, default_value = "Factoruide_Polestar")]
+        /// The pack's addon folder (e.g. <WoW>/_classic_beta_/Interface/AddOns/Pathwright_Polestar)
+        #[arg(long, default_value = "Pathwright_Polestar")]
         out: PathBuf,
         /// Write the guides as import strings for Polestar's Import page instead, a <guide>.txt each
         #[arg(long)]
@@ -389,7 +389,7 @@ fn main() -> Result<()> {
         }
         Command::Talents { out } => talents::run(
             &open()?,
-            &out.unwrap_or_else(|| PathBuf::from(format!("addon/Factoruide_Guide/TalentBuilds_{}.lua", edition.key()))),
+            &out.unwrap_or_else(|| PathBuf::from(format!("addon/Pathwright_Guide/TalentBuilds_{}.lua", edition.key()))),
             edition,
         )?,
     }

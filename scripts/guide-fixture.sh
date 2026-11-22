@@ -24,8 +24,8 @@ mkdir -p "$dir"
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 cargo build --release --locked --quiet -p fg
-fg="${CARGO_TARGET_DIR:-target}/release/fg"
-"$fg" --edition classic --routes "$tmp/routes" --addon-dir "$tmp/Factoruide_Data" \
+fg="${CARGO_TARGET_DIR:-target}/release/pw"
+"$fg" --edition classic --routes "$tmp/routes" --addon-dir "$tmp/Pathwright_Data" \
     route --race human --class warrior --to-level 6 --effort 0 >/dev/null 2>&1
 "$fg" --edition classic --routes "$tmp/routes" addon --lua "$tmp/guide.lua" 2>/dev/null
 

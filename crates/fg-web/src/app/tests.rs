@@ -46,7 +46,7 @@ fn serve_classic() {
     );
 }
 
-/// What `/fg export` gives for a dwarf warrior.
+/// What `/pw export` gives for a dwarf warrior.
 fn profile_export(name: &str, level: i64) -> String {
     let json = serde_json::json!({
         "format": "factoruide-profile", "version": 1, "edition": "classic", "addon": "0.13.0",
@@ -129,12 +129,12 @@ fn a_character_pasted_gets_its_guide_into_the_game() {
     assert!(lua.contains("FG.Routes[\"Brouz web\"].version = 1"), "its version");
     assert!(lua.contains("FG.Services"), "the places");
     assert!(
-        !lua.contains("FG.Assignments") && !lua.contains("FG.Config") && !lua.contains("FactoruideSent"),
+        !lua.contains("FG.Assignments") && !lua.contains("FG.Config") && !lua.contains("PathwrightSent"),
         "no assignment, no settings, no sends"
     );
     // Every guide, as the data addon, zipped.
     let zip = call("data_zip", &serde_json::json!({})).unwrap();
-    assert_eq!(zip["file"], "Factoruide_Data.zip");
+    assert_eq!(zip["file"], "Pathwright_Data.zip");
     assert!(zip["base64"].as_str().unwrap().len() > 1000);
 
     // Watched, edited by hand, compared: the calls of the guide's page.

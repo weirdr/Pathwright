@@ -73,7 +73,7 @@ export function ExportMenu({ guide, version, edition, prominent, onDone }: Guide
   const items = [
     {
       label: t("Addon"),
-      hint: t("Le texte à coller en jeu (/fg puis « Importer un guide… ») : le guide rejoint ceux de l'addon."),
+      hint: t("Le texte à coller en jeu (/pw puis « Importer un guide… ») : le guide rejoint ceux de l'addon."),
       run: () => {
         setText("");
         api
@@ -108,14 +108,14 @@ export function ExportMenu({ guide, version, edition, prominent, onDone }: Guide
           },
           {
             label: t("Polestar : addon"),
-            hint: t("Le guide comme addon Polestar (Factoruide_Polestar), sans limite d'étapes, à copier dans le dossier Interface\\AddOns de WoW Forever."),
+            hint: t("Le guide comme addon Polestar (Pathwright_Polestar), sans limite d'étapes, à copier dans le dossier Interface\\AddOns de WoW Forever."),
             run: () =>
               run(async () => {
                 const dir = await open({ directory: true, title: t("Dossier où exporter l'addon Polestar") });
                 if (typeof dir !== "string") return "";
                 const path = await api.exportPolestar(guide, version, dir);
                 return IS_WEB
-                  ? t("Téléchargé : {path}. Décompressez-le dans Interface\\AddOns (il remplace les guides de Factoruide_Polestar), redémarrez le jeu, puis choisissez Factoruide sous « Suggest guides from » (/polestar packs).", { path })
+                  ? t("Téléchargé : {path}. Décompressez-le dans Interface\\AddOns (il remplace les guides de Pathwright_Polestar), redémarrez le jeu, puis choisissez Factoruide sous « Suggest guides from » (/polestar packs).", { path })
                   : t("Guide ajouté à l'addon Polestar {path} : copiez ce dossier dans Interface\\AddOns, redémarrez le jeu, puis choisissez Factoruide sous « Suggest guides from » (/polestar packs).", { path });
               }),
           },
@@ -131,8 +131,8 @@ export function ExportMenu({ guide, version, edition, prominent, onDone }: Guide
           text={text}
           steps={[
             t("Copiez le texte ci-dessous."),
-            t("En jeu, tapez /fg, cliquez sur « Importer un guide… », collez-le (Ctrl+V), puis Importer."),
-            t("Choisissez le guide de votre personnage en jeu avec /fg (d'office s'il est le seul de sa race et de sa classe)."),
+            t("En jeu, tapez /pw, cliquez sur « Importer un guide… », collez-le (Ctrl+V), puis Importer."),
+            t("Choisissez le guide de votre personnage en jeu avec /pw (d'office s'il est le seul de sa race et de sa classe)."),
           ]}
           onClose={() => setText(null)}
         />
@@ -218,12 +218,12 @@ export function GlobalExport({ edition, count, onDone }: { edition: Edition | nu
     IS_WEB
       ? {
           label: t("Addon : tous les guides"),
-          hint: t("Le dossier Factoruide_Data (.zip) à décompresser dans le dossier Interface\\AddOns du jeu, puis redémarrer le jeu."),
+          hint: t("Le dossier Pathwright_Data (.zip) à décompresser dans le dossier Interface\\AddOns du jeu, puis redémarrer le jeu."),
           run: () => run(async () => t("Téléchargé : {file}. Décompressez-le dans Interface\\AddOns, puis redémarrez le jeu.", { file: await api.dataZip() })),
         }
       : {
           label: t("Addon : tous les guides dans le jeu"),
-          hint: t("Écrit vos guides dans le dossier du jeu (Factoruide_Data), puis /reload en jeu (redémarrer le jeu la première fois)."),
+          hint: t("Écrit vos guides dans le dossier du jeu (Pathwright_Data), puis /reload en jeu (redémarrer le jeu la première fois)."),
           run: () => run(async () => t("Guides écrits dans le jeu : {n}. Faites /reload en jeu (redémarrez le jeu la première fois).", { n: await api.installAddon() })),
         },
     ...(edition === "forever"
@@ -236,7 +236,7 @@ export function GlobalExport({ edition, count, onDone }: { edition: Edition | nu
               }
             : {
                 label: t("Polestar : tous les guides dans le jeu"),
-                hint: t("Écrit vos guides comme pack de guides Polestar (Factoruide_Polestar) dans le dossier du jeu."),
+                hint: t("Écrit vos guides comme pack de guides Polestar (Pathwright_Polestar) dans le dossier du jeu."),
                 run: () => run(async () => t("Guides écrits pour Polestar : {n}. Redémarrez le jeu.", { n: await api.installPolestar() })),
               },
         ]

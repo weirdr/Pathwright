@@ -11,7 +11,7 @@
 # Work files in $FG_GROUP (default /tmp/fg-group).
 set -eu
 cd "$(dirname "$0")/.."
-fg=target/release/fg
+fg=target/release/pw
 out=${FG_GROUP:-/tmp/fg-group}
 mkdir -p "$out"
 cargo build --release --bin fg 2>&1 | tail -1

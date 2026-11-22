@@ -67,7 +67,7 @@ function inline(text: string): ReactNode {
 }
 
 /** The project's base address. */
-export const REPO = "https://github.com/brouznouf/factoruide/";
+export const REPO = "https://github.com/weirdr/Pathwright/";
 /** Pages that open in the browser (as the app's `open_link` allows): the project's, and the community tools. */
 const OPENS = [REPO, "https://github.com/Questie/QuestieTrace", "https://questie.dev/trace", "https://www.wowhead.com/"];
 

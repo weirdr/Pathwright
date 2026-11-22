@@ -262,11 +262,13 @@ fn copy_dir(from: &Path, to: &Path) -> std::io::Result<()> {
     Ok(())
 }
 
-/// Whether this build checks for updates: only the published ones (`FG_RELEASE` set by the
-/// release workflow), not development or local builds, whose version is not a release's.
+/// Whether this build checks for updates: never in this fork. Upstream's updater fetched its
+/// releases from the original author's GitHub and would have replaced this build with theirs; to
+/// turn updates back on, publish releases signed with a key of your own, put its public key and
+/// your `latest.json` address in `tauri.conf.json`, and return true here.
 #[tauri::command]
 fn updates_enabled() -> bool {
-    option_env!("FG_RELEASE").is_some()
+    false
 }
 
 #[tauri::command]

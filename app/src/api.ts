@@ -311,7 +311,7 @@ export interface CharacterInfo {
   class: string;
   /** Professions it has: key and skill. */
   professions: [string, number][];
-  /** Another player's, received in a party (`/fg partage`): for group guides, not played here. */
+  /** Another player's, received in a party (`/pw partage`): for group guides, not played here. */
   shared: boolean;
   profile: StartState;
 }
@@ -638,11 +638,11 @@ export const api = {
       URL.createObjectURL(new Blob([bytes], { type: "image/webp" })),
     ),
   exportRequest: (request: PlanRequest) => invoke<string | WebFile>("export_request", { request }).then(saved),
-  /** Desktop: writes every guide into the game (the data addon Factoruide_Data); returns their number. */
+  /** Desktop: writes every guide into the game (the data addon Pathwright_Data); returns their number. */
   installAddon: () => invoke<number>("install_addon").then((n) => (settingsChanged(), n)),
   /** Whether Polestar is installed in WoW Forever. */
   polestarInstalled: () => invoke<boolean>("polestar_installed"),
-  /** Export a guide version as a guide of the Polestar pack addon (Factoruide_Polestar) in `dir`, the pack's other guides kept (web: a zip of the pack with it alone; WoW Forever only): the pack's folder. */
+  /** Export a guide version as a guide of the Polestar pack addon (Pathwright_Polestar) in `dir`, the pack's other guides kept (web: a zip of the pack with it alone; WoW Forever only): the pack's folder. */
   exportPolestar: (guide: string, version: number, dir: string) => invoke<string | WebFile>("export_polestar", { guide, version, dir }).then(saved),
   /** Whether the addon in the game has the current settings. */
   addonSynced: () => invoke<boolean>("addon_synced"),
@@ -693,7 +693,7 @@ export const api = {
     invoke<string | { text: string }>("guide_text", { guide, version }).then((r) => (typeof r === "string" ? r : r.text)),
   /** WoW Forever: the text to paste on Polestar's Import page (/polestar import), this guide version; `fits`: within what Polestar takes today. */
   polestarString: (guide: string, version: number) => invoke<PolestarString>("polestar_string", { guide, version }),
-  /** Web build: downloads every guide as the data addon (Factoruide_Data, as the desktop app writes it) in a zip; returns its name. */
+  /** Web build: downloads every guide as the data addon (Pathwright_Data, as the desktop app writes it) in a zip; returns its name. */
   dataZip: () => invoke<WebFile>("data_zip").then(saved),
   /** Web build, WoW Forever: downloads every guide as a Polestar guide pack (a zip of its addon folder); returns its name. */
   polestarPack: () => invoke<WebFile>("polestar_pack").then(saved),

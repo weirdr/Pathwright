@@ -33,7 +33,7 @@ on:
       addons:
         description: Addons to publish
         type: choice
-        options: [both, Factoruide_Profile, Factoruide_Guide]
+        options: [both, Pathwright_Profile, Pathwright_Guide]
         default: both
       channel:
         description: CurseForge and Wago channel
@@ -55,10 +55,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - addon: Factoruide_Profile
+          - addon: Pathwright_Profile
             curseforge: ${{ vars.CURSEFORGE_PROFILE_ID }}
             wago: ${{ vars.WAGO_PROFILE_ID }}
-          - addon: Factoruide_Guide
+          - addon: Pathwright_Guide
             curseforge: ${{ vars.CURSEFORGE_GUIDE_ID }}
             wago: ${{ vars.WAGO_GUIDE_ID }}
             # The CurseForge project it needs (a relation of each file uploaded).

@@ -1,6 +1,6 @@
 //! The guides a player keeps: a name and its versions, every computation (the first one, or
 //! another with the same name) adding one. The guides go to the game all together (the data
-//! addon) or one by one (the text of `/fg import`), each in the version its page says to
+//! addon) or one by one (the text of `/pw import`), each in the version its page says to
 //! follow; the player picks a character's guide in game.
 //!
 //! The library knows the layout and the rules, not where the files are (see [`Files`]):

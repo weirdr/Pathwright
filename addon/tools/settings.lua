@@ -1,4 +1,4 @@
--- Writes Factoruide_Guide/SettingsSchema.lua from addon/settings.json, the one source of the
+-- Writes Pathwright_Guide/SettingsSchema.lua from addon/settings.json, the one source of the
 -- addon's settings: their groups, sections, kinds, defaults, bounds, choices and texts (French in
 -- the schema, the other languages under `translations`). The addon shows them in English through
 -- FG.T, with the translations of every language.
@@ -9,7 +9,7 @@
 -- The smoke test loads this file (`loadfile(...)("module")`) and checks the Lua file is up to date.
 
 local JSON_PATH = "addon/settings.json"
-local LUA_PATH = "addon/Factoruide_Guide/SettingsSchema.lua"
+local LUA_PATH = "addon/Pathwright_Guide/SettingsSchema.lua"
 local WIDTH = 120
 
 -- The schema's languages: its own (French) and those of `translations`, as game locales.
@@ -287,7 +287,7 @@ local function Generate(json)
     local out = {
         "-- Generated from addon/settings.json by addon/tools/settings.lua: edit the JSON, then run",
         "-- `luajit addon/tools/settings.lua` from the repository root. Do not edit.",
-        "local FG = Factoruide",
+        "local FG = Pathwright",
         "",
         "-- The settings in groups and sections, as the game's options show them; texts in English.",
     }

@@ -6,9 +6,9 @@
 )]
 
 use super::{
-    AppState, CmdError, CmdResult, DATA_ADDON, Edition, GUIDE_ADDON, GuideId, Host, Ordering, PROFILE_ADDON, Path,
-    Settings, State, WowProblem, addon_snapshot, embedded, err, game, job, loaded_files, overrides, read_send_record,
-    send_record_file, sent_lua, update_settings,
+    AppState, CmdError, CmdResult, DATA_ADDON, Edition, GUIDE_ADDON, GuideId, Host, Ordering, Path, Settings, State,
+    WowProblem, addon_snapshot, embedded, err, game, job, loaded_files, overrides, read_send_record, send_record_file,
+    sent_lua, update_settings,
 };
 
 /// The oldest addon this app works with (its .toc version): older ones are to be updated.
@@ -49,7 +49,6 @@ pub(crate) fn write_data(state: &AppState) -> CmdResult<usize> {
     }
     let addons = settings.addons_dir(settings.edition);
     let before = loaded_files(&addons);
-    migrate_legacy_addon(&addons);
     let guides = state.followed_guides()?;
     let count = guides.len();
     let mut lua = job::guides_lua(
@@ -112,7 +111,7 @@ pub(crate) fn install_polestar(state: State<'_, AppState>) -> CmdResult<usize> {
     Ok(guides.len())
 }
 
-/// What the player pastes in game with `/fg import`: one guide version (the addon adds it to
+/// What the player pastes in game with `/pw import`: one guide version (the addon adds it to
 /// the guides it has, or replaces the one of its name).
 #[tauri::command(async)]
 pub(crate) fn guide_text(state: State<'_, AppState>, guide: GuideId, version: u32) -> CmdResult<String> {
@@ -143,7 +142,7 @@ pub(crate) fn polestar_installed_in(settings: &Settings) -> bool {
         .exists()
 }
 
-/// Export a guide version as a guide of the Polestar pack's addon (`Factoruide_Polestar`) in
+/// Export a guide version as a guide of the Polestar pack's addon (`Pathwright_Polestar`) in
 /// `dir` (the folder chosen, or that folder made in it), in the game's language, the pack's other
 /// guides kept: the player copies the folder into the game. Returns the pack's folder. Polestar
 /// exists on WoW Forever only.
@@ -175,7 +174,7 @@ pub(crate) fn addon_synced(state: State<'_, AppState>) -> bool {
 /// Pages the app opens in the browser: the project's (repository, license, notice) and the
 /// community tools the contribution page points to; nothing else.
 pub(crate) const LINKS: &[&str] = &[
-    "https://github.com/brouznouf/factoruide/",
+    "https://github.com/weirdr/Pathwright/",
     "https://www.curseforge.com/wow/",
     "https://github.com/Questie/QuestieTrace",
     "https://questie.dev/trace",
@@ -197,46 +196,4 @@ pub(crate) fn open_link(url: String) -> CmdResult<()> {
     };
     std::process::Command::new(program).arg(&url).spawn().map_err(err)?;
     Ok(())
-}
-
-/// The addon was called BrouzQuest, then was a single addon, Factoruide, before its profile and
-/// guide parts: drop their folders (the game would load them too) and carry their SavedVariables
-/// over to the profile part. `addons`: the client's Interface/AddOns folder.
-pub(crate) fn migrate_legacy_addon(addons: &Path) {
-    let _ = std::fs::remove_dir_all(addons.join("BrouzQuest"));
-    let _ = std::fs::remove_dir_all(addons.join("Factoruide"));
-    if let Some(client) = addons.parent().and_then(Path::parent) {
-        migrate_saved_variables(client);
-    }
-}
-
-/// The SavedVariables of the former addons, carried over to the profile part, unless that one
-/// has newer ones (a game still running the old addon writes its file until it restarts: carried
-/// over again then). The old files are kept as `.migrated`.
-pub(crate) fn migrate_saved_variables(client: &Path) {
-    let Ok(accounts) = std::fs::read_dir(client.join("WTF/Account")) else {
-        return;
-    };
-    let modified = |f: &Path| std::fs::metadata(f).and_then(|m| m.modified()).ok();
-    for account in accounts.flatten() {
-        let dir = account.path().join("SavedVariables");
-        let (brouzquest, single, profile) = (
-            dir.join("BrouzQuest.lua"),
-            dir.join("Factoruide.lua"),
-            dir.join(format!("{PROFILE_ADDON}.lua")),
-        );
-        if !single.exists()
-            && !profile.exists()
-            && let Ok(text) = std::fs::read_to_string(&brouzquest)
-            && std::fs::write(&single, text.replace("BrouzQuestDB", "FactoruideDB")).is_ok()
-        {
-            let _ = std::fs::rename(&brouzquest, dir.join("BrouzQuest.lua.migrated"));
-        }
-        if single.exists()
-            && (!profile.exists() || modified(&single) > modified(&profile))
-            && std::fs::copy(&single, &profile).is_ok()
-        {
-            let _ = std::fs::rename(&single, dir.join("Factoruide.lua.migrated"));
-        }
-    }
 }

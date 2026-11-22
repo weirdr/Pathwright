@@ -1,5 +1,5 @@
 #!/bin/sh
-# Build fg for profiling (target/profiling/fg) and optionally record a run with perf.
+# Build fg for profiling (target/profiling/pw) and optionally record a run with perf.
 #
 #   scripts/profile.sh build
 #   scripts/profile.sh record OUT.svg -- FG_ARGS...
@@ -31,7 +31,7 @@ record)
     data=${out%.svg}.perf
     export FG_ROUTES="${FG_ROUTES:-/tmp/fg-profile/routes}" FG_ADDON_DIR="${FG_ADDON_DIR:-/tmp/fg-profile/addon}"
     mkdir -p "$FG_ROUTES" "$FG_ADDON_DIR"
-    perf record -F 499 --call-graph fp -o "$data" target/profiling/fg "$@"
+    perf record -F 499 --call-graph fp -o "$data" target/profiling/pw "$@"
     flamegraph --perfdata "$data" -o "$out"
     echo "Flamegraph: $out, perf data: $data"
     ;;

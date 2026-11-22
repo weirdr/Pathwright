@@ -1,0 +1,2 @@
+-- Empty in the published addon. Older versions of the Pathwright app wrote the guides here;
+-- they now go into the data addon Pathwright_Data, or are imported in game (`/pw`).

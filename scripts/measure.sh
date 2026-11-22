@@ -47,7 +47,7 @@ run() {
     echo "effort=$effort to=$to$params" >"$dir/settings"
     cargo build --release --quiet -p fg
     # Its own binary: a rebuild meanwhile does not change the runs left.
-    cp target/release/fg "$dir/fg"
+    cp target/release/pw "$dir/pw"
     # The script given to sh -c expands its own arguments: single quotes on purpose.
     # shellcheck disable=SC2016
     for start in $starts; do
@@ -62,7 +62,7 @@ run() {
         mkdir -p "$work"
         began=$(date +%s)
         # shellcheck disable=SC2086
-        if FG_RACE_LOG=1 "$dir/fg" --edition classic --routes "$work" --addon-dir "$work" \
+        if FG_RACE_LOG=1 "$dir/pw" --edition classic --routes "$work" --addon-dir "$work" \
             route --race "${start%%:*}" --class "${start#*:}" --to-level "$to" --effort "$effort" \
             --param "seed=$seed" $params --name r >"$dir/$id.log" 2>&1; then
             echo "elapsed $(($(date +%s) - began)) s" >>"$dir/$id.log"

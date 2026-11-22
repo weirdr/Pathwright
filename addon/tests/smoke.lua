@@ -1,7 +1,7 @@
 -- Smoke test of the addon outside the game: minimal WoW API stubs, load files in TOC
 -- order, fire login and quest events, check the guide advances.
 -- Run from the repository root: luajit addon/tests/smoke.lua
--- `luajit addon/tests/smoke.lua profile`: Factoruide_Profile alone (the guide is another addon's).
+-- `luajit addon/tests/smoke.lua profile`: Pathwright_Profile alone (the guide is another addon's).
 local profileOnly = arg and arg[1] == "profile"
 
 local onQuest, completed = {}, {}
@@ -204,10 +204,10 @@ do
         })
     end
 end
---- The addon's category (Factoruide) in the game's options, and its page `name`.
+--- The addon's category (Pathwright) in the game's options, and its page `name`.
 function options.Category()
     for _, category in ipairs(options.categories) do
-        if category.name == "Factoruide" and not category.parent then return category end
+        if category.name == "Pathwright" and not category.parent then return category end
     end
 end
 function options.Page(name)
@@ -391,7 +391,7 @@ C_GossipInfo = {
 GetQuestID = function() return 179 end
 SlashCmdList = {}
 
--- Each addon gets its own private table; the guide uses the profile's, the global `Factoruide`.
+-- Each addon gets its own private table; the guide uses the profile's, the global `Pathwright`.
 local function load(addon)
     local private = {}
     for line in io.lines("addon/" .. addon .. "/" .. addon .. ".toc") do
@@ -399,7 +399,7 @@ local function load(addon)
         -- version wrote them. Config.lua ships empty too: as an older app wrote it, ignored.
         if line == "Config.lua" then
             assert(loadfile("addon/" .. addon .. "/Config.lua"))(addon, private)
-            Factoruide.Config = { autoAccept = false, guideMode = "minimal", locale = "deDE", scale = 1.5 }
+            Pathwright.Config = { autoAccept = false, guideMode = "minimal", locale = "deDE", scale = 1.5 }
         elseif line == "Routes.lua" or line == "Services.lua" then
             assert(loadfile("addon/" .. addon .. "/" .. line))(addon, private)
             assert(loadfile("addon/tests/fixtures/" .. line))(addon, private)
@@ -409,17 +409,17 @@ local function load(addon)
         end
     end
 end
--- Factoruide_Data (written by the desktop app) loads first. Alone with the profile part: what the
--- server has (its FactoruideSent) still drops the collector's rows.
+-- Pathwright_Data (written by the desktop app) loads first. Alone with the profile part: what the
+-- server has (its PathwrightSent) still drops the collector's rows.
 if profileOnly then
     -- As the apps write it: the table last, one character a line (read as text, not run).
-    FactoruideData = 'Factoruide.Routes = { x = { steps = {}, note = "FactoruideSent" } }\n'
-        .. 'FactoruideSent = {\n  ["Brouz-Realm"] = 1,\n  ["Other-Realm"] = 9,\n}\n'
-    FactoruideDataTime = 1700000000
+    PathwrightData = 'Pathwright.Routes = { x = { steps = {}, note = "PathwrightSent" } }\n'
+        .. 'PathwrightSent = {\n  ["Brouz-Realm"] = 1,\n  ["Other-Realm"] = 9,\n}\n'
+    PathwrightDataTime = 1700000000
 end
-load("Factoruide_Profile")
-if not profileOnly then load("Factoruide_Guide") end
-local FG = Factoruide
+load("Pathwright_Profile")
+if not profileOnly then load("Pathwright_Guide") end
+local FG = Pathwright
 
 local Press, Key, Click, Option
 do
@@ -427,7 +427,7 @@ do
     local bindings = {}
     options.bindings = bindings
     if not profileOnly then
-        local xml = assert(io.open("addon/Factoruide_Guide/Bindings.xml")):read("*a")
+        local xml = assert(io.open("addon/Pathwright_Guide/Bindings.xml")):read("*a")
         for name, body in xml:gmatch('<Binding name="([^"]+)"[^>]*>(.-)</Binding>') do
             bindings[name] = body
         end
@@ -467,15 +467,15 @@ do
     -- What the chat commands did before: a key binding while playing, a button or a check box of the
     -- addon's options otherwise.
     local PRESS = {
-        prev = function() Key("FACTORUIDE_PREV") end,
-        next = function() Key("FACTORUIDE_NEXT") end,
-        skip = function() Key("FACTORUIDE_SKIP") end,
-        undo = function() Key("FACTORUIDE_UNDO") end,
-        spot = function() Key("FACTORUIDE_SPOT") end,
-        mode = function() Key("FACTORUIDE_MODE") end,
-        guide = function() Key("FACTORUIDE_GUIDE") end,
-        hide = function() Key("FACTORUIDE_UI") end,
-        time = function() Key("FACTORUIDE_TIME") end,
+        prev = function() Key("PATHWRIGHT_PREV") end,
+        next = function() Key("PATHWRIGHT_NEXT") end,
+        skip = function() Key("PATHWRIGHT_SKIP") end,
+        undo = function() Key("PATHWRIGHT_UNDO") end,
+        spot = function() Key("PATHWRIGHT_SPOT") end,
+        mode = function() Key("PATHWRIGHT_MODE") end,
+        guide = function() Key("PATHWRIGHT_GUIDE") end,
+        hide = function() Key("PATHWRIGHT_UI") end,
+        time = function() Key("PATHWRIGHT_TIME") end,
         status = function() Click("Recorded events") end,
         reset = function() Click("Clear the recorded events") end,
         export = function() Click("Export my character") end,
@@ -485,9 +485,9 @@ do
         macro = function() Click("Pick up the target macro") end,
         compassReset = function() Click("Compass back to the top") end,
         restart = function() Click("Start over") end,
-        debug = function() Toggle("Factoruide_debug") end,
-        lock = function() Toggle("Factoruide_lockFrames") end,
-        compass = function() Toggle("Factoruide_compassShown") end,
+        debug = function() Toggle("Pathwright_debug") end,
+        lock = function() Toggle("Pathwright_lockFrames") end,
+        compass = function() Toggle("Pathwright_compassShown") end,
     }
     function Press(id) assert(PRESS[id], "nothing for " .. id)() end
 end
@@ -498,22 +498,22 @@ local function fire(event, ...)
     end
 end
 
-GetAddOnMetadata = function(name, field) return name == "Factoruide_Profile" and field == "Version" and "0.13.0" or nil end
-fire("ADDON_LOADED", "Factoruide_Profile")
+GetAddOnMetadata = function(name, field) return name == "Pathwright_Profile" and field == "Version" and "0.13.0" or nil end
+fire("ADDON_LOADED", "Pathwright_Profile")
 -- The app learns the game loaded the addon, and which version.
-assert(FactoruideDB.seen and FactoruideDB.seen.version == "0.13.0" and FactoruideDB.seen.time, "seen")
-if not profileOnly then fire("ADDON_LOADED", "Factoruide_Guide") end
+assert(PathwrightDB.seen and PathwrightDB.seen.version == "0.13.0" and PathwrightDB.seen.time, "seen")
+if not profileOnly then fire("ADDON_LOADED", "Pathwright_Guide") end
 fire("PLAYER_LOGIN")
-local char = FactoruideDB.characters["Brouz-Realm"]
+local char = PathwrightDB.characters["Brouz-Realm"]
 
 -- Another addon shows the guide: this one only records, and does nothing else.
 if profileOnly then
-    assert(FG.Guide == nil and FG.Routes == nil and FG.Get == nil, "no guide without Factoruide_Guide")
+    assert(FG.Guide == nil and FG.Routes == nil and FG.Get == nil, "no guide without Pathwright_Guide")
     onQuest[179] = true
     fire("QUEST_DETAIL", 0)
     fire("QUEST_ACCEPTED", 179)
     assert(#char.events >= 2, "collector recorded events")
-    assert(FG.DataSent["Brouz-Realm"] == 1 and FactoruideData == nil, "Factoruide_Data's sent seqs read, text let go")
+    assert(FG.DataSent["Brouz-Realm"] == 1 and PathwrightData == nil, "Pathwright_Data's sent seqs read, text let go")
     assert(FG.DataGuide == nil and FG.Routes == nil, "no guide kept without the guide part")
     -- The rows go on after the last the server has.
     assert(tonumber(char.events[1]:match("^(%d+)")) == 2, "numbered after the sent seq: " .. char.events[1])
@@ -521,32 +521,32 @@ if profileOnly then
     assert(next(calls) == nil, "nothing done in game: " .. tostring(next(calls)))
     assert(FG.Options and FG.Options.category, "the options built at login")
     -- The addon's page in the game's options, with the profile part's own: the character on the
-    -- main page, the Advanced page. `/fg` (a sub-command too) opens it and does nothing else.
+    -- main page, the Advanced page. `/pw` (a sub-command too) opens it and does nothing else.
     local category = options.Category()
     assert(category and category.registered and category.frame, "the addon's main page in the game's options")
     assert(#category.subcategories == 1 and options.Page("Avancé"), "only the Advanced page without the guide part")
-    SlashCmdList.FACTORUIDE("export")
-    assert(options.opened == category:GetID(), "/fg opens the addon's page")
-    assert(not (FG.TextWindow:Parts() and FG.TextWindow:Parts():IsShown()), "/fg export opens the options only")
+    SlashCmdList.PATHWRIGHT("export")
+    assert(options.opened == category:GetID(), "/pw opens the addon's page")
+    assert(not (FG.TextWindow:Parts() and FG.TextWindow:Parts():IsShown()), "/pw export opens the options only")
     for _, f in ipairs(frames) do
         assert(not (f._button and f:GetText() == FG.T("Import a guide…")), "no guide button without the guide part")
     end
     -- Debug messages: a check box.
     Press("debug")
-    assert(FactoruideDB.debug == true and Option("Factoruide_debug"):GetValue() == true, "debug on")
+    assert(PathwrightDB.debug == true and Option("Pathwright_debug"):GetValue() == true, "debug on")
     Press("debug")
-    assert(not FactoruideDB.debug, "debug off")
+    assert(not PathwrightDB.debug, "debug off")
     -- Clearing the recorded events asks first (the game's dialog).
     local recorded = #char.events
     calls.StaticPopup_Show = nil
     Press("reset")
-    assert(#char.events == recorded and calls.StaticPopup_Show[1] == "FACTORUIDE_CLEAR_EVENTS", "asked first")
-    StaticPopupDialogs.FACTORUIDE_CLEAR_EVENTS.OnAccept()
+    assert(#char.events == recorded and calls.StaticPopup_Show[1] == "PATHWRIGHT_CLEAR_EVENTS", "asked first")
+    StaticPopupDialogs.PATHWRIGHT_CLEAR_EVENTS.OnAccept()
     assert(#char.events == 0, "recorded events cleared")
     calls.StaticPopup_Show = nil
     fire("QUEST_ACCEPTED", 179)
     FG.Profile:Snapshot()
-    local profile = FactoruideDB.profiles["Brouz-Realm"]
+    local profile = PathwrightDB.profiles["Brouz-Realm"]
     assert(profile and profile.level == 1 and profile.class == "MAGE", "profile saved")
     -- The export needs nothing of the guide part.
     Press("export")
@@ -554,7 +554,7 @@ if profileOnly then
     local json = LibStub("LibDeflate"):DecompressDeflate(LibStub("LibDeflate"):DecodeForPrint(edit:GetText():sub(6)))
     assert(json and json:find('"character":"Brouz-Realm"', 1, true), "export without the guide")
     assert(not json:find('"collector"', 1, true) and not json:find('"events"', 1, true), "no collector rows")
-    assert(next(FactoruideDB.errors or {}) == nil, "no error: " .. tostring(next(FactoruideDB.errors or {})))
+    assert(next(PathwrightDB.errors or {}) == nil, "no error: " .. tostring(next(PathwrightDB.errors or {})))
     print("profile only ok: " .. #char.events .. " events")
     os.exit(0)
 end
@@ -614,7 +614,7 @@ fire("LOOT_READY", false)
 assert(calls.loot == 3, "all loot slots taken")
 -- The guide's mode: switched in game and kept, the minimal strip shown instead of the card.
 Press("mode")
-assert(FG:Get("guideMode") == "minimal" and FactoruideDB.settings.guideMode == "minimal", "minimal mode kept")
+assert(FG:Get("guideMode") == "minimal" and PathwrightDB.settings.guideMode == "minimal", "minimal mode kept")
 assert(FG.Guide:Box() == FG.Mini:Frame(), "the minimal strip is the guide")
 Press("mode")
 assert(FG:Get("guideMode") == "full" and FG.Guide:Box() == FG.Card:Frame(), "back to the full card")
@@ -666,15 +666,15 @@ FG.Routes["prof-test"] = {
         { k = "grind", t = "Grind", lvl = 60 },
     },
 }
--- No guide chosen and several made for a gnome mage: none followed; `/fg route` only opens the
+-- No guide chosen and several made for a gnome mage: none followed; `/pw route` only opens the
 -- addon's options.
 FG.Assignments["Brouz-Realm"] = nil
 useRoute(nil)
 assert(char.guide.route == nil, "no chosen route, got " .. tostring(char.guide.route))
 options.opened = nil
-SlashCmdList.FACTORUIDE("route gnome-mage")
-assert(char.guide.route == nil, "/fg route does not switch, got " .. tostring(char.guide.route))
-assert(options.opened == options.Category():GetID(), "/fg route opens the options")
+SlashCmdList.PATHWRIGHT("route gnome-mage")
+assert(char.guide.route == nil, "/pw route does not switch, got " .. tostring(char.guide.route))
+assert(options.opened == options.Category():GetID(), "/pw route opens the options")
 -- Without a guide, the guide's keys do nothing.
 Press("next")
 Press("skip")
@@ -1190,8 +1190,8 @@ print("death skip ok")
 Ambiguate = function(name) return (name:gsub("%-.*", "")) end
 for _, f in ipairs(frames) do
     if f.events.CHAT_MSG_ADDON and f.OnEvent then
-        f:OnEvent("CHAT_MSG_ADDON", "FGSYNC1", "R", "PARTY", "Pata-Realm")
-        f:OnEvent("CHAT_MSG_ADDON", "FGSYNC1", "7101:3;33:x", "PARTY", "Pata-Realm")
+        f:OnEvent("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Pata-Realm")
+        f:OnEvent("CHAT_MSG_ADDON", "PWSYNC1", "7101:3;33:x", "PARTY", "Pata-Realm")
     end
 end
 assert(FG.Party:Suffix(7101, 1, 8):find("Pata 3", 1, true), "party progress shown: " .. FG.Party:Suffix(7101, 1, 8))
@@ -1206,7 +1206,7 @@ do
     local function fromPata(message)
         for _, f in ipairs(frames) do
             if f.events.CHAT_MSG_ADDON and f.OnEvent then
-                f:OnEvent("CHAT_MSG_ADDON", "FGGRP1", message, "PARTY", "Pata-Realm")
+                f:OnEvent("CHAT_MSG_ADDON", "PWGRP1", message, "PARTY", "Pata-Realm")
             end
         end
     end
@@ -1403,10 +1403,10 @@ print("merchant quest items ok")
 
 -- Skins: a skin registered through the public API styles every frame made so far.
 local skinned = {}
-FactoruideAPI.RegisterSkin("Test", function(frame, kind) skinned[kind] = (skinned[kind] or 0) + 1 end)
+PathwrightAPI.RegisterSkin("Test", function(frame, kind) skinned[kind] = (skinned[kind] or 0) + 1 end)
 assert(skinned.window == 2, "windows skinned: the card and the minimal strip")
 assert((skinned.panel or 0) >= 1, "panels skinned")
-assert(#FactoruideAPI.GetFrames() >= 2)
+assert(#PathwrightAPI.GetFrames() >= 2)
 assert(FG.Skin:Suite() == nil, "no UI suite in the tests")
 print("skins ok")
 
@@ -1510,7 +1510,7 @@ do
 end
 
 -- Profile: what the app plans a guide from, saved at login, logout and with "Save the profile now".
-local profile = FactoruideDB.profiles["Brouz-Realm"]
+local profile = PathwrightDB.profiles["Brouz-Realm"]
 assert(profile and profile.level == 1 and profile.race == 7 and profile.class == "MAGE", "profile saved")
 assert(profile.rested == 600 and profile.xp_max == 400 and profile.resting, "XP and rested XP")
 assert(profile.gear[1] == 6125, "gear worn")
@@ -1535,13 +1535,13 @@ print("profile ok")
 
 -- Window size: Ctrl + mouse wheel over a window, or the setting; saved, nothing: the default.
 FG:Save("scale", 1.3)
-assert(FG:Get("scale") == 1.3 and FactoruideDB.settings.scale == 1.3, "scale saved")
+assert(FG:Get("scale") == 1.3 and PathwrightDB.settings.scale == 1.3, "scale saved")
 local wheel = FG.Card:Frame()
 fire("MODIFIER_STATE_CHANGED", "LCTRL", 1)
 wheel.OnMouseWheel(wheel, 1)
 assert(FG:Get("scale") == 1.35, "zoomed in: " .. FG:Get("scale"))
 FG:Save("scale", nil)
-assert(FG:Get("scale") == 1 and FactoruideDB.settings.scale == nil, "back to the default size")
+assert(FG:Get("scale") == 1 and PathwrightDB.settings.scale == nil, "back to the default size")
 print("scale ok")
 
 -- A part of the profile the game fails to give keeps its previous value, the error is kept.
@@ -2419,7 +2419,7 @@ char.guide.skippedQuests[5004] = true
 char.guide.marks[1] = "skip"
 calls.StaticPopup_Show = nil
 Press("restart")
-assert(calls.StaticPopup_Show and calls.StaticPopup_Show[1] == "FACTORUIDE_RESET", "asked first")
+assert(calls.StaticPopup_Show and calls.StaticPopup_Show[1] == "PATHWRIGHT_RESET", "asked first")
 FG.Guide:Reset()
 for q in pairs(char.guide.skippedQuests) do
     error("quest still marked by hand: " .. q)
@@ -2446,7 +2446,7 @@ print("start over ok")
 
 -- The next steps' tab, kept.
 FG:Save("nextTab", "pickup")
-assert(FG:Get("nextTab") == "pickup" and FactoruideDB.settings.nextTab == "pickup", "tab kept")
+assert(FG:Get("nextTab") == "pickup" and PathwrightDB.settings.nextTab == "pickup", "tab kept")
 FG.Guide:Refresh()
 FG:Save("nextTab", nil)
 assert(FG:Get("nextTab") == "next", "default back")
@@ -2541,7 +2541,7 @@ do
     -- Hidden and shown in game (the window's compass button), kept.
     Press("compass")
     assert(
-        FG:Get("compassShown") == false and FactoruideDB.settings.compassShown == false,
+        FG:Get("compassShown") == false and PathwrightDB.settings.compassShown == false,
         "compass button: hidden, kept"
     )
     assert(#FG.Compass:Points() == 0, "compass button: no compass")
@@ -2630,7 +2630,7 @@ do
     }
     FG.Pathing:Forget()
     useRoute("walk-test")
-    assert(#sent == 1 and sent[1].owner == "Factoruide", "the target sent")
+    assert(#sent == 1 and sent[1].owner == "Pathwright", "the target sent")
     local stop = sent[1].stop
     assert(stop.map == 1426 and close(stop.x, 0.4) and close(stop.y, 0.712) and stop.kind == "pickup", "where and what")
     waypoint = nil
@@ -2763,7 +2763,7 @@ FG:Save("guideMode", nil)
 -- The guide's button hides the whole panel (kept), the bank shows it while open.
 FG.Tracker:Toggle()
 FG.Tracker:Refresh()
-assert(not FG.Tracker.visible and FactoruideDB.settings.questPanel == false, "hidden by the guide's button")
+assert(not FG.Tracker.visible and PathwrightDB.settings.questPanel == false, "hidden by the guide's button")
 FG.Tracker:ShowItems(true)
 assert(FG.Tracker.visible, "shown at the bank")
 FG.Tracker:ShowItems(false)
@@ -2848,12 +2848,12 @@ completed[9001], onQuest[9001] = true, nil
 assert(#FG.Bank:Items(true) == 0, "turned in: nothing to keep")
 -- Before the Profile addon made the character's saved data (early tracker refresh): nothing, no error.
 do
-    local realCharacters = FactoruideDB.characters
-    FactoruideDB.characters = {}
+    local realCharacters = PathwrightDB.characters
+    PathwrightDB.characters = {}
     local none, later = FG.Bank:Items(true)
     assert(#none == 0 and later == 0, "no character data yet: no item")
     FG.Bank:ToggleMark(2589)
-    FactoruideDB.characters = realCharacters
+    PathwrightDB.characters = realCharacters
 end
 completed[9001], bags[2589], bank[2589] = nil, nil, nil
 print("items to keep ok")
@@ -3177,11 +3177,11 @@ drag(card)
 assert(cardMoves.moves == 2, "the card itself still moves")
 
 -- The quest panel: its lines move it; protected by its secure quest item buttons, not in combat.
-local tracker = named("FactoruideTracker")
+local tracker = named("PathwrightTracker")
 local trackerMoves = watchMoves(tracker)
 local trackerLine = childOf(tracker, function(f) return rawget(f, "track") ~= nil end)
 assert(trackerLine, "the quest panel's lines pass drags on")
-local secureItem = named("FactoruideItemButton1")
+local secureItem = named("PathwrightItemButton1")
 assert(not secureItem or not rawget(secureItem, "OnDragStart"), "secure quest item buttons left alone")
 FG.Guide:Layout().trackerPoint = nil
 drag(trackerLine)
@@ -3223,7 +3223,7 @@ end
 Press("mode")
 local strip = FG.Mini:Frame()
 local stripMoves = watchMoves(strip)
-local drop = named("FactoruideMiniNext")
+local drop = named("PathwrightMiniNext")
 local dropRow = childOf(drop, function(f) return rawget(f, "dot") ~= nil end)
 assert(dropRow, "the next steps under the strip pass drags on")
 FG.Guide:State().miniPoint = nil
@@ -3236,7 +3236,7 @@ assert(pointed == nil, "dropping the strip does not point at its step")
 dragNow = dragNow + 1
 strip.OnMouseUp(strip, "LeftButton")
 assert(pointed ~= nil and pointed == strip.index, "a click on the strip still points at its step")
-local compass = named("FactoruideCompass")
+local compass = named("PathwrightCompass")
 local compassMoves = watchMoves(compass)
 drag(compass)
 assert(stripMoves.moves == 2 and compassMoves.moves == 0, "the compass over the strip moves the strip")
@@ -3312,7 +3312,7 @@ do
         "the hint says how"
     )
     Press("lock")
-    assert(FG:Get("lockFrames") == true and FactoruideDB.settings.lockFrames == true, "lock button: kept")
+    assert(FG:Get("lockFrames") == true and PathwrightDB.settings.lockFrames == true, "lock button: kept")
     assert(
         hint():find("Verrouillée", 1, true) and not hint():find("Glisser : la déplacer", 1, true),
         "locked: the hint says so"
@@ -3365,7 +3365,7 @@ do
 end
 print("layout per mode ok")
 
--- "Hide the addon's windows" (`/fg`) hides every window and mark of the addon at once (one parent
+-- "Hide the addon's windows" (`/pw`) hides every window and mark of the addon at once (one parent
 -- frame), for the session; clicked again it brings them back as they were. Progress and settings
 -- are kept.
 FG.Routes["visibility-test"] = {
@@ -3400,12 +3400,12 @@ for _, f in ipairs(frames) do
     if f:GetParent() == root and f:GetName() then owned[f:GetName()] = f end
 end
 for _, name in ipairs({
-    "FactoruideTodo",
-    "FactoruideMini",
-    "FactoruideButtons",
-    "FactoruideCompass",
-    "FactoruideTracker",
-    "FGItemButton",
+    "PathwrightTodo",
+    "PathwrightMini",
+    "PathwrightButtons",
+    "PathwrightCompass",
+    "PathwrightTracker",
+    "PWItemButton",
 }) do
     assert(owned[name], name .. " hangs on the addon's parent frame")
 end
@@ -3414,7 +3414,7 @@ local popupHidden
 StaticPopup_Hide = function(which) popupHidden = which end
 Press("hide")
 assert(not root:IsShown() and not FG:Get("uiShown"), "hidden")
-assert(popupHidden == "FACTORUIDE_RESET", "the guide's reset dialog closed")
+assert(popupHidden == "PATHWRIGHT_RESET", "the guide's reset dialog closed")
 FG.Guide:Refresh()
 FG.Tracker:Refresh()
 FG.Talents:Refresh()
@@ -3423,7 +3423,7 @@ for _, f in pairs(owned) do
 end
 assert(FG:Get("guideShown") and FG:Get("questPanel") and FG:Get("guideMode") == "full", "settings kept")
 assert(char.guide.step == stepBeforeHide, "progress kept")
-assert(FactoruideDB.settings.uiShown == nil, "hidden for the session only")
+assert(PathwrightDB.settings.uiShown == nil, "hidden for the session only")
 Press("hide")
 assert(root:IsShown() and FG:Get("uiShown"), "shown again")
 assert(FG.Card:Frame():IsVisible(), "the guide back")
@@ -3473,11 +3473,11 @@ WorldMapFrame = {
     end,
     IsShown = function() return true end,
     RemoveAllPinsByTemplate = function(_, template)
-        if template == "FGStepPinTemplate" then pins = 0 end
+        if template == "PWStepPinTemplate" then pins = 0 end
     end,
     GetMapID = function() return 1426 end,
     AcquirePin = function(_, template)
-        if template == "FGStepPinTemplate" then pins = pins + 1 end
+        if template == "PWStepPinTemplate" then pins = pins + 1 end
     end,
 }
 FG.MapPins:Refresh()
@@ -3517,15 +3517,15 @@ do
     local passthrough = 0
     MapCanvasPinMixin = { CheckMouseButtonPassthrough = function() passthrough = passthrough + 1 end }
     InCombatLockdown = function() return true end
-    FGStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
-    FGWalkDotMixin.CheckMouseButtonPassthrough({}, "RightButton")
+    PWStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
+    PWWalkDotMixin.CheckMouseButtonPassthrough({}, "RightButton")
     assert(passthrough == 0, "not in combat")
     InCombatLockdown = function() return false end
-    FGStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
-    FGWalkDotMixin.CheckMouseButtonPassthrough({}, "RightButton")
+    PWStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
+    PWWalkDotMixin.CheckMouseButtonPassthrough({}, "RightButton")
     assert(passthrough == 2, "done out of combat")
     MapCanvasPinMixin = nil
-    FGStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
+    PWStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
     assert(passthrough == 2, "Classic Era and TBC: nothing to do")
 end
 
@@ -3720,7 +3720,7 @@ C_QuestLog.GetAllCompletedQuestIDs = nil
 GetQuestsCompleted = function() return { [33] = true, [12] = true } end
 fire("PLAYER_LOGOUT")
 do
-    local done = FactoruideDB.profiles["Brouz-Realm"].completed
+    local done = PathwrightDB.profiles["Brouz-Realm"].completed
     assert(done[1] == 12 and done[2] == 33 and #done == 2, "Classic completed quests")
 end
 assert(char.completed == nil and char.questLog == nil, "not copied into the collector's table")
@@ -4090,19 +4090,19 @@ GetTime = realGetTime
 issecretvalue = function() return false end
 
 -- Handler errors are counted in the saved variables, a few short messages.
-for msg in pairs(FactoruideDB.errors or {}) do
+for msg in pairs(PathwrightDB.errors or {}) do
     error("handler error: " .. msg)
 end
 FG:On("FG_TEST", function() error("boom") end)
 fire("FG_TEST")
 fire("FG_TEST")
-local errorKey, errorCount = pairs(FactoruideDB.errors)(FactoruideDB.errors)
+local errorKey, errorCount = pairs(PathwrightDB.errors)(PathwrightDB.errors)
 assert(errorKey:find("FG_TEST", 1, true) and errorKey:find("boom", 1, true) and errorCount == 2, "error counted")
 for i = 1, 30 do
     FG:Error("test", i .. string.rep("x", 300))
 end
 local kept = 0
-for msg in pairs(FactoruideDB.errors) do
+for msg in pairs(PathwrightDB.errors) do
     kept = kept + 1
     assert(#msg <= 200, "message shortened")
 end
@@ -4110,10 +4110,10 @@ assert(kept == 20, "errors capped, got " .. kept)
 print("error counter ok")
 
 -- Rows the app has (Sent.lua) are dropped at login, the seq keeps growing; at most 20000 rows.
-FactoruideSent = { ["Brouz-Realm"] = decodeRow(char.events[3])[1] }
+PathwrightSent = { ["Brouz-Realm"] = decodeRow(char.events[3])[1] }
 local before = #char.events
 FG.Collector:Purge()
-assert(#char.events == before - 3 and decodeRow(char.events[1])[1] > FactoruideSent["Brouz-Realm"], "sent rows dropped")
+assert(#char.events == before - 3 and decodeRow(char.events[1])[1] > PathwrightSent["Brouz-Realm"], "sent rows dropped")
 local output
 local realPrint = print
 print = function(s) output = s end
@@ -4124,11 +4124,11 @@ for i = 1, 20010 do
     char.events[#char.events + 1] = { char.seq + i, 0, "kill", false, "npc", 6, false, false, false, 1, false }
 end
 char.seq = char.seq + 20010
-FactoruideSent = { ["Brouz-Realm"] = char.seq + 50 } -- saved variables older than what the app has
+PathwrightSent = { ["Brouz-Realm"] = char.seq + 50 } -- saved variables older than what the app has
 FG.Collector:Purge()
-assert(#char.events == 0 and char.seq == FactoruideSent["Brouz-Realm"], "all sent, the seq follows")
-FactoruideSent = nil
-FactoruideDB.errors = nil -- full after the error counter test
+assert(#char.events == 0 and char.seq == PathwrightSent["Brouz-Realm"], "all sent, the seq follows")
+PathwrightSent = nil
+PathwrightDB.errors = nil -- full after the error counter test
 for i = 1, 20010 do
     char.events[i] = { char.seq + i, 0, "kill", false, "npc", 6, false, false, false, 1, false }
 end
@@ -4136,7 +4136,7 @@ char.seq = char.seq + 20010
 FG.Collector:Purge()
 assert(#char.events == 20000 and char.events[20000][1] == char.seq, "capped, the newest kept")
 local capLogged = false
-for msg in pairs(FactoruideDB.errors) do
+for msg in pairs(PathwrightDB.errors) do
     if msg:find("oldest dropped", 1, true) then capLogged = true end
 end
 assert(capLogged, "the cap is logged")
@@ -4175,10 +4175,10 @@ local function ExportImport()
     local deflate = LibStub("LibDeflate")
 
     -- "Export my character": a fresh profile, compressed, in a window to copy (no collector rows).
-    local profile = FactoruideDB.profiles["Brouz-Realm"]
+    local profile = PathwrightDB.profiles["Brouz-Realm"]
     char.events = { "101|5|kill||npc|6|1426|30|70|1|", "102|6|kill||npc|6|1426|30|70|1|", { 103, 0, "kill" } }
     char.events[4] = '104|7|loot||npc|6|1426|30|70|1|name=Wolf "Meat"%0A'
-    FactoruideDB.sent = { ["Brouz-Realm"] = 101 }
+    PathwrightDB.sent = { ["Brouz-Realm"] = 101 }
     profile.flights = { [12] = true, [2] = true, [7] = false }
     playerLevel = 4
     Press("export")
@@ -4196,7 +4196,7 @@ local function ExportImport()
         file:close()
     end
     Fixture("FG_PROFILE_EXPORT", exported)
-    Fixture("FG_SAVED_VARIABLES", "FactoruideDB = " .. assert(FG.Import.Serialize(FactoruideDB)):gsub("^return ", ""))
+    Fixture("FG_SAVED_VARIABLES", "PathwrightDB = " .. assert(FG.Import.Serialize(PathwrightDB)):gsub("^return ", ""))
     assert(exported:sub(1, 5) == "FGP1:" and exported:match("^FGP1:[%w%(%)]+$"), "export prefix and alphabet")
     local json = deflate:DecompressDeflate(deflate:DecodeForPrint(exported:sub(6)))
     assert(json == FG.Export:Json(), "export round trip")
@@ -4233,7 +4233,7 @@ local function ExportImport()
         1000,
         nil,
         'FG.Config = { locale = "enUS", compassShown = false }\n'
-            .. 'FactoruideSent = { ["Brouz-Realm"] = 150, ["Other-Realm"] = 3 }\n'
+            .. 'PathwrightSent = { ["Brouz-Realm"] = 150, ["Other-Realm"] = 3 }\n'
     )
     local guideString = Encode(guideLua)
     Press("import")
@@ -4255,7 +4255,7 @@ local function ExportImport()
     local newer = GuideLua("web-next", 1000)
         .. string.format('FG.Routes["web-next"].format = %d\n', FG.Import.FORMAT + 1)
     assert(Click(Encode(newer)):find("mettez à jour l'addon", 1, true), "newer format refused: " .. status:GetText())
-    assert(not reloaded and Empty(FactoruideDB.guides), "nothing kept from bad strings")
+    assert(not reloaded and Empty(PathwrightDB.guides), "nothing kept from bad strings")
     -- Pasted: the game sends the characters one by one in the same frame (OnChar), the box
     -- itself holds little; the next frame joins them. Spaces and line breaks picked up with the
     -- copy do not matter.
@@ -4273,9 +4273,9 @@ local function ExportImport()
     assert(edit:GetText():sub(1, 5) == "FGG1:" and #edit:GetText() < 80, "the box shows the paste's beginning only")
     assert(status:GetText():find("Ko", 1, true), "the paste's size told: " .. status:GetText())
     action.OnClick()
-    local kept = FactoruideDB.guides["web-mage"]
+    local kept = PathwrightDB.guides["web-mage"]
     assert(reloaded and kept and kept.created == 1000 and kept.version == 3, "guide kept, interface reloaded")
-    assert(FactoruideDB.sent["Brouz-Realm"] == 150 and FactoruideDB.sent["Other-Realm"] == 3, "sent seq imported")
+    assert(PathwrightDB.sent["Brouz-Realm"] == 150 and PathwrightDB.sent["Other-Realm"] == 3, "sent seq imported")
     assert(#FG.Collector:Pending().events == 0, "rows up to the imported seq are sent")
     FG.Import:ApplySaved()
     assert(FG.Routes["web-mage"] and FG.Routes["gnome-mage"], "imported guides beside the files'")
@@ -4291,42 +4291,42 @@ local function ExportImport()
     -- A second text adds its guide to the first one.
     reloaded = false
     Click(Encode(GuideLua("web-warrior", 1100, 1)))
-    assert(reloaded and FactoruideDB.guides["web-mage"] and FactoruideDB.guides["web-warrior"], "imports add up")
+    assert(reloaded and PathwrightDB.guides["web-mage"] and PathwrightDB.guides["web-warrior"], "imports add up")
     -- The same guide computed later: replaces it, no question; computed at the same time: too.
     calls.StaticPopup_Show = nil
     Click(Encode(GuideLua("web-mage", 1200)))
-    assert(FactoruideDB.guides["web-mage"].created == 1200 and not calls.StaticPopup_Show, "newer replaces")
+    assert(PathwrightDB.guides["web-mage"].created == 1200 and not calls.StaticPopup_Show, "newer replaces")
     Click(Encode(GuideLua("web-mage", 1200)))
-    assert(FactoruideDB.guides["web-mage"].created == 1200 and not calls.StaticPopup_Show, "same: replaced quietly")
+    assert(PathwrightDB.guides["web-mage"].created == 1200 and not calls.StaticPopup_Show, "same: replaced quietly")
     -- Computed before the one kept: asked; "no" keeps it, "yes" replaces it. The other guides of
     -- the text are kept either way.
     reloaded = false
     Click(Encode(GuideLua("web-mage", 900) .. GuideLua("web-rogue", 1300, 4)))
     local popup = calls.StaticPopup_Show
-    assert(popup and popup[1] == "FACTORUIDE_OLDER_GUIDE", "asked")
+    assert(popup and popup[1] == "PATHWRIGHT_OLDER_GUIDE", "asked")
     assert(popup[2]:find("web-mage", 1, true) and popup[2]:find("1970-01-01", 1, true), "question: " .. popup[2])
-    assert(not reloaded and FactoruideDB.guides["web-mage"].created == 1200, "nothing kept before the answer")
-    StaticPopupDialogs.FACTORUIDE_OLDER_GUIDE.OnCancel()
-    assert(FactoruideDB.guides["web-mage"].created == 1200, "no: kept")
-    assert(FactoruideDB.guides["web-rogue"] and reloaded, "the newer guide of the text kept anyway")
+    assert(not reloaded and PathwrightDB.guides["web-mage"].created == 1200, "nothing kept before the answer")
+    StaticPopupDialogs.PATHWRIGHT_OLDER_GUIDE.OnCancel()
+    assert(PathwrightDB.guides["web-mage"].created == 1200, "no: kept")
+    assert(PathwrightDB.guides["web-rogue"] and reloaded, "the newer guide of the text kept anyway")
     reloaded = false
     calls.StaticPopup_Show = nil
     Click(Encode(GuideLua("web-mage", 900)))
     assert(calls.StaticPopup_Show, "asked again")
-    StaticPopupDialogs.FACTORUIDE_OLDER_GUIDE.OnAccept()
-    assert(FactoruideDB.guides["web-mage"].created == 900 and reloaded, "yes: replaced")
+    StaticPopupDialogs.PATHWRIGHT_OLDER_GUIDE.OnAccept()
+    assert(PathwrightDB.guides["web-mage"].created == 900 and reloaded, "yes: replaced")
     -- Answered "no" with nothing else in the text: nothing to reload.
     reloaded = false
     Click(Encode(GuideLua("web-mage", 800)))
-    StaticPopupDialogs.FACTORUIDE_OLDER_GUIDE.OnCancel()
-    assert(FactoruideDB.guides["web-mage"].created == 900 and not reloaded, "nothing imported")
+    StaticPopupDialogs.PATHWRIGHT_OLDER_GUIDE.OnCancel()
+    assert(PathwrightDB.guides["web-mage"].created == 900 and not reloaded, "nothing imported")
 
     -- The sandbox: no globals, no game API, data only.
     local sandbox =
-        assert(FG.Import.Run("Factoruide.ok = _G == nil and print == nil and loadstring == nil and string == nil"))
-    assert(sandbox.ok == true, "nothing but Factoruide in the sandbox")
-    assert(FG.Import.Run("Factoruide.Guide = function() end") == nil, "functions refused")
-    assert(FG.Import.Run("Factoruide.x = { [function() end] = 1 }") == nil, "functions as keys refused")
+        assert(FG.Import.Run("Pathwright.ok = _G == nil and print == nil and loadstring == nil and string == nil"))
+    assert(sandbox.ok == true, "nothing but Pathwright in the sandbox")
+    assert(FG.Import.Run("Pathwright.Guide = function() end") == nil, "functions refused")
+    assert(FG.Import.Run("Pathwright.x = { [function() end] = 1 }") == nil, "functions as keys refused")
     assert(
         FG.Import.Run("os.exit(1)") == nil and FG.Import.Run(string.dump(function() end)) == nil,
         "no os, no bytecode"
@@ -4334,8 +4334,8 @@ local function ExportImport()
     -- WoW's integer formatter can be signed 32-bit even when Lua numbers hold wider masks.
     -- Exercise the pasted-string preparation path, then reload the text kept for that guide.
     local wide = Encode([[
-Factoruide.Routes = {}
-Factoruide.Routes["wide-numbers"] = {
+Pathwright.Routes = {}
+Pathwright.Routes["wide-numbers"] = {
     race = 7, class = 8, format = 2, created = 1000, version = 1,
     steps = {{ k = "reputation", rp = { sources = {{ eligibility = { race_mask = 8589934770 } }} } }},
     numbers = {2147483647, 2147483648, -2147483648, -2147483649, 4294967295,
@@ -4382,7 +4382,7 @@ Factoruide.Routes["wide-numbers"] = {
 
     -- Which guide a character follows. Only guides kept from here on (no files' guides).
     FG.Import.file = { routes = {}, assignments = {} }
-    FactoruideDB.guides, FactoruideDB.guideAssignments = {}, nil
+    PathwrightDB.guides, PathwrightDB.guideAssignments = {}, nil
     FG.Import:Apply()
     useRoute(nil)
     assert(char.guide.route == nil, "no guide: none followed")
@@ -4418,10 +4418,10 @@ Factoruide.Routes["wide-numbers"] = {
     calls.StaticPopup_Show = nil
     char.guide.skippedQuests[5004] = true
     Row("duo").restart.OnClick(Row("duo").restart)
-    assert(calls.StaticPopup_Show and calls.StaticPopup_Show[1] == "FACTORUIDE_RESET", "start over: asked")
+    assert(calls.StaticPopup_Show and calls.StaticPopup_Show[1] == "PATHWRIGHT_RESET", "start over: asked")
     char.guide.skippedQuests[5004] = nil
     -- The choice is the character's, kept in its saved state.
-    assert(FactoruideDB.characters["Brouz-Realm"].guide.route == "duo", "choice saved per character")
+    assert(PathwrightDB.characters["Brouz-Realm"].guide.route == "duo", "choice saved per character")
     FG.Guide:FollowChoice()
     assert(char.guide.route == "duo", "and kept")
     -- Delete: asked first (the game's dialog); the guide followed gone, back to the automatic choice.
@@ -4429,28 +4429,28 @@ Factoruide.Routes["wide-numbers"] = {
     local delete = Row("duo").delete
     delete.OnClick(delete)
     local asked = calls.StaticPopup_Show
-    assert(asked and asked[1] == "FACTORUIDE_DELETE_GUIDE" and asked[2] == "duo", "asks first")
-    assert(FactoruideDB.guides.duo, "not before the answer")
-    StaticPopupDialogs.FACTORUIDE_DELETE_GUIDE.OnAccept(nil, asked[4])
-    assert(not FactoruideDB.guides.duo and not FG.Routes.duo and not Row("duo"), "deleted")
+    assert(asked and asked[1] == "PATHWRIGHT_DELETE_GUIDE" and asked[2] == "duo", "asks first")
+    assert(PathwrightDB.guides.duo, "not before the answer")
+    StaticPopupDialogs.PATHWRIGHT_DELETE_GUIDE.OnAccept(nil, asked[4])
+    assert(not PathwrightDB.guides.duo and not FG.Routes.duo and not Row("duo"), "deleted")
     assert(char.guide.route == "solo", "back to the only gnome mage guide: " .. tostring(char.guide.route))
 
-    -- Factoruide_Data, written by the desktop app: its guides beside the imported ones, of two with
+    -- Pathwright_Data, written by the desktop app: its guides beside the imported ones, of two with
     -- the same name the one computed last. The profile part (Data.lua) only reads its sent seqs,
     -- as text; the guide part runs it (its memory counted to the guide part, not the profile's).
     local dataLua = GuideLua("solo", 5000)
-        .. GuideLua("desk-mage", 5000):gsub("local FG = Factoruide\nFG.Routes = FG.Routes or {}\n", "")
-        .. 'FactoruideSent = { ["Brouz-Realm"] = 170 }\nFactoruide.Config = { compassShown = false }\n'
+        .. GuideLua("desk-mage", 5000):gsub("local FG = Pathwright\nFG.Routes = FG.Routes or {}\n", "")
+        .. 'PathwrightSent = { ["Brouz-Realm"] = 170 }\nPathwright.Config = { compassShown = false }\n'
     local function LoadData(lua, when)
-        FactoruideData, FactoruideDataTime = lua, when
-        assert(loadfile("addon/Factoruide_Profile/Data.lua"))("Factoruide_Profile", FG)
-        assert(FactoruideData == lua, "not run by the profile part, left to the guide part")
+        PathwrightData, PathwrightDataTime = lua, when
+        assert(loadfile("addon/Pathwright_Profile/Data.lua"))("Pathwright_Profile", FG)
+        assert(PathwrightData == lua, "not run by the profile part, left to the guide part")
     end
     LoadData(dataLua, 6000)
     FG.Import:ApplySaved()
     assert(FG.Routes["desk-mage"] and FG.Routes.warrior and FG.Routes.solo.created == 5000, "union, newer data wins")
     assert(FG.Import.info.solo.source == "app" and FG.Import.info.warrior.source == "import", "sources")
-    assert(FactoruideData == nil and FG.Import.data.time == 6000, "data run by the guide part, its text let go")
+    assert(PathwrightData == nil and FG.Import.data.time == 6000, "data run by the guide part, its text let go")
     assert(FG.DataSent["Brouz-Realm"] == 170, "its sent seqs read by the profile part")
     assert(FG:Get("compassShown") == true, "data's Config ignored")
     FG.Options:Refresh()
@@ -4460,7 +4460,7 @@ Factoruide.Routes["wide-numbers"] = {
     LoadData(dataLua:gsub("= 5000", "= 10"), 10)
     FG.Import:ApplySaved()
     assert(FG.Routes.solo.created == 2000 and FG.Import.info.solo.source == "import", "newer import wins")
-    -- A guide of Factoruide_Data made for a newer addon: left out, named for the login message.
+    -- A guide of Pathwright_Data made for a newer addon: left out, named for the login message.
     LoadData(
         GuideLua("desk-next", 5000) .. string.format('FG.Routes["desk-next"].format = %d\n', FG.Import.FORMAT + 1),
         6500
@@ -4473,18 +4473,18 @@ Factoruide.Routes["wide-numbers"] = {
     assert(FG.Import.info["old-desk"].created == 7000, "data's time")
     -- Data that is not data: nothing kept, the error counted.
     FG.Import.data = nil
-    FactoruideData, FactoruideDataTime = "Factoruide.f = function() end", 3000
-    assert(loadfile("addon/Factoruide_Profile/Data.lua"))("Factoruide_Profile", FG)
+    PathwrightData, PathwrightDataTime = "Pathwright.f = function() end", 3000
+    assert(loadfile("addon/Pathwright_Profile/Data.lua"))("Pathwright_Profile", FG)
     FG.Import:ApplySaved()
-    assert(FG.Import.data == nil and FactoruideData == nil, "functions refused in the data")
-    assert(FactoruideDB.errors["Factoruide_Data: functions are not allowed"], "the error counted")
+    assert(FG.Import.data == nil and PathwrightData == nil, "functions refused in the data")
+    assert(PathwrightDB.errors["Pathwright_Data: functions are not allowed"], "the error counted")
 
     -- An older app's text: the whole text kept before (guideImport) moves to one guide each, its
     -- assignments are the first choice of the characters they name when several guides fit.
     FG.Import.data = nil
-    FactoruideDB.guideImport = { text = fixture:gsub("gnome%-mage", "old-mage"), time = 4000 }
+    PathwrightDB.guideImport = { text = fixture:gsub("gnome%-mage", "old-mage"), time = 4000 }
     FG.Import:ApplySaved()
-    assert(FactoruideDB.guideImport == nil and FactoruideDB.guides["old-mage"].created == 4000, "moved")
+    assert(PathwrightDB.guideImport == nil and PathwrightDB.guides["old-mage"].created == 4000, "moved")
     assert(FG.Assignments["Brouz-Realm"] == "old-mage", "assignments kept")
     useRoute(nil)
     assert(char.guide.route == "old-mage", "two gnome mage guides: the one assigned")
@@ -4494,10 +4494,10 @@ Factoruide.Routes["wide-numbers"] = {
     -- "Delete the imported guides": asked, then every imported guide deleted.
     calls.StaticPopup_Show = nil
     Press("clear")
-    assert(calls.StaticPopup_Show and calls.StaticPopup_Show[1] == "FACTORUIDE_CLEAR_GUIDES", "asked")
-    assert(FactoruideDB.guides.solo, "not before the answer")
-    StaticPopupDialogs.FACTORUIDE_CLEAR_GUIDES.OnAccept()
-    assert(Empty(FactoruideDB.guides) and not FG.Routes.solo and char.guide.route == nil, "imports cleared")
+    assert(calls.StaticPopup_Show and calls.StaticPopup_Show[1] == "PATHWRIGHT_CLEAR_GUIDES", "asked")
+    assert(PathwrightDB.guides.solo, "not before the answer")
+    StaticPopupDialogs.PATHWRIGHT_CLEAR_GUIDES.OnAccept()
+    assert(Empty(PathwrightDB.guides) and not FG.Routes.solo and char.guide.route == nil, "imports cleared")
     local ok = pcall(Press, "clear")
     assert(not ok, "nothing left to delete: the button disabled")
 
@@ -4525,7 +4525,7 @@ end
 ExportImport()
 
 -- The guides the released apps wrote (addon/tests/guides, one file per release whose guide
--- output changed, see its README): each still imported both ways (pasted, Factoruide_Data),
+-- output changed, see its README): each still imported both ways (pasted, Pathwright_Data),
 -- listed, followed from its first step shown, and walked through to its end without error.
 local function ReleasedGuides()
     local deflate = LibStub("LibDeflate")
@@ -4533,7 +4533,7 @@ local function ReleasedGuides()
     assert(#files > 0, "released guides listed")
     local level, quests, done = playerLevel, onQuest, completed
     local errors = {}
-    for msg in pairs(FactoruideDB.errors or {}) do
+    for msg in pairs(PathwrightDB.errors or {}) do
         errors[msg] = true
     end
     for _, file in ipairs(files) do
@@ -4546,18 +4546,18 @@ local function ReleasedGuides()
         assert(#names > 0, file .. ": its guides")
         for _, way in ipairs({ "import", "app" }) do
             -- Only this guide.
-            FactoruideDB.guides, FactoruideDB.guideExtras, FactoruideDB.guideAssignments = {}, nil, nil
+            PathwrightDB.guides, PathwrightDB.guideExtras, PathwrightDB.guideAssignments = {}, nil, nil
             FG.Import.file, FG.Import.data = { routes = {}, assignments = {} }, nil
             if way == "import" then
                 local text = "FGG1:" .. deflate:EncodeForPrint(deflate:CompressDeflate(lua))
                 local count, err = FG.Import:FromString(text)
                 assert(count == #names, file .. " pasted: " .. tostring(err))
             else
-                FactoruideData, FactoruideDataTime = lua, 1700000000
-                assert(loadfile("addon/Factoruide_Profile/Data.lua"))("Factoruide_Profile", FG)
+                PathwrightData, PathwrightDataTime = lua, 1700000000
+                assert(loadfile("addon/Pathwright_Profile/Data.lua"))("Pathwright_Profile", FG)
             end
             FG.Import:ApplySaved()
-            assert(way == "import" or FG.Import.data, file .. " in Factoruide_Data")
+            assert(way == "import" or FG.Import.data, file .. " in Pathwright_Data")
             local listed = {}
             for _, guide in ipairs(FG.Import:List()) do
                 listed[guide.name] = guide
@@ -4604,11 +4604,11 @@ local function ReleasedGuides()
             end
         end
     end
-    for msg in pairs(FactoruideDB.errors or {}) do
+    for msg in pairs(PathwrightDB.errors or {}) do
         assert(errors[msg], "no error: " .. msg)
     end
     playerLevel, onQuest, completed = level, quests, done
-    FactoruideDB.guides, FactoruideDB.guideExtras = {}, nil
+    PathwrightDB.guides, PathwrightDB.guideExtras = {}, nil
     FG.Import.file, FG.Import.data = { routes = {}, assignments = {} }, nil
     FG.Import:ApplySaved()
     useRoute(nil)
@@ -4634,23 +4634,23 @@ local function SettingsTest()
 
     -- Nothing saved: the defaults; a saved value that does not fit: the default (numbers held
     -- within their bounds).
-    FactoruideDB.settings = {}
+    PathwrightDB.settings = {}
     for _, option in ipairs(keys) do
         assert(FG:Get(option.key) == option.default, "default of " .. option.key)
     end
-    FactoruideDB.settings = { scale = "big", guideMode = "weird", autoAccept = 1, trackerQuests = 99 }
+    PathwrightDB.settings = { scale = "big", guideMode = "weird", autoAccept = 1, trackerQuests = 99 }
     assert(FG:Get("scale") == 1 and FG:Get("guideMode") == "full" and FG:Get("autoAccept") == true, "bad values")
     assert(FG:Get("trackerQuests") == 35, "within bounds")
     -- What the tests before chose (the guide's mode, tabs...) is let go.
-    FactoruideDB.settings = {}
+    PathwrightDB.settings = {}
 
-    -- Settings kept before the window (FactoruideDB.ui) move over once.
-    FactoruideDB.ui = { scale = 1.2, appGuideMode = "full", uiShown = false, compassShown = false }
-    FactoruideDB.settings.scale, FactoruideDB.settings.compassShown = nil, nil
+    -- Settings kept before the window (PathwrightDB.ui) move over once.
+    PathwrightDB.ui = { scale = 1.2, appGuideMode = "full", uiShown = false, compassShown = false }
+    PathwrightDB.settings.scale, PathwrightDB.settings.compassShown = nil, nil
     FG.MoveOldSettings()
-    assert(FactoruideDB.ui == nil and FactoruideDB.settings.scale == 1.2, "old settings moved")
-    assert(FactoruideDB.settings.compassShown == false and FactoruideDB.settings.uiShown == nil, "not the session's")
-    assert(FactoruideDB.settings.appGuideMode == nil, "nor the app's leftovers")
+    assert(PathwrightDB.ui == nil and PathwrightDB.settings.scale == 1.2, "old settings moved")
+    assert(PathwrightDB.settings.compassShown == false and PathwrightDB.settings.uiShown == nil, "not the session's")
+    assert(PathwrightDB.settings.appGuideMode == nil, "nor the app's leftovers")
     FG:Save("scale", nil)
     FG:Save("compassShown", nil)
 
@@ -4665,7 +4665,7 @@ local function SettingsTest()
         table.concat(pages, ",") == "Affichage,Navigation,Automatisation,Conseils,Immersion,Avancé",
         "a page per group, then Advanced: " .. table.concat(pages, ",")
     )
-    -- `/fg`, with anything after it: opens the options on the addon's page, nothing else happens.
+    -- `/pw`, with anything after it: opens the options on the addon's page, nothing else happens.
     local function Now()
         return table.concat({
             tostring(FG:Get("guideMode")),
@@ -4674,7 +4674,7 @@ local function SettingsTest()
             tostring(FG:Get("compassShown")),
             tostring(FG:Get("waypoints")),
             tostring(FG:Get("scale")),
-            tostring(FactoruideDB.debug),
+            tostring(PathwrightDB.debug),
             tostring(char.guide.step),
             tostring(#char.events),
             tostring(FG.TextWindow:Parts() and FG.TextWindow:Parts():IsShown()),
@@ -4684,11 +4684,11 @@ local function SettingsTest()
     reloaded = false
     for _, old in ipairs({ "", "config", "hide", "next", "skip", "mode", "route x", "time", "reset", "export" }) do
         options.opened = nil
-        SlashCmdList.FACTORUIDE(old)
-        assert(options.opened == category:GetID(), "/fg " .. old .. " opens the addon's options")
-        assert(Now() == before and not reloaded, "/fg " .. old .. " does nothing else: " .. Now())
+        SlashCmdList.PATHWRIGHT(old)
+        assert(options.opened == category:GetID(), "/pw " .. old .. " opens the addon's options")
+        assert(Now() == before and not reloaded, "/pw " .. old .. " does nothing else: " .. Now())
     end
-    assert(SLASH_FACTORUIDE2 == "/factoruide", "/factoruide too")
+    assert(SLASH_PATHWRIGHT2 == "/pathwright", "/factoruide too")
     -- The guide's options button too; in combat the game refuses: said in the chat instead.
     options.opened = nil
     FG:OpenSettings()
@@ -4698,7 +4698,7 @@ local function SettingsTest()
     local said
     local realPrint = print
     print = function(text) said = text end
-    SlashCmdList.FACTORUIDE("")
+    SlashCmdList.PATHWRIGHT("")
     print = realPrint
     InCombatLockdown = function() return false end
     assert(options.opened == nil and said and said:find("combat", 1, true), "in combat: a message")
@@ -4710,7 +4710,7 @@ local function SettingsTest()
         for _, init in ipairs(page.initializers) do
             local setting = init.data.setting
             if setting then
-                controls[setting.variable:gsub("^Factoruide_", "")] = init
+                controls[setting.variable:gsub("^Pathwright_", "")] = init
                 assert(setting.category == page, "the setting of its page")
             elseif init.data.kind == "header" then
                 headers[init.data.name] = page.name
@@ -4744,43 +4744,43 @@ local function SettingsTest()
 
     -- A check box: its setting reads FG:Get, writes FG:Save (saved, applied at once; the default
     -- saves nothing).
-    local autoAccept = Option("Factoruide_autoAccept")
+    local autoAccept = Option("Pathwright_autoAccept")
     assert(autoAccept:GetValue() == true, "read")
     autoAccept:SetValue(false)
-    assert(FactoruideDB.settings.autoAccept == false and FG:Get("autoAccept") == false, "unchecked: saved")
+    assert(PathwrightDB.settings.autoAccept == false and FG:Get("autoAccept") == false, "unchecked: saved")
     calls.AcceptQuest = nil
     fire("QUEST_DETAIL", 0)
     assert(not calls.AcceptQuest, "applied at once")
     autoAccept:SetValueToDefault()
-    assert(FactoruideDB.settings.autoAccept == nil and FG:Get("autoAccept") == true, "the default: nothing saved")
+    assert(PathwrightDB.settings.autoAccept == nil and FG:Get("autoAccept") == true, "the default: nothing saved")
     -- A number: a slider within its bounds, on its steps; a percent shown as such.
     local scale = controls.scale.data.options
     assert(scale.minValue == 0.6 and scale.maxValue == 2 and math.abs(scale.steps - 28) < 1e-9, "the size's slider")
     local label = scale.formatters[MinimalSliderWithSteppersMixin.Label.Right]
     assert(label(0.95) == "95%", "size in percent: " .. label(0.95))
-    Option("Factoruide_scale"):SetValue(0.95000001)
-    assert(FG:Get("scale") == 0.95 and FactoruideDB.settings.scale == 0.95, "on its steps")
-    Option("Factoruide_trackerQuests"):SetValue(9)
+    Option("Pathwright_scale"):SetValue(0.95000001)
+    assert(FG:Get("scale") == 0.95 and PathwrightDB.settings.scale == 0.95, "on its steps")
+    Option("Pathwright_trackerQuests"):SetValue(9)
     assert(FG:Get("trackerQuests") == 9, "number saved")
     assert(controls.trackerQuests.data.options.formatters[MinimalSliderWithSteppersMixin.Label.Right](9) == "9", "9")
-    Option("Factoruide_scale"):SetValueToDefault()
-    Option("Factoruide_trackerQuests"):SetValueToDefault()
+    Option("Pathwright_scale"):SetValueToDefault()
+    Option("Pathwright_trackerQuests"):SetValueToDefault()
     -- A select: a drop-down of its choices, translated.
     local styles = controls.pathMode.data.options()
     assert(#styles == 3 and styles[2].value == "on" and styles[2].label == "Toujours", "the choices")
-    Option("Factoruide_pathMode"):SetValue("on")
-    assert(FG:Get("pathMode") == "on" and Option("Factoruide_pathMode"):GetValue() == "on", "select saved")
-    Option("Factoruide_pathMode"):SetValueToDefault()
+    Option("Pathwright_pathMode"):SetValue("on")
+    assert(FG:Get("pathMode") == "on" and Option("Pathwright_pathMode"):GetValue() == "on", "select saved")
+    Option("Pathwright_pathMode"):SetValueToDefault()
     -- Requires: under the setting it needs, greyed while it is off.
     assert(controls.trackerQuests.parent == controls.trackerShown, "under the setting it needs")
     assert(controls.trackerQuests:Enabled(), "enabled while the tracker is on")
-    Option("Factoruide_trackerShown"):SetValue(false)
+    Option("Pathwright_trackerShown"):SetValue(false)
     assert(not controls.trackerQuests:Enabled() and not controls.replaceTracker:Enabled(), "greyed while off")
-    Option("Factoruide_trackerShown"):SetValueToDefault()
+    Option("Pathwright_trackerShown"):SetValueToDefault()
     assert(controls.trackerQuests:Enabled(), "back")
-    Option("Factoruide_pathMode"):SetValue("off")
+    Option("Pathwright_pathMode"):SetValue("off")
     assert(not controls.pathMap:Enabled(), "a select turned off greys too")
-    Option("Factoruide_pathMode"):SetValueToDefault()
+    Option("Pathwright_pathMode"):SetValueToDefault()
     -- Applied after a /reload only: said in its help; the game's dialog offers to reload, once for
     -- changes made together.
     assert(controls.uiTheme.data.tooltip:find("/reload", 1, true), "the help says /reload")
@@ -4788,44 +4788,44 @@ local function SettingsTest()
     calls.StaticPopup_Show = nil
     local asked = 0
     StaticPopup_Show = function(which)
-        if which == "FACTORUIDE_RELOAD" then asked = asked + 1 end
+        if which == "PATHWRIGHT_RELOAD" then asked = asked + 1 end
     end
-    Option("Factoruide_autoAccept"):SetValue(false)
+    Option("Pathwright_autoAccept"):SetValue(false)
     runTimers()
     assert(asked == 0, "no reload for a setting applied at once")
-    Option("Factoruide_autoAccept"):SetValueToDefault()
-    Option("Factoruide_uiTheme"):SetValue("parchemin")
-    Option("Factoruide_suiteSkin"):SetValue(not FG:Get("suiteSkin"))
-    assert(FactoruideDB.settings.uiTheme == "parchemin" and asked == 0, "theme saved, asked after the changes")
+    Option("Pathwright_autoAccept"):SetValueToDefault()
+    Option("Pathwright_uiTheme"):SetValue("parchemin")
+    Option("Pathwright_suiteSkin"):SetValue(not FG:Get("suiteSkin"))
+    assert(PathwrightDB.settings.uiTheme == "parchemin" and asked == 0, "theme saved, asked after the changes")
     runTimers()
     assert(asked == 1, "asked once: " .. asked)
-    StaticPopupDialogs.FACTORUIDE_RELOAD.OnAccept()
+    StaticPopupDialogs.PATHWRIGHT_RELOAD.OnAccept()
     assert(reloaded, "the interface reloads")
     reloaded = false
-    Option("Factoruide_uiTheme"):SetValueToDefault()
-    Option("Factoruide_suiteSkin"):SetValueToDefault()
+    Option("Pathwright_uiTheme"):SetValueToDefault()
+    Option("Pathwright_suiteSkin"):SetValueToDefault()
     runTimers()
     StaticPopup_Show = record("StaticPopup_Show")
     -- The language: the game's, then each language.
     local languages = controls.locale.data.options()
     assert(languages[1].value == "" and languages[1].label:find("Français", 1, true), "the game's first")
     assert(#languages == #FG.LANGUAGES + 1, "then every language")
-    Option("Factoruide_locale"):SetValue("enUS")
-    assert(FactoruideDB.settings.locale == "enUS" and FG.Lang() == "enUS", "language chosen")
-    Option("Factoruide_locale"):SetValue("")
-    assert(FactoruideDB.settings.locale == nil and FG.Lang() == "frFR", "the game's again")
+    Option("Pathwright_locale"):SetValue("enUS")
+    assert(PathwrightDB.settings.locale == "enUS" and FG.Lang() == "enUS", "language chosen")
+    Option("Pathwright_locale"):SetValue("")
+    assert(PathwrightDB.settings.locale == nil and FG.Lang() == "frFR", "the game's again")
     -- Changed elsewhere (a key binding): the options show it; written by its own control: no
     -- notice back to it.
     options.notified = {}
     Press("mode")
-    assert(options.notified.Factoruide_guideMode == 1, "the options told of the change")
-    Option("Factoruide_guideMode"):SetValue("full")
-    assert(options.notified.Factoruide_guideMode == 1, "not for the control's own change")
+    assert(options.notified.Pathwright_guideMode == 1, "the options told of the change")
+    Option("Pathwright_guideMode"):SetValue("full")
+    assert(options.notified.Pathwright_guideMode == 1, "not for the control's own change")
     -- The buttons beside their settings.
     local function After(key)
         for _, page in ipairs(category.subcategories) do
             for i, init in ipairs(page.initializers) do
-                if init.data.setting and init.data.setting.variable == "Factoruide_" .. key then
+                if init.data.setting and init.data.setting.variable == "Pathwright_" .. key then
                     return page.initializers[i + 1].data
                 end
             end
@@ -4844,23 +4844,23 @@ local function SettingsTest()
         assert(type(global) == "string" and global ~= "", "no name for the binding " .. name)
         names = names + 1
     end
-    assert(names == 11 and BINDING_HEADER_FACTORUIDE == "Factoruide", "the bindings: " .. names)
-    assert(BINDING_NAME_FACTORUIDE_NEXT == "Étape suivante", "translated: " .. BINDING_NAME_FACTORUIDE_NEXT)
+    assert(names == 11 and BINDING_HEADER_PATHWRIGHT == "Pathwright", "the bindings: " .. names)
+    assert(BINDING_NAME_PATHWRIGHT_NEXT == "Étape suivante", "translated: " .. BINDING_NAME_PATHWRIGHT_NEXT)
     options.opened = nil
-    Key("FACTORUIDE_OPTIONS")
+    Key("PATHWRIGHT_OPTIONS")
     assert(options.opened == category:GetID(), "a key opens the options")
     local shown = FG:Get("guideShown")
-    Key("FACTORUIDE_GUIDE")
-    assert(FG:Get("guideShown") == not shown and FactoruideDB.settings.guideShown == not shown, "the guide hidden")
-    Key("FACTORUIDE_GUIDE")
+    Key("PATHWRIGHT_GUIDE")
+    assert(FG:Get("guideShown") == not shown and PathwrightDB.settings.guideShown == not shown, "the guide hidden")
+    Key("PATHWRIGHT_GUIDE")
     assert(FG:Get("guideShown") == shown, "and shown")
     FG:Save("guideShown", nil)
     FG:Save("guideMode", nil)
     -- Nothing left over: every setting back to its default.
     for _, option in ipairs(keys) do
-        assert(FactoruideDB.settings[option.key] == nil, "left saved: " .. option.key)
+        assert(PathwrightDB.settings[option.key] == nil, "left saved: " .. option.key)
     end
-    for msg in pairs(FactoruideDB.errors or {}) do
+    for msg in pairs(PathwrightDB.errors or {}) do
         assert(not msg:find("Settings", 1, true), "no error: " .. msg)
     end
     print("settings ok")

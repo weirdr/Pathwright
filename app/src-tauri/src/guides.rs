@@ -11,7 +11,7 @@ use super::*;
 //
 // A guide is a name and its versions: every computation (first one, or computed again with the
 // same name) adds a version. The guides go to the game all together (the data addon) or one by
-// one (the text of `/fg import`), each in the version its page says to follow; the player picks
+// one (the text of `/pw import`), each in the version its page says to follow; the player picks
 // a character's guide in game.
 //
 //   guides/<slug>/guide.json          name, version to follow

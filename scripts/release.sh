@@ -35,7 +35,7 @@ fi
 # The addons changed since the last release, each with what changes for players.
 last=$(git describe --tags --abbrev=0 --match 'v*.*.*' 2>/dev/null || true)
 changed=
-for addon in Factoruide_Profile Factoruide_Guide; do
+for addon in Pathwright_Profile Pathwright_Guide; do
     if [ -z "$last" ] || ! git diff --quiet "$last" HEAD -- "addon/$addon"; then
         if ! scripts/addon-changes.sh "$addon" "$version" >/dev/null && ! scripts/addon-changes.sh "$addon" >/dev/null; then
             echo "$addon changed since ${last:-the start}: write what changes for players under '## Unreleased' in addon/$addon/CHANGELOG.md" >&2
@@ -62,8 +62,8 @@ for addon in $changed; do
         sed -i "0,/^## Unreleased\$/s//## Unreleased\n\n## $version ($(date -u +%F))/" "addon/$addon/CHANGELOG.md"
     fi
 done
-# The published addons only: a local data addon (addon/Factoruide_Data, written by `fg route`) is not git's.
-published="addon/Factoruide_Profile addon/Factoruide_Guide"
+# The published addons only: a local data addon (addon/Pathwright_Data, written by `fg route`) is not git's.
+published="addon/Pathwright_Profile addon/Pathwright_Guide"
 # shellcheck disable=SC2086
 if [ -n "$(git status --porcelain $published)" ]; then
     # shellcheck disable=SC2086
@@ -78,4 +78,4 @@ else
     git tag -a "$tag"
 fi
 git push origin "$tag"
-echo "$tag pushed: https://github.com/brouznouf/factoruide/actions/workflows/release.yml"
+echo "$tag pushed: https://github.com/weirdr/Pathwright/actions/workflows/release.yml"

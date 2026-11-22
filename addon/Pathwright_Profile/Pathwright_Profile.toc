@@ -1,0 +1,38 @@
+## Interface: 11508, 11509, 16001, 20505, 20506
+## Title: Pathwright Profile
+## Notes: Records your character (level, quests, professions, reputations) for the Pathwright app, and the quest data you choose to share.
+## Notes-frFR: Enregistre votre personnage (niveau, quêtes, métiers, réputations) pour l'application Pathwright, et les données de quêtes que vous choisissez de partager.
+## Author: Joel Wurtz
+## Category: Quests
+## Category-frFR: Quêtes
+## Category-deDE: Quests
+## Category-esES: Misiones
+## Category-esMX: Misiones
+## Category-ptBR: Missões
+## Category-ruRU: Задания
+## Category-koKR: 퀘스트
+## Category-zhCN: 任务
+## Category-zhTW: 任務
+## IconTexture: Interface\AddOns\Pathwright_Profile\Media\Logo
+## Version: 0.17.0
+## SavedVariables: PathwrightDB
+## OptionalDeps: Pathwright_Data
+
+Libs\LibStub\LibStub.lua
+Libs\LibDeflate\LibDeflate.lua
+Core.lua
+Locales\frFR.lua
+Locales\deDE.lua
+Locales\esES.lua
+Locales\ptBR.lua
+Locales\ruRU.lua
+Locales\koKR.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
+Sent.lua
+Data.lua
+Collector.lua
+Profile.lua
+Window.lua
+Export.lua
+Options.lua

@@ -2,15 +2,15 @@
 # Print a section of an addon's CHANGELOG.md: a version's, or Unreleased without one. Fails when
 # the section is missing or empty. Used for the CurseForge and Wago changelog (addons.yml).
 #
-#   scripts/addon-changes.sh Factoruide_Guide 0.14.0
-#   scripts/addon-changes.sh Factoruide_Profile
+#   scripts/addon-changes.sh Pathwright_Guide 0.14.0
+#   scripts/addon-changes.sh Pathwright_Profile
 set -eu
 cd "$(dirname "$0")/.."
 
 case ${1:-} in
-    Factoruide_Profile | Factoruide_Guide) ;;
+    Pathwright_Profile | Pathwright_Guide) ;;
     *)
-        echo "usage: $0 Factoruide_Profile|Factoruide_Guide [X.Y.Z]" >&2
+        echo "usage: $0 Pathwright_Profile|Pathwright_Guide [X.Y.Z]" >&2
         exit 2
         ;;
 esac
