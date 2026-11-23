@@ -1,0 +1,198 @@
+# The Barrens (24-25): the Horde quests of the south of the Barrens (Camp Taurajo, the Field of Giants,
+# Gann Stonespire and the dwarves of Bael Modan, the Razormane camps, Owatanka, Washte
+# Pawne and the Harvester), Isha Awak off the coast south of Ratchet, and the errands of Thunder Bluff,
+# for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/the_barrens_24_25.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, drops, respawns and the places of mobs
+# and objects from the game data (data/forever.sqlite), checked against outof.games (The Barrens,
+# area 17; Thunder Bluff); RestedXP's and Zygor's routes as a check. Wowhead refused every request
+# (403), so its comments were not read. The quest list is section 8 of
+# addon/guides/horde_1_40_allocation.md.
+#
+# Starts in Orgrimmar, off the zeppelin from Undercity: Hillsbrad Foothills (22-24) should end at the
+#   zeppelin tower outside Orgrimmar. Rogues and warlocks train there (Thunder Bluff has no trainer
+#   for them), then a flight to the Crossroads for Egg Hunt (868) and on to Thunder Bluff.
+# Carried in (skipped by those who lack them):
+# - Return to Thunder Bluff (1067, Apothecary Lydon at Tarren Mill): Hillsbrad Foothills (22-24)
+#   should take it. It opens The Flying Machine Airport (1086) here.
+# - for shamans, Call of Water (1536, from Brine, south of Camp Taurajo): The Barrens & Stonetalon
+#   Mountain (15-21) should take it (after Call of Water 1535) and Hillsbrad Foothills (22-24) fill its
+#   waterskin at the well of Tarren Mill. Handed in here; Brine's next one (1534) is left to later
+#   guides.
+# Taken here rather than carried: Egg Hunt (868, Korran at the Crossroads) and Mahren Skyseer (874,
+#   Jorn Skyseer at Camp Taurajo; offered after Cry of the Thunderhawk, 913, in an earlier guide).
+# Left to later guides:
+# - from Thunder Bluff: The Sacred Flame (1195, Zangen Stonehoof), for Ashenvale (26-28); The Flying
+#   Machine Airport (1086, Apothecary Zamah) and Pigments for Paints (97538, Tah Winterhoof): Stonetalon
+#   Mountains (25-26) does their objectives, Ashenvale (26-28) hands them in.
+# - The Ashenvale Hunt (6382, Jorn Skyseer) and Report to Kadrak (6541, Thork), for Ashenvale (26-28).
+# - Stepping Stones (79192, the Nailed Plank by the road south of the Field of Giants), for Stonetalon
+#   Mountains (25-26).
+# - for shamans, Call of Water (1534, Brine): Ashenvale (26-28) fills it, Thousand Needles (28-30)
+#   hands it in.
+# Left out:
+# - In Nightmares (3369): Falla Sagewind gives it only after The Glowing Shard (6981), which starts
+#   from a drop of Mutanus the Devourer inside Wailing Caverns (a dungeon).
+# - Blueleaf Tubers (1221): the tubers grow only inside Razorfen Kraul (a dungeon).
+# The auction house: none of this guide's quest items is sold there. Thunder Bluff, the last city
+#   of the guide, gets the note for The Lost Pages (6504) of Ashenvale (26-28).
+# The Runed Scroll (3513) starts from a drop of Aean Swiftriver, a rare elite of the Field of Giants:
+#   the trip north to Kadrak at Mor'shan Rampart shows only for those who found it.
+#
+# The route: Orgrimmar and a flight to the Crossroads; Thunder Bluff; a flight to Camp Taurajo and its
+# hearthstone; a loop south (Owatanka, the Field of Giants, Sulhasa and Gann Stonespire, Brine, the
+# Razormane camps, three trips to Bael Modan) and the hearthstone back; flights to the Crossroads (and
+# Mor'shan Rampart for the Runed Scroll), to Ratchet for Mahren Skyseer and Isha Awak, and back to the
+# Crossroads, where Stonetalon Mountains (25-26) starts.
+
+guide The Barrens (24-25)
+faction horde
+levels 24 25
+carry 1067 1536
+leave 1086 1195 1534 6382 6541 79192 97538
+next Stonetalon Mountains (25-26)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Orgrimmar
+goto "Off the zeppelin from Undercity, walk into Orgrimmar by its front gate" at 49.5,93.0 r 15
+train 3328 3324
+tip Thunder Bluff has no rogue or warlock trainer, so both train here, in the Cleft of Shadow: Ormok for rogues, Grol'dar further in for warlocks.
+fly "Crossroads" npc 3310
+tip Doras is at the top of the tower in the Valley of Strength.
+
+# The Crossroads ------------------------------------------------------------------------------------
+
+map The Barrens
+accept 868
+tip Keep the Digging Claw Korran gives you: it goes back to him with the eggs, which come from the Field of Giants in the south.
+accept 6541
+tip Thork stands a few steps from Korran. Keep it for Ashenvale (26-28). Whoever took the other Report to Kadrak in Stonetalon, in The Barrens & Stonetalon Mountain (15-21), is not offered this one: the step skips itself.
+fly "Thunder Bluff" npc 3615
+tip No flight path to Thunder Bluff? Fly to Camp Taurajo and ride west into Mulgore along the road, then take a lift up the bluff.
+
+# Thunder Bluff -------------------------------------------------------------------------------------
+
+map Thunder Bluff
+turnin 1067
+tip Apothecary Zamah is in the Pools of Vision, the cave under Spirit Rise.
+accept 1086
+tip Leave it in your log: its Toxic Fogger is used at Windshear Crag in Stonetalon Mountains (25-26), and Ashenvale (26-28) hands it in here.
+accept 97538
+tip Tah Winterhoof stands on the central rise. Leave it in your log: the Mirkweed is in Stonetalon.
+accept 1195
+tip Zangen Stonehoof is on the central rise, near Tah. The phial is filled at a moonwell in Ashenvale (26-28).
+train 3047 3044 3030 246344 3033 3043 3040
+note "Buy the twelve Shredder Operating Manual pages for The Lost Pages (6504) in Ashenvale (26-28)" npc 8674
+tip Optional. The naga of the Zoram Strand drop the pages only very rarely, so buying them here saves a long farm. Each of you needs a full set, pages 1 to 12. Too dear? Skip it.
+fly "Camp Taurajo" npc 2995
+tip No flight path to Camp Taurajo? Ride down a lift and east along the road out of Mulgore: the camp is just past the gate into the Barrens.
+
+# Camp Taurajo --------------------------------------------------------------------------------------
+
+map The Barrens
+bind 7714
+tip Set your hearthstone here: it brings you back from Bael Modan at the end of the loop south.
+accept 6382 874
+tip Keep The Ashenvale Hunt for Ashenvale (26-28). Mahren Skyseer waits on the coast south of Ratchet, at the end of the guide.
+accept 893
+accept 879
+tip Mangletooth trades buffs for Blood Shards: spend any you carry on the way out.
+
+# Owatanka and the Field of Giants ------------------------------------------------------------------
+
+accept 884 at 46.5,61.3 "Kill Owatanka and open the Tailspike it drops: it starts a quest"
+tip Owatanka, a blue thunder lizard, has a few spots on the plain just south and east of the camp. One Tailspike drops per kill, for one of you: it comes back in about seven minutes, maybe at another spot, for the second. Not found? Right-click this step to skip the quest.
+do 868
+tip The Silithid Mounds are spread over the Field of Giants, most of them in its west half and a cluster to the east. Each mound gives one egg: each of you digs twelve.
+accept 897 at 45.0,71.0 "Kill the Silithid Harvester and open the head it drops: it starts a quest"
+tip The Silithid Harvester is a rare that comes back only after hours: if you see it, kill it, and the one who loots its head gets the quest. Not up? Right-click this step to skip it.
+accept 3513 at 46.4,72.0 "Kill Aean Swiftriver and read the Runed Scroll it drops: it starts a quest"
+tip Aean Swiftriver, a rare elite night elf (level 25), sometimes stands in the south of the Field of Giants. Easy for the two of you, but one scroll drops, for one of you, and the elf returns only after an hour or more. Not there? Right-click this step to skip it.
+accept 79192
+tip The Nailed Plank is by the road, just south of the Field of Giants. It is offered only to those who followed the earlier notes of this chain. Keep it for Stonetalon Mountains (25-26).
+
+# Sulhasa, Gann Stonespire and Brine ----------------------------------------------------------------
+
+accept 98093
+tip Sulhasa waits up a tree a little east of the road: she won't come down while the beasts prowl.
+accept 843
+tip Gann Stonespire walks up and down the road to the south: look for him between Sulhasa and Bael Modan.
+do 98093 bg
+tip The Hecklefang Stalkers (hyenas) and Stormhide lizards roam on both sides of the road: kill them all along the way.
+accept 885 at 45.2,77.5 "Kill Washte Pawne and open the Feather it drops: it starts a quest"
+tip Washte Pawne, a red wind serpent, has several spots between Sulhasa's tree and the Razormane camps: kill it whenever you meet it on this loop. One Feather drops per kill, for one of you; it comes back in about seven minutes for the second. Not found? Right-click this step to skip it.
+turnin 1536 only shaman
+tip Brine sits on top of the hill west of the road.
+accept 1534 only shaman
+tip Keep it: the waterskin is filled at the Ruins of Stardust in Ashenvale (26-28), and Thousand Needles (28-30) brings it back to Brine.
+
+# The Razormane camps -------------------------------------------------------------------------------
+
+do 893 bg
+tip Each part drops from one kind of quilboar: the dagger from Pathfinders and Stalkers (the Stalkers are stealthed), the wand from Seers, the shield from Warfrenzies. Each of you needs your own.
+do 879.1
+tip Kuz walks the eastern edge of the camps.
+do 879.2
+tip Nak keeps to the south of the camps. Pull him away from the Seers.
+do 879.3
+tip Lok Orcbane stands at the far west of the camps. Clear the quilboar around him first; he comes back in about seven minutes if one of you missed his skull.
+do 893
+tip Missing a part? The Seers and Warfrenzies gather in the middle of the camps.
+
+# Bael Modan ----------------------------------------------------------------------------------------
+
+do 843.1 bg
+tip The Excavators and Foremen work the dig site west of Bael'dun Keep.
+do 843.3
+tip Prospector Khazgorm walks the south of the dig site. If the journal drops for only one of you, he is back in about four minutes.
+do 843
+tip Short of Foremen? There are only five or so, spread over the dig site.
+turnin 843
+tip Gann Stonespire walks the road north of Bael Modan.
+accept 846
+do 846
+tip The Soldiers, Riflemen and Officers hold Bael'dun Keep, the fortress east of the pit. Fight one group at a time: the Riflemen shoot from range, so pull them around a corner.
+turnin 846
+accept 849
+do 849 icon use
+tip The flying machine stands at the west edge of the dig site, where Lord Cyrik Blackforge keeps watch: kill him, then each of you clicks the machine with Gann's Explosive Stick in your bags.
+turnin 849
+
+# Field to Clear and back to Camp Taurajo -----------------------------------------------------------
+
+do 98093
+tip Finish the hyenas and lizards around Sulhasa's tree.
+turnin 98093
+hearth npc 7714
+tip Hearthstone not ready? Follow the road north to Camp Taurajo.
+turnin 893
+turnin 884 885 897
+tip Jorn Skyseer stands in the middle of the camp. Each turn-in shows only for those who looted the item that starts it.
+turnin 879
+accept 906
+tip Keep Lok's Skull: Thork at the Crossroads wants it.
+fly "Crossroads" npc 10378
+
+# The Crossroads and Mor'shan Rampart ---------------------------------------------------------------
+
+turnin 906
+turnin 868
+turnin 3513
+tip Only for those who found the Runed Scroll: Kadrak keeps the northern guard tower at Mor'shan Rampart, a long ride north along the road. Come back to the Crossroads afterwards.
+
+# Ratchet, Mahren Skyseer and Isha Awak -------------------------------------------------------------
+
+fly "Ratchet" npc 3615
+tip No flight path to Ratchet? Ride east along the road from the Crossroads to the coast.
+turnin 874
+tip Mahren Skyseer camps on the beach south of Ratchet.
+accept 873
+do 873
+tip Isha Awak (level 27) swims in the sea south of Mahren, off the beach. He hits hard: fight him together, close to the shore if you can. If his heart drops for only one of you, he is back in about seven minutes.
+turnin 873
+fly "Crossroads" npc 16227
+note "Stonetalon Mountains (25-26) starts here at the Crossroads: its road leads west into the mountains" at 51.5,30.3

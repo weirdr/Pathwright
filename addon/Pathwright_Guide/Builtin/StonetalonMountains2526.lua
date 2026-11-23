@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795456558,
+    created = 1795459290,
     next = "Ashenvale (26-28)",
-    carry = { 1086, 79192, 97538 },
+    carry = { 1086, 1195, 1534, 6382, 6541, 79192, 97538 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },
