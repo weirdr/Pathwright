@@ -457,11 +457,14 @@ local function SetCaption(b, text)
 end
 
 local function RestedAvailable()
-    if not GetXPExhaustion then return false end
+    if not (GetXPExhaustion and UnitXPMax) then return false end
     -- An empty rested pool is normally nil. A secret value is unknown.
     local xp = GetXPExhaustion()
-    return not (issecretvalue and issecretvalue(xp))
-        and (xp == nil or xp == 0)
+    local levelXP = UnitXPMax("player")
+    if issecretvalue and (issecretvalue(xp) or issecretvalue(levelXP)) then return false end
+    return type(levelXP) == "number"
+        and levelXP > 0
+        and (xp or 0) < levelXP * 0.005
         and FG.HasPlayerAura(BOOSTED_RESTED) == false
 end
 
@@ -578,7 +581,11 @@ local function Create()
         rested.glow:SetPoint("CENTER", rested.icon)
         rested.glow:SetSize(RESTED_SIZE * 1.65, RESTED_SIZE * 1.65)
         rested:EnableMouse(true)
-        FG.Options.Tooltip(rested, T("Rested XP"), T("You have no rested XP and no Boosted Rested debuff."))
+        FG.Options.Tooltip(
+            rested,
+            T("Rested XP"),
+            T("Your rested XP is below 0.5% of a level and Boosted Rested is inactive.")
+        )
     end
     return strip
 end

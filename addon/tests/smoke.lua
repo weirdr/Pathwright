@@ -4497,8 +4497,10 @@ end
 -- The rested reminder on Forever uses the player's XP pool and Boosted Rested together.
 do
     local savedXP, savedAuras, savedSecret = GetXPExhaustion, C_UnitAuras, issecretvalue
-    local xp, debuff = 200, nil
+    local savedMax = UnitXPMax
+    local xp, levelXP, debuff = 2540, 80800, nil
     GetXPExhaustion = function() return xp end
+    UnitXPMax = function() return levelXP end
     C_UnitAuras = {
         GetPlayerAuraBySpellID = function(id)
             if id == 1229451 then return debuff end
@@ -4518,6 +4520,10 @@ do
         assert(icon:IsShown() == lit, "rested XP visibility on " .. event)
     end
     check("PLAYER_ENTERING_WORLD", false)
+    xp = 404
+    check("UPDATE_EXHAUSTION", false)
+    xp = 403
+    check("UPDATE_EXHAUSTION", true)
     xp = nil
     check("UPDATE_EXHAUSTION", true)
     assert(width == compactWidth + 20, "a 16px reminder and one gap")
@@ -4530,7 +4536,7 @@ do
     InCombatLockdown = combat
     check("PLAYER_REGEN_ENABLED", false)
     assert(width == compactWidth, "the inactive reminder leaves no gap")
-    xp = 100
+    xp = 405
     check("PLAYER_XP_UPDATE", false, "player")
     debuff = nil
     check("UNIT_AURA", false, "player")
@@ -4542,6 +4548,9 @@ do
     check("UNIT_AURA", false, "player")
     debuff, xp = nil, secret
     check("UPDATE_EXHAUSTION", false)
+    xp, levelXP = 1, 0
+    check("UPDATE_EXHAUSTION", false)
+    UnitXPMax = savedMax
     GetXPExhaustion, C_UnitAuras, issecretvalue = savedXP, savedAuras, savedSecret
     bar.SetWidth = setWidth
     print("rested XP indicator ok")
