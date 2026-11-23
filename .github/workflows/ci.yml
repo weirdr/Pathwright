@@ -114,6 +114,12 @@ jobs:
           sudo apt-get install -y luajit
           luajit addon/tests/smoke.lua
           luajit addon/tests/smoke.lua profile
+      # Every shipped guide against the game data (data/forever.sqlite.zst): errors fail the job,
+      # warnings are counted (-v lists them).
+      - name: Guides against the game data
+        run: |
+          sudo apt-get install -y zstd
+          python3 addon/tools/guide_validate.py
 
   scripts:
     name: Shell scripts (shellcheck)

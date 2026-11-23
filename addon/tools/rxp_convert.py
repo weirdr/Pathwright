@@ -236,6 +236,12 @@ def distinct(values):
     return list(dict.fromkeys(v for v in values if v))
 
 
+def mob_name(name):
+    # Some upstream .mob lines carry the quest log's objective line ("Tormented Soul slain (10)")
+    # instead of the unit's name: the target buttons need the name alone.
+    return re.sub(r"(?:\s+slain)?\s*(?:\(\d+\)|:?\s*\d+\s*/\s*\d+)?\s*$", "", name, flags=re.I).strip()
+
+
 def convert_block(lines, game):
     hints, actions, points, conditions, mobs, targets = [], [], [], [], [], []
     overlay = []
@@ -290,7 +296,7 @@ def convert_block(lines, game):
             continue
         elif tag in (".target", ".mob", ".unitscan"):
             name, _, eid = arg.lstrip("+").partition("::")
-            (targets if tag == ".target" else mobs).append((name, num(eid)))
+            (targets if tag == ".target" else mobs).append((mob_name(name), num(eid)))
         elif tag in QUEST_KINDS and first:
             kind, verb = QUEST_KINDS[tag]
             q = abs(first)

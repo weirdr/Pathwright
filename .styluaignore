@@ -5,3 +5,5 @@ addon/tests/fixtures/
 addon/tests/guides/
 # Built by addon/tools/guide_build.py from addon/guides/*.guide (one step a line).
 addon/Pathwright_Guide/Builtin/
+# Converted by addon/tools/rxp_convert.py (one step a line), with its loader.
+addon/Pathwright_RxPForever/
