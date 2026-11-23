@@ -174,6 +174,7 @@ local state -- per character: { route = name, step = n, point = {...}, flightLea
 local route
 local acceptIndex = {} -- quest -> index of its accept step
 local turninIndex = {} -- quest -> index of its turn-in step
+local plannedBefore = {} -- quest -> true: taken by a built-in guide that leads to this one
 
 --- An objective guide (a dungeon's, a zone's, quests chosen): no level to reach. Those made before
 --- `levelsIgnored` was exported end at the level they start at, unlike a leveling guide.
@@ -284,6 +285,39 @@ local function AcceptSkipped(step, index)
         and IsDone(route.steps[at], at)
 end
 
+--- Prerequisite `p` of the quest taken at step `index` will not be done: not done nor in the log,
+--- and skipped by hand, its accept passed without taking it, or (built-in guides) carried in or
+--- taken by an earlier guide of the chain and never done. A quest no guide plans is not judged:
+--- the game data may list prerequisites the game does not ask for.
+local function PrerequisiteLost(p, index)
+    if QuestLog.IsQuestFlaggedCompleted(p) or QuestLog.IsOnQuest(p) then return false end
+    if state.skippedQuests[p] then return true end
+    local at = acceptIndex[p]
+    if at then
+        if at >= index or (route.steps[at].hd and Held(route.steps[at])) then return false end
+        return (IsDone(route.steps[at], at))
+    end
+    return route.builtin == true and (turninIndex[p] ~= nil or plannedBefore[p] == true)
+end
+
+--- An accept step whose quest cannot be taken any more: a quest it needs will not be done.
+local function PrerequisitesLost(step, index)
+    for _, p in ipairs(step.pre or {}) do
+        if PrerequisiteLost(p, index) then return true end
+    end
+    if step.pa then
+        local need, open = math.min(step.pn or 1, #step.pa), 0
+        for _, p in ipairs(step.pa) do
+            if not PrerequisiteLost(p, index) then
+                open = open + 1
+                if open >= need then return false end
+            end
+        end
+        return true
+    end
+    return false
+end
+
 --- XP of the quests complete in the log that the route turns in after grind step `index` and
 --- before the level it aims at (the turn-in reaching it included): earned already, it counts.
 --- Those turned in later do not, or the guide would be behind at its next steps.
@@ -350,6 +384,8 @@ function IsDone(step, index)
     if step.k == "accept" then
         if QuestLog.IsOnQuest(q) or QuestLog.IsQuestFlaggedCompleted(q) then return true end
         if step.hd and Held(step) then return true end
+        -- A quest it needs was skipped (here or in an earlier guide): it cannot be taken.
+        if PrerequisitesLost(step, index or state.step) then return true, true end
         -- Profession quest (optional): skipped without the skill it needs.
         if step.line and step.sk then
             local rank = FG.ProfessionSkill(step.line)
@@ -1525,6 +1561,25 @@ local function SwitchProgress(name)
     state.handedIn = state.handedIn or {}
 end
 
+--- The quests taken by the built-in guides that lead to guide `name` (through their `next`).
+local function PlanBefore(name)
+    wipe(plannedBefore)
+    if not (route and route.builtin and FG.Routes) then return end
+    local seen, queue = { [name] = true }, { name }
+    while #queue > 0 do
+        local target = table.remove(queue)
+        for other, r in pairs(FG.Routes) do
+            if r.builtin and r.next == target and not seen[other] then
+                seen[other] = true
+                table.insert(queue, other)
+                for _, s in ipairs(r.steps or {}) do
+                    if s.k == "accept" and s.q then plannedBefore[s.q] = true end
+                end
+            end
+        end
+    end
+end
+
 local function UseRoute(name)
     route = FG.Routes and FG.Routes[name]
     name = route and name or nil
@@ -1554,6 +1609,7 @@ local function UseRoute(name)
             if s.cq then childQuests[s.cq] = true end
         end
     end
+    PlanBefore(name)
     BuildGroups()
 end
 

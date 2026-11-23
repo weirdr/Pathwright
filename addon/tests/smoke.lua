@@ -2559,6 +2559,52 @@ FG.Guide:Advance()
 assert(waypoint.x ~= 0.32, "back to the route once taken")
 print("pickups ok")
 
+-- An accept whose prerequisite was skipped (here, or planned by an earlier built-in guide and
+-- never done) is passed, and its follow-ups with it; a prerequisite no guide plans is not judged.
+do
+    local routes = FG.Routes
+    FG.Builtin.Register({
+        name = "prelost-first",
+        next = "prelost-test",
+        variants = { { race = 7, class = 8, faction = "Alliance" } },
+        steps = { { k = "accept", t = "Accept Earlier", q = 6101, lvl = 21 } },
+    })
+    FG.Builtin.Register({
+        name = "prelost-test",
+        variants = { { race = 7, class = 8, faction = "Alliance" } },
+        steps = {
+            { k = "accept", t = "Accept Start", q = 6110, lvl = 21 },
+            { k = "accept", t = "Accept Chain", q = 6111, pa = { 6110 }, lvl = 21 },
+            { k = "accept", t = "Accept Chain 2", q = 6112, pre = { 6111 }, lvl = 21 },
+            { k = "accept", t = "Accept After Earlier", q = 6113, pa = { 6101 }, lvl = 21 },
+            { k = "accept", t = "Accept Unplanned", q = 6114, pa = { 6199 }, lvl = 21 },
+            { k = "grind", t = "Grind", lvl = 60 },
+        },
+    })
+    FG.Import:Apply()
+    for name, r in pairs(routes) do
+        FG.Routes[name] = FG.Routes[name] or r
+    end
+    useRoute("prelost-test")
+    assert(char.guide.step == 1, "nothing skipped yet, step " .. char.guide.step)
+    FG.Guide:ToggleSkip(1)
+    fire("QUEST_LOG_UPDATE")
+    runTimers()
+    assert(char.guide.step == 5, "the chain and the earlier guide's follow-up passed, step " .. char.guide.step)
+    completed[6101] = true
+    FG.Guide:Resync()
+    assert(char.guide.step == 4, "its prerequisite done: taken again, step " .. char.guide.step)
+    completed[6101] = nil
+    FG.Guide:ToggleSkip(1)
+    FG.Guide:Resync()
+    assert(char.guide.step == 1, "unskipped: the chain is back, step " .. char.guide.step)
+    FG.Guide:CloseTab("prelost-test")
+    table.remove(FG.Builtin.defs)
+    table.remove(FG.Builtin.defs)
+    FG.Routes = routes
+    print("prerequisites lost ok")
+end
+
 -- Grind steps count the XP of the quests complete in the log the route turns in before the
 -- level they aim at, not of those it turns in later.
 playerLevel = 3
