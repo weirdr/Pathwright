@@ -1,6 +1,6 @@
 -- The walk left to the place the guide points at (Pathing:Remaining), dotted in green on the
 -- world map and the minimap (`pathMap`): around the steep ground when the guide planned it so,
--- straight otherwise. Not while Shortest Path Forever guides (it draws its own).
+-- straight otherwise. Not while Shortest Path Forever guides (it draws its own way).
 
 local FG = Pathwright
 

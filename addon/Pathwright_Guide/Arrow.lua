@@ -1,9 +1,10 @@
 -- A 3D chevron turning with the character (`arrowShown`, next to the compass): towards the way
--- the guide planned while there is one to follow (Pathing:Aim), else towards the place it points
--- at; the distance to that place and its name below, a tick on arrival. The texture holds 64
+-- the guide planned, or Shortest Path Forever's while it guides (Pathing:Aim), else towards the
+-- place it points at; the distance to that place and its name below, a tick on arrival. The texture holds 64
 -- frames of the chevron turned counter-clockwise (8 x 8, frame 0 straight ahead). Dragged
 -- anywhere unless frames are locked. Without a position (instances) or on another continent it
--- only says so.
+-- only says so, unless Shortest Path Forever leads to the way there (then towards it, with its
+-- distance).
 
 local FG = Pathwright
 local T = FG.T
@@ -44,24 +45,27 @@ local function Update(self, elapsed)
     local continent, pn, pw = FG.Compass.World(map, pos and pos.x, pos and pos.y)
     local c2, tn, tw = FG.Compass.World(target.m, target.x / 100, target.y / 100)
     local facing = GetPlayerFacing and GetPlayerFacing()
-    if not continent or continent ~= c2 or not facing then
+    local wn, ww = nil, nil
+    if continent and FG.Pathing then
+        wn, ww = FG.Pathing:Aim(continent, pn, pw)
+    end
+    -- The place on another continent: the way there when there is one (a dock, a flight master).
+    local there = continent ~= nil and continent == c2
+    if not continent or not facing or not (there or wn) then
         self.arrow:Hide()
         self.check:Hide()
         self.distance:SetText(L.elsewhere)
         return
     end
-    local distance = math.sqrt((tn - pn) ^ 2 + (tw - pw) ^ 2)
+    local dn, dw = (there and tn or wn) - pn, (there and tw or ww) - pw
+    local distance = math.sqrt(dn * dn + dw * dw)
     self.distance:SetText(string.format(L.yards, math.floor(distance + 0.5)))
-    if distance < ARRIVED then
+    if there and distance < ARRIVED then
         self.arrow:Hide()
         self.check:Show()
         return
     end
     self.check:Hide()
-    local wn, ww = nil, nil
-    if FG.Pathing then
-        wn, ww = FG.Pathing:Aim(continent, pn, pw)
-    end
     local an, aw = wn or tn, ww or tw
     local _, left, right, top, bottom = Arrow.Frame(FG.Compass.Angle(an - pn, aw - pw, facing))
     self.arrow:SetTexCoord(left, right, top, bottom)

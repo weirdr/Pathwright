@@ -3,15 +3,16 @@
 --   the guide's target: a large glowing blue diamond on a beam down to the bar's line, with its
 --   distance, never grouped with anything; behind, at the end it is closer to, with its
 --   distance;
---   the way: where the walk the guide planned goes (Pathing.lua), a green mark (orange beside
---   the walk, going back to it), when it is not straight towards the target;
+--   the way: where the walk the guide planned goes, or the next point Shortest Path Forever
+--   leads to while it guides (Pathing.lua), a green mark (orange beside the walk, going back to
+--   it), when it is not straight towards the target;
 --   the other current tasks: their icon in a blue frame;
 --   the close quests to pick up and the next turn-in: smaller icons, paler;
 --   the places that serve the character (Nearby.lua): small faded icons.
 -- Close ones are grouped with "+n", the highest kind on top; those behind at the ends (not the
 -- places). Mouse over a point: what it is and how far; click: the guide points at it (and
 -- Shortest Path Forever goes there when linked). Without a position (instances) or on another
--- continent it only says so.
+-- continent it only says so, unless Shortest Path Forever leads to the way there (its mark alone).
 -- Over the minimal guide's strip, else at the top of the screen. Dragged anywhere it moves
 -- (unless the windows are locked), Ctrl + mouse wheel changes its size, its ends dragged its
 -- width; kept for the character. The addon's options (`/pw`, Navigation) hide or show it, and put
@@ -32,6 +33,8 @@ local L = {
     way = T("The planned way"),
     wayTip = T("Go this way: the guide's walk, around the steep ground"),
     back = T("Back to the planned way"),
+    spfWay = T("Shortest Path Forever's way"),
+    spfWayTip = T("Go this way: the route Shortest Path Forever planned to the step"),
     title = T("Compass"),
     move = T("Drag: move it"),
     size = T("Ctrl + mouse wheel: its size"),
@@ -208,8 +211,14 @@ local function MakeWay()
     m.head:SetRotation(math.pi / 4)
     m:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-        GameTooltip:AddLine(self.back and L.back or L.way, 1, 1, 1, true)
-        GameTooltip:AddLine(L.wayTip, 0.73, 0.77, 0.84, true)
+        local spf = FG.Pathing and FG.Pathing:Way()
+        if spf then
+            GameTooltip:AddLine(spf.text or L.spfWay, 1, 1, 1, true)
+            GameTooltip:AddLine(L.spfWayTip, 0.73, 0.77, 0.84, true)
+        else
+            GameTooltip:AddLine(self.back and L.back or L.way, 1, 1, 1, true)
+            GameTooltip:AddLine(L.wayTip, 0.73, 0.77, 0.84, true)
+        end
         GameTooltip:Show()
     end)
     m:SetScript("OnClick", nil)
@@ -534,6 +543,13 @@ function Compass:Draw()
             end
         end
     end
+    -- The way: the guide's walk, or Shortest Path Forever's (shown alone when everything else is
+    -- on another continent).
+    local wn, ww, back
+    if continent and facing and FG.Pathing then
+        wn, ww, back = FG.Pathing:Aim(continent, pn, pw)
+    end
+    if wn then any = true end
     frame.elsewhere:SetShown(not any)
     if not any then
         HideFrom(ticks, 1)
@@ -654,10 +670,6 @@ function Compass:Draw()
 
     -- The way, unless straight towards the target.
     local way = frame.wayMark
-    local wn, ww, back
-    if FG.Pathing then
-        wn, ww, back = FG.Pathing:Aim(continent, pn, pw)
-    end
     local wayLeft = wn and Compass.Left(Compass.Angle(wn - pn, ww - pw, facing))
     if wayLeft and target and math.abs(((wayLeft - target.left + 180) % 360) - 180) < SAME then wayLeft = nil end
     way:SetShown(wayLeft ~= nil)

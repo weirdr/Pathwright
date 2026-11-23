@@ -6,6 +6,8 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- WoW Forever: with Shortest Path Forever installed, the compass and the arrow follow the route it plans to the step (the next turn of the walk, the flight master, the dock), even when the step is on another continent; the guide's own walk shows again whenever it is not guiding.
+
 ## 0.21.0 (2026-11-16)
 
 - WoW Forever: a click on a quest in the quest panel makes the game track it, as from the game's own tracker, and a click on the step already shown sets the game's waypoint again.
