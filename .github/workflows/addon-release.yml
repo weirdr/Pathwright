@@ -1,0 +1,79 @@
+name: Addon release
+
+# Every hour, when the addon changed on main since the last addon release: its smoke tests, then
+# the addon zipped (scripts/addon-zip.sh: Pathwright_Profile and Pathwright_Guide with the
+# built-in guides) and published as a GitHub release tagged addon-YYYY.MM.DD-HHMM, the commits
+# since the last one as its notes. Nothing changed: no release. Run by hand, it releases now (when
+# something changed). These tags never match release.yml's vX.Y.Z: the apps' releases stay apart.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: addon-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release the addon
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Anything new since the last addon release?
+        id: changes
+        run: |
+          last=$(git tag --list 'addon-*' --sort=-creatordate | head -n 1)
+          echo "last=$last" >> "$GITHUB_OUTPUT"
+          if [ -n "$last" ] && git diff --quiet "$last" HEAD -- addon scripts/install-addon.sh scripts/addon-zip.sh; then
+            echo "No addon change since $last: no release."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Smoke tests
+        if: steps.changes.outputs.release == 'true'
+        env:
+          TZ: UTC
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y luajit
+          luajit addon/tests/smoke.lua
+          luajit addon/tests/smoke.lua profile
+      - name: Zip
+        if: steps.changes.outputs.release == 'true'
+        run: scripts/addon-zip.sh dist/Pathwright-addon.zip
+      - name: Publish
+        if: steps.changes.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LAST: ${{ steps.changes.outputs.last }}
+        run: |
+          tag="addon-$(date -u +%Y.%m.%d-%H%M)"
+          guide=$(sed -n 's/^## Version: //p' addon/Pathwright_Guide/Pathwright_Guide.toc | tr -d '\r')
+          profile=$(sed -n 's/^## Version: //p' addon/Pathwright_Profile/Pathwright_Profile.toc | tr -d '\r')
+          {
+            echo "Pathwright addon, built from main at $(git rev-parse --short HEAD)."
+            echo "Guide $guide, Profile $profile. Unzip into World of Warcraft/_forever_/Interface/AddOns."
+            echo
+            if [ -n "$LAST" ]; then
+              echo "Changes since $LAST:"
+              git log --no-merges --pretty='- %s' "$LAST"..HEAD -- addon scripts/install-addon.sh scripts/addon-zip.sh
+            else
+              echo "First addon release."
+            fi
+          } > notes.md
+          gh release create "$tag" dist/Pathwright-addon.zip \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$(git rev-parse HEAD)" \
+            --title "Pathwright addon $(date -u '+%Y-%m-%d %H:%M') UTC" \
+            --notes-file notes.md \
+            --latest
