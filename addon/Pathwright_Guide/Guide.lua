@@ -1031,6 +1031,7 @@ function Guide:Refresh()
             message = route and L.done or (next(FG.Routes or {}) and L.noRoute or L.noGuides),
         })
         if FG.Tabs then FG.Tabs:Render(ui) end
+        if FG.Toolstrip then FG.Toolstrip:SetSteps({}) end
         return
     end
 
@@ -1118,7 +1119,6 @@ function Guide:Refresh()
         end
     end
     AlongTheWay(false)
-    if FG.Toolstrip then FG.Toolstrip:SetSteps(todo) end
     if FG.MapPins then FG.MapPins:Refresh() end
     if not target then
         target, targetIndex = route.steps[state.step], state.step
@@ -1241,6 +1241,7 @@ function Guide:Refresh()
     self.view = view
     ui:Render(view)
     if FG.Tabs then FG.Tabs:Render(ui) end
+    if FG.Toolstrip then FG.Toolstrip:SetSteps(todo) end
 end
 
 -- Navigation -------------------------------------------------------------------

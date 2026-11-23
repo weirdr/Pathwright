@@ -1,6 +1,7 @@
 -- Group sync: members running Pathwright send their quest progress (objectives fulfilled) to
--- the party; Questie players' progress comes in through QuestieShare.lua. The tracker shows
--- theirs next to each objective, the guide a line under each objective step (Party:Line).
+-- the party, on its own: Questie is not needed. Questie players' progress comes in too, through
+-- QuestieShare.lua (which also answers them). The tracker shows theirs next to each objective,
+-- the guide a line under each objective step (Party:Members).
 
 local FG = Pathwright
 local QuestLog = FG.QuestLog
@@ -11,21 +12,28 @@ FG.Party = Party
 
 if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(PREFIX) end
 
---- "id:f1,f2;id:f1" for the quests of the log.
-local function Encode()
+local Readable = FG.Readable
+
+--- "id:f1,f2;id:f1" for the quests of the log ("x": the objective is finished). Read through
+--- FG.QuestLog, as the rest of the addon: WoW Forever has C_QuestLog and no GetQuestLogTitle (the
+--- global one sent an empty log there, so nobody saw anyone's progress).
+function Party.Encode()
     local parts = {}
-    for i = 1, (GetNumQuestLogEntries and GetNumQuestLogEntries() or 0) do
-        local _, _, _, isHeader, _, _, _, questID = GetQuestLogTitle(i)
-        if not isHeader and questID and questID > 0 then
+    for i = 1, (QuestLog.GetNumQuestLogEntries() or 0) do
+        local info = QuestLog.GetInfo(i)
+        local questID = info and not Readable(info.isHeader) and Readable(info.questID)
+        if type(questID) == "number" and questID > 0 then
             local counts = {}
             for _, o in ipairs(QuestLog.GetQuestObjectives(questID) or {}) do
-                table.insert(counts, o.finished and "x" or tostring(o.numFulfilled or 0))
+                local finished, have = Readable(o.finished), tonumber(Readable(o.numFulfilled)) or 0
+                table.insert(counts, finished and "x" or tostring(have))
             end
             table.insert(parts, questID .. ":" .. table.concat(counts, ","))
         end
     end
     return parts
 end
+local Encode = Party.Encode
 
 local function Send()
     if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
@@ -52,20 +60,49 @@ local function SendSoon()
     end)
 end
 
+--- Ask the party for their progress ("?": each member sends their log), and Questie players
+--- for theirs: after a login or a reload, nothing would show until one of their counts moved.
+--- At most every ASK_EVERY seconds.
+local ASK_EVERY = 10
+local askedAt
+function Party:Ask()
+    if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
+    local now = GetTime()
+    if askedAt and now - askedAt < ASK_EVERY then return end
+    askedAt = now
+    C_ChatInfo.SendAddonMessage(PREFIX, "?", "PARTY")
+    if FG.QuestieShare and FG.QuestieShare.Ask then FG.QuestieShare:Ask() end
+end
+
+local function AskSoon()
+    if not C_Timer then return Party:Ask() end
+    C_Timer.After(3, function() Party:Ask() end)
+end
+
 FG:On("QUEST_LOG_UPDATE", SendSoon)
+FG:On("PLAYER_ENTERING_WORLD", AskSoon)
 FG:On("GROUP_ROSTER_UPDATE", function()
+    local newcomer = false
     for name in pairs(Party.progress) do
         if not UnitInParty(name) then Party.progress[name] = nil end
     end
+    for i = 1, GetNumSubgroupMembers and GetNumSubgroupMembers() or 0 do
+        local name = UnitName("party" .. i)
+        if name and not Party.progress[name] then newcomer = true end
+    end
     SendSoon()
+    if newcomer then AskSoon() end
 end)
 
 FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     if prefix ~= PREFIX then return end
     local name = Ambiguate(sender, "short")
     if name == UnitName("player") then return end
+    -- Asked for our progress: our log, whole.
+    if message == "?" then return SendSoon() end
     if message == "R" then
         Party.progress[name] = {}
+        if FG.Nameplates then FG.Nameplates:Refresh() end
         return
     end
     local mine = Party.progress[name] or {}
@@ -78,6 +115,7 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
         mine[tonumber(id)] = list
     end
     if FG.Tracker then FG.Tracker:Refresh() end
+    if FG.Nameplates then FG.Nameplates:Refresh() end
     if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
 end)
 

@@ -34,6 +34,7 @@ local L = {
 local STRIP_WIDTH, DROP_WIDTH = 360, 380
 local MAX_TAGS = 3
 local DROP_LINES = 6
+local BANNER_BOTTOM, BANNER_HEIGHT, BANNER_GAP = 32, 20, 4
 
 local Skin = FG.Skin
 local strip, tags, xpBar, drop, buttons, aheadBar, dungeonBar, state
@@ -275,7 +276,7 @@ end
 -- Ahead of a checkpoint: a line over the compass.
 local function CreateAhead()
     aheadBar = FG:DragHandle(CreateFrame("Button", nil, strip, "BackdropTemplate"))
-    aheadBar:SetHeight(20)
+    aheadBar:SetHeight(BANNER_HEIGHT)
     aheadBar:SetBackdrop({ bgFile = Skin.WHITE, edgeFile = Skin.WHITE, edgeSize = 1 })
     aheadBar:SetBackdropColor(Skin.colors.bg[1], Skin.colors.bg[2], Skin.colors.bg[3], 0.9)
     aheadBar:SetBackdropBorderColor(1, 0.82, 0, 0.35)
@@ -287,7 +288,7 @@ local function CreateAhead()
     aheadBar:Hide()
     -- In a dungeon: its steps left, and leaving it aside.
     dungeonBar = FG:DragHandle(CreateFrame("Button", nil, strip, "BackdropTemplate"))
-    dungeonBar:SetHeight(20)
+    dungeonBar:SetHeight(BANNER_HEIGHT)
     dungeonBar:SetBackdrop({ bgFile = Skin.WHITE, edgeFile = Skin.WHITE, edgeSize = 1 })
     dungeonBar:SetBackdropColor(Skin.colors.bg[1], Skin.colors.bg[2], Skin.colors.bg[3], 0.9)
     dungeonBar:SetBackdropBorderColor(1, 0.25, 0.25, 0.35)
@@ -393,9 +394,17 @@ end
 
 function Mini:Frame() return strip end
 
+--- Space above the minimal guide used by its tabs, compass and optional skip buttons.
+function Mini:TopInset()
+    local inset = BANNER_BOTTOM
+    if aheadBar and aheadBar:IsShown() then inset = inset + BANNER_HEIGHT + BANNER_GAP end
+    if dungeonBar and dungeonBar:IsShown() then inset = inset + BANNER_HEIGHT + BANNER_GAP end
+    return inset
+end
+
 function Mini:Hide()
     if not strip then return end
-    strip:Hide()
+    if FG.CanLayout(strip) then strip:Hide() end
     if FG.CanLayout(buttons) then buttons:Hide() end
 end
 
@@ -559,7 +568,7 @@ function Mini:Render(view)
         Mini:Hide()
         return
     end
-    strip:Show()
+    if FG.CanLayout(strip) then strip:Show() end
     if FG.Compass then FG.Compass:Attach(strip) end
 
     -- The task pointed at, else the first one not done.
@@ -670,7 +679,7 @@ function Mini:Render(view)
         )
         aheadBar:SetWidth((tonumber(aheadBar.text:GetStringWidth()) or 200) + 24)
         aheadBar:ClearAllPoints()
-        aheadBar:SetPoint("BOTTOM", strip, "TOP", 0, 32)
+        aheadBar:SetPoint("BOTTOM", strip, "TOP", 0, BANNER_BOTTOM)
     end
     dungeonBar:SetShown(view.dungeon ~= nil)
     if view.dungeon then
@@ -680,7 +689,7 @@ function Mini:Render(view)
         )
         dungeonBar:SetWidth((tonumber(dungeonBar.text:GetStringWidth()) or 200) + 24)
         dungeonBar:ClearAllPoints()
-        dungeonBar:SetPoint("BOTTOM", strip, "TOP", 0, view.ahead and 56 or 32)
+        dungeonBar:SetPoint("BOTTOM", strip, "TOP", 0, BANNER_BOTTOM + (view.ahead and BANNER_HEIGHT + BANNER_GAP or 0))
     end
     DrawButtons(view)
 end

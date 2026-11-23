@@ -16,7 +16,10 @@ local Skin = FG.Skin
 --- Buttons with a key binding (PWStrip1..PWStrip5), then unnamed ones up to MAX.
 local BOUND = 5
 local MAX = 10
-local SIZE = 32
+local SIZE = 24
+local RESTED_SIZE = 16
+local BUTTON_HEIGHT = SIZE + 12
+local MAX_LABEL_WIDTH = 62
 local GAP = 4
 local GRIP = 10
 --- Between the trash can and the other buttons.
@@ -25,6 +28,7 @@ local SEPARATOR = 2
 local MEDIA = "Interface\\AddOns\\Pathwright_Guide\\Media\\"
 local ICONS = { kill = MEDIA .. "Kill", talk = MEDIA .. "Talk" }
 local TRASH_ICON = MEDIA .. "Trash"
+local BOOSTED_RESTED = 1229451
 local DEFAULT_POINT = { "BOTTOM", "UIParent", "BOTTOM", 0, 170 }
 --- Bags searched for grey items: the backpack and the four bags.
 local BAGS = 4
@@ -32,7 +36,7 @@ local BAGS = 4
 local Toolstrip = { actions = {}, steps = {}, signature = nil, pending = false, item = nil }
 FG.Toolstrip = Toolstrip
 
-local strip, trash, separator
+local strip, trash, rested, separator
 
 --- A button's action, nil when it has none.
 local function ActionOf(b)
@@ -258,7 +262,8 @@ function Toolstrip.Actions(steps)
     local list, seen = {}, {}
     local link, texture = QuestItem(steps)
     if link then
-        table.insert(list, { kind = "item", link = link, texture = texture, name = FG.ItemInfo(link) or link })
+        local name = FG.ItemInfo(link) or link:match("%[(.-)%]") or ITEM or "Item"
+        table.insert(list, { kind = "item", link = link, texture = texture, name = name })
     end
     local function add(kind, name)
         if not name or name == "" or seen[kind .. "\0" .. name] or #list >= MAX then return end
@@ -281,7 +286,7 @@ end
 local function Signature(actions)
     local parts = { FG:Get("toolstrip") and "on" or "off", FG:Get("toolstripTrash") and "trash" or "" }
     for _, a in ipairs(actions) do
-        table.insert(parts, a.kind .. ":" .. (a.link or a.macro or ""))
+        table.insert(parts, a.kind .. ":" .. (a.link or a.macro or "") .. "\0" .. a.name)
     end
     return table.concat(parts, "\n")
 end
@@ -329,7 +334,8 @@ end
 
 local function Money(copper)
     if copper <= 0 then return T("no value") end
-    return GetCoinTextureString and GetCoinTextureString(copper) or tostring(copper)
+    local formatCoins = C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString or GetCoinTextureString
+    return formatCoins and formatCoins(copper) or tostring(copper)
 end
 
 --- Destroy the cheapest grey item (the trash can's Shift-click). Checks the slot still holds it.
@@ -432,59 +438,148 @@ local function TrashTooltip(self)
     GameTooltip:Show()
 end
 
+local function AddButtonArt(b)
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetSize(SIZE, SIZE)
+    b.icon:SetPoint("TOP")
+    b.caption = Skin:Text(b, 10, "text")
+    b.caption:SetPoint("TOP", b.icon, "BOTTOM", 0, -1)
+    b.caption:SetJustifyH("CENTER")
+end
+
+local function SetCaption(b, text)
+    b.caption:SetWidth(0)
+    b.caption:SetText(text)
+    local width = math.max(SIZE, math.min(MAX_LABEL_WIDTH, math.ceil(b.caption:GetStringWidth()) + 2))
+    b.caption:SetWidth(width)
+    b:SetSize(width, BUTTON_HEIGHT)
+    return width
+end
+
+local function RestedAvailable()
+    if not GetXPExhaustion then return false end
+    -- An empty rested pool is normally nil. A secret value is unknown.
+    local xp = GetXPExhaustion()
+    return not (issecretvalue and issecretvalue(xp))
+        and (xp == nil or xp == 0)
+        and FG.HasPlayerAura(BOOSTED_RESTED) == false
+end
+
+local function RefreshRested()
+    if not rested then return end
+    local available = RestedAvailable()
+    if available == rested:IsShown() then return end
+    rested:SetShown(available)
+    if InCombatLockdown() then
+        Toolstrip.pending = true
+    else
+        Toolstrip:Refresh()
+    end
+end
+
+--- Prefer the last distinctive word: Highland Strider / Highland Thrasher become Strider / Thrasher.
+local function ShortNames(actions)
+    local counts, labels = {}, {}
+    for _, a in ipairs(actions) do
+        for word in a.name:gmatch("%S+") do
+            counts[word] = (counts[word] or 0) + 1
+        end
+    end
+    for i, a in ipairs(actions) do
+        local label = a.name
+        for word in a.name:gmatch("%S+") do
+            if counts[word] == 1 then label = word end
+        end
+        labels[i] = label
+    end
+    return labels
+end
+
+--- Build the strip, each of its parts that is missing: one that could not be made before (a
+--- fight: the game makes no secure button then; an error) is made the next time, so a strip half
+--- built never stays so (no trash can, no bar).
 local function Create()
-    if strip or not CreateFrame then return strip end
-    strip = CreateFrame("Frame", "PathwrightToolstrip", FG.UIRoot)
-    strip:SetSize(GRIP + SIZE + 2 * GAP, SIZE + 2 * GAP)
-    strip:SetClampedToScreen(true)
-    FG:Draggable(strip, function(self)
-        local p, _, rp, x, y = self:GetPoint()
-        local state = FG.Guide and FG.Guide:State()
-        if state then state.toolstripPoint = { p, "UIParent", rp, x, y } end
-    end)
-    Skin:Style(strip, "panel")
-    strip:Hide()
+    if not CreateFrame then return strip end
+    if not strip then
+        strip = CreateFrame("Frame", "PathwrightToolstrip", FG.UIRoot, "BackdropTemplate")
+        strip:SetSize(GRIP + SIZE + 2 * GAP, BUTTON_HEIGHT + 2 * GAP)
+        strip:SetClampedToScreen(true)
+        FG:Draggable(strip, function(self)
+            local state = FG.Guide:State()
+            if state then state.toolstripPoint = FG.PinTopLeft(self) or state.toolstripPoint end
+        end, function(self)
+            if FG:Get("toolstripUnlocked") then return self end
+        end)
+        strip:Hide()
+    end
+    if not strip.styled then
+        strip.styled = true
+        FG:Try("toolstrip skin", Skin.Style, Skin, strip, "panel")
+    end
 
     -- The checker (see Aiming): hidden, clicked by the swords' macros. Its macro runs on the up
     -- edge whatever the player's "cast on key down" (a /click is an up), and its PreClick looks
-    -- at the target taken.
-    local check = CreateFrame("Button", CHECK, strip, "SecureActionButtonTemplate")
-    check:SetSize(1, 1)
-    check:SetAttribute("type", "macro")
-    check:SetAttribute("useOnKeyDown", false)
-    check:SetAttribute("macrotext", "")
-    check:RegisterForClicks("AnyUp")
-    check:EnableMouse(false)
-    check:SetScript("PreClick", function(self)
-        if InCombatLockdown() then return end
-        self.macro = Toolstrip.CheckMacro(Toolstrip.expect)
-        self:SetAttribute("macrotext", self.macro)
-        Toolstrip.expect = nil
-    end)
-    Toolstrip.checker = check
-
-    separator = strip:CreateTexture(nil, "ARTWORK")
-    separator:SetSize(SEPARATOR, SIZE - 6)
-    separator:SetColorTexture(0.55, 0.55, 0.58, 0.8)
-    separator:Hide()
-
-    trash = CreateFrame("Button", "PathwrightTrash", strip)
-    trash:SetSize(SIZE, SIZE)
-    trash:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-    local icon = trash:CreateTexture(nil, "ARTWORK")
-    icon:SetAllPoints()
-    icon:SetTexture(TRASH_ICON)
-    trash.icon = icon
-    trash:SetScript("OnClick", function(self, mouse)
-        if mouse == "RightButton" then
-            Toolstrip:Keep()
-        elseif IsShiftKeyDown() then
-            Toolstrip:Destroy()
+    -- at the target taken. A secure button: made out of combat only.
+    if not Toolstrip.checker and not InCombatLockdown() then
+        local check = CreateFrame("Button", CHECK, strip, "SecureActionButtonTemplate")
+        if check then
+            check:SetSize(1, 1)
+            check:SetAttribute("type", "macro")
+            check:SetAttribute("useOnKeyDown", false)
+            check:SetAttribute("macrotext", "")
+            check:RegisterForClicks("AnyUp")
+            check:EnableMouse(false)
+            check:SetScript("PreClick", function(self)
+                if InCombatLockdown() then return end
+                self.macro = Toolstrip.CheckMacro(Toolstrip.expect)
+                self:SetAttribute("macrotext", self.macro)
+                Toolstrip.expect = nil
+            end)
+            Toolstrip.checker = check
         end
-        if GameTooltip:IsOwned(self) then TrashTooltip(self) end
-    end)
-    trash:SetScript("OnEnter", TrashTooltip)
-    trash:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    end
+
+    if not separator then
+        separator = strip:CreateTexture(nil, "ARTWORK")
+        separator:SetSize(SEPARATOR, BUTTON_HEIGHT - 6)
+        separator:SetColorTexture(0.55, 0.55, 0.58, 0.8)
+        separator:Hide()
+    end
+
+    if not trash then
+        trash = CreateFrame("Button", "PathwrightTrash", strip)
+        trash:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        AddButtonArt(trash)
+        trash.icon:SetTexture(TRASH_ICON)
+        trash.columnWidth = SetCaption(trash, BAG_FILTER_JUNK or "Junk")
+        trash:SetScript("OnClick", function(self, mouse)
+            if mouse == "RightButton" then
+                Toolstrip:Keep()
+            elseif IsShiftKeyDown() then
+                Toolstrip:Destroy()
+            end
+            if GameTooltip:IsOwned(self) then TrashTooltip(self) end
+        end)
+        trash:SetScript("OnEnter", TrashTooltip)
+        trash:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    end
+    if FG.Edition == "forever" and not rested then
+        rested = CreateFrame("Frame", "PathwrightRestedXP", strip)
+        rested:SetSize(RESTED_SIZE, RESTED_SIZE)
+        rested.icon = rested:CreateTexture(nil, "ARTWORK")
+        rested.icon:SetAllPoints()
+        local icon = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(BOOSTED_RESTED)
+        rested.icon:SetTexture(icon or "Interface\\Icons\\Spell_Nature_Sleep")
+        rested.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+        rested.glow = rested:CreateTexture(nil, "OVERLAY")
+        rested.glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+        rested.glow:SetBlendMode("ADD")
+        rested.glow:SetVertexColor(1, 0.8, 0.2)
+        rested.glow:SetPoint("CENTER", rested.icon)
+        rested.glow:SetSize(RESTED_SIZE * 1.65, RESTED_SIZE * 1.65)
+        rested:EnableMouse(true)
+        FG.Options.Tooltip(rested, T("Rested XP"), T("You have no rested XP and no Boosted Rested debuff."))
+    end
     return strip
 end
 
@@ -493,20 +588,17 @@ local function Button(i)
     if buttons[i] then return buttons[i] end
     local name = i <= BOUND and ("PWStrip" .. i) or nil
     local b = CreateFrame("Button", name, strip, "SecureActionButtonTemplate")
-    b:SetSize(SIZE, SIZE)
     b:RegisterForClicks("AnyUp", "AnyDown")
     b.binding = name and ("CLICK " .. name .. ":LeftButton") or nil
-    local icon = b:CreateTexture(nil, "ARTWORK")
-    icon:SetAllPoints()
-    b.icon = icon
+    AddButtonArt(b)
     -- Its step done during a fight (the button is locked until it ends): a check over it.
     b.done = b:CreateTexture(nil, "OVERLAY")
     b.done:SetTexture("Interface\\RaidFrame\\ReadyCheck-Ready")
     b.done:SetSize(SIZE * 0.6, SIZE * 0.6)
-    b.done:SetPoint("CENTER")
+    b.done:SetPoint("CENTER", b.icon)
     b.done:Hide()
     local cooldown = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
-    cooldown:SetAllPoints()
+    cooldown:SetAllPoints(b.icon)
     b.cooldown = cooldown
     b:SetScript("OnEnter", Tooltip)
     b:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -551,9 +643,13 @@ function Toolstrip:RefreshTrash()
 end
 
 --- Lay the strip out for `actions` (out of combat).
-local function Apply(actions)
-    if not Create() then return end
-    local wanted = FG:Get("toolstrip") and (actions[1] ~= nil or FG:Get("toolstripTrash"))
+local function Apply(actions, host, gap)
+    if not Create() or not trash then return end
+    local withRested = rested ~= nil and RestedAvailable()
+    if rested then rested:SetShown(withRested) end
+    local wanted = FG:Get("toolstrip")
+        and (FG:Get("toolstripUnlocked") or FG:Get("guideShown"))
+        and (actions[1] ~= nil or FG:Get("toolstripTrash") or withRested)
     if not wanted then
         -- The buttons emptied too: their keys still click them when the strip is hidden.
         for _, b in ipairs(buttons) do
@@ -565,14 +661,14 @@ local function Apply(actions)
         strip:Hide()
         return
     end
-    -- The trash can first, a separator, then the buttons of the steps.
+    -- Junk first, then the bound step buttons.
     local x = GRIP + GAP
     local withTrash = FG:Get("toolstripTrash") and true or false
     trash:SetShown(withTrash)
     if withTrash then
         trash:ClearAllPoints()
         trash:SetPoint("LEFT", strip, "LEFT", x, 0)
-        x = x + SIZE + GAP
+        x = x + trash.columnWidth + GAP
         Toolstrip:RefreshTrash()
     end
     local withSeparator = withTrash and actions[1] ~= nil
@@ -582,12 +678,13 @@ local function Apply(actions)
         separator:SetPoint("LEFT", strip, "LEFT", x, 0)
         x = x + SEPARATOR + GAP
     end
+    local labels = ShortNames(actions)
     for i, a in ipairs(actions) do
         local b = Button(i)
         Arm(b, a)
         b:ClearAllPoints()
         b:SetPoint("LEFT", strip, "LEFT", x, 0)
-        x = x + SIZE + GAP
+        x = x + SetCaption(b, labels[i]) + GAP
     end
     for i = #actions + 1, #buttons do
         buttons[i].action = nil
@@ -596,12 +693,22 @@ local function Apply(actions)
         buttons[i]:SetAttribute("macrotext", nil)
         buttons[i]:Hide()
     end
+    -- The reminder can appear in combat without moving or overlapping a secure action button.
+    if rested then
+        rested:ClearAllPoints()
+        rested:SetPoint("LEFT", strip, "LEFT", x, 0)
+        if withRested then x = x + RESTED_SIZE + GAP end
+    end
     strip:SetWidth(x)
-    strip:SetHeight(SIZE + 2 * GAP)
-    local state = FG.Guide and FG.Guide:State()
-    local point = state and state.toolstripPoint or DEFAULT_POINT
+    strip:SetHeight(BUTTON_HEIGHT + 2 * GAP)
     strip:ClearAllPoints()
-    strip:SetPoint(point[1], _G[point[2]] or UIParent, point[3], point[4], point[5])
+    if host then
+        strip:SetPoint("BOTTOMLEFT", host, "TOPLEFT", 0, gap)
+    else
+        local state = FG.Guide:State()
+        local point = state and state.toolstripPoint or DEFAULT_POINT
+        strip:SetPoint(point[1], _G[point[2]] or UIParent, point[3], point[4], point[5])
+    end
     strip:Show()
     Toolstrip:Cooldowns()
     Toolstrip:Aim()
@@ -612,7 +719,14 @@ function Toolstrip:SetSteps(steps)
     self.steps = steps or {}
     local actions = Toolstrip.Actions(self.steps)
     local signature = Signature(actions)
-    if signature == self.signature and not self.pending then return end
+    local state = FG.Guide:State()
+    local host, gap
+    if FG:Get("guideShown") and not (FG:Get("toolstripUnlocked") and state and state.toolstripPoint) then
+        local minimal = FG:Get("guideMode") == "minimal"
+        host = (minimal and FG.Mini or FG.Card):Frame()
+        gap = 6 + (minimal and FG.Mini:TopInset() or 0) * FG:Get("scale")
+    end
+    if signature == self.signature and host == self.host and gap == self.gap and not self.pending then return end
     self.actions = actions
     self.item = actions[1] and actions[1].kind == "item" and actions[1].link or nil
     if InCombatLockdown() then
@@ -633,8 +747,8 @@ function Toolstrip:SetSteps(steps)
         return
     end
     self.pending = false
-    self.signature = signature
-    Apply(actions)
+    Apply(actions, host, gap)
+    self.signature, self.host, self.gap = signature, host, gap
 end
 
 --- Again with the same steps (a setting changed).
@@ -713,6 +827,14 @@ FG:On("PLAYER_REGEN_ENABLED", function()
     Toolstrip:Aim()
 end)
 FG:On("BAG_UPDATE_COOLDOWN", function() Toolstrip:Cooldowns() end)
+if FG.Edition == "forever" then
+    for _, event in ipairs({ "PLAYER_ENTERING_WORLD", "UPDATE_EXHAUSTION", "PLAYER_XP_UPDATE", "PLAYER_REGEN_ENABLED" }) do
+        FG:On(event, RefreshRested)
+    end
+    FG:On("UNIT_AURA", function(unit)
+        if unit == "player" then RefreshRested() end
+    end)
+end
 FG:On("BAG_UPDATE_DELAYED", function()
     Toolstrip:RefreshTrash()
     if trash and GameTooltip:IsOwned(trash) then TrashTooltip(trash) end
@@ -720,6 +842,8 @@ end)
 FG:On("PLAYER_LOGIN", function()
     for _, key in ipairs({
         "toolstrip",
+        "toolstripUnlocked",
+        "scale",
         "toolstripTrash",
         "targetMark",
         "targetPing",
@@ -730,20 +854,19 @@ FG:On("PLAYER_LOGIN", function()
     end
 end)
 
---- "Toolstrip back to its place" (the addon's options): under the screen's centre again.
+--- Forget the free position and return above the guide.
 function Toolstrip:ResetPosition()
     local state = FG.Guide and FG.Guide:State()
-    if state then state.toolstripPoint = nil end
     if InCombatLockdown() then
         FG:Print(T("not possible in combat"))
         return
     end
+    if state then state.toolstripPoint = nil end
     self:Refresh()
 end
 
 FG.Options:AddButton("toolstripTrash", {
     label = "Toolstrip back to its place",
     text = "Reset",
-    help = "Puts the toolstrip back above the action bars. Drag it by its left edge to move it.",
     run = function() Toolstrip:ResetPosition() end,
 })

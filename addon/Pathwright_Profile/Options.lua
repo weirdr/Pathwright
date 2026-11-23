@@ -12,11 +12,11 @@ local Options = { blocks = {}, pages = {}, buttons = {} }
 FG.Options = Options
 
 local PAD, GAP = 16, 20
-local panel, scroll, content
+local panel, content
 local blocks = {} -- the main page's blocks, in their order
 
 --- Add a block to the main page: `create(parent)` returns its frame, its height set; its
---- `Refresh()` (optional) runs each time the page shows or `Options:Refresh()` is called.
+--- `Refresh(availableHeight)` (optional) receives the remaining height once the panel is sized.
 function Options:AddBlock(create) table.insert(self.blocks, create) end
 
 --- Add pages under the addon's: `build(category)` registers its subcategories.
@@ -91,11 +91,10 @@ end)
 --- Lay the main page's blocks out again (guides added, deleted, followed...).
 function Options:Refresh()
     if not content then return end
-    local width = tonumber(scroll:GetWidth())
-    if width and width > 0 then content:SetWidth(width) end
+    local height = tonumber(content:GetHeight())
     local y = 0
     for _, block in ipairs(blocks) do
-        if block.Refresh then block:Refresh() end
+        if block.Refresh then block:Refresh(height and height > 0 and height - y or nil) end
         if block:IsShown() then
             block:ClearAllPoints()
             block:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -y)
@@ -103,7 +102,6 @@ function Options:Refresh()
             y = y + (tonumber(block:GetHeight()) or 0) + GAP
         end
     end
-    content:SetHeight(math.max(y, 1))
 end
 
 local function MainPage()
@@ -118,12 +116,9 @@ local function MainPage()
     hint:SetText(
         T("/pw opens this page. The guide's actions are on its buttons and in the game's key bindings (Pathwright).")
     )
-    scroll = CreateFrame("ScrollFrame", nil, panel, "UIPanelScrollFrameTemplate")
-    scroll:SetPoint("TOPLEFT", PAD, -64)
-    scroll:SetPoint("BOTTOMRIGHT", -30, 8)
-    content = CreateFrame("Frame", nil, scroll)
-    content:SetSize(600, 1)
-    scroll:SetScrollChild(content)
+    content = CreateFrame("Frame", nil, panel)
+    content:SetPoint("TOPLEFT", PAD, -64)
+    content:SetPoint("BOTTOMRIGHT", -PAD, 8)
     for _, create in ipairs(Options.blocks) do
         local ok, block = pcall(create, content)
         if ok and block then
@@ -133,6 +128,7 @@ local function MainPage()
         end
     end
     -- Called by the game when the page shows.
+    content:SetScript("OnSizeChanged", function() Options:Refresh() end)
     panel.OnRefresh = function() Options:Refresh() end
     panel:SetScript("OnShow", function() Options:Refresh() end)
     return panel

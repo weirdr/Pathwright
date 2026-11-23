@@ -217,10 +217,10 @@ local function DragStop(f)
     d.moving = false
     d.dropped = GetTime()
     w:StopMovingOrSizing()
-    d.onDrop(w)
+    if d.onDrop then d.onDrop(w) end
 end
 
---- Make `frame` a window moved with the left button: `onDrop(frame)` saves where it was dropped.
+--- Make `frame` movable with the left button. Optional `onDrop(frame)` saves its position.
 --- `target(frame)` (optional): the window to move instead (another `FG:Draggable` window), nil for
 --- none.
 function FG:Draggable(frame, onDrop, target)

@@ -38,9 +38,12 @@ end
 
 -- Frames know their name, parent and whether they are shown (a hidden parent hides its children);
 -- in fields of their own, the addon sets its own fields on its frames (`strip.name`...).
-CreateFrame = function(kind, name, parent)
+CreateFrame = function(kind, name, parent, template)
     local f = stub()
     f._name, f._parent, f._shown, f._button = name, parent, true, kind == "Button"
+    function f:SetBackdrop()
+        assert(template and template:find("BackdropTemplate", 1, true), (name or kind) .. " needs BackdropTemplate")
+    end
     function f:SetShown(value)
         assert(type(value) == "boolean", "SetShown(" .. tostring(value) .. ")")
         self._shown = value
@@ -1065,7 +1068,14 @@ do
     named("PWStrip1").SetPoint = function(_, ...) firstAt = { ... } end
     strip:Refresh()
     assert(trashAt[4] and firstAt[4] and trashAt[4] < firstAt[4], "the trash can left of the step's buttons")
-    assert(firstAt[4] - trashAt[4] > 32 + 4, "a separator between them")
+    assert(firstAt[4] - trashAt[4] > named("PathwrightTrash").columnWidth + 4, "a separator between them")
+    strip:SetSteps({ { mobs = { "Highland Strider", "Highland Thrasher" } } })
+    assert(first.caption:GetText() == "Strider" and named("PWStrip2").caption:GetText() == "Thrasher")
+    assert(
+        first.action.name == "Highland Strider" and first.action.macro:find("/targetexact Highland Strider", 1, true)
+    )
+    strip:SetSteps({ { mobs = { "Highland Raptor", "Young Raptor" } } })
+    assert(first.caption:GetText() == "Highland" and named("PWStrip2").caption:GetText() == "Young")
     assert(_G["BINDING_NAME_CLICK PWStrip1:LeftButton"], "the button's binding named")
     Press("next")
     assert(Kinds() == "talk:Marshal McBride", "a speech bubble for the turn-in's NPC: " .. Kinds())
@@ -1443,9 +1453,9 @@ do
     -- The guide browser: the guides by source, one picked and opened.
     FG.GuideBrowser:Toggle()
     assert(FG.GuideBrowser:IsShown(), "the browser opens")
-    FG.GuideBrowser.source = "all"
     FG.GuideBrowser.picked = "builtin-test"
     FG.GuideBrowser:Fill()
+    assert(FG.GuideBrowser.picked == "builtin-test", "the current guide's section opens first")
     FG.GuideBrowser:Toggle()
     assert(not FG.GuideBrowser:IsShown(), "and closes")
     fire("QUEST_LOG_UPDATE")
@@ -1672,6 +1682,34 @@ do
     assert(q[900] == nil, "Questie's quest gone")
     QS:Store(data, "Stranger-Realm")
     assert(not P.progress.Stranger and not P.progress["Stranger-Realm"], "only from the group")
+    -- What we send the party: our log, read as WoW Forever has it (C_QuestLog, no GetQuestLogTitle).
+    local realTitle = GetQuestLogTitle
+    GetQuestLogTitle = nil
+    local encoded = P.Encode()
+    GetQuestLogTitle = realTitle
+    assert(
+        type(encoded) == "table" and encoded[1] and encoded[1]:match("^%d+:"),
+        "our log encoded without GetQuestLogTitle: " .. tostring(encoded[1])
+    )
+    -- Asking: "?" to the party (and a request to Questie players); a "?" heard sends our log.
+    local sentParty = {}
+    local realChat, realGroup, realRaid, realMembers = C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers
+    GetNumGroupMembers = function() return 2 end
+    C_ChatInfo = {
+        SendAddonMessage = function(prefix, text, channel) table.insert(sentParty, { prefix, text, channel }) end,
+    }
+    IsInGroup, IsInRaid = function() return true end, function() return false end
+    P:Ask()
+    local asked = false
+    for _, m in ipairs(sentParty) do
+        if m[1] == "PWSYNC1" and m[2] == "?" and m[3] == "PARTY" then asked = true end
+    end
+    assert(asked, "the party asked for its progress")
+    assert(#sentParty >= 2 and sentParty[2][1] == "questie", "Questie players asked too")
+    sentParty = {}
+    P:Ask()
+    assert(#sentParty == 0, "not asked again at once")
+    C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers = realChat, realGroup, realRaid, realMembers
     UnitInParty = realParty
     P.progress = saved
     print("party lines ok")
@@ -1932,7 +1970,12 @@ do
         if frames[i]:GetName() == "PathwrightTrash" then trash = trash or frames[i] end
     end
     assert(trash and trash.OnClick, "the trash can")
+    local savedCurrency = C_CurrencyInfo
+    C_CurrencyInfo = { GetCoinTextureString = function(value) return "coins(" .. value .. ")" end }
     trash.OnEnter(trash)
+    C_CurrencyInfo = savedCurrency
+    assert(GameTooltip.lines[2]:find("coins(5)", 1, true), "first stack uses the native coin formatter")
+    assert(GameTooltip.lines[#GameTooltip.lines]:find("coins(15)", 1, true), "other stacks show their total value")
     assert(GameTooltip.lines[1] == "Maj+clic pour détruire :", "its tooltip: " .. tostring(GameTooltip.lines[1]))
     trash.OnClick(trash, "LeftButton")
     assert(#deleted == 0, "a plain click destroys nothing")
@@ -1960,7 +2003,7 @@ do
         tapped = UnitIsTapDenied,
     }
     Enum = Enum or {}
-    Enum.TooltipDataLineType = { QuestObjective = 8, QuestTitle = 17 }
+    Enum.TooltipDataLineType = { QuestObjective = 8, QuestTitle = 17, QuestPlayer = 18 }
     local plates, lines, names, tapped = {}, {}, {}, {}
     C_NamePlate = {
         GetNamePlateForUnit = function(unit) return plates[unit] end,
@@ -2014,12 +2057,72 @@ do
     np:Update("nameplate1")
     mark = np.marks.nameplate1
     assert(np.Count(mark.progress) == "3/10" and mark.count.text == "3/10", "its count")
+    -- In a group the tooltip lists each member's progress under their name: our count is ours, a
+    -- party member listed first (at 7/10) changes nothing.
+    lines.nameplate1 = {
+        Title(5001),
+        { type = 18, leftText = "Amy" },
+        Objective("Kobold Vermin slain: 7/10", false, 7, 10),
+        { type = 18, leftText = "Brouz" },
+        Objective("Kobold Vermin slain: 3/10", false, 3, 10),
+    }
+    np:Update("nameplate1")
+    assert(np.Count(np.marks.nameplate1.progress) == "3/10", "our own count, not a party member's")
+    lines.nameplate1 =
+        { Title(5001), { type = 18, leftText = "Amy" }, Objective("Kobold Vermin slain: 7/10", false, 7, 10) }
+    np:Update("nameplate1")
+    local only = np.marks.nameplate1
+    assert(
+        not only or only.progress.owner or np.Count(only.progress) ~= "7/10",
+        "only a party member's row: their count never shown as ours"
+    )
+    lines.nameplate1 = { Title(5001), Objective("Kobold Vermin slain: 3/10", false, 3, 10) }
+    np:Update("nameplate1")
+    mark = np.marks.nameplate1
     -- A mob that drops a quest item: the money bag.
     plates.nameplate2 = CreateFrame("Frame", nil, UIParent)
     names.nameplate2 = "Kobold Tunneler"
     lines.nameplate2 = { Title(5001), Objective("Candle: 1/8", false, 1, 8) }
     np:Update("nameplate2")
     assert(np.marks.nameplate2.progress.kind == "loot", "a money bag on a mob that drops a quest item")
+    local group, members, inParty = IsInGroup, GetNumSubgroupMembers, UnitInParty
+    IsInGroup = function() return true end
+    GetNumSubgroupMembers = function() return 1 end
+    names.party1 = "Pata"
+    UnitInParty = function(name) return name == "Pata" end
+    local friend = { type = 18, leftText = "Pata" }
+    local friendLoot = Objective("Candle: 6/8", false, 6, 8)
+    lines.nameplate2 = { Title(5001), friend, friendLoot }
+    np:Update("nameplate2")
+    local lootMark = np.marks.nameplate2
+    assert(lootMark.count.text == "1/8" and lootMark.owner.text == "", "own drop count wins over a party line")
+    objectives[5001][2].finished = true
+    np:Refresh()
+    runTimers()
+    assert(lootMark.count.text == "6/8" and lootMark.owner.text == "Pata" and lootMark.progress.kind == "loot")
+    lines.nameplate2 = {}
+    FG.Party:Store("Pata", 5001, { "x", "5" })
+    np:Update("nameplate2")
+    assert(lootMark.count.text == "5/8" and lootMark.owner.text == "Pata", "synced count for a known drop")
+    FG.Party:Forget("Pata", 5001)
+    np:Update("nameplate2")
+    assert(lootMark.progress.done and lootMark.owner.text == "", "finished check clears the name")
+    lines.nameplate2 = { Title(5002), friend, Objective("Tunneler slain: 4/10", false, 4, 10) }
+    np:Update("nameplate2")
+    assert(lootMark.count.text == "4/10" and lootMark.owner.text == "Pata", "party-only quest with an identified owner")
+    lines.nameplate2 = {
+        Title(5002),
+        friend,
+        Objective("Tunneler slain: 4/10", false, 4, 10),
+        Title(5001),
+        Objective("Candle: 1/8", false, 1, 8),
+    }
+    objectives[5001][2].finished = false
+    np:Refresh()
+    runTimers()
+    assert(lootMark.count.text == "1/8" and lootMark.owner.text == "", "later personal objective takes priority")
+    lines.nameplate2 = { Title(5001), Objective("Candle: 1/8", false, 1, 8) }
+    IsInGroup, GetNumSubgroupMembers, UnitInParty = group, members, inParty
     -- Tagged by another player: dimmed.
     tapped.nameplate2 = true
     np:Update("nameplate2")
@@ -3967,6 +4070,45 @@ local function drag(handle)
     handle.OnDragStart(handle, "LeftButton")
     handle.OnDragStop(handle)
 end
+do
+    local strip = named("PathwrightToolstrip")
+    local motion = watchMoves(strip)
+    local anchor
+    strip.SetPoint = function(_, ...) anchor = { ... } end
+    local state = FG.Guide:State()
+    state.toolstripPoint = { "BOTTOM", "UIParent", "BOTTOM", 80, 140 }
+    FG.Toolstrip:Refresh()
+    assert(anchor[1] == "BOTTOMLEFT" and anchor[2] == FG.Card:Frame() and anchor[3] == "TOPLEFT" and anchor[5] == 6)
+    drag(strip)
+    assert(motion.moves == 0, "the docked toolstrip stays on the guide")
+    Option("Pathwright_toolstripUnlocked"):SetValue(true)
+    assert(anchor[4] == 80 and anchor[5] == 140, "unlock restores a previously saved position")
+    drag(strip)
+    assert(motion.moves == 1 and state.toolstripPoint[4] == 120, "unlocked drag saves the new position")
+    InCombatLockdown = function() return true end
+    FG:Save("toolstripUnlocked", false)
+    assert(anchor[2] == UIParent and FG.Toolstrip.pending, "redocking waits for combat to end")
+    InCombatLockdown = function() return false end
+    fire("PLAYER_REGEN_ENABLED")
+    assert(anchor[2] == FG.Card:Frame(), "redocked after combat")
+    Press("mode")
+    assert(anchor[2] == FG.Mini:Frame() and anchor[5] > 6, "the strip clears the minimal guide header")
+    Press("mode")
+    FG:Save("toolstripUnlocked", true)
+    assert(anchor[4] == 120 and anchor[5] == 640, "unlock restores the last drag")
+    FG.Toolstrip:ResetPosition()
+    assert(anchor[2] == FG.Card:Frame() and not state.toolstripPoint, "reset returns above the guide")
+    FG:Save("toolstripUnlocked", nil)
+    strip.SetPoint = nil
+end
+do
+    FG.Stats:ToggleBoard()
+    local board = FG.Stats.board
+    local motion = watchMoves(board)
+    drag(board)
+    assert(motion.moves == 1 and motion.stops == 1, "the leaderboard can be dropped without a position callback")
+    board:Hide()
+end
 local realDragTime = GetTime
 local dragNow = 100
 GetTime = function() return dragNow end
@@ -4350,6 +4492,59 @@ do
     MapCanvasPinMixin = nil
     PWStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
     assert(passthrough == 2, "Classic Era and TBC: nothing to do")
+end
+
+-- The rested reminder on Forever uses the player's XP pool and Boosted Rested together.
+do
+    local savedXP, savedAuras, savedSecret = GetXPExhaustion, C_UnitAuras, issecretvalue
+    local xp, debuff = 200, nil
+    GetXPExhaustion = function() return xp end
+    C_UnitAuras = {
+        GetPlayerAuraBySpellID = function(id)
+            if id == 1229451 then return debuff end
+        end,
+    }
+    local icon = named("PathwrightRestedXP")
+    local bar = named("PathwrightToolstrip")
+    local setWidth, width = bar.SetWidth, nil
+    bar.SetWidth = function(self, w)
+        width = w
+        setWidth(self, w)
+    end
+    FG.Toolstrip:Refresh()
+    local compactWidth = assert(width)
+    local function check(event, lit, unit)
+        fire(event, unit)
+        assert(icon:IsShown() == lit, "rested XP visibility on " .. event)
+    end
+    check("PLAYER_ENTERING_WORLD", false)
+    xp = nil
+    check("UPDATE_EXHAUSTION", true)
+    assert(width == compactWidth + 20, "a 16px reminder and one gap")
+    debuff = { spellId = 1229451 }
+    check("UNIT_AURA", true, "party1")
+    local combat = InCombatLockdown
+    InCombatLockdown = function() return true end
+    check("UNIT_AURA", false, "player")
+    assert(width > compactWidth and FG.Toolstrip.pending, "hide immediately and defer secure layout")
+    InCombatLockdown = combat
+    check("PLAYER_REGEN_ENABLED", false)
+    assert(width == compactWidth, "the inactive reminder leaves no gap")
+    xp = 100
+    check("PLAYER_XP_UPDATE", false, "player")
+    debuff = nil
+    check("UNIT_AURA", false, "player")
+    xp = 0
+    check("PLAYER_XP_UPDATE", true, "player")
+    local secret = {}
+    issecretvalue = function(v) return v == secret end
+    debuff = secret
+    check("UNIT_AURA", false, "player")
+    debuff, xp = nil, secret
+    check("UPDATE_EXHAUSTION", false)
+    GetXPExhaustion, C_UnitAuras, issecretvalue = savedXP, savedAuras, savedSecret
+    bar.SetWidth = setWidth
+    print("rested XP indicator ok")
 end
 
 -- XP buffs the guide counts on (WoW Forever): a warning when one is missing, not in combat, not
@@ -5726,3 +5921,80 @@ local function SettingsTest()
     print("settings ok")
 end
 SettingsTest()
+
+local function GuideSelectionTest()
+    local list = FG.Import.List
+    local guides = {}
+    local function add(name, source, first, last, fits, origin)
+        guides[#guides + 1] = {
+            name = name,
+            source = source,
+            fits = fits,
+            route = { fromLevel = first, toLevel = last, origin = origin, steps = {} },
+        }
+    end
+    add("RestedXP personal copy", "import", 10, 60, true)
+    add("Desktop", "app", 1, 60, true)
+    add("Arathi", "builtin", 38, 39, true)
+    add("Unknown levels", "builtin", nil, nil, true)
+    add("Short route", "builtin", 38, 38, true)
+    add("Another route", "builtin", 38, 39, true)
+    for i = 12, 1, -1 do
+        add("Pack / Route " .. i, "builtin", i + 29, i + 31, i % 2 == 0, "RXPGuides / Pack")
+    end
+    FG.Import.List = function() return guides end
+    local function switch(bar, text)
+        local prefix = text .. " ("
+        for _, b in ipairs(frames) do
+            if b:GetParent() == bar and type(b:GetText()) == "string" and b:GetText():sub(1, #prefix) == prefix then
+                b.OnClick(b)
+                return
+            end
+        end
+        error("missing section " .. text)
+    end
+    local function typeIn(box, text)
+        box:SetText(text)
+        box.OnTextChanged(box, true)
+    end
+    FG.Options:Refresh()
+    FG.GuideBrowser:Toggle()
+    for _, name in ipairs({ "PathwrightSettingsGuideFilters", "PathwrightBrowserGuideFilters" }) do
+        local bar = named(name)
+        switch(bar, "RestedXP")
+        assert(#bar:Results() == 12 and FG.Options.GuideTitle(bar:Results()[1]) == "Route 1")
+        if name == "PathwrightSettingsGuideFilters" then
+            local block, rows = bar:GetParent(), FG.Options:GuideRows()
+            local height
+            block.SetHeight = function(_, h) height = h end
+            block:Refresh(244)
+            assert(rows[3]:IsShown() and not rows[4]:IsShown() and height <= 244, "three rows and pager fit")
+            block:Refresh(450)
+            assert(rows[8]:IsShown() and height <= 450, "larger panel fits eight rows and pager")
+            block.SetHeight = nil
+        end
+        typeIn(bar.level, "38")
+        assert(#bar:Results() == 3, "both boundaries of a guide's levels included")
+        typeIn(bar.level, "37-39")
+        assert(#bar:Results() == 5, "guides overlapping the requested range")
+        bar.mine.GetChecked = function() return true end
+        bar.mine.OnClick(bar.mine)
+        assert(#bar:Results() == 3)
+        typeIn(bar.search, "rOuTe 8")
+        assert(#bar:Results() == 1 and bar:Results()[1].name == "Pack / Route 8")
+        switch(bar, FG.T("Imported"))
+        assert(#bar:Results() == 2 and bar.level:GetText() == "", "imported and desktop guides share a section")
+        switch(bar, FG.T("Default"))
+        local defaults = bar:Results()
+        assert(#defaults == 4 and defaults[1].name == "Short route" and defaults[2].name == "Another route")
+        assert(defaults[3].name == "Arathi" and defaults[4].name == "Unknown levels")
+        typeIn(bar.level, "60")
+        assert(#bar:Results() == 0)
+        switch(bar, "RestedXP")
+        assert(bar.level:GetText() == "37-39" and #bar:Results() == 1, "section filters restored")
+    end
+    FG.GuideBrowser:Toggle()
+    FG.Import.List = list
+    print("guide sections and filters ok")
+end
+GuideSelectionTest()

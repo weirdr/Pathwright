@@ -11,7 +11,8 @@ local Options = FG.Options
 
 -- The guides on the main page ---------------------------------------------------------------
 
-local ROW = 44
+local ROW = 38
+local LIST_TOP, PAGER_HEIGHT = 94, 24
 
 StaticPopupDialogs["PATHWRIGHT_DELETE_GUIDE"] = {
     text = T("Delete the guide %s?"),
@@ -65,6 +66,143 @@ end
 Options.GuideDetails = GuideDetails
 Options.RaceClass = RaceClass
 
+local sections = { "imported", "default", "restedxp" }
+local sectionNames = { imported = T("Imported"), default = T("Default"), restedxp = "RestedXP" }
+
+local function Section(g)
+    if g.source ~= "builtin" then return "imported" end
+    return (g.route.origin or ""):match("^RXPGuides%s*/") and "restedxp" or "default"
+end
+
+function Options.GuideTitle(g)
+    if Section(g) == "restedxp" then return g.name:match("^.- / (.+)$") or g.name end
+    return g.name
+end
+
+function Options.GuideSectionName(g) return sectionNames[Section(g)] end
+
+local function LevelBounds(text)
+    text = text:gsub("%s+", ""):gsub("–", "-")
+    if text == "" then return end
+    local level = tonumber(text)
+    if level then return level, level end
+    local low, high = text:match("^(%d*)%-(%d*)$")
+    if not low then return math.huge, -math.huge end
+    return tonumber(low) or 1, tonumber(high) or math.huge
+end
+
+--- Both guide pickers use these controls. Each section keeps its own filters while switching tabs.
+function Options.GuideFilters(parent, name, changed)
+    local bar = CreateFrame("Frame", name, parent)
+    bar:SetHeight(58)
+    local filters, tabs = {}, {}
+    local section = "imported"
+    local selected = false
+
+    local function field(label, key, anchor, width)
+        local title = bar:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+        if anchor then
+            title:SetPoint("LEFT", anchor, "RIGHT", 14, 0)
+        else
+            title:SetPoint("TOPLEFT", 0, -35)
+        end
+        title:SetText(label)
+        local box = CreateFrame("EditBox", nil, bar, "InputBoxTemplate")
+        box:SetSize(width, 20)
+        box:SetPoint("LEFT", title, "RIGHT", 8, 0)
+        box:SetAutoFocus(false)
+        box:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+        box:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+        box:SetScript("OnTextChanged", function(self, userInput)
+            if not userInput then return end
+            filters[section][key] = self:GetText()
+            changed()
+        end)
+        return box
+    end
+    bar.search = field(T("Search"), "search", nil, 132)
+    bar.level = field(T("Level or range"), "level", bar.search, 52)
+    Options.Tooltip(bar.level, T("Level or range"), T("Enter a level or a range, such as 38 or 30-40."))
+    bar.mine = CreateFrame("CheckButton", nil, bar, "UICheckButtonTemplate")
+    bar.mine:SetSize(22, 22)
+    bar.mine:SetPoint("LEFT", bar.level, "RIGHT", 10, 0)
+    local mineLabel = bar:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    mineLabel:SetPoint("LEFT", bar.mine, "RIGHT", 2, 0)
+    mineLabel:SetText(T("Only guides for this character"))
+    bar.mine:SetScript("OnClick", function(self)
+        filters[section].mine = self:GetChecked()
+        changed()
+    end)
+
+    local function selectSection(key)
+        section = key
+        local f = filters[key]
+        bar.search:SetText(f.search)
+        bar.level:SetText(f.level)
+        bar.mine:SetChecked(f.mine)
+    end
+    for i, key in ipairs(sections) do
+        filters[key] = { search = "", level = "", mine = false }
+        local b = Options.Button(bar, sectionNames[key], 115, function()
+            if selected and section == key then return end
+            selected = true
+            selectSection(key)
+            changed()
+        end)
+        if i == 1 then
+            b:SetPoint("TOPLEFT")
+        else
+            b:SetPoint("LEFT", tabs[sections[i - 1]], "RIGHT", 4, 0)
+        end
+        tabs[key] = b
+    end
+    function bar:Results()
+        local list = FG.Import:List()
+        local counts = { imported = 0, default = 0, restedxp = 0 }
+        local initial, current = nil, FG.Guide:RouteName()
+        for _, g in ipairs(list) do
+            local key = Section(g)
+            counts[key] = counts[key] + 1
+            if g.name == current then initial = key end
+        end
+        if not selected and #list > 0 then
+            selected = true
+            selectSection(
+                initial or (counts.imported > 0 and "imported" or counts.default > 0 and "default" or "restedxp")
+            )
+        end
+        for key, b in pairs(tabs) do
+            b:SetText(sectionNames[key] .. " (" .. counts[key] .. ")")
+            if key == section then
+                b:LockHighlight()
+            else
+                b:UnlockHighlight()
+            end
+        end
+        local f = filters[section]
+        local query = f.search:lower():match("^%s*(.-)%s*$")
+        local low, high = LevelBounds(f.level)
+        local out = {}
+        for _, g in ipairs(list) do
+            if Section(g) == section and (not f.mine or g.fits) and g.name:lower():find(query, 1, true) then
+                local first, last = tonumber(g.route.fromLevel), tonumber(g.route.toLevel)
+                if not low or (first and (last or first) >= low and first <= high and low <= high) then
+                    out[#out + 1] = g
+                end
+            end
+        end
+        table.sort(out, function(a, b)
+            local af, bf = tonumber(a.route.fromLevel) or math.huge, tonumber(b.route.fromLevel) or math.huge
+            if af ~= bf then return af < bf end
+            local at, bt = tonumber(a.route.toLevel) or af, tonumber(b.route.toLevel) or bf
+            if at ~= bt then return at < bt end
+            return a.name < b.name
+        end)
+        return out
+    end
+    return bar
+end
+
 --- A guide's row: its name and details; Follow, Start over (the guide followed), Delete (imported).
 local function GuideRow(parent)
     local row = CreateFrame("Frame", nil, parent)
@@ -102,15 +240,24 @@ local function GuideRow(parent)
     end, T("Several players of this group guide are of your race and class: which one you are"))
     row.who:SetPoint("RIGHT", row.restart, "LEFT", -4, 0)
     row.name = row:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    row.name:SetPoint("TOPLEFT", 8, -7)
+    row.name:SetPoint("TOPLEFT", 8, -4)
     row.name:SetPoint("RIGHT", row.who, "LEFT", -8, 0)
     row.name:SetJustifyH("LEFT")
     row.name:SetWordWrap(false)
     row.details = row:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
-    row.details:SetPoint("TOPLEFT", 8, -25)
+    row.details:SetPoint("TOPLEFT", 8, -21)
     row.details:SetPoint("RIGHT", row.who, "LEFT", -8, 0)
     row.details:SetJustifyH("LEFT")
     row.details:SetWordWrap(false)
+    row:EnableMouse(true)
+    row:SetScript("OnEnter", function(self)
+        if not self.guide then return end
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:SetText(self.guide.name)
+        GameTooltip:AddLine(GuideDetails(self.guide), 0.8, 0.8, 0.8, true)
+        GameTooltip:Show()
+    end)
+    row:SetScript("OnLeave", function() GameTooltip:Hide() end)
     return row
 end
 
@@ -136,22 +283,55 @@ Options:AddBlock(function(parent)
         T("Paste a guide copied from the Pathwright web app.")
     )
     import:SetPoint("RIGHT", clear, "LEFT", -4, 0)
-    local hint = block:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-    hint:SetPoint("TOPLEFT", heading, "BOTTOMLEFT", 0, -10)
-    hint:SetJustifyH("LEFT")
-    hint:SetText(T("The guide this character follows: click Follow."))
+    local page, previousFollowed = 1, nil
+    local filters = Options.GuideFilters(block, "PathwrightSettingsGuideFilters", function()
+        page = 1
+        Options:Refresh()
+    end)
+    filters:SetPoint("TOPLEFT", 0, -32)
+    filters:SetPoint("TOPRIGHT", 0, -32)
     local empty = block:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    empty:SetPoint("TOPLEFT", 0, -50)
+    empty:SetPoint("TOPLEFT", filters, "BOTTOMLEFT", 0, -8)
     empty:SetPoint("RIGHT", block, "RIGHT", -6, 0)
     empty:SetJustifyH("LEFT")
-    empty:SetText(T("No guide yet: import one with the button above, or send it from the Pathwright desktop app."))
+    empty:SetText(T("No matching guides"))
+    local prev = Options.Button(block, T("Previous"), 80, function()
+        page = page - 1
+        Options:Refresh()
+    end)
+    local nextPage = Options.Button(block, T("Next"), 80, function()
+        page = page + 1
+        Options:Refresh()
+    end)
+    local pages = block:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    prev:SetPoint("BOTTOMLEFT", 0, 0)
+    pages:SetPoint("LEFT", prev, "RIGHT", 10, 0)
+    nextPage:SetPoint("LEFT", pages, "RIGHT", 10, 0)
 
     --- Bring the rows to the guides in use and the one followed.
-    function block:Refresh()
-        local list = FG.Import:List()
+    function block:Refresh(availableHeight)
+        local list = filters:Results()
+        local room = availableHeight and availableHeight - LIST_TOP or 7 * (ROW + 2) + PAGER_HEIGHT
+        local pageSize = math.min(8, math.floor(room / (ROW + 2)))
+        if #list > pageSize then pageSize = math.min(8, math.floor((room - PAGER_HEIGHT) / (ROW + 2))) end
+        pageSize = math.max(1, pageSize)
         local followed = FG.Guide:RouteName()
-        local y = 48
-        for i, guide in ipairs(list) do
+        if followed ~= previousFollowed then
+            previousFollowed = followed
+            for i, g in ipairs(list) do
+                if g.name == followed then
+                    page = math.ceil(i / pageSize)
+                    break
+                end
+            end
+        end
+        local lastPage = math.max(1, math.ceil(#list / pageSize))
+        page = math.max(1, math.min(page, lastPage))
+        local start = (page - 1) * pageSize
+        local visible = math.min(pageSize, #list - start)
+        local y = LIST_TOP
+        for i = 1, visible do
+            local guide = list[start + i]
             local row = guideRows[i] or GuideRow(self)
             guideRows[i] = row
             row.guide = guide
@@ -159,7 +339,9 @@ Options:AddBlock(function(parent)
             row:SetPoint("TOPLEFT", 0, -y)
             row:SetPoint("TOPRIGHT", 0, -y)
             local isFollowed = guide.name == followed
-            row.name:SetText(guide.name .. (guide.fits and "" or "  |cff808080" .. T("(another character)") .. "|r"))
+            row.name:SetText(
+                Options.GuideTitle(guide) .. (guide.fits and "" or "  |cff808080" .. T("(another character)") .. "|r")
+            )
             row.details:SetText(GuideDetails(guide))
             row.lit:SetShown(isFollowed)
             row.follow:SetText(isFollowed and T("Followed") or T("Follow"))
@@ -169,15 +351,32 @@ Options:AddBlock(function(parent)
             row.who:SetShown(isFollowed and choices ~= nil)
             row.who:SetText(me and string.format(T("Player: %s"), FG.Group:PlayerName(me)) or T("Choose your player"))
             row.delete:SetShown(guide.source == "import")
+            local edge = row
+            for _, button in ipairs({ row.delete, row.follow, row.restart, row.who }) do
+                if button:IsShown() then
+                    button:ClearAllPoints()
+                    button:SetPoint("RIGHT", edge, edge == row and "RIGHT" or "LEFT", -4, 0)
+                    edge = button
+                end
+            end
+            row.name:SetPoint("RIGHT", edge, "LEFT", -8, 0)
+            row.details:SetPoint("RIGHT", edge, "LEFT", -8, 0)
             row:Show()
             y = y + ROW + 2
         end
-        for i = #list + 1, #guideRows do
+        for i = visible + 1, #guideRows do
             guideRows[i].guide = false
             guideRows[i]:Hide()
         end
         empty:SetShown(#list == 0)
         if #list == 0 then y = y + 30 end
+        pages:SetText(page .. " / " .. lastPage)
+        pages:SetShown(lastPage > 1)
+        prev:SetShown(lastPage > 1)
+        prev:SetEnabled(page > 1)
+        nextPage:SetShown(lastPage > 1)
+        nextPage:SetEnabled(page < lastPage)
+        if lastPage > 1 then y = y + PAGER_HEIGHT end
         clear:SetEnabled(FG.Import:ImportedCount() > 0)
         self:SetHeight(y)
     end

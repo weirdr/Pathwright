@@ -3,3 +3,5 @@ addon/Pathwright_Guide/Config.lua
 addon/Pathwright_Profile/Sent.lua
 addon/tests/fixtures/
 addon/tests/guides/
+# Built by addon/tools/guide_build.py from addon/guides/*.guide (one step a line).
+addon/Pathwright_Guide/Builtin/
