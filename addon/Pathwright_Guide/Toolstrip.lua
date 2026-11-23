@@ -432,59 +432,75 @@ local function TrashTooltip(self)
     GameTooltip:Show()
 end
 
+--- Build the strip, each of its parts that is missing: one that could not be made before (a
+--- fight: the game makes no secure button then; an error) is made the next time, so a strip half
+--- built never stays so (no trash can, no bar).
 local function Create()
-    if strip or not CreateFrame then return strip end
-    strip = CreateFrame("Frame", "PathwrightToolstrip", FG.UIRoot, "BackdropTemplate")
-    strip:SetSize(GRIP + SIZE + 2 * GAP, SIZE + 2 * GAP)
-    strip:SetClampedToScreen(true)
-    FG:Draggable(strip, function(self)
-        local p, _, rp, x, y = self:GetPoint()
-        local state = FG.Guide and FG.Guide:State()
-        if state then state.toolstripPoint = { p, "UIParent", rp, x, y } end
-    end)
-    Skin:Style(strip, "panel")
-    strip:Hide()
+    if not CreateFrame then return strip end
+    if not strip then
+        strip = CreateFrame("Frame", "PathwrightToolstrip", FG.UIRoot, "BackdropTemplate")
+        strip:SetSize(GRIP + SIZE + 2 * GAP, SIZE + 2 * GAP)
+        strip:SetClampedToScreen(true)
+        FG:Draggable(strip, function(self)
+            local p, _, rp, x, y = self:GetPoint()
+            local state = FG.Guide and FG.Guide:State()
+            if state then state.toolstripPoint = { p, "UIParent", rp, x, y } end
+        end)
+        strip:Hide()
+    end
+    if not strip.styled then
+        strip.styled = true
+        FG:Try("toolstrip skin", Skin.Style, Skin, strip, "panel")
+    end
 
     -- The checker (see Aiming): hidden, clicked by the swords' macros. Its macro runs on the up
     -- edge whatever the player's "cast on key down" (a /click is an up), and its PreClick looks
-    -- at the target taken.
-    local check = CreateFrame("Button", CHECK, strip, "SecureActionButtonTemplate")
-    check:SetSize(1, 1)
-    check:SetAttribute("type", "macro")
-    check:SetAttribute("useOnKeyDown", false)
-    check:SetAttribute("macrotext", "")
-    check:RegisterForClicks("AnyUp")
-    check:EnableMouse(false)
-    check:SetScript("PreClick", function(self)
-        if InCombatLockdown() then return end
-        self.macro = Toolstrip.CheckMacro(Toolstrip.expect)
-        self:SetAttribute("macrotext", self.macro)
-        Toolstrip.expect = nil
-    end)
-    Toolstrip.checker = check
-
-    separator = strip:CreateTexture(nil, "ARTWORK")
-    separator:SetSize(SEPARATOR, SIZE - 6)
-    separator:SetColorTexture(0.55, 0.55, 0.58, 0.8)
-    separator:Hide()
-
-    trash = CreateFrame("Button", "PathwrightTrash", strip)
-    trash:SetSize(SIZE, SIZE)
-    trash:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-    local icon = trash:CreateTexture(nil, "ARTWORK")
-    icon:SetAllPoints()
-    icon:SetTexture(TRASH_ICON)
-    trash.icon = icon
-    trash:SetScript("OnClick", function(self, mouse)
-        if mouse == "RightButton" then
-            Toolstrip:Keep()
-        elseif IsShiftKeyDown() then
-            Toolstrip:Destroy()
+    -- at the target taken. A secure button: made out of combat only.
+    if not Toolstrip.checker and not InCombatLockdown() then
+        local check = CreateFrame("Button", CHECK, strip, "SecureActionButtonTemplate")
+        if check then
+            check:SetSize(1, 1)
+            check:SetAttribute("type", "macro")
+            check:SetAttribute("useOnKeyDown", false)
+            check:SetAttribute("macrotext", "")
+            check:RegisterForClicks("AnyUp")
+            check:EnableMouse(false)
+            check:SetScript("PreClick", function(self)
+                if InCombatLockdown() then return end
+                self.macro = Toolstrip.CheckMacro(Toolstrip.expect)
+                self:SetAttribute("macrotext", self.macro)
+                Toolstrip.expect = nil
+            end)
+            Toolstrip.checker = check
         end
-        if GameTooltip:IsOwned(self) then TrashTooltip(self) end
-    end)
-    trash:SetScript("OnEnter", TrashTooltip)
-    trash:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    end
+
+    if not separator then
+        separator = strip:CreateTexture(nil, "ARTWORK")
+        separator:SetSize(SEPARATOR, SIZE - 6)
+        separator:SetColorTexture(0.55, 0.55, 0.58, 0.8)
+        separator:Hide()
+    end
+
+    if not trash then
+        trash = CreateFrame("Button", "PathwrightTrash", strip)
+        trash:SetSize(SIZE, SIZE)
+        trash:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        local icon = trash:CreateTexture(nil, "ARTWORK")
+        icon:SetAllPoints()
+        icon:SetTexture(TRASH_ICON)
+        trash.icon = icon
+        trash:SetScript("OnClick", function(self, mouse)
+            if mouse == "RightButton" then
+                Toolstrip:Keep()
+            elseif IsShiftKeyDown() then
+                Toolstrip:Destroy()
+            end
+            if GameTooltip:IsOwned(self) then TrashTooltip(self) end
+        end)
+        trash:SetScript("OnEnter", TrashTooltip)
+        trash:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    end
     return strip
 end
 
@@ -552,7 +568,7 @@ end
 
 --- Lay the strip out for `actions` (out of combat).
 local function Apply(actions)
-    if not Create() then return end
+    if not Create() or not trash then return end
     local wanted = FG:Get("toolstrip") and (actions[1] ~= nil or FG:Get("toolstripTrash"))
     if not wanted then
         -- The buttons emptied too: their keys still click them when the strip is hidden.
