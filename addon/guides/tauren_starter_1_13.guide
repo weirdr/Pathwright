@@ -1,0 +1,443 @@
+# Tauren Starter (1-13): Camp Narache and Red Cloud Mesa, Bloodhoof Village and the plains of
+# Mulgore (the wells, the Palemane gnolls, the Bael'dun dwarves, the Venture Co. mine, the Galak
+# centaurs, Red Rocks, the Windfury harpies), Thunder Bluff, then the road through Camp Taurajo to
+# the Crossroads, the wind rider errand back to Thunder Bluff, and Durotar and Orgrimmar on the
+# way to the zeppelin for Undercity, for a Tauren duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/tauren_starter_1_13.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, race and class masks, drops and the
+# places of mobs and objects from the game data (data/forever.sqlite), checked against outof.games
+# (Mulgore, area 215; Thunder Bluff; Durotar; the quest pages of the doubtful ones); Zygor's route
+# as a check (there is no RestedXP route below level 21). Wowhead not consulted.
+# The quest list is section 2 of addon/guides/horde_1_40_allocation.md.
+# Data notes: the three well-cleansing objectives and Perith's escort have no place in the builder's
+#   data, so their steps give it (Winterhoof 51.8,68.4; Thunderhorn 44.2,51.1; Wildmane 42.7,25.0,
+#   north of Thunder Bluff; the escort ends at 37.2,64.6). The Brazier of the Dormant Flame and its
+#   fire spirit are on Telf Joolam's hill in Durotar (outof.games).
+#
+# Starts at Camp Narache, where Tauren begin.
+# Dropped:
+# - Securing the Lines (835, Rezlak in Durotar): it needs Winds in the Desert (834) handed in first
+#   (outof.games: "Finish first"), and the allocation gives 834 to the Undead Starter. A Simmering
+#   Storm (97281), from the same harpies, is done.
+# - Welcome to Azeroth (95350, Alaana Stormwalker): for Windshaper Skyborne only, after their
+#   starter's last quest (95349).
+# Race-only quests: none to tell apart (this guide is for Tauren only); the class quests are kept
+#   for their class by the builder.
+# The auction house: Light Leather for Gathering Leather (768) is offered at Thunder Bluff's
+#   auction house; skinners can skin it instead.
+#
+# The route: Camp Narache (1-6); Bloodhoof Village and five loops around it (the west plains and
+# Palemane Rock; the Winterhoof well, the southern gnolls and harpies and Malah Longwind; the
+# northern plains and the Ravaged Caravan; the Thunderhorn well, Seer Wiserunner and the Bael'dun
+# digsite; the Galak centaurs and the Venture Co. mine); Red Rocks, the northern plains and the
+# Wildmane well to Thunder Bluff (flight path; druids to Moonglade); the Windfury harpies, Ghost Howl,
+# Arra'chea and the mine again back to Bloodhoof; Camp Taurajo and the Crossroads (flight paths);
+# a wind rider to Thunder Bluff and back; Durotar (Drygulch Ravine) and Orgrimmar (flight path);
+# the zeppelin to the tower outside Undercity, in Tirisfal Glades, where Silverpine Forest (13-15)
+# starts. Shamans fly back to the Crossroads from Orgrimmar to finish their Call of Fire.
+# Flight paths learned: Thunder Bluff, Camp Taurajo, the Crossroads, Orgrimmar.
+
+guide Tauren Starter (1-13)
+races 6
+levels 1 13
+next Silverpine Forest (13-15)
+
+# Camp Narache ----------------------------------------------------------------------------------------
+
+map Mulgore
+accept 747
+tip Grull Hawkwind stands at the edge of the camp.
+accept 752
+turnin 752
+tip Greatmother Hawkwind sits by the water well south-east of the camp. Plainstriders roam all around it: kill them on the way for The Hunt Begins.
+accept 753
+do 753
+tip The Water Pitcher stands right beside the well.
+do 747
+tip Feathers and meat don't drop from every plainstrider: kill a few more.
+turnin 747
+accept 750
+accept 3091 3092 3093 3094
+accept 3376
+tip Brave Windfeather walks around the middle of the camp.
+turnin 3091 3092 3093 3094
+train 3059 3061 3062 3060
+turnin 753
+accept 755
+
+# South to Seer Graytongue and the shrine
+
+turnin 755
+tip Seer Graytongue stands in the hills straight south of the camp.
+accept 757 95805
+turnin 95805
+tip The incense burns out after ten minutes: go straight east to the Ritual Fire of the shrine.
+do 750
+tip Mountain Cougars prowl the hills between the shrine and the camp.
+turnin 750
+accept 780
+accept 1519
+train 3059 3061 3062 3060
+
+# Brambleblade Ravine, east of the camp
+
+do 780
+tip Battleboars roam the grass east of the camp; the Bristleback Battleboars in the ravine count too.
+do 757
+do 1519
+tip The Ritual Salve drops from the Bristleback Shamans only.
+do 3376
+tip Chief Sharptusk Thornmantle waits in the hut at the far end of the ravine. Pull his guards one by one.
+accept 781 at 59.8,82.2 "Loot the Dirt-stained Map in the small cave at the south end of the ravine"
+tip The map lies inside the small cave: each of you clicks it.
+turnin 780
+turnin 3376
+turnin 781 757
+accept 763
+accept 96659
+turnin 1519
+accept 1520
+turnin 1520
+tip Go to Kodo Rock, east of the camp, and drink the Earth Sapta there: the Minor Manifestation of Earth appears.
+accept 1521
+turnin 1521
+train 3059 3061 3062 3060
+
+# The road north
+
+accept 1656
+tip Antur Fallow camps by the road west of Camp Narache.
+turnin 96659
+tip Kaga Wildhoof has a campfire by the road just south of Bloodhoof Village.
+accept 96605
+do 96605 icon use "Sit by Kaga's campfire until you have Boosted Rest"
+tip It takes about a minute.
+turnin 96605
+accept 96661 97936
+tip Camping 101 shows only for a profession you have. Pyall Silentstride in the village teaches Cooking if you want it.
+
+# Bloodhoof Village ------------------------------------------------------------------------------------
+
+turnin 1656
+turnin 763
+accept 745 746 767
+turnin 767
+accept 771
+accept 743
+accept 766
+accept 96130
+accept 761
+accept 748
+accept 99079
+tip Brave Wildrunner walks a long path through the village.
+accept 99411
+tip Ahab Wheathoof stands at the north end of the village.
+accept 99108
+do 99108 mobs 10721 "Beat 3 Novice Warriors in duels"
+tip Talk to a Novice Warrior on the training ground to start a duel. Each of you needs three wins.
+turnin 99108
+do 96661 icon talk
+turnin 96661
+turnin 97936
+train 3063 3065 3066 3064
+
+# The plains west of the village and Palemane Rock
+
+do 766.1 bg at 39.6,67.5
+do 766.3 bg at 39.4,71.1
+do 766.4 bg at 39.2,65.0
+tip The heart, scale and gizzard drop rarely: keep killing wolves, plainstriders and swoops all over Mulgore.
+do 761 bg at 39.2,65.0
+tip Every swoop drops a quill; there are few here, more on the northern plains.
+do 771.2 bg at 37.3,70.8
+tip Ambercorn are small brown pinecones under the trees.
+do 748.1 at 39.6,67.5
+do 748.2 at 39.4,71.1
+tip Loot one Tender Strider Meat from an Adult Plainstrider for Kyle, too.
+do 96130
+tip Chakuyak is a black wolf in the hills west of the village.
+accept 98430
+tip Perith Stormhoof is a prisoner at Palemane Rock. Both of you take the quest before either starts the escort.
+do 745.2 745.3
+tip The Palemane Skinners and Poachers hold Palemane Rock; the Tanners are fewer here, so leave them for the camp south of the village.
+do 98430 at 37.2,64.6 "Escort Perith Stormhoof out of Palemane Rock"
+tip Gnolls jump you on the way out: keep them off Perith.
+
+# Back to the village
+
+do 99411 icon use "Put the Tender Strider Meat down near Kyle the Frenzied"
+tip Kyle runs around the village; drop the meat next to him and he eats it.
+turnin 99411
+turnin 748
+accept 754
+turnin 96130
+
+# South-east: the Winterhoof well, the gnolls and harpies, Malah Longwind
+
+do 754 at 51.8,68.4 icon use "Use the Winterhoof Cleansing Totem at the Winterhoof Water Well"
+do 771.1 at 51.8,68.6
+tip The Well Stones are the flat grey rocks around the well.
+do 745.1
+tip The Palemane camp is just south of the well.
+do 743
+tip The Windfury harpies nest on the hills to the east. Interrupt the Wind Witches' heals.
+turnin 99079
+tip Malah Longwind waits at the eastern edge of Mulgore.
+accept 99081
+accept 749
+tip Morin Cloudstalker walks the road east of the village.
+
+# Back to the village
+
+turnin 754
+accept 756
+turnin 771
+accept 772
+turnin 745
+turnin 743
+turnin 99081
+accept 99101
+turnin 99101
+accept 99080
+train 3063 3065 3066 3064
+
+# The northern plains and the Ravaged Caravan
+
+do 756
+tip Prairie Stalkers and Flatland Cougars roam the plains north of the village; both of you need your own claws.
+do 761
+do 766.2
+tip Flatland Cougars drop the femur.
+turnin 749
+tip The Sealed Supply Crate lies at the Ravaged Caravan north-east of the village.
+accept 751
+turnin 751
+accept 764 765
+
+# Back to the village
+
+turnin 756
+accept 758
+turnin 761
+turnin 766
+
+# The Thunderhorn well, Seer Wiserunner and the Bael'dun digsite
+
+do 758 at 44.2,51.1 icon use "Use the Thunderhorn Cleansing Totem at the Thunderhorn Water Well"
+turnin 772
+tip You can drink the Water of the Seers by the village fire for the vision, but there's no need to follow it: Seer Wiserunner waits in a small cave south of Thunder Bluff.
+accept 773
+do 746
+tip The Bael'dun dwarves drop the Prospector's Picks. Use them by the forge in the digsite to break them into Broken Tools.
+
+# Back to the village
+
+turnin 758
+accept 759
+turnin 746
+
+# East: the Galak centaurs and the Venture Co. mine
+
+do 99080
+tip Herak the Pillager walks with his centaurs east of the village.
+do 759
+tip The Prairie Wolf Alphas run with the centaurs' camp.
+do 764
+tip Workers and Supervisors fill the camp outside the mine and its tunnels.
+do 765
+tip Supervisor Fizsprocket is at the back of the mine. He drops Mulgore Expansion Plans: read them.
+accept 98424
+do 98424
+tip The three papers lie in the mine's tunnels.
+turnin 764 765 98424
+accept 98427
+
+# Back to the village (level 10: the class quests)
+
+turnin 759
+accept 760
+turnin 99080
+accept 99082
+accept 861
+accept 2984
+accept 5928
+accept 6061
+train 3063 3065 3066 3064
+do 6061 mobs 2956 at 53.5,64.0 icon use "Use the Taming Rod on an Adult Plainstrider"
+turnin 6061
+accept 6087
+do 6087 mobs 2959 at 54.5,52.7 icon use "Use the Taming Rod on a Prairie Stalker"
+turnin 6087
+accept 6088
+do 6088 mobs 2970 at 50.6,46.2 icon use "Use the Taming Rod on a Swoop"
+turnin 6088
+accept 6089
+
+# North: Red Rocks, the plains and the Wildmane well, to Thunder Bluff -------------------------------
+
+accept 833
+do 833
+turnin 833
+turnin 773
+tip The Ancestral Spirit stands among the stones of Red Rocks.
+accept 775
+do 861
+tip Flatland Prowlers are the cougars of the northern plains.
+do 760 at 42.7,25.0 icon use "Use the Wildmane Cleansing Totem at the Wildmane Water Well"
+tip The well is north-east of Thunder Bluff.
+
+map Thunder Bluff
+accept 76156
+tip Take a lift up the bluff. Boarton Shadetotem stands at the south-west edge of the central mesa.
+accept 744
+ah 768.1 npc 8674
+tip Twelve Light Leather cost little here, for Gathering Leather. Skinners can skin it from the beasts of Mulgore instead.
+accept 768
+fpath 2995
+tip Tal stands on the tower in the middle of the city.
+turnin 98430 99082 775
+accept 776
+turnin 6089
+tip Holt Thunderhorn is on Hunter Rise.
+turnin 5928
+accept 5922
+train 3033
+tip Learn Teleport: Moonglade.
+bind 6746 only druid
+note "Cast Teleport: Moonglade" only druid
+map Moonglade
+turnin 5922
+accept 5930
+do 5930
+tip The Great Bear Spirit is in the woods north-west of Nighthaven.
+turnin 5930
+accept 5932
+hearth npc 6746 only druid
+map Thunder Bluff
+turnin 5932
+accept 6002
+
+# The Windfury harpies, Ghost Howl, Arra'chea and the mine
+
+map Mulgore
+do 744
+tip The Windfury Sorceresses and Matriarchs nest on Windfury Ridge, west of Thunder Bluff. Interrupt their spells.
+accept 770 at 32.3,25.6 "If you meet Ghost Howl, kill him and loot the Demon Scarred Cloak"
+tip Ghost Howl is a white wolf who roams the north of Mulgore. If you don't see him, right-click the step to skip the quest.
+do 768 bg
+do 776
+tip Arra'chea is a lone giant kodo of the northern plains. Kill him together.
+do 76156 icon use "Wear the Venture Co Disguise and take 5 Seaforium Mining Charges from the Blasting Supplies"
+tip The carts of blasting supplies stand in the camp outside the mine.
+do 98427
+tip The Venture Co. Clearclutter works the hill north-west of the mine.
+
+# Back to the village, then east into the Barrens
+
+turnin 98427
+turnin 760
+accept 98435
+turnin 770
+
+# Camp Taurajo and the Crossroads ----------------------------------------------------------------------
+
+map The Barrens
+do 6002
+tip Take the road east out of Mulgore. Use the Cenarion Lunardust at the Moonkin Stone on the way to Camp Taurajo, defeat Lunaclaw, then speak with its spirit.
+fpath 10378
+accept 854
+turnin 854
+tip Follow the road north to the Crossroads.
+fpath 3615
+accept 6361
+turnin 6361
+accept 6362
+fly "Thunder Bluff" npc 3615
+
+# Thunder Bluff again
+
+map Thunder Bluff
+turnin 6362
+accept 6363
+turnin 6363
+accept 6364
+accept 97485
+tip Eylah Sunhorn stands on the west side of the central mesa.
+turnin 768
+note "Buy Sinew Thread from Mahu" npc 3005
+note "Buy a Bundle of Dried Cedar Twigs from Nata Dawnstrider" npc 3012
+note "Buy a Bundle of Herbs from Nida Winterhoof" npc 3014
+note "Buy Ceremonial Flint and Tinder from Naal Mistrunner" npc 3027
+do 97485.2 at 51.0,52.5 icon use "Combine the four into Prepared Incense"
+turnin 776
+turnin 861
+accept 860
+tip Melor Stonehoof is on Hunter Rise, over the bridge south of the central mesa.
+do 97485.1
+tip Scatter the incense at the Incense Burner on the south cliff of Hunter Rise.
+train 3041 3039
+turnin 98435
+accept 886
+tip Hamuul Runetotem is on Elder Rise, over the bridges east of the central mesa.
+turnin 6002
+train 3033
+turnin 97485
+turnin 744
+turnin 76156
+train 3030
+tip Shamans train on Spirit Rise, west of the central mesa.
+fly "Crossroads" npc 2995
+
+# The Crossroads
+
+map The Barrens
+turnin 6364
+turnin 860
+turnin 886
+turnin 2984
+tip Kranal Fiss walks around north-east of the Crossroads.
+accept 1524
+
+# Durotar and Orgrimmar --------------------------------------------------------------------------------
+
+map Durotar
+turnin 1524
+tip Take the road east over the bridge into Durotar. Telf Joolam is on top of the hill south of the road.
+accept 1525
+accept 97281 at 52.0,21.4 "Kill Dustwind Storm Witches until one drops a Dull Storm Orb, and use it"
+tip The harpies of Drygulch Ravine, north-east Durotar, near Orgrimmar. The orb doesn't drop every time.
+do 1525.2
+tip The Burning Blade Cultists hide in Dustwind Cave, beside the ravine.
+turnin 97281
+tip Rezlak stands by the road in Razorwind Canyon.
+map Orgrimmar
+fpath 3310
+tip Doras's tower is in the Valley of Strength, just inside the front gate.
+
+# Shamans: the rest of Call of Fire
+
+fly "Crossroads" npc 3310 only shaman
+map The Barrens
+do 1525.1 at 54.8,26.2 mobs 3267 3268
+tip The Razormane Water Seekers and Thornweavers in the quilboar camp north-east of the Crossroads drop the Fire Tar.
+map Durotar
+turnin 1525
+accept 1526
+do 1526
+tip The Minor Manifestation of Fire is at the top of Telf's hill.
+turnin 1526
+accept 1527
+map The Barrens
+turnin 1527
+fly "Orgrimmar" npc 3615 only shaman
+
+# The zeppelin to Undercity
+
+map Durotar
+goto "Take the zeppelin to Tirisfal Glades from the tower outside Orgrimmar" at 50.8,13.5 r 15
+tip Frezza is the zeppelin master for Undercity; Snurk Bucksquick's zeppelin goes to Stranglethorn.
+map Tirisfal Glades
+goto "Step off at the zeppelin tower outside Undercity" at 60.7,58.9 r 20
