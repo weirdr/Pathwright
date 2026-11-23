@@ -1,0 +1,154 @@
+# Ashenvale (21-22): a first, short visit to Ashenvale (Va'xug Firefure's ravine north of the
+# Talondeep Path, Zoram'gar Outpost and the naga of the Zoram Strand), then Thunder Bluff and
+# Orgrimmar for the Forsaken's errand and the class quests of level 20 (the troll priests'
+# Shadowguard, the warlocks' Dogran and his succubus, the rogues' Venture Co. tower), for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/ashenvale_21_22.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, race and class masks, drops and the
+# places of mobs and objects from the game data (data/forever.sqlite), checked against outof.games
+# (Ashenvale, area 331; The Barrens; Thunder Bluff; Orgrimmar); RestedXP's and Zygor's routes as a
+# check. Wowhead refused the requests (403), so its comments were not read: the research is partial.
+# The quest list is section 6 of addon/guides/horde_1_40_allocation.md, plus A Void Path (98252),
+# the follow-up of Never Coming Back (98251): no guide had it (the allocation left it out as a
+# dungeon quest, but it is done on the road of Ashenvale, by Va'xug's ravine).
+#
+# Starts in Stonetalon Mountains, at the Talondeep Path (the tunnel in the north-east of Stonetalon
+#   into Ashenvale): The Barrens & Stonetalon Mountain (15-21) should end there, after its last
+#   quests in Stonetalon.
+# Carried in (skipped by those who lack them), for The Barrens & Stonetalon Mountain (15-21) to take:
+# - The Elder Crone (1063, Seereth Stonebreak in the west of the Barrens, after Goblin Invaders 1062),
+#   handed in to Magatha in Thunder Bluff here.
+# - Trouble in the Deeps (6562, Tsunaman at Sun Rock Retreat), handed in at Zoram'gar Outpost here.
+# - for warlocks, Ken'zigla's Draught (1511, Ken'zigla at Malaka'jin, after News of Dogran 1510),
+#   handed in to Grunt Logmar at Camp Taurajo here.
+# Left to Hillsbrad Foothills (22-24):
+# - Journey to Tarren Mill (1065, Apothecary Zamah in Thunder Bluff), handed in to Apothecary Lydon.
+# - for Undead priests, Dark Sacrifice (5644, Miles Welsh in Thunder Bluff), handed in to
+#   Aelthalyste in Undercity.
+# Race-only class quests: the builder's `only` knows classes, not races, so Shadowguard (Troll
+#   priests) and Dark Sacrifice (Undead priests) show for every priest, with a tip saying who.
+# The auction house: none of this guide's quest items is sold there, so there is no AH stop.
+#
+# The route: through the Talondeep Path into Ashenvale; Va'xug Firefure's ravine (the bears and
+# stags, then his Eye of Kilrogg to the road); west past the Ruins of Stardust to Zoram'gar Outpost
+# and the naga of the Zoram Strand; a flight to Thunder Bluff; warlocks fly to Camp Taurajo and walk
+# to Dogran and the Crossroads; a flight to Orgrimmar for the class quests (rogues go out once more,
+# to the Venture Co. tower in the north of the Barrens); the end at the wind rider tower of
+# Orgrimmar, where Hillsbrad Foothills (22-24) starts.
+
+guide Ashenvale (21-22)
+faction horde
+levels 21 22
+carry 1063 1511 6562
+leave 1065 5644
+next Hillsbrad Foothills (22-24)
+
+# Va'xug Firefure's ravine --------------------------------------------------------------------------
+
+map Ashenvale
+accept 98251
+tip From Stonetalon Mountains, walk the Talondeep Path, the long tunnel in the north-east of Stonetalon, into Ashenvale. Va'xug Firefure, a Horde warlock, is stuck in the ravine a short way north of where it comes out.
+do 98251
+tip The Ashenvale Bears and Shadowhorn Stags (level 21-23) roam the woods all around the ravine and south to the mouth of the tunnel. Kills count for both of you: pull one at a time, the stags hit hard for your level.
+turnin 98251
+accept 98252
+tip Both of you take it, then set off together: each gets an Eye of Kilrogg to lead.
+do 98252 at 44.4,56.5 "Lead the Eye of Kilrogg out of the ravine to the main Ashenvale road"
+tip The eye follows you and Va'xug holds it for four minutes only: walk straight out of the ravine, north, to the nearest stretch of the main road, without stopping to fight: the eye counts as soon as it reaches the road. Too late? Go back to Va'xug and take the quest again.
+turnin 98252
+tip Talk to your Eye of Kilrogg on the road to hand it in.
+
+# Zoram'gar Outpost and the Zoram Strand ------------------------------------------------------------
+
+goto "Go west past the Ruins of Stardust and along the western hills to Zoram'gar Outpost, on the Zoram Strand" at 12.2,33.8 r 30
+tip Keep well south and west of Astranaar, the night elf town on the lake in the middle of the zone: its Sentinels are level 40. Go round the Ruins of Stardust, then north-west through the hills to the coast.
+fpath 11901
+turnin 6562
+tip Je'neu Sancrea is inside the big hut of the outpost. Leave The Essence of Aku'Mai he offers next: it is for Blackfathom Deeps, a dungeon.
+accept 6442
+tip Marukai is inside the big hut of the outpost. Leave the other quests of the outpost (Karang's furbolgs, Mitsuwa's troll charms, Muglash's escort): Ashenvale (26-28) does them.
+do 6442 at 10.3,27.5
+tip The Wrathtail naga line the shore north of the outpost, up to the ruins of Zoram at the northern end of the strand. Every one of them drops a head. The Sea Witches and Sorceresses are casters: kill them first, and pull the camps apart before they gang up on you.
+turnin 6442
+
+# Thunder Bluff ---------------------------------------------------------------------------------------
+
+fly "Thunder Bluff, Mulgore" npc 11901
+tip The flight goes by the Crossroads. Your hearthstone is set in Thunder Bluff? Use it instead.
+map Thunder Bluff
+turnin 1063
+accept 1064
+tip Magatha Grimtotem is inside her tent on the Elder Rise.
+train 3033
+tip Druids only: the druid trainers are in the Hall of Elders on the Elder Rise.
+turnin 1064
+accept 1065
+tip Apothecary Zamah is in the Pools of Vision, the cave under the Spirit Rise. Keep Zamah's Note: Hillsbrad Foothills (22-24) takes it to Tarren Mill.
+accept 5642
+tip Troll priests only (other priests: right-click the step to skip it): Miles Welsh, in the Pools of Vision, sends you to Ur'kyo in Orgrimmar.
+accept 5644
+tip Undead priests only (other priests: right-click the step to skip it): keep it, Hillsbrad Foothills (22-24) hands it in at Undercity.
+fly "Orgrimmar, Durotar" npc 2995 only warrior paladin hunter rogue priest shaman mage druid
+fly "Camp Taurajo, The Barrens" npc 2995 only warlock
+tip Warlocks only: Dogran's quests take you through the Barrens before Orgrimmar.
+
+# Warlocks: Camp Taurajo, Dogran and the Crossroads ------------------------------------------------------
+
+map The Barrens
+turnin 1511
+accept 1515
+tip Warlocks only: Grunt Logmar is at Camp Taurajo, by the flight master.
+turnin 1515
+accept 1512
+tip Dogran is held in one of a pair of huts in a Bristleback quilboar camp, north of Camp Taurajo. Its hunters and geomancers are level 17-20, and Swinegart Spearhide, a level 22 rare elite, can walk there: clear it together, one group at a time.
+fly "Orgrimmar, Durotar" npc 3615 only warlock
+tip Walk north-east along the road to the Crossroads to take the flight.
+
+# Orgrimmar -------------------------------------------------------------------------------------------
+
+map Orgrimmar
+turnin 5642
+tip Troll priests only: Ur'kyo is with the priest trainers in the Valley of Spirits.
+turnin 1512
+accept 1513
+tip Warlocks only: Gan'rul Bloodeye is in the Cleft of Shadow.
+do 1513 at 49.4,50.0 mobs 5677 icon kill "Use Dogran's Pendant on the summoning circle in Neeru's tent and defeat the Summoned Succubus"
+tip The circle is in Neeru Fireblade's tent, a few steps from Gan'rul. Heal up and have your pet out before you call her; your partner can help you beat her.
+turnin 1513
+accept 2460
+do 2460 icon talk "Watch Shenthul salute you, then /salute him back"
+tip Rogues only: Shenthul is in the Cleft of Shadow. Target him and type /salute once he has saluted you.
+turnin 2460
+accept 2458
+tip Keep the Flare Gun: you need it at the Venture Co. tower.
+bind 6929 only rogue
+tip Rogues only: set your hearthstone here, at the inn of the Valley of Strength. It brings you back from the tower.
+
+# Rogues: the Venture Co. tower ------------------------------------------------------------------------
+
+fly "Crossroads, The Barrens" npc 3310 only rogue
+map The Barrens
+turnin 2458
+tip Run north from the Crossroads along the road to Mor'shan Rampart; the tower stands east of the road, north of the Sludge Fen. In sight of it, fire the Flare Gun twice, then walk up to Taskmaster Fizzule and /salute him.
+accept 2478
+do 2478.5 "Pick Foreman Silixiz's pocket for Silixiz's Tower Key"
+tip Foreman Silixiz is at the foot of the tower: pick his pocket in stealth for the key, without fighting him.
+do 2478.1
+do 2478.3
+do 2478.2
+tip Inside the tower: the Mutated Drones are on the ground floor, the Patrollers and Lookouts higher up. The poison has weakened them all: open each fight from stealth. The quest is an elite one: your partner can fight with you.
+do 2478.4
+tip Grand Foreman Puzik Gallywix waits at the top of the tower. He is an elite: rest first and fight him together.
+do 2478.6 at 54.8,5.6 icon get "Pick the lock of Gallywix's Lockbox and take the Cache of Zanzil's Altered Mixture"
+tip The lockbox sits by Gallywix at the top of the tower: use Pick Lock on it.
+hearth npc 6929 only rogue
+tip Hearthstone not ready? Walk back to the Crossroads and fly to Orgrimmar.
+map Orgrimmar
+turnin 2478
+tip Back to Shenthul in the Cleft of Shadow. Leave Hinott's Assistance he offers next: Hillsbrad Foothills (22-24) takes it.
+
+# The end: the wind rider tower ---------------------------------------------------------------------
+
+goto "Go to the wind rider tower in the Valley of Strength, for the next guide" at 45.1,63.9 r 15
