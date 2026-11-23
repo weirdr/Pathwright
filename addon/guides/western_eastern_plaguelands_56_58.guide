@@ -11,7 +11,12 @@
 # Data fixed here: most Eastern Plaguelands spawns from Wowhead use an older map of the zone
 # (x about 1.11 * x + 1.7, y about 1.10 * y + 4.6 of today's), so the places of its NPCs and mobs
 # are given by hand with "at" (Tirion Fordring, Nathanos Blightcaller, Caretaker Alen...).
-# Locked Away (5060) needs a hidden quest 5059 in the data: "nopre".
+# Locked Away: the outhouse (5059, repeatable) comes before the cabinet (5060). Opening the outhouse
+#   with the Dalson Outhouse Key hands 5059 in and calls Farmer Dalson, who drops the Dalson Cabinet
+#   Key that 5060 wants (Wowhead, WoW Forever quest 5060, comments of 2019-09-18 and 2019-11-02:
+#   "use it on Outhouse it will spawn mob, kill him, get new key"; outof.games lists 5059 at the
+#   outhouse, 48.1,49.7). outof.games lists no quest before 5060, only level 52, but the key comes
+#   only after 5059, so the guide does 5059 first and keeps the data's 5059 prerequisite.
 # Added: River Ends (7790) and Rapid Escape (8152), the start of the Argent Arbiter chain (outof.games;
 # the data marks them removed). Rapid Escape is handed in to the Argent Medic at Light's Hope.
 # Carried in from Felwood & Winterspring (54-56): Andron's Payment to Jediga (3564, from Andron Gant
@@ -87,10 +92,18 @@ turnin 5229
 accept 5230
 accept 5058
 turnin 5058
-accept 5060 nopre
-note "Kill the Wandering Skeleton near the Dalson farm for the Dalson Outhouse Key, then open the outhouse" at 48.1,49.7
-tip Opening the outhouse calls Farmer Dalson: he carries the key to the cabinet upstairs.
+accept 5059
+tip The outhouse stands behind the Dalson barn and house: its door offers the quest. Won't open for you yet? Get the key first.
+do 5059
+tip The Wandering Skeleton walks the yard in front of the barn. Each of you needs your own key: take turns on its respawns.
+turnin 5059
+tip Opening the outhouse with the key calls Farmer Dalson out of it.
+note "Kill Farmer Dalson for the Dalson Cabinet Key" at 48.1,49.7
+tip Kill him at once: anyone nearby can take him. The second of you opens the outhouse after the first, for a second Dalson and a second key.
+accept 5060
+tip The locked cabinet is upstairs in the Dalson house. Clear the mobs inside first: the fearing Dark Casters send you into more of them.
 do 5060
+tip The key you carry opens the cabinet.
 turnin 5060
 accept 4971
 tip Chromie waits in the ruined inn at the west end of Andorhal.

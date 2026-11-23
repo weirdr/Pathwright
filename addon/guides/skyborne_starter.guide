@@ -8,6 +8,14 @@
 # quests: the 7 it has that the data lacks are unused "DNT" quests or have no quest giver).
 # Left out: The Ancient Hilt, Eluvi'ana and More Al'Aketh Ears (not in the game client), A Sacrifice
 # in Vain (the alternative start of Unnerving Silence), the riding quests (level 40 and 60).
+# Data fixed here: the hunters' Taming the Beast (94978) is taken without the other Taming the Beast
+#   (94007), "Report to Quel'ana Quickgale in Valanaar", which Elayaa Easewind of Shen'dar offers at
+#   level 10, after the guide has left her. 94007 is a breadcrumb: Wowhead (WoW Forever, quest 94007)
+#   puts it in the first slot of the hunter series beside the five classic The Hunter's Path quests,
+#   the breadcrumbs to the other races' Taming the Beast; a comment of 2026-11-17 on quest 94978 says
+#   Quel'ana "gives 4 hunter quests at level 10 for Skyborne hunters", 94978 first, with no errand
+#   before it. The data's link to 94007 comes only from Wowhead's series, which links every slot to
+#   the one before (it makes 94979 and 94013 follow 94007 too): "nopre".
 #
 # The route: Thendal Grove (1-5), Shen'dar Village and the highlands (5-9), Valanaar and the
 # Gustberry Lowlands (9-11), Shadowgale Forest (11-12), the assault on the Shrine of Akir (12-13).

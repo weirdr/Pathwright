@@ -18,8 +18,15 @@
 # (2932, taken from Nimboya at Grom'gol in Stranglethorn Vale (46-47), its pike planted in the
 # Hinterlands), handed back to Nimboya as the zeppelin lands at Grom'gol.
 # Cortello's Riddle (626) is left out: its treasure is in the Hinterlands, which no later guide visits.
-# Data fixed here: State Secrets (96379) has no quest before it (outof.games lists only level 48);
-# the Document Box it wants is sold at the auction house.
+# Data fixed here: State Secrets (96379) is taken without More Valuable Than Gold (96337), a quest of
+#   the Alcaz Prison dungeon whose reward is the Document Box that State Secrets wants. Only ATT links
+#   them. Neither Wowhead (WoW Forever, quest 96379: no series, no comments) nor outof.games (96379:
+#   no prerequisite, only level 48) gives State Secrets a quest before it, though outof.games' page
+#   of 96337 shows the three State Secrets (Rix Xizzix 96379, Nazgrel 96376, Renzik 96377) after it
+#   in its chain. No comment on Wowhead's 96337 or 96379 says whether Rix offers it without 96337:
+#   not confirmed either way. The Document Box is not bound: outof.games lists 26 of them on the Horde
+#   auction house (about 27 gold, November 23 2026) and a vendor pays 25 gold for it, so a box bought
+#   for nothing costs about 2 gold. The steps say so.
 #
 # The route: Orgrimmar (the auction house) and the zeppelin to Grom'gol (Nimboya); Nesingwary's camp for
 # Tethis and King Bangalash; Booty Bay and a loop south (Mok'rash, the Bloodsail ships, Negolash, the
@@ -38,7 +45,7 @@ next Blasted Lands (50-51)
 
 map Orgrimmar
 ah 96379.1 npc 8673
-tip State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 28 gold, more than the quest pays). Skip State Secrets if you would rather keep the gold.
+tip State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 27 gold, more than the quest pays). Rix may offer the quest only to those who found the box themselves: if he doesn't, a vendor buys the box back for 25 gold. Skip State Secrets if you would rather keep the gold.
 note "Buy 10 Barbecued Buzzard Wings at the auction house, for Negolash (optional)" npc 8673
 tip Negolash only comes when someone puts 10 Barbecued Buzzard Wings and 5 Junglevine Wine (sold in Booty Bay) in Captain Smotts' lifeboat. One of you brings them. A cook can make the wings from Buzzard Wings with the recipe instead. No wings? Skip Facing Negolash.
 
@@ -71,6 +78,7 @@ tip Fleet Master Seahorn is up on the balcony of the inn.
 accept 3721
 turnin 3721
 accept 96379 nopre
+tip Not offered? Rix may want you to have found the box yourself in the Alcaz Prison. Sell the box to a vendor for 25 gold and skip this quest.
 do 96379 at 28.5,75.8 icon text "Give Rix Xizzix the Document Box"
 turnin 96379
 note "Buy 5 Junglevine Wine from Nixxrax Fillamug at the bar of the inn (only if you have the wings)" npc 2832

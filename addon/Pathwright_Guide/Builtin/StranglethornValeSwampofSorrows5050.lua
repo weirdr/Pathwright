@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467871,
+    created = 1795475395,
     next = "Blasted Lands (50-51)",
     carry = { 580, 1122, 1444, 2874, 2932, 3568, 3908, 4120 },
     variants = {
@@ -42,7 +42,7 @@ Pathwright.Builtin.Register({
         { race = 96, class = 11, faction = "Horde" },
     },
     steps = {
-        { k = "objective", t = "Buy 1 Document Box at the auction house (optional)", q = 96379, o = 1, ic = "buy", n = "Document Box", e = "item", id = 274041, c = 1, by = true, m = 1454, x = 55.9, y = 62.71, bg = true, nt = { { l = 1, t = "For State Secrets: nothing drops them, they are made by a craft. Buy them, or have a crafter make them." }, { l = 2, t = "State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 28 gold, more than the quest pays). Skip State Secrets if you would rather keep the gold." } }, lvl = 50 },
+        { k = "objective", t = "Buy 1 Document Box at the auction house (optional)", q = 96379, o = 1, ic = "buy", n = "Document Box", e = "item", id = 274041, c = 1, by = true, m = 1454, x = 55.9, y = 62.71, bg = true, nt = { { l = 1, t = "For State Secrets: nothing drops them, they are made by a craft. Buy them, or have a crafter make them." }, { l = 2, t = "State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 27 gold, more than the quest pays). Rix may offer the quest only to those who found the box themselves: if he doesn't, a vendor buys the box back for 25 gold. Skip State Secrets if you would rather keep the gold." } }, lvl = 50 },
         { k = "note", t = "Buy 10 Barbecued Buzzard Wings at the auction house, for Negolash (optional)", n = "Auctioneer Thathung", e = "npc", id = 8673, m = 1454, x = 55.9, y = 62.71, nt = { { l = 2, t = "Negolash only comes when someone puts 10 Barbecued Buzzard Wings and 5 Junglevine Wine (sold in Booty Bay) in Captain Smotts' lifeboat. One of you brings them. A cook can make the wings from Buzzard Wings with the recipe instead. No wings? Skip Facing Negolash." } }, lvl = 50 },
         { k = "goto", t = "Take the zeppelin from the towers outside Orgrimmar's gate to Grom'gol Base Camp", m = 1434, x = 31.5, y = 29.4, r = 30, lvl = 50 },
         { k = "turnin", t = "Turn in Grim Message to Nimboya", q = 2932, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, nt = { { l = 2, t = "Nimboya stands in Grom'gol, a few steps from the zeppelin tower." } }, lvl = 50 },
@@ -59,7 +59,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Deliver to MacKinley to \"Sea Wolf\" MacKinley", q = 2874, n = "\"Sea Wolf\" MacKinley", e = "npc", id = 2501, m = 1434, x = 27.74, y = 77.11, nt = { { l = 2, t = "Sea Wolf" } }, lvl = 50 },
         { k = "accept", t = "Accept An OOX of Your Own from Oglethorpe Obnoticus", q = 3721, n = "Oglethorpe Obnoticus", e = "npc", id = 7406, m = 1434, x = 28.35, y = 76.33, min = 40, pre = { 648, 836, 2767 }, lvl = 50 },
         { k = "turnin", t = "Turn in An OOX of Your Own to Oglethorpe Obnoticus", q = 3721, n = "Oglethorpe Obnoticus", e = "npc", id = 7406, m = 1434, x = 28.35, y = 76.33, lvl = 50 },
-        { k = "accept", t = "Accept State Secrets from Rix Xizzix", q = 96379, n = "Rix Xizzix", e = "npc", id = 214954, m = 1434, x = 28.51, y = 75.77, min = 48, lvl = 50 },
+        { k = "accept", t = "Accept State Secrets from Rix Xizzix", q = 96379, n = "Rix Xizzix", e = "npc", id = 214954, m = 1434, x = 28.51, y = 75.77, min = 48, nt = { { l = 2, t = "Not offered? Rix may want you to have found the box yourself in the Alcaz Prison. Sell the box to a vendor for 25 gold and skip this quest." } }, lvl = 50 },
         { k = "objective", t = "Give Rix Xizzix the Document Box", q = 96379, o = 1, ic = "text", n = "Document Box", e = "item", id = 274041, c = 1, m = 1434, x = 28.5, y = 75.8, lvl = 50 },
         { k = "turnin", t = "Turn in State Secrets to Rix Xizzix", q = 96379, n = "Rix Xizzix", e = "npc", id = 214954, m = 1434, x = 28.51, y = 75.77, lvl = 50 },
         { k = "note", t = "Buy 5 Junglevine Wine from Nixxrax Fillamug at the bar of the inn (only if you have the wings)", n = "Nixxrax Fillamug", e = "npc", id = 2832, m = 1434, x = 27.05, y = 77.23, lvl = 50 },
