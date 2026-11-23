@@ -42,7 +42,12 @@ for path in glob.glob("addon/guides/*.guide"):
         if word == "guide":
             g["name"] = rest.strip()
         elif word == "next":
-            g["next"] = rest.strip()
+            # "next horde <name>": the Horde chain is the one these guides make.
+            m = re.match(r"^(horde|alliance)\s+(.+)$", rest.strip())
+            if not m:
+                g["next"] = rest.strip()
+            elif m.group(1) == "horde":
+                g["next"] = m.group(2).strip()
         elif word in ("accept", "turnin", "do"):
             g[word] += ids
         elif word in ("carry", "leave"):

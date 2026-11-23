@@ -16,6 +16,8 @@ guide Skyborne Starter (1-13)
 map Zephras Isle
 races 95 96
 levels 1 13
+leave 93739 94913 98024
+next horde Silverpine Forest (13-15)
 
 # Thendal Grove ------------------------------------------------------------------------------------
 
@@ -99,10 +101,10 @@ turnin 92514 93461
 bind 254089
 turnin 96646 97963 97964 97965 97967 97969 97970 97971 97972 97973 98284 98286
 turnin 97968 npc 257021
-accept 92595
+accept 92595 late
 do 92595 icon talk
 turnin 92595
-accept 92596
+accept 92596 late
 do 92596 icon talk
 turnin 92596
 accept 94411
@@ -378,3 +380,28 @@ turnin 93090 93089
 accept 95349 94946
 tip Take the skycutter: Horde to Mulgore, Alliance to Dalaran.
 turnin 95349 94946
+
+# Horde: from Mulgore to the zeppelin for Undercity ---------------------------------------------------
+
+map Mulgore
+accept 95350 only horde
+tip Alaana Stormwalker, where the skycutter lands, sends you on to Thrall in Orgrimmar.
+map Thunder Bluff
+fpath 2995 only horde
+tip Ride up the lift into Thunder Bluff: Tal, the wind rider master, is on the central rise.
+accept 94913 only horde druid
+tip Druids: Turak Runetotem in the Hall of Elders teaches you Teleport: Moonglade with this. Keep it: Silverpine Forest (13-15) uses the teleport and hands it in in Moonglade.
+map The Barrens
+goto "Ride down from Thunder Bluff, east out of Mulgore and north-east through the Barrens to the Crossroads" at 51.5,30.3 r 20 only horde
+fpath 3615 only horde
+tip Devrak's wind riders can't take you to Orgrimmar yet: ride north along the road through the Southfury gate into Durotar.
+map Orgrimmar
+fpath 3310 only horde
+tip Doras is on the tower in the Valley of Strength, by the gate.
+turnin 95350 only horde
+accept 93739 98024 only horde
+tip Thrall is in Grommash Hold. Keep both: Exploring the Horde has you meet four leaders over the next guides (Cairne in Thunder Bluff, Sylvanas in Undercity) and comes back to Thrall later; Journey to the Crossroads ends at Thork when The Barrens & Stonetalon Mountain (15-21) gets there.
+do 93739.1 93739.2 only horde
+tip Nazgrel stands in Grommash Hold beside Thrall; Vol'jin is with them.
+map Durotar
+note "Take the zeppelin to Tirisfal Glades from the tower outside Orgrimmar's front gate" at 50.8,13.4 only horde

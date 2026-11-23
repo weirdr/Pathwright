@@ -41,7 +41,7 @@
 # Race-only quests: Supplying the Sepulcher and its bat errand (6321-6324) are for the Undead only
 #   (the builder keeps them for Undead characters). The Deathstalkers (1886, 1898, 1899, 1978) are
 #   for Undead rogues, after Mennet Carkad (1885) in the Undead Starter, and Moonglade (94913) for
-#   Windshaper druids: the builder's `only` knows classes, not races, so the tips say who.
+#   Windshaper druids: the builder reads the race masks, so each character sees its own.
 # The auction house: Murloc Eyes (Wild Eyes, 91920) are sold cheaply in Undercity: the guide offers
 #   them at the first Undercity visit. Every other quest item here is bound to the quest.
 #
@@ -59,8 +59,8 @@
 guide Silverpine Forest (13-15)
 faction horde
 levels 13 15
-carry 94913
-leave 1358
+carry 93739 94913 98024
+leave 1358 93739 98024
 next The Barrens & Stonetalon Mountain (15-21)
 
 # Tirisfal Glades and Undercity ---------------------------------------------------------------------
@@ -74,8 +74,10 @@ fpath 4551
 tip Walk into the ruins south of the tower and take an elevator down. Michael Garrett, the bat master, is in the Trade Quarter. Undead already know him.
 ah 91920.1 npc 8672
 tip Three Murloc Eyes are cheap here, and they save the murlocs of Lake Lordamere later on.
+do 93739.4
+tip Windshaper Skyborne: Lady Sylvanas Windrunner is in the Royal Quarter, for Exploring the Horde.
 accept 1886
-tip Undead rogues only, after Mennet Carkad (from Marion Call, the rogue trainer in Brill): Mennet is in the Rogues' Quarter. Orc and Troll rogues: right-click the step to skip the quest.
+tip Undead rogues only, after Mennet Carkad (from Marion Call, the rogue trainer in Brill): Mennet is in the Rogues' Quarter.
 
 # Erland and the Ivar Patch ---------------------------------------------------------------------------
 

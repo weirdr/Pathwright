@@ -27,8 +27,8 @@
 # - Journey to Tarren Mill (1065, Apothecary Zamah in Thunder Bluff), handed in to Apothecary Lydon.
 # - for Undead priests, Dark Sacrifice (5644, Miles Welsh in Thunder Bluff), handed in to
 #   Aelthalyste in Undercity.
-# Race-only class quests: the builder's `only` knows classes, not races, so Shadowguard (Troll
-#   priests) and Dark Sacrifice (Undead priests) show for every priest, with a tip saying who.
+# Race-only class quests: Shadowguard (Troll priests) and Dark Sacrifice (Undead priests) are shown
+#   only to those priests (the builder reads the race masks).
 # The auction house: none of this guide's quest items is sold there, so there is no AH stop.
 #
 # The route: through the Talondeep Path into Ashenvale; Va'xug Firefure's ravine (the bears and
@@ -41,7 +41,7 @@
 guide Ashenvale (21-22)
 faction horde
 levels 21 22
-carry 264 1063 1511 1536 3301 6562
+carry 264 1063 1511 1536 3301 6562 93739
 leave 264 1065 1536 3301 5644
 next Hillsbrad Foothills (22-24)
 
@@ -87,9 +87,9 @@ turnin 1064
 accept 1065
 tip Apothecary Zamah is in the Pools of Vision, the cave under the Spirit Rise. Keep Zamah's Note: Hillsbrad Foothills (22-24) takes it to Tarren Mill.
 accept 5642
-tip Troll priests only (other priests: right-click the step to skip it): Miles Welsh, in the Pools of Vision, sends you to Ur'kyo in Orgrimmar.
+tip Troll priests only: Miles Welsh, in the Pools of Vision, sends you to Ur'kyo in Orgrimmar.
 accept 5644
-tip Undead priests only (other priests: right-click the step to skip it): keep it, Hillsbrad Foothills (22-24) hands it in at Undercity.
+tip Undead priests only: keep it, Hillsbrad Foothills (22-24) hands it in at Undercity.
 fly "Orgrimmar, Durotar" npc 2995 only warrior paladin hunter rogue priest shaman mage druid
 fly "Camp Taurajo, The Barrens" npc 2995 only warlock
 tip Warlocks only: Dogran's quests take you through the Barrens before Orgrimmar.
@@ -151,4 +151,6 @@ tip Back to Shenthul in the Cleft of Shadow. Leave Hinott's Assistance he offers
 
 # The end: the wind rider tower ---------------------------------------------------------------------
 
+turnin 93739
+tip Windshaper Skyborne: back to Thrall in Grommash Hold with Exploring the Horde.
 goto "Go to the wind rider tower in the Valley of Strength, for the next guide" at 45.1,63.9 r 15

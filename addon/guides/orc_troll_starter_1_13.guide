@@ -13,8 +13,8 @@
 #
 # Orcs and Trolls both start in the Valley of Trials in this game: there are no Echo Isles starting
 # quests (the Echo Isles are visited for Sen'jin Village's quests). Each class gets a letter from
-# Gornek: Orcs a Parchment, Trolls a Tablet. The builder's `only` knows classes, not races, so both
-# letters of a class are in the guide and the tips say which race skips which.
+# Gornek: Orcs a Parchment, Trolls a Tablet; each character sees its own (the builder reads the race
+# masks).
 # Race-only quests: Therzok (1859) is for Orc rogues; the priest quests (5648, 5649, 5654) are for
 # Trolls, the only priests here.
 #
@@ -81,7 +81,7 @@ turnin 790
 accept 804
 turnin 788 804
 accept 789
-tip Gornek also has a letter from your class trainer: a Parchment for Orcs, a Tablet for Trolls. The guide lists both: right-click the one Gornek doesn't offer you to skip it.
+tip Gornek also has a letter from your class trainer: a Parchment for Orcs, a Tablet for Trolls: the guide shows you yours.
 accept 2383 3087 3088 3089 3090 98576
 accept 3065 3082 3083 3084 3085 3086 98575
 turnin 97279
@@ -270,7 +270,7 @@ turnin 825
 accept 99048
 accept 1505
 accept 1859
-tip Orc rogues only: Troll rogues, right-click the step to skip it.
+tip Orc rogues only.
 accept 2983
 accept 1506
 accept 5654

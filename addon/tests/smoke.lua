@@ -1608,6 +1608,17 @@ do
     FG.Import:Apply()
     local other = FG.Routes["builtin-other"]
     assert(other and other.race == 1 and other.class == 8 and not FG.Import.Fits(other), "closest variant offered")
+    -- A guide both factions play: the next guide of the variant's faction.
+    FG.Builtin.Register({
+        name = "builtin-both",
+        next = { Horde = "builtin-horde", Alliance = "builtin-alliance" },
+        variants = { { race = 7, class = 8, faction = "Alliance" }, { race = 2, class = 1, faction = "Horde" } },
+        steps = { { k = "note", t = "Hi", lvl = 1 } },
+    })
+    local def = FG.Builtin.defs[#FG.Builtin.defs]
+    assert(FG.Builtin.Expand(def, 1).next == "builtin-alliance", "Alliance next")
+    assert(FG.Builtin.Expand(def, 2).next == "builtin-horde", "Horde next")
+    table.remove(FG.Builtin.defs)
     table.remove(FG.Builtin.defs)
     table.remove(FG.Builtin.defs)
     FG.Routes, FG.Import.info = routes, info

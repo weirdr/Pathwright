@@ -18,7 +18,8 @@ Script lines (one step each, "#" starts a comment, blank lines are ignored):
     races <race id> ...           the races it is for: one variant per race and class
     faction horde|alliance        or every race of a faction (a zone guide)
     levels <from> <to>
-    next <guide name>             the guide that follows (the addon opens it when this one ends)
+    next <guide name>             the guide that follows (the addon opens it when this one ends);
+    next horde|alliance <name>    the one that follows for that faction (a guide both factions play)
     carry <quest> ...             quests taken in the guide before, handed in here
     leave <quest> ...             quests taken here and handed in by the next guide (breadcrumbs)
 
@@ -54,7 +55,8 @@ Options after a step, in any order:
     late            an accept taken on purpose at a later visit to its giver (no warning)
     skill <prof> [n] an accept offered only to characters with that profession (First_Aid for two
                     words) at rank n (1 if left out): skipped, with its other steps, without it
-    only <who>...   alliance, horde and class names (warrior, mage...): who the step is for
+    only <who>...   alliance, horde, class names (warrior, mage...) and race names (orc, undead,
+                    tauren, troll, windshaper...): who the step is for ("only priest troll")
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
 
@@ -91,6 +93,9 @@ one = lambda sql, *a: db.execute(sql, a).fetchone()
 rows = lambda sql, *a: db.execute(sql, a).fetchall()
 
 CLASS_BITS = {1: 1, 2: 2, 3: 4, 4: 8, 5: 16, 7: 64, 8: 128, 9: 256, 11: 1024}
+# Race names for "only" (a race-only step: Shadowguard for Troll priests...).
+RACE_IDS = {"human": 1, "orc": 2, "dwarf": 3, "nightelf": 4, "undead": 5, "tauren": 6, "gnome": 7,
+            "troll": 8, "highorder": 95, "windshaper": 96}
 CLASS_IDS = {"warrior": 1, "paladin": 2, "hunter": 3, "rogue": 4, "priest": 5, "shaman": 7, "mage": 8,
              "warlock": 9, "druid": 11}
 # Skill lines of the professions (the Camping 101 quests are for one each).
@@ -269,10 +274,10 @@ def parse_opts(n, words, quiet=False):
         elif w == "only":
             i += 1
             start = i
-            while i < len(words) and words[i].lower() in ("alliance", "horde", *CLASS_IDS):
+            while i < len(words) and words[i].lower() in ("alliance", "horde", *CLASS_IDS, *RACE_IDS):
                 o["only"].append(words[i].lower()); i += 1
             if i == start:
-                fail(n, "only <faction or class>")
+                fail(n, "only <faction, class or race>")
         elif " " in w and not quiet:
             o["t"] = w; i += 1
         else:
@@ -293,10 +298,13 @@ def opts_ok(words):
 
 
 def who(only_words):
-    """The variant filter of "only" words: factions and classes (a class list is any of them)."""
+    """The variant filter of "only" words: factions, classes and races (a list of one kind is any
+    of them; the kinds combine: "only priest troll" is Troll priests)."""
     factions = {w.capitalize() for w in only_words if w in ("alliance", "horde")}
     classes = {CLASS_IDS[w] for w in only_words if w in CLASS_IDS}
-    return lambda v: (not factions or v["faction"] in factions) and (not classes or v["class"] in classes)
+    races = {RACE_IDS[w] for w in only_words if w in RACE_IDS}
+    return lambda v: ((not factions or v["faction"] in factions) and (not classes or v["class"] in classes)
+                      and (not races or v["race"] in races))
 
 
 def quest(qid, n):
@@ -316,9 +324,15 @@ def quest_who(q):
     """Who a quest is for, from its race and class masks. A class quest is for that class of
     either race (the data gives some Skyborne class quests a faction they do not have)."""
     def ok(v):
-        if q["classes"]:
-            return bool(q["classes"] & CLASS_BITS.get(v["class"], 0))
         mask = q["races"]
+        if q["classes"]:
+            if not q["classes"] & CLASS_BITS.get(v["class"], 0):
+                return False
+            # A race-only class quest (Shadowguard for Troll priests): its classic race mask holds,
+            # unless it names a whole faction. Skyborne characters go by the class alone.
+            if mask and v["race"] < 32 and mask < (1 << 32) and mask & 178 != 178 and mask & 77 != 77:
+                return bool(mask & (1 << (v["race"] - 1)))
+            return True
         if not mask:
             return True
         # The Skyborne races are bits 32 (High Order) and 33 (Windshaper); a classic mask with
@@ -390,7 +404,16 @@ for n, text in lines:
         guide["races"] = sorted(r for r, fa in race_faction.items() if fa == f and r in race_classes)
         continue
     if word == "next":
-        guide["next"] = rest.strip(); continue
+        # "next <guide>", or "next horde <guide>" / "next alliance <guide>" for a guide both
+        # factions play (the Skyborne starter): the addon picks by the character's faction.
+        m = re.match(r"^(horde|alliance)\s+(.+)$", rest.strip())
+        if m:
+            if not isinstance(guide["next"], dict):
+                guide["next"] = {}
+            guide["next"][m.group(1).capitalize()] = m.group(2).strip()
+        else:
+            guide["next"] = rest.strip()
+        continue
     if word == "route":
         route_on = rest.strip().lower() != "off"; continue
     if word in ("carry", "leave"):

@@ -40,8 +40,8 @@
 #   Barrens and ends at their twin in Westfall, an Alliance zone no Horde guide visits.
 # - Regthar Deathgate (1361), Nazgrel's or Belgrom's letter for Regthar: level 32 (it needs level 30),
 #   so it cannot be taken here, and its follow-up needs level 30 too.
-# Race-only quests: the builder's `only` knows classes, not races. The Shattered Hand (1963, 1858) is
-#   for Orc and Troll rogues; Ken'zigla's Draught (1511) for Orc and Undead warlocks. The tips say so.
+# Race-only quests: The Shattered Hand (1963, 1858) is for Orc and Troll rogues (the builder reads the
+#   race masks); Ken'zigla's Draught (1511) is said to be Orc and Undead only: the tip says so.
 # The auction house: none of this guide's quest items is worth buying (the only one sold, the Blood
 #   Shard, drops from every quilboar you kill anyway), so there is no AH stop.
 #
@@ -60,8 +60,8 @@
 guide The Barrens & Stonetalon Mountain (15-21)
 faction horde
 levels 15 21
-carry 1358
-leave 264 1063 1511 1536 3301 6562
+carry 1358 93739 98024
+leave 264 1063 1511 1536 3301 6562 93739
 next Ashenvale (21-22)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ tip Zor Lonetree stands in the Valley of Wisdom, in the west of the city.
 accept 809
 tip Neeru Fireblade is in his tent in the Cleft of Shadow. He offers it to those who brought him Margoz's message in Durotar: if he doesn't, the step skips itself.
 accept 1963
-tip Rogues only, and only Orc and Troll rogues: Therzok is in a tent in the Cleft of Shadow. Undead rogues: right-click the step to skip the quest.
+tip Rogues only, and only Orc and Troll rogues: Therzok is in a tent in the Cleft of Shadow.
 
 # Razor Hill and Far Watch ------------------------------------------------------------------------------
 
@@ -102,6 +102,8 @@ accept 6365
 tip Orc and Troll only. Zargh's meats go to Devrak, a few steps away; his next errand is done at your next visit to Orgrimmar.
 accept 848
 turnin 1358
+turnin 98024
+tip Windshaper Skyborne: Thork stands on the Crossroads' central rise.
 accept 1492
 tip Keep the Secure Crate for Ratchet.
 accept 4921 899
@@ -523,6 +525,8 @@ turnin 1489
 accept 1490
 tip Arch Druid Hamuul Runetotem is in the Hall of Elders on the Elder Rise, Nara Wildmane nearby. Leave Leaders of the Fang, which Nara offers next: it is done inside Wailing Caverns, a dungeon.
 turnin 1490
+do 93739.3
+tip Windshaper Skyborne: Cairne Bloodhoof is in the Great Hall on the central rise, for Exploring the Horde.
 train 246344 3033
 fly "Camp Taurajo" npc 2995
 

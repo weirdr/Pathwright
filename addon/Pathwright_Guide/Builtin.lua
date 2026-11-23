@@ -2,7 +2,7 @@
 -- app computes and those imported. Each file calls `Pathwright.Builtin.Register(def)`:
 --
 --   def = { name, origin, fromLevel, toLevel, locale, version, format, created, next (the guide
---           that follows: opened when this one ends),
+--           that follows: opened when this one ends; or { Horde = name, Alliance = name }),
 --           variants = { { race, class, faction }, ... },
 --           steps = { step, ... } }   -- a step with `only = { variant index, ... }` is for those only
 --
@@ -58,7 +58,8 @@ function Builtin.Expand(def, index)
         version = def.version,
         format = def.format,
         origin = def.origin,
-        next = def.next,
+        -- A guide both factions play names one next guide per faction.
+        next = type(def.next) == "table" and def.next[v.faction] or def.next,
         builtin = true,
     }
 end
