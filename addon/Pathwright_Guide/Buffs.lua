@@ -11,7 +11,7 @@ local WARN_EVERY = 600
 local warned = {}
 
 --- Whether the player has aura `spellId`: nil when the game does not tell (secret values).
-local function Has(spellId)
+function FG.HasPlayerAura(spellId)
     if not (C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) then return nil end
     local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellId)
     if not ok or (issecretvalue and issecretvalue(aura)) then return nil end
@@ -35,7 +35,7 @@ function FG:CheckBuffs()
         if
             available
             and spellId
-            and Has(spellId) == false
+            and FG.HasPlayerAura(spellId) == false
             and (not warned[key] or GetTime() - warned[key] > WARN_EVERY)
         then
             warned[key] = GetTime()

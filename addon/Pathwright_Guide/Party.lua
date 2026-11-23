@@ -94,6 +94,7 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     if message == "?" then return SendSoon() end
     if message == "R" then
         Party.progress[name] = {}
+        if FG.Nameplates then FG.Nameplates:Refresh() end
         return
     end
     local mine = Party.progress[name] or {}
@@ -106,6 +107,7 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
         mine[tonumber(id)] = list
     end
     if FG.Tracker then FG.Tracker:Refresh() end
+    if FG.Nameplates then FG.Nameplates:Refresh() end
     if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
 end)
 

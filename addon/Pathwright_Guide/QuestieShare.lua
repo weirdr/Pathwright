@@ -477,6 +477,7 @@ function QuestieShare:Store(message, sender)
             at = at + 2 + n * 4
         end
     end
+    if FG.Nameplates then FG.Nameplates:Refresh() end
     if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
 end
 

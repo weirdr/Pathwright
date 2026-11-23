@@ -1961,7 +1961,12 @@ do
         if frames[i]:GetName() == "PathwrightTrash" then trash = trash or frames[i] end
     end
     assert(trash and trash.OnClick, "the trash can")
+    local savedCurrency = C_CurrencyInfo
+    C_CurrencyInfo = { GetCoinTextureString = function(value) return "coins(" .. value .. ")" end }
     trash.OnEnter(trash)
+    C_CurrencyInfo = savedCurrency
+    assert(GameTooltip.lines[2]:find("coins(5)", 1, true), "first stack uses the native coin formatter")
+    assert(GameTooltip.lines[#GameTooltip.lines]:find("coins(15)", 1, true), "other stacks show their total value")
     assert(GameTooltip.lines[1] == "Maj+clic pour détruire :", "its tooltip: " .. tostring(GameTooltip.lines[1]))
     trash.OnClick(trash, "LeftButton")
     assert(#deleted == 0, "a plain click destroys nothing")
@@ -1989,7 +1994,7 @@ do
         tapped = UnitIsTapDenied,
     }
     Enum = Enum or {}
-    Enum.TooltipDataLineType = { QuestObjective = 8, QuestTitle = 17 }
+    Enum.TooltipDataLineType = { QuestObjective = 8, QuestTitle = 17, QuestPlayer = 18 }
     local plates, lines, names, tapped = {}, {}, {}, {}
     C_NamePlate = {
         GetNamePlateForUnit = function(unit) return plates[unit] end,
@@ -2049,6 +2054,44 @@ do
     lines.nameplate2 = { Title(5001), Objective("Candle: 1/8", false, 1, 8) }
     np:Update("nameplate2")
     assert(np.marks.nameplate2.progress.kind == "loot", "a money bag on a mob that drops a quest item")
+    local group, members, inParty = IsInGroup, GetNumSubgroupMembers, UnitInParty
+    IsInGroup = function() return true end
+    GetNumSubgroupMembers = function() return 1 end
+    names.party1 = "Pata"
+    UnitInParty = function(name) return name == "Pata" end
+    local friend = { type = 18, leftText = "Pata" }
+    local friendLoot = Objective("Candle: 6/8", false, 6, 8)
+    lines.nameplate2 = { Title(5001), friend, friendLoot }
+    np:Update("nameplate2")
+    local lootMark = np.marks.nameplate2
+    assert(lootMark.count.text == "1/8" and lootMark.owner.text == "", "own drop count wins over a party line")
+    objectives[5001][2].finished = true
+    np:Refresh()
+    runTimers()
+    assert(lootMark.count.text == "6/8" and lootMark.owner.text == "Pata" and lootMark.progress.kind == "loot")
+    lines.nameplate2 = {}
+    FG.Party:Store("Pata", 5001, { "x", "5" })
+    np:Update("nameplate2")
+    assert(lootMark.count.text == "5/8" and lootMark.owner.text == "Pata", "synced count for a known drop")
+    FG.Party:Forget("Pata", 5001)
+    np:Update("nameplate2")
+    assert(lootMark.progress.done and lootMark.owner.text == "", "finished check clears the name")
+    lines.nameplate2 = { Title(5002), friend, Objective("Tunneler slain: 4/10", false, 4, 10) }
+    np:Update("nameplate2")
+    assert(lootMark.count.text == "4/10" and lootMark.owner.text == "Pata", "party-only quest with an identified owner")
+    lines.nameplate2 = {
+        Title(5002),
+        friend,
+        Objective("Tunneler slain: 4/10", false, 4, 10),
+        Title(5001),
+        Objective("Candle: 1/8", false, 1, 8),
+    }
+    objectives[5001][2].finished = false
+    np:Refresh()
+    runTimers()
+    assert(lootMark.count.text == "1/8" and lootMark.owner.text == "", "later personal objective takes priority")
+    lines.nameplate2 = { Title(5001), Objective("Candle: 1/8", false, 1, 8) }
+    IsInGroup, GetNumSubgroupMembers, UnitInParty = group, members, inParty
     -- Tagged by another player: dimmed.
     tapped.nameplate2 = true
     np:Update("nameplate2")
@@ -4380,6 +4423,59 @@ do
     MapCanvasPinMixin = nil
     PWStepPinMixin.CheckMouseButtonPassthrough({}, "RightButton")
     assert(passthrough == 2, "Classic Era and TBC: nothing to do")
+end
+
+-- The rested reminder on Forever uses the player's XP pool and Boosted Rested together.
+do
+    local savedXP, savedAuras, savedSecret = GetXPExhaustion, C_UnitAuras, issecretvalue
+    local xp, debuff = 200, nil
+    GetXPExhaustion = function() return xp end
+    C_UnitAuras = {
+        GetPlayerAuraBySpellID = function(id)
+            if id == 1229451 then return debuff end
+        end,
+    }
+    local icon = named("PathwrightRestedXP")
+    local bar = named("PathwrightToolstrip")
+    local setWidth, width = bar.SetWidth, nil
+    bar.SetWidth = function(self, w)
+        width = w
+        setWidth(self, w)
+    end
+    FG.Toolstrip:Refresh()
+    local compactWidth = assert(width)
+    local function check(event, lit, unit)
+        fire(event, unit)
+        assert(icon:IsShown() == lit, "rested XP visibility on " .. event)
+    end
+    check("PLAYER_ENTERING_WORLD", false)
+    xp = nil
+    check("UPDATE_EXHAUSTION", true)
+    assert(width == compactWidth + 20, "a 16px reminder and one gap")
+    debuff = { spellId = 1229451 }
+    check("UNIT_AURA", true, "party1")
+    local combat = InCombatLockdown
+    InCombatLockdown = function() return true end
+    check("UNIT_AURA", false, "player")
+    assert(width > compactWidth and FG.Toolstrip.pending, "hide immediately and defer secure layout")
+    InCombatLockdown = combat
+    check("PLAYER_REGEN_ENABLED", false)
+    assert(width == compactWidth, "the inactive reminder leaves no gap")
+    xp = 100
+    check("PLAYER_XP_UPDATE", false, "player")
+    debuff = nil
+    check("UNIT_AURA", false, "player")
+    xp = 0
+    check("PLAYER_XP_UPDATE", true, "player")
+    local secret = {}
+    issecretvalue = function(v) return v == secret end
+    debuff = secret
+    check("UNIT_AURA", false, "player")
+    debuff, xp = nil, secret
+    check("UPDATE_EXHAUSTION", false)
+    GetXPExhaustion, C_UnitAuras, issecretvalue = savedXP, savedAuras, savedSecret
+    bar.SetWidth = setWidth
+    print("rested XP indicator ok")
 end
 
 -- XP buffs the guide counts on (WoW Forever): a warning when one is missing, not in combat, not

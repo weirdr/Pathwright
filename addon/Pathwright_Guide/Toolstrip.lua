@@ -17,6 +17,7 @@ local Skin = FG.Skin
 local BOUND = 5
 local MAX = 10
 local SIZE = 24
+local RESTED_SIZE = 16
 local BUTTON_HEIGHT = SIZE + 12
 local MAX_LABEL_WIDTH = 62
 local GAP = 4
@@ -27,6 +28,7 @@ local SEPARATOR = 2
 local MEDIA = "Interface\\AddOns\\Pathwright_Guide\\Media\\"
 local ICONS = { kill = MEDIA .. "Kill", talk = MEDIA .. "Talk" }
 local TRASH_ICON = MEDIA .. "Trash"
+local BOOSTED_RESTED = 1229451
 local DEFAULT_POINT = { "BOTTOM", "UIParent", "BOTTOM", 0, 170 }
 --- Bags searched for grey items: the backpack and the four bags.
 local BAGS = 4
@@ -34,7 +36,7 @@ local BAGS = 4
 local Toolstrip = { actions = {}, steps = {}, signature = nil, pending = false, item = nil }
 FG.Toolstrip = Toolstrip
 
-local strip, trash, separator
+local strip, trash, rested, separator
 
 --- A button's action, nil when it has none.
 local function ActionOf(b)
@@ -332,7 +334,8 @@ end
 
 local function Money(copper)
     if copper <= 0 then return T("no value") end
-    return GetCoinTextureString and GetCoinTextureString(copper) or tostring(copper)
+    local formatCoins = C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString or GetCoinTextureString
+    return formatCoins and formatCoins(copper) or tostring(copper)
 end
 
 --- Destroy the cheapest grey item (the trash can's Shift-click). Checks the slot still holds it.
@@ -453,6 +456,27 @@ local function SetCaption(b, text)
     return width
 end
 
+local function RestedAvailable()
+    if not GetXPExhaustion then return false end
+    -- An empty rested pool is normally nil. A secret value is unknown.
+    local xp = GetXPExhaustion()
+    return not (issecretvalue and issecretvalue(xp))
+        and (xp == nil or xp == 0)
+        and FG.HasPlayerAura(BOOSTED_RESTED) == false
+end
+
+local function RefreshRested()
+    if not rested then return end
+    local available = RestedAvailable()
+    if available == rested:IsShown() then return end
+    rested:SetShown(available)
+    if InCombatLockdown() then
+        Toolstrip.pending = true
+    else
+        Toolstrip:Refresh()
+    end
+end
+
 --- Prefer the last distinctive word: Highland Strider / Highland Thrasher become Strider / Thrasher.
 local function ShortNames(actions)
     local counts, labels = {}, {}
@@ -539,6 +563,23 @@ local function Create()
         trash:SetScript("OnEnter", TrashTooltip)
         trash:SetScript("OnLeave", function() GameTooltip:Hide() end)
     end
+    if FG.Edition == "forever" and not rested then
+        rested = CreateFrame("Frame", "PathwrightRestedXP", strip)
+        rested:SetSize(RESTED_SIZE, RESTED_SIZE)
+        rested.icon = rested:CreateTexture(nil, "ARTWORK")
+        rested.icon:SetAllPoints()
+        local icon = C_Spell and C_Spell.GetSpellTexture and C_Spell.GetSpellTexture(BOOSTED_RESTED)
+        rested.icon:SetTexture(icon or "Interface\\Icons\\Spell_Nature_Sleep")
+        rested.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+        rested.glow = rested:CreateTexture(nil, "OVERLAY")
+        rested.glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+        rested.glow:SetBlendMode("ADD")
+        rested.glow:SetVertexColor(1, 0.8, 0.2)
+        rested.glow:SetPoint("CENTER", rested.icon)
+        rested.glow:SetSize(RESTED_SIZE * 1.65, RESTED_SIZE * 1.65)
+        rested:EnableMouse(true)
+        FG.Options.Tooltip(rested, T("Rested XP"), T("You have no rested XP and no Boosted Rested debuff."))
+    end
     return strip
 end
 
@@ -604,9 +645,11 @@ end
 --- Lay the strip out for `actions` (out of combat).
 local function Apply(actions, host, gap)
     if not Create() or not trash then return end
+    local withRested = rested ~= nil and RestedAvailable()
+    if rested then rested:SetShown(withRested) end
     local wanted = FG:Get("toolstrip")
         and (FG:Get("toolstripUnlocked") or FG:Get("guideShown"))
-        and (actions[1] ~= nil or FG:Get("toolstripTrash"))
+        and (actions[1] ~= nil or FG:Get("toolstripTrash") or withRested)
     if not wanted then
         -- The buttons emptied too: their keys still click them when the strip is hidden.
         for _, b in ipairs(buttons) do
@@ -618,7 +661,7 @@ local function Apply(actions, host, gap)
         strip:Hide()
         return
     end
-    -- The trash can first, a separator, then the buttons of the steps.
+    -- Junk first, then the bound step buttons.
     local x = GRIP + GAP
     local withTrash = FG:Get("toolstripTrash") and true or false
     trash:SetShown(withTrash)
@@ -649,6 +692,12 @@ local function Apply(actions, host, gap)
         buttons[i]:SetAttribute("type", nil)
         buttons[i]:SetAttribute("macrotext", nil)
         buttons[i]:Hide()
+    end
+    -- The reminder can appear in combat without moving or overlapping a secure action button.
+    if rested then
+        rested:ClearAllPoints()
+        rested:SetPoint("LEFT", strip, "LEFT", x, 0)
+        if withRested then x = x + RESTED_SIZE + GAP end
     end
     strip:SetWidth(x)
     strip:SetHeight(BUTTON_HEIGHT + 2 * GAP)
@@ -778,6 +827,14 @@ FG:On("PLAYER_REGEN_ENABLED", function()
     Toolstrip:Aim()
 end)
 FG:On("BAG_UPDATE_COOLDOWN", function() Toolstrip:Cooldowns() end)
+if FG.Edition == "forever" then
+    for _, event in ipairs({ "PLAYER_ENTERING_WORLD", "UPDATE_EXHAUSTION", "PLAYER_XP_UPDATE", "PLAYER_REGEN_ENABLED" }) do
+        FG:On(event, RefreshRested)
+    end
+    FG:On("UNIT_AURA", function(unit)
+        if unit == "player" then RefreshRested() end
+    end)
+end
 FG:On("BAG_UPDATE_DELAYED", function()
     Toolstrip:RefreshTrash()
     if trash and GameTooltip:IsOwned(trash) then TrashTooltip(trash) end
