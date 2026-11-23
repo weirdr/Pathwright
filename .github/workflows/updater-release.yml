@@ -1,15 +1,19 @@
 name: Updater release
 
-# The Pathwright Updater (crates/pathwright-updater): when its version changes on main, or run by
-# hand, the macOS app (universal: Apple silicon and Intel) and the Windows exe are built on
-# GitHub's runners and published as a release tagged updater-vX.Y.Z. It starts as a draft that
-# each build adds its file to, and is published once both are there; it is never marked Latest
-# (the addon's releases stay first, and the updater itself only looks at addon-… tags). A version
-# already released is not built again: bump it in its Cargo.toml.
+# The Pathwright Updater (crates/pathwright-updater), built on GitHub's runners after each push to
+# main that changes it (or run by hand) and published to one release that always holds the
+# newest build: tag `updater`, titled "Pathwright Updater", never marked Latest (the addon's
+# releases stay first; the updater itself only looks at addon-… tags). Its files keep their
+# names, so the README links to them for good:
+#   PathwrightUpdater-Windows.exe
+#   PathwrightUpdater-macOS-AppleSilicon.zip   (M1 and later)
+#   PathwrightUpdater-macOS-Intel.zip
 on:
   push:
     branches: [main]
-    paths: ["crates/pathwright-updater/**"]
+    paths:
+      - "crates/pathwright-updater/**"
+      - ".github/workflows/updater-release.yml"
   workflow_dispatch:
 
 permissions: {}
@@ -19,74 +23,77 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  version:
-    name: Version
+  release:
+    name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    outputs:
-      tag: ${{ steps.version.outputs.tag }}
-      build: ${{ steps.version.outputs.build }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: New version?
-        id: version
+      - name: The release, at this commit
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           version=$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/pathwright-updater/Cargo.toml | head -n 1)
-          tag="updater-v$version"
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
-          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
-            echo "$tag is released already: bump the version to release again."
-            echo "build=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "build=true" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Draft release
-        if: steps.version.outputs.build == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG: ${{ steps.version.outputs.tag }}
-        run: |
           {
-            echo "Pathwright Updater: keeps the Pathwright addon up to date from this repository's releases, from the system tray."
+            echo "Pathwright Updater $version, built from main at ${GITHUB_SHA::7}: keeps the Pathwright addon up to date from this repository's releases, from the system tray (menu bar on macOS)."
             echo
-            echo "- **Windows:** download PathwrightUpdater-Windows.exe and run it (SmartScreen may warn about an unsigned app: More info, Run anyway)."
-            echo "- **macOS:** download PathwrightUpdater-macOS.zip, unzip it, move Pathwright Updater to Applications, then right-click it and choose Open the first time (it is not notarized)."
+            echo "| System | Download |"
+            echo "|---|---|"
+            echo "| Windows | PathwrightUpdater-Windows.exe |"
+            echo "| macOS, Apple Silicon (M1 and later) | PathwrightUpdater-macOS-AppleSilicon.zip |"
+            echo "| macOS, Intel | PathwrightUpdater-macOS-Intel.zip |"
+            echo
+            echo "- **Windows:** run the .exe. SmartScreen may warn about an unsigned app: More info, Run anyway."
+            echo "- **macOS:** unzip, move Pathwright Updater to Applications, then right-click it and choose Open the first time (it is not notarized)."
             echo
             echo "It finds World of Warcraft by itself (or use its menu's Choose WoW folder…), checks for a new addon release every 15 minutes and installs it; the game uses it at the next /reload. It starts at login (a choice in its menu)."
           } > notes.md
-          gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft --latest=false \
-            --target "$GITHUB_SHA" --title "Pathwright Updater ${TAG#updater-}" --notes-file notes.md
+          if gh release view updater --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            # The tag moves to this commit; the files are replaced by the builds below.
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/updater" -f sha="$GITHUB_SHA" -F force=true > /dev/null
+            gh release edit updater --repo "$GITHUB_REPOSITORY" --title "Pathwright Updater" \
+              --notes-file notes.md --latest=false
+          else
+            gh release create updater --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+              --title "Pathwright Updater" --notes-file notes.md --latest=false
+          fi
 
   macos:
-    name: macOS app
-    needs: version
-    if: needs.version.outputs.build == 'true'
+    name: macOS (${{ matrix.name }})
+    needs: release
     runs-on: macos-latest
     permissions:
       contents: write
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            name: AppleSilicon
+          - target: x86_64-apple-darwin
+            name: Intel
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Build (Apple silicon and Intel)
+      - name: Build
+        env:
+          TARGET: ${{ matrix.target }}
         run: |
           rustup toolchain install
-          rustup target add aarch64-apple-darwin x86_64-apple-darwin
-          cargo build --release --locked -p pathwright-updater --target aarch64-apple-darwin
-          cargo build --release --locked -p pathwright-updater --target x86_64-apple-darwin
+          rustup target add "$TARGET"
+          cargo build --release --locked -p pathwright-updater --target "$TARGET"
       - name: App bundle
+        env:
+          TARGET: ${{ matrix.target }}
+          NAME: ${{ matrix.name }}
         run: |
           version=$(sed -n 's/^version = "\(.*\)"$/\1/p' crates/pathwright-updater/Cargo.toml | head -n 1)
           app="Pathwright Updater.app"
           mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
-          lipo -create -output "$app/Contents/MacOS/pathwright-updater" \
-            target/aarch64-apple-darwin/release/pathwright-updater \
-            target/x86_64-apple-darwin/release/pathwright-updater
+          cp "target/$TARGET/release/pathwright-updater" "$app/Contents/MacOS/pathwright-updater"
           cp app/src-tauri/icons/icon.icns "$app/Contents/Resources/AppIcon.icns"
           cat > "$app/Contents/Info.plist" <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
@@ -106,19 +113,18 @@ jobs:
           </dict>
           </plist>
           EOF
-          sed -i '' 's/^          //' "$app/Contents/Info.plist"
+          plutil -lint "$app/Contents/Info.plist"
           codesign --force --deep --sign - "$app"
-          ditto -c -k --keepParent "$app" PathwrightUpdater-macOS.zip
+          ditto -c -k --keepParent "$app" "PathwrightUpdater-macOS-$NAME.zip"
       - name: Add to the release
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ needs.version.outputs.tag }}
-        run: gh release upload "$TAG" PathwrightUpdater-macOS.zip --repo "$GITHUB_REPOSITORY" --clobber
+          NAME: ${{ matrix.name }}
+        run: gh release upload updater "PathwrightUpdater-macOS-$NAME.zip" --repo "$GITHUB_REPOSITORY" --clobber
 
   windows:
-    name: Windows exe
-    needs: version
-    if: needs.version.outputs.build == 'true'
+    name: Windows
+    needs: release
     runs-on: windows-latest
     permissions:
       contents: write
@@ -136,18 +142,4 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ needs.version.outputs.tag }}
-        run: gh release upload "$TAG" PathwrightUpdater-Windows.exe --repo "$GITHUB_REPOSITORY" --clobber
-
-  publish:
-    name: Publish
-    needs: [version, macos, windows]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Publish the release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG: ${{ needs.version.outputs.tag }}
-        run: gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
+        run: gh release upload updater PathwrightUpdater-Windows.exe --repo "$GITHUB_REPOSITORY" --clobber

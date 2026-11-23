@@ -23,7 +23,9 @@ Its settings are in `settings.json` under the system's config folder, `Pathwrigh
     cargo build --release -p pathwright-updater
     cargo test -p pathwright-updater -- --include-ignored   # the last test downloads the latest release
 
-Releases are built by `.github/workflows/updater-release.yml` when the version in `Cargo.toml`
-changes on main: a universal macOS app (zipped) and a Windows exe, under the tag
-`updater-vX.Y.Z`. Neither is signed by a developer account: Windows SmartScreen and macOS
-Gatekeeper warn the first time (Windows: More info, Run anyway; macOS: right-click, Open).
+`.github/workflows/updater-release.yml` builds it after each push to main that changes it and
+publishes the builds to one release that always holds the newest (tag `updater`):
+`PathwrightUpdater-Windows.exe`, `PathwrightUpdater-macOS-AppleSilicon.zip` and
+`PathwrightUpdater-macOS-Intel.zip`. The repository's README links to them. Neither is signed by
+a developer account: Windows SmartScreen and macOS Gatekeeper warn the first time (Windows: More
+info, Run anyway; macOS: right-click, Open).

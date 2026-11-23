@@ -1,3 +1,33 @@
+# Pathwright
+
+## Downloads
+
+**Pathwright Updater** keeps the Pathwright addon up to date for you. It runs in the system tray
+(the menu bar on a Mac), finds World of Warcraft by itself, checks for a new addon release every
+15 minutes and installs it; the game uses it at your next `/reload`. It starts when you log in.
+
+| System | Download |
+|---|---|
+| Windows | [PathwrightUpdater-Windows.exe](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-Windows.exe) |
+| macOS, Apple Silicon (M1 and later) | [PathwrightUpdater-macOS-AppleSilicon.zip](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-macOS-AppleSilicon.zip) |
+| macOS, Intel | [PathwrightUpdater-macOS-Intel.zip](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-macOS-Intel.zip) |
+
+Not sure which Mac you have? Apple menu > **About This Mac**: "Chip: Apple M…" is Apple Silicon,
+"Processor: … Intel" is Intel.
+
+The first time you open it:
+
+- **Windows:** if SmartScreen warns about an unrecognized app, click **More info**, then **Run anyway**.
+- **macOS:** unzip it, move **Pathwright Updater** to Applications, then right-click it and choose
+  **Open** (it is not notarized by Apple).
+
+To install the addon by hand instead, download
+[Pathwright-addon.zip](https://github.com/weirdr/Pathwright/releases/latest/download/Pathwright-addon.zip)
+and unzip it into `World of Warcraft/_forever_/Interface/AddOns`. All releases are on the
+[releases page](https://github.com/weirdr/Pathwright/releases).
+
+---
+
 # Factoruide
 
 **A leveling guide built for you**: your character, your professions, your zones, your dungeons
