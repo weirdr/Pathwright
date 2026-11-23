@@ -38,9 +38,12 @@ end
 
 -- Frames know their name, parent and whether they are shown (a hidden parent hides its children);
 -- in fields of their own, the addon sets its own fields on its frames (`strip.name`...).
-CreateFrame = function(kind, name, parent)
+CreateFrame = function(kind, name, parent, template)
     local f = stub()
     f._name, f._parent, f._shown, f._button = name, parent, true, kind == "Button"
+    function f:SetBackdrop()
+        assert(template and template:find("BackdropTemplate", 1, true), (name or kind) .. " needs BackdropTemplate")
+    end
     function f:SetShown(value)
         assert(type(value) == "boolean", "SetShown(" .. tostring(value) .. ")")
         self._shown = value
@@ -3928,6 +3931,14 @@ end
 local function drag(handle)
     handle.OnDragStart(handle, "LeftButton")
     handle.OnDragStop(handle)
+end
+do
+    FG.Stats:ToggleBoard()
+    local board = FG.Stats.board
+    local motion = watchMoves(board)
+    drag(board)
+    assert(motion.moves == 1 and motion.stops == 1, "the leaderboard can be dropped without a position callback")
+    board:Hide()
 end
 local realDragTime = GetTime
 local dragNow = 100

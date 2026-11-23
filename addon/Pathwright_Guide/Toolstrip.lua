@@ -434,7 +434,7 @@ end
 
 local function Create()
     if strip or not CreateFrame then return strip end
-    strip = CreateFrame("Frame", "PathwrightToolstrip", FG.UIRoot)
+    strip = CreateFrame("Frame", "PathwrightToolstrip", FG.UIRoot, "BackdropTemplate")
     strip:SetSize(GRIP + SIZE + 2 * GAP, SIZE + 2 * GAP)
     strip:SetClampedToScreen(true)
     FG:Draggable(strip, function(self)
