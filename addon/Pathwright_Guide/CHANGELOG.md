@@ -6,6 +6,8 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The guide pickers group routes into Imported, Default and RestedXP. Each section remembers its name search, level range and character filter while you browse.
+
 - The toolstrip docks above the guide. Enable “Unlock the toolstrip” to drag it by its left edge.
 - Smaller toolstrip icons show short names underneath to distinguish targets at a glance.
 

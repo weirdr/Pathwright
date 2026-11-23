@@ -2,6 +2,8 @@
 ## Title: Pathwright - RXPGuides Forever
 ## Notes: Converted Forever routes for Pathwright Guide.
 ## Dependencies: Pathwright_Guide
+## Group: Pathwright_Profile
+## IconTexture: Interface\AddOns\Pathwright_Profile\Media\Logo
 
 Register.lua
 001_01_Hall_of_Thanes.lua

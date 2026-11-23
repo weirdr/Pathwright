@@ -1453,9 +1453,9 @@ do
     -- The guide browser: the guides by source, one picked and opened.
     FG.GuideBrowser:Toggle()
     assert(FG.GuideBrowser:IsShown(), "the browser opens")
-    FG.GuideBrowser.source = "all"
     FG.GuideBrowser.picked = "builtin-test"
     FG.GuideBrowser:Fill()
+    assert(FG.GuideBrowser.picked == "builtin-test", "the current guide's section opens first")
     FG.GuideBrowser:Toggle()
     assert(not FG.GuideBrowser:IsShown(), "and closes")
     fire("QUEST_LOG_UPDATE")
@@ -5756,3 +5756,80 @@ local function SettingsTest()
     print("settings ok")
 end
 SettingsTest()
+
+local function GuideSelectionTest()
+    local list = FG.Import.List
+    local guides = {}
+    local function add(name, source, first, last, fits, origin)
+        guides[#guides + 1] = {
+            name = name,
+            source = source,
+            fits = fits,
+            route = { fromLevel = first, toLevel = last, origin = origin, steps = {} },
+        }
+    end
+    add("RestedXP personal copy", "import", 10, 60, true)
+    add("Desktop", "app", 1, 60, true)
+    add("Arathi", "builtin", 38, 39, true)
+    add("Unknown levels", "builtin", nil, nil, true)
+    add("Short route", "builtin", 38, 38, true)
+    add("Another route", "builtin", 38, 39, true)
+    for i = 12, 1, -1 do
+        add("Pack / Route " .. i, "builtin", i + 29, i + 31, i % 2 == 0, "RXPGuides / Pack")
+    end
+    FG.Import.List = function() return guides end
+    local function switch(bar, text)
+        local prefix = text .. " ("
+        for _, b in ipairs(frames) do
+            if b:GetParent() == bar and type(b:GetText()) == "string" and b:GetText():sub(1, #prefix) == prefix then
+                b.OnClick(b)
+                return
+            end
+        end
+        error("missing section " .. text)
+    end
+    local function typeIn(box, text)
+        box:SetText(text)
+        box.OnTextChanged(box, true)
+    end
+    FG.Options:Refresh()
+    FG.GuideBrowser:Toggle()
+    for _, name in ipairs({ "PathwrightSettingsGuideFilters", "PathwrightBrowserGuideFilters" }) do
+        local bar = named(name)
+        switch(bar, "RestedXP")
+        assert(#bar:Results() == 12 and FG.Options.GuideTitle(bar:Results()[1]) == "Route 1")
+        if name == "PathwrightSettingsGuideFilters" then
+            local block, rows = bar:GetParent(), FG.Options:GuideRows()
+            local height
+            block.SetHeight = function(_, h) height = h end
+            block:Refresh(244)
+            assert(rows[3]:IsShown() and not rows[4]:IsShown() and height <= 244, "three rows and pager fit")
+            block:Refresh(450)
+            assert(rows[8]:IsShown() and height <= 450, "larger panel fits eight rows and pager")
+            block.SetHeight = nil
+        end
+        typeIn(bar.level, "38")
+        assert(#bar:Results() == 3, "both boundaries of a guide's levels included")
+        typeIn(bar.level, "37-39")
+        assert(#bar:Results() == 5, "guides overlapping the requested range")
+        bar.mine.GetChecked = function() return true end
+        bar.mine.OnClick(bar.mine)
+        assert(#bar:Results() == 3)
+        typeIn(bar.search, "rOuTe 8")
+        assert(#bar:Results() == 1 and bar:Results()[1].name == "Pack / Route 8")
+        switch(bar, FG.T("Imported"))
+        assert(#bar:Results() == 2 and bar.level:GetText() == "", "imported and desktop guides share a section")
+        switch(bar, FG.T("Default"))
+        local defaults = bar:Results()
+        assert(#defaults == 4 and defaults[1].name == "Short route" and defaults[2].name == "Another route")
+        assert(defaults[3].name == "Arathi" and defaults[4].name == "Unknown levels")
+        typeIn(bar.level, "60")
+        assert(#bar:Results() == 0)
+        switch(bar, "RestedXP")
+        assert(bar.level:GetText() == "37-39" and #bar:Results() == 1, "section filters restored")
+    end
+    FG.GuideBrowser:Toggle()
+    FG.Import.List = list
+    print("guide sections and filters ok")
+end
+GuideSelectionTest()

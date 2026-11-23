@@ -1,33 +1,13 @@
--- The guide browser, as Zygor has one: a window to look through the guides there are and open one
--- in a tab. Opened by the tabs' "+" (Tabs.lua) or `/pw guides`.
---
---   left    the sources: suggested for the character, built into the addon, imported, from the
---           app, all of them; with how many each holds
---   middle  their guides, by level (a badge framed and written in the color of how the levels
---           compare with the character's: grey done, green easy, yellow right, orange hard, red
---           too hard), searched
---           by name; the guides open in a tab marked
---   right   the guide picked: who it is for, its levels, steps and quests, the guide after it,
---           where the character is in it; "Open" (in a tab, followed), "Close the tab"
---
--- A guide is suggested when it is made for the character (Import.Fits) and its levels are about
--- the character's, or it follows the guide being followed.
+-- Pick a guide from the same sections and filters as the settings page, then open it in a tab.
 
 local FG = Pathwright
 local T = FG.T
 local Skin = FG.Skin
-local Browser = { source = "suggested", offset = 0 }
+local Browser = { offset = 0 }
 FG.GuideBrowser = Browser
 
 local L = {
     title = T("Guides"),
-    search = T("Search"),
-    suggested = T("Suggested for you"),
-    builtin = T("Guides"),
-    imported = T("Imported"),
-    app = T("From the app"),
-    all = T("All guides"),
-    mine = T("Only guides for this character"),
     open = T("Open"),
     switch = T("Follow it"),
     closeTab = T("Close the tab"),
@@ -43,23 +23,15 @@ local L = {
     lNext = T("Next guide"),
     lSource = T("Source"),
     notStarted = T("Not started"),
-    none = T("No guide here"),
+    none = T("No matching guides"),
     pick = T("Pick a guide in the list"),
     shown = T("%d-%d of %d"),
 }
 
-local WIDTH, HEIGHT = 700, 450
-local LEFT_W, LIST_W = 160, 290
+local WIDTH, HEIGHT = 700, 492
+local LIST_W = 385
 local ROW_H, ROWS = 34, 10
 local DETAIL_ROWS = 6
-local SOURCES = {
-    { key = "suggested", label = L.suggested },
-    { key = "builtin", label = L.builtin },
-    { key = "import", label = L.imported },
-    { key = "app", label = L.app },
-    { key = "all", label = L.all },
-}
-
 local frame
 
 local function Color(name)
@@ -93,54 +65,6 @@ local function QuestCount(r)
         end
     end
     return n
-end
-
---- Whether a guide is suggested to the character.
-local function Suggested(g)
-    local r = g.route
-    local current = FG.Guide:RouteName()
-    local currentRoute = current and FG.Routes[current]
-    if currentRoute and currentRoute.next == g.name then return true end
-    if not g.fits then return false end
-    local level = tonumber(FG.Readable(UnitLevel("player"))) or 1
-    return (r.fromLevel or 1) - 2 <= level and level <= (r.toLevel or 60) + 1
-end
-
---- The guides of a source (and the search), by level then name.
-local function Guides(source, search, mineOnly)
-    local out = {}
-    search = search and search ~= "" and search:lower() or nil
-    for _, g in ipairs(FG.Import:List()) do
-        local keep = source == "all" or g.source == source or (source == "suggested" and Suggested(g))
-        if keep and mineOnly and source ~= "suggested" and not g.fits then keep = false end
-        if keep and search and not g.name:lower():find(search, 1, true) then keep = false end
-        if keep then out[#out + 1] = g end
-    end
-    table.sort(out, function(a, b)
-        local la, lb = a.route.fromLevel or 0, b.route.fromLevel or 0
-        if la ~= lb then return la < lb end
-        return a.name < b.name
-    end)
-    return out
-end
-
--- The window ---------------------------------------------------------------------------------------
-
-local function SourceButton(i)
-    local b = CreateFrame("Button", nil, frame)
-    b:SetSize(LEFT_W - 16, 24)
-    b:SetPoint("TOPLEFT", 10, -46 - (i - 1) * 26)
-    b.bg = b:CreateTexture(nil, "BACKGROUND")
-    b.bg:SetAllPoints()
-    b.label = Skin:Text(b, 11, "text2")
-    b.label:SetPoint("LEFT", 8, 0)
-    b.count = Skin:Text(b, 10, "muted")
-    b.count:SetPoint("RIGHT", -8, 0)
-    b:SetScript("OnClick", function(self)
-        Browser.source, Browser.offset, Browser.picked = self.key, 0, nil
-        Browser:Fill()
-    end)
-    return b
 end
 
 local function Row(i)
@@ -178,7 +102,9 @@ local function Row(i)
     r:SetScript("OnEnter", function(self)
         if self.guide and self.guide.name ~= Browser.picked then Paint(self.bg, "accent", 0.08) end
     end)
-    r:SetScript("OnLeave", function() Browser:Fill() end)
+    r:SetScript("OnLeave", function(self)
+        if self.guide and self.guide.name ~= Browser.picked then Paint(self.bg, "bg", 0) end
+    end)
     return r
 end
 
@@ -196,45 +122,16 @@ local function Create()
     frame.close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
     frame.close:SetPoint("TOPRIGHT", -2, -2)
 
-    -- Search, at the top of the list.
-    frame.search = CreateFrame("EditBox", nil, frame, "InputBoxTemplate")
-    frame.search:SetSize(LIST_W - 70, 20)
-    frame.search:SetPoint("TOPLEFT", LEFT_W + 60, -12)
-    frame.search:SetAutoFocus(false)
-    frame.search:SetScript("OnTextChanged", function()
-        Browser.offset = 0
+    frame.filters = FG.Options.GuideFilters(frame, "PathwrightBrowserGuideFilters", function()
+        Browser.offset, Browser.picked = 0, nil
         Browser:Fill()
     end)
-    frame.search:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
-    frame.searchLabel = Skin:Text(frame, 10, "muted")
-    frame.searchLabel:SetPoint("RIGHT", frame.search, "LEFT", -10, 0)
-    frame.searchLabel:SetText(L.search)
-
-    -- The sources.
-    frame.sources = {}
-    for i, s in ipairs(SOURCES) do
-        local b = SourceButton(i)
-        b.key = s.key
-        b.label:SetText(s.label)
-        frame.sources[i] = b
-    end
-    frame.mine = CreateFrame("CheckButton", nil, frame, "UICheckButtonTemplate")
-    frame.mine:SetSize(22, 22)
-    frame.mine:SetPoint("TOPLEFT", 8, -46 - #SOURCES * 26 - 10)
-    frame.mine:SetChecked(true)
-    frame.mine:SetScript("OnClick", function()
-        Browser.offset = 0
-        Browser:Fill()
-    end)
-    frame.mineLabel = Skin:Text(frame, 10, "text2")
-    frame.mineLabel:SetPoint("TOPLEFT", frame.mine, "TOPRIGHT", 2, -4)
-    frame.mineLabel:SetWidth(LEFT_W - 40)
-    frame.mineLabel:SetJustifyH("LEFT")
-    frame.mineLabel:SetText(L.mine)
+    frame.filters:SetPoint("TOPLEFT", 14, -38)
+    frame.filters:SetPoint("TOPRIGHT", -14, -38)
 
     -- The list.
     frame.list = CreateFrame("Frame", nil, frame)
-    frame.list:SetPoint("TOPLEFT", LEFT_W, -42)
+    frame.list:SetPoint("TOPLEFT", 12, -100)
     frame.list:SetSize(LIST_W, ROWS * ROW_H + 12)
     frame.list.bg = frame.list:CreateTexture(nil, "BACKGROUND")
     frame.list.bg:SetAllPoints()
@@ -252,15 +149,25 @@ local function Create()
     frame.empty:SetPoint("CENTER")
     frame.empty:SetText(L.none)
     frame.shown = Skin:Text(frame, 9, "muted")
-    frame.shown:SetPoint("TOPRIGHT", frame.list, "BOTTOMRIGHT", -4, -6)
+    frame.shown:SetPoint("TOP", frame.list, "BOTTOM", 0, -8)
+    frame.prevPage = FG.Options.Button(frame, T("Previous"), 76, function()
+        Browser.offset = math.max(0, Browser.offset - ROWS)
+        Browser:Fill()
+    end)
+    frame.prevPage:SetPoint("TOPLEFT", frame.list, "BOTTOMLEFT", 0, -4)
+    frame.nextPage = FG.Options.Button(frame, T("Next"), 76, function()
+        Browser.offset = math.min(Browser.maxOffset, Browser.offset + ROWS)
+        Browser:Fill()
+    end)
+    frame.nextPage:SetPoint("TOPRIGHT", frame.list, "BOTTOMRIGHT", 0, -4)
 
     -- The guide picked.
     -- Its name, what the character does with it, then a label over each value, one under the
     -- other: a value that wraps pushes the next ones down.
-    local x = LEFT_W + LIST_W + 18
+    local x = LIST_W + 28
     local width = WIDTH - x - 16
     frame.dName = Skin:Text(frame, 15, "text")
-    frame.dName:SetPoint("TOPLEFT", x, -46)
+    frame.dName:SetPoint("TOPLEFT", x, -100)
     frame.dName:SetWidth(width)
     frame.dName:SetJustifyH("LEFT")
     frame.dName:SetWordWrap(true)
@@ -299,11 +206,7 @@ local function Create()
     end)
     frame.closeTab:SetPoint("LEFT", frame.openButton, "RIGHT", 8, 0)
 
-    Skin:Style(
-        frame,
-        "window",
-        { frame.title, frame.searchLabel, frame.mineLabel, frame.empty, frame.shown, frame.dName, frame.dStatus }
-    )
+    Skin:Style(frame, "window", { frame.title, frame.empty, frame.shown, frame.dName, frame.dStatus })
     frame:SetScale(FG:Get("scale") or 1)
     if UISpecialFrames then table.insert(UISpecialFrames, "PathwrightGuideBrowser") end
     frame:Hide()
@@ -312,17 +215,7 @@ end
 --- Draw the window from the guides of the moment.
 function Browser:Fill()
     if not frame or not frame:IsShown() then return end
-    local mineOnly = frame.mine:GetChecked() == true
-    local search = frame.search:GetText()
-    if type(search) ~= "string" then search = "" end
-    for _, b in ipairs(frame.sources) do
-        local n = #Guides(b.key, search, mineOnly)
-        b.count:SetText(n > 0 and tostring(n) or "")
-        local on = b.key == self.source
-        Paint(b.bg, on and "accent" or "bg", on and 0.25 or 0)
-        b.label:SetTextColor(Color(on and "text" or "text2"))
-    end
-    local guides = Guides(self.source, search, mineOnly)
+    local guides = frame.filters:Results()
     self.maxOffset = math.max(0, #guides - ROWS)
     self.offset = math.min(self.offset, self.maxOffset)
     local open = {}
@@ -342,7 +235,7 @@ function Browser:Fill()
             local c = Skin:World().colors[color] or Skin.colors[color]
             r.badge:SetColorTexture(c[1], c[2], c[3], 1)
             r.levels:SetTextColor(c[1], c[2], c[3])
-            r.name:SetText(g.name)
+            r.name:SetText(FG.Options.GuideTitle(g))
             r.name:SetTextColor(Color(g.fits and "text" or "muted"))
             local status = g.name == current and L.following or open[g.name] and L.inTab or ""
             local who = g.fits and "" or L.forOther
@@ -359,15 +252,20 @@ function Browser:Fill()
         end
     end
     frame.empty:SetShown(#guides == 0)
+    frame.prevPage:SetShown(#guides > ROWS)
+    frame.nextPage:SetShown(#guides > ROWS)
+    frame.prevPage:SetEnabled(self.offset > 0)
+    frame.nextPage:SetEnabled(self.offset < self.maxOffset)
     frame.shown:SetText(
         #guides > ROWS and string.format(L.shown, self.offset + 1, math.min(#guides, self.offset + ROWS), #guides) or ""
     )
     -- The guide picked may be scrolled away: still shown.
     if not picked and self.picked then
-        for _, g in ipairs(FG.Import:List()) do
+        for _, g in ipairs(guides) do
             if g.name == self.picked then picked = g end
         end
     end
+    self.picked = picked and picked.name
     self:Details(picked, open, current)
 end
 
@@ -377,8 +275,6 @@ local function ForWhom(g)
     if g.fits then return who end
     return who .. "\n" .. Skin.Hex("orange") .. L.forOther .. "|r"
 end
-
-local SOURCE_NAMES = { builtin = L.builtin, import = L.imported, app = L.app }
 
 function Browser:Details(g, open, current)
     local rows = frame.dRows
@@ -408,7 +304,7 @@ function Browser:Details(g, open, current)
         { L.lLength, string.format(L.steps, #(r.steps or {}), QuestCount(r)) },
         { L.lProgress, step and string.format(L.progress, math.min(step, total), total) or L.notStarted },
         r.next and { L.lNext, r.next } or false,
-        { L.lSource, SOURCE_NAMES[g.source] or "" },
+        { L.lSource, FG.Options.GuideSectionName(g) },
     }
     local n = 0
     for _, item in ipairs(list) do
@@ -429,16 +325,13 @@ function Browser:Open(name)
     if frame then frame:Hide() end
 end
 
---- Open the window (the suggested guides first, the guide followed picked), or close it.
+--- Open the window or close it, retaining the section and its filters.
 function Browser:Toggle()
     if not frame then Create() end
     if frame:IsShown() then return frame:Hide() end
     self.picked = FG.Guide:RouteName()
     self.offset = 0
-    -- Nothing suggested: all the guides.
-    self.source = "suggested"
     frame:Show()
-    if #Guides("suggested", "", true) == 0 then self.source = "all" end
     self:Fill()
 end
 

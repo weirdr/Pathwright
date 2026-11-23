@@ -490,6 +490,7 @@ def build(folder, output, game):
         stage.mkdir()
         manifest = ["## Interface: 16001", "## Title: Pathwright - RXPGuides Forever",
                     "## Notes: Converted Forever routes for Pathwright Guide.", "## Dependencies: Pathwright_Guide",
+                    "## Group: Pathwright_Profile", r"## IconTexture: Interface\AddOns\Pathwright_Profile\Media\Logo",
                     "", "Register.lua"]
         (stage / "Register.lua").write_text("""local _, pack = ...
 local hardcore = C_GameRules and C_GameRules.IsHardcoreActive and C_GameRules.IsHardcoreActive()
