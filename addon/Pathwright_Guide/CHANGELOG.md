@@ -6,6 +6,9 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The toolstrip docks above the guide. Enable “Unlock the toolstrip” to drag it by its left edge.
+- Smaller toolstrip icons show short names underneath to distinguish targets at a glance.
+
 ## 0.21.0 (2026-11-16)
 
 - WoW Forever: a click on a quest in the quest panel makes the game track it, as from the game's own tracker, and a click on the step already shown sets the game's waypoint again.
