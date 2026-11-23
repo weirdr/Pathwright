@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- WoW Forever: the RestedXP guides pick up and hand in quests and move on by themselves in thousands more steps, pass the steps that are not for you (a quest you skipped or already did, a level you have passed), mark the optional ones, and show where to go for 1,900 more.
 - The guide pickers group routes into Imported, Default and RestedXP. Each section remembers its name search, level range and character filter while you browse.
 
 - The toolstrip docks above the guide. Enable “Unlock the toolstrip” to drag it by its left edge.

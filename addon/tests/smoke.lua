@@ -1508,6 +1508,163 @@ do
     print("builtin ok")
 end
 
+-- Step conditions (`cd`, built-in guides): a step whose conditions do not hold is passed by
+-- itself, at the start as while it is the current one; with them it keeps its kind.
+do
+    local routes, info = FG.Routes, FG.Import.info
+    local savedLevel, savedXP, savedMap, savedComplete =
+        playerLevel, UnitXP, C_Map.GetBestMapForUnit, C_QuestLog.IsComplete
+    local ready, map, xp = {}, 1426, 0
+    C_QuestLog.IsComplete = function(q) return ready[q] or false end
+    C_Map.GetBestMapForUnit = function() return map end
+    UnitXP = function() return xp end
+    playerLevel = 5
+    -- Each condition with what makes it hold, and what stops it.
+    local cases = {
+        {
+            cd = { "on", 7001, 7101 },
+            hold = function() onQuest[7101] = true end,
+            stop = function() onQuest[7101] = nil end,
+        },
+        { cd = { "off", 7002 }, hold = function() onQuest[7002] = nil end, stop = function() onQuest[7002] = true end },
+        {
+            cd = { "ready", 7003 },
+            hold = function()
+                onQuest[7003], ready[7003] = true, true
+            end,
+            stop = function() ready[7003] = nil end,
+        },
+        {
+            cd = { "unready", 7004 },
+            hold = function() ready[7004] = nil end,
+            stop = function()
+                onQuest[7004], ready[7004] = true, true
+            end,
+        },
+        {
+            cd = { "done", 7005, 7105 },
+            hold = function() completed[7105] = true end,
+            stop = function() completed[7105] = nil end,
+        },
+        {
+            cd = { "open", 7006, 7106 },
+            hold = function() completed[7106] = nil end,
+            stop = function()
+                completed[7006], completed[7106] = true, true
+            end,
+        },
+        { cd = { "lvl", 10 }, hold = function() playerLevel = 10 end, stop = function() playerLevel = 5 end },
+        { cd = { "lvl", 5, 0.5 }, hold = function() xp = 200 end, stop = function() xp = 0 end },
+        { cd = { "lvl", 5, 150 }, hold = function() xp = 150 end, stop = function() xp = 0 end },
+        { cd = { "under", 4 }, hold = function() playerLevel = 3 end, stop = function() playerLevel = 5 end },
+        { cd = { "has", 2, 9001 }, hold = function() bags[9001] = 2 end, stop = function() bags[9001] = 1 end },
+        { cd = { "lacks", 1, 9002 }, hold = function() bags[9002] = nil end, stop = function() bags[9002] = 1 end },
+        { cd = { "in", 1411, 1454 }, hold = function() map = 1454 end, stop = function() map = 1426 end },
+        { cd = { "out", 1426 }, hold = function() map = 1440 end, stop = function() map = 1426 end },
+    }
+    local steps = {}
+    for i, case in ipairs(cases) do
+        steps[i] = { k = "note", t = "If " .. case.cd[1], cd = { case.cd }, lvl = 10 }
+        case.stop()
+    end
+    local last = #cases + 1
+    -- A condition of a newer version: taken as holding, the step is shown.
+    steps[last] = { k = "note", t = "Read this", cd = { { "tomorrow", 1 } }, opt = true, lvl = 10 }
+    FG.Builtin.Register({
+        name = "conditions-test",
+        variants = { { race = 7, class = 8, faction = "Alliance" } },
+        steps = steps,
+    })
+    -- Quest steps keep their kind: an accept only for those who turned a quest in, its objective,
+    -- and a quest accepted at one of two places.
+    FG.Builtin.Register({
+        name = "conditions-quests",
+        variants = { { race = 7, class = 8, faction = "Alliance" } },
+        steps = {
+            { k = "accept", q = 7010, t = "Accept", cd = { { "done", 7011 } }, lvl = 10 },
+            { k = "objective", q = 7010, o = 1, t = "Do", cd = { { "on", 7010 } }, lvl = 10 },
+            { k = "turnin", q = 7010, t = "Turn in", cd = { { "ready", 7010 } }, lvl = 10 },
+            { k = "accept", q = 7020, t = "Accept here", cd = { { "on", 7021 } }, lvl = 10 },
+            { k = "accept", q = 7020, t = "Or there", cd = { { "off", 7021 } }, lvl = 10 },
+            { k = "note", t = "The end", lvl = 10 },
+        },
+    })
+    FG.Import:Apply()
+    for name, r in pairs(routes) do
+        FG.Routes[name] = FG.Routes[name] or r
+    end
+    assert(FG.Routes["conditions-test"].steps[1].cd[1][1] == "on", "conditions kept by the variant")
+    local function at()
+        fire("QUEST_LOG_UPDATE")
+        runTimers()
+        FG.Guide:Advance()
+        return char.guide.step
+    end
+    useRoute("conditions-test")
+    FG.Guide:Resync()
+    assert(at() == last, "no condition holds: every step passed, step " .. char.guide.step)
+    for i, case in ipairs(cases) do
+        local name = table.concat(case.cd, " ")
+        case.hold()
+        FG.Guide:Resync()
+        assert(at() == i, name .. " holds: the step is shown, step " .. char.guide.step)
+        case.stop()
+        assert(at() == last, name .. " stopped holding on the current step: passed, step " .. char.guide.step)
+        -- And the other way, from the step after it.
+        case.hold()
+        FG.Guide:Resync()
+        assert(at() == i, name .. " holds again, step " .. char.guide.step)
+        case.stop()
+    end
+    assert(at() == last, "the unknown condition's step waits, step " .. char.guide.step)
+    -- An optional step says so.
+    local shown
+    local card, mini = FG.Card.Render, FG.Mini.Render
+    FG.Card.Render = function(_, view) shown = view end
+    FG.Mini.Render = FG.Card.Render
+    FG.Guide:Refresh()
+    local chip
+    for _, c in ipairs(shown and shown.tasks[1] and shown.tasks[1].chips or {}) do
+        if c.text == FG.T("optional") then chip = true end
+    end
+    assert(chip, "optional chip")
+    FG.Card.Render, FG.Mini.Render = card, mini
+
+    useRoute("conditions-quests")
+    FG.Guide:Resync()
+    assert(not FG.Guide:WantsQuest(7010), "an accept whose condition does not hold is not wanted")
+    assert(at() == 5, "its objective and turn-in pass with it, step " .. char.guide.step)
+    assert(FG.Guide:WantsQuest(7020), "accepted at the second place")
+    completed[7011] = true
+    FG.Guide:Resync()
+    assert(at() == 1 and FG.Guide:WantsQuest(7010), "the condition holds: the accept waits, step " .. char.guide.step)
+    onQuest[7010] = true
+    assert(at() == 2, "accepted: played as any accept, on to its objective, step " .. char.guide.step)
+    ready[7010] = true
+    assert(at() == 3, "objective done, the turn-in is ready, step " .. char.guide.step)
+    onQuest[7010], ready[7010], completed[7010] = nil, nil, true
+    assert(at() == 5, "turned in; the first place's accept does not hold, step " .. char.guide.step)
+    onQuest[7021] = true
+    FG.Guide:Resync()
+    assert(
+        at() == 4 and FG.Guide:WantsQuest(7020),
+        "the first place while on the other quest, step " .. char.guide.step
+    )
+    onQuest[7020] = true
+    assert(at() == 6, "accepted there: both accepts done, step " .. char.guide.step)
+    assert(not FG.Guide:WantsQuest(7020), "and not wanted any more")
+
+    for _, q in ipairs({ 7001, 7101, 7002, 7003, 7004, 7005, 7105, 7006, 7106, 7010, 7011, 7020, 7021 }) do
+        onQuest[q], completed[q] = nil, nil
+    end
+    bags[9001], bags[9002] = nil, nil
+    playerLevel, UnitXP, C_Map.GetBestMapForUnit, C_QuestLog.IsComplete = savedLevel, savedXP, savedMap, savedComplete
+    table.remove(FG.Builtin.defs)
+    table.remove(FG.Builtin.defs)
+    FG.Routes, FG.Import.info = routes, info
+    print("step conditions ok")
+end
+
 -- The guides shipped (Builtin\*.lua): each one registers, and each of its variants is a route
 -- whose steps are of a kind the guide knows, with a place, and hand in only quests taken before.
 do

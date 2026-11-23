@@ -8,6 +8,10 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ## Unreleased
 
+### Addon
+
+- WoW Forever: the RestedXP guides pick up and hand in quests and move on by themselves in thousands more steps, pass the steps that are not for you (a quest you skipped or already did, a level you have passed), mark the optional ones, and show where to go for 1,900 more.
+
 ### WoW data
 
 - WoW Forever: the latest quest data, with named monsters and quest givers at the places they really stand instead of dozens of sightings, and more quests seen in game by players.
