@@ -26,7 +26,7 @@
 # Overlord Ror; the Emerald Sanctuary; the Jaedenar moonwell, Bloodvenom Post again, Shatter Scar
 # Vale and Irontree Woods; Nafien and the Timbermaw tunnel to Winterspring; Donova Snowden and the
 # Winterfall camps; Everlook; a flight back to Bloodvenom Post, the Emerald Sanctuary, and a flight
-# to Gadgetzan for Un'Goro Crater.
+# to Orgrimmar for Un'Goro Crater.
 
 guide Felwood & Winterspring (52-53)
 faction horde
@@ -62,7 +62,7 @@ tip Maybess Riverbreeze stands a little west of the sanctuary.
 # Jaedenar and Bloodvenom Post ------------------------------------------------------------------------
 
 do 5155
-tip Jaedenar is the Shadow Council camp along the road north-west. More of them are inside the caves; leave the moonwell in the middle for later.
+tip Jaedenar is the Shadow Council camp along the road north-west. More of them are inside the caves; leave the moonwell in the middle for later. The Adepts blink away and hit hard with Fireball and Fire Blast: kill them first.
 fpath 11900
 accept 4505
 accept 6162
@@ -70,11 +70,11 @@ accept 6162
 # The Ruins of Constellas, the Deadwood camp and Overlord Ror ----------------------------------------
 
 do 4505 icon use "Use the Hardened Flasket at the corrupted moonwell in the Ruins of Constellas"
-tip Jadefire Shadowstalkers are stealthed: watch your back on the way in.
+tip Jadefire Shadowstalkers are stealthed, some on patrol, and their poison slows hard: watch your back on the way in.
 do 8460
 tip The Deadwood camp is just south-west of the Emerald Sanctuary. The kills and the quest bring Timbermaw Hold from Hostile to Unfriendly; kill a few extra furbolgs to be safe, as the Timbermaw in the tunnel to Winterspring attack anyone still Hostile.
 do 6162
-tip Overlord Ror stands at the south end of the Deadwood camp, near the Ashenvale border.
+tip Overlord Ror stands at the south end of the Deadwood camp, near the Ashenvale border. Clear the furbolgs around him first: his fear sends you running into them.
 
 # The Emerald Sanctuary -------------------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ turnin 6162
 do 5156.1 bg
 do 5156.2 bg
 do 5156.3 at 41.0,42.0 icon text "Explore the craters of Shatter Scar Vale"
-tip The vale is east of the road north of Bloodvenom Post. Infernals walk it too: they hit hard, so pull them alone or go around.
+tip The vale is east of the road north of Bloodvenom Post: running into one crater is enough. Infernals walk it too: they hit hard, so pull them alone or go around. The Entropic Beasts and Horrors share spawn points, so you may need a few extra of either.
 do 5156.1
 do 5156.2
 do 4120.1 bg
@@ -120,7 +120,7 @@ do 5082.1 bg at 32.3,36.3
 do 5082.2 bg at 31.6,36.4
 do 5082.3 bg at 31.8,36.7
 accept 5083 at 32.0,36.5
-tip The Empty Firewater Flask drops from the Winterfall furbolgs: right-click it to start the quest.
+tip The Empty Firewater Flask drops from the Winterfall furbolgs, rarely and for one of you at a time: right-click it to start the quest.
 do 5082.1 at 32.3,36.3
 do 5082.3 at 31.8,36.7
 tip The Winterfall camp is just north of Donova; a second camp of Pathfinders and Totemics sits on the hills to the east, around 40,43.

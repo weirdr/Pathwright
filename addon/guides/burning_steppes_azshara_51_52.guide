@@ -146,7 +146,7 @@ tip Use the Treasure Trowel 3000 on the sand mounds along the shore east of the 
 do 91610 at 46.0,52.0 icon use "Fish up 10 Winter Squid along the shore"
 tip Needs Fishing. Without it, buy them at an auction house.
 accept 86746 86752
-tip Ekkal stands in the north of the ruins. Players report that Report to Rageroar and the other Ursolan furbolg quests want Neutral standing with Timbermaw Hold, which starts at Unfriendly. If Ekkal doesn't offer Report to Rageroar, right-click to skip it and see the note at Ursolan.
+tip Ekkal stands in the north of the ruins. Players report that Report to Rageroar and the other Ursolan furbolg quests want Neutral standing with Timbermaw Hold, which starts at Hostile. If Ekkal doesn't offer Report to Rageroar, right-click to skip it and see the note at Ursolan.
 
 # Valormok ---------------------------------------------------------------------------------------------
 

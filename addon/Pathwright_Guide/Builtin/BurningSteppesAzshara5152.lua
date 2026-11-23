@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795433136,
+    created = 1795433201,
     next = "Felwood & Winterspring (52-53)",
     carry = { 3568, 3821, 3908, 4120 },
     variants = {
@@ -113,7 +113,7 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Highborne Treasure Fragment x10", q = 91568, o = 1, ic = "get", n = "Highborne Treasure Fragment", e = "item", id = 246684, c = 10, m = 1447, x = 46.48, y = 50.41, spots = { { m = 1447, x = 46.62, y = 55.97 }, { m = 1447, x = 47.3, y = 62.26 }, { m = 1447, x = 47.29, y = 44.47 } }, mobs = { "Makrinni Burrower" }, mi = { 247470 }, nt = { { l = 2, t = "Use the Treasure Trowel 3000 on the sand mounds along the shore east of the ruins. Sometimes a Makrinni Burrower comes out instead: kill it, it carries fragments too." } }, lvl = 52 },
         { k = "objective", t = "Fish up 10 Winter Squid along the shore", q = 91610, o = 1, ic = "use", n = "Winter Squid", e = "item", id = 13755, c = 10, m = 1447, x = 46, y = 52, nt = { { l = 2, t = "Needs Fishing. Without it, buy them at an auction house." } }, lvl = 52 },
         { k = "accept", t = "Accept The Legashi Threat from Ekkal", q = 86746, n = "Ekkal", e = "npc", id = 235903, m = 1447, x = 42, y = 38.88, min = 47, lvl = 52 },
-        { k = "accept", t = "Accept Report to Rageroar from Ekkal", q = 86752, n = "Ekkal", e = "npc", id = 235903, m = 1447, x = 42, y = 38.88, min = 47, nt = { { l = 2, t = "Ekkal stands in the north of the ruins. Players report that Report to Rageroar and the other Ursolan furbolg quests want Neutral standing with Timbermaw Hold, which starts at Unfriendly. If Ekkal doesn't offer Report to Rageroar, right-click to skip it and see the note at Ursolan." } }, lvl = 52 },
+        { k = "accept", t = "Accept Report to Rageroar from Ekkal", q = 86752, n = "Ekkal", e = "npc", id = 235903, m = 1447, x = 42, y = 38.88, min = 47, nt = { { l = 2, t = "Ekkal stands in the north of the ruins. Players report that Report to Rageroar and the other Ursolan furbolg quests want Neutral standing with Timbermaw Hold, which starts at Hostile. If Ekkal doesn't offer Report to Rageroar, right-click to skip it and see the note at Ursolan." } }, lvl = 52 },
         { k = "turnin", t = "Turn in Long Walks on the Beach to Izvi Gildfizz", q = 91568, n = "Izvi Gildfizz", e = "npc", id = 247473, m = 1447, x = 22.53, y = 51.84, lvl = 52 },
         { k = "turnin", t = "Turn in Winter Frontier Fishery to Kurll", q = 91610, n = "Kurll", e = "npc", id = 3621, m = 1447, x = 21.82, y = 52.1, lvl = 52 },
         { k = "turnin", t = "Turn in Stealing Knowledge to Jediga", q = 3517, n = "Jediga", e = "npc", id = 8587, m = 1447, x = 22.56, y = 51.42, lvl = 52 },
