@@ -1,0 +1,113 @@
+# Duskwood (42-42): the Horde quests of Duskwood that the leveling chain leaves out, for a Horde
+# duo: Apothecary Faustin's truth serum at Beggar's Haunt (Nothing But The Truth). Not part of the
+# leveling chain: a zone guide, with no next guide.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/duskwood_zone.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite, Duskwood: area 10, uiMap 1431), checked against
+# outof.games (the Duskwood quest list, area 10, and each quest below). Wowhead not consulted.
+#
+# Where it starts: Stonard, in the Swamp of Sorrows. Horde has no flight path in Duskwood (Darkshire's
+# is Alliance), and Beggar's Haunt, the Forsaken camp, sits at the east edge of Duskwood, just across
+# Deadwind Pass from the Swamp. Stonard is a short ride; the other way in, from Grom'gol north through
+# Stranglethorn and across the whole of Duskwood past Darkshire, is far longer. The serum's ingredients
+# are in the Swamp and Desolace, and the last hand-in is in Stonard too.
+#
+# What the leveling chain already covers: Stranglethorn Vale & Swamp of Sorrows (41-43) rides through
+# Duskwood to Beggar's Haunt for the first Nothing But The Truth (1372, Deathstalker Zraedus sends you
+# to Apothecary Faustin, next to him). Its follow-ups are here: 1383 (the ingredients), 1388 (the serum
+# to Zraedus) and 1391 (Zraedus's Brew to Infiltrator Marksen in Stonard). 1383 is offered only after
+# 1372: a player who skipped it talks to Zraedus first (a tip says so; the quest itself stays with the
+# 41-43 guide).
+#
+# The route: Stonard (hearthstone); west through Deadwind Pass to Beggar's Haunt for the quest; back
+# east into the Swamp for the Mire Lord in its north-west corner and the Shadow Panthers south-east of
+# Stonard; a flight to Grom'gol, the zeppelin to Orgrimmar and a flight to Shadowprey Village for a
+# Deepstrider tumor; the hearthstone to Stonard, the ride back to Beggar's Haunt for the serum and the
+# brew, and back to Stonard to hand it in.
+#
+# Left out:
+# - Every other Duskwood quest from the Night Watch, Darkshire and the farms (The Legend of Stalvan,
+#   Worgen in the Woods, The Night Watch, Look to the Stars, Remember That I Love You, The Valor
+#   Family...): Alliance only.
+# - Grant's Shield (79362), Silvia's Sword (79363), Ira's Dagger (96137) and Merrick's Bow (96138): no
+#   race limit in the data, but outof.games marks them Alliance, they start from items dropped by the
+#   Lost Knight, Defender, Stalker and Watcher ghosts, and all four end with Sirra Von'Indi in Darkshire,
+#   an Alliance NPC in a town whose guards attack the Horde.
+# - Duskwood Mission I to XVIII (81730-81747, Field Captain Palandar): outof.games lists them for both
+#   factions (elite, level 27, not repeatable), but they belong to the Nightmare Incursion of Season of
+#   Discovery, reached through an Emerald Dream portal in the Twilight Grove. Our data marks all of them
+#   removed, and nobody has seen Palandar or the Nightmare mobs in the Forever client: not in the game.
+# - An Unfortunate End (98372, a Night Watch Guard): no objectives, no experience, level 60 and no
+#   outof.games page. Not a quest to route.
+# - Digging Through the Dirt (254): repeatable and Alliance. The Craftsman's Writs handed in to Kzixx:
+#   level 60 profession quests of another sort. The Nightmare's Corruption (8735): a world dragon quest.
+# - No dungeon, raid or Horde repeatable quest belongs to Duskwood.
+
+guide Duskwood (42-42)
+faction horde
+levels 42 42
+
+# Stonard ---------------------------------------------------------------------------------------------
+
+map Swamp of Sorrows
+
+goto "Fly to Stonard in the Swamp of Sorrows: this guide starts there, not at Grom'gol, as Beggar's Haunt is a short ride west through Deadwind Pass" at 46.1,54.8 r 30
+tip No flight path to Stonard yet? Fly to Grom'gol and take the wind rider from there, or ride east from Duskwood's Deadwind road.
+fpath 6026
+bind 6930
+tip Set your hearthstone here: it brings you back from Desolace later.
+
+# Beggar's Haunt ---------------------------------------------------------------------------------------
+
+map Duskwood
+
+goto "Ride west out of Stonard and through Deadwind Pass into Duskwood, to Beggar's Haunt, the ruined house north of the road" at 87.4,35.6 r 25
+tip The Night Watch of Darkshire attacks the Horde: Beggar's Haunt is east of the town, so stay away from the road further west.
+accept 1383
+tip Faustin offers it only after the first Nothing But The Truth: if he has nothing for you, talk to Deathstalker Zraedus beside him and hand that one in to Faustin first.
+
+# The Swamp of Sorrows: the Mire Lord and the Shadow Panthers ----------------------------------------
+
+map Swamp of Sorrows
+
+do 1383.2 at 5.5,31.4 mobs 1081 "Kill the Mire Lord in the north-west corner of the Swamp for the Mire Lord Fungus"
+tip Coming back through Deadwind Pass, turn north as soon as you enter the Swamp. The Mire Lord is alone, level 42, and the fungus drops for one of you per kill: wait for him to come back and kill him again.
+do 1383.1 at 65.0,66.0 mobs 768 "Kill Shadow Panthers south-east of Stonard for 5 Shadow Panther Hearts each"
+tip Not every panther has a heart, and each heart drops for one of you: count on about two dozen kills between you. More panthers prowl the east and north-east of the Swamp.
+fly "Grom'gol, Stranglethorn" npc 6026
+
+# Grom'gol, Orgrimmar and Desolace --------------------------------------------------------------------
+
+map Stranglethorn Vale
+
+note "Take the zeppelin to Orgrimmar from the tower at Grom'gol" at 31.2,29.5
+
+map Orgrimmar
+
+fly "Shadowprey Village, Desolace" npc 3310
+tip No flight path to Shadowprey yet? Fly to Sun Rock Retreat in the Stonetalon Mountains and ride south-west into Desolace.
+
+map Desolace
+
+do 1383.3 at 35.0,78.0 mobs 4686 4687 "Kill Deepstrider Giants or Searchers east of Shadowprey Village for a Deepstrider Tumor"
+tip The giants are elite (38-40) and walk in the valley east of Shadowprey: pull one at a time and fight it together. The tumor drops for one of you per kill: kill two.
+hearth npc 6930
+
+# Back to Beggar's Haunt and Stonard ------------------------------------------------------------------
+
+map Duskwood
+
+goto "Ride west from Stonard through Deadwind Pass to Beggar's Haunt again" at 87.4,35.6 r 25
+turnin 1383
+accept 1388
+turnin 1388
+accept 1391
+tip Deathstalker Zraedus stands beside Faustin.
+
+map Swamp of Sorrows
+
+turnin 1391
+tip Infiltrator Marksen is held in the north-west part of Stonard, a few steps from the flight master.
