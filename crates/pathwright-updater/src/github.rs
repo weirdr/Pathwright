@@ -82,15 +82,28 @@ pub fn newest_addon_release(json: &str) -> Result<Option<Release>> {
     Ok(highest.or_else(|| usable.into_iter().next()))
 }
 
-/// Ask GitHub for the newest addon release.
-pub fn latest() -> Result<Option<Release>> {
-    let url = format!("https://api.github.com/repos/{REPO}/releases?per_page=20");
+fn get_json(url: &str) -> Result<String> {
     let mut response = agent()
-        .get(&url)
+        .get(url)
         .header("Accept", "application/vnd.github+json")
         .call()
         .context("GitHub's releases")?;
-    let json = response.body_mut().read_to_string().context("GitHub's answer")?;
+    response.body_mut().read_to_string().context("GitHub's answer")
+}
+
+/// Ask GitHub for the newest addon release: the release marked Latest (each addon release is,
+/// the updater's never), else the highest in the listing. The listing alone is not enough:
+/// GitHub does not order it by date, and puts the `Pathwright-v…` tags after the old `addon-…`
+/// ones.
+pub fn latest() -> Result<Option<Release>> {
+    let marked = get_json(&format!("https://api.github.com/repos/{REPO}/releases/latest"));
+    if let Ok(json) = marked
+        && let Ok(Some(release)) = newest_addon_release(&format!("[{json}]"))
+        && semver(&release.tag).is_some()
+    {
+        return Ok(Some(release));
+    }
+    let json = get_json(&format!("https://api.github.com/repos/{REPO}/releases?per_page=100"))?;
     newest_addon_release(&json)
 }
 
