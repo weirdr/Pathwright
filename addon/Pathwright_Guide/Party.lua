@@ -52,18 +52,46 @@ local function SendSoon()
     end)
 end
 
+--- Ask the party for their progress ("?": each member sends their log), and Questie players
+--- for theirs: after a login or a reload, nothing would show until one of their counts moved.
+--- At most every ASK_EVERY seconds.
+local ASK_EVERY = 10
+local askedAt
+function Party:Ask()
+    if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
+    local now = GetTime()
+    if askedAt and now - askedAt < ASK_EVERY then return end
+    askedAt = now
+    C_ChatInfo.SendAddonMessage(PREFIX, "?", "PARTY")
+    if FG.QuestieShare and FG.QuestieShare.Ask then FG.QuestieShare:Ask() end
+end
+
+local function AskSoon()
+    if not C_Timer then return Party:Ask() end
+    C_Timer.After(3, function() Party:Ask() end)
+end
+
 FG:On("QUEST_LOG_UPDATE", SendSoon)
+FG:On("PLAYER_ENTERING_WORLD", AskSoon)
 FG:On("GROUP_ROSTER_UPDATE", function()
+    local newcomer = false
     for name in pairs(Party.progress) do
         if not UnitInParty(name) then Party.progress[name] = nil end
     end
+    for i = 1, GetNumSubgroupMembers and GetNumSubgroupMembers() or 0 do
+        local name = UnitName("party" .. i)
+        if name and not Party.progress[name] then newcomer = true end
+    end
     SendSoon()
+    if newcomer then AskSoon() end
 end)
 
 FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     if prefix ~= PREFIX then return end
     local name = Ambiguate(sender, "short")
     if name == UnitName("player") then return end
+    -- Asked for our progress: our log, whole.
+    if message == "?" then return SendSoon() end
     if message == "R" then
         Party.progress[name] = {}
         return

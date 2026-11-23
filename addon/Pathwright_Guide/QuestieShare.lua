@@ -417,6 +417,14 @@ function QuestieShare:SendLog(channel, target)
     return blocks
 end
 
+--- Ask the group's Questie players for their whole logs (message 11; they answer with 12),
+--- for the guide's party line. Whether or not we share ours.
+function QuestieShare:Ask()
+    local channel = Channel()
+    if not channel then return end
+    Send(Packet(REQUEST_LIST), channel)
+end
+
 -- Receiving ------------------------------------------------------------------------------
 
 local function FromGroup(sender)
