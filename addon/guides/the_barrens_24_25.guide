@@ -40,7 +40,11 @@
 # The auction house: none of this guide's quest items is sold there. Thunder Bluff, the last city
 #   of the guide, gets the note for The Lost Pages (6504) of Ashenvale (26-28).
 # The Runed Scroll (3513) starts from a drop of Aean Swiftriver, a rare elite of the Field of Giants:
-#   the trip north to Kadrak at Mor'shan Rampart shows only for those who found it.
+#   the trip north to Kadrak at Mor'shan Rampart shows only for those who found it. Its follow-up,
+#   Horde Presence (3514), is left out: an elite quest of about level 30 whose target, Rynthariel the
+#   Keymaster (level 29 elite), stands in the Talon Den on Stonetalon Peak amid some twenty elite
+#   druids, caretakers and dryads of level 25-27 and the rare elite Sentinel Amarassan. Too much for
+#   a duo of 25-26 in Stonetalon Mountains (25-26), and no later guide goes back there.
 #
 # The route: Orgrimmar and a flight to the Crossroads; Thunder Bluff; a flight to Camp Taurajo and its
 # hearthstone; a loop south (Owatanka, the Field of Giants, Sulhasa and Gann Stonespire, Brine, the
@@ -182,7 +186,7 @@ fly "Crossroads" npc 10378
 turnin 906
 turnin 868
 turnin 3513
-tip Only for those who found the Runed Scroll: Kadrak keeps the northern guard tower at Mor'shan Rampart, a long ride north along the road. Come back to the Crossroads afterwards.
+tip Only for those who found the Runed Scroll: Kadrak keeps the northern guard tower at Mor'shan Rampart, a long ride north along the road. Come back to the Crossroads afterwards. Leave his Horde Presence: Rynthariel is a level 29 elite deep in a camp of elites, too much for the two of you at this level.
 
 # Ratchet, Mahren Skyseer and Isha Awak -------------------------------------------------------------
 

@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795426491,
+    created = 1795467897,
     next = "The Hinterlands (48-49)",
-    carry = { 580, 1119, 1429, 2741, 3123, 3380, 3520, 95296 },
+    carry = { 580, 1119, 1429, 2741, 2932, 3123, 3380, 3520, 95296 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467224,
+    created = 1795467897,
     next = "Stranglethorn Vale & Swamp of Sorrows (50-50)",
-    carry = { 81, 580, 1122, 1444, 2641, 2874, 3123, 3444, 3568 },
+    carry = { 81, 580, 1122, 1444, 2641, 2874, 2932, 3123, 3444, 3568 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

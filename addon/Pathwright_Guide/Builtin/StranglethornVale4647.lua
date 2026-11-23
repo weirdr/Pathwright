@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795423017,
+    created = 1795467804,
     next = "Swamp of Sorrows (47-47)",
     carry = { 1118, 2741, 3520, 95295, 95296 },
     variants = {
@@ -67,6 +67,7 @@ Pathwright.Builtin.Register({
         { k = "train", t = "Train with Zevrost", n = "Zevrost", e = "npc", id = 3326, m = 1454, x = 48.47, y = 45.43, nt = { { l = 2, t = "Paladins and druids have no trainer here: paladins train in Undercity, druids in Thunder Bluff." } }, lvl = 46, only = { 6, 12, 23 } },
         { k = "note", t = "Take the zeppelin to Grom'gol Base Camp in Stranglethorn Vale", n = "Snurk Bucksquick", e = "npc", id = 12136, m = 1411, x = 50.69, y = 12.89, nt = { { l = 2, t = "The zeppelin tower stands in Durotar, a short ride from the gate of Orgrimmar; Snurk Bucksquick at the top knows which zeppelin goes to Grom'gol." } }, lvl = 46 },
         { k = "accept", t = "Accept Speaking with Gan'zulah from Bubbling Cauldron", q = 586, ic = "object", n = "Bubbling Cauldron", e = "object", id = 2076, m = 1434, x = 32.22, y = 27.6, min = 30, pa = { 584 }, nt = { { l = 2, t = "The Bubbling Cauldron stands next to Kin'weelay." } }, lvl = 46 },
+        { k = "accept", t = "Accept Grim Message from Nimboya", q = 2932, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, min = 35, nt = { { l = 2, t = "Nimboya gives you his pike for the Witherbark trolls of the Hinterlands, a later guide: keep it in your bags. He takes the quest back when the guides bring you through Grom'gol again." } }, lvl = 46 },
         { k = "flight_master", t = "Get the flight path from Thysta", n = "Thysta", e = "npc", id = 1387, m = 1434, x = 32.47, y = 29.28, lvl = 46 },
         { k = "accept", t = "Accept Mok'thardin's Enchantment from Far Seer Mok'thardin", q = 571, n = "Far Seer Mok'thardin", e = "npc", id = 2465, m = 1434, x = 32.12, y = 29.24, min = 33, pa = { 572 }, lvl = 46 },
         { k = "bind", t = "Set your hearthstone with Innkeeper Thulbek", n = "Innkeeper Thulbek", e = "npc", id = 5814, m = 1434, x = 31.49, y = 29.78, lvl = 46 },

@@ -14,12 +14,14 @@
 # Tanaris), Report Back to Fizzlebub (1122, Kravel Koalbeard in Thousand Needles), Whiskey Slim's
 # Lost Grog (580, taken in Booty Bay, its port found in the Hinterlands), Return to Fel'Zerul (1444,
 # the Atal'ai Exile in the Hinterlands) and the three OOX rescues (2767 Feralas, 648 Tanaris, 836 the
-# Hinterlands), handed in to Oglethorpe in Booty Bay before An OOX of Your Own.
+# Hinterlands), handed in to Oglethorpe in Booty Bay before An OOX of Your Own, and Grim Message
+# (2932, taken from Nimboya at Grom'gol in Stranglethorn Vale (46-47), its pike planted in the
+# Hinterlands), handed back to Nimboya as the zeppelin lands at Grom'gol.
 # Cortello's Riddle (626) is left out: its treasure is in the Hinterlands, which no later guide visits.
 # Data fixed here: State Secrets (96379) has no quest before it (outof.games lists only level 48);
 # the Document Box it wants is sold at the auction house.
 #
-# The route: Orgrimmar (the auction house) and the zeppelin to Grom'gol; Nesingwary's camp for
+# The route: Orgrimmar (the auction house) and the zeppelin to Grom'gol (Nimboya); Nesingwary's camp for
 # Tethis and King Bangalash; Booty Bay and a loop south (Mok'rash, the Bloodsail ships, Negolash, the
 # beaches and Jaguero Isle); a flight to Stonard and a loop through the Swamp (the Swamp Talker, the
 # Fallen Hero, the bridge); the flight and zeppelin to Orgrimmar and on to Brackenwall Village for
@@ -28,7 +30,7 @@
 guide Stranglethorn Vale & Swamp of Sorrows (50-50)
 faction horde
 levels 50 50
-carry 580 1122 1444 2874 3568 3908 4120
+carry 580 1122 1444 2874 2932 3568 3908 4120
 leave 3568 3908 4120
 next Blasted Lands (50-51)
 
@@ -44,6 +46,8 @@ tip Negolash only comes when someone puts 10 Barbecued Buzzard Wings and 5 Jungl
 
 map Stranglethorn Vale
 goto "Take the zeppelin from the towers outside Orgrimmar's gate to Grom'gol Base Camp" at 31.5,29.4 r 30
+turnin 2932
+tip Nimboya stands in Grom'gol, a few steps from the zeppelin tower.
 accept 197
 tip Ride north from Grom'gol to Nesingwary's camp.
 do 197

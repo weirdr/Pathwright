@@ -12,6 +12,8 @@
 # Back to Booty Bay (1118, Kravel Koalbeard at the Mirage Raceway, Tanaris (43-43)).
 # Added: Unbagwa's Stranglethorn Fever (349): ten Gorilla Fangs make him summon Mokk the Savage for Fin Fizracket's
 # Stranglethorn Fever (348).
+# Added: Grim Message (2932), taken from Nimboya at Grom'gol and left to The Hinterlands (48-49),
+# where the Witherbark trolls drop its skulls; Stranglethorn Vale & Swamp of Sorrows (50-50) hands it in.
 # Left out: Terror of the Desert Skies (78823): its Primitive Drawing drops only from the
 # Dustbelcher ogres of the Badlands, which no guide of the series visits.
 # Data filled in here: the Bloodsail Trunk of Get the Goods (95322) has no place in the data (on the
@@ -29,7 +31,7 @@ guide Stranglethorn Vale (46-47)
 faction horde
 levels 46 47
 carry 1118 2741 3520 95295 95296
-leave 580 2741 3520 95296
+leave 580 2741 2932 3520 95296
 next Swamp of Sorrows (47-47)
 
 # Orgrimmar: the auction house and training -----------------------------------------------------------
@@ -67,6 +69,8 @@ bind 5814
 accept 586
 tip The Bubbling Cauldron stands next to Kin'weelay.
 accept 571
+accept 2932
+tip Nimboya gives you his pike for the Witherbark trolls of the Hinterlands, a later guide: keep it in your bags. He takes the quest back when the guides bring you through Grom'gol again.
 
 # East: the Skullsplitter trolls ------------------------------------------------------------------------
 

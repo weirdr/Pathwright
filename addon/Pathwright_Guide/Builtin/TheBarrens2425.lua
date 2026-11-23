@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467388,
+    created = 1795467772,
     next = "Stonetalon Mountains (25-26)",
     carry = { 529, 546, 567, 1067, 1536, 6543 },
     variants = {
@@ -115,7 +115,7 @@ Pathwright.Builtin.Register({
         { k = "fly", t = "Fly to Crossroads", n = "Crossroads", e = "taxi", id = 25, m = 1413, x = 44.45, y = 59.15, lvl = 25 },
         { k = "turnin", t = "Turn in Betrayal from Within to Thork", q = 906, n = "Thork", e = "npc", id = 3429, m = 1413, x = 51.5, y = 30.87, lvl = 25 },
         { k = "turnin", t = "Turn in Egg Hunt to Korran", q = 868, n = "Korran", e = "npc", id = 3428, m = 1413, x = 51.07, y = 29.63, lvl = 25 },
-        { k = "turnin", t = "Turn in The Runed Scroll to Kadrak", q = 3513, n = "Kadrak", e = "npc", id = 8582, m = 1413, x = 48.12, y = 5.42, nt = { { l = 2, t = "Only for those who found the Runed Scroll: Kadrak keeps the northern guard tower at Mor'shan Rampart, a long ride north along the road. Come back to the Crossroads afterwards." } }, lvl = 25 },
+        { k = "turnin", t = "Turn in The Runed Scroll to Kadrak", q = 3513, n = "Kadrak", e = "npc", id = 8582, m = 1413, x = 48.12, y = 5.42, nt = { { l = 2, t = "Only for those who found the Runed Scroll: Kadrak keeps the northern guard tower at Mor'shan Rampart, a long ride north along the road. Come back to the Crossroads afterwards. Leave his Horde Presence: Rynthariel is a level 29 elite deep in a camp of elites, too much for the two of you at this level." } }, lvl = 25 },
         { k = "fly", t = "Fly to Ratchet", n = "Ratchet", e = "taxi", id = 80, m = 1413, x = 51.5, y = 30.34, nt = { { l = 2, t = "No flight path to Ratchet? Ride east along the road from the Crossroads to the coast." } }, lvl = 25 },
         { k = "turnin", t = "Turn in Mahren Skyseer to Mahren Skyseer", q = 874, n = "Mahren Skyseer", e = "npc", id = 3388, m = 1413, x = 65.84, y = 43.86, nt = { { l = 2, t = "Mahren Skyseer camps on the beach south of Ratchet." } }, lvl = 25 },
         { k = "accept", t = "Accept Isha Awak from Mahren Skyseer", q = 873, n = "Mahren Skyseer", e = "npc", id = 3388, m = 1413, x = 65.84, y = 43.86, min = 10, pa = { 874 }, lvl = 25 },

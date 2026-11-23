@@ -17,9 +17,11 @@
 #   Compendium of the Fallen (1049): the book is in the Scarlet Monastery library, a dungeon.
 # Carried in (skipped by those who lack them): Martek the Exiled (1106, Fizzle Brassbolts in
 # Thousand Needles), Frostmaw (1136, Frostmaw's Mane from Alterac Mountains), The Black Shield
-# (1276, Krog in Dustwallow Marsh), Theldurin the Lost (687, Zaruk in Hammerfall).
-# Left to later guides: News for Fizzle (1137, Tanaris), Report to Helgrum (1420, Stonard) and
-# Finding Tan'jani (95143, Rog'mar).
+# (1276, Krog in Dustwallow Marsh), Theldurin the Lost (687, Zaruk in Hammerfall), and Twice
+# Misplaced Trust (97332, Wharfmaster Lozgil in Booty Bay), only passing through.
+# Left to later guides: News for Fizzle (1137, Tanaris), Report to Helgrum (1420, Stonard),
+# Finding Tan'jani (95143, Rog'mar) and Twice Misplaced Trust (97332, Powderfuse Port, in
+# Riverglades (40-41)).
 # Bought, not farmed: Lotwil's and Lucien's engineering quests want Frost Oil, a Gyrochronatom, a
 # Healing Potion, a Lesser Invisibility Potion and Patterned Bronze Bracers, and Rigglefuzz wants
 # Blue Pearls from Stranglethorn Vale: the guide buys them in Undercity halfway through.
@@ -35,8 +37,8 @@
 guide Badlands (39-40)
 faction horde
 levels 39 40
-carry 243 669 687 1106 1136 1240 1270 1276 1373 95141
-leave 243 669 1137 1240 1270 1373 1420 95141 95143
+carry 243 669 687 1106 1136 1240 1270 1276 1373 95141 97332
+leave 243 669 1137 1240 1270 1373 1420 95141 95143 97332
 next Riverglades (40-41)
 
 # Into the Badlands ---------------------------------------------------------------------------------

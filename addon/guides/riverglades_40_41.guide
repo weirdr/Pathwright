@@ -10,6 +10,9 @@
 # Riverglades (44-45).
 # Left out: Key Ingredients (94974): it follows Krol'dok Moulding, a quest item dropped by Tunk in
 # the Krol'dok Stronghold dungeon.
+# Carried in (skipped by those who lack them): Twice Misplaced Trust (97332, Wharfmaster Lozgil in
+# Booty Bay, from Stranglethorn Vale (36-37)), handed in to Wharfmaster Whizzbuzz at the goblin
+# docks (Powderfuse Port).
 # Data fixed here: Food for the Taking (93787) has no prerequisite (the data says A Message in
 # Blood; outof.games and the quest giver offer both at once).
 #
@@ -21,7 +24,7 @@
 guide Riverglades (40-41)
 faction horde
 levels 40 41
-carry 243 669 1137 1240 1270 1373 1420 95141 95143
+carry 243 669 1137 1240 1270 1373 1420 95141 95143 97332
 leave 243 669 1137 1240 1270 1373 1420
 next Stranglethorn Vale & Swamp of Sorrows (41-43)
 
@@ -212,6 +215,8 @@ turnin 94962
 # The goblin docks ----------------------------------------------------------------------------------
 
 turnin 93976
+turnin 97332
+tip Wharfmaster Whizzbuzz stands a little east of Friz, on the docks. He takes Lozgil's package from Booty Bay.
 accept 95062
 accept 95120
 do 95120

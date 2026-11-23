@@ -16,22 +16,31 @@
 #   Mountains: Cyclonian wants 30 Bloodscalp Tusks from Stranglethorn Vale, so it cannot be started
 #   and finished here. The charms of the Essence drop from the Exiles at the Stones of Binding, on
 #   this guide's way.
-# Left to later guides: Frostmaw (1136, Badlands), Theldurin the Lost (687, Badlands) and Sunken
-#   Treasure (669, Booty Bay, in Stranglethorn Vale & Swamp of Sorrows).
+#   Also carried: Trollbane (638, Nimboya at Grom'gol, from Stranglethorn Vale (36-37)), handed in to
+#   Zengu at the first Hammerfall visit, just before his Sigil of Strom; and Twice Misplaced Trust
+#   (97332, Wharfmaster Lozgil in Booty Bay), passed on to Badlands.
+# The Crown of Will: Melisara's first two quests (518, the Crushridge Maulers, and 519, the heads of
+#   Targ, Muckrake and Glommus) are done here, from Tarren Mill. The third, Mug'thol (520, level 43,
+#   then 521 for Sharlindra in Undercity), is left out: Mug'thol is a level 43 elite in the heart of
+#   Crushridge Hold, ringed by level 38-40 elite Enforcers and Warmongers, too much for a duo at 39.
+# Left to later guides: Frostmaw (1136, Badlands), Theldurin the Lost (687, Badlands), Sunken
+#   Treasure (669, Booty Bay, in Stranglethorn Vale & Swamp of Sorrows) and Twice Misplaced Trust
+#   (97332, Powderfuse Port, in Riverglades (40-41)).
 # Bought, not farmed: the Liferoot of Cyclonian, in Undercity at the start.
 #
 # The route: the zeppelin to Undercity and a flight to Hammerfall; the east and middle of the
 # highlands (Drywhisker Gorge, the Stones of East and Outer Binding, Go'shek Farm, Boulderfist Hall);
 # a loop west (the Stone of West Binding, Stromgarde, the Boulderfist ogres, the Circle of Inner
 # Binding); a flight to Tarren Mill for the Alterac Mountains (the gryphons east of Tarren Mill,
-# Bath'rah, Strahnbrad, then the Ruins of Alterac, Dalaran and Frostmaw); back to Hammerfall,
+# Bath'rah, Strahnbrad and the Crushridge Maulers, then the Ruins of Alterac, the three Crushridge
+# lieutenants, Dalaran and Frostmaw); back to Hammerfall,
 # Stromgarde again and Faldir's Cove; and the rest of Zengu's sigils, one trip to Stromgarde each.
 
 guide Alterac Mountains & Arathi Highlands (38-39)
 faction horde
 levels 38 39
-carry 243 1106 1136 1240 1270 1276 1373 1712 1714 95141
-leave 243 669 687 1106 1136 1240 1270 1276 1373 95141
+carry 243 638 1106 1136 1240 1270 1276 1373 1712 1714 95141 97332
+leave 243 669 687 1106 1136 1240 1270 1276 1373 95141 97332
 next Badlands (39-40)
 
 # Undercity ------------------------------------------------------------------------------------------
@@ -47,6 +56,8 @@ fly "Hammerfall, Arathi" npc 4551
 
 map Arathi Highlands
 bind 9501
+turnin 638
+tip Trollbane, Nimboya's errand from Grom'gol, ends with Zengu: hand it in before he gives the Sigil of Strom.
 accept 639
 accept 678
 accept 701 673
@@ -138,6 +149,8 @@ accept 566
 tip The WANTED poster stands outside, next to High Executor Darthalia.
 accept 503
 tip Krusk is indoors, a little east of Magus Voidglare.
+accept 518
+tip Melisara stands a few steps from the bat handler. Her Crushridge ogres are all elites: a job for the two of you.
 do 79677.1 at 83.5,35.8
 tip Take the road east out of Tarren Mill toward the Hinterlands: the Wild Gryphons nest on the hills beside it.
 
@@ -168,11 +181,18 @@ do 95534 at 59.7,46.7
 tip The bellows at Strahnbrad's forge come alive as an Ancient Fire Elemental.
 do 566 at 60.0,43.6
 
+# Crushridge Hold: the Maulers --------------------------------------------------------------------------
+
+do 518 at 41.5,46.0
+tip Ride west from Strahnbrad to Crushridge Hold. The Maulers (level 36-37 elites) camp around the ogre huts; the Crushridge Mages (elites too) cast from range, so kill them first when they join. Keep south of the middle: Mug'thol's guards are thicker there.
+
 # Tarren Mill -----------------------------------------------------------------------------------------
 
 map Hillsbrad Foothills
 turnin 506
 accept 507
+turnin 518
+accept 519
 turnin 95534 npc 2402
 tip Shara Blazen stands near Krusk.
 turnin 566
@@ -184,6 +204,12 @@ do 507 at 39.2,14.9
 tip Lord Aliden Perenolde is upstairs in the manor of the Ruins of Alterac. Syndicate rogues in stealth guard the house.
 turnin 507
 accept 508
+do 519.3 at 40.2,41.6
+tip Ride south from the Ruins to Crushridge Hold. Glommus, a level 39 elite, is the first lieutenant you reach, in the north of the hold.
+do 519.2 at 38.7,47.0
+tip Muckrake, a level 40 elite, keeps to the middle of the hold.
+do 519.1 at 39.6,52.9
+tip Targ, a level 41 elite, stands at the south end of the hold, by the Warmongers that guard Mug'thol: clear those near him, then pull him back north to fight him.
 do 557 bg at 23.0,54.0
 tip The Elemental Slaves drop the bracers; about one in six has a pair.
 do 545.1 at 24.4,57.3
@@ -197,6 +223,8 @@ tip Mountain lions roam the slopes south and east of the cave. Frostmaw, a level
 map Hillsbrad Foothills
 turnin 545 557
 turnin 508
+turnin 519
+tip Melisara's last order, Mug'thol himself (level 43 elite, deep among his Warmongers), is too much for two at this level: leave it.
 fly "Hammerfall, Arathi" npc 2389
 
 # Stromgarde and Faldir's Cove ----------------------------------------------------------------------

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467327,
+    created = 1795467730,
     next = "Dustwallow Marsh (37-38)",
     carry = { 1106, 1136, 1373, 1712, 1714, 5762, 5763 },
     variants = {
@@ -44,6 +44,7 @@ Pathwright.Builtin.Register({
     steps = {
         { k = "goto", t = "Ride the zeppelin from the tower outside Orgrimmar to Grom'gol Base Camp", m = 1434, x = 31.5, y = 29.5, r = 30, lvl = 36 },
         { k = "accept", t = "Accept Hunt for Yenniku from Nimboya", q = 581, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, min = 30, lvl = 36 },
+        { k = "accept", t = "Accept Trollbane from Nimboya", q = 638, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, min = 32, nt = { { l = 2, t = "Nimboya stands in the north part of the camp. Trollbane only sends you to Zengu in Hammerfall: keep it, Alterac Mountains & Arathi Highlands (38-39) hands it in." } }, lvl = 36 },
         { k = "accept", t = "Accept The Defense of Grom'gol from Commander Aggro'gosh", q = 568, n = "Commander Aggro'gosh", e = "npc", id = 2464, m = 1434, x = 32.17, y = 28.9, min = 33, nt = { { l = 2, t = "Commander Aggro'gosh paces around the middle of the camp." } }, lvl = 36 },
         { k = "accept", t = "Accept Report to Rog'mar from Commander Aggro'gosh", q = 95141, n = "Commander Aggro'gosh", e = "npc", id = 2464, m = 1434, x = 32.17, y = 28.9, min = 36, nt = { { l = 2, t = "Krom'rosh is in the Riverglades, far to the north-east: keep this one, the Riverglades guide hands it in." } }, lvl = 36 },
         { k = "flight_master", t = "Get the flight path from Thysta", n = "Thysta", e = "npc", id = 1387, m = 1434, x = 32.47, y = 29.28, lvl = 36 },
@@ -111,6 +112,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Supply and Demand to Drizzlik", q = 575, n = "Drizzlik", e = "npc", id = 2495, m = 1434, x = 28.26, y = 77.54, lvl = 36 },
         { k = "turnin", t = "Turn in Anything of Value to Wharfmaster Lozgil", q = 97328, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, nt = { { l = 2, t = "Wharfmaster Lozgil stands on the docks at the north of the bay." } }, lvl = 36 },
         { k = "turnin", t = "Turn in Zimmix's Great Escape to Wharfmaster Lozgil", q = 97331, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, lvl = 37 },
+        { k = "accept", t = "Accept Twice Misplaced Trust from Wharfmaster Lozgil", q = 97332, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, min = 36, pre = { 97328, 97331 }, nt = { { l = 2, t = "Lozgil hands you a package for Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades: keep it, Riverglades (40-41) delivers it." } }, lvl = 37 },
         { k = "fly", t = "Fly to Grom'gol", n = "Grom'gol", e = "taxi", id = 20, m = 1434, x = 26.87, y = 77.1, lvl = 37 },
         { k = "turnin", t = "Turn in The Defense of Grom'gol to Commander Aggro'gosh", q = 568, n = "Commander Aggro'gosh", e = "npc", id = 2464, m = 1434, x = 32.17, y = 28.9, lvl = 37 },
         { k = "turnin", t = "Turn in Hunt for Yenniku to Nimboya", q = 581, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, lvl = 37 },

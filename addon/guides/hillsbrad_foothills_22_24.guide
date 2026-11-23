@@ -1,7 +1,7 @@
 # Hillsbrad Foothills (22-24): the first visit to Tarren Mill (Lydon's elixirs, the Battle of
 # Hillsbrad, Durnholde Keep and the Syndicate, Deathstalker Masoj's vials), with the Sepulcher's
-# errands in Silverpine Forest on the way in (Beren's Peril and its Offering Stone, the roads of
-# Ambermill), for a Horde duo.
+# errands in Silverpine Forest on the way in (the refugees and Valdred Moray at the Greymane Wall,
+# Beren's Peril and its Offering Stone, the roads of Ambermill), for a Horde duo.
 #
 # Built into the addon with:
 #   python3 addon/tools/guide_build.py addon/guides/hillsbrad_foothills_22_24.guide --db data/forever.sqlite
@@ -12,6 +12,11 @@
 # Wowhead refused the requests (403), so its comments were not read. The quest list is section 7 of
 # addon/guides/horde_1_40_allocation.md, plus The Offering of Blood (95885), the last step of the
 # Offering Stone at Beren's Peril, which no guide had.
+# Added in the whole-chain pass: A Husband's Revenge (530, Raleigh Andrean in Undercity, after
+#   Raleigh and the Undercity 441) and Stop the Spread (98299, Dalar Dawnweaver at the Sepulcher,
+#   after Arugal's Folly 99). Silverpine Forest (13-15) does both prerequisites but leaves these two
+#   for their level: Valdred Moray (21) and the refugees (18-20) stand together at the Greymane
+#   Wall, a short loop south before Beren's Peril. Both are handed in on the way out.
 #
 # Starts at the flight master in Orgrimmar: Ashenvale (21-22) should end there (a flight from
 #   Splintertree Post). Training for level 22, rogues take Hinott's Assistance (2479) from Shenthul,
@@ -35,10 +40,11 @@
 # The auction house: none of this guide's quest items is sold there, so there is no AH stop.
 #
 # The route: Orgrimmar and the zeppelin; Undercity and a flight to the Sepulcher, whose inn keeps
-# the hearthstone; Beren's Peril and the roads of Ambermill; the road into Hillsbrad and Tarren Mill;
+# the hearthstone; the Greymane Wall, Beren's Peril and the roads of Ambermill; the road into
+# Hillsbrad and Tarren Mill;
 # a loop east to Durnholde Keep; two loops west to Hillsbrad Fields; a last loop for Deathstalker
 # Masoj and his vials and the smithy of Hillsbrad; the hearthstone to the Sepulcher, a flight to
-# Undercity and the zeppelin to Orgrimmar, where The Barrens (24-25) starts.
+# Undercity (Raleigh Andrean) and the zeppelin to Orgrimmar, where The Barrens (24-25) starts.
 
 guide Hillsbrad Foothills (22-24)
 faction horde
@@ -67,6 +73,8 @@ goto "Off the zeppelin, walk into Undercity through the ruins of Lordaeron" at 6
 map Undercity
 turnin 5644
 tip Undead priests only: Aelthalyste is in the War Quarter, with the priest trainers.
+accept 530
+tip Raleigh Andrean, the ex-chef, is in the Trade Quarter. He offers this to those who brought him Deliah's Ring in Silverpine Forest (13-15). Valdred Moray is at the Greymane Wall, on your way.
 fly "The Sepulcher, Silverpine Forest" npc 4551
 tip No flight path to the Sepulcher? Walk out of Undercity and south along the road through Tirisfal into Silverpine Forest.
 
@@ -81,11 +89,22 @@ accept 95981 516
 tip Shadow Priest Allister offers Watching the Roads only to those who did Dalaran's Intentions earlier in Silverpine.
 turnin 264
 tip Yuriv's Tombstone is in the graveyard of the Sepulcher, a few steps south-east of Shadow Priest Allister: click it to leave Clarice's Pendant.
+accept 98299
+tip Dalar Dawnweaver walks around outside the crypt. He offers this to those who brought him the Pyrewood Shackles (Arugal's Folly) in Silverpine Forest (13-15).
+
+# The Greymane Wall -----------------------------------------------------------------------------------
+
+do 98299 bg
+tip Follow the road south past Pyrewood Village to its end at the Greymane Wall: the refugees camp in the field against the wall. Kill the Haggard and Sickly Refugees (level 18-20) as you come in.
+do 530
+tip Valdred Moray (level 21) stands among the refugees. Clear the ones around him and pull him alone. His hands drop for each of you who has the quest: if one of you finds nothing in his loot, wait by the wall for him to come back.
+do 98299
+tip Not five of each yet? The refugees stand all along the camp, most of them at its east end.
 
 # Beren's Peril and the roads of Ambermill -----------------------------------------------------------
 
 do 516 bg
-tip Beren's Peril is the cave in the hills east of Pyrewood Village, near the road to Ambermill. The Ravenclaw Drudgers and Guardians fill it: clear it together, one group at a time.
+tip From the Greymane Wall, head north-east: Beren's Peril is the cave in the hills east of Pyrewood Village, near the road to Ambermill. The Ravenclaw Drudgers and Guardians fill it: clear it together, one group at a time.
 accept 95884 at 59.0,71.4 icon kill "Kill the Ravenclaw undead in Beren's Peril until one drops a Note Scrap, then read it: it starts a quest"
 tip Each of you needs your own scrap: keep killing until both of you have one.
 do 95884
@@ -231,7 +250,12 @@ hearth npc 6739
 tip Hearthstone not ready? Walk back to Tarren Mill and fly to the Sepulcher.
 map Silverpine Forest
 turnin 516 95981
+turnin 98299
+tip Dalar Dawnweaver walks around outside the crypt.
 fly "Undercity, Tirisfal" npc 2226
+map Undercity
+turnin 530
+tip Raleigh Andrean is in the Trade Quarter, near the bat master.
 map Tirisfal Glades
 note "Take the zeppelin from the tower outside Undercity to Durotar, for the next guide" npc 9566
 tip Walk out of Undercity: the tower stands just outside the ruins of Lordaeron. Zapetta sends the zeppelin to Orgrimmar.

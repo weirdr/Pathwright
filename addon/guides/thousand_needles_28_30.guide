@@ -1,7 +1,7 @@
 # Thousand Needles (28-30): Freewind Post and the canyons around it (the Galak centaur, the
 # Roguefeather harpies, Highperch, Whitereach Post, the Grimtotem of Darkcloud Pinnacle, Dorn
-# Plainstalker's tests), with a first stop at Camp Taurajo and the errands that end in Ratchet and
-# Orgrimmar, for a Horde duo.
+# Plainstalker's tests), with a first stop at Gloomrise north of Thunder Bluff and at Camp Taurajo,
+# and the errands that end in Ratchet and Orgrimmar, for a Horde duo.
 #
 # Built into the addon with:
 #   python3 addon/tools/guide_build.py addon/guides/thousand_needles_28_30.guide --db data/forever.sqlite
@@ -24,9 +24,14 @@
 #   Den in southern Ashenvale, and Parqual Fintallas asks his (6628) only after the book of the Scarlet
 #   Monastery (1160, a dungeon). Braug, Dor'danil and Braug again cost about 35 minutes of running for
 #   about 4,500 XP, and the chain stops at the dungeon anyway.
+# Added in the whole-chain pass: the Gloomrise quests of the Earthen Ring camp on Skywatcher Plateau, in
+#   Mulgore just north of Thunder Bluff (Talkin' bout Toxins, Mon 96241, Defending the Dead 96259,
+#   Stronger than Steel 96260, The Broodmother 96261, an elite, and A Darker Truth 96294, from her
+#   letter). Level 29-30, taken from level 23, so they fit the first Thunder Bluff visit.
 #
-# The route: Thunder Bluff and a flight to Camp Taurajo; the soldiers on the Dustwallow border and the
-# Great Lift down to Freewind Post; a loop north and east (the Galak centaur, Splithoof Hold, Dorn
+# The route: Thunder Bluff, the Earthen Ring camp and the spiders of Gloomrise north of it, and a
+# flight to Camp Taurajo; the soldiers on the Dustwallow border and the Great Lift down to Freewind
+# Post; a loop north and east (the Galak centaur, Splithoof Hold, Dorn
 # Plainstalker, the Gravelsnout kobolds and the alien egg); a loop west (the Roguefeather Den,
 # Highperch, Steelsnap, Whitereach Post, the Boiling Pool) and the hearthstone to Thunder Bluff; Camp
 # Taurajo and a flight back to Freewind Post; a last loop (Dorn, Darkcloud Pinnacle, Rok'Alim, the
@@ -49,8 +54,41 @@ accept 1131
 tip Melor Stonehoof is on Hunter Rise.
 bind 6746
 tip Set your hearthstone here: it brings you back from the far west of Thousand Needles halfway through the guide.
+
+# Skywatcher Plateau and Gloomrise, north of Thunder Bluff -------------------------------------------
+
+map Mulgore
+goto "Ride down a lift and round the bluffs to the foot of the path north of Thunder Bluff" at 40.2,17.3 r 8
+tip The path starts among the Windfury harpies at the foot of the cliffs and winds up west onto Skywatcher Plateau, where the Earthen Ring camp is.
+accept 96259
+tip Muln Earthfury stands at the south end of the camp.
+accept 96241
+tip Mazu'kon stands at the north end of the camp. Keep the Toxin Extractor he gives you.
+accept 96260
+tip Yorn Grimtotem is next to Mazu'kon.
+do 96241 bg
+tip Gnawed Corpses lie all over Gloomrise, and a few around the camp. Use the Toxin Extractor on one to take a sample; it has a 10-second cooldown and doesn't always work. A corpse can get up and fight: kill it and loot the sample from it.
+do 96259
+tip Gloomrise is the old burial ground just north of the camp. The spiders (level 27-29) are thickest in its middle, around 34,11. Soldiers are fewer than hatchlings: kill every one you see.
+do 96260
+tip Only the Gloomrise Spinners drop the silk, about one in five: count on fifteen kills or so.
+do 96241
+tip Finish the samples on the corpses on your way back to the camp.
+turnin 96241
+turnin 96260
+turnin 96259
+accept 96261
+do 96261
+tip Broodmother Valraxx is an elite of level 30 at the northern end of Gloomrise (33.7,6.8). She is weak for an elite: clear the spiders around her first, then fight her together.
+accept 96294
+tip Loot her for the Bloody Parchment and open it to start the quest. If it dropped for only one of you, the other waits for her to come back.
+turnin 96261
+turnin 96294
+tip Back to Muln Earthfury at the camp.
+
+map Thunder Bluff
 fly "Camp Taurajo" npc 2995
-tip No flight path to Camp Taurajo? Ride east out of Mulgore instead: the camp is just past the gate into the Barrens.
+tip Walk down the path and take a lift back up into Thunder Bluff. No flight path to Camp Taurajo? Ride east out of Mulgore instead: the camp is just past the gate into the Barrens.
 
 # Camp Taurajo and the south of the Barrens ----------------------------------------------------------
 
