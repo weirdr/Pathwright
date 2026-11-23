@@ -3494,7 +3494,7 @@ print("walk ok")
 -- Shortest Path Forever: the target sent once, with what stands there; while it guides, no
 -- walk on the compass ("auto") and the game's waypoint is its; a journey the player replaces is
 -- not sent again until picked on the compass; an objective stays held on its quest's area;
--- unlinked, the journey is cancelled.
+-- the compass follows its way; unlinked, the journey is cancelled.
 do
     local sent, current, ended, subscribers = {}, nil, nil, {}
     ShortestPathForever = {
@@ -3543,6 +3543,44 @@ do
     stop = sent[#sent].stop
     assert(stop.kind == "objective" and stop.hold and stop.questID == 8102 and stop.radius, "an objective held")
     onQuest[8102] = nil
+
+    -- Its way on the compass and the arrow: the next point it leads to on the guide's journey
+    -- (not on the player's own, nor with the walk forced or off), its leg's words, and the way
+    -- to another continent.
+    local guidance = { owner = "Pathwright", leg = 1, index = 1, point = { map = 1426, x = 0.31, y = 0.75 } }
+    local api = ShortestPathForever.API
+    api.Guidance = function()
+        if not guidance then return nil, "paused" end
+        return guidance
+    end
+    api.Journey = function() return { owner = "Pathwright", legs = { { mode = "walk", text = "Walk to the dock" } } } end
+    FG.Guide:PointToStep(1)
+    local n, w, back = FG.Pathing:Aim(0, 299.3, 712)
+    assert(close(n, 310) and close(w, 750) and not back, "its next point")
+    assert(FG.Pathing:Way().text == "Walk to the dock", "its leg's words")
+    assert(FG.Pathing:Aim(1, 299.3, 712) == nil, "its point on another continent")
+    assert(FG.Pathing:Remaining(0, 299.3, 712) == nil, "its way is drawn by it")
+    FG:Set("pathMode", "on")
+    n, w = FG.Pathing:Aim(0, 299.3, 712)
+    assert(n and math.abs(w - 742) < 1, "the guide's walk forced")
+    FG:Set("pathMode", "off")
+    assert(FG.Pathing:Aim(0, 299.3, 712) == nil, "no way with it off")
+    FG:Set("pathMode", nil)
+    guidance.point.x = 0.32
+    assert(close(FG.Pathing:Aim(0, 299.3, 712), 310), "read again only when it changes")
+    for _, fn in ipairs(subscribers) do
+        fn({ guidance = true })
+    end
+    assert(close(FG.Pathing:Aim(0, 299.3, 712), 320), "a turn passed: its next point")
+    guidance.owner = nil
+    for _, fn in ipairs(subscribers) do
+        fn({ changed = true })
+    end
+    assert(FG.Pathing:Aim(0, 299.3, 712) == nil, "the player's own journey is not followed")
+    guidance = nil
+    FG.Pathing:Forget()
+    FG.Guide:PointToStep(1)
+    assert(FG.Pathing:Aim(0, 299.3, 712) == nil, "no point to give: none")
 
     FG:Set("spfLink", false)
     assert(current == nil and ended == "cancelled", "unlinked: cancelled")

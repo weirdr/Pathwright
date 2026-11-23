@@ -4,9 +4,10 @@
 --   the steep ground, world coordinates), shown on the compass as the way to go while the
 --   character is close to it (`pathMode`);
 --   on WoW Forever, Shortest Path Forever when it is loaded (`spfLink`): it gets the place and
---   guides there with its own lines, arrow and the game's waypoint (ours is left to it). A
---   journey the player replaces or clears there is not sent again until the place changes or is
---   picked again on the compass.
+--   plans the way there (flights, boats, the walk), drawn with its own lines and the game's
+--   waypoint (ours is left to it); the compass and the arrow then show its way, the next point
+--   it leads to (Pathing:Aim), instead of the guide's walk. A journey the player replaces or
+--   clears there is not sent again until the place changes or is picked again on the compass.
 
 local FG = Pathwright
 
@@ -53,7 +54,7 @@ function Pathing:PathShown()
     local mode = FG:Get("pathMode")
     if mode == "on" then return true end
     if mode == "off" then return false end
-    return not self:SpfLinked()
+    return not self:Guiding()
 end
 
 -- The walk ---------------------------------------------------------------------------------
@@ -106,8 +107,13 @@ end
 --- Where the compass shows the way for a character at (`north`, `west`) of `continent`: AHEAD
 --- yards along the walk from its closest point; nil without a walk, off it, or on its last leg
 --- (straight to the place). Second value: true when the character is beside the walk, going
---- back to it.
+--- back to it. While Shortest Path Forever guides: the next point of its way (see Pathing:Way).
 function Pathing:Aim(continent, north, west)
+    local way = self:Way()
+    if way then
+        if way.continent ~= continent then return nil end
+        return way.north, way.west, false
+    end
     if not walk or walk.continent ~= continent or not self:PathShown() then return nil end
     local points = walk.points
     local best, bestDistance, bestN, bestW = Closest(north, west)
@@ -157,10 +163,32 @@ end
 -- The place sent (its key), the one the player replaced or cleared there (not sent again), and
 -- the subscription to its changes.
 local sent, refused, subscribed
+-- Its way, read at most every WAY_EVERY seconds and when it says it changed: { continent,
+-- north, west, text }, false without one, nil to read again.
+local way, wayRead
+local WAY_EVERY = 0.5
 
 local function Key(place) return place.m .. ":" .. place.x .. ":" .. place.y end
 
+--- The next point Shortest Path Forever leads to on the guide's journey, and its leg's words.
+local function ReadWay(api)
+    if type(api.Guidance) ~= "function" then return false end
+    local guidance = api.Guidance()
+    local point = type(guidance) == "table" and guidance.owner == OWNER and guidance.point
+    if type(point) ~= "table" then return false end
+    local continent, north, west = FG.Compass.World(point.map, point.x, point.y)
+    if not continent then return false end
+    local journey = type(api.Journey) == "function" and api.Journey()
+    local leg = type(journey) == "table"
+        and journey.owner == OWNER
+        and type(journey.legs) == "table"
+        and journey.legs[1]
+    local text = type(leg) == "table" and type(leg.text) == "string" and leg.text ~= "" and leg.text or nil
+    return { continent = continent, north = north, west = west, text = text }
+end
+
 local function Changed()
+    way = nil
     local api = API()
     if not api or not sent or (api.CurrentStop and api.CurrentStop(OWNER)) then return end
     local why = api.Ended and api.Ended(OWNER)
@@ -170,7 +198,7 @@ end
 
 local function Cancel(api)
     if sent and api and api.Cancel then api.Cancel(OWNER) end
-    sent = nil
+    sent, way = nil, nil
 end
 
 -- The NPC standing at the place pointed at.
@@ -202,7 +230,9 @@ function Pathing:SetTarget(place, step, info)
     end
     -- Refused in combat, without a position or with its journeys turned off: tried again at the
     -- next refresh.
-    if api.NavigateRoute(OWNER, { stop }) then sent = key end
+    if api.NavigateRoute(OWNER, { stop }) then
+        sent, way = key, nil
+    end
 end
 
 --- The NPC standing at the place pointed at (nil: none, or not an NPC).
@@ -214,9 +244,24 @@ function Pathing:Guiding()
     return api ~= nil and sent ~= nil and (not api.CurrentStop or api.CurrentStop(OWNER) ~= nil)
 end
 
+--- The way Shortest Path Forever leads the character on the guide's journey: { continent, north,
+--- west (the next point to go to: a turn of the walk, a flight master, a dock), text (what its
+--- leg says, in the game's language; nil without) }; nil when it does not guide there, has no
+--- point to give (still planning, paused, inside an objective's area) or the compass shows the
+--- guide's own walk or none (`pathMode`).
+function Pathing:Way()
+    if FG:Get("pathMode") ~= "auto" or not sent then return nil end
+    local now = GetTime and GetTime() or 0
+    if way == nil or now - (wayRead or 0) > WAY_EVERY or now < (wayRead or 0) then
+        local api = self:SpfLinked() and API()
+        way, wayRead = api and ReadWay(api) or false, now
+    end
+    return way or nil
+end
+
 --- The place is picked by hand (a click on the compass): sent again, even refused before.
 function Pathing:Forget()
-    sent, refused = nil, nil
+    sent, refused, way = nil, nil, nil
 end
 
 FG:OnSetting("spfLink", function(on)
