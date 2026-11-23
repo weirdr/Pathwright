@@ -1,0 +1,194 @@
+# The Fallen Hero (55-60): the rest of the Fallen Hero of the Horde's chain for a Horde duo, after A
+# Tale of Sorrow: the Stones of Binding and Kirith in the Blasted Lands, Loramus Thalipedes and the
+# Azsharite in Azshara, Galvan the Ancient's felbane weapons in Stranglethorn Vale, and the triad of
+# Razelikh the Defiler. Not part of the leveling chain: a zone guide, with no next guide.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/the_fallen_hero_zone.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, NPC levels and ranks and the places of
+# mobs and objects from the game data (data/forever.sqlite: Blasted Lands area 4, Swamp of Sorrows 8,
+# Azshara 16, Stranglethorn Vale 33), checked against outof.games (each quest below, and the NPC pages
+# of Kirith, Ambassador Ardalan and Sefira Everbright). Wowhead not consulted.
+#
+# Where it starts: Stonard, in the Swamp of Sorrows. The Fallen Hero of the Horde, who gives and takes
+# most of the chain, stands by the road from Stonard to the Blasted Lands, a short ride south-west of
+# the flight master; Orgrimmar is a flight and a zeppelin away. Levels: the quests are 57 to 60, the
+# servants of the stones 53 to 57, Hetaera and Kirith the Damned 55 elites, the triad 58 and 59 elites:
+# a duo can begin at 55 and should be near 60 for the triad.
+#
+# What the leveling guides already cover: Swamp of Sorrows (47-47) takes Fall From Grace (2784), The
+# Disgraced One (2621) and The Missing Orders (2622); Stranglethorn Vale & Swamp of Sorrows (50-50)
+# takes The Swamp Talker (2623) and A Tale of Sorrow (2801), which opens The Stones That Bind Us. The
+# Blasted Lands (50-51) guide takes none of the chain. Everything from The Stones That Bind Us on is
+# here; a player who skipped A Tale of Sorrow hears the Fallen Hero's tale first (a tip says so).
+#
+# The route: Stonard and the Fallen Hero; a loop of the Blasted Lands for the eighteen Stones of
+# Binding (Dreadmaul Hold, the Altar of Storms, the Rise of the Defiler, Serpent's Coil); the Fallen
+# Hero and the Spectral Lockbox; back to Serpent's Coil for Kirith; a flight to Grom'gol, the zeppelin
+# to Orgrimmar (hearthstone) and a flight to Valormok; Loramus on his island, Lord Arkkoroc's temple,
+# Hetaera, Loramus again and the Azsharite of the south; the hearthstone to Orgrimmar, the zeppelin to
+# Grom'gol and Galvan's forge; a flight to Stonard, the triad and the Fallen Hero.
+#
+# Left out:
+# - You Are Rakh'likh, Demon (3628), the last quest of the chain: Razelikh the Defiler is a level 60
+#   elite demon lord on top of the Rise of the Defiler, guarded by two more level 60 elites (Felcular and
+#   Ilifar), and needs a full group, not a duo. The guide ends with Uniting the Shattered Amulet (3627)
+#   handed in; take 3628 from the Fallen Hero later with a group.
+# - The Grand Alliance (91882, Ambassador Ardalan in Nethergarde Keep): it leads to no quest of the
+#   Mount Hyjal guides, but it ends with Sefira Everbright in Mount Hyjal, an Alliance NPC (the data and
+#   outof.games both say so) whose camp the Hyjal guides leave out as Alliance only: a Horde player
+#   cannot hand it in, and Ardalan stands in an Alliance keep.
+# - Demon Hunter's Hunter (91877, Loramus): it leads to Maerion Thaelemaches in Mount Hyjal, whose
+#   quests Mount Hyjal 2 (59-60) already does, and Mount Hyjal 2 hands it in (an optional carry).
+# - No dungeon, raid, repeatable or Alliance-only quest belongs to the chain.
+
+guide The Fallen Hero (55-60)
+faction horde
+levels 55 60
+
+# Stonard and the Fallen Hero ------------------------------------------------------------------------
+
+map Swamp of Sorrows
+
+goto "Fly to Stonard in the Swamp of Sorrows: this guide starts there, as the Fallen Hero of the Horde stands a short ride south-west of it" at 46.1,54.8 r 30
+tip No flight path to Stonard yet? Fly to Grom'gol in Stranglethorn and take the wind rider from there.
+fpath 6026
+accept 2681
+tip The Fallen Hero stands alone by the road to the Blasted Lands. If he has nothing for you, listen to his tale first (A Tale of Sorrow, from the Stranglethorn & Swamp of Sorrows guide).
+tip Each Stone of Binding you click calls up one of the Fallen Hero's tormented men as a hostile servant: kill it next to the stone, or the binding fails. One kill counts for both of you.
+
+# The Stones of Binding ------------------------------------------------------------------------------
+
+map Blasted Lands
+
+do 2681.2 bg at 42.5,12.5 "Free 3 Servants of Grol: two stones stand at Dreadmaul Hold, the third far south at 49.9,43.9"
+tip Dreadmaul Hold is the ogre camp just west of the road down from the Swamp; its ogres are only 45-47. The Servants of Grol are 53-54.
+do 2681.4 at 41.0,38.0 "Free 3 Servants of Sevine at the stones around the Altar of Storms, on the west side"
+tip The stones stand at 38.1,33.5, 41.3,39.7 and 42.8,41.4, below the Shadowsworn camp of the Altar of Storms. The servants are 55-56: pull the cultists near a stone first.
+do 2681.1 at 57.0,55.0 "Free 9 Servants of Razelikh at the stones south of the Rise of the Defiler"
+tip The stones are spread over the south-centre of the zone: 51.3,57.7, 53.3,59.7, 54.0,53.6, 55.6,48.2, 62.2,51.6, 63.2,57.2 and 63.8,55.9. The servants are 57. Only seven are known; if you run short, wait by a used stone for it to come back.
+tip Grol's third stone, at 49.9,43.9, is on the way here from the Altar of Storms.
+do 2681.3 at 64.5,40.5 "Free 3 Servants of Allistarj at the stones along the east side"
+tip The stones run north along the east side: 64.5,46.8, 63.9,40.5 and 65.0,34.5. The servants are 54-55.
+tip Teremus the Devourer, a level 60 elite dragon, flies over the whole zone: watch the sky.
+
+# The Fallen Hero and the Spectral Lockbox -----------------------------------------------------------
+
+map Swamp of Sorrows
+
+turnin 2681
+accept 2702
+turnin 2702
+accept 2701
+tip Corporal Thund Splithoof, a ghost, stands a few steps west of the Fallen Hero.
+turnin 2701
+tip The Spectral Lockbox is on the ground beside Thund: open it for your reward.
+accept 2721
+
+# Kirith, at Serpent's Coil --------------------------------------------------------------------------
+
+map Blasted Lands
+
+note "Kill Kirith the Damned at the back of Serpent's Coil, in the north-east of the Blasted Lands: the Spirit of Kirith rises beside him" npc 7728
+tip Kirith the Damned is a level 55 elite demon: clear the Shadowsworn cultists (51-53) on the way in, then fight him together. If the Spirit of Kirith already stands there, just talk to it.
+turnin 2721
+accept 2743
+
+map Swamp of Sorrows
+
+turnin 2743
+accept 2744
+fly "Grom'gol, Stranglethorn" npc 6026
+
+# Grom'gol and Orgrimmar -----------------------------------------------------------------------------
+
+map Stranglethorn Vale
+
+note "Take the zeppelin to Orgrimmar from the tower at Grom'gol" npc 12137
+
+map Orgrimmar
+
+bind 6929
+tip Set your hearthstone in Orgrimmar: it brings you back from the far end of Azshara later.
+fly "Valormok, Azshara" npc 3310
+tip No flight path to Valormok yet? Ride east out of Orgrimmar through the Ashenvale road and north-east into Azshara.
+
+# Loramus Thalipedes -------------------------------------------------------------------------------
+
+map Azshara
+
+turnin 2744
+tip Loramus Thalipedes stands alone on an island in the bay south-east of the zone's middle: ride east from Valormok to the shore and swim out. Sons and Servants of Arkkoroc, elite water elementals (53-55), drift in the water around it: go around them.
+accept 3141
+do 3141 icon talk "Ask Loramus Thalipedes to tell his story, and listen to the end"
+turnin 3141
+accept 3508
+do 3508 at 60.8,66.3 icon text "Wait beside Loramus while he performs the enlightenment ritual"
+turnin 3508
+accept 3509
+
+# Lord Arkkoroc and Hetaera -------------------------------------------------------------------------
+
+turnin 3509
+tip Lord Arkkoroc, a huge friendly sea giant, stands in the Temple of Arkkoran on the east coast. The makrura around the temple (53-55) are hostile.
+accept 3510
+do 3510.1 at 58.5,41.5 mobs 6140 "Kill Hetaera south-west of the temple and loot Hetaera's Beaten Head"
+do 3510.2 at 58.5,41.5 mobs 6140 "Loot Hetaera's Bloodied Head from her"
+do 3510.3 at 58.5,41.5 mobs 6140 "Loot Hetaera's Bruised Head from her"
+tip Hetaera is a level 55 elite hydra who roams between 56.7,44.8 and 60.0,40.2, among elite Sons and Servants of Arkkoroc: pull her alone. All three heads come from one kill.
+turnin 3510
+accept 3511
+turnin 3511
+tip Back to Loramus on his island.
+accept 3602
+
+# The Azsharite of the south -------------------------------------------------------------------------
+
+do 3602 at 52.5,82.0 "Pick up 20 Crystallized Azsharite from the Azsharite Formations of southern Azshara"
+tip Use the Felhound Tracker Kit as soon as you reach the formations: the felhound sniffs out hidden deposits, and the kit vanishes after ten minutes. Formations lie from 45,70 to 63,90.
+tip The cliff giants here are elites (Cliff Breakers, Thunderers and Walkers): give them room. Azuregos, a level 63 world dragon, walks the same valley: keep away from him.
+turnin 3602
+accept 3621
+hearth npc 6929
+
+# Galvan the Ancient ---------------------------------------------------------------------------------
+
+map Durotar
+
+note "Take the zeppelin to Grom'gol in Stranglethorn Vale from the tower outside Orgrimmar" npc 12136
+tip Snurk Bucksquick at the top of the tower, a short ride from the gate of Orgrimmar, knows which zeppelin goes to Grom'gol.
+
+map Stranglethorn Vale
+
+turnin 3621
+tip Galvan the Ancient, of the Mithril Order, camps east of Grom'gol between Zul'Gurub and the Mosh'Ogg mound: ride east along the northern road.
+accept 3625
+do 3625 icon text "Wait for Galvan to forge your weapon"
+turnin 3625
+tip Choose the sword, the dagger or the staff: each carries the Felcurse that the triad needs.
+accept 3626
+fly "Stonard, Swamp of Sorrows" npc 1387
+tip Ride back west to Grom'gol for the wind rider.
+
+# The triad ------------------------------------------------------------------------------------------
+
+map Swamp of Sorrows
+
+turnin 3626
+accept 3627
+tip The triad cannot die while their amulets protect them: use your Enchanted Azsharite Felbane weapon on each of them (the Felcurse) to weaken them, then kill them. It works once every three minutes and wears off after a varying time, so take turns: one of you opens, the other recasts when it fades.
+
+map Blasted Lands
+
+do 3627.2 at 42.6,13.0 mobs 7665 "Kill Grol the Destroyer at Dreadmaul Hold for the Amulet of Grol"
+tip Grol is a level 58 elite ogre in the middle of the hold: clear the ogres around him first.
+do 3627.3 at 40.8,30.0 mobs 7667 "Kill Lady Sevine at the Altar of Storms for the Amulet of Sevine"
+tip Lady Sevine is a level 59 elite caster among the Shadowsworn (53-55) and Vek'zol: clear the camp before you pull her, and interrupt her spells.
+do 3627.1 at 66.7,29.2 mobs 7666 "Kill Archmage Allistarj at Serpent's Coil for the Amulet of Allistarj"
+tip Archmage Allistarj is a level 58 elite mage in Serpent's Coil, near where Kirith fell: interrupt his casts and keep the Felcurse up.
+
+map Swamp of Sorrows
+
+turnin 3627
+tip The guide ends here. The last quest, You Are Rakh'likh, Demon, is for a full group: Razelikh the Defiler and his two guards are level 60 elites. Your hearthstone is set in Orgrimmar.
