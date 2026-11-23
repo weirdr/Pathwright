@@ -8,7 +8,9 @@ name: Addon release
 # Semantic versions (scripts/addon-version.sh): each release bumps the patch number; set
 # addon/VERSION to start a new minor or major version. The releases before were tagged
 # addon-YYYY.MM.DD-HHMMSS. The Pathwright- prefix keeps these tags apart from release.yml's
-# vX.Y.Z (the apps' releases).
+# vX.Y.Z (the apps' releases). Each release is then announced in Discord
+# (scripts/discord-release.sh) when the repository has the secret DISCORD_RELEASE_WEBHOOK; run by
+# hand with "announce", it only announces the latest release again.
 on:
   push:
     branches: [main]
@@ -19,6 +21,11 @@ on:
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
+    inputs:
+      announce:
+        description: Only announce the latest release in Discord again (no release)
+        type: boolean
+        default: false
 
 permissions: {}
 
@@ -40,10 +47,15 @@ jobs:
           persist-credentials: false
       - name: Anything new since the last addon release?
         id: changes
+        env:
+          ANNOUNCE: ${{ inputs.announce }}
         run: |
           last=$(git tag --list 'Pathwright-v*' 'addon-*' --sort=-creatordate | head -n 1)
           echo "last=$last" >> "$GITHUB_OUTPUT"
-          if [ -n "$last" ] && git diff --quiet "$last" HEAD -- addon scripts/install-addon.sh scripts/addon-zip.sh; then
+          if [ "$ANNOUNCE" = true ]; then
+            echo "Announcing the latest release again: no release."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          elif [ -n "$last" ] && git diff --quiet "$last" HEAD -- addon scripts/install-addon.sh scripts/addon-zip.sh; then
             echo "No addon change since $last: no release."
             echo "release=false" >> "$GITHUB_OUTPUT"
           else
@@ -62,6 +74,7 @@ jobs:
         if: steps.changes.outputs.release == 'true'
         run: scripts/addon-zip.sh dist/Pathwright-addon.zip
       - name: Publish
+        id: publish
         if: steps.changes.outputs.release == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -69,6 +82,7 @@ jobs:
         run: |
           version=$(scripts/addon-version.sh)
           tag="Pathwright-v$version"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
           guide=$(sed -n 's/^## Version: //p' addon/Pathwright_Guide/Pathwright_Guide.toc | tr -d '\r')
           profile=$(sed -n 's/^## Version: //p' addon/Pathwright_Profile/Pathwright_Profile.toc | tr -d '\r')
           {
@@ -88,3 +102,19 @@ jobs:
             --title "Pathwright v$version" \
             --notes-file notes.md \
             --latest
+      - name: Announce in Discord
+        if: steps.publish.outputs.tag != '' || inputs.announce
+        # A message that fails to go out never fails the release.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
+          # The release just made, else (announced again) the one marked Latest.
+          TAG: ${{ steps.publish.outputs.tag }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK" ]; then
+            echo "No DISCORD_RELEASE_WEBHOOK secret: not announced."
+            exit 0
+          fi
+          tag=${TAG:-$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)}
+          scripts/discord-release.sh "$tag"
