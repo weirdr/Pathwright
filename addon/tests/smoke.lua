@@ -1185,7 +1185,8 @@ do
         Plate("nameplate5", 500, 400), -- another name
     }
     -- A press: by name (the game picks the nearest, in sight or not), then the checker, then the
-    -- skull, stopped when the checker cleared the target.
+    -- skull, stopped when the checker cleared the target. (The tagged one aside for now.)
+    local tappedPlate = table.remove(list, 1)
     sword.PreClick(sword)
     local byName = strip.CheckedMacro(strip.actions[1])
     assert(sword.aimed == byName, "by name: " .. tostring(sword.aimed))
@@ -1238,6 +1239,23 @@ do
     assert(sword.aimed == byName and strip.expect and strip.expect.skipTapped, "by name and checked: " .. tostring(sword.aimed))
     C_NamePlate.GetNamePlates = plates
     mobs.target = nil
+    -- A target already fit: kept, the skull and the ping on it (no target taken by name).
+    mobs.target = { name = "Kobold Vermin" }
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.KeepMacro() and not sword.aimed:find("targetexact"), "kept: " .. sword.aimed)
+    assert(sword.aimed:find("^/stopmacro %[@target,noexists%]\n/tm 0\n/tm 8"), sword.aimed)
+    mobs.target = { name = "Kobold Vermin", tapped = true }
+    sword.PreClick(sword)
+    assert(sword.aimed == byName, "a tagged target is not kept")
+    mobs.target = nil
+    -- A tagged one in sight as near as the nearest fit one (the same range, or none measured): the
+    -- game could take either, so by name without the skull and the ping.
+    table.insert(list, 1, tappedPlate)
+    local how, sure = strip.Plan("Kobold Vermin", true)
+    assert(how == "name" and not sure, "as near: by name, not sure")
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.NameMacro("Kobold Vermin", false), "no skull nor ping: " .. sword.aimed)
+    assert(not sword.aimed:find("/tm", 1, true) and not sword.aimed:find("/click", 1, true), sword.aimed)
     -- Among those in sight: the current target first (not when the checker looks for another).
     UnitIsUnit = function(a, b) return (a == "nameplate2" and b == "target") or a == b end
     assert(strip.Pick("Kobold Vermin", true) == "nameplate2", "the current target first")
@@ -1264,6 +1282,28 @@ do
     fire("SPELLS_CHANGED")
     near.nameplate2 = 8
     assert(strip.Range("nameplate2") == 10 and strip.Range("nameplate3") == math.huge, "ranges measured")
+    how, sure = strip.Plan("Kobold Vermin", true)
+    assert(how == "name" and sure, "a fit one nearer than the tagged one: by name, sure")
+    sword.PreClick(sword)
+    assert(sword.aimed == byName, "then by name, the skull and the ping: " .. sword.aimed)
+    near.nameplate1 = 9
+    how, sure = strip.Plan("Kobold Vermin", true)
+    assert(how == "name" and not sure, "a tagged one at the same range: not sure")
+    -- The nearest tagged: by name and one Tab to the next enemy, the skull and the ping when it is
+    -- for sure a fit one; not when another enemy is as near.
+    near.nameplate1, near.nameplate2 = 8, 20
+    how, sure = strip.Plan("Kobold Vermin", true)
+    assert(how == "tab" and sure, "tab to the fit one")
+    sword.PreClick(sword)
+    local tab = strip.TabMacro("Kobold Vermin", true)
+    assert(sword.aimed == tab, "tab: " .. sword.aimed)
+    assert(tab:find("^/cleartarget\n/targetexact Kobold Vermin\n/targetenemy\n/cleartarget %[dead%]\n/stopmacro"), tab)
+    near.nameplate5 = 20
+    how, sure = strip.Plan("Kobold Vermin", true)
+    assert(how == "tab" and not sure, "another enemy as near: not sure")
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.TabMacro("Kobold Vermin", false) and not sword.aimed:find("/tm"), sword.aimed)
+    near.nameplate1, near.nameplate2, near.nameplate5 = nil, 8, nil
     assert(strip.Pick("Kobold Vermin", true) == "nameplate2", "the mob next to the player, off the middle of the screen")
     near.nameplate2, near.nameplate3 = 33, 29
     assert(strip.Range("nameplate2") == 35 and strip.Range("nameplate3") == 30, "spell ranges: " .. strip.Range("nameplate3"))
@@ -1282,12 +1322,13 @@ do
     assert(strip.Pick("Kobold Vermin", true), "a restricted plate skipped, no error")
     table.remove(list)
     mobs.nameplate9 = nil
-    -- Every one in sight tagged: the button dimmed; a wrong pick cleared, nothing instead.
+    -- Every one in sight tagged: never dimmed, the press still does something (Tab), no skull nor
+    -- ping; a wrong pick the checker sees is cleared.
     mobs.nameplate2.tapped, mobs.nameplate3.tapped = true, true
     strip:Aim()
-    assert(sword.state == "tapped" and sword:GetAlpha() < 1, "all tagged: dimmed")
+    assert(sword:GetAlpha() == 1 and sword.state ~= "tapped", "all tagged: still enabled")
     sword.PreClick(sword)
-    assert(sword.aimed == "", "all tagged in sight: the press does nothing, no target, skull nor ping")
+    assert(sword.aimed == strip.TabMacro("Kobold Vermin", false), "all tagged: tab, no skull nor ping: " .. sword.aimed)
     mobs.target = { name = "Kobold Vermin", tapped = true }
     checker.PreClick(checker)
     assert(checker.macro == "/cleartarget", "a wrong target cleared at once: " .. tostring(checker.macro))

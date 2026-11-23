@@ -101,17 +101,19 @@ function Toolstrip.TalkMacro(name)
 end
 
 -- Aiming -----------------------------------------------------------------------------------
--- A press of a sword button targets its mob by name: the game picks the nearest of that name,
--- in sight or not (as Zygor's buttons do). Out of combat the macro then clicks the checker (a
--- hidden secure button): its own PreClick runs once the target is taken and looks at it. The mob
--- asked for, alive and (with "Aim at a mob no other player has tagged") not tagged by someone
--- else: kept. Otherwise the checker clears it (WoW Forever targets no nameplate unit from a
--- macro, so no other can be taken instead). The sword's macro goes on with the skull and the
--- ping, which stop when the target is gone: so none ever goes on a wrong target. (The ping stays
--- in the sword's own macro: the game does not ping from a macro run by /click.) When every one in
--- sight is tagged and none is fit, the press does nothing at all (the button dimmed). In
--- combat nothing may change: at its start every button goes back to its macro by name (skull and
--- ping without the checks), the checker to nothing.
+-- Out of combat, a press of a sword button decides then and there (its PreClick, before its
+-- macro runs), from the target and the nameplates shown (see Plan). WoW Forever targets no
+-- nameplate unit from a macro and the game takes the nearest of a name, so:
+--   * The current target is a mob of that name fit to kill (alive, not tagged by someone else):
+--     kept, the skull and the ping on it. So a fit mob clicked by hand gets them.
+--   * The nearest of that name is fit: by name, the skull and the ping (then the checker, a hidden
+--     secure button that clears a wrong target where the game runs it from a macro).
+--   * The nearest is tagged by someone else: by name and one Tab (/targetenemy) to the next enemy.
+--   * The skull and the ping only go on when the mob the press ends on is for sure a fit one of
+--     that name: the ranges are coarse, mobs as near may be taken in either order.
+-- The button always does something: never dimmed. In combat nothing may change: at its start
+-- every button goes back to its macro by name (skull and ping without the checks), the checker to
+-- nothing.
 
 --- Seconds between two aims while nothing else asks for one.
 local AIM_EVERY = 0.25
@@ -253,6 +255,88 @@ function Toolstrip.Pick(name, skipTapped, notTarget)
     return best, tapped
 end
 
+--- How a press would go, from the nameplates shown (the game takes the nearest of a name; on WoW
+--- Forever a macro can target nothing else but the next enemy, by Tab). Returns "name" or "tab"
+--- (the nearest of `name` is tagged by someone else: one Tab more, to the next enemy), and whether
+--- the mob it ends on is for sure one of `name` fit to kill (then the skull and the ping go on
+--- it). The ranges are coarse (see Range): mobs at the same range may be taken in either order.
+--- None of `name` in sight: by name, taken as fit (as ever).
+function Toolstrip.Plan(name, skipTapped)
+    local enemies = {}
+    local plates = C_NamePlate and C_NamePlate.GetNamePlates and C_NamePlate.GetNamePlates() or {}
+    for _, plate in ipairs(plates) do
+        local unit = plate.namePlateUnitToken or (plate.UnitFrame and plate.UnitFrame.unit)
+        local hostile = not UnitCanAttack or Fact(UnitCanAttack, "player", unit)
+        if unit and hostile and not Fact(UnitIsDead, unit) then
+            local mine = Fact(UnitName, unit) == name
+            local tapped = Fact(UnitIsTapDenied, unit) and true or false
+            table.insert(enemies, {
+                unit = unit,
+                fit = mine and not (skipTapped and tapped),
+                mine = mine,
+                range = Toolstrip.Range(unit),
+            })
+        end
+    end
+    -- The one taken by name: the nearest of `name`.
+    local first
+    for _, e in ipairs(enemies) do
+        if e.mine and (not first or e.range < first.range) then first = e end
+    end
+    if not first then return "name", true end
+    -- Another of `name` at the same range, not as fit: either may be taken.
+    local tie = false
+    for _, e in ipairs(enemies) do
+        if e ~= first and e.mine and e.range == first.range and e.fit ~= first.fit then tie = true end
+    end
+    if first.fit then return "name", not tie end
+    if tie then return "name", false end
+    -- One Tab more: the nearest enemy after it, for sure only when no other is as near.
+    local next, sure = nil, true
+    for _, e in ipairs(enemies) do
+        if e ~= first then
+            if not next or e.range < next.range then
+                next, sure = e, true
+            elseif e.range == next.range then
+                sure = false
+            end
+        end
+    end
+    return "tab", next ~= nil and next.fit and sure
+end
+
+--- The current target is a mob of this name fit to kill (alive, hostile, not tagged by someone
+--- else when `skipTapped`).
+local function TargetFit(name, skipTapped)
+    return Fact(UnitExists, "target")
+        and Fact(UnitName, "target") == name
+        and not Fact(UnitIsDead, "target")
+        and (not UnitCanAttack or Fact(UnitCanAttack, "player", "target"))
+        and not (skipTapped and Fact(UnitIsTapDenied, "target"))
+end
+
+--- A press when the nearest of the name is tagged: by name, one Tab more to the next enemy, then
+--- the skull and the ping only when `sure` it is a fit one.
+function Toolstrip.TabMacro(name, sure)
+    local lines = { "/cleartarget", "/targetexact " .. name, "/targetenemy", "/cleartarget [dead]" }
+    if sure then Found(lines, "kill") end
+    return table.concat(lines, "\n")
+end
+
+--- By name, the skull and the ping only when `sure` (no checker: it would take a tagged one off).
+function Toolstrip.NameMacro(name, sure)
+    local lines = { "/cleartarget", "/targetexact " .. name, "/cleartarget [dead]" }
+    if sure then Found(lines, "kill") end
+    return table.concat(lines, "\n")
+end
+
+--- A press on a target already fit: kept, the skull and the ping on it.
+function Toolstrip.KeepMacro()
+    local lines = {}
+    Found(lines, "kill")
+    return table.concat(lines, "\n")
+end
+
 --- Give button `b` this macro (out of combat), when it changed.
 local function SetMacro(b, macro)
     if b.aimed ~= macro then
@@ -291,13 +375,21 @@ function Toolstrip:Aimed(b)
     if InCombatLockdown() or not a or (a.kind ~= "kill" and a.kind ~= "talk") then return end
     local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false
     self.expect = { name = a.name, kind = a.kind, skipTapped = skip }
-    -- Every one in sight tagged by someone else and none fit: nothing at all (no target, no
-    -- skull, no ping), decided before the macro runs.
-    if skip then
-        local unit, tapped = Toolstrip.Pick(a.name, true)
-        if not unit and tapped then
-            SetMacro(b, "")
-            SetState(b, "tapped")
+    -- Decided before the macro runs (WoW Forever runs no /click of the checker from it, nor
+    -- targets a nameplate unit): a target already fit is kept, with the skull and the ping; when
+    -- the game, by name, could take a mob tagged by someone else, nothing at all (no target, no
+    -- skull, no ping).
+    if a.kind == "kill" then
+        if TargetFit(a.name, skip) then
+            SetMacro(b, Toolstrip.KeepMacro())
+            return
+        end
+        local how, sure = Toolstrip.Plan(a.name, skip)
+        if how == "tab" then
+            SetMacro(b, Toolstrip.TabMacro(a.name, sure))
+            return
+        elseif not sure then
+            SetMacro(b, Toolstrip.NameMacro(a.name, false))
             return
         end
     end
@@ -849,8 +941,7 @@ function Toolstrip:Aim()
         if a and a.kind == "kill" and b:IsShown() then
             local state = "name"
             if not InCombatLockdown() then
-                local unit, tapped = Toolstrip.Pick(a.name, on)
-                state = unit and "aim" or tapped and "tapped" or "name"
+                if Toolstrip.Pick(a.name, on) then state = "aim" end
             end
             SetState(b, state)
             if GameTooltip:IsOwned(b) then Tooltip(b) end
