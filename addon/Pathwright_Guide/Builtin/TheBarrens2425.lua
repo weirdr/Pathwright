@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467772,
+    created = 1795471097,
     next = "Stonetalon Mountains (25-26)",
     carry = { 529, 546, 567, 1067, 1536, 6543 },
     variants = {
@@ -71,7 +71,6 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Silithid Egg x12", q = 868, o = 1, ic = "pickup", n = "Silithid Egg", e = "item", id = 5058, c = 12, m = 1413, x = 45.77, y = 70.87, nt = { { l = 1, t = "Loot them from Silithid Mound." }, { l = 2, t = "The Silithid Mounds are spread over the Field of Giants, most of them in its west half and a cluster to the east. Each mound gives one egg: each of you digs twelve." } }, lvl = 24 },
         { k = "accept", t = "Kill the Silithid Harvester and open the head it drops: it starts a quest", q = 897, n = "Harvester's Head", e = "item", id = 5138, m = 1413, x = 45, y = 71, min = 10, nt = { { l = 2, t = "The Silithid Harvester is a rare that comes back only after hours: if you see it, kill it, and the one who loots its head gets the quest. Not up? Right-click this step to skip it." } }, lvl = 24 },
         { k = "accept", t = "Kill Aean Swiftriver and read the Runed Scroll it drops: it starts a quest", q = 3513, n = "Runed Scroll", e = "item", id = 10621, m = 1413, x = 46.4, y = 72, min = 15, nt = { { l = 2, t = "Aean Swiftriver, a rare elite night elf (level 25), sometimes stands in the south of the Field of Giants. Easy for the two of you, but one scroll drops, for one of you, and the elf returns only after an hour or more. Not there? Right-click this step to skip it." } }, lvl = 24 },
-        { k = "accept", t = "Accept Stepping Stones from Nailed Plank", q = 79192, ic = "object", n = "Nailed Plank", e = "object", id = 417072, m = 1413, x = 46.38, y = 73.79, min = 14, pa = { 79007, 79008 }, nt = { { l = 2, t = "The Nailed Plank is by the road, just south of the Field of Giants. It is offered only to those who followed the earlier notes of this chain. Keep it for Stonetalon Mountains (25-26)." } }, lvl = 24 },
         { k = "accept", t = "Accept Field to Clear from Sulhasa", q = 98093, n = "Sulhasa", e = "npc", id = 14242, m = 1413, x = 47.93, y = 77.62, min = 18, nt = { { l = 2, t = "Sulhasa waits up a tree a little east of the road: she won't come down while the beasts prowl." } }, lvl = 24 },
         { k = "accept", t = "Accept Gann's Reclamation from Gann Stonespire", q = 843, n = "Gann Stonespire", e = "npc", id = 3341, m = 1413, x = 45.89, y = 77, min = 17, nt = { { l = 2, t = "Gann Stonespire walks up and down the road to the south: look for him between Sulhasa and Bael Modan." } }, lvl = 24 },
         { k = "objective", t = "Kill Hecklefang Stalker x7", q = 98093, o = 1, ic = "kill", n = "Hecklefang Stalker", e = "npc", id = 4128, m = 1413, x = 46.28, y = 76.11, spots = { { m = 1413, x = 47.98, y = 81.01 } }, mobs = { "Hecklefang Stalker" }, mi = { 4128 }, bg = true, lvl = 24 },

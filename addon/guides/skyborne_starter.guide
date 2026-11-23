@@ -79,7 +79,7 @@ turnin 92470
 accept 92472
 accept 96638
 turnin 92466
-accept 92467
+accept 92467 after 92466
 do 92467 at 49.7,23.8 icon use "Drink the Earth Sapta at the Rise of Spirits"
 turnin 92467
 accept 92468

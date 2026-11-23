@@ -9,8 +9,7 @@
 # The quest list is section 14 of addon/guides/horde_1_40_allocation.md. The Freewind Post and
 # Grimtotem quests are in Thousand Needles (28-30).
 # Carried in (skipped by those who lack them): Parts for Kravel (1112, from Wharfmaster Dizzywig in
-#   Ratchet, after Wharfmaster Dizzywig in Thousand Needles (28-30)), Final Passage (1394, from
-#   Parqual Fintallas in Undercity, after his Test of Lore) and, for shamans, Call of Water (96, from
+#   Ratchet, after Wharfmaster Dizzywig in Thousand Needles (28-30)) and, for shamans, Call of Water (96, from
 #   the Minor Manifestation of Water in Silverpine Forest).
 # Left to later guides: The Kolkar of Desolace (1362, after Regthar Deathgate 1361, taken in
 #   Orgrimmar and handed in west of the Crossroads) and Family Tree (5361) for Desolace (34-36), Alliance Relations (1432) for
@@ -28,7 +27,7 @@
 guide Thousand Needles (33-34)
 faction horde
 levels 33 34
-carry 96 1112 1394 1712 1714
+carry 96 1112 1712 1714
 leave 1106 1136 1362 1432 1712 1714 5361 5762
 next Desolace (34-36)
 
@@ -54,7 +53,6 @@ accept 5361
 tip Cliffwatcher Longhorn wanders around the post. His quest is for Desolace: keep it, the next guide hands it in.
 turnin 1531
 tip Prate Cloudseer and Dorn Plainstalker stand together north-east of Freewind Post.
-turnin 1394
 
 # The Shimmering Flats: the Mirage Raceway -------------------------------------------------------------
 

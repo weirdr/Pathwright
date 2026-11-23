@@ -29,13 +29,13 @@
 #   Machine Airport (1086, Apothecary Zamah) and Pigments for Paints (97538, Tah Winterhoof): Stonetalon
 #   Mountains (25-26) does their objectives, Ashenvale (26-28) hands them in.
 # - The Ashenvale Hunt (6382, Jorn Skyseer) and Report to Kadrak (6541, Thork), for Ashenvale (26-28).
-# - Stepping Stones (79192, the Nailed Plank by the road south of the Field of Giants), for Stonetalon
-#   Mountains (25-26).
 # - for shamans, Call of Water (1534, Brine): Ashenvale (26-28) fills it, Thousand Needles (28-30)
 #   hands it in.
 # Left out:
 # - In Nightmares (3369): Falla Sagewind gives it only after The Glowing Shard (6981), which starts
 #   from a drop of Mutanus the Devourer inside Wailing Caverns (a dungeon).
+# - Stepping Stones (79192): it needs ... and that note you found (79007) first, which ends in
+#   Westfall.
 # - Blueleaf Tubers (1221): the tubers grow only inside Razorfen Kraul (a dungeon).
 # The auction house: none of this guide's quest items is sold there. Thunder Bluff, the last city
 #   of the guide, gets the note for The Lost Pages (6504) of Ashenvale (26-28).
@@ -56,7 +56,7 @@ guide The Barrens (24-25)
 faction horde
 levels 24 25
 carry 529 546 567 1067 1536 6543
-leave 529 546 567 1086 1195 1534 6382 6541 6543 79192 97538
+leave 529 546 567 1086 1195 1534 6382 6541 6543 97538
 next Stonetalon Mountains (25-26)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
@@ -116,8 +116,6 @@ accept 897 at 45.0,71.0 "Kill the Silithid Harvester and open the head it drops:
 tip The Silithid Harvester is a rare that comes back only after hours: if you see it, kill it, and the one who loots its head gets the quest. Not up? Right-click this step to skip it.
 accept 3513 at 46.4,72.0 "Kill Aean Swiftriver and read the Runed Scroll it drops: it starts a quest"
 tip Aean Swiftriver, a rare elite night elf (level 25), sometimes stands in the south of the Field of Giants. Easy for the two of you, but one scroll drops, for one of you, and the elf returns only after an hour or more. Not there? Right-click this step to skip it.
-accept 79192
-tip The Nailed Plank is by the road, just south of the Field of Giants. It is offered only to those who followed the earlier notes of this chain. Keep it for Stonetalon Mountains (25-26).
 
 # Sulhasa, Gann Stonespire and Brine ----------------------------------------------------------------
 

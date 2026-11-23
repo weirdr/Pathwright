@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467424,
+    created = 1795471055,
     next = "Thousand Needles (33-34)",
     carry = { 96, 1112, 1712, 1714 },
     variants = {
@@ -48,7 +48,6 @@ Pathwright.Builtin.Register({
         { k = "fly", t = "Fly to Undercity", n = "Undercity", e = "taxi", id = 11, m = 1424, x = 60.14, y = 18.62, lvl = 32 },
         { k = "accept", t = "Accept To Steal From Thieves from Genavie Callow", q = 1164, n = "Genavie Callow", e = "npc", id = 4486, m = 1458, x = 63.83, y = 49.45, min = 27, nt = { { l = 2, t = "Genavie Callow stands a few steps from the flight master." } }, lvl = 32 },
         { k = "turnin", t = "Turn in Battle of Hillsbrad to Varimathras", q = 550, n = "Varimathras", e = "npc", id = 2425, m = 1458, x = 56.25, y = 92.2, nt = { { l = 2, t = "Varimathras stands beside the Dark Lady in the Royal Quarter." } }, lvl = 32 },
-        { k = "accept", t = "Accept Final Passage from Parqual Fintallas", q = 1394, n = "Parqual Fintallas", e = "npc", id = 4488, m = 1458, x = 57.8, y = 65.42, min = 26, pa = { 6628 }, nt = { { l = 2, t = "Parqual Fintallas gives this one only to those who finished his Test of Lore, which runs through the Dor'danil Barrow Den in Ashenvale and a book in Scarlet Monastery (the leveling guides leave it out). Keep it if you have it: the next guide hands it in at Thousand Needles. Not offered? Skip this step." } }, lvl = 32 },
         { k = "fly", t = "Fly to Tarren Mill", n = "Tarren Mill", e = "taxi", id = 13, m = 1458, x = 63.25, y = 48.56, nt = { { l = 2, t = "Already have the Hammerfall flight path? Fly there instead and do the Boulderfist Outpost and the Dabyrie Farmstead from Hammerfall." } }, lvl = 32 },
         { k = "goto", t = "Ride east from Tarren Mill and through the gate of Thoradin's Wall into the Arathi Highlands", m = 1417, x = 21, y = 30.5, r = 40, lvl = 32 },
         { k = "objective", t = "Kill Boulderfist Ogre x8", q = 676, o = 1, ic = "kill", n = "Boulderfist Ogre", e = "npc", id = 2562, m = 1417, x = 34.37, y = 47.12, spots = { { m = 1417, x = 34.73, y = 41.95 } }, mobs = { "Boulderfist Ogre" }, mi = { 2562 }, nt = { { l = 2, t = "The Boulderfist Outpost lies north-east of Stromgarde: the Boulderfist Ogres stand around the mound." } }, lvl = 32 },

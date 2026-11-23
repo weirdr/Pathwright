@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467070,
+    created = 1795471027,
     next = { Horde = "Silverpine Forest (13-15)" },
     variants = {
         { race = 95, class = 1, faction = "Alliance" },
@@ -101,7 +101,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept The Next Step from Aetheen of the Gales", q = 92472, n = "Aetheen of the Gales", e = "npc", id = 251366, m = 2521, x = 42.76, y = 23.66, min = 3, pre = { 92470 }, lvl = 5 },
         { k = "accept", t = "Accept The Adventurer from Aetheen of the Gales", q = 96638, n = "Aetheen of the Gales", e = "npc", id = 251366, m = 2521, x = 42.76, y = 23.66, min = 4, pa = { 92470 }, lvl = 5 },
         { k = "turnin", t = "Turn in Call of Earth to Windshaper Boro", q = 92466, n = "Windshaper Boro", e = "npc", id = 251374, m = 2521, x = 42.79, y = 23.58, lvl = 5, only = { 9 } },
-        { k = "accept", t = "Accept Call of Earth from Windshaper Boro", q = 92467, n = "Windshaper Boro", e = "npc", id = 251374, m = 2521, x = 42.79, y = 23.58, min = 3, pre = { 92466 }, pa = { 1516, 1519 }, lvl = 5, only = { 9 } },
+        { k = "accept", t = "Accept Call of Earth from Windshaper Boro", q = 92467, n = "Windshaper Boro", e = "npc", id = 251374, m = 2521, x = 42.79, y = 23.58, min = 3, pre = { 92466 }, lvl = 5, only = { 9 } },
         { k = "objective", t = "Drink the Earth Sapta at the Rise of Spirits", q = 92467, o = 1, ic = "use", m = 2521, x = 49.7, y = 23.8, lvl = 5, only = { 9 } },
         { k = "turnin", t = "Turn in Call of Earth to Minor Manifestation of Earth", q = 92467, n = "Minor Manifestation of Earth", e = "npc", id = 251166, m = 2521, x = 49.67, y = 23.8, lvl = 5, only = { 9 } },
         { k = "accept", t = "Accept Call of Earth from Minor Manifestation of Earth", q = 92468, n = "Minor Manifestation of Earth", e = "npc", id = 251166, m = 2521, x = 49.67, y = 23.8, min = 3, pa = { 92467 }, lvl = 5, only = { 9 } },

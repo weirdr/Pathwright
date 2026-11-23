@@ -70,8 +70,8 @@ map Orgrimmar
 goto "Off the zeppelin from Undercity, walk into Orgrimmar by its front gate" at 49.5,93.0 r 15
 accept 1061
 tip Zor Lonetree stands in the Valley of Wisdom, in the west of the city.
-accept 809
-tip Neeru Fireblade is in his tent in the Cleft of Shadow. He offers it to those who brought him Margoz's message in Durotar: if he doesn't, the step skips itself.
+accept 809 only orc troll
+tip Orcs and Trolls: Neeru Fireblade is in his tent in the Cleft of Shadow. He offers it to those who brought him Margoz's message in Durotar (Neeru Fireblade, in the Orc & Troll Starter): if he doesn't, right-click the step to skip it.
 accept 1963
 tip Rogues only, and only Orc and Troll rogues: Therzok is in a tent in the Cleft of Shadow.
 
@@ -84,10 +84,10 @@ map The Barrens
 turnin 840
 tip From Razor Hill take the road west over the bridge: Far Watch Post is the first Horde camp in the Barrens.
 accept 842
-do 809 at 62.3,20.1 icon talk "Talk to Ak'Zeloth, the demon hunter's spirit at Far Watch Post"
-turnin 809
-accept 924
-do 924 at 48.0,19.1
+do 809 at 62.3,20.1 only orc troll icon talk "Talk to Ak'Zeloth, the demon hunter's spirit at Far Watch Post"
+turnin 809 only orc troll
+accept 924 only orc troll
+do 924 at 48.0,19.1 only orc troll
 tip Pick up a Flawed Power Stone from the table beside Ak'Zeloth: it crumbles after 30 minutes. Ride west along the road, then climb Dreadmist Peak from its north side and use the stone at the Altar of Fire on top. Each of you needs your own stone.
 
 # The Crossroads --------------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ do 872
 tip Kreenig Snarlsnout's camp is further east, at the foot of the hills. Kreenig walks between the huts: pull his Defenders away before you fight him.
 do 5041
 tip The Crossroads' Supply Crates are brown boxes stacked in the same camp.
-turnin 924
+turnin 924 only orc troll
 tip From Kreenig's camp ride north-east to Far Watch Post.
 do 845 bg
 tip Any zhevra (striped horse) drops hooves: kill them on the way south.

@@ -11,9 +11,9 @@
 # quests (Call to Arms 678, Guile of the Raptor 701, The Princess Trapped 642...) are in Alterac
 # Mountains & Arathi Highlands (38-39). The Elixir of Agony (509, 513) is done whole in Hillsbrad
 # Foothills (30-32).
-# Left to later guides: Final Passage (1394, from Parqual Fintallas in Undercity, after his Test of
-#   Lore), handed in by Thousand Needles (33-34).
-# Left out: This Must Be The Place (79976): it follows Eagle's Fist (79975), found at the
+# Left out: Final Passage (1394): Parqual Fintallas offers it only after his Test of Lore, whose last
+#   steps need a book from the Dor'danil Barrow Den and one from Scarlet Monastery; no guide does it.
+#   This Must Be The Place (79976): it follows Eagle's Fist (79975), found at the
 #   Stonewrought Dam in Loch Modan after Wet Job (79974) in Stonetalon, and no guide takes those.
 #   Defiler's Basic Care Package (8263): it needs Friendly with the Defilers, earned in Arathi Basin.
 #   The Battle for Arathi Basin! (8170): its objectives are inside the Arathi Basin battleground.
@@ -29,7 +29,7 @@ guide Arathi Highlands (32-33)
 faction horde
 levels 32 33
 carry 96 1112 1712 1714
-leave 96 1112 1394 1712 1714
+leave 96 1112 1712 1714
 next Thousand Needles (33-34)
 
 # Tarren Mill -----------------------------------------------------------------------------------------
@@ -48,8 +48,6 @@ accept 1164
 tip Genavie Callow stands a few steps from the flight master.
 turnin 550
 tip Varimathras stands beside the Dark Lady in the Royal Quarter.
-accept 1394
-tip Parqual Fintallas gives this one only to those who finished his Test of Lore, which runs through the Dor'danil Barrow Den in Ashenvale and a book in Scarlet Monastery (the leveling guides leave it out). Keep it if you have it: the next guide hands it in at Thousand Needles. Not offered? Skip this step.
 fly "Tarren Mill, Hillsbrad" npc 4551
 tip Already have the Hammerfall flight path? Fly there instead and do the Boulderfist Outpost and the Dabyrie Farmstead from Hammerfall.
 
