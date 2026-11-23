@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copy the addon (Pathwright_Profile and Pathwright_Guide) into the WoW client. After a change:
+# Copy Pathwright's addons into the WoW client, including its guide pack for Forever. After a change:
 # /reload in game (a full client restart is needed when files are added or a .toc changes).
 # (As an addon site would; the guides of `fg route`, addon/Pathwright_Data, with FG_INSTALL_DATA=1
 # only. Existing Config.lua, Routes.lua, Services.lua and Sent.lua written by older apps are kept.)
@@ -9,7 +9,11 @@ client=${FG_CLIENT:-$([ -d "$wow_dir/_forever_" ] && echo _forever_ || echo _cla
 addons="$wow_dir/$client/Interface/AddOns"
 repo="$(dirname "$0")/../addon"
 # No migration of the upstream Factoruide addons: this fork's addons sit beside them, untouched.
-for addon in Pathwright_Profile Pathwright_Guide; do
+set -- Pathwright_Profile Pathwright_Guide
+if [ "$client" = "_forever_" ]; then
+    set -- "$@" Pathwright_RxPForever
+fi
+for addon in "$@"; do
     dest="$addons/$addon"
     src="$repo/$addon"
     mkdir -p "$dest"

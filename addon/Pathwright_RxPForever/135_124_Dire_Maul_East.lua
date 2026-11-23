@@ -1,0 +1,27 @@
+local _, pack = ...
+pack.Register({
+    name = "RestedXP Forever Dungeon Quests (H) / 124 Dire Maul (East)",
+    origin = "RXPGuides / RestedXP Forever Dungeon Quests (H)",
+    fromLevel = 50,
+    toLevel = 60,
+    locale = "enUS",
+    version = 1,
+    format = 2,
+    variants = { { ["race"] = 2, ["class"] = 1, ["faction"] = "Horde" }, { ["race"] = 2, ["class"] = 3, ["faction"] = "Horde" }, { ["race"] = 2, ["class"] = 4, ["faction"] = "Horde" }, { ["race"] = 2, ["class"] = 7, ["faction"] = "Horde" }, { ["race"] = 2, ["class"] = 8, ["faction"] = "Horde" }, { ["race"] = 2, ["class"] = 9, ["faction"] = "Horde" }, { ["race"] = 5, ["class"] = 1, ["faction"] = "Horde" }, { ["race"] = 5, ["class"] = 2, ["faction"] = "Horde" }, { ["race"] = 5, ["class"] = 4, ["faction"] = "Horde" }, { ["race"] = 5, ["class"] = 5, ["faction"] = "Horde" }, { ["race"] = 5, ["class"] = 8, ["faction"] = "Horde" }, { ["race"] = 5, ["class"] = 9, ["faction"] = "Horde" }, { ["race"] = 6, ["class"] = 1, ["faction"] = "Horde" }, { ["race"] = 6, ["class"] = 3, ["faction"] = "Horde" }, { ["race"] = 6, ["class"] = 7, ["faction"] = "Horde" }, { ["race"] = 6, ["class"] = 11, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 1, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 3, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 4, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 5, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 7, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 8, ["faction"] = "Horde" }, { ["race"] = 8, ["class"] = 9, ["faction"] = "Horde" }, { ["race"] = 96, ["class"] = 1, ["faction"] = "Horde" }, { ["race"] = 96, ["class"] = 3, ["faction"] = "Horde" }, { ["race"] = 96, ["class"] = 4, ["faction"] = "Horde" }, { ["race"] = 96, ["class"] = 7, ["faction"] = "Horde" }, { ["race"] = 96, ["class"] = 11, ["faction"] = "Horde" } },
+    steps = {
+        { ["k"] = "note", ["t"] = "Along the way: Travel to Feralas" },
+        { ["k"] = "accept", ["q"] = 7489, ["t"] = "Accept Lethtendris's Web", ["m"] = 1444, ["x"] = 76.18, ["y"] = 43.83, ["n"] = "Talo Thornhoof", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Talo Thornhoof" } } },
+        { ["k"] = "accept", ["q"] = 7441, ["t"] = "Accept Pusillin and the Elder Azj'Tordin", ["m"] = 1444, ["x"] = 76.91, ["y"] = 37.353, ["n"] = "Azj'Tordin", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Azj'Tordin" } } },
+        { ["k"] = "note", ["t"] = "Enter Dire Maul (East)", ["m"] = 1414, ["x"] = 43.83, ["y"] = 67.4 },
+        { ["k"] = "note", ["n"] = "Book of Incantations", ["e"] = "item", ["id"] = 18261, ["c"] = 1, ["t"] = "Quest in log Pusillin and the Elder Azj'Tordin. Pusillin and the Elder Azj'Tordin — Book of Incantations", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Pusillin and continue to chase him through Dire Maul by talking to him every time he stops" }, { ["l"] = 1, ["t"] = "Kill Pusillin. Loot him for the Crescent Key and Book of Incantations" }, { ["l"] = 1, ["t"] = "Collect 1 × item 18249." } } },
+        { ["k"] = "objective", ["q"] = 7489, ["o"] = 1, ["n"] = "Lethtendris's Web", ["e"] = "item", ["id"] = 18426, ["c"] = 1, ["t"] = "Lethtendris's Web — Lethtendris's Web", ["mobs"] = { "Lethtendris" }, ["nt"] = { { ["l"] = 1, ["t"] = "Kill Lethtendris. Loot her for Lethtendris's Web" } } },
+        { ["k"] = "note", ["t"] = "Quest in log Arcane Refreshment. Kill Alzzin the Wildshaper. Loot a Felvine Shard on the ground after", ["nt"] = { { ["l"] = 1, ["t"] = "Collect 1 × Felvine Shard." } } },
+        { ["k"] = "note", ["t"] = "Quest ready to turn in Pusillin and the Elder Azj'Tordin. Turn in Pusillin and the Elder Azj'Tordin", ["m"] = 1444, ["x"] = 76.91, ["y"] = 37.353, ["n"] = "Azj'Tordin", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Azj'Tordin in Feralas" } } },
+        { ["k"] = "note", ["t"] = "Quest ready to turn in Lethtendris's Web. Turn in Lethtendris's Web", ["m"] = 1444, ["x"] = 76.18, ["y"] = 43.83, ["n"] = "Talo Thornhoof", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Talo Thornhoof" } } },
+        { ["k"] = "note", ["t"] = "Along the way: Travel to Moonglade" },
+        { ["k"] = "note", ["t"] = "Quest already turned in A Reliquary of Purity. Accept Shards of the Felvine", ["m"] = 1450, ["x"] = 51.685, ["y"] = 45.096, ["n"] = "Rabine Saturna", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Rabine Saturna" } } },
+        { ["k"] = "note", ["n"] = "Sealed Reliquary of Purity", ["e"] = "item", ["id"] = 18540, ["c"] = 1, ["t"] = "Quest in log Shards of the Felvine. Quest already turned in A Reliquary of Purity. Shards of the Felvine — Sealed Reliquary of Purity", ["nt"] = { { ["l"] = 1, ["t"] = "Use the [Reliquary of Purity]" } } },
+        { ["k"] = "note", ["t"] = "Quest ready to turn in Shards of the Felvine. Turn in Shards of the Felvine", ["m"] = 1450, ["x"] = 51.685, ["y"] = 45.096, ["n"] = "Rabine Saturna", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Rabine Saturna" } } },
+        { ["k"] = "note", ["t"] = "This is the end of the Dire Maul (East) guide. Please pick another guide to continue" },
+    },
+})
