@@ -112,7 +112,7 @@ tip Winterfall furbolgs drop plenty of Runecloth: keep it for Meilosh and Rumsta
 do 8464
 tip The Winterfall village lies just east of Everlook. One furbolg in about thirty drops a Winterfall Ritual Totem.
 do 5121
-tip High Chief Winterfall is a level 59 elite at the back of the cave above the village, with guards: clear your way in and fight him together.
+tip High Chief Winterfall is a level 59 elite at the back of the cave above the village, with guards: clear your way in and fight him together. Kill his shamans first; his Frost Shock hits hard, so keep cooldowns for him.
 accept 5123
 tip Loot his Crudely-written Log and open it.
 accept 8471
@@ -120,7 +120,7 @@ tip No totem yet? Keep killing Winterfall: the western camps on your way later h
 do 977
 tip Only the Ice Thistle Matriarchs and Patriarchs, on the hill just south of the village, drop Pristine Yeti Horns.
 do 4741
-tip The Moontouched Owlbeasts live in Owl Wing Thicket, north-east of Everlook.
+tip The Moontouched Owlbeasts live in Owl Wing Thicket, north-east of Everlook. Their Moonfire hits hard and they heal themselves with Rejuvenation: interrupt or burst them.
 
 # Everlook -----------------------------------------------------------------------------------------
 
@@ -153,7 +153,7 @@ tip Brumeran is a level 58 elite chimaera who glides among the chimaeras south o
 do 97490
 tip Hailspite, a level 60 elite giant, walks the hills of southern Winterspring.
 do 969
-tip The Frostmaul Shards glitter on the ground in Frostwhisper Gorge, among the level 59-60 elite Frostmaul giants: pull carefully.
+tip The Frostmaul Shards glitter on the ground around the outer edge of Frostwhisper Gorge, among the level 59-60 elite Frostmaul giants. Lure a giant away from a shard (a pet helps), grab it and run; it's hard for two, so skip it if it goes badly.
 
 # Everlook -----------------------------------------------------------------------------------------
 
@@ -184,7 +184,7 @@ do 97404
 tip Kuroma and Kamuro, the old shardtooth matriarchs, stand together just north-east of the camp.
 turnin 97403 97404
 do 5056
-tip Kill Frostsaber Huntresses and Pride Watchers around Frostsaber Rock, west of the camp, for Sacred Frostsaber Meat. Place it on the Stone of Shy-Rotam, at the top, to call Shy-Rotam, a level 60 elite.
+tip Kill Frostsaber Huntresses and Pride Watchers around Frostsaber Rock, west of the camp, for Sacred Frostsaber Meat. Place it on the Stone of Shy-Rotam, at the top, to call Shy-Rotam, a level 60 elite. Her Terrifying Roar fears everyone around for five seconds, and at half health she calls Sian-Rotam, another level 60 elite: save your cooldowns for that.
 
 # Everlook -----------------------------------------------------------------------------------------
 
