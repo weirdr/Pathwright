@@ -1199,6 +1199,41 @@ do
     UnitIsUnit = function(a, b) return (a == "nameplate2" and b == "target") or a == b end
     sword.PreClick(sword)
     assert(sword.aimed == strip.AimedMacro("nameplate2"), "the current target first")
+    mobs.target = nil
+    UnitIsUnit = function(a, b) return a == b end
+    -- The nearest to the player before the closest to the middle of the screen: within the
+    -- interaction distances (10, then 28 yards), then the player's own harmful spells' ranges.
+    local near = {}
+    CheckInteractDistance = function(u, index) return near[u] ~= nil and near[u] <= ({ [3] = 10, [4] = 28 })[index] end
+    local book = { { name = "Fireball", range = 35 }, { name = "Frost Nova", range = 0 }, { name = "Shoot", range = 30 } }
+    GetNumSpellTabs = function() return 1 end
+    GetSpellTabInfo = function() return "General", nil, 0, #book end
+    GetSpellBookItemName = function(i) return book[i].name end
+    IsHarmfulSpell = function() return true end
+    GetSpellInfo = function(n)
+        for _, s in ipairs(book) do
+            if s.name == n then return n, nil, nil, nil, 0, s.range end
+        end
+    end
+    IsSpellInRange = function(spell, u)
+        local r = (GetSpellInfo(spell) and select(6, GetSpellInfo(spell))) or 0
+        return near[u] ~= nil and near[u] <= r and 1 or 0
+    end
+    fire("SPELLS_CHANGED")
+    near.nameplate2 = 8
+    assert(strip.Range("nameplate2") == 10 and strip.Range("nameplate3") == math.huge, "ranges measured")
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.AimedMacro("nameplate2"), "the mob next to the player, off the middle of the screen")
+    near.nameplate2, near.nameplate3 = 33, 29
+    assert(strip.Range("nameplate2") == 35 and strip.Range("nameplate3") == 30, "spell ranges: " .. strip.Range("nameplate3"))
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.AimedMacro("nameplate3"), "within the shorter spell's range")
+    near.nameplate2, near.nameplate3 = 20, 20
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.AimedMacro("nameplate3"), "the same range: the closest to the middle")
+    CheckInteractDistance, IsSpellInRange, GetNumSpellTabs, GetSpellTabInfo = nil, nil, nil, nil
+    GetSpellBookItemName, IsHarmfulSpell, GetSpellInfo = nil, nil, nil
+    fire("SPELLS_CHANGED")
     -- A restricted nameplate (an instance): the game refuses to measure it; never asked.
     local restricted = Plate("nameplate9", 500, 400)
     restricted.IsForbidden = function() return true end
@@ -1243,6 +1278,11 @@ do
     mobs.target = { name = "Kobold Vermin", tapped = true }
     checker.PreClick(checker)
     assert(checker.macro == "", "a tagged mob kept when not asked")
+    -- Still aimed at the nameplates shown, a tagged mob among them.
+    list = { Plate("nameplate1", 500, 400) }
+    sword.PreClick(sword)
+    assert(sword.aimed == strip.AimedMacro("nameplate1") and sword.state == "aim", "aimed, tagged or not")
+    list = {}
     FG:Save("targetSkipTapped", nil)
     -- An NPC to talk to, out of reach: the target is cleared before looking for it (the last
     -- step's NPC never stays targeted), and the checker clears any other NPC that got targeted.

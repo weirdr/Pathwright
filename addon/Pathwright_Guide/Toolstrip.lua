@@ -103,10 +103,11 @@ end
 -- Aiming -----------------------------------------------------------------------------------
 -- Out of combat, a press of a sword button decides then and there (its PreClick, which runs just
 -- before the button's macro and may still change it): it picks one mob of its name among the
--- nameplates shown, alive, hostile and not tagged by another player (no credit for us), the
--- current target first, then in interact range, then the closest to the middle of the screen,
--- and targets that very unit. When every one in sight is tagged, the press does nothing; when
--- none is in sight (or enemy nameplates are off), it targets by name. Either way the macro then
+-- nameplates shown, alive, hostile and (with "Aim at a mob no other player has tagged") not tagged
+-- by another player (no credit for us): the current target first, then the nearest to the
+-- player (see Range), then, at the same range, the closest to the middle of the screen; and
+-- targets that very unit. When every one in sight is tagged, the press does nothing; when none is
+-- in sight (or enemy nameplates are off), it targets by name. Either way the macro then
 -- clicks the checker (a hidden secure button): its own PreClick runs once the target is taken
 -- and looks at it. Not the mob asked for, dead, or tagged by someone else: the checker clears
 -- the target at once. The sword's macro goes on with the skull and the ping, which stop when the
@@ -163,6 +164,56 @@ function Toolstrip.CheckMacro(want)
     return wrong and "/cleartarget" or ""
 end
 
+-- How far a mob is: the game tells an addon no distance to a hostile unit, only whether it is
+-- within some ranges. Out of combat it answers for the interaction distances (about 10 and 28
+-- yards) and for the player's own harmful spells (their range from the spellbook): the
+-- shortest of these the mob is within is how far it is taken to be.
+
+--- The ranges a mob can be checked against, shortest first: { yards, interact = index } or
+--- { yards, spell = name }. Made again when the spellbook changes.
+local ranges
+
+local function Ranges()
+    if ranges then return ranges end
+    ranges = { { 10, interact = 3 }, { 28, interact = 4 } }
+    local book = BOOKTYPE_SPELL or "spell"
+    local seen = { [10] = true, [28] = true }
+    if GetNumSpellTabs and GetSpellTabInfo and GetSpellBookItemName and IsHarmfulSpell and GetSpellInfo then
+        for tab = 1, GetNumSpellTabs() or 0 do
+            local _, _, offset, count = GetSpellTabInfo(tab)
+            for i = (offset or 0) + 1, (offset or 0) + (count or 0) do
+                local name = GetSpellBookItemName(i, book)
+                local ok, harmful = pcall(IsHarmfulSpell, i, book)
+                if name and ok and harmful then
+                    local yards = tonumber((select(6, GetSpellInfo(name))))
+                    if yards and yards > 0 and not seen[yards] then
+                        seen[yards] = true
+                        table.insert(ranges, { yards, spell = name })
+                    end
+                end
+            end
+        end
+    end
+    table.sort(ranges, function(a, b) return a[1] < b[1] end)
+    return ranges
+end
+FG:On("SPELLS_CHANGED", function() ranges = nil end)
+
+--- How many yards away a mob is at most (math.huge: beyond every range the game answers for).
+function Toolstrip.Range(unit)
+    for _, r in ipairs(Ranges()) do
+        local within
+        if r.interact then
+            within = Fact(CheckInteractDistance, unit, r.interact)
+        elseif IsSpellInRange then
+            local ok, answer = pcall(IsSpellInRange, r.spell, unit)
+            within = ok and (answer == 1 or answer == true)
+        end
+        if within then return r[1] end
+    end
+    return math.huge
+end
+
 --- How far a nameplate is from the middle of the screen (squared); a restricted one, or one the
 --- game will not measure, counts as far.
 local function ScreenDistance(plate)
@@ -177,25 +228,23 @@ local function ScreenDistance(plate)
 end
 
 --- The mob of this name to aim at among the nameplates shown: its unit, or nil and whether one
---- was seen tagged by someone else.
-function Toolstrip.Pick(name)
-    local best, bestScore, tapped
+--- was seen tagged by someone else (passed over when `skipTapped`).
+function Toolstrip.Pick(name, skipTapped)
+    local best, bestRange, bestScreen, tapped
     local plates = C_NamePlate and C_NamePlate.GetNamePlates and C_NamePlate.GetNamePlates() or {}
     for _, plate in ipairs(plates) do
         local unit = plate.namePlateUnitToken or (plate.UnitFrame and plate.UnitFrame.unit)
         local hostile = not UnitCanAttack or Fact(UnitCanAttack, "player", unit)
         if unit and hostile and Fact(UnitName, unit) == name and not Fact(UnitIsDead, unit) then
-            if Fact(UnitIsTapDenied, unit) then
+            if skipTapped and Fact(UnitIsTapDenied, unit) then
                 tapped = true
             else
-                local score = ScreenDistance(plate)
-                if Fact(UnitIsUnit, unit, "target") then
-                    score = -2
-                elseif Fact(CheckInteractDistance, unit, 4) then
-                    score = -1 / (1 + score)
+                local range, screen = -1, 0
+                if not Fact(UnitIsUnit, unit, "target") then
+                    range, screen = Toolstrip.Range(unit), ScreenDistance(plate)
                 end
-                if not bestScore or score < bestScore then
-                    best, bestScore = unit, score
+                if not bestRange or range < bestRange or (range == bestRange and screen < bestScreen) then
+                    best, bestRange, bestScreen = unit, range, screen
                 end
             end
         end
@@ -227,11 +276,11 @@ function Toolstrip:Press(b)
     if InCombatLockdown() or not a or (a.kind ~= "kill" and a.kind ~= "talk") then return end
     local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false
     self.expect = { name = a.name, kind = a.kind, skipTapped = skip }
-    if not skip then
+    if a.kind ~= "kill" then
         SetMacro(b, Toolstrip.CheckedMacro(a))
         return
     end
-    local unit, tapped = Toolstrip.Pick(a.name)
+    local unit, tapped = Toolstrip.Pick(a.name, skip)
     if unit then
         SetMacro(b, Toolstrip.AimedMacro(unit))
         SetState(b, "aim")
@@ -785,8 +834,8 @@ function Toolstrip:Aim()
         local a = ActionOf(b)
         if a and a.kind == "kill" and b:IsShown() then
             local state = "name"
-            if on and not InCombatLockdown() then
-                local unit, tapped = Toolstrip.Pick(a.name)
+            if not InCombatLockdown() then
+                local unit, tapped = Toolstrip.Pick(a.name, on)
                 state = unit and "aim" or tapped and "tapped" or "name"
             end
             SetState(b, state)
