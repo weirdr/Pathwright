@@ -64,6 +64,7 @@ tip Pick up a Flame in a Bottle from the Box of Incendiaries next to High Execut
 
 map Western Plaguelands
 do 5096 at 40.7,52.0 icon use "Burn the Scarlet command tent with the Flame in a Bottle and plant the Scourge Banner"
+tip The Scarlets around the tent come in linked groups: pull carefully and clear them before you burn the tent.
 map Tirisfal Glades
 turnin 5096
 accept 5098 5228
@@ -96,7 +97,7 @@ tip Chromie waits in the ruined inn at the west end of Andorhal.
 do 5098.2 at 42.3,66.2 icon use "Stand in the doorway of Tower Two and use the Beacon Torch"
 do 5098.3 at 44.3,63.2 icon use "Stand in the doorway of Tower Three and use the Beacon Torch"
 do 4971 at 47.8,64.6
-tip Use the Temporal Displacer beside the silos: the Temporal Parasites come out of hiding.
+tip Use the Temporal Displacer beside the silos: the Temporal Parasites come out of hiding. They slow you and split into more when killed; if they swarm you, run into water: they can't swim.
 do 5098.4 at 46.6,71.0 icon use "Stand in the doorway of Tower Four and use the Beacon Torch"
 do 5098.1 at 40.0,71.6 icon use "Stand in the doorway of Tower One and use the Beacon Torch"
 turnin 4971
@@ -121,8 +122,9 @@ accept 5231
 
 map Western Plaguelands
 do 964 bg
-tip Every skeleton of the Plaguelands farms can drop Skeletal Fragments.
+tip Every skeleton of the Plaguelands farms can drop Skeletal Fragments. The Skeletal Executioners have Execute: keep your health above 20%.
 do 5231
+tip Cauldron Lord Malvinious stands by the cauldron of Dalson's Tears; kill him for its key, then use the cauldron.
 turnin 5231
 accept 5232
 do 964 at 37.5,56.3
@@ -137,6 +139,7 @@ map Western Plaguelands
 accept 4984
 tip Mulgris Deepriver hides in the hut behind the Writhing Haunt.
 do 5233
+tip The Freezing Ghouls around the Writhing Haunt's cauldron have an instant five-second area stun: pull them away from Cauldron Lord Razarch.
 turnin 5233
 accept 5234
 do 4984 bg
@@ -182,7 +185,7 @@ tip The Torn Scroll lies at the mouth of the Undercroft, the crypt south of Marr
 turnin 5601 5142
 accept 5149
 do 5149 at 33.0,78.8 icon pickup "Find the doll's head, left side and right side in the ruins of Darrowshire"
-tip Each piece lies in one of the ruined houses; some are false and call up a ghoul. Combine the three in your bags.
+tip Each piece lies in one of the ruined houses; picking them up can call Ghosts of the Past (ice armor, Frost Shock). Combine the three in your bags.
 turnin 5149
 accept 5152 5241
 
@@ -275,7 +278,7 @@ accept 6135 6136 at 22.4,63.8
 do 6021 at 23.1,72.6
 tip Zaeldarr the Outcast walks inside the Undercroft.
 do 5781 at 23.9,74.2
-tip Mercutio Filthgorger stands deep in the Undercroft with a few guards.
+tip Mercutio Filthgorger isn't in the crypt: stand right on the Loose Dirt Mound by the Undercroft and click it, and he (level 57) rises with three Crypt Robbers. Stay on the mound until you loot his hammer, or the quest fails. Kill Mercutio first and loot him; the robbers are slow to reset and come back if you try to split them.
 do 6135 at 25.8,58.7
 tip Duskwing, a level 60 white bat, flies a wide circle north and east of Marris Stead.
 do 9665.1 at 34.1,64.1 icon use "Capture Crown Guard Tower: stand by its banner until it turns to the Horde"
@@ -313,7 +316,7 @@ tip Joseph's Wedding Ring is at his monument, just east of Marlene.
 turnin 5153
 accept 5154
 do 5154
-tip The Musty Tomes lie in the ruins of Andorhal; only one of them is the Annals.
+tip The Musty Tomes lie in the town hall of Andorhal; only one of them is the Annals. The real one has clean white pages; the grey, dark ones are fakes that call up mobs, and opening fakes can make the real one appear.
 turnin 5154
 accept 5210
 do 4985 at 56.3,60.9
@@ -321,6 +324,7 @@ turnin 4985
 accept 4987
 tip Glyphed Oaken Branch goes to Nara Wildmane in Thunder Bluff: the Winterspring guide hands it in.
 do 5235
+tip Cauldron Lord Soulwrath guards Gahrron's Withering's cauldron: his disease silences for ten seconds, so cure it or keep him off your caster.
 turnin 5235
 accept 5236
 turnin 5902
