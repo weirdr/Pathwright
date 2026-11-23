@@ -15,6 +15,9 @@ stage=$(mktemp -d)
 trap 'rm -rf "$stage"' EXIT
 mkdir -p "$stage/_forever_/Interface/AddOns"
 FG_WOW_DIR="$stage" FG_CLIENT=_forever_ scripts/install-addon.sh >/dev/null
+# The installer never copies Sent.lua (it keeps the one an older app wrote); the TOC loads it:
+# the repository's, empty.
+cp addon/Pathwright_Profile/Sent.lua "$stage/_forever_/Interface/AddOns/Pathwright_Profile/Sent.lua"
 mkdir -p "$(dirname "$out")"
 rm -f "$out"
 (
