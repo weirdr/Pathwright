@@ -37,7 +37,7 @@ next Swamp of Sorrows (47-47)
 map Orgrimmar
 note "Come to Orgrimmar: the zeppelin to Stranglethorn Vale leaves from the tower outside its gates" at 55.9,62.7
 ah 339.1 npc 8673
-tip Barnil Stonepot at Nesingwary's camp collects the 15 pages of The Green Hills of Stranglethorn. They drop rarely, from all over the jungle; the auction house sells them for a few silver each.
+tip Barnil Stonepot at Nesingwary's camp collects the 15 pages of The Green Hills of Stranglethorn. They drop rarely, from all over the jungle; the auction house sells them for a few silver each. Only the 15 page numbers listed here exist (1, 4, 6, 8, 10, 11, 14, 16, 18, 20, 21, 24, 25, 26 and 27).
 ah 339.2 npc 8673
 ah 339.3 npc 8673
 ah 339.4 npc 8673
@@ -71,10 +71,11 @@ accept 571
 # East: the Skullsplitter trolls ------------------------------------------------------------------------
 
 do 586.1 bg
+tip The hunters roam the lower level of the ruins. The headhunters and berserkers stand on the upper level to the east (around 48,43), only four or five of each: kill the mystics there too, their spawns can come back as headhunters.
 do 586.2 bg
 do 586.3 bg
 do 586.4
-tip Ana'thek the Cruel walks through the camp with company: clear the trolls around him before you pull him.
+tip Ana'thek the Cruel waits with two guards in a cave on the lower level of the Ruins of Zul'Mamwe (around 44,44): skirt the ruins along the right-hand wall to reach it, and clear the guards before you pull him. He has an execute that hits very hard on a wounded target, so keep your health up.
 do 586.1
 do 586.2
 do 586.3
@@ -102,17 +103,19 @@ accept 621
 accept 628
 accept 595
 accept 606
+tip "Sea Wolf" MacKinley is on the top floor of the house under the big hanging shark.
 accept 617
 tip Privateer Bloads walks around the docks.
 accept 348
+tip Fin Fizracket lies under an upturned, broken boat on the lowest level of Booty Bay.
 accept 8551
 
 # The hill, the cove and the naga north of Booty Bay ----------------------------------------------------------
 
 do 95322 at 29.9,71.0 icon use "Open the Bloodsail Trunk on the hill just outside Booty Bay"
-tip Pirates jump you when you open it.
+tip The trunk looks like a treasure chest, behind a tree on the hill right outside the Booty Bay tunnel. Two level 36 pirates jump you when you open it.
 turnin 595
-tip The letter lies by the pirate camp in the cove north of Booty Bay.
+tip The letter lies on top of a barrel in the middle of the pirate camp, in the cove north of Booty Bay.
 accept 597
 do 617
 tip The naga explorers hunt along the beach north of the cove.
@@ -124,17 +127,18 @@ tip Witch Doctor Unbagwa hides in a small cave just north-east of the gorillas.
 do 606 bg
 do 349 bg mobs 1557 1558
 do 571
-tip The sinew is a rare drop: keep killing the Elder Mistvale Gorillas until one has it.
+tip The sinew is very rare: about one Elder Mistvale Gorilla in sixty has it, and each of you needs one. Gorillas also live just west of the road. If it won't drop, skip this quest and its follow-up (the naga and Holy Spring step later).
 do 606
 do 349 mobs 1557 1558
 turnin 349
+tip Only one hand-in is needed: it starts the waves for both of you, and Mokk's heart drops for each of you. A second hand-in starts the waves again, so the other one of you can skip this step (right-click it) or hand in after the fight for the extra XP.
 do 348
-tip Handing Unbagwa the fangs starts his summoning: angry gorillas come first, then Mokk the Savage.
+tip The fangs start Unbagwa's summoning: three gorillas, then four with a named one, then Mokk the Savage (a white gorilla) with the last wave. You get a few seconds to eat and drink between waves. Keep your cooldowns for the second wave; in the third, kill only Mokk and loot his heart, which counts even if you die afterwards.
 
 # Gorlash, on the coast east of Booty Bay ---------------------------------------------------------------------
 
 do 8551
-tip Gorlash is a level 47 elite sea giant who walks the shore; fight him together.
+tip Gorlash is a level 47 elite sea giant who walks the shore; fight him together. Too strong? Pull him back to the Booty Bay guards at the tunnel: the chest still drops as long as the two of you do more than half of the damage.
 
 # Booty Bay ----------------------------------------------------------------------------------------------------
 
@@ -150,6 +154,7 @@ accept 587
 tip Deeg is upstairs in the inn.
 accept 576
 turnin 606
+tip "Shaky" Phillipe waits on the dock where the boats land.
 accept 607
 turnin 607
 accept 609
@@ -166,7 +171,7 @@ accept 95385 at 29.4,81.3 "Loot a Torn Mystical Scroll from a Bloodsail Warlock 
 tip The warlocks fight in the pirate camps on the Wild Shore.
 do 604.2
 do 604.3
-tip The charts and the orders lie in the pirate camp on the Wild Shore.
+tip The charts and the orders each lie at one of three spots: the big pirate camp on the peninsula (around 26,82: on a crutch by the tailoring trainer, or on the northern pile of crates by a tent), the little rowboat beside it (27,83), or the tent of the small camp (29,80).
 do 604.1
 do 587
 do 576
@@ -185,13 +190,13 @@ turnin 95385
 do 621 bg
 do 609.1
 do 609.2
-tip Maury and Jon-Jon stand with the Zanzil trolls at the Ruins of Jubuwal.
+tip Maury and Jon-Jon are at the Ruins of Jubuwal: Jon-Jon by the campfire, Maury inside a set of walls.
 do 609.3
-tip Chucky "Ten Thumbs" is at the Ruins of Aboraz, the Zanzil camp to the south-east.
+tip Chucky "Ten Thumbs" is at the Ruins of Aboraz, the Zanzil camp to the south-east: on the beach side, just outside the walls in a corner.
 do 621
-tip Zanzil the Outcast calls up help: pull his trolls away from him.
+tip Farm the mixture at the Ruins of Aboraz by the sea (around 40,59): the mobs there stand apart and pull one at a time, while Jubuwal's are packed together. Leave Zanzil the Outcast himself alone; the witch doctors flee when they are hurt.
 do 589
-tip The Ironjaw Basilisks live in and around the cave north-east of the Ruins of Aboraz.
+tip Only the Ironjaw Basilisks inside the Crystalvein Mine drop the shards, and often do; the Thrashtail Basilisks outside don't. The entrance is at about 41.8,50.1, north-east of the Ruins of Aboraz.
 
 # Booty Bay ----------------------------------------------------------------------------------------------------
 
@@ -211,7 +216,7 @@ accept 591
 # North: the crocolisks, Nesingwary's camp, the Venture Co., Bhag'thera and the Mosh'Ogg ogres ----------------
 
 do 628
-tip The Elder Saltwater Crocolisks are level 38 elites on the coast north of Grom'gol.
+tip The Elder Saltwater Crocolisks are level 38 elites on the beach north of Grom'gol (around 29,24). They share spawn points with the plain Saltwater Crocolisks: if no elder is up, kill plain ones along the beach until one appears.
 accept 338 339 340 341 342
 accept 193
 tip Barnil Stonepot, Hemet Nesingwary and Sir S. J. Erlgadin stand together in the hunters' camp.
@@ -221,13 +226,13 @@ turnin 95325
 tip The ledger is upstairs in the Venture Co. building by the lake.
 accept 95326
 do 95326
-tip The agent waits inside the building.
+tip The agent waits inside the building but respawns only every 7-10 minutes. If he is dead, go on to Bhag'thera and the ogres and come back for him on your way west.
 do 193
-tip Bhag'thera, a level 40 elite panther, prowls the hills between the lake and the Mosh'Ogg mound.
+tip Bhag'thera, a level 40 elite panther, spawns at about 48,20 or 48,28 and prowls the hills between them. The target button finds her from afar.
 do 613
-tip Every Mosh'Ogg ogre can drop the key; the lords and the butchers most often.
+tip The Mosh'Ogg ogres are elites: pull them one at a time. Any of them can drop the key, the lords and the butchers most often, and each of you needs one.
 do 591
-tip Mai'Zoth, a level 47 elite ogre, stands on top of the Mosh'Ogg mound.
+tip Mai'Zoth, a level 47 elite ogre, waits in the last room of the cave at the back of the Mosh'Ogg mound, with a guard that joins the fight. Crowd-control the guard if you can and kill Mai'Zoth first. It is a hard fight for two: skip it if it goes badly.
 
 # Nesingwary's camp ----------------------------------------------------------------------------------------------
 
@@ -253,10 +258,10 @@ turnin 95326
 accept 95327
 do 573.1 bg
 do 573.2
-tip The Holy Spring is a short way inland, east of the naga beach.
+tip The water comes from clicking the spring, not from the nagas. Take the path at about 27,59, just before the bridge, up through an arch into the Nek'mani Wellspring, then over a rope bridge to the fountain-like spring (around 29,62). The nagas on the way come in pairs.
 do 573.1
-do 592 icon use "Use the Soul Gem on Yenniku once you have beaten him down"
-tip Yenniku is held by the Zanzil trolls at the Ruins of Aboraz.
+do 592 icon use "Use the Soul Gem on Yenniku, then talk to him"
+tip Yenniku stands inside the first corridor of the Ruins of Aboraz (around 39,58). Don't fight him: the gem stuns him, and after a few seconds you can talk to him to fill it.
 
 # Grom'gol -------------------------------------------------------------------------------------------------------
 
