@@ -1,0 +1,541 @@
+# Undead Starter (1-13): Deathknell, Brill and every loop of Tirisfal Glades (the Agamand Mills,
+# the Rot Hide gnolls and the murloc coast, the Scarlet camps, Venomweb Vale and the Balnir farm,
+# Gunther's island, the Agamand Family Crypt, Bandarion Keep and the Shadowvale crypt), three visits
+# to Undercity, and a zeppelin trip to Orgrimmar for its errands, for an Undead duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/undead_starter_1_13.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, race and class masks, drops and the
+# places of mobs and objects from the game data (data/forever.sqlite) and the project's notes
+# (notes/tirisfal-glades.toml), checked against outof.games (Tirisfal Glades, area 85; Undercity;
+# Orgrimmar); Zygor's route as a check (there is no RestedXP route below level 21). Wowhead not
+# consulted: the research is partial.
+# The quest list is section 1 of addon/guides/horde_1_40_allocation.md, plus the warriors' Agamand
+# Heirlooms (1821) and Heirloom Weapon (1822), the follow-ups of Speak with Coleman (1820): no guide
+# had them, and their weapon racks stand in the Agamand Family Crypt this guide clears anyway.
+# Class quests: Seeking Refuge (99144) is for paladins only in the project's data (an override),
+#   though outof.games shows no class: the builder keeps it for paladins.
+# Profession quests: Camping 101: Herbalism, Mining and Skinning show only to those with the
+#   profession (`skill`); Cooking is for everyone.
+# Left out: A Lesson in Divinity 94435-94441 (paladins, after 94434): no guide had them, and they
+#   send a paladin from Undercity to Bandarion Keep, to Venomweb Vale and back again; Investigate
+#   the Scourge of the Undercity (9265, a world event); The Power to Destroy... (5725, Ragefire
+#   Chasm drops).
+# The auction house: only Coarse Thread (a trade vendor's item, bought in Brill) and Linen Cloth
+#   (paladins' A Lesson in Divinity: it drops from every humanoid on the way) come up: no AH stop.
+#
+# Starts at Undertaker Mordo, outside the crypt of Deathknell, where new Undead characters wake.
+# Ends at the zeppelin tower outside Undercity, in Tirisfal Glades, off the zeppelin back from
+#   Orgrimmar, where Silverpine Forest (13-15) starts.
+# Flight paths learned: Undercity (Michael Garrett, which Undead may already know) and Orgrimmar
+#   (Doras), which The Barrens & Stonetalon Mountain (15-21) flies to.
+# Left to Silverpine Forest (13-15): nothing. It takes Delivery to Silverpine Forest (445) in Brill
+#   and The Deathstalkers (1886) itself; this guide stops at Mennet Carkad (1885) for rogues.
+#
+# The route: Deathknell (1-6); the road east to Brill, with Gordo's weeds; Brill's first loop
+# (east to the Undercity road, then west to the pumpkins and the Scarlet Warriors) and the
+# hearthstone back; the north (the Rot Hide gnolls, Maggot Eye, the murloc coast and the Agamand
+# Mills); Undercity, then the Scarlet camp south of the road; Venomweb Vale's first part (the Cult of
+# the Damned, the Bleeding Horrors, the Balnir farm) from Deathguard Linnea's camp; the east (Gunther's
+# books, Riptear, the Vicious Night Web Spiders, Captain Vachon); Undercity again; Gunther's island,
+# Captain Melrache's tower and the Agamand Family Crypt; Bandarion Keep and the Shadowvale crypt in
+# the far west; the hearthstone to Brill, Undercity a last time, and the zeppelin to Orgrimmar and
+# back.
+
+guide Undead Starter (1-13)
+races 5
+levels 1 13
+next Silverpine Forest (13-15)
+
+# Deathknell ----------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+accept 363
+tip Undertaker Mordo stands outside the crypt where you wake up.
+turnin 363
+accept 364
+tip Shadow Priest Sarvis is in the chapel of Deathknell, up the path.
+accept 1470
+tip Warlocks: Venya Marthand stands in the chapel too.
+do 364
+tip The zombies shamble around the houses just north of the chapel.
+do 1470
+tip Warlocks: the Rattlecage Skeletons stand in the field north of the houses. Summon your imp once you hand it in.
+turnin 364
+turnin 1470
+accept 3901
+accept 3095 3096 3097 3098 3099 98601
+accept 376
+turnin 3095 3096 3097 3098 3099 98601
+tip Read the scroll, then take it to your class trainer: the warrior and rogue trainers are in the house east of the chapel, the others in the chapel.
+accept 90902
+do 90902 icon use "Heal five Injured Deathguards with Holy Light"
+tip Paladins: the Injured Deathguards kneel around the houses north of the chapel. Cast Holy Light on them.
+turnin 90902
+train 2119 2122 2123 2124 2126 244808
+do 3901
+tip The Rattlecage Skeletons stand in the field north of the houses.
+do 376.1 bg mobs 1508 1509 at 31.4,63.0
+do 376.2 mobs 1512 1513 at 31.4,65.4
+tip The Young Scavengers and Duskbats prowl all around Deathknell: kill them on the way.
+turnin 376
+accept 6395
+accept 3902
+accept 380
+accept 98389
+accept 91208
+turnin 3901
+sell 2116
+
+# Night Web's Hollow --------------------------------------------------------------------------------
+
+do 3902
+tip The Equipment Boxes are piled by the houses and the walls of Deathknell.
+do 91208
+tip Paladins: the Frightened Paladin hides west of Deathknell. Talk to him.
+do 380.1
+tip The Young Night Web Spiders crawl outside Night Web's Hollow, the mine north-west of Deathknell.
+do 380.2
+do 98389 icon use "Free six Webbed Forsaken"
+tip The bigger spiders and the Webbed Forsaken are inside the mine: click the cocoons to free them.
+turnin 3902
+turnin 91208
+accept 91209
+turnin 98389
+turnin 380
+accept 381
+
+# The Scarlet camp ---------------------------------------------------------------------------------
+
+note "Kill Samuel Fipps and loot his remains" npc 1919 at 36.7,61.6
+tip Samuel Fipps, a zombie, shambles about the fields east of Deathknell, on your way to the Scarlet camp.
+do 381
+tip The Scarlet Converts and Initiates fill the camp south-east of Deathknell. Meven Korgal is there too: leave him for now.
+do 6395 icon use "Bury Samuel's Remains at Marla's Grave"
+tip Marla's Grave is in the graveyard beside the chapel.
+turnin 6395
+turnin 381
+accept 382
+do 382
+tip Meven Korgal stands in the middle of the Scarlet camp.
+turnin 382
+accept 383
+accept 96656
+accept 5651
+tip Priests: Dark Cleric Duesten sends you to Brill.
+train 2119 2122 2123 2124 2126 244808
+
+# The road to Brill ---------------------------------------------------------------------------------
+
+accept 8
+tip Calvin Montague waits north-east of Deathknell, by the road to Brill.
+accept 365
+tip Deathguard Simmer guards the road a little further east.
+accept 5481 at 42.0,54.8
+tip Gordo, an abomination, walks the road between Deathknell and Brill and stops to pick plants: look for him along it.
+do 5481
+tip The Gloom Weed grows along the roadside between Deathknell and Brill: pick it as you walk east.
+turnin 96656
+accept 96607
+tip Eleanor Shackleton camps south of the road, just west of Brill.
+do 96607 icon use "Sit by Eleanor's campfire until you get Boosted Rest"
+turnin 96607
+accept 96658
+accept 97957 skill Herbalism
+accept 97959 skill Mining
+accept 97960 skill Skinning
+tip Herbalism, Mining and Skinning: these show only to those of you who have the profession.
+
+# Brill ----------------------------------------------------------------------------------------------
+
+turnin 5481
+accept 5482
+tip Junior Apothecary Holland walks the Brill graveyard, just north-west of town.
+accept 404
+accept 86784
+accept 367
+turnin 383
+accept 427 99141 99134
+turnin 91209
+tip Paladins: Shari Stilwell stands in the middle of Brill.
+turnin 8
+bind 5688
+turnin 96658
+tip William Pickman is in the inn: ask him to train you.
+turnin 97957
+tip Herbalists: Faruza stands beside Apothecary Johaan's house.
+turnin 5651
+accept 5650
+do 99141.1 icon talk "Ask Deathguard Dillinger for his report"
+accept 358
+accept 398
+tip The WANTED poster stands beside Executor Zygand.
+train 2131 2130 2129 2128 2127 246152
+do 99134 icon use "Use the Executor's Motivator on five Deathguards"
+tip Any Deathguard in or around Brill counts, the ones at the gates included.
+
+# East: the Undercity road --------------------------------------------------------------------------
+
+do 99141.2 icon talk "Ask Deathguard Kristof for his report"
+tip Deathguard Kristof stands at Deathguard Linnea's camp, by the road to Undercity, south-east of Brill.
+accept 356
+tip Deathguard Linnea's patrol is for later, in Venomweb Vale: keep it.
+accept 97558
+turnin 97960
+tip Skinners: Rand Rhobart is the skinner by the same camp.
+do 367 bg mobs 1547 1548 at 64.2,56.0
+do 97558.1 bg mobs 1553 1554 at 62.3,57.4
+do 97558.2 bg mobs 1547 1548 at 64.2,56.0
+tip The darkhounds and Greater Duskbats roam the hills between Brill and the camp: kill them for blood, hides and wing membranes. Keep the membranes for later; the murloc skins come in the north.
+do 86784
+tip The Dry Branches lie flat in the grass under the trees west and south of Brill: sweep the cursor over the ground until it shows the gear. They come back quickly.
+turnin 99134
+turnin 367
+accept 368
+accept 375
+accept 354 362
+turnin 86784 npc 265812
+
+# West: back towards Deathknell ----------------------------------------------------------------------
+
+do 404
+tip The Rotting Dead and Ravaged Corpses shamble in the fields west of Brill, both sides of the road.
+do 99141.3 icon talk "Ask Gordo for his report"
+tip Gordo walks the road between Deathknell and Brill: look for him along it.
+do 375.1 mobs 1553 1554 at 45.5,56.3
+tip The Greater and Vampiric Duskbats fly around the road half way back to Deathknell.
+accept 590
+tip Back at Calvin Montague, north-east of Deathknell: he picks a fight over the letter. Beat him.
+do 590.1 at 38.2,56.8 icon kill "Beat Calvin Montague"
+turnin 590
+do 365
+tip The Tirisfal Pumpkins grow in the farm north of the road, west of Deathguard Simmer.
+do 427
+tip The Scarlet Warriors hold Crusader's Outpost, the farm and tower just west of the pumpkins.
+accept 99144
+tip Paladins: Bareth Dawnstone is held at the top of the tower, past Scarlets that come back quickly. If he isn't there, someone is escorting him: he is back within ten minutes.
+do 99144 at 32.0,46.4 icon talk "Escort Bareth Dawnstone out of Crusader's Outpost"
+tip If you are both paladins, both take the quest before either starts the escort. Keep the Scarlets off him until he is clear of the outpost.
+hearth npc 5688
+
+# Brill ----------------------------------------------------------------------------------------------
+
+do 375.2 at 61.0,52.4 icon get "Buy a Coarse Thread from Abigail Shiel, the trade supplier"
+turnin 375
+turnin 404
+accept 426
+turnin 365
+accept 407
+turnin 407
+tip Take the Laced Pumpkin down to the Captured Scarlet Zealot, in the cellar of the inn.
+turnin 427
+accept 370
+accept 374
+turnin 99141
+turnin 99144
+accept 91282
+tip Paladins: keep A Second Home for Bandarion Keep, in the far west, near the end of the guide.
+do 5650 icon use "Heal Deathguard Kel, then give him Power Word: Fortitude"
+tip Priests: Deathguard Kel waits north of Brill, by the road. Heal him with Lesser Heal (Rank 2): no other rank counts. Then give him Power Word: Fortitude.
+turnin 5650
+train 2131 2130 2129 2128 2127 246152
+
+# The north: the Rot Hide gnolls, Maggot Eye and the murloc coast -----------------------------------
+
+do 358.1
+tip The Rot Hide Graverobbers dig in the old graveyard north-west of Brill.
+do 5482
+tip The Doom Weed grows among the graves there, and north of them.
+do 358.3 bg mobs 1941 1674 1675
+do 358.2
+tip The Rot Hide Mongrels hold the houses further north, around Maggot Eye's cottage.
+do 398
+tip Maggot Eye, a gnoll, waits inside the cottage.
+do 368 mobs 1543 1544 1545 at 60.5,28.0
+do 97558.3
+tip The Vile Fin murlocs live on the shore north and north-east of Maggot Eye's cottage. The skins drop from the Minor Oracles and the Muckdwellers only.
+
+# The Agamand Mills ---------------------------------------------------------------------------------
+
+do 354.2
+tip Nissa Agamand, a banshee, haunts the house of the eastern mill: she floats on both floors.
+do 362
+tip Devlin Agamand, a skeleton mage, walks by the southern mill.
+do 426.1
+do 426.2 mobs 1522
+tip The Rattlecage Soldiers and Cracked Skull Soldiers give the ribs, the Darkeye Bonecasters the skulls. They crowd every mill.
+accept 361 "Read A Letter to Yvette, if a skeleton dropped it"
+tip The skeletons sometimes drop A Letter to Yvette: read it to start the quest. If it hasn't dropped once you are done here, right-click the step to skip it.
+do 354.1
+tip Gregor Agamand, a ghoul, walks the north end of the mills.
+do 354.3
+tip Thurman Agamand, a zombie, walks the western mill.
+
+# Brill ----------------------------------------------------------------------------------------------
+
+turnin 5482
+accept 99142
+turnin 426
+turnin 368
+accept 369
+turnin 398
+turnin 358
+accept 359 405
+turnin 354 362
+accept 355
+turnin 355
+accept 408
+tip The Family Crypt is for later in the guide, with Captain Melrache: keep it.
+turnin 361
+accept 96895
+tip Deathguard Terrence stands at the south edge of Brill.
+accept 1818
+accept 1881
+accept 1478
+tip Warriors, mages and warlocks: your Brill trainer has an errand for you at level 10.
+train 2131 2130 2129 2128 2127 246152
+
+# Deathguard Linnea's camp, then Undercity --------------------------------------------------------
+
+turnin 359
+tip Deathguard Linnea camps by the road to Undercity, south-east of Brill.
+accept 360
+turnin 97558
+turnin 96895
+accept 96897 96898
+tip Hadric Harlson, of the Argent Dawn, waits beside Linnea's camp.
+map Undercity
+fpath 4551
+tip Walk into the ruins of Lordaeron, south of the camp, and take one of the elevators down. Michael Garrett, the bat handler, is in the Trade Quarter.
+turnin 405
+accept 357
+tip Bethor Iceshard stands on the stairs of the Magic Quarter.
+turnin 1478
+accept 1473
+turnin 1881
+accept 1882
+accept 5658
+turnin 5658
+tip Priests: Aelthalyste is in the War Quarter.
+turnin 97959
+tip Miners: Brom Killian is in the Trade Quarter.
+accept 97891
+tip Alessandro Luca keeps a shop in the Trade Quarter.
+turnin 97891
+tip You have five minutes: take the path down across the slime canal into the Apothecarium. Doctor Martin Felben stands in its lower hall.
+train 4593 260093 4582 4606 4566 4563
+
+# The Scarlet camp south of the road ----------------------------------------------------------------
+
+map Tirisfal Glades
+do 370.1
+do 370.2
+do 370.3
+do 374 bg mobs 1537 1536 1662 at 51.5,67.4
+tip The Scarlets hold the camp south-west of Undercity. Captain Perrine waits inside the house.
+do 1473
+tip Warlocks: Egalin's Grimoire is in Perrine's Chest, in his house.
+do 374 mobs 1537 1536 1662 at 51.5,67.4
+tip The Zealots and Missionaries drop the rings, close to every other kill: keep going until you both have ten.
+
+# Venomweb Vale, first part ------------------------------------------------------------------------
+
+do 96897
+do 96898
+tip The Cult of the Damned's neophytes and enforcers camp south-east of Linnea's camp. The black Naxxramas Crystal Fragments on the ground count too.
+do 356
+tip The Bleeding Horrors and Wandering Spirits drift around the Balnir Farmstead, east of the cult.
+do 99142
+tip The Tomb Weed grows around the farm.
+do 1882
+tip Mages: the Balnir Snapdragons grow by the farmhouse.
+turnin 356
+accept 99156
+turnin 96897 96898
+accept 96899
+
+# Brill ----------------------------------------------------------------------------------------------
+
+turnin 370
+accept 371
+turnin 374
+turnin 360
+turnin 99142
+turnin 1818
+accept 1819
+accept 1885
+tip Rogues: Marion Call, upstairs in the inn, sends you to Undercity at level 10.
+train 2131 2130 2129 2128 2127 246152
+
+# The east: Gunther's books, Riptear, the spiders and Captain Vachon --------------------------------
+
+do 1819 icon use "Click the Mausoleum Trigger and kill Ulag the Cleaver"
+tip Warriors: the mausoleum stands in the Brill graveyard, just north of town. Click the plate on its door: Ulag comes out fighting.
+do 357
+tip Gunther's Books lie on Gunther's Retreat, the island in the lake north-east of Brill: swim over.
+do 99156
+tip Riptear, a level 13 elite abomination, wanders the hills of Venomweb Vale, in the far east of Tirisfal. Fight him together; if he is too much for you yet, right-click the step to skip the quest.
+do 369
+tip The Vicious Night Web Spiders crawl in the far east of the vale. The venom drops about one kill in four.
+do 371
+tip Captain Vachon waits inside the Scarlet house west of the spiders; the Scarlet Friars stand all around it.
+turnin 99156
+tip Back to Deathguard Linnea, by the road to Undercity.
+
+# Undercity -----------------------------------------------------------------------------------------
+
+map Undercity
+turnin 357
+accept 366
+turnin 1473
+accept 1471
+do 1471 at 86.6,27.1 icon use "Use the Runes of Summoning and subdue the voidwalker"
+tip Warlocks: use the runes on the pink circle beside Carendin Halgar, in the Magic Quarter.
+turnin 1471
+turnin 1882
+turnin 1885
+tip Rogues: Mennet Carkad is in the Rogues' Quarter. He offers The Deathstalkers next: leave it to Silverpine Forest, which takes it.
+train 4593 260093 4582 4606 4566 4563
+
+# Brill ----------------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+turnin 371
+accept 372
+turnin 369
+accept 492
+turnin 492
+tip Take Johaan's drink down to the Captured Mountaineer, in the cellar of the inn.
+turnin 1819
+accept 1820
+turnin 1820
+accept 1821
+train 2131 2130 2129 2128 2127 246152
+
+# Gunther's island, Melrache's tower, the Agamand Family Crypt ---------------------------------------
+
+turnin 366
+tip Swim to Gunther's Retreat, the island north-east of Brill.
+accept 409
+do 409 icon use "Take a Candle of Beckoning, summon Lillith Nefara at the altar and kill her"
+tip Take a candle from the crate beside Gunther, then use it at the altar of the small island next to his. Lillith hits hard: if she wins, take another candle and try again.
+turnin 409
+accept 411
+do 372
+tip Captain Melrache and his two bodyguards hold the ruined tower north-east, on the ridge past the Scarlet camps. Climb from its western tip (around 77,30) to skip most of the camps.
+do 408
+tip The Agamand Family Crypt, at the north end of the Agamand Mills, has three floors of hard-hitting undead that come back quickly: pull one at a time and wait for the patrols. Captain Dargol is on the bottom floor.
+do 1821
+tip Warriors: the four weapon racks stand inside the crypt.
+
+# Brill ----------------------------------------------------------------------------------------------
+
+turnin 372
+turnin 408
+turnin 1821
+accept 1822
+turnin 1822
+accept 95314
+train 2131 2130 2129 2128 2127 246152
+
+# Bandarion Keep and the Shadowvale crypt ---------------------------------------------------------
+
+goto "Walk west to Bandarion Keep" at 22.3,45.6 r 15
+tip Follow the road west past Crusader's Outpost to the keep.
+turnin 96899
+tip Leonid Barthalomew stands upstairs in the keep.
+accept 96896
+accept 94427
+tip Paladins: Danitha Morr stands beside Leonid.
+do 96896 at 22.0,44.7 icon talk "Listen to Danitha Morr and Leonid Barthalomew"
+turnin 96896
+accept 98545
+accept 99152
+accept 99153
+turnin 91282
+accept 91285
+tip Paladins: Breton Samuels stands inside the keep.
+do 91285
+tip Paladins: the Vile Fin Attackers and Seers come up the shore south-west of the keep.
+turnin 91285
+accept 91294
+do 91294 icon talk
+tip Paladins: talk to Hilda the Breaker, Jorin Croge, Ander Solliden (outside, south of the keep) and Danitha Morr.
+turnin 91294
+accept 91317 91316
+do 99152
+do 95314
+tip The Shadowvale crypt is a cellar under a roofless, burned house south-west of the keep (entrance near 13,65.7). The bottles stand along its corridors and on the wine racks; its undead carry the bones.
+do 99153
+tip The Glowing Crystal Fragment lies on the floor of the crypt's left-hand wing.
+do 91316
+tip Paladins: the Sturdy Lumber lies on the crypt's floors.
+accept 95328 at 8.7,60.1 "Kill Whispering Horror and read the residue it leaves"
+tip Whispering Horror, a level 11-13 elite, waits at the far end of the crypt: kill it together, then loot the residue it leaves and read it.
+do 95328 at 8.7,60.1
+do 91317
+tip Paladins: the Tarnished undead walk the burned ruins outside the crypt; Rudolph Gelhardt is upstairs in the house beside it.
+turnin 99152
+turnin 99153
+turnin 91316
+turnin 91317
+accept 95803
+hearth npc 5688
+
+# Brill, then Undercity a last time -----------------------------------------------------------------
+
+turnin 95314
+tip Carolai Anise is in Apothecary Johaan's house.
+map Undercity
+turnin 98545
+tip Walk south-east to Undercity and take an elevator down. Glix Xizzix is in the Trade Quarter.
+turnin 411
+turnin 95328
+tip Father Lankester is in the War Quarter.
+turnin 94427
+accept 94434
+do 94434 at 65.5,37.5
+tip Paladins: Tanis Alderwood wants ten Linen Cloth. The Scarlets dropped plenty; if you sold it, the auction house is in the Trade Quarter.
+turnin 94434
+turnin 95803
+tip Paladins: Lady Sylvanas stands in the Royal Quarter, at the end of the long hall.
+train 4593 260093 4582 4606 4566 4563
+
+# Orgrimmar and back -------------------------------------------------------------------------------
+
+map Tirisfal Glades
+note "Take the zeppelin to Orgrimmar" npc 9566
+tip Leave Undercity by an elevator: the zeppelin tower stands a short walk north. Zapetta sends the zeppelin to Durotar.
+map Durotar
+accept 834
+tip Off the zeppelin, walk to the road south of Orgrimmar's gate: Rezlak, a goblin, stands by it.
+do 834
+tip The Stolen Supply Sacks lie on the ground south and south-east of Rezlak.
+turnin 834
+map Orgrimmar
+fpath 3310
+tip Walk in by the main gate. Doras is at the top of the wind rider tower, on the west side of the Valley of Strength.
+accept 97246
+tip Thatog stands on the top floor of the building in the Valley of Strength.
+turnin 97246
+accept 97249
+accept 97242
+tip Kor'geld sells reagents in Yelmak's Alchemy and Potions.
+do 97242
+tip The Cattails and Speargrass grow along the water of the Valley of Honor.
+turnin 97242
+accept 97275
+turnin 97275
+tip Yelmak paces his shop: hand his potion to Whuut, in the same shop.
+turnin 97249
+accept 97326
+tip Migi and Thra sit behind Grommash Hold.
+do 97326
+tip The Smooth Boulders lie on the ground east and south-east of Thra.
+turnin 97326
+map Durotar
+note "Take the zeppelin back to Tirisfal Glades" npc 9564
+tip Leave Orgrimmar by the main gate. Frezza sends the zeppelin to Tirisfal Glades from the tower east of the gate.
+map Tirisfal Glades
+goto "Off the zeppelin, at the tower outside Undercity: Silverpine Forest (13-15) starts here" at 60.7,58.9 r 20
