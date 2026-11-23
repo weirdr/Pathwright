@@ -1,12 +1,13 @@
 #!/bin/sh
-# Zip the addon to share it or publish it: Pathwright_Profile and Pathwright_Guide as a fresh
-# install makes them (scripts/install-addon.sh, with the built-in guides' index), nothing of a
-# player's own (the Config.lua, Routes.lua and Services.lua the repository ships empty).
+# Zip the addon to share it or publish it: every addon folder a fresh install makes
+# (scripts/install-addon.sh: Pathwright_Profile, Pathwright_Guide with the built-in guides' index,
+# and on WoW Forever its guide pack Pathwright_RxPForever), nothing of a player's own (the
+# Config.lua, Routes.lua and Services.lua the repository ships empty).
 #
 #   scripts/addon-zip.sh                 # debug/Pathwright-addon.zip
 #   scripts/addon-zip.sh dist/out.zip
 #
-# Unzipped into World of Warcraft/_forever_/Interface/AddOns, both folders sit there directly.
+# Unzipped into World of Warcraft/_forever_/Interface/AddOns, the folders sit there directly.
 set -eu
 cd "$(dirname "$0")/.."
 out=${1:-debug/Pathwright-addon.zip}
@@ -23,6 +24,7 @@ rm -f "$out"
 (
     cd "$stage/_forever_/Interface/AddOns"
     find . -name ".DS_Store" -delete
-    zip -qr -X "$out" Pathwright_Profile Pathwright_Guide
+    # Whatever the installer put there, so an addon it gains is never left out.
+    zip -qr -X "$out" -- *
 )
 echo "$out"
