@@ -556,9 +556,11 @@ local function Create()
         FG:Try("toolstrip skin", Skin.Style, Skin, strip, "panel")
     end
 
-    -- The checker (see Aiming): hidden, clicked by the swords' macros. Its macro runs on the up
-    -- edge whatever the player's "cast on key down" (a /click is an up), and its PreClick looks
-    -- at the target taken. A secure button: made out of combat only.
+    -- The checker (see Aiming): hidden, clicked by the swords' macros, and its PreClick looks at
+    -- the target taken. A /click comes as a down or an up depending on the player's "cast on key
+    -- down" (on WoW Forever, a down when it is on), and a secure button acts only on the edge its
+    -- useOnKeyDown names: the PreClick sets it to the edge of this very click, or the checker would
+    -- decide and then do nothing. A secure button: made out of combat only.
     if not Toolstrip.checker and not InCombatLockdown() then
         local check = CreateFrame("Button", CHECK, strip, "SecureActionButtonTemplate")
         if check then
@@ -566,10 +568,11 @@ local function Create()
             check:SetAttribute("type", "macro")
             check:SetAttribute("useOnKeyDown", false)
             check:SetAttribute("macrotext", "")
-            check:RegisterForClicks("AnyUp")
+            check:RegisterForClicks("AnyUp", "AnyDown")
             check:EnableMouse(false)
-            check:SetScript("PreClick", function(self)
+            check:SetScript("PreClick", function(self, _, down)
                 if InCombatLockdown() then return end
+                self:SetAttribute("useOnKeyDown", down and true or false)
                 self.macro = Toolstrip.CheckMacro(Toolstrip.expect)
                 self:SetAttribute("macrotext", self.macro)
                 Toolstrip.expect = nil

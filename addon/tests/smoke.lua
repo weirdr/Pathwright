@@ -56,6 +56,11 @@ CreateFrame = function(kind, name, parent, template)
     function f:SetEnabled(enabled) self._enabled = enabled end
     function f:IsEnabled() return self._enabled ~= false end
     function f:GetName() return self._name end
+    function f:SetAttribute(key, value)
+        self._attributes = rawget(self, "_attributes") or {}
+        self._attributes[key] = value
+    end
+    function f:GetAttribute(key) return (rawget(self, "_attributes") or {})[key] end
     function f:SetParent(p) self._parent = p end
     function f:GetParent() return self._parent end
     function f:HasScript(name) return name ~= "OnClick" or self._button == true end
@@ -1202,6 +1207,12 @@ do
     checker.PreClick(checker)
     assert(checker.macro == "", "the right mob: nothing for the checker to do: " .. tostring(checker.macro))
     assert(strip.expect == nil, "one check per press")
+    -- Its macro runs on the edge of the click it gets: a /click is a down on WoW Forever when
+    -- "cast on key down" is on.
+    checker.PreClick(checker, "LeftButton", true)
+    assert(checker:GetAttribute("useOnKeyDown") == true, "a down click: acts on the down")
+    checker.PreClick(checker, "LeftButton", false)
+    assert(checker:GetAttribute("useOnKeyDown") == false, "an up click: acts on the up")
     -- Not fit (another name, tagged, dead, friendly) or none: the nearest fit one in sight instead.
     local instead = "/cleartarget\n/target [@nameplate3,exists,harm,nodead]"
     for _, wrong in ipairs({
