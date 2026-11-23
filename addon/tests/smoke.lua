@@ -1675,6 +1675,25 @@ do
     assert(q[900] == nil, "Questie's quest gone")
     QS:Store(data, "Stranger-Realm")
     assert(not P.progress.Stranger and not P.progress["Stranger-Realm"], "only from the group")
+    -- Asking: "?" to the party (and a request to Questie players); a "?" heard sends our log.
+    local sentParty = {}
+    local realChat, realGroup, realRaid, realMembers = C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers
+    GetNumGroupMembers = function() return 2 end
+    C_ChatInfo = {
+        SendAddonMessage = function(prefix, text, channel) table.insert(sentParty, { prefix, text, channel }) end,
+    }
+    IsInGroup, IsInRaid = function() return true end, function() return false end
+    P:Ask()
+    local asked = false
+    for _, m in ipairs(sentParty) do
+        if m[1] == "PWSYNC1" and m[2] == "?" and m[3] == "PARTY" then asked = true end
+    end
+    assert(asked, "the party asked for its progress")
+    assert(#sentParty >= 2 and sentParty[2][1] == "questie", "Questie players asked too")
+    sentParty = {}
+    P:Ask()
+    assert(#sentParty == 0, "not asked again at once")
+    C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers = realChat, realGroup, realRaid, realMembers
     UnitInParty = realParty
     P.progress = saved
     print("party lines ok")
