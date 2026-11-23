@@ -42,6 +42,7 @@ tip Fel'zerul stands upstairs in the big building, next to Dispatch Commander Ru
 accept 2784
 tip The Fallen Hero of the Horde stands alone by the road south-west of Stonard, toward the Blasted Lands.
 do 2784 icon talk "Ask the Fallen Hero of the Horde why he is here and hear his story to the end"
+tip Talk to him again and pick "Why are you here?" rather than the quest, then wait the few seconds until his story ends.
 turnin 2784
 accept 2621
 
@@ -58,7 +59,7 @@ tip Bengor stands inside a building by the south gate. Leave his next quest, The
 accept 699
 tip Tok'Kar and Katar camp on the shore at the south-east corner of the swamp.
 do 699 at 81.9,71.4
-tip The Sawtooth Snappers lie along the shore north of the camp; about one in four drops a claw.
+tip The Sawtooth Snappers lie along the shore north of the camp; about one in four drops a claw. More of them swim along the south coast, around 89,95.
 turnin 699
 accept 1422
 turnin 1422
@@ -66,10 +67,10 @@ accept 1426
 do 1426.2 bg
 do 1426.3 bg at 91.8,67.9
 do 1426.1
-tip Only about nine Marsh Murlocs live on the beach south of the camp: kill them as they come back.
+tip Only about nine Marsh Murlocs live on the beach south of the camp: kill them as they come back. Sweeping the beach north from the camp and back south usually finishes all three kinds. A murloc that runs off and comes back at full health has reset: leave it.
 do 1426.2 at 83.3,90.6
 do 1426.3 at 91.8,67.9
-tip Most Marsh Flesheaters are up the east coast, north of the snappers.
+tip Most Marsh Flesheaters are up the east coast, north of the snappers (around 92,64 and 93,53); a tougher level 46 murloc stands by the tents up there.
 turnin 1426
 accept 1427
 turnin 1427
@@ -80,7 +81,7 @@ accept 1428
 do 1428.1 bg at 64.6,81.8
 do 1428.2 bg at 63.1,84.4
 do 1428.3
-tip The Marsh Oracles live only in the murloc huts west of the camp. The Swamp Talker, a level 50 murloc, walks among them: a later guide wants him, not this one.
+tip The Marsh Oracles live in the murloc huts west of the camp and in Stagalbog Cave just north of them (entrance around 67,76), where all three kinds come in easier single pulls. The Swamp Talker, a level 50 murloc, can spawn among them: a later guide wants him, not this one.
 do 1428.1 at 64.6,81.8
 do 1428.2 at 63.1,84.4
 turnin 1428
@@ -92,7 +93,7 @@ fly "Booty Bay, Stranglethorn" npc 6026
 tip Is your hearthstone set in Booty Bay? Use it from the Tok'Kar camp instead.
 map Stranglethorn Vale
 accept 1119
-tip The Fool's Stout spoils two hours after you take it: the next guide hands it in at the Shimmering Flats, so do not stop for long on the way.
+tip The Fool's Stout spoils two hours after you take it, and the quest's timer keeps running while you are logged out: the next guide hands it in at the Shimmering Flats, so don't stop for the night before then.
 
 # Orgrimmar ----------------------------------------------------------------------------------------
 
