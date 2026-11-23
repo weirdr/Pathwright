@@ -46,6 +46,7 @@ accept 3542
 tip Delivery to Andron Gant goes to Undercity, for a later guide: keep the tablet in your bags.
 accept 3505
 accept 91685
+tip Izvi offers this only if you handed in Blue Gold in the last Azshara guide; otherwise right-click to skip it.
 accept 91611 skill Fishing
 tip Kurll offers it only to those who know Fishing; the guide skips it otherwise. The Mammoth Sharks are level 56-57 elites: fight them together.
 
@@ -84,7 +85,7 @@ accept 86792
 tip Korsa hides on the hill south-west of the stronghold.
 do 86792 bg
 accept 86796
-tip Graal is locked in a cage at the north end of the stronghold.
+tip Graal is locked in a cage at the north end of the stronghold. Two ambushes of about two satyrs come on the way out: one by the two red tents, one after the big wooden gate.
 do 86796 at 66.6,14.6 "Free Graal and escort him out of the stronghold"
 do 86792
 do 91611 at 65.9,6.1
@@ -97,7 +98,7 @@ turnin 3601
 accept 5534
 do 5534 bg mobs 6195 6196 at 45.5,57.0
 do 91685 at 40.4,80.8 "Use the Mana-Siphoning Wand on the Leyline Rift over Lake Mennar, then kill Celegosa for the Tear of Mennar"
-tip Celegosa, a level 54 elite, swims in the lake.
+tip Celegosa, a level 54 elite drake with about 21,000 health, waits in the middle of the lake. She can't be crowd-controlled, her breath burns mana and she stuns now and then, but she has no ranged attack and nothing else lives in the basin: kite her if she hits too hard.
 do 5534 mobs 6195 6196 at 45.5,57.0
 tip Every Spitelash naga of the Ruins of Eldarath can drop the rune, but rarely: the Sirens and Myrmidons are the most numerous.
 turnin 5534
