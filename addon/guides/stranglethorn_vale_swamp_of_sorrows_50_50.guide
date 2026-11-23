@@ -37,6 +37,8 @@ next Blasted Lands (50-51)
 map Orgrimmar
 ah 96379.1 npc 8673
 tip State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 28 gold, more than the quest pays). Skip State Secrets if you would rather keep the gold.
+note "Buy 10 Barbecued Buzzard Wings at the auction house, for Negolash (optional)" npc 8673
+tip Negolash only comes when someone puts 10 Barbecued Buzzard Wings and 5 Junglevine Wine (sold in Booty Bay) in Captain Smotts' lifeboat. One of you brings them. A cook can make the wings from Buzzard Wings with the recipe instead. No wings? Skip Facing Negolash.
 
 # Nesingwary's camp ---------------------------------------------------------------------------------
 
@@ -45,11 +47,11 @@ goto "Take the zeppelin from the towers outside Orgrimmar's gate to Grom'gol Bas
 accept 197
 tip Ride north from Grom'gol to Nesingwary's camp.
 do 197
-tip Tethis is a level 43 elite raptor that roams the hills south of Grom'gol.
+tip Tethis is a level 43 elite raptor that spawns at one of three spots north-west of the Gurubashi Arena (around 31,43, 28,43 or 31,40, by a broken wagon). Clear the pairs of raptors around first. His Tendon Rip slows you, but he can be slowed and feared too.
 turnin 197
 accept 208
 do 208
-tip King Bangalash, a level 43 elite white tiger, stands on the hilltop south-east of Grom'gol and calls two tigers to help him at half health.
+tip King Bangalash, a level 43 elite white tiger, stands among the bones on the hilltop at about 38,34. Clear the panthers around the hill first. At half health he calls two tigers, and they stay if you fail, with two more each new try: make the first attempt count.
 turnin 208
 
 # Booty Bay -----------------------------------------------------------------------------------------
@@ -67,11 +69,12 @@ turnin 3721
 accept 96379 nopre
 do 96379 at 28.5,75.8 icon text "Give Rix Xizzix the Document Box"
 turnin 96379
+note "Buy 5 Junglevine Wine from Nixxrax Fillamug at the bar of the inn (only if you have the wings)" npc 2832
 
 # Mok'rash and Captain Smotts -----------------------------------------------------------------------
 
 accept 8552 at 23.3,72.1 "Kill Mok'rash for the Monogrammed Sash, then read it"
-tip Mok'rash is a level 50 elite ogre who walks the shore just north-west of Booty Bay.
+tip Mok'rash is a level 50 elite ogre who walks the shore just north-west of Booty Bay. He hits hard but can be feared and slowed: keep him at range, kite him around the goblin statue, or pull him back to the Booty Bay guards once he is well hurt. He respawns slowly: skip him if he isn't up.
 turnin 8552
 accept 8553
 turnin 8553
@@ -80,23 +83,23 @@ accept 8554
 # The Bloodsail ships -------------------------------------------------------------------------------
 
 do 608.2
-tip The three captains are on the middle decks of the three Bloodsail ships south of Booty Bay; the ships are full of buccaneers.
+tip Each captain waits in the back room one staircase down (no deeper) in his own Bloodsail ship south of Booty Bay: Keelhaul in the western ship, Firallon in the middle one, Stillwater in the lone eastern one. The crews respawn fast, flee when hurt, and the swabbies' Gouge drops a pet's hold on them.
 do 608.3
 do 608.1
 accept 624 at 30.6,90.2 "Find Cortello's Riddle, a rolled-up scroll below deck on one of the ships, and read it"
-tip The scroll lies on the middle or lower deck of one ship only: look on each as you clear it.
+tip The scroll lies below deck on one ship only, often Stillwater's lone eastern ship: look on each as you clear it.
 
 # Negolash, the beaches and Jaguero Isle ------------------------------------------------------------
 
 do 8554
-tip Negolash is a level 52 elite giant by the Ruined Lifeboat on the shore north of the ships.
+tip Click Captain Smotts' Ruined Lifeboat (around 32,82, a little bump of the Bloodsail beach before the first tent) and put in the 10 wings and 5 wines: Negolash, a level 52 elite giant, wades in from the north. He can be pulled to the Booty Bay guards, as long as the two of you do most of the damage. If the cutlass drops for only one of you, the other needs another set of wings and wine.
 accept 594 at 36.6,77.1 "Open Half-Buried Bottles on the beach until one holds a Carefully Folded Note, then read it"
-tip The small green bottles lie at the water's edge along the beaches east of Booty Bay; only some hold a note, and each of you needs one.
+tip The small green bottles lie at the water's edge along the beaches east of Booty Bay. Several kinds of note come out of them: only the Carefully Folded Note starts the quest, and each of you needs one.
 turnin 594
-tip Princess Poobah is on Jaguero Isle, just off the beach.
+tip Princess Poobah stands on a small hill in the north-east of Jaguero Isle (around 38,80). Level 50 beasts roam the isle, stealthed panthers among them; none follows you into the sea.
 accept 630
 do 630
-tip King Mukla is a level 50 elite ape on the south of the isle.
+tip King Mukla is a level 50 elite ape on the south of the isle. He fears: clear the apes around him first, so a fear doesn't run you into them.
 turnin 630
 
 # Booty Bay -----------------------------------------------------------------------------------------
@@ -116,7 +119,7 @@ bind 6930
 # The Swamp Talker, the Fallen Hero and the bridge --------------------------------------------------
 
 do 2623
-tip The Swamp Talker walks the cave in the south-east of the swamp (its mouth is near 66,77); look on the upper level at the back first.
+tip The Swamp Talker is in Stagalbog Cave (its mouth is near 66,76): keep right inside, to the room at the back (around 62,89), where he stands with two or three murlocs and calls more, one at a time.
 turnin 2623
 tip The Fallen Hero of the Horde stands alone in the south-west of the swamp.
 accept 2801
@@ -140,11 +143,11 @@ fly "Brackenwall Village, Dustwallow Marsh" npc 3310
 map Dustwallow Marsh
 accept 1173
 do 1173 at 36.4,31.4 mobs 4500 icon kill "Fight Overlord Mok'Morokk until he gives up"
-tip He is a level 45 elite and turns on you as soon as you accept; he yields at about a third of his health.
+tip He is a level 45 elite but hits like a much bigger one (crits near 800) and has lots of health; he turns on you as soon as you accept and yields at about a third of his health. He can be feared, rooted and kited: keep him off whoever is weakest.
 turnin 1173
 tip Draz'Zilb is in the small cave at the south end of the village.
 turnin 625
-tip The Musty Scroll is in a small cave in the south-west of the marsh.
+tip The Musty Scroll lies on a rock inside a small cave in the south-west of the marsh. Mobs respawn fast there: be quick.
 
 # Back to Stonard -----------------------------------------------------------------------------------
 
