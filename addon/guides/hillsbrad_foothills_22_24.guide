@@ -1,0 +1,237 @@
+# Hillsbrad Foothills (22-24): the first visit to Tarren Mill (Lydon's elixirs, the Battle of
+# Hillsbrad, Durnholde Keep and the Syndicate, Deathstalker Masoj's vials), with the Sepulcher's
+# errands in Silverpine Forest on the way in (Beren's Peril and its Offering Stone, the roads of
+# Ambermill), for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/hillsbrad_foothills_22_24.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, drops and the places of mobs and
+# objects from the game data (data/forever.sqlite), checked against outof.games (Hillsbrad
+# Foothills, area 267; Silverpine Forest, area 130); RestedXP's and Zygor's routes as a check.
+# Wowhead refused the requests (403), so its comments were not read. The quest list is section 7 of
+# addon/guides/horde_1_40_allocation.md, plus The Offering of Blood (95885), the last step of the
+# Offering Stone at Beren's Peril, which no guide had.
+#
+# Starts at the flight master in Orgrimmar: Ashenvale (21-22) should end there (a flight from
+#   Splintertree Post). Training for level 22, rogues take Hinott's Assistance (2479) from Shenthul,
+#   then the zeppelin to Tirisfal Glades and a flight from Undercity to the Sepulcher.
+# Carried in (skipped by those who lack them):
+# - Until Death Do Us Part (264, Clarice Foster in Thunder Bluff) and Mura Runetotem (3301, Tonga
+#   Runetotem at the Crossroads): The Barrens & Stonetalon Mountain (15-21) should take them.
+# - Journey to Tarren Mill (1065, Apothecary Zamah in Thunder Bluff, after Forsaken Aid 1064) and,
+#   for Undead priests, Dark Sacrifice (5644, Miles Welsh in Thunder Bluff): Ashenvale (21-22)
+#   should take them at its visit to Thunder Bluff.
+# - for shamans, Call of Water (1536, Brine in the Barrens): The Barrens & Stonetalon Mountain
+#   (15-21) should take it. Its waterskin is filled at the well of Tarren Mill here, and it is left
+#   to The Barrens (24-25), which hands it in to Brine.
+# Left to later guides:
+# - Return to Thunder Bluff (1067, Apothecary Lydon), for The Barrens (24-25).
+# - Battle of Hillsbrad (529, its smithy done here), Souvenirs of Death (546, skulls gathered here
+#   along the way) and Dangerous! (567, Citizen Wilkes and Farmer Kalaba killed here; the clerk and
+#   the miner are left), for Hillsbrad Foothills (30-32).
+# The Rescue (498) and WANTED: Syndicate Personnel (549) are both done here: Krusk's Infiltration
+#   (533) in Hillsbrad Foothills (30-32) needs one of them.
+# The auction house: none of this guide's quest items is sold there, so there is no AH stop.
+#
+# The route: Orgrimmar and the zeppelin; Undercity and a flight to the Sepulcher, whose inn keeps
+# the hearthstone; Beren's Peril and the roads of Ambermill; the road into Hillsbrad and Tarren Mill;
+# a loop east to Durnholde Keep; two loops west to Hillsbrad Fields; a last loop for Deathstalker
+# Masoj and his vials and the smithy of Hillsbrad; the hearthstone to the Sepulcher, a flight to
+# Undercity and the zeppelin to Orgrimmar, where The Barrens (24-25) starts.
+
+guide Hillsbrad Foothills (22-24)
+faction horde
+levels 22 24
+carry 264 1065 1536 3301 5644
+leave 529 546 567 1067 1536
+next The Barrens (24-25)
+
+# Orgrimmar -----------------------------------------------------------------------------------------
+
+map Orgrimmar
+goto "Start at the wind rider tower in the Valley of Strength, Orgrimmar" at 45.1,63.9 r 15
+accept 2479
+tip Rogues only: Shenthul, the rogue trainer in the Cleft of Shadow, gives it to those who finished his Mission: Possible But Not Probable (2478). Keep the sample for Serge Hinott in Tarren Mill.
+train 3353 3352 3401 6014 3344 5882 3326
+tip Druids have no trainer here: train at your next visit to Thunder Bluff, or use Teleport: Moonglade.
+
+map Durotar
+note "Leave Orgrimmar by the front gate and take the zeppelin to Tirisfal Glades from the tower" npc 9564
+tip The two zeppelin towers stand just east of the gate. Frezza, on top of the tower, sends the zeppelin to Tirisfal Glades.
+
+# Undercity -----------------------------------------------------------------------------------------
+
+map Tirisfal Glades
+goto "Off the zeppelin, walk into Undercity through the ruins of Lordaeron" at 61.8,65.0 r 15
+map Undercity
+turnin 5644
+tip Undead priests only: Aelthalyste is in the War Quarter, with the priest trainers.
+fly "The Sepulcher, Silverpine Forest" npc 4551
+tip No flight path to the Sepulcher? Walk out of Undercity and south along the road through Tirisfal into Silverpine Forest.
+
+# The Sepulcher -------------------------------------------------------------------------------------
+
+map Silverpine Forest
+bind 6739
+tip Set your hearthstone here: at the end of the guide it brings you back from the south of Hillsbrad to hand in Allister's quests.
+turnin 3301
+accept 493
+accept 95981 516
+tip Shadow Priest Allister offers Watching the Roads only to those who did Dalaran's Intentions earlier in Silverpine.
+turnin 264
+tip Yuriv's Tombstone is in the graveyard of the Sepulcher, a few steps south-east of Shadow Priest Allister: click it to leave Clarice's Pendant.
+
+# Beren's Peril and the roads of Ambermill -----------------------------------------------------------
+
+do 516 bg
+tip Beren's Peril is the cave in the hills east of Pyrewood Village, near the road to Ambermill. The Ravenclaw Drudgers and Guardians fill it: clear it together, one group at a time.
+accept 95884 at 59.0,71.4 icon kill "Kill the Ravenclaw undead in Beren's Peril until one drops a Note Scrap, then read it: it starts a quest"
+tip Each of you needs your own scrap: keep killing until both of you have one.
+do 95884
+turnin 95884
+tip The Offering Stone stands at the back of the cave.
+accept 95883
+do 95883
+tip The same undead drop the Tortured Soul: keep fighting through the cave until both of you have one.
+turnin 95883
+accept 95885
+do 95885.1 at 58.1,69.8 mobs 212753 icon kill "Use the Tortured Soul at the Offering Stone and kill the Tortured Soul it calls up"
+tip Heal up first: the Tortured Soul is an elite of level 20. Fight it together, and if you call yours up one after the other, wait until the first is dead.
+turnin 95885
+do 516
+tip Still short of Drudgers or Guardians? They come back fast in the cave.
+do 95981
+tip The Dalaran Watchers and Wizards stand in a large group just south-east of the cave, and around Ambermill, further north. The Wizards cast: kill them first, and pull the pairs apart.
+
+# Into Hillsbrad --------------------------------------------------------------------------------------
+
+map Hillsbrad Foothills
+accept 494
+tip Deathstalker Lesh waits by the road just inside Hillsbrad, coming from Silverpine. Follow the road east past the farms of Hillsbrad Fields (the humans there are for later) and north-east up to Tarren Mill.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+fpath 2389
+turnin 493 1065
+accept 1066 496 501
+tip Apothecary Lydon is inside the house on the west side of the square.
+turnin 2479
+accept 2480
+do 2480 at 61.6,19.2
+tip Rogues only: Serge Hinott, beside Lydon, needs a few moments to brew the cure. Wait by him.
+turnin 2480
+tip Use Hinott's Oil from the reward to clear the Touch of Zanzil.
+turnin 494
+accept 527
+tip High Executor Darthalia walks around the square.
+accept 549
+tip The WANTED poster is on the square.
+accept 567
+tip The Dangerous! poster is on the square too. Keep it: only Citizen Wilkes and Farmer Kalaba of Hillsbrad Fields are done here, the other two are left for Hillsbrad Foothills (30-32).
+accept 498
+tip Krusk is indoors, in the house on the east side of the square.
+do 1536 only shaman
+tip Shamans only: use the Empty Red Waterskin at the Spring Well in the middle of the square. Keep the filled waterskin for Brine: The Barrens (24-25) takes it back.
+
+# East: Durnholde Keep --------------------------------------------------------------------------------
+
+do 496.1 bg mobs 2351 2354 at 61.2,34.9
+do 496.2 bg mobs 2350 at 60.7,36.2
+tip Gray Bears and Vicious Gray Bears give the tongues, about one in three; any moss creeper gives the Creeper Ichor, but rarely. Kill the bears and Forest Moss Creepers you pass, on this loop and the next: Lydon takes the elixir back after the loop west. Leave the Elder Gray Bears (level 25-26) alone for now.
+do 549 bg
+do 1066 bg
+tip Durnholde Keep is the ruined fortress across the river, south-east of Tarren Mill. The Syndicate Shadow Mages drop the vials, about one in three: kill them first, they hit hardest. A few more Syndicate camp in the tower south-west of the keep.
+do 498.2
+tip The chains need keys: Jailor Marlgen carries the Burnished Gold Key and Jailor Eston the Dull Iron Key, and each opens one of the two chains. Both walk about the keep: kill them as you meet them, and make sure each of you loots both keys. Tog'thar is chained in the north-east of the keep.
+do 498.1
+tip Drull is chained inside a building on the west side of the keep. Clear the room before you click the chain.
+do 549
+tip The Watchmen fill the keep; the Rogues keep more to its southern edge.
+do 1066
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 498 549
+turnin 1066
+accept 1067
+tip Keep Lydon's Toxin: The Barrens (24-25) takes it to Apothecary Zamah in Thunder Bluff.
+
+# West: the lions and the first battle of Hillsbrad ----------------------------------------------------
+
+do 501 bg mobs 2384
+tip The Starving Mountain Lions roam the hills between Tarren Mill and Hillsbrad Fields; about one in three bleeds a vial.
+do 567.2 bg
+tip Citizen Wilkes walks the roads between the houses of Hillsbrad Fields: kill him whenever he crosses your path, on this loop or the next.
+do 527.1 bg
+do 527.2 bg
+tip The Farmers and Farmhands work the fields and farms on both sides of the road. The Farmers can disarm you.
+do 527.3
+tip Farmer Ray keeps to his farm, the northernmost one: in or behind the house, or under the vines.
+do 527.4
+tip Farmer Getz moves between his house, his barn and the field east of the road: check all three.
+do 527
+do 501 mobs 2384
+do 496.1 mobs 2351 2354 at 48.0,46.2
+do 496.2 mobs 2350 at 26.7,39.0
+tip Still short of Creeper Ichor? The Forest Moss Creepers also crawl on the slopes just west of the fields and around Tarren Mill; Giant Moss Creepers drop it too if you can handle level 25.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 527
+accept 528
+accept 546
+tip Deathguard Samsa stands in the square. Keep the quest: every human of Hillsbrad can drop a skull, but you need 30 each and few drop. Gather what you get on the next loops; Hillsbrad Foothills (30-32) finishes it.
+turnin 501
+accept 502
+turnin 496
+accept 499
+turnin 499
+tip Umpi stands with Lydon.
+
+# West again: Stanley and the peasants -----------------------------------------------------------------
+
+do 546 bg mobs 2266 2360 2267 2265 2264 2268 2387 2404
+do 567.2 bg
+tip Still no Citizen Wilkes? He walks the roads between the houses. The named humans are slow to come back: if someone got there first, Hillsbrad Foothills (30-32) checks again.
+turnin 502
+tip Stanley is Farmer Ray's dog, at the northern farm. After he drinks the elixir he turns into Enraged Stanley and attacks: kill him for good experience.
+do 567.4 bg
+tip Farmer Kalaba works among the trees of the orchard on the east side of the fields, south of the road, near the Peasants. The named humans are slow to come back: not there? Hillsbrad Foothills (30-32) checks again.
+do 528
+tip The Peasants work the southern fields and the farms in the west of Hillsbrad Fields.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 528
+accept 529 98094
+tip Keep Battle of Hillsbrad: you do the smithy on the next loop, and Hillsbrad Foothills (30-32) hands it in.
+
+# Deathstalker Masoj, the three vials and the smithy ---------------------------------------------------
+
+turnin 98094
+tip Deathstalker Masoj watches from the high ground north of Nethander Stead, due south of Tarren Mill.
+accept 98095
+do 546 bg mobs 2266 2360 2267 2265 2264 2268 2387 2404
+tip Keep gathering skulls from every human you kill around the smithy: you don't need all 30 now.
+do 98095.3 icon use "Use the Apothecary Vials on the hills above Dun Garok"
+tip The southern vial goes on the hills that border Dun Garok, the dwarven keep in the south-east: stay on the hills, the dwarves of the keep are elites. Look for the crushed empty vial and use the Apothecary Vials there.
+do 98095.2 icon use "Use the Apothecary Vials on the plateau north of Durnholde Keep"
+tip The northern vial goes on the plateau north of Durnholde Keep.
+do 98095.1 icon use "Use the Apothecary Vials on the ridge above Hillsbrad Fields"
+tip The western vial goes on the ridge of the headland above Hillsbrad Fields, just inside the Alterac Mountains.
+do 529
+tip The smithy stands just north of the road through Hillsbrad Fields. Kill Blacksmith Verringtan (level 26) and his apprentices, and take the Shipment of Iron from the workshop. Don't hand it in: Hillsbrad Foothills (30-32) does.
+turnin 98095
+tip Back to Masoj on his hill north of Nethander Stead.
+
+# The Sepulcher, Undercity and the zeppelin ---------------------------------------------------------
+
+hearth npc 6739
+tip Hearthstone not ready? Walk back to Tarren Mill and fly to the Sepulcher.
+map Silverpine Forest
+turnin 516 95981
+fly "Undercity, Tirisfal" npc 2226
+map Tirisfal Glades
+note "Take the zeppelin from the tower outside Undercity to Durotar, for the next guide" npc 9566
+tip Walk out of Undercity: the tower stands just outside the ruins of Lordaeron. Zapetta sends the zeppelin to Orgrimmar.
