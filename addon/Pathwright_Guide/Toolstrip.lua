@@ -105,8 +105,8 @@ end
 -- in sight or not (as Zygor's buttons do). Out of combat the macro then clicks the checker (a
 -- hidden secure button): its own PreClick runs once the target is taken and looks at it. The mob
 -- asked for, alive and (with "Aim at a mob no other player has tagged") not tagged by someone
--- else: kept. Otherwise the checker turns to the nameplates shown: the nearest of that name that
--- is fit (see Range), else no target at all. The sword's macro goes on with the skull and the
+-- else: kept. Otherwise the checker clears it (WoW Forever targets no nameplate unit from a
+-- macro, so no other can be taken instead). The sword's macro goes on with the skull and the
 -- ping, which stop when the target is gone: so none ever goes on a wrong target. (The ping stays
 -- in the sword's own macro: the game does not ping from a macro run by /click.) When every one in
 -- sight is tagged and none is fit, the press does nothing at all (the button dimmed). In
@@ -118,10 +118,13 @@ local AIM_EVERY = 0.25
 
 local Readable = FG.Readable
 
---- A unit fact, nil when the game lacks the function or keeps the value secret.
+--- A unit fact, nil when the game lacks the function, refuses it (an error: WoW Forever guards
+--- some of them for nameplate units) or keeps the value secret.
 local function Fact(f, ...)
     if not f then return nil end
-    return Readable(f(...))
+    local ok, v = pcall(f, ...)
+    if not ok then return nil end
+    return Readable(v)
 end
 
 local CHECK = "PWStripCheck"
@@ -153,13 +156,10 @@ function Toolstrip.CheckMacro(want)
             or (UnitCanAttack and not Fact(UnitCanAttack, "player", "target"))
             or (want.skipTapped and Fact(UnitIsTapDenied, "target"))
     end
-    -- A right target: nothing to do here (the sword's macro marks and pings it).
+    -- A right target: nothing to do here (the sword's macro marks and pings it). A wrong one is
+    -- cleared (WoW Forever targets no nameplate unit from a macro: no other one can be taken
+    -- instead), and the sword's macro stops before the skull and the ping.
     if not wrong then return "" end
-    -- The nearest fit one among the nameplates shown instead, else no target.
-    local other = want.kind == "kill" and Toolstrip.Pick(want.name, want.skipTapped, true)
-    if other then
-        return "/cleartarget\n" .. string.format("/target [@%s,exists,harm,nodead]", other)
-    end
     return Fact(UnitExists, "target") and "/cleartarget" or ""
 end
 
@@ -271,8 +271,22 @@ local function SetState(b, state)
     if b.done then b.done:SetShown(stale) end
 end
 
---- A press of `b` out of combat: the macro for the mobs in sight right now (see Aiming).
+--- A press of `b` out of combat: the macro for the mobs in sight right now (see Aiming). An error
+--- on the way (a unit function the game refuses) leaves it by name with the checker, never the
+--- plain macro of combat (no checks).
 function Toolstrip:Press(b)
+    local ok = pcall(self.Aimed, self, b)
+    if not ok and not InCombatLockdown() then
+        local a = ActionOf(b)
+        if a and (a.kind == "kill" or a.kind == "talk") then
+            local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false
+            self.expect = { name = a.name, kind = a.kind, skipTapped = skip }
+            SetMacro(b, Toolstrip.CheckedMacro(a))
+        end
+    end
+end
+
+function Toolstrip:Aimed(b)
     local a = ActionOf(b)
     if InCombatLockdown() or not a or (a.kind ~= "kill" and a.kind ~= "talk") then return end
     local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false

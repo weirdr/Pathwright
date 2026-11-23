@@ -1213,20 +1213,30 @@ do
     assert(checker:GetAttribute("useOnKeyDown") == true, "a down click: acts on the down")
     checker.PreClick(checker, "LeftButton", false)
     assert(checker:GetAttribute("useOnKeyDown") == false, "an up click: acts on the up")
-    -- Not fit (another name, tagged, dead, friendly) or none: the nearest fit one in sight instead.
-    local instead = "/cleartarget\n/target [@nameplate3,exists,harm,nodead]"
+    -- Not fit (another name, tagged, dead, friendly): cleared, so the sword's macro stops before
+    -- the skull and the ping (WoW Forever targets no nameplate unit from a macro: none instead).
     for _, wrong in ipairs({
         { name = "Kobold Worker" },
         { name = "Kobold Vermin", tapped = true },
         { name = "Kobold Vermin", dead = true },
         { name = "Kobold Vermin", friend = true },
-        false,
     }) do
         sword.PreClick(sword)
-        mobs.target = wrong or nil
+        mobs.target = wrong
         checker.PreClick(checker)
-        assert(checker.macro == instead, "the nearest fit one in sight instead: " .. tostring(checker.macro))
+        assert(checker.macro == "/cleartarget", "a wrong target cleared: " .. tostring(checker.macro))
     end
+    -- A unit function the game refuses (an error) is no fact; a press that fails on the way is by
+    -- name with the checker all the same, never the plain macro of combat.
+    CheckInteractDistance = function() error("protected") end
+    assert(strip.Pick("Kobold Vermin", true), "a refused range check: no error")
+    CheckInteractDistance = nil
+    local plates = C_NamePlate.GetNamePlates
+    C_NamePlate.GetNamePlates = function() error("refused") end
+    sword.aimed = nil
+    sword.PreClick(sword)
+    assert(sword.aimed == byName and strip.expect and strip.expect.skipTapped, "by name and checked: " .. tostring(sword.aimed))
+    C_NamePlate.GetNamePlates = plates
     mobs.target = nil
     -- Among those in sight: the current target first (not when the checker looks for another).
     UnitIsUnit = function(a, b) return (a == "nameplate2" and b == "target") or a == b end
