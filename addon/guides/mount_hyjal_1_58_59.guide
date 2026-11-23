@@ -1,0 +1,309 @@
+# Mount Hyjal 1 (58-59): the first half of Mount Hyjal for a Horde duo: Elderwild, Mourning's Rest,
+# the Barkskin furbolgs and Deadwood Den, the Felblood Scar and the Tainted Foothills. Not part of the
+# leveling chain: a zone guide for players who want to finish Hyjal. Mount Hyjal 2 (59-60) follows.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/mount_hyjal_1_58_59.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite, Mount Hyjal: area 616, uiMap 2482), checked against
+# outof.games (every Horde quest page of the zone). Wowhead refused the requests (403), so its
+# comments were not used: the research is partial. RestedXP's Hyjal routes were a reference for
+# hubs, order and tactics only.
+#
+# Starts in Orgrimmar: the auction house, then the flight to Bloodvenom Post in Felwood and the
+# ride east into Mount Hyjal, to Elderwild, the Horde camp. Goes on to Everlook and Moonglade by
+# air for Sebelia's mail, Nami's crate and Ketharas' pact. Ends at the Curious Crow in the Felblood
+# Scar, where Mount Hyjal 2 (59-60) picks up.
+#
+# Carried in (optional breadcrumbs from other zones, their steps skip themselves without them):
+# The Source of the Corruption (91952, Greta Mosshoof in Felwood) and A Cousin Abroad (97319,
+# Argent Officer Garush in Tirisfal Glades).
+# Left to Mount Hyjal 2, whose objectives or hand-ins are on its route: Heading Up the Mountain
+# (96931), Taking to New Heights (92171), Rubble Rummage (92011), Top of the Post (93269), Feathers
+# in Flight (92609), The Western Post (94782), Farsight Guided (96830), Windswept Wards (93827) and
+# Barkskin Beginnings (94504).
+#
+# The whole zone, both guides: every Horde open-world quest of Mount Hyjal, elites and the WANTED
+# ones too. Left out:
+# - Alliance-only quests (Sefira Everbright's and Johun "Punchy" Dillas' camps, Fenwick
+#   Togglespring, Belle's Ring...).
+# - Beads for Brerufa (93925): repeatable.
+# - The Demon Tower (92521): not in the game data (no level, no giver).
+# - Quests outof.games lists for the zone that are not in our game data at all: the Guardians of
+#   Hyjal crafting rewards (Friendly Advice and the like, Friendly or better), The Eyes of the
+#   Spire, The Weight of the World, Blood Pact, Heart of Flesh, Heart of Stone, A Kingly Tribute,
+#   The Path of Frost (some of them class quests), The Darkened Glaive and Ravenlock's Quest.
+# - Red Bag Blues and Bookin' it Back (Nami): they need Frosty Favors from the D.E.L.T.A lab in
+#   Tanaris and a warrior-only quest in the Burning Steppes.
+# Reputation: the Barkskin Burrow's second round of quests waits for Barkskin Beginnings (Neutral)
+# in Mount Hyjal 2, with a tip; Burrow Bonding (Friendly) comes last, with a tip to skip it if the
+# pass falls short.
+#
+# The route: Orgrimmar's auction house; Bloodvenom Post and the ride into Elderwild; the Barkskin
+# Burrow and the Deadwood camps; Mourning's Rest; Elderwild's hand-ins and the veteran's scabbard;
+# Velician and the Felblood Scar (the Curious Crow and Felflick); the Tainted Foothills outpost,
+# Ketharas' cave and Thark Gorax; Kaylaena's workshop and the summit for the flight path and
+# Sebelia's mail; Everlook (Vizzie, Nami) and Moonglade (Orokai); back to the outpost, Kaylaena,
+# Sunderbark, Ketharas and the Curious Crow.
+
+guide Mount Hyjal 1 (58-59)
+faction horde
+levels 58 59
+carry 91952 97319
+leave 92011 92171 92609 93269 93827 94504 94782 96830 96931
+next Mount Hyjal 2 (59-60)
+
+# Orgrimmar ------------------------------------------------------------------------------------------
+
+map Orgrimmar
+ah 90854.1 npc 8673
+ah 90854.2 npc 8673
+tip Zet'gan in Elderwild wants 2 Rugged Armor Kits and a Cured Rugged Hide, Leatherworking goods nothing drops in Hyjal: buy them here or bring your own.
+ah 95769.1 npc 8673
+tip Kal'tinzan wants 6 Bolts of Runecloth.
+ah 97119.1 npc 8673
+tip Ortak Lomgok wants 6 Savory Stag Sliders.
+fly "Bloodvenom Post, Felwood" npc 3310
+
+# Elderwild ------------------------------------------------------------------------------------------
+
+map Felwood
+goto "Ride south out of Bloodvenom Post and take the road east into Mount Hyjal" at 12.0,52.0 in Mount_Hyjal r 40
+map Mount Hyjal
+accept 92609 95026 92592
+tip Zet'gan, Kal'tinzan and Ortak Lomgok stand together in Elderwild.
+accept 95769
+do 95769 at 13.8,53.1 icon get "Bring 6 Bolts of Runecloth"
+turnin 95769
+tip No cloth? Right-click the step to skip the quest.
+accept 96616 97119
+do 97119 at 12.9,52.9 icon get "Bring 6 Savory Stag Sliders"
+turnin 97119
+bind 244512
+tip Ortak Lomgok keeps the camp's inn. Set your hearthstone here.
+accept 90865
+tip Eluneth stands south-east of the camp, on the way to the Barkskin.
+
+# The Barkskin Burrow and the Deadwood camps --------------------------------------------------------
+
+accept 93952
+tip Brerufa waits outside the Barkskin Burrow.
+do 92609 bg at 36.0,68.7
+tip Hyjal Owls drop the feathers, and owl nests in the trees hold a few too. Kill the owls you meet all through this guide.
+do 93952 at 34.9,73.6
+tip The Deadwood Den Guardians stand in the furbolg camps east of the burrow.
+turnin 93952
+accept 92111
+goto "Enter the Barkskin Burrow" at 20.7,77.6 r 3
+turnin 92111
+accept 93831
+do 93831
+tip The Bear Berries grow on the ground in the valley east of the burrow.
+turnin 93831
+accept 91697
+do 91697 at 21.8,79.1 "Speak with Elder Mistpaw and Elder Pinespeaker, deeper in the burrow"
+turnin 91697
+accept 93826 94504
+accept 93827
+tip Thobon Sapclaw wants amulets from the Wormwing harpies, at the Shrine of Aviana: Mount Hyjal 2 goes there and comes back.
+accept 93825
+do 93825 bg
+tip Moonveil Moss grows on the trees on your way to the camps.
+do 93826
+tip Totemics and Fel-Tenders live in all three Deadwood camps: the two east of the burrow and Deadwood Den, south of Mourning's Rest.
+do 93825
+turnin 93825
+turnin 93826
+
+# Mourning's Rest --------------------------------------------------------------------------------------
+
+do 90865 bg
+do 95026 bg
+tip Mourning's Rest is the ruined Alliance camp east of Elderwild. Forgotten Soldiers and Fleshflay Raveners fill it; the Raveners' disease slows you for half an hour, so a cure helps.
+do 92592 at 27.4,57.7 "Use the Survivor's Torch on the Bone Pile, then kill the Scourge Reanimator and loot his amulet"
+tip The torch calls up a Scourge Reanimator, a level 59-60 caster: kill it together and loot the amulet.
+accept 92100
+tip The Veteran of the Third War, a ghostly soldier, shows himself near the ruins once you have killed some of the Scourge.
+do 90865
+tip The Eternal Sentries are stone gargoyles that pose still among the ruins: they wake when you come close.
+do 95026
+do 96616
+tip The Hyjal Silphium grows at the foot of the trees just north-east of Mourning's Rest, on the edge of the Cradle of Tranquility.
+
+# Elderwild ------------------------------------------------------------------------------------------
+
+turnin 90865
+turnin 95026 92592
+accept 90854
+do 90854.1 at 13.8,54.8 icon get "Bring 2 Rugged Armor Kits"
+do 90854.2 at 13.8,54.8 icon get "Bring a Cured Rugged Hide"
+turnin 90854
+tip Nothing to bring? Right-click the step to skip the quest.
+turnin 96616
+accept 96622
+do 96622 at 12.9,53.7 "Give the Hyjal Silphium Poultice to Enho Runehoof in the infirmary and to Maruke by the mounts, north of the camp"
+turnin 96622
+turnin 92100
+tip The Embroidered Scabbard leans on the overlook north-west of the camp.
+accept 96550
+do 96550 icon use "Use the Embroidered Scabbard to call the veteran back and hear his story"
+turnin 96550
+
+# Velician and the Felblood Scar --------------------------------------------------------------------
+
+accept 96321
+tip Velician, a dying Wild God, lies in the south-western foothills. Take the Faintly Glowing Staff he gives you.
+turnin 96321
+accept 96131 95320 95317
+tip The Curious Crow perches in the burned woods of the Felblood Scar.
+turnin 95320
+accept 95318
+tip Felflick, a bound demon, waits north of the Crow.
+do 95318
+do 95317
+tip The Ashen Acolytes of the Ashen Reign camp drop the notes; the camp lies north-west of Felflick.
+turnin 95318
+accept 95319
+do 95319
+tip The Fel-Slime Crystals glow by the slime pools south of Felflick; the Pristine one sits alone by the pool nearest the Crow.
+turnin 95317
+accept 95380 96262
+do 95380 at 47.2,83.5
+tip Noxious Slimes ooze around the pools.
+do 96262
+tip The Prickly Pinecones lie under the healthy trees south of the Crow.
+turnin 95380 96262
+accept 95316
+turnin 95319
+accept 95378 95379
+do 95316 at 46.0,69.0 "Use the Slimy Pinecone by each of the four Ashen Reign workstations"
+tip The vessel, disease, alchemy and slime workstations stand around the Ashen Reign camp: use the Slimy Pinecone next to each one.
+do 95378
+do 95379
+tip Brashann Grimdark, Tyaeha Darkoath, Dazka Shadowsleep and Frezzlie Popwhiz are the camp's warlocks; their bones drop when they die.
+turnin 95378 95379
+accept 96435
+turnin 96435
+tip Throw the warlock bones on the Bone Pile by the slime pools south-west of Felflick.
+accept 96255
+do 96255
+tip The bones wake the Awakened Fel Ash Slime, a level 58 elite with a lot of health. Fight it together, away from other slimes.
+turnin 96255
+accept 96322
+turnin 96322 95316
+accept 94782
+tip Zet'gan takes it in Elderwild, in Mount Hyjal 2.
+
+# The Tainted Foothills ------------------------------------------------------------------------------
+
+accept 91754 91755
+accept 91923
+fpath 260626
+tip Hyacinth, Thylaen and Bluebell the flight mistress stand at the outpost of dryads and ancients east of the Crow.
+accept 94479
+tip The Loose Cog lies in the scrap just north-east of Ketharas' cave.
+turnin 91952
+turnin 96131
+accept 92612
+tip Aid from Moonglade is for Mount Hyjal 2: keep it.
+turnin 94479
+accept 96796
+accept 95568 95569
+tip Ketharas lives in the cave at the east end of the Tainted Foothills.
+turnin 97319
+accept 96830
+tip Thark Gorax, a Horde scout, camps north-east of the cave. Ortak Lomgok takes his news in Elderwild, in Mount Hyjal 2.
+do 92609 bg
+do 95568
+tip The Untainted Seeds are small flowers in the meadows east and north of the cave.
+do 95569
+tip The Hyjal Owl Eggs sit in nests at the foot of the trees.
+turnin 95568 95569
+accept 93747 93759
+do 91754 bg
+tip The Untainted Soil is in small blue-glowing patches on the ground.
+do 91923 bg
+tip Celastrus the Bitter, a level 57 elite treant, walks the foothills west of the cave: fight it together when you meet it.
+do 93747 at 66.2,78.8 "Use the Bag of Enchanted Seeds by the Ruined Ballista, the Ruined Catapult and the Ruined Flying Machine"
+tip The ballista stands west of the cave, the flying machine south of it and the catapult further west.
+do 93759
+tip Only the untainted Hyjal Stags give the venison; the Scarlet Dart Tubers are leafy plants in the meadows.
+turnin 93747 93759
+accept 95611
+do 95611 at 66.7,84.4 "Bury the Sacred Stag Bundle at the shrine"
+tip Use the Sacred Stag Bundle between the two standing stones south-west of the cave.
+turnin 95611
+accept 90487
+
+# Kaylaena's workshop and the summit -----------------------------------------------------------------
+
+turnin 96796
+accept 92008 92594
+tip Kaylaena Springwhisper's workshop stands north of the foothills. Premiere Parts sends you to Nami in Everlook: Mount Hyjal 2 goes there.
+do 92594
+do 91755
+tip Every Tainted Shrubbery you kill counts for Kaylaena and drops Verdant Leaves for Hyacinth.
+do 91923
+turnin 92594
+fpath 41861
+tip Ride up to the Summit of Eternity, north-east of the workshop, for its flight path.
+accept 93197
+tip Sebelia keeps the summit's inn. The summit's other quests wait for Mount Hyjal 2.
+fly "Everlook, Winterspring" npc 41861
+
+# Everlook -------------------------------------------------------------------------------------------
+
+map Winterspring
+turnin 93197
+accept 93406
+accept 97490
+tip Umaron Stragarelm stands on the east side of Everlook.
+do 93406 at 67.0,42.3 mobs 7458
+tip The Ice Thistle Yetis on the hills east of Everlook carry the Missing Mail.
+do 97490
+tip Hailspite, a level 60 elite giant, walks the hills of southern Winterspring. The frost moss grows on him: kill him together.
+turnin 93406 97490
+accept 93269
+tip Sebelia takes it at the summit in Mount Hyjal 2.
+turnin 92008
+accept 92009
+tip Take Nami's crate last: it must reach Kaylaena within two hours. Flying is safe, but riding with it now and then hurts and slows you: walk the short bits, or keep jumping while you ride.
+fly "Moonglade" npc 11139
+
+# Moonglade ------------------------------------------------------------------------------------------
+
+map Moonglade
+turnin 92612
+accept 96209
+tip Dendrite Starblaze stands in Nighthaven.
+turnin 96209
+accept 95006
+tip Orokai, an ancient, stands south-west of Nighthaven. Stay by him while he speaks.
+turnin 95006
+accept 93773
+fly "Tainted Foothills, Mount Hyjal" npc 12740
+tip Faustron, the wind rider master, waits on the west side of the lake.
+
+# The outpost, Kaylaena, Ketharas and the Curious Crow ------------------------------------------------
+
+map Mount Hyjal
+turnin 91754 91755
+accept 91770
+do 91770 icon use "Use the Herbal Soil Poultice on Fraxinus"
+tip Fraxinus is the ancient beside Hyacinth.
+turnin 91770 90487
+accept 92959 95766
+turnin 91923
+do 92009 at 60.4,62.1 "Bring the Crate of Exotic Parts to Kaylaena's workshop"
+turnin 92009
+accept 92011
+tip Kaylaena's scrap lies in Dae'gun, in Mount Hyjal 2.
+do 92959 at 63.3,74.1 "Wake Sunderbark at the Corrupted Tree, kill him and plant the Seed of the Ancients in his remains"
+tip Sunderbark is an elite ancient who roots you in place: fight him together.
+turnin 93773
+accept 96930 92171
+turnin 92959
+turnin 95766 96930
+accept 96931
+tip Mount Hyjal 2 starts here, with Heading Up the Mountain.

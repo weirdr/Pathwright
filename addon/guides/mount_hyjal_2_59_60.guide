@@ -1,0 +1,369 @@
+# Mount Hyjal 2 (59-60): the second half of Mount Hyjal for a Horde duo: the Wild Gods of the Cradle
+# of Tranquility and Mourning's Rest, the Shrine of Aviana, the demons of Dae'gun, the Summit of
+# Eternity, the last of the Barkskin furbolgs and the veteran's journey. Follows Mount Hyjal 1
+# (58-60); not part of the leveling chain.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/mount_hyjal_2_59_60.guide --db data/forever.sqlite
+#
+# Research: see Mount Hyjal 1 (58-59).
+#
+# Starts at the Curious Crow in the Felblood Scar, where Mount Hyjal 1 ends. Ends in Undercity
+# (Orcs, Tauren, Trolls and Windshapers) or at Sen'jin Village in Durotar (Undead).
+#
+# Carried in from Mount Hyjal 1: Heading Up the Mountain (96931), Taking to New Heights (92171),
+# Rubble Rummage (92011), Top of the Post (93269), Feathers in Flight (92609), The Western Post
+# (94782), Farsight Guided (96830), Windswept Wards (93827), Barkskin Beginnings (94504). Optional
+# breadcrumbs from other zones, their steps skip themselves without them: Grain of Memory (97000,
+# Abigail Sawyer in Undercity), Demon Hunter's Hunter (91877, Loramus Thalipedes in Azshara) and
+# Hol'anyee's Big Book of Big Lizards (92020, Hol'anyee Marshal in Un'Goro Crater).
+#
+# The Barkskin quests of the last visit (Herbs of the Hollow, both Water of Hyjal, Wicked Wisdom,
+# Burrow Beetles, Shatter the Stonewatchers, Deeproar Down, Mystic Mix, Barkskin Breakout, Open
+# Season and Burrow Bonding) come after Barkskin Beginnings: the furbolgs offer more once you are
+# Neutral with them. Lifted by Legacy and its Praise are for Orcs, Tauren and Trolls (the Great Lift
+# in Thousand Needles); Wake Memories and its Praise are for the Undead (Lake Everstill in the
+# Redridge Mountains); the game data gives Windshapers neither, so they skip the veteran's last
+# quests.
+#
+# The route: the Cradle of Tranquility and Mourning's Rest (Jereman, Kala'th, Marrosis, Shalla'kal,
+# Galvinquam); Elderwild; Head Scratcher; the Shrine of Aviana; Dae'gun; Kaylaena and Ketharas; the
+# Summit of Eternity; Ketharas, Jereman, the Barkskin Burrow, Deadwood Den and Elderwild; the
+# veteran's journey out of Hyjal and back; Sen'jin Village and Undercity.
+
+guide Mount Hyjal 2 (59-60)
+faction horde
+levels 59 60
+carry 91877 92011 92020 92171 92609 93269 93827 94504 94782 96830 96931 97000
+
+map Mount Hyjal
+
+# The Cradle of Tranquility and Mourning's Rest --------------------------------------------------------
+
+accept 96145
+tip Lisbael Highfeather stands on the way north to the Cradle.
+turnin 96931
+tip Touch the Crow Effigy on the bridge railing above the Cradle of Tranquility: Jereman flies down to you.
+accept 96939 96964 96978
+accept 96979
+tip Galvinquam Leafsyre camps south-west of the bridge.
+turnin 96978
+accept 93617
+tip Kala'th, a Wild God, stands at the north-west end of the Cradle.
+turnin 97000
+accept 97001
+tip The Old Wardrobe stands in the burned buildings of the Cradle. Keep the Sawyer Family Ledger for Undercity, at the end of the guide.
+accept 93615
+tip Shalla'kal, the mother cat, lies at the edge of Mourning's Rest.
+turnin 96939
+accept 92317 96957
+tip Marrosis, a Wild God, stands among the ruins of Mourning's Rest.
+do 96957
+tip The Sun-Bleached Bones lie on the ground among the ruins.
+do 92317
+tip The Scourge of the ruins drop the Drop of Stolen Life.
+do 93615.2 at 27.1,62.2 "Find Whisperfur, south of the ruins"
+tip The kittens show themselves only when you come close.
+turnin 96957
+do 93617
+tip The Predatory Hyjal Stags roam the meadows of the Cradle.
+do 93615.1 at 38.6,47.4 "Find Solstice in the Cradle"
+do 96979 at 41.5,44.9 "Fill Galvinquam's Drinking Gourd at the waterfall by the bridge"
+tip Use the gourd on the bridge, next to the waterfall.
+do 93615.3 at 41.6,36.9 "Find Brie, north of the bridge"
+turnin 93617
+turnin 93615
+turnin 96979
+accept 96991
+tip Marn Euhorn takes Galvinquam's belongings at the summit, later in the guide.
+
+# Elderwild and Head Scratcher -----------------------------------------------------------------------
+
+turnin 92609
+accept 92446
+turnin 94782
+accept 95248
+turnin 96830
+accept 91794
+tip Kal'tinzan's flag and heraldry are in Dae'gun.
+do 92446 at 35.5,70.6 "Lure out Head Scratcher with the Rabbit Carcass, kill him and take his claws"
+tip Head Scratcher is a level 60 elite bear in the woods north of the Deadwood camps. Put the Rabbit Carcass down to call him; he is one of the easier elites of the zone for two.
+
+# The Shrine of Aviana -------------------------------------------------------------------------------
+
+turnin 96145
+accept 96252 92147
+turnin 92171
+accept 92500 91883
+tip Phoebe Highfeather and Skylord Omnuron stand at the Shrine of Aviana.
+accept 96296
+tip The Corrupted Growth on a tree north-west of the shrine starts Fetid Corruption.
+do 93827 bg
+do 92147 bg
+do 96296
+tip The Corrupted Growths cling to the trunks of the trees around the harpy nests.
+do 96252
+tip The Tarnished Highfeather Bangles lie in the harpy nests on the ground.
+do 92500
+tip The Jewel of the Horizon lies in a harpy nest on the west side.
+do 91883
+tip Zarrat Wormwing is stealthed and walks among her harpies: look closely, and kill her together.
+do 92147
+do 93827
+tip The Wormwing harpies drop the pinfeathers and Thobon's amulets.
+turnin 91883
+turnin 96252 92147 96296
+
+# Dae'gun --------------------------------------------------------------------------------------------
+
+turnin 96964
+accept 92335 96971
+tip Renalard, a Wild God, waits south of Dae'gun.
+accept 96998
+tip The War Paint Wrap lies on the Troll Remains north of Renalard.
+turnin 91877
+accept 97009
+tip Maerion Thaelemaches watches Dae'gun from the north-east.
+accept 96959
+tip Yashiro, a blademaster, stands among the ruins. If he is away on his walk, wait for him to come back.
+accept 95793 92960
+tip Witherbeard and Elaena Moonwhisper camp at the west edge of Dae'gun.
+do 92011 bg
+do 96971 bg
+tip The scrap, wires and dung for Kaylaena and the Abandoned Supplies for Renalard (small metal toolboxes) lie all over Dae'gun.
+do 92960 bg
+do 97009 bg
+tip The Defiling Hounds drop the essences and spikes. They burn mana and dispel your buffs: kill them fast.
+do 95793 bg
+do 91794.2 bg
+tip The Felguard Sentinels count for Witherbeard and drop the Scraps of Horde Heraldry.
+do 96959.1 at 49.0,36.2 "Light the south bonfire"
+do 96959.2 at 55.0,40.1 "Light the south-east bonfire"
+do 92335
+tip Loot a pinch of ashes from Azgalor's Remains, in the western ruins.
+do 91794.1
+tip A fallen Horde Flag lies on the ground among the ruins.
+do 92960
+do 95793
+do 92011
+do 96971
+turnin 92960
+accept 96003
+turnin 95793
+turnin 96959
+accept 96983
+do 96983
+tip A hard escort: Yashiro fights his way east through Dae'gun to Doomguard Xarkul, a level 61 elite, and may meet another Doomguard on the way. Let Yashiro tank the Doomguards and kill the small demons that come at him. Both of you take the quest before he sets off.
+turnin 96983
+do 96003.1 mobs 263394
+do 96003.2 mobs 252457
+tip Use the Eye of Endless Influence on Bethra'zel, in the east of the ruins, and on Mazzogore, in the south; once their power is drained, kill them. Both are level 60 elites.
+do 97009
+turnin 97009
+accept 97010
+do 97010 at 53.7,33.4 "Climb to the top of the Horde Mage Tower and throw an Explosive Runeshard to the ground below"
+turnin 97010
+turnin 96003
+accept 96025
+
+# Kaylaena and Ketharas ------------------------------------------------------------------------------
+
+turnin 96971
+turnin 92011
+accept 92328
+do 92328 at 60.6,61.1 "Turn both gears and connect both batteries of Kaylaena's Glaive Thrower"
+turnin 92328
+accept 92329
+do 92329 at 59.1,64.1 "Use the barrel on the ridge south of the workshop to draw Ghansurok, and fight him until he flees"
+tip Ghansurok is a level 61 elite chimaera: you only need to hurt him until he flies off. Keep your cooldowns for him.
+turnin 92329
+turnin 92317 92500 92335
+accept 90647
+tip Ketharas gives you the Staff of the Mountain for Tiala Whitemane at the summit.
+fly "Summit of Eternity, Mount Hyjal" npc 260626
+tip Ride west to Bluebell at the outpost for the flight up.
+
+# The Summit of Eternity -----------------------------------------------------------------------------
+
+accept 92533
+turnin 96991
+accept 92017
+turnin 95248 96025
+accept 93584
+turnin 92020
+turnin 90647
+accept 92169 93407
+accept 93422
+turnin 93269
+tip Toron Rockhoof, Marn Euhorn, Thisalee Crow, Tiala Whitemane, Rhylin Stonethorn and Sebelia the innkeeper all stand in the druids' camp.
+do 93407 bg
+tip The Thorn Seeds come from the Thorn Bushes in the forests east of the camp.
+do 92017 bg
+tip Mountain Squallclimbers drop the feathers and Wildbreath Chimaeroks the hair; both roam the whole summit.
+do 92169 at 78.0,31.0 "Use the Staff of the Mountain on Blackthorne Cultists and Adepts to break their wards, then kill them"
+do 93584
+do 92533
+tip The Blackthorne cultists camp north-east of the druids. The Outrunners and Priests are elites: pull the plain cultists one at a time.
+do 93422
+tip The Blackthorne Courier, a level 60 elite, travels between the cult's camps with an escort. Kill the escort first, then her.
+do 93407
+do 92017
+turnin 92533
+turnin 92017
+accept 96302 92016
+turnin 93584
+accept 96303
+turnin 92169 93407
+accept 92833 93547 93127
+turnin 93422
+accept 93444
+tip Fayran Elthas, the wind rider master, wants the heart of Ghansurok.
+do 93547.1 at 70.1,48.5 "Plant a Thorn Seed in the Ashen Soil by the inn"
+do 93547.2 at 71.1,48.8 "Plant a Thorn Seed in the Ashen Soil by the storage tower"
+do 93547.3 at 69.2,45.6 "Plant a Thorn Seed in the Ashen Soil by the trees"
+do 96302 at 70.6,40.0 "Burn Marn's Warding Incense on the hill above Archimonde's remains"
+do 96303 at 72.2,33.8 "Use the Enchanted Branch on the wisps around the Well of Eternity"
+do 92016 at 74.2,36.6
+tip Swim down into the Well of Eternity until the roots of Nordrassil count; you won't drown.
+do 92833 mobs 267182
+tip Ve'han hides in the hut north of the Well. Go in through the side, use the Staff of the Mountain on him to strip his power, then kill him.
+accept 93521
+tip Ve'han's Research Notes lie on the bookshelf in the hut.
+do 93127.2 at 68.5,27.2 "Wake the western Sentinel Stone"
+do 93444
+tip Kill a Nightsaber Guardian (they are stealthed) for its haunch, then use the haunch on the north ridge to bait Ghansurok, a level 61 elite. Hard: fight him together with cooldowns, or skip it.
+do 93127.1 at 83.0,26.7 "Wake the northern Sentinel Stone"
+do 93127.3 at 84.7,36.3 "Wake the southern Sentinel Stone"
+turnin 96302 92016
+turnin 96303
+turnin 92833 93521 93547 93127
+accept 93848
+accept 99670 late
+turnin 93444
+accept 96301 late
+do 96301 at 72.8,38.4
+tip Take the Venom-dripping Heart into the Well of Eternity.
+turnin 96301
+fly "Tainted Foothills, Mount Hyjal" npc 41861
+
+# Ketharas, Jereman, the Barkskin Burrow ----------------------------------------------------------------
+
+turnin 93848
+turnin 99670
+tip Touch the Crow Effigy on the bridge again to call Jereman.
+turnin 93827
+do 94504 at 21.8,79.0 icon text "Be Neutral with the Barkskin Burrow"
+turnin 94504
+tip Barkskin Beginnings completes at Neutral with the Barkskin Burrow. Short of it? Kill Deadwood furbolgs and give Brerufa their Deadwood Tribal Beads (eight at a time), or right-click to skip it: the Barkskin quests that follow skip with it.
+accept 93828 93830 after 94504
+accept 95273 after 94504
+accept 93834 after 94504
+accept 93832 95107 after 94504
+accept 93833 95108 96666 after 94504
+do 93834
+tip The Burrow Beetles scuttle in the burrow's tunnels.
+do 93828 at 21.3,78.8 icon pickup "Gather 10 Dried Hanging Herbs inside the burrow"
+tip The Dried Hanging Herbs hang along the burrow's walls.
+do 93833 bg at 36.0,68.7
+do 93830 at 31.0,62.0 "Fill the Empty Waterskin at the pond outside Deadwood Den"
+accept 91698 after 94504
+tip The Barkskin Matriarch and her cub are caged inside Deadwood Den.
+do 91698
+tip A Deadwood Warden carries the key.
+turnin 91698
+accept 91696
+do 91696 at 31.5,58.6 "Escort the Barkskin Matriarch out of Deadwood Den and home to Brerufa"
+tip Escort the Matriarch out of the den and home to Brerufa: stay close and kill what comes at her.
+do 95107
+tip Chieftain Deeproar stays deep in the den.
+do 95108 at 29.0,59.7
+tip Kill two Death Mystics and break two of their cauldrons in the den.
+do 95273
+tip Pour the Barkskin Purification Tonic into the pool deep in the den; the Murkborn Elemental there is a level 59 elite.
+do 93832
+tip The Eternal Sentries stand still among the ruins of Mourning's Rest until you get close.
+do 93833 at 36.0,68.7
+tip The Hyjal Owls nest in the woods around the eastern Deadwood camps.
+turnin 91696
+turnin 93828 93830 95273 93834
+turnin 93832 95107 95108 93833
+do 96666 at 21.8,79.2 icon text "Be Friendly with the Barkskin Burrow"
+turnin 96666
+tip Burrow Bonding completes at Friendly with the Barkskin Burrow. Not there yet? Right-click to skip it.
+
+# Elderwild ------------------------------------------------------------------------------------------
+
+turnin 92446
+turnin 96998
+accept 96999
+turnin 91794
+accept 92101 93510
+tip The veteran waits at the overlook north-west of the camp. The next quest takes Orcs, Tauren and Trolls to Thousand Needles and the Undead to the Redridge Mountains; your hearthstone (set in Elderwild) brings you back.
+map Felwood
+goto "Ride back west into Felwood, to Bloodvenom Post" at 34.4,54.0
+fly "Orgrimmar, Durotar" npc 11900
+
+# The veteran's journey: Orcs, Tauren and Trolls --------------------------------------------------------
+
+map Orgrimmar
+fly "Freewind Post, Thousand Needles" npc 3310 only orc tauren troll
+map Thousand Needles
+do 92101 at 31.9,24.0
+tip Ride north-west from Freewind Post to the top of the Great Lift and find the veteran's carving there.
+turnin 92101
+accept 92102 only orc tauren troll
+hearth npc 244512 only orc tauren troll
+
+# The veteran's journey: the Undead ------------------------------------------------------------------
+
+map Durotar
+note "Take the zeppelin from the tower outside Orgrimmar to Undercity" at 50.8,13.5 only undead
+map Undercity
+turnin 97001 only undead
+accept 97006 only undead
+tip Abigail Sawyer is in the War Quarter; Royal Overseer Bauhaus in the Trade Quarter.
+turnin 97006 only undead
+accept 97007 only undead
+turnin 97007 only undead
+fly "Flame Crest, Burning Steppes" npc 4551 only undead
+map Redridge Mountains
+do 93510 at 30.3,56.3
+tip Ride east out of the Burning Steppes into the Redridge Mountains, then north to Lake Everstill. The anchor lies on the shore south of Lakeshire: keep clear of its guards.
+turnin 93510
+accept 93551 only undead
+hearth npc 244512 only undead
+
+# Mourning's Rest: the veteran's last wishes --------------------------------------------------------
+
+map Mount Hyjal
+turnin 92102 only orc tauren troll
+turnin 93551 only undead
+accept 93567 after 92102 only orc tauren troll
+accept 93567 after 93551 only undead
+do 93567 at 27.5,50.9 only orc tauren troll undead "Listen to the Veteran of the Third War's story by the broken cannon"
+turnin 93567 only orc tauren troll undead
+accept 96558 only orc tauren troll undead
+do 96558 only orc tauren troll undead
+tip Lay the Spectral Frostwyrm, a level 61 elite, to rest, then open the Battle Cache nearby.
+turnin 96558 only orc tauren troll undead
+accept 96561 only orc tauren troll undead "Read the Fishing Trip letter the Battle Cache gives you: it starts Last Wishes"
+do 96561 at 35.7,45.2 only orc tauren troll undead icon get "Take the Fishing Trip letter to the fishing pond by the ruined lumbermill"
+tip The pond lies by the destroyed Alliance lumbermill in the Cradle of Tranquility; the Broken Fishing Basket sits on its shore.
+turnin 96561 only orc tauren troll undead
+map Felwood
+goto "Ride back west into Felwood, to Bloodvenom Post" at 34.4,54.0 only orc tauren troll undead
+fly "Orgrimmar, Durotar" npc 11900 only orc tauren troll undead
+
+# Sen'jin Village and Undercity ----------------------------------------------------------------------
+
+map Durotar
+turnin 96999
+tip Tai'tasi stands in Sen'jin Village, south of Orgrimmar.
+note "Take the zeppelin from the tower outside Orgrimmar to Undercity" at 50.8,13.5 only orc tauren troll windshaper
+map Undercity
+turnin 97001 only orc tauren troll windshaper
+accept 97006 only orc tauren troll windshaper
+tip Abigail Sawyer is in the War Quarter; Royal Overseer Bauhaus in the Trade Quarter.
+turnin 97006 only orc tauren troll windshaper
+accept 97007 only orc tauren troll windshaper
+turnin 97007 only orc tauren troll windshaper
