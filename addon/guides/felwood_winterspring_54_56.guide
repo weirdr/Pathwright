@@ -43,12 +43,12 @@ next Western & Eastern Plaguelands (56-58)
 
 map Felwood
 accept 87346
-tip Gorn One Eye stands inside Timbermaw Hold, where the Azshara guide ends.
+tip Gorn One Eye stands inside Timbermaw Hold, where the Azshara guide ends. He offers this only if you handed in Timbermaw Reinforcements; if you skipped the Ursolan quests, right-click to skip it, and Blackmaw Counter-Offensive later too.
 accept 8461
 tip Nafien waits at the foot of the ramp up to the Timbermaw tunnel.
 do 8461 bg
 do 87346
-tip Chieftain Bloodmaw, a level 55 elite, walks among the huts of Felpaw Village. Clear around him first.
+tip Chieftain Bloodmaw, a level 55 elite, walks among the huts of Felpaw Village. Clear around him first. Kill the Deadwood Avengers first in any pull: they enrage when a furbolg dies near them.
 turnin 5084
 accept 5085
 tip The Deadwood Cauldron bubbles at the north end of the village.
@@ -74,7 +74,7 @@ turnin 980
 accept 4842
 turnin 3909
 accept 3912
-tip Do not drink the Videre Elixir yet: it kills you, and only in the Gadgetzan graveyard is that useful.
+tip Do not drink the Videre Elixir yet: it kills you (or leaves you near death), and only in the Gadgetzan graveyard is that useful. Eat or bandage before you leave the graveyard afterwards.
 turnin 5085
 accept 5086
 
@@ -91,7 +91,7 @@ accept 5601
 tip These three lead to the Plaguelands; the next guide hands them in.
 do 3783 bg
 do 5054
-tip Ursius, a level 56 elite bear, prowls the hills north of Everlook.
+tip Ursius, a level 56 elite bear, prowls the hills north of Everlook. Too much? Pull him to the Everlook guards, as long as the two of you do most of the damage.
 do 3783 at 67.0,42.3
 tip The Ice Thistle yetis crowd the hills east of Everlook; every kind drops the fur.
 turnin 3783
@@ -148,14 +148,14 @@ turnin 5202
 accept 5203
 tip Captured Arko'narin is caged on the upper floor of the cave.
 do 5203 at 35.5,59.1 "Escort Arko'narin out of Shadow Hold"
-tip Keep her alive until she is out of the cave.
+tip Keep her alive until she is out of the cave. She has about 6,000 health: let her tank. Put out the braziers of Dousing the Flames as you pass them. When she puts her armor back on, three Felguards appear: kill them, then follow her out, where the Spirit of Trey Lightforge waits.
 
 # The Emerald Sanctuary ----------------------------------------------------------------------------
 
 turnin 5203
 accept 5204
 turnin 5159
-accept 5165 91952
+accept 5165
 accept 86577
 accept 5887
 turnin 3942
@@ -169,6 +169,9 @@ do 5887 mobs 7086 7097 7099 at 40.0,71.2
 tip The Cursed Oozes pool west of the road; the Ironbeak owls in the trees drop the shards too.
 turnin 86577
 turnin 5887
+grind 55 at 49.5,81.1
+tip Only if you aren't 55 yet: Greta's The Source of the Corruption needs it. The wolves and bears just west of the sanctuary are quick kills.
+accept 91952
 
 # Jaedenar: the braziers and Rakaiah ---------------------------------------------------------------
 
@@ -185,7 +188,7 @@ turnin 5385
 # Jaedenar's masters, the statue, the Irontree Woods -------------------------------------------------
 
 do 5242
-tip Shadow Lord Fel'dan stands with Moora and Salia at the north end of Jaedenar. Pull the two felhounds first, then the warlock.
+tip Shadow Lord Fel'dan stands with Moora and Salia at the north end of Jaedenar. Pull the two felhounds first, then the warlock. Wait out of his line of sight by the doorway so his Shadow Bolts fail and he comes to you.
 accept 86612
 tip The Statue of Malorne stands on the rise east of Jaedenar; take the bauble at its feet. Winna wants it, at the end of the guide.
 do 5086 bg
@@ -239,8 +242,10 @@ turnin 90487
 turnin 96796
 accept 92008
 tip Kaylaena's workshop is up the slope north of the foothills.
+grind 56 at 71.4,49.0
+tip Only if you aren't 56 yet: Sebelia's Mending Communications needs it. The Hyjal bears and stags around the camp are quick kills.
 accept 93197
-tip Sebelia keeps the inn of the summit camp. Mending Communications needs level 56.
+tip Sebelia keeps the inn of the summit camp.
 fpath 41861
 fly "Everlook, Winterspring" npc 41861
 
@@ -249,7 +254,7 @@ fly "Everlook, Winterspring" npc 41861
 map Winterspring
 turnin 92008
 accept 92009
-tip The crate must reach Kaylaena within two hours: fly to Moonglade and on to Hyjal without stopping to farm.
+tip The crate must reach Kaylaena within two hours: fly to Moonglade and on to Hyjal without stopping to farm. Flights and fighting are safe, but riding a mount makes it blow up in your face now and then: walk the short bits, or keep jumping while you ride.
 turnin 93197
 accept 93406
 fly "Moonglade" npc 11139
@@ -279,7 +284,7 @@ do 93406 bg
 do 4521.1
 tip The Raging Owlbeasts roam the hills north of Everlook.
 do 93406 at 67.0,42.3
-tip The yetis east of Everlook carry the Missing Mail.
+tip Only the plain Ice Thistle Yetis carry the Missing Mail, not the Rogue ones, Matriarchs or Patriarchs: on the hills north and east of Everlook, in the vale behind, and in and around the cave to the south-east.
 turnin 93406
 do 4842 at 59.8,74.2 "Discover Darkwhisper Gorge"
 tip Follow the road south from Everlook to the mouth of Darkwhisper Gorge; turn back once you see it, the demons inside are stronger.
@@ -293,7 +298,7 @@ turnin 4842
 turnin 5086
 accept 5087
 do 5087
-tip Three Winterfall Runners walk the road between the hot springs and the Timbermaw tunnel; kill all three.
+tip Three Winterfall Runners walk the road between the hot springs and the Timbermaw tunnel; kill all three. Another stands at the cauldron in the north-west of Felpaw Village, back through the tunnel.
 turnin 5087
 
 # Felwood's hand-ins -------------------------------------------------------------------------------
