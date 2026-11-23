@@ -140,6 +140,8 @@ ah 2603.1 npc 8673 "Buy 14 Vulture Gizzards at the auction house, for the Blaste
 tip The Blasted Lands guide comes next: its vultures are few and spread over the whole zone, and its three quests that want gizzards need 14.
 ah 2601.1 npc 8673 "Buy 11 Basilisk Brains at the auction house, for the Blasted Lands (optional)"
 ah 3501.1 npc 8673
+ah 4449.2 npc 8673 "Buy 15 Silk Cloth at the auction house, for the Searing Gorge (optional)"
+tip The outhouse prisoner in the Searing Gorge guide wants 15 Silk Cloth from each of you, and silk drops slowly there. Silk you already carry counts: take any from your bank.
 fly "Brackenwall Village, Dustwallow Marsh" npc 3310
 
 # Brackenwall Village and the riddle cave -----------------------------------------------------------

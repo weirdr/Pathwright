@@ -90,5 +90,4 @@ goto "Ride north out of the Blasted Lands to Stonard" at 46.5,55.0 r 30
 tip If your hearthstone is set in Stonard, use it instead.
 turnin 87451
 tip Dispatch Commander Ruag stands in the middle of Stonard.
-fly "Kargath, Badlands" npc 6026
-tip The next guide starts at Kargath and rides east into Searing Gorge. If you already know Thorium Point, you can fly there instead.
+note "The next guide, Searing Gorge (51-51), starts here at the Stonard wind rider master with a flight to Kargath" npc 6026

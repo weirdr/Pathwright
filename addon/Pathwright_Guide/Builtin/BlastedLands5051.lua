@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795431663,
+    created = 1795431690,
     next = "Searing Gorge (51-51)",
     carry = { 3568, 3908, 4120 },
     variants = {
@@ -69,6 +69,6 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Kill Dreadmaul ogres at Dreadmaul Hold until one drops a Carved Stone Trinket, then use it to start Memories of Rockard", q = 87451, ic = "kill", m = 1419, x = 42.6, y = 13.2, min = 45, nt = { { l = 2, t = "The ogre camp is just west of the Bloodmages; its ogres are level 45 to 47." } }, lvl = 50 },
         { k = "goto", t = "Ride north out of the Blasted Lands to Stonard", m = 1435, x = 46.5, y = 55, r = 30, nt = { { l = 2, t = "If your hearthstone is set in Stonard, use it instead." } }, lvl = 50 },
         { k = "turnin", t = "Turn in Memories of Rockard to Dispatch Commander Ruag", q = 87451, n = "Dispatch Commander Ruag", e = "npc", id = 7623, m = 1435, x = 47.79, y = 54.94, nt = { { l = 2, t = "Dispatch Commander Ruag stands in the middle of Stonard." } }, lvl = 50 },
-        { k = "fly", t = "Fly to Kargath", n = "Kargath", e = "taxi", id = 21, m = 1435, x = 46.07, y = 54.83, nt = { { l = 2, t = "The next guide starts at Kargath and rides east into Searing Gorge. If you already know Thorium Point, you can fly there instead." } }, lvl = 50 },
+        { k = "note", t = "The next guide, Searing Gorge (51-51), starts here at the Stonard wind rider master with a flight to Kargath", n = "Breyk", e = "npc", id = 6026, m = 1435, x = 46.07, y = 54.83, lvl = 50 },
     },
 })

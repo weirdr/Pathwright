@@ -27,12 +27,6 @@ carry 3568 3908 4120
 leave 3568 3821 3908 4120
 next Burning Steppes & Azshara (51-52)
 
-# Only if you pass Orgrimmar ----------------------------------------------------------------------
-
-map Orgrimmar
-ah 4449.2 npc 8673
-tip Only worth it if you pass a Horde city first. The outhouse prisoner wants 15 Silk Cloth each at the end of this guide, and silk drops slowly in the Gorge. Silk you already carry counts, so take any from your bank.
-
 # Stonard and Kargath ------------------------------------------------------------------------------
 
 map Swamp of Sorrows
@@ -67,7 +61,7 @@ do 7723 bg
 do 3442.1 at 39.5,40.5
 tip Inferno, Blazing and Magma Elementals all drop the hearts; a few Inferno Elementals roam right below Velarok.
 do 3442.2 mobs 5854 5855 5853 at 44.8,40.0
-tip Golem Oil drops from the war golems and the Magma Elementals.
+tip Golem Oil drops from the war golems and the Magma Elementals; the Magma Elementals drop both the oil and the hearts, so kill every one you see.
 turnin 3442
 accept 3443
 
@@ -79,12 +73,12 @@ do 7729.2 bg
 do 7728.2 bg
 tip Every Dark Iron dwarf and Slave Worker can drop the daggers; the Lookouts with the spyglass stand by the sentry towers on the Cauldron's rim.
 do 7728.1
-tip The Steamsmiths work at the forges in the west of the Cauldron. Only one in four drops the Tuyere, and each of you needs one.
+tip The Steamsmiths work by the steamery at about 39,50, up on the rim south of Velarok, before the lift down into the Cauldron; only five or six of them. One in four drops the Tuyere, and each of you needs one. The Lookouts by the towers drop the spyglass about one time in seven.
 goto "Enter the Slag Pit, the mine under the north side of the Cauldron" at 49.6,45.5 r 15
 do 7727
-tip Drop down from the bridge inside to reach the lava pools where the Incendosaurs live.
+tip Drop down from the bridge inside to the cave's lower level, where the Incendosaurs live by the lava pools.
 do 7701
-tip Overseer Maltorius is an elite in the middle level of the Slag Pit, guarded by elite Dark Iron Sentries: pull the sentries first.
+tip Overseer Maltorius is a level 50 elite who crits hard. The quick way: leave and take the far-right entrance of the Slag Pit (around 49,46, beside the Incendosaur cave), cross the bridge into a big room, clear it and turn left. He stands on a ledge with two level 48 elite guards: kill the guards first. Clear the whole room before you loot the plans, so you have a way out. Skip it if it goes badly.
 do 7722
 tip The plans lie on the ground beside Maltorius.
 do 7729.1
@@ -99,7 +93,7 @@ turnin 3443
 accept 3452
 do 7724 bg at 29.5,45.0
 do 3452 at 23.0,37.0
-tip Every Twilight cultist can drop the symbol. They are elites in groups: pull them one at a time, on the low camp west of the spiders or up on Firewatch Ridge.
+tip Every Twilight cultist can drop the symbol, about one in seven. They are elites in groups: pull them one at a time. The Geomancers up the hill to the right of the cave entrance (around 22-24,24-27) are the easier kills; the Dark Shamans heal themselves for 2000 and shock for 500.
 turnin 3452
 accept 3453
 do 3453 "Wait while Velarok forges the Torch of Retribution"
@@ -118,7 +112,7 @@ tip The lava spiders roam the plateaus and lava pools along the west rim of the 
 do 7728.2 bg
 do 7723 bg
 do 3463.4
-tip Equip the Torch of Retribution and use the brazier at the top of the tower, then put your weapon back on. An elite Dark Iron Sentry guards each one.
+tip Equip the Torch of Retribution and use the brazier at the top of the tower, then put your weapon back on. An elite Dark Iron Sentry guards each one. At the northern tower you can fall through the bridge: jump onto it as you leave.
 do 3463.1
 do 3463.2
 do 3463.3
@@ -129,10 +123,10 @@ tip The Heavy War Golems walk all around the Cauldron.
 # The outhouse at the Grimesilt Dig Site ---------------------------------------------------------------
 
 accept 4449
-tip Someone is locked inside the Wooden Outhouse at the Grimesilt Dig Site.
+tip Someone is locked inside the Wooden Outhouse at the Grimesilt Dig Site. Hand in Caught! before you free him with the key: once he is out, Caught! can't be handed in.
 do 4449.1
 do 4449.2 mobs 5839 8637 5843 at 63.3,60.6
-tip Silk drops from the Geologists and Watchmen here, and from the Slave Workers in the Cauldron.
+tip Silk drops slowly from the Geologists and Watchmen here. Only about five Geologists stand at the dig: a second camp lies north along the road, so alternate between them. Short of silk? The Shadowforge dwarves at the Hammertoe Dig in the Badlands (53,34), over the pass at 69,53, drop it far more often.
 turnin 4449 4451
 
 # Thorium Point, Velarok and on to the Burning Steppes -----------------------------------------------------
