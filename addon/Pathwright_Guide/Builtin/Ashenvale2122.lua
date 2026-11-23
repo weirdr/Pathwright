@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795461543,
+    created = 1795464176,
     next = "Hillsbrad Foothills (22-24)",
-    carry = { 1063, 1511, 6562 },
+    carry = { 264, 1063, 1511, 1536, 3301, 6562 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

@@ -41,8 +41,8 @@
 guide Ashenvale (21-22)
 faction horde
 levels 21 22
-carry 1063 1511 6562
-leave 1065 5644
+carry 264 1063 1511 1536 3301 6562
+leave 264 1065 1536 3301 5644
 next Hillsbrad Foothills (22-24)
 
 # Va'xug Firefure's ravine --------------------------------------------------------------------------
