@@ -8,7 +8,7 @@ resolves includes, and translates locations into Pathwright map coordinates.
 Conditions that require RXPGuides at runtime are presented for manual review.
 """
 import argparse
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 from functools import lru_cache
 import json
@@ -137,6 +137,52 @@ class Game:
                     target["c"] = count
                 self.objectives[quest, slot] = target
 
+        # Where quest givers, enders and objective targets stand, on the zone maps.
+        area_maps = {int(area): int(mid) for area, mid in db.execute(
+            """select a.AreaID, a.UiMapID from client_uimapassignment a join client_uimap u on u.ID=a.UiMapID
+               where u.System=0 and a.AreaID>0 and a.OrderIndex=0 order by (u.Type=3), u.ID desc""")}
+        self.spawns = defaultdict(list)
+        for kind, eid, zone, x, y in db.execute(
+                "select entity_type, entity_id, zone_id, x, y from m_spawn where x>=0 and y>=0 order by seen desc"):
+            if zone in area_maps:
+                self.spawns[kind, eid].append((area_maps[zone], float(x), float(y)))
+        self.relations = defaultdict(list)
+        for quest, role, kind, eid in db.execute(
+                "select quest_id, role, entity_type, entity_id from m_quest_relation where entity_type in ('npc','object')"):
+            self.relations[quest, role].append((kind, eid))
+        # What a quest item is looted from: its likely sources only (a world drop has no place).
+        self.item_sources = defaultdict(list)
+        for item, kind, eid, chance in db.execute(
+                """select item_id, from_type, from_id, chance from m_item_source
+                   where from_type in ('npc','object') order by item_id, chance desc"""):
+            best = self.item_sources[item]
+            if (kind == "object" or (chance or 0) >= 0.1) and len(best) < 8:
+                best.append((kind, eid))
+
+    def place(self, step, near):
+        """Where a quest step without a point is done: its giver, ender or target, the nearest
+        to the step before it (`near`), with the target's other places as spots."""
+        if step["k"] == "objective":
+            who = [(step["e"], step["id"])] if step.get("e") in ("npc", "object") else [("npc", i) for i in step.get("mi", [])]
+            if not who and step.get("e") == "item":
+                who = self.item_sources.get(step["id"], [])
+        else:
+            who = self.relations[step["q"], "start" if step["k"] == "accept" else "end"]
+        found = distinct(spot for entity in who for spot in self.spawns.get(entity, ()))
+        if not found:
+            return
+        maps = Counter(m for m, _, _ in found)
+        home = near["m"] if near and near["m"] in maps else maps.most_common(1)[0][0]
+        here = [(x, y) for m, x, y in found if m == home]
+        if near and near["m"] == home:
+            cx, cy = near["x"], near["y"]
+        else:
+            cx, cy = sorted(x for x, _ in here)[len(here)//2], sorted(y for _, y in here)[len(here)//2]
+        here.sort(key=lambda spot: (spot[0]-cx)**2 + (spot[1]-cy)**2)
+        step.update(m=home, x=round(here[0][0], 2), y=round(here[0][1], 2))
+        if step["k"] == "objective" and len(here) > 1:
+            step["spots"] = [dict(m=home, x=round(x, 2), y=round(y, 2)) for x, y in here[1:9]]
+
     def point(self, args):
         zone, x, y = args[:3]
         zone, slash, continent = zone.partition("/")
@@ -236,8 +282,41 @@ def distinct(values):
     return list(dict.fromkeys(v for v in values if v))
 
 
+QUEST_TESTS = {".isOnQuest": "on", ".isNotOnQuest": "off", ".isQuestComplete": "ready",
+               ".isQuestNotComplete": "unready", ".isQuestTurnedIn": "done", ".isQuestAvailable": "open"}
+
+
+def live_test(tag, args, game):
+    """A step condition the addon checks while playing (`cd`), or None: the step stays a note."""
+    first = num(args[0])
+    if tag in QUEST_TESTS and all((num(a) or 0) > 0 for a in args):
+        ids = [int(a) for a in args]
+        # Ready to turn in is asked of a single quest.
+        return [QUEST_TESTS[tag], *(ids[:1] if "Complete" in tag else ids)]
+    if tag == ".itemcount" and len(args) == 2 and (first or 0) > 0:
+        found = re.fullmatch(r"(<?)(\d+)", args[1])
+        if found:
+            return ["lacks" if found[1] else "has", int(found[2]), first]
+    if tag == ".maxlevel" and (first or 0) > 0:
+        return ["under", first + 1]
+    if tag == ".xp" and len(args) == 2 and not args[1].startswith("-"):
+        # "<N": the step is for characters who reached N; "N": for those still under it.
+        found = re.fullmatch(r"(<?)(\d+)(?:(\.\d+)|\+(\d+))?", args[0])
+        if found:
+            below, level, share, amount = found.groups()
+            extra = [float(share)] if share else [int(amount)] if amount else []
+            return ["lvl" if below else "under", int(level), *extra]
+    if tag == ".zoneskip":
+        zone = first if first in game.maps else game.map_ids.get(args[0])
+        flags = num(args[1]) if len(args) > 1 else 0
+        if zone and flags in (0, 1) and len(args) <= 2:
+            return ["in" if flags else "out", zone]
+    return None
+
+
 def convert_block(lines, game):
     hints, actions, points, conditions, mobs, targets = [], [], [], [], [], []
+    tests, why, kept = [], [], []
     overlay = []
     background = optional = loop = False
     mode = None
@@ -261,13 +340,20 @@ def convert_block(lines, game):
             background = True
         elif tag == "#optional":
             optional = True
+        elif (tag in REQUIRE or tag in (".zoneskip", ".xp")) and live_test(tag, args, game):
+            test = live_test(tag, args, game)
+            if test not in tests:
+                tests.append(test)
+            why.append(tag)
         elif tag in (".zoneskip", ".subzoneskip"):
             zone = (game.maps if tag == ".zoneskip" else game.areas).get(first, args[0])
             flags = num(args[1]) if len(args) > 1 else 0
             conditions.append(("Only in " if (flags or 0) & 1 else "Skip in ") + str(zone))
+            kept.append(tag)
         elif tag == ".bindlocation":
             reverse = len(args) > 1 and (num(args[1]) or 0) & 1
             conditions.append(("Only if bound to " if reverse else "Skip if bound to ") + game.areas.get(first, args[0]))
+            kept.append(tag)
         elif tag in REQUIRE:
             detail = arg
             if tag.startswith(".is") and all(num(i) for i in args):
@@ -275,12 +361,15 @@ def convert_block(lines, game):
             elif tag == ".itemcount" and first in game.items:
                 detail = ", ".join([game.items[first], *args[1:]])
             conditions.append(" ".join(filter(None, [REQUIRE[tag], detail])))
+            kept.append(tag)
         elif tag == ".xp" and len(args) > 1:
             threshold = args[0].lstrip("<>")
             below = args[0].startswith("<") or args[1].startswith("-")
             conditions.append(("Skip below " if below else "Skip at or above ") + "level " + threshold)
+            kept.append(tag)
         elif tag == ".train" and len(args) > 1 and num(args[1]) and int(args[1]) & 1:
             conditions.append(("Spell known: " if int(args[1]) & 2 else "Spell unlearned: ") + game.spells.get(first, args[0]))
+            kept.append(tag)
         elif tag == ".line":
             overlay.extend(game.point([args[0], x, y]) for x, y in zip(args[1::2], args[2::2]))
         elif tag in (".goto", ".waypoint", ".pin"):
@@ -306,8 +395,9 @@ def convert_block(lines, game):
                 if len(args)>2 and num(args[2]) and int(args[2])>0:
                     default += " (partial objective: " + args[2] + ")"
                     s["k"] = "note"
-                if first < 0:
-                    conditions.append("Quest in log " + title)
+                if first < 0 and ["on", q] not in tests:
+                    tests.append(["on", q])
+                    why.append(".isOnQuest")
             s["t"] = text or default
             if kind == "accept" and len(args) > 1 and num(args[1]) and int(args[1]) & 1:
                 # This flag explicitly calls for a manual pickup (often an escort).
@@ -364,7 +454,7 @@ def convert_block(lines, game):
     if points:
         p, radius, caption, _ = points[-1]
         for intermediate, r, instruction, arrow_only in points[:-1]:
-            if (r > 0 and not arrow_only and not loop and not background and not conditions and not optional) or instruction:
+            if (r > 0 and not arrow_only and not loop and not background and not conditions) or instruction:
                 lead.append(dict(k="goto", t=instruction or "Follow the route", r=max(r, 10), **intermediate))
         if caption:
             hints.insert(0, caption)
@@ -399,11 +489,17 @@ def convert_block(lines, game):
     for s in lead + actions:
         if mode:
             s["rxpMode"] = mode
-        if conditions or optional:
+        # What the source asked of the step, for `--stats` (not written to the pack).
+        s["_was"] = (s["k"], distinct(why + ["#optional"] * optional), distinct(kept))
+        if tests:
+            # Checked while playing: the step is passed when one does not hold.
+            s["cd"] = tests
+        if optional:
+            s["opt"] = True
+        if conditions:
             # A quest action here could auto-accept or advance before the
-            # player checked the original live conditions. Use a manual step.
-            prefix = ("Optional. " if optional else "") + ". ".join(distinct(conditions))
-            s["t"] = prefix.rstrip(". ") + ". " + s["t"]
+            # player checked the conditions the addon cannot. Use a manual step.
+            s["t"] = ". ".join(distinct(conditions)) + ". " + s["t"]
             s["k"] = "note"
             for key in ("q", "o", "sp", "bg", "lvl", "xp"):
                 s.pop(key, None)
@@ -448,6 +544,13 @@ def make_guide(source, catalog, game):
                 steps.append(step)
     if not steps or not variants:
         raise ValueError(f"Empty conversion: {source.key}")
+    near = None
+    for step in steps:
+        if "m" not in step and step["k"] in ("accept", "turnin", "objective") and step.get("q"):
+            game.place(step, near)
+            step["_placed"] = "m" in step
+        if "m" in step:
+            near = step
     guide = dict(name=source.title, origin="RXPGuides / " + source.group, fromLevel=low, toLevel=high,
                  locale="enUS", version=1, format=2, variants=[v for v, _ in variants])
     following = defaultdict(list)
@@ -474,7 +577,27 @@ def make_guide(source, catalog, game):
     return guide, steps
 
 
-def build(folder, output, game):
+def tally(counts, step):
+    """Counts for `--stats`: the steps by kind, and for each condition of the source the steps
+    that carried it and those still left as notes. Removes the converter's own fields."""
+    was, live, kept = step.pop("_was", (step["k"], [], []))
+    placed = step.pop("_placed", None)
+    counts["steps", step["k"]] += 1
+    if "m" not in step:
+        counts["without a point", step["k"]] += 1
+    if placed:
+        counts["point from the database", step["k"]] += 1
+    if live or kept:
+        counts["conditional", "steps"] += 1
+        counts["conditional", "notes"] += step["k"] == "note"
+        counts["conditional", "notes in the source"] += was == "note"
+        counts["conditional", "notes that pass by themselves"] += step["k"] == "note" and "cd" in step
+    for tag in live + kept:
+        counts["steps with " + tag, "all"] += 1
+        counts["steps with " + tag, "notes"] += step["k"] == "note"
+
+
+def build(folder, output, game, stats=False):
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", output.name):
         raise ValueError("Choose an addon folder name using letters, digits and underscores")
     paths = sorted(folder.rglob("*.txt"))
@@ -507,13 +630,15 @@ function pack.Register(guide)
     Pathwright.Builtin.Register(guide)
 end
 """)
-        total = 0
+        total, counts = 0, Counter()
         for i, source in enumerate(sources, 1):
             if not source.blocks:
                 print(f"Skipped empty source: {source.key}")
                 continue
             guide, steps = make_guide(source, catalog, game)
             total += len(steps)
+            for s in steps:
+                tally(counts, s)
             slug = re.sub(r"[^a-zA-Z0-9]+", "_", source.name).strip("_")[:75]
             file = f"{i:03}_{slug}.lua"
             manifest.append(file)
@@ -528,6 +653,9 @@ end
         (stage / (output.name + ".toc")).write_text("\n".join(manifest)+"\n", encoding="utf-8")
         stage.rename(output)
     print(f"Converted {sum(bool(s.blocks) for s in sources)} guides ({total:,} step entries across variants) to {output}")
+    if stats:
+        for (group, name), count in sorted(counts.items(), key=lambda item: (item[0][0], -item[1])):
+            print(f"{group:28} {name:24} {count:6,}")
 
 
 if __name__ == "__main__":
@@ -535,6 +663,7 @@ if __name__ == "__main__":
     p.add_argument("source", type=Path)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--db", type=Path, default=ROOT / "data/forever.sqlite.zst")
+    p.add_argument("--stats", action="store_true", help="print step counts by kind and by source condition")
     args = p.parse_args()
     with tempfile.TemporaryDirectory() as tmp:
         dbpath = args.db
@@ -544,4 +673,4 @@ if __name__ == "__main__":
                 subprocess.run(["zstd", "-dc", dbpath], stdout=out, check=True)
             dbpath = plain
         with sqlite3.connect(dbpath.resolve().as_uri() + "?mode=ro", uri=True) as db:
-            build(args.source, args.out, Game(db))
+            build(args.source, args.out, Game(db), args.stats)

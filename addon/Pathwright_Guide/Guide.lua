@@ -44,6 +44,7 @@ local L = {
     ),
     alongTheWay = T("along the way"),
     elite = T("elite"),
+    optional = T("optional"),
     skipHint = T("Right-click: mark as already done (or undo)"),
     skipped = T("quest marked as done: %s (to undo: the “Undo the last mark” key)"),
     unskipped = T("quest to do again: %s"),
@@ -174,6 +175,7 @@ local state -- per character: { route = name, step = n, point = {...}, flightLea
 local route
 local acceptIndex = {} -- quest -> index of its accept step
 local turninIndex = {} -- quest -> index of its turn-in step
+local acceptOthers = {} -- quest -> indexes of its other accept steps (taken under other conditions)
 
 --- An objective guide (a dungeon's, a zone's, quests chosen): no level to reach. Those made before
 --- `levelsIgnored` was exported end at the level they start at, unlike a leveling guide.
@@ -267,6 +269,73 @@ end
 
 local IsDone
 
+--- The level (and XP in it: an amount, or below 1 a share of the level) is reached.
+local function LevelReached(level, xp)
+    local now = UnitLevel("player")
+    if now ~= level or not xp or xp <= 0 then return now >= level end
+    local have, max = UnitXP("player") or 0, UnitXPMax("player") or 0
+    if xp < 1 then return max > 0 and have / max >= xp end
+    return have >= xp
+end
+
+local function AnyQuest(c, test)
+    for i = 2, #c do
+        if test(c[i]) then return true end
+    end
+    return false
+end
+
+local function NotFlagged(q) return not QuestLog.IsQuestFlaggedCompleted(q) end
+
+local function Carried(c)
+    local n = 0
+    for i = 3, #c do
+        n = n + (FG.ItemCount(c[i]) or 0)
+    end
+    return n
+end
+
+local function InMap(c)
+    local map = C_Map.GetBestMapForUnit("player")
+    for i = 2, #c do
+        if c[i] == map then return true end
+    end
+    return false
+end
+
+-- Conditions of a step (`cd`, built-in guides): { name, values… }, each a test on the character
+-- as it is now.
+local CONDITIONS = {
+    -- One of the quests is in the log / none is.
+    on = function(c) return AnyQuest(c, QuestLog.IsOnQuest) end,
+    off = function(c) return not AnyQuest(c, QuestLog.IsOnQuest) end,
+    -- The quest is in the log, ready to turn in / is not.
+    ready = function(c) return QuestLog.IsOnQuest(c[2]) and QuestLog.IsComplete(c[2]) and true or false end,
+    unready = function(c) return not (QuestLog.IsOnQuest(c[2]) and QuestLog.IsComplete(c[2])) end,
+    -- One of the quests was turned in / one was not.
+    done = function(c) return AnyQuest(c, QuestLog.IsQuestFlaggedCompleted) end,
+    open = function(c) return AnyQuest(c, NotFlagged) end,
+    -- The level (and XP in it) is reached / is not yet.
+    lvl = function(c) return LevelReached(c[2], c[3]) end,
+    under = function(c) return not LevelReached(c[2], c[3]) end,
+    -- At least that many of the items in the bags / fewer.
+    has = function(c) return Carried(c) >= c[2] end,
+    lacks = function(c) return Carried(c) < c[2] end,
+    -- The character is on one of these maps / on none of them.
+    ["in"] = InMap,
+    out = function(c) return not InMap(c) end,
+}
+
+--- Whether every condition of the step holds; one this version does not know holds (the step is
+--- shown, as a guide made by a newer version would have it).
+local function Holds(conditions)
+    for _, c in ipairs(conditions) do
+        local test = type(c) == "table" and CONDITIONS[c[1]]
+        if test and not test(c) then return false end
+    end
+    return true
+end
+
 --- An accept step's item is in the bags: its giver offers the quest for it (`hd`, the library's
 --- books), taken and turned in together.
 local function Held(step) return step.id ~= nil and (FG.ItemCount(step.id) or 0) > 0 end
@@ -277,11 +346,20 @@ local function AcceptSkipped(step, index)
     local at = acceptIndex[step.q]
     -- A book for the library in the bags: the quest is taken with its turn-in.
     if at and route.steps[at].hd and Held(route.steps[at]) then return false end
-    return at ~= nil
-        and at < index
-        and not QuestLog.IsOnQuest(step.q)
-        and not QuestLog.IsQuestFlaggedCompleted(step.q)
-        and IsDone(route.steps[at], at)
+    if
+        at == nil
+        or at >= index
+        or QuestLog.IsOnQuest(step.q)
+        or QuestLog.IsQuestFlaggedCompleted(step.q)
+        or not IsDone(route.steps[at], at)
+    then
+        return false
+    end
+    -- Accepted at another step under other conditions: passed once those before this one are too.
+    for _, other in ipairs(acceptOthers[step.q] or {}) do
+        if other < index and not IsDone(route.steps[other], other) then return false end
+    end
+    return true
 end
 
 --- XP of the quests complete in the log that the route turns in after grind step `index` and
@@ -328,6 +406,17 @@ function IsDone(step, index)
         if step.k == "grind" then return group:CaughtUp(step) end
         -- For other players (a quest we did already): done once those in the party are past it.
         if not group:ForMe(step) then return group:Passed(step, index or state.step), true end
+    end
+    -- Its conditions do not hold (a quest not in the log, a level not reached): not for this
+    -- character now. A quest step whose quest says it was played stays played.
+    if step.cd and not Holds(step.cd) then
+        local played = q
+            and (
+                QuestLog.IsQuestFlaggedCompleted(q)
+                or (step.k == "accept" and QuestLog.IsOnQuest(q))
+                or (step.k == "abandon" and not QuestLog.IsOnQuest(q))
+            )
+        if not played then return true, true end
     end
     -- Planned well below our level: left behind (a character resuming the route, a quest
     -- added to the game after we went through that zone), unless the quest is in the log. Not in
@@ -867,6 +956,8 @@ local function TaskView(step, index, withProgress)
     else
         v.name = step.t
     end
+    -- Not needed by the guide's later steps (built-in guides).
+    if step.opt then Chip(v, L.optional, "lightBlue") end
     FG.Group:Chips(step, index, function(text, color) Chip(v, text, color) end, IsDone(step, index))
     -- Drawn after the name (the name alone goes to the compass and the arrow).
     v.mark = NoteMark(step)
@@ -1478,7 +1569,12 @@ function Guide:WantsQuest(questID)
     if step.hd and Held(step) then
         return not QuestLog.IsOnQuest(questID) and not QuestLog.IsQuestFlaggedCompleted(questID)
     end
-    return not IsDone(step, at)
+    if not IsDone(step, at) then return true end
+    -- Accepted at another step under other conditions.
+    for _, other in ipairs(acceptOthers[questID] or {}) do
+        if not IsDone(route.steps[other], other) then return true end
+    end
+    return false
 end
 
 --- Whether accepting this quest starts an escort or an event (the guide's step says so).
@@ -1534,6 +1630,7 @@ local function UseRoute(name)
     route = FG.Group:Use(route, state)
     wipe(acceptIndex)
     wipe(turninIndex)
+    wipe(acceptOthers)
     wipe(objectiveQuests)
     wipe(childQuests)
     wipe(questMobs)
@@ -1548,7 +1645,14 @@ local function UseRoute(name)
             end
         end
         if s.q then
-            if s.k == "accept" and not acceptIndex[s.q] then acceptIndex[s.q] = i end
+            if s.k == "accept" then
+                if not acceptIndex[s.q] then
+                    acceptIndex[s.q] = i
+                else
+                    acceptOthers[s.q] = acceptOthers[s.q] or {}
+                    table.insert(acceptOthers[s.q], i)
+                end
+            end
             if s.k == "turnin" and not turninIndex[s.q] then turninIndex[s.q] = i end
             if s.k == "objective" then objectiveQuests[s.q] = true end
             if s.cq then childQuests[s.cq] = true end
