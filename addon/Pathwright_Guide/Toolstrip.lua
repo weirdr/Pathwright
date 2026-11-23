@@ -108,8 +108,8 @@ end
 -- else: kept. Otherwise the checker turns to the nameplates shown: the nearest of that name that
 -- is fit (see Range), else no target at all. The sword's macro goes on with the skull and the
 -- ping, which stop when the target is gone: so none ever goes on a wrong target. (The ping stays
--- in the sword's own macro: the game does not ping from a macro run by /click.) Between presses,
--- the nameplates only tell how the button looks: dimmed when every one in sight is tagged. In
+-- in the sword's own macro: the game does not ping from a macro run by /click.) When every one in
+-- sight is tagged and none is fit, the press does nothing at all (the button dimmed). In
 -- combat nothing may change: at its start every button goes back to its macro by name (skull and
 -- ping without the checks), the checker to nothing.
 
@@ -277,6 +277,16 @@ function Toolstrip:Press(b)
     if InCombatLockdown() or not a or (a.kind ~= "kill" and a.kind ~= "talk") then return end
     local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false
     self.expect = { name = a.name, kind = a.kind, skipTapped = skip }
+    -- Every one in sight tagged by someone else and none fit: nothing at all (no target, no
+    -- skull, no ping), decided before the macro runs.
+    if skip then
+        local unit, tapped = Toolstrip.Pick(a.name, true)
+        if not unit and tapped then
+            SetMacro(b, "")
+            SetState(b, "tapped")
+            return
+        end
+    end
     SetMacro(b, Toolstrip.CheckedMacro(a))
 end
 

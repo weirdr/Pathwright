@@ -1277,6 +1277,7 @@ do
     strip:Aim()
     assert(sword.state == "tapped" and sword:GetAlpha() < 1, "all tagged: dimmed")
     sword.PreClick(sword)
+    assert(sword.aimed == "", "all tagged in sight: the press does nothing, no target, skull nor ping")
     mobs.target = { name = "Kobold Vermin", tapped = true }
     checker.PreClick(checker)
     assert(checker.macro == "/cleartarget", "a wrong target cleared at once: " .. tostring(checker.macro))
