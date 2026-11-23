@@ -1068,7 +1068,14 @@ do
     named("PWStrip1").SetPoint = function(_, ...) firstAt = { ... } end
     strip:Refresh()
     assert(trashAt[4] and firstAt[4] and trashAt[4] < firstAt[4], "the trash can left of the step's buttons")
-    assert(firstAt[4] - trashAt[4] > 32 + 4, "a separator between them")
+    assert(firstAt[4] - trashAt[4] > named("PathwrightTrash").columnWidth + 4, "a separator between them")
+    strip:SetSteps({ { mobs = { "Highland Strider", "Highland Thrasher" } } })
+    assert(first.caption:GetText() == "Strider" and named("PWStrip2").caption:GetText() == "Thrasher")
+    assert(
+        first.action.name == "Highland Strider" and first.action.macro:find("/targetexact Highland Strider", 1, true)
+    )
+    strip:SetSteps({ { mobs = { "Highland Raptor", "Young Raptor" } } })
+    assert(first.caption:GetText() == "Highland" and named("PWStrip2").caption:GetText() == "Young")
     assert(_G["BINDING_NAME_CLICK PWStrip1:LeftButton"], "the button's binding named")
     Press("next")
     assert(Kinds() == "talk:Marshal McBride", "a speech bubble for the turn-in's NPC: " .. Kinds())
@@ -3950,6 +3957,37 @@ end
 local function drag(handle)
     handle.OnDragStart(handle, "LeftButton")
     handle.OnDragStop(handle)
+end
+do
+    local strip = named("PathwrightToolstrip")
+    local motion = watchMoves(strip)
+    local anchor
+    strip.SetPoint = function(_, ...) anchor = { ... } end
+    local state = FG.Guide:State()
+    state.toolstripPoint = { "BOTTOM", "UIParent", "BOTTOM", 80, 140 }
+    FG.Toolstrip:Refresh()
+    assert(anchor[1] == "BOTTOMLEFT" and anchor[2] == FG.Card:Frame() and anchor[3] == "TOPLEFT" and anchor[5] == 6)
+    drag(strip)
+    assert(motion.moves == 0, "the docked toolstrip stays on the guide")
+    Option("Pathwright_toolstripUnlocked"):SetValue(true)
+    assert(anchor[4] == 80 and anchor[5] == 140, "unlock restores a previously saved position")
+    drag(strip)
+    assert(motion.moves == 1 and state.toolstripPoint[4] == 120, "unlocked drag saves the new position")
+    InCombatLockdown = function() return true end
+    FG:Save("toolstripUnlocked", false)
+    assert(anchor[2] == UIParent and FG.Toolstrip.pending, "redocking waits for combat to end")
+    InCombatLockdown = function() return false end
+    fire("PLAYER_REGEN_ENABLED")
+    assert(anchor[2] == FG.Card:Frame(), "redocked after combat")
+    Press("mode")
+    assert(anchor[2] == FG.Mini:Frame() and anchor[5] > 6, "the strip clears the minimal guide header")
+    Press("mode")
+    FG:Save("toolstripUnlocked", true)
+    assert(anchor[4] == 120 and anchor[5] == 640, "unlock restores the last drag")
+    FG.Toolstrip:ResetPosition()
+    assert(anchor[2] == FG.Card:Frame() and not state.toolstripPoint, "reset returns above the guide")
+    FG:Save("toolstripUnlocked", nil)
+    strip.SetPoint = nil
 end
 do
     FG.Stats:ToggleBoard()
