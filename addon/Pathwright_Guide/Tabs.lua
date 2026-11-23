@@ -17,6 +17,8 @@ local L = {
 }
 
 local HEIGHT, MAX_W, PLUS_W, GAP = 18, 118, 22, 2
+local CARD_GAP = 1
+Tabs.belowCard = CARD_GAP + HEIGHT
 
 local bar
 
@@ -131,7 +133,7 @@ function Tabs:Render(ui)
         if minimal then
             bar:SetPoint("BOTTOMLEFT", host, "TOPLEFT", 0, 1)
         else
-            bar:SetPoint("TOPLEFT", host, "BOTTOMLEFT", 0, -1)
+            bar:SetPoint("TOPLEFT", host, "BOTTOMLEFT", 0, -CARD_GAP)
         end
         bar.minimal = minimal
     end

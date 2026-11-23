@@ -191,7 +191,8 @@ local T = {
 }
 -- Reputation standings from the bottom of Neutral, and the game's names of them.
 local STANDINGS = { -42000, -6000, -3000, 0, 3000, 9000, 21000, 42000 }
-local SNAP = 40 -- pixels: dropped this close to the card's bottom, the panel sticks to it
+local DOCK_OFFSET = FG.Tabs.belowCard + 6 -- leave a gap below the guide tabs
+local SNAP = 40 -- snap within this distance of the docked position
 
 local tabs
 -- The panel shows the bank's items while it is open, then the tab it had.
@@ -315,7 +316,7 @@ local function Place()
     if point then
         frame:SetPoint(unpack(point))
     elseif key == "full" and PathwrightTodo then
-        frame:SetPoint("TOPLEFT", PathwrightTodo, "BOTTOMLEFT", 0, -6)
+        frame:SetPoint("TOPLEFT", PathwrightTodo, "BOTTOMLEFT", 0, -DOCK_OFFSET)
     else
         frame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -30, -190)
     end
@@ -327,7 +328,7 @@ local function Dropped(self)
     local card = PathwrightTodo
     local left, top = self:GetLeft(), self:GetTop()
     if not Minimal() and card and card:IsShown() and left and top and card:GetLeft() and card:GetBottom() then
-        local dx, dy = left - card:GetLeft(), top - card:GetBottom()
+        local dx, dy = left - card:GetLeft(), top - (card:GetBottom() - DOCK_OFFSET)
         if math.abs(dx) < SNAP and math.abs(dy) < SNAP then
             state.trackerPoint = nil
             self.placed = nil
