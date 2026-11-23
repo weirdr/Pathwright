@@ -48,7 +48,7 @@ tip Maxwort's Heart of the Mountain and Yuka's Ribbly Screwspigot are Blackrock 
 # The east: Dreadmaul Rock, the broodlings and Cyrus ----------------------------------------------------
 
 do 4726 bg
-tip Use the Draco-Incarcinatrix 900 on a Black Broodling, kill it, then pick up the essence it leaves.
+tip Use the Draco-Incarcinatrix 900 on a Black Broodling, kill it, then pick up the essence it leaves on the ground. Taking damage interrupts the device, so use it before the broodling reaches you.
 turnin 3821
 tip Sha'ni's remains lie on the altar at the top of Dreadmaul Rock: click them and her spirit appears.
 accept 3822
@@ -142,11 +142,11 @@ turnin 91608
 do 3517
 tip The four tablets lie in the ruins; each kind has several spots, so click the first of each you see.
 do 91568
-tip Use the Treasure Trowel 3000 on the sand mounds along the shore east of the ruins.
+tip Use the Treasure Trowel 3000 on the sand mounds along the shore east of the ruins. Sometimes a Makrinni Burrower comes out instead: kill it, it carries fragments too.
 do 91610 at 46.0,52.0 icon use "Fish up 10 Winter Squid along the shore"
 tip Needs Fishing. Without it, buy them at an auction house.
 accept 86746 86752
-tip Ekkal stands in the north of the ruins.
+tip Ekkal stands in the north of the ruins. Players report that Report to Rageroar and the other Ursolan furbolg quests want Neutral standing with Timbermaw Hold, which starts at Unfriendly. If Ekkal doesn't offer Report to Rageroar, right-click to skip it and see the note at Ursolan.
 
 # Valormok ---------------------------------------------------------------------------------------------
 
@@ -159,6 +159,7 @@ tip Jes'rimon and Magatha are handed in by later guides, in Orgrimmar and Thunde
 turnin 3561
 tip Xylem walks the floors of his tower north of Valormok.
 accept 3565
+note "Ursolan: if Gatekeeper Rageroar, Furze and Elder Bramblesnap offer you nothing, your Timbermaw standing is too low for them. Skip their quests: right-click the first step of each (Encroaching Corruption, An Unlikely Source and so on), and that quest's other steps go with it. The Legashi Threat and Blue Gold don't need them" npc 236573
 turnin 86752
 accept 86791
 accept 86799
@@ -192,7 +193,7 @@ accept 86797
 do 86746
 tip The last satyrs are in the camp north-east of Korsa.
 do 91569
-tip The Blood Elf Arcanists camp along the cliffs east of Korsa.
+tip The Blood Elf Arcanists camp along the cliffs east of Korsa. They hit like elites with Arcane Bolt and a near-instant Arcane Explosion: interrupt them. The wand is rare and drops for only one of you at a time (players report anything from a dozen kills to over a hundred): give it a few kills, then skip Blue Gold if it won't come.
 
 # Ursolan ------------------------------------------------------------------------------------------------
 
@@ -200,7 +201,7 @@ turnin 86797
 turnin 86927
 accept 86812
 do 86812 at 48.4,22.6 icon use "Weaken 3 Mosshoof Coursers or Thunderhead Skystormers, then use the Satyrweed Tincture on them"
-tip Coursers and Skystormers roam just east of Ursolan.
+tip Coursers and Skystormers roam just east of Ursolan. Only the ones wrapped in a green, poisoned glow can be cured: bring one to 30% health and it weakens, then use the tincture on it.
 turnin 86812
 accept 86813
 do 86813 at 45.3,22.4 icon use "Give Bramblesnap's Panacea to Furze"
