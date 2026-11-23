@@ -136,6 +136,10 @@ note "Take the zeppelin at Grom'gol to Orgrimmar" at 31.5,29.4 in Stranglethorn_
 map Orgrimmar
 train 3353 3352 3327 6018 3344 5885 3326
 tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
+ah 2603.1 npc 8673 "Buy 14 Vulture Gizzards at the auction house, for the Blasted Lands (optional)"
+tip The Blasted Lands guide comes next: its vultures are few and spread over the whole zone, and its three quests that want gizzards need 14.
+ah 2601.1 npc 8673 "Buy 11 Basilisk Brains at the auction house, for the Blasted Lands (optional)"
+ah 3501.1 npc 8673
 fly "Brackenwall Village, Dustwallow Marsh" npc 3310
 
 # Brackenwall Village and the riddle cave -----------------------------------------------------------

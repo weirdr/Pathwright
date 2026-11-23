@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795431441,
+    created = 1795431484,
     next = "Blasted Lands (50-51)",
     carry = { 580, 1122, 1444, 2874, 3568, 3908, 4120 },
     variants = {
@@ -99,6 +99,9 @@ Pathwright.Builtin.Register({
         { k = "train", t = "Train with Kardris Dreamseeker", n = "Kardris Dreamseeker", e = "npc", id = 3344, m = 1454, x = 38.8, y = 36.37, lvl = 50, only = { 4, 15, 21, 27 } },
         { k = "train", t = "Train with Deino", n = "Deino", e = "npc", id = 5885, m = 1454, x = 38.45, y = 86.13, lvl = 50, only = { 5, 11, 22 } },
         { k = "train", t = "Train with Zevrost", n = "Zevrost", e = "npc", id = 3326, m = 1454, x = 48.47, y = 45.43, nt = { { l = 2, t = "Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff." } }, lvl = 50, only = { 6, 12, 23 } },
+        { k = "objective", t = "Buy 14 Vulture Gizzards at the auction house, for the Blasted Lands (optional)", q = 2603, o = 1, ic = "buy", n = "Vulture Gizzard", e = "item", id = 8396, c = 10, by = true, m = 1454, x = 55.9, y = 62.71, bg = true, nt = { { l = 1, t = "For Vulture's Vigor: buying them saves the farming. Skip it to farm them instead." }, { l = 2, t = "The Blasted Lands guide comes next: its vultures are few and spread over the whole zone, and its three quests that want gizzards need 14." } }, lvl = 50 },
+        { k = "objective", t = "Buy 11 Basilisk Brains at the auction house, for the Blasted Lands (optional)", q = 2601, o = 1, ic = "buy", n = "Basilisk Brain", e = "item", id = 8394, c = 10, by = true, m = 1454, x = 55.9, y = 62.71, bg = true, nt = { { l = 1, t = "For The Basilisk's Bite: buying them saves the farming. Skip it to farm them instead." } }, lvl = 50 },
+        { k = "objective", t = "Buy 1 Imperfect Draenethyst Fragment at the auction house (optional)", q = 3501, o = 1, ic = "buy", n = "Imperfect Draenethyst Fragment", e = "item", id = 10593, c = 1, by = true, m = 1454, x = 55.9, y = 62.71, bg = true, nt = { { l = 1, t = "For Everything Counts In Large Amounts: they drop only 5% of the time. Skip it to farm them instead." } }, lvl = 50 },
         { k = "fly", t = "Fly to Brackenwall Village", n = "Brackenwall Village", e = "taxi", id = 55, m = 1454, x = 45.12, y = 63.89, lvl = 50 },
         { k = "accept", t = "Accept Challenge Overlord Mok'Morokk from Overlord Mok'Morokk", q = 1173, n = "Overlord Mok'Morokk", e = "npc", id = 4500, m = 1445, x = 36.29, y = 31.41, min = 38, pa = { 1172 }, lvl = 50 },
         { k = "objective", t = "Fight Overlord Mok'Morokk until he gives up", q = 1173, o = 1, ic = "kill", m = 1445, x = 36.4, y = 31.4, mobs = { "Overlord Mok'Morokk" }, mi = { 4500 }, nt = { { l = 2, t = "He is a level 45 elite but hits like a much bigger one (crits near 800) and has lots of health; he turns on you as soon as you accept and yields at about a third of his health. He can be feared, rooted and kited: keep him off whoever is weakest." } }, lvl = 50 },
