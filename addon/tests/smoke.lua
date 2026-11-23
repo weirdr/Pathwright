@@ -1682,6 +1682,15 @@ do
     assert(q[900] == nil, "Questie's quest gone")
     QS:Store(data, "Stranger-Realm")
     assert(not P.progress.Stranger and not P.progress["Stranger-Realm"], "only from the group")
+    -- What we send the party: our log, read as WoW Forever has it (C_QuestLog, no GetQuestLogTitle).
+    local realTitle = GetQuestLogTitle
+    GetQuestLogTitle = nil
+    local encoded = P.Encode()
+    GetQuestLogTitle = realTitle
+    assert(
+        type(encoded) == "table" and encoded[1] and encoded[1]:match("^%d+:"),
+        "our log encoded without GetQuestLogTitle: " .. tostring(encoded[1])
+    )
     -- Asking: "?" to the party (and a request to Questie players); a "?" heard sends our log.
     local sentParty = {}
     local realChat, realGroup, realRaid, realMembers = C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers
@@ -2048,6 +2057,28 @@ do
     np:Update("nameplate1")
     mark = np.marks.nameplate1
     assert(np.Count(mark.progress) == "3/10" and mark.count.text == "3/10", "its count")
+    -- In a group the tooltip lists each member's progress under their name: our count is ours, a
+    -- party member listed first (at 7/10) changes nothing.
+    lines.nameplate1 = {
+        Title(5001),
+        { type = 18, leftText = "Amy" },
+        Objective("Kobold Vermin slain: 7/10", false, 7, 10),
+        { type = 18, leftText = "Brouz" },
+        Objective("Kobold Vermin slain: 3/10", false, 3, 10),
+    }
+    np:Update("nameplate1")
+    assert(np.Count(np.marks.nameplate1.progress) == "3/10", "our own count, not a party member's")
+    lines.nameplate1 =
+        { Title(5001), { type = 18, leftText = "Amy" }, Objective("Kobold Vermin slain: 7/10", false, 7, 10) }
+    np:Update("nameplate1")
+    local only = np.marks.nameplate1
+    assert(
+        not only or only.progress.owner or np.Count(only.progress) ~= "7/10",
+        "only a party member's row: their count never shown as ours"
+    )
+    lines.nameplate1 = { Title(5001), Objective("Kobold Vermin slain: 3/10", false, 3, 10) }
+    np:Update("nameplate1")
+    mark = np.marks.nameplate1
     -- A mob that drops a quest item: the money bag.
     plates.nameplate2 = CreateFrame("Frame", nil, UIParent)
     names.nameplate2 = "Kobold Tunneler"

@@ -1,6 +1,7 @@
 -- Group sync: members running Pathwright send their quest progress (objectives fulfilled) to
--- the party; Questie players' progress comes in through QuestieShare.lua. The tracker shows
--- theirs next to each objective, the guide a line under each objective step (Party:Line).
+-- the party, on its own: Questie is not needed. Questie players' progress comes in too, through
+-- QuestieShare.lua (which also answers them). The tracker shows theirs next to each objective,
+-- the guide a line under each objective step (Party:Members).
 
 local FG = Pathwright
 local QuestLog = FG.QuestLog
@@ -11,21 +12,28 @@ FG.Party = Party
 
 if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(PREFIX) end
 
---- "id:f1,f2;id:f1" for the quests of the log.
-local function Encode()
+local Readable = FG.Readable
+
+--- "id:f1,f2;id:f1" for the quests of the log ("x": the objective is finished). Read through
+--- FG.QuestLog, as the rest of the addon: WoW Forever has C_QuestLog and no GetQuestLogTitle (the
+--- global one sent an empty log there, so nobody saw anyone's progress).
+function Party.Encode()
     local parts = {}
-    for i = 1, (GetNumQuestLogEntries and GetNumQuestLogEntries() or 0) do
-        local _, _, _, isHeader, _, _, _, questID = GetQuestLogTitle(i)
-        if not isHeader and questID and questID > 0 then
+    for i = 1, (QuestLog.GetNumQuestLogEntries() or 0) do
+        local info = QuestLog.GetInfo(i)
+        local questID = info and not Readable(info.isHeader) and Readable(info.questID)
+        if type(questID) == "number" and questID > 0 then
             local counts = {}
             for _, o in ipairs(QuestLog.GetQuestObjectives(questID) or {}) do
-                table.insert(counts, o.finished and "x" or tostring(o.numFulfilled or 0))
+                local finished, have = Readable(o.finished), tonumber(Readable(o.numFulfilled)) or 0
+                table.insert(counts, finished and "x" or tostring(have))
             end
             table.insert(parts, questID .. ":" .. table.concat(counts, ","))
         end
     end
     return parts
 end
+local Encode = Party.Encode
 
 local function Send()
     if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
