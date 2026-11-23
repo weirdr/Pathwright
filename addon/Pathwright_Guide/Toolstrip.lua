@@ -101,20 +101,17 @@ function Toolstrip.TalkMacro(name)
 end
 
 -- Aiming -----------------------------------------------------------------------------------
--- Out of combat, a press of a sword button decides then and there (its PreClick, which runs just
--- before the button's macro and may still change it): it picks one mob of its name among the
--- nameplates shown, alive, hostile and (with "Aim at a mob no other player has tagged") not tagged
--- by another player (no credit for us): the current target first, then the nearest to the
--- player (see Range), then, at the same range, the closest to the middle of the screen; and
--- targets that very unit. When every one in sight is tagged, the press does nothing; when none is
--- in sight (or enemy nameplates are off), it targets by name. Either way the macro then
--- clicks the checker (a hidden secure button): its own PreClick runs once the target is taken
--- and looks at it. Not the mob asked for, dead, or tagged by someone else: the checker clears
--- the target at once. The sword's macro goes on with the skull and the ping, which stop when the
--- target is gone: so none ever goes on a wrong target. (The ping stays in the sword's own macro:
--- the game does not ping from a macro run by /click.) In combat nothing may change: at its start
--- every button goes back to its macro by name (skull and ping without the checks), the checker
--- to nothing.
+-- A press of a sword button targets its mob by name: the game picks the nearest of that name,
+-- in sight or not (as Zygor's buttons do). Out of combat the macro then clicks the checker (a
+-- hidden secure button): its own PreClick runs once the target is taken and looks at it. The mob
+-- asked for, alive and (with "Aim at a mob no other player has tagged") not tagged by someone
+-- else: kept. Otherwise the checker turns to the nameplates shown: the nearest of that name that
+-- is fit (see Range), else no target at all. The sword's macro goes on with the skull and the
+-- ping, which stop when the target is gone: so none ever goes on a wrong target. (The ping stays
+-- in the sword's own macro: the game does not ping from a macro run by /click.) Between presses,
+-- the nameplates only tell how the button looks: dimmed when every one in sight is tagged. In
+-- combat nothing may change: at its start every button goes back to its macro by name (skull and
+-- ping without the checks), the checker to nothing.
 
 --- Seconds between two aims while nothing else asks for one.
 local AIM_EVERY = 0.25
@@ -137,13 +134,7 @@ local function ThenChecked(lines, kind)
     return table.concat(lines, "\n")
 end
 
---- Out of combat, a press aimed at a nameplate's unit: that very mob (alive and hostile, or
---- nothing), then the checker, then the skull and the ping.
-function Toolstrip.AimedMacro(unit)
-    return ThenChecked({ "/cleartarget", string.format("/target [@%s,exists,harm,nodead]", unit) }, "kill")
-end
-
---- Out of combat, a press with no mob in sight: by name, then the checker, the skull and the ping.
+--- Out of combat, a press: by name, then the checker, the skull and the ping.
 function Toolstrip.CheckedMacro(a)
     if a.kind == "kill" then
         return ThenChecked({ "/cleartarget", "/targetexact " .. a.name, "/cleartarget [dead]" }, "kill")
@@ -153,15 +144,23 @@ end
 
 --- What the checker does with the target taken: { name, kind, skipTapped } the press asked for.
 function Toolstrip.CheckMacro(want)
-    if not want or not Fact(UnitExists, "target") then return "" end
-    local wrong = Fact(UnitName, "target") ~= want.name or Fact(UnitIsDead, "target")
+    if not want then return "" end
+    local wrong = not Fact(UnitExists, "target")
+        or Fact(UnitName, "target") ~= want.name
+        or Fact(UnitIsDead, "target")
     if want.kind == "kill" then
         wrong = wrong
             or (UnitCanAttack and not Fact(UnitCanAttack, "player", "target"))
             or (want.skipTapped and Fact(UnitIsTapDenied, "target"))
     end
     -- A right target: nothing to do here (the sword's macro marks and pings it).
-    return wrong and "/cleartarget" or ""
+    if not wrong then return "" end
+    -- The nearest fit one among the nameplates shown instead, else no target.
+    local other = want.kind == "kill" and Toolstrip.Pick(want.name, want.skipTapped, true)
+    if other then
+        return "/cleartarget\n" .. string.format("/target [@%s,exists,harm,nodead]", other)
+    end
+    return Fact(UnitExists, "target") and "/cleartarget" or ""
 end
 
 -- How far a mob is: the game tells an addon no distance to a hostile unit, only whether it is
@@ -228,19 +227,21 @@ local function ScreenDistance(plate)
 end
 
 --- The mob of this name to aim at among the nameplates shown: its unit, or nil and whether one
---- was seen tagged by someone else (passed over when `skipTapped`).
-function Toolstrip.Pick(name, skipTapped)
+--- was seen tagged by someone else (passed over when `skipTapped`). `notTarget`: not the current
+--- target (the checker looks for another).
+function Toolstrip.Pick(name, skipTapped, notTarget)
     local best, bestRange, bestScreen, tapped
     local plates = C_NamePlate and C_NamePlate.GetNamePlates and C_NamePlate.GetNamePlates() or {}
     for _, plate in ipairs(plates) do
         local unit = plate.namePlateUnitToken or (plate.UnitFrame and plate.UnitFrame.unit)
         local hostile = not UnitCanAttack or Fact(UnitCanAttack, "player", unit)
-        if unit and hostile and Fact(UnitName, unit) == name and not Fact(UnitIsDead, unit) then
+        local isTarget = unit and Fact(UnitIsUnit, unit, "target")
+        if unit and hostile and Fact(UnitName, unit) == name and not Fact(UnitIsDead, unit) and not (notTarget and isTarget) then
             if skipTapped and Fact(UnitIsTapDenied, unit) then
                 tapped = true
             else
                 local range, screen = -1, 0
-                if not Fact(UnitIsUnit, unit, "target") then
+                if not isTarget then
                     range, screen = Toolstrip.Range(unit), ScreenDistance(plate)
                 end
                 if not bestRange or range < bestRange or (range == bestRange and screen < bestScreen) then
@@ -276,21 +277,7 @@ function Toolstrip:Press(b)
     if InCombatLockdown() or not a or (a.kind ~= "kill" and a.kind ~= "talk") then return end
     local skip = a.kind == "kill" and FG:Get("targetSkipTapped") and true or false
     self.expect = { name = a.name, kind = a.kind, skipTapped = skip }
-    if a.kind ~= "kill" then
-        SetMacro(b, Toolstrip.CheckedMacro(a))
-        return
-    end
-    local unit, tapped = Toolstrip.Pick(a.name, skip)
-    if unit then
-        SetMacro(b, Toolstrip.AimedMacro(unit))
-        SetState(b, "aim")
-    elseif tapped then
-        SetMacro(b, "")
-        SetState(b, "tapped")
-    else
-        SetMacro(b, Toolstrip.CheckedMacro(a))
-        SetState(b, "name")
-    end
+    SetMacro(b, Toolstrip.CheckedMacro(a))
 end
 
 --- The first quest item of these steps (quests in the log with a usable item): link, texture.
