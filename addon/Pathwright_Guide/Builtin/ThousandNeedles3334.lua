@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795452313,
+    created = 1795467345,
     next = "Desolace (34-36)",
     carry = { 96, 1112, 1394, 1712, 1714 },
     variants = {
@@ -43,7 +43,8 @@ Pathwright.Builtin.Register({
     },
     steps = {
         { k = "note", t = "From the Eastern Kingdoms, take the zeppelin to the tower outside Orgrimmar, then walk into the city", m = 1411, x = 50.8, y = 13.4, lvl = 33 },
-        { k = "accept", t = "Accept The Swarm Grows from Belgrom Rockmaul", q = 1146, n = "Belgrom Rockmaul", e = "npc", id = 4485, m = 1454, x = 75.23, y = 34.24, min = 29, pa = { 1145 }, nt = { { l = 2, t = "Belgrom Rockmaul stands in the Valley of Honor; he has this one for those who brought him Korran's report on the silithid." } }, lvl = 33 },
+        { k = "accept", t = "Accept The Swarm Grows from Belgrom Rockmaul", q = 1146, n = "Belgrom Rockmaul", e = "npc", id = 4485, m = 1454, x = 75.23, y = 34.24, min = 29, pa = { 1145 }, lvl = 33 },
+        { k = "accept", t = "Accept Regthar Deathgate from Nazgrel", q = 1361, n = "Nazgrel", e = "npc", id = 3230, m = 1454, x = 32.3, y = 35.75, min = 30, nt = { { l = 2, t = "Belgrom Rockmaul stands in the Valley of Honor; he has The Swarm Grows for those who brought him Korran's report on the silithid, and sends you to Regthar Deathgate in the Barrens." } }, lvl = 33 },
         { k = "accept", t = "Accept Call of Air from Searn Firewarder", q = 1531, n = "Searn Firewarder", e = "npc", id = 5892, m = 1454, x = 37.96, y = 37.73, min = 30, nt = { { l = 2, t = "Searn Firewarder, in the Valley of Wisdom, sends shamans on to Thousand Needles." } }, lvl = 33, only = { 4, 15, 21, 27 } },
         { k = "fly", t = "Fly to Freewind Post", n = "Freewind Post", e = "taxi", id = 30, m = 1454, x = 45.12, y = 63.89, nt = { { l = 2, t = "No flight path to Freewind Post yet? Fly to Camp Taurajo, ride south through the Great Lift and follow the road to the mesa of Freewind Post." } }, lvl = 33 },
         { k = "bind", t = "Set your hearthstone with Innkeeper Abeqwa", n = "Innkeeper Abeqwa", e = "npc", id = 11116, m = 1441, x = 46.07, y = 51.52, nt = { { l = 2, t = "Set your hearthstone here: it brings you back from Booty Bay at the end." } }, lvl = 33 },
@@ -104,6 +105,8 @@ Pathwright.Builtin.Register({
         { k = "fly", t = "Fly to Crossroads", n = "Crossroads", e = "taxi", id = 25, m = 1413, x = 63.06, y = 37.18, lvl = 33 },
         { k = "turnin", t = "Turn in Parts of the Swarm to Korran", q = 1148, n = "Korran", e = "npc", id = 3428, m = 1413, x = 51.07, y = 29.63, lvl = 33 },
         { k = "accept", t = "Accept Parts of the Swarm from Korran", q = 1184, n = "Korran", e = "npc", id = 3428, m = 1413, x = 51.07, y = 29.63, min = 28, pa = { 1148 }, lvl = 34 },
+        { k = "turnin", t = "Turn in Regthar Deathgate to Regthar Deathgate", q = 1361, n = "Regthar Deathgate", e = "npc", id = 3389, m = 1413, x = 45.34, y = 28.41, nt = { { l = 2, t = "Regthar Deathgate stands at the watch post west of the Crossroads, a short ride along the road toward Stonetalon." } }, lvl = 34 },
+        { k = "accept", t = "Accept The Kolkar of Desolace from Regthar Deathgate", q = 1362, n = "Regthar Deathgate", e = "npc", id = 3389, m = 1413, x = 45.34, y = 28.41, min = 30, nt = { { l = 2, t = "Keep it: Desolace (34-36) takes it to Felgur Twocuts at Ghost Walker Post." } }, lvl = 34 },
         { k = "fly", t = "Fly to Orgrimmar", n = "Orgrimmar", e = "taxi", id = 23, m = 1413, x = 51.5, y = 30.34, lvl = 34 },
         { k = "turnin", t = "Turn in Parts of the Swarm to Belgrom Rockmaul", q = 1184, n = "Belgrom Rockmaul", e = "npc", id = 4485, m = 1454, x = 75.23, y = 34.24, lvl = 34 },
         { k = "accept", t = "Accept Chief Engineer Scooty from Sovik", q = 2842, n = "Sovik", e = "npc", id = 3413, m = 1454, x = 75.49, y = 25.36, min = 20, nt = { { l = 2, t = "Sovik is in the building next to Nogg, in the Valley of Honor; ask him what else he has to say." } }, lvl = 34 },

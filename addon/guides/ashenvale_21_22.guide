@@ -41,8 +41,8 @@
 guide Ashenvale (21-22)
 faction horde
 levels 21 22
-carry 264 1063 1511 1536 3301 6562 93739
-leave 264 1065 1536 3301 5644
+carry 264 1063 1511 1536 3301 6543 6562 93739
+leave 264 1065 1536 3301 5644 6543
 next Hillsbrad Foothills (22-24)
 
 # Va'xug Firefure's ravine --------------------------------------------------------------------------
@@ -65,6 +65,8 @@ tip Talk to your Eye of Kilrogg on the road to hand it in.
 goto "Go west past the Ruins of Stardust and along the western hills to Zoram'gar Outpost, on the Zoram Strand" at 12.2,33.8 r 30
 tip Keep well south and west of Astranaar, the night elf town on the lake in the middle of the zone: its Sentinels are level 40. Go round the Ruins of Stardust, then north-west through the hills to the coast.
 fpath 11901
+do 6543.1 at 12.2,34.2 npc 12863 icon talk "Give the Warsong Runner his report"
+tip For The Warsong Reports (from Kadrak): the Warsong Runner waits at the edge of the outpost. Keep his update.
 turnin 6562
 tip Je'neu Sancrea is inside the big hut of the outpost. Leave The Essence of Aku'Mai he offers next: it is for Blackfathom Deeps, a dungeon.
 accept 6442

@@ -31,10 +31,10 @@
 #   The Barrens (24-25) hands it in.
 # Report to Kadrak (6542, Darn Talongrip at Malaka'jin) is done here; it is exclusive with the other
 #   Report to Kadrak (6541) that The Barrens (24-25) offers, so that one skips itself.
+# Left to later guides: The Warsong Reports (6543, Kadrak): its three Warsong scouts are in Ashenvale.
+#   Ashenvale (21-22) meets the one at Zoram'gar Outpost, Ashenvale (26-28) the two near Splintertree
+#   Post and hands it in to Kadrak.
 # Left out:
-# - The Warsong Reports (6543, Kadrak): its three Warsong scouts are in Ashenvale (Zoram'gar Outpost
-#   on the west coast, south of Splintertree Post, the road to Azshara), and this guide never goes
-#   there; none of the later guides takes it either.
 # - Battle of Warsong Gulch (8368): a battleground quest (marks of honor from Warsong Gulch).
 # - ... and that note you found (79007): it starts at the Burned-Out Remains in the far south of the
 #   Barrens and ends at their twin in Westfall, an Alliance zone no Horde guide visits.
@@ -61,7 +61,7 @@ guide The Barrens & Stonetalon Mountain (15-21)
 faction horde
 levels 15 21
 carry 1358 93739 98024
-leave 264 1063 1511 1536 3301 6562 93739
+leave 264 1063 1511 1536 3301 6543 6562 93739
 next Ashenvale (21-22)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
@@ -466,7 +466,9 @@ tip Boss Copperplug keeps the cover in the Boulder Lode Mine in the far north-ea
 do 896
 tip The Cats Eye Emerald drops very rarely from the same Overseers and Enforcers. Not after a while? Right-click the step to skip the quest.
 turnin 6542
-tip Kadrak is in the tower of Mor'shan Rampart, at the end of the road north. Leave The Warsong Reports he offers next: its scouts are in Ashenvale.
+tip Kadrak is in the tower of Mor'shan Rampart, at the end of the road north.
+accept 6543
+tip Keep the Bundle of Reports: its three Warsong scouts are in Ashenvale. Ashenvale (21-22) meets the first at Zoram'gar Outpost, Ashenvale (26-28) the other two, and brings the updates back to Kadrak.
 turnin 97003
 fly "Orgrimmar" npc 3615
 

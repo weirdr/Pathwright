@@ -21,8 +21,8 @@
 # dragons, treants); one loop west (the Rage Scar yetis, Zorbin on the Forgotten Coast for his
 # shrinker, the shrunk giants, the Northspring harpies and Edana, Zorbin again) and the hearthstone
 # back; Gadgetzan (Sprinkle and Marin's Noggenfogger Elixir, Marvon); south-east Un'Goro (Torwa
-# Pathfinder, the ravasaurs, the wrecked raft) and Marshal's Refuge; Orgrimmar and the zeppelin to
-# Grom'gol.
+# Pathfinder, the ravasaurs, the wrecked raft) and Marshal's Refuge; Orgrimmar, where the next guide
+# starts at the auction house.
 
 guide Feralas & Un'Goro Crater (49-50)
 faction horde
@@ -185,5 +185,4 @@ map Orgrimmar
 turnin 4300
 train 3353 3352 3401 6014 3344 5882 3326
 tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
-map Durotar
-note "Take the zeppelin from the tower outside Orgrimmar to Grom'gol, in Stranglethorn Vale, for the next guide" at 50.6,12.6
+note "Stay in Orgrimmar: the next guide starts at its auction house, then takes the zeppelin to Grom'gol" npc 8673

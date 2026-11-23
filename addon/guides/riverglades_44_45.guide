@@ -21,7 +21,8 @@
 # The route: Undercity (training, the auction house) and a flight to Rog'mar; Powderfuse Port and
 # three loops from it (the murloc shore, the Eastsea pirates, then Windstead, Na'zok's farm, the
 # Jom-jom cave and Bolder'ok); Admiral Lamora's ships; west to Da'grosh and the Twilight's Shroud;
-# Rog'mar and the last fights of the Bloodmaster's Ring; the hearthstone back to the port.
+# Rog'mar and the last fights of the Bloodmaster's Ring; the hearthstone back to the port; Undercity
+# and the zeppelin to Orgrimmar, where Feralas (45-46) starts.
 
 guide Riverglades (44-45)
 faction horde
@@ -205,5 +206,5 @@ turnin 95063 95433
 
 hearth npc 255894
 turnin 95267
-note "Take the boat at Powderfuse Port to Steamwheedle Port in Tanaris, ride west to Gadgetzan and fly to Camp Mojache in Feralas for the next guide" npc 259961
-tip Without the Camp Mojache flight path, fly to the closest point you know (Freewind Post or Shadowprey Village) and ride into Feralas.
+note "For the next guide, go to Orgrimmar: fly from Rog'mar to Undercity and take the zeppelin to Durotar" npc 255993
+tip Feralas (45-46) starts with a stop in Orgrimmar (Belgrom Rockmaul) before the flight to Camp Mojache.

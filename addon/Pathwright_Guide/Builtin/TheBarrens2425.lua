@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795460980,
+    created = 1795467388,
     next = "Stonetalon Mountains (25-26)",
-    carry = { 529, 546, 567, 1067, 1536 },
+    carry = { 529, 546, 567, 1067, 1536, 6543 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

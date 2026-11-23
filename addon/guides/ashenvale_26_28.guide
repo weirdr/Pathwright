@@ -21,6 +21,9 @@
 # - from The Barrens (24-25): The Ashenvale Hunt (6382, Jorn Skyseer at Camp Taurajo) and Report to
 #   Kadrak (6541, Thork at the Crossroads; not offered to those who did Report to Kadrak 6542 in
 #   Stonetalon). Both are handed in here.
+# - from The Barrens & Stonetalon Mountain (15-21): The Warsong Reports (6543, Kadrak), whose
+#   Zoram'gar scout Ashenvale (21-22) meets; the other two are on the road east and south of
+#   Splintertree Post, and Kadrak takes it back here.
 # - for shamans, Call of Water (1534, from Brine): its waterskin is filled here, at the Ruins of
 #   Stardust, and Thousand Needles (28-30) hands it in to Brine.
 # Left out:
@@ -43,7 +46,7 @@
 guide Ashenvale (26-28)
 faction horde
 levels 26 28
-carry 529 546 567 1086 1195 1534 5881 6382 6541 97538
+carry 529 546 567 1086 1195 1534 5881 6382 6541 6543 97538
 leave 529 546 567 1534 5881
 next Thousand Needles (28-30)
 
@@ -108,6 +111,11 @@ turnin 6504
 
 # The south-east: the Outrunners, Sharptalon, Torek's assault, Kadrak --------------------------------
 
+do 6543.3 at 79.0,55.4 npc 12864 icon talk "Give the Warsong Outrider his report"
+tip For The Warsong Reports: the Warsong Outrider rides the road east from Splintertree toward Azshara. Follow the road east until you meet him.
+do 6543.2 at 71.0,68.4 npc 12862 icon talk "Give the Warsong Scout his report"
+tip The Warsong Scout keeps watch south of Splintertree Post, on the way to the south-east.
+
 do 6503
 tip The Outrunners are night elves in stealth, in the woods south and east of the camps. Walk slowly and look for the shimmer.
 accept 2 at 73.4,69.0 icon kill "Kill Sharptalon, loot his Sharptalon's Claw and use it: it starts a quest"
@@ -117,7 +125,7 @@ tip Torek stands with three Splintertree Raiders south-west of the camps. If the
 do 6544 at 64.8,75.3
 tip Torek storms Silverwing Outpost. Let him and the raiders pull the Silverwing Sentinels and Warriors first. Duriel Moonfire comes last, up on the building's balcony.
 map The Barrens
-turnin 6541
+turnin 6541 6543
 tip Kadrak is on the middle floor of the tower of Mor'shan Rampart, just south of the Ashenvale border: follow the road south.
 map Ashenvale
 turnin 6503

@@ -12,7 +12,8 @@
 #   Ratchet, after Wharfmaster Dizzywig in Thousand Needles (28-30)), Final Passage (1394, from
 #   Parqual Fintallas in Undercity, after his Test of Lore) and, for shamans, Call of Water (96, from
 #   the Minor Manifestation of Water in Silverpine Forest).
-# Left to later guides: Family Tree (5361) for Desolace (34-36), Alliance Relations (1432) for
+# Left to later guides: The Kolkar of Desolace (1362, after Regthar Deathgate 1361, taken in
+#   Orgrimmar and handed in west of the Crossroads) and Family Tree (5361) for Desolace (34-36), Alliance Relations (1432) for
 #   Desolace (34-36), Hemet Nesingwary (5762) for Stranglethorn Vale (36-37), Martek the Exiled
 #   (1106) for Badlands (39-40), Frostmaw (1136) for Badlands (39-40).
 # Left out: the Gnomeregan quests, A Fine Mess (2904), Rig Wars (2841) and Grime-Encrusted Ring
@@ -28,7 +29,7 @@ guide Thousand Needles (33-34)
 faction horde
 levels 33 34
 carry 96 1112 1394 1712 1714
-leave 1106 1136 1432 1712 1714 5361 5762
+leave 1106 1136 1362 1432 1712 1714 5361 5762
 next Desolace (34-36)
 
 # Orgrimmar -------------------------------------------------------------------------------------------
@@ -36,8 +37,8 @@ next Desolace (34-36)
 map Durotar
 note "From the Eastern Kingdoms, take the zeppelin to the tower outside Orgrimmar, then walk into the city" at 50.8,13.4
 map Orgrimmar
-accept 1146
-tip Belgrom Rockmaul stands in the Valley of Honor; he has this one for those who brought him Korran's report on the silithid.
+accept 1146 1361
+tip Belgrom Rockmaul stands in the Valley of Honor; he has The Swarm Grows for those who brought him Korran's report on the silithid, and sends you to Regthar Deathgate in the Barrens.
 accept 1531
 tip Searn Firewarder, in the Valley of Wisdom, sends shamans on to Thousand Needles.
 fly "Freewind Post, Thousand Needles" npc 3310
@@ -127,6 +128,10 @@ tip Islen Waterseer stands on the shore south-east of Ratchet.
 fly "Crossroads, The Barrens" npc 16227
 turnin 1148
 accept 1184
+turnin 1361
+tip Regthar Deathgate stands at the watch post west of the Crossroads, a short ride along the road toward Stonetalon.
+accept 1362
+tip Keep it: Desolace (34-36) takes it to Felgur Twocuts at Ghost Walker Post.
 fly "Orgrimmar, Durotar" npc 3615
 map Orgrimmar
 turnin 1184

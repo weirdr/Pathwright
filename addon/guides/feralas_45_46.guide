@@ -19,7 +19,8 @@
 # Freewind Post and the ride west to Camp Mojache; four loops from the camp (the ogres and gnolls to
 # the north, the Grimtotem camps and the Woodpaw alphas, the gnoll battle plans, then the Zukk'ash
 # hive, the southern Gordunni, Feral Scar Vale, OOX-22/FE and Mirrorscale on the coast); Thunder
-# Bluff and Orgrimmar to hand in and train; the zeppelin to Grom'gol and Booty Bay.
+# Bluff and Orgrimmar to hand in and train; the zeppelin to Grom'gol and Booty Bay; back to
+# Orgrimmar, where Stranglethorn Vale (46-47) starts at the auction house.
 
 guide Feralas (45-46)
 faction horde
@@ -210,4 +211,4 @@ map Stranglethorn Vale
 fly "Booty Bay" npc 1387
 turnin 2767
 tip Oglethorpe Obnoticus is in the hut right above First Mate Crazz on the main dock of Booty Bay: take the ramp up.
-note "The next guide, Stranglethorn Vale (46-47), starts at Grom'gol: fly back there from Gringer" npc 2858
+note "The next guide, Stranglethorn Vale (46-47), starts at Orgrimmar's auction house: fly to Grom'gol from Gringer and take the zeppelin to Durotar" npc 2858

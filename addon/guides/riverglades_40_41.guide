@@ -29,7 +29,7 @@ map Riverglades
 
 # Rog'mar -------------------------------------------------------------------------------------------
 
-goto "Ride to Rog'mar, the Horde outpost of the Riverglades, northeast of Stonard" at 59.0,45.6 r 40
+goto "Ride down the pass from the Badlands into the Riverglades and east along the road to Rog'mar, the Horde outpost" at 59.0,45.6 r 40
 turnin 95143
 tip Tan'jani stands indoors.
 accept 95951

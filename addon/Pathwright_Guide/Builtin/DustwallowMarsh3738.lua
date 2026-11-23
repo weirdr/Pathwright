@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795452313,
+    created = 1795467208,
     next = "Alterac Mountains & Arathi Highlands (38-39)",
     carry = { 1106, 1136, 1373, 1712, 1714, 95141 },
     variants = {
@@ -104,6 +104,6 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Errand for Apothecary Zinge to Alessandro Luca", q = 232, n = "Alessandro Luca", e = "npc", id = 7683, m = 1458, x = 58.61, y = 54.68, lvl = 38 },
         { k = "accept", t = "Accept Errand for Apothecary Zinge from Alessandro Luca", q = 238, n = "Alessandro Luca", e = "npc", id = 7683, m = 1458, x = 58.61, y = 54.68, min = 38, pa = { 232 }, lvl = 38 },
         { k = "turnin", t = "Turn in Errand for Apothecary Zinge to Apothecary Zinge", q = 238, n = "Apothecary Zinge", e = "npc", id = 5204, m = 1458, x = 50.14, y = 67.97, lvl = 38 },
-        { k = "accept", t = "Accept Into the Field from Apothecary Zinge", q = 243, n = "Apothecary Zinge", e = "npc", id = 5204, m = 1458, x = 50.14, y = 67.97, min = 38, pa = { 238 }, nt = { { l = 2, t = "Zinge sends you to Gadgetzan: keep the kit, a later guide takes it there." } }, lvl = 38 },
+        { k = "accept", t = "Accept Into the Field from Apothecary Zinge", q = 243, n = "Apothecary Zinge", e = "npc", id = 5204, m = 1458, x = 50.14, y = 67.97, min = 38, pa = { 238 }, nt = { { l = 2, t = "Zinge sends you to Gadgetzan: keep the kit, a later guide takes it there. Stay in Undercity: the next guide starts here." } }, lvl = 38 },
     },
 })

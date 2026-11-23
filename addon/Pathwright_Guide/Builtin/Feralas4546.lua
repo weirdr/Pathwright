@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795418731,
+    created = 1795467224,
     next = "Stranglethorn Vale (46-47)",
     carry = { 1118, 2741, 3520, 95033, 95295, 95296 },
     variants = {
@@ -142,6 +142,6 @@ Pathwright.Builtin.Register({
         { k = "note", t = "Take the zeppelin to Grom'gol, in Stranglethorn Vale, from the tower outside Orgrimmar", m = 1411, x = 50.6, y = 12.6, lvl = 46 },
         { k = "fly", t = "Fly to Booty Bay", n = "Booty Bay", e = "taxi", id = 18, m = 1434, x = 32.47, y = 29.28, lvl = 46 },
         { k = "turnin", t = "Turn in Rescue OOX-22/FE! to Oglethorpe Obnoticus", q = 2767, n = "Oglethorpe Obnoticus", e = "npc", id = 7406, m = 1434, x = 28.35, y = 76.33, nt = { { l = 2, t = "Oglethorpe Obnoticus is in the hut right above First Mate Crazz on the main dock of Booty Bay: take the ramp up." } }, lvl = 46 },
-        { k = "note", t = "The next guide, Stranglethorn Vale (46-47), starts at Grom'gol: fly back there from Gringer", n = "Gringer", e = "npc", id = 2858, m = 1434, x = 26.87, y = 77.1, lvl = 46 },
+        { k = "note", t = "The next guide, Stranglethorn Vale (46-47), starts at Orgrimmar's auction house: fly to Grom'gol from Gringer and take the zeppelin to Durotar", n = "Gringer", e = "npc", id = 2858, m = 1434, x = 26.87, y = 77.1, lvl = 46 },
     },
 })

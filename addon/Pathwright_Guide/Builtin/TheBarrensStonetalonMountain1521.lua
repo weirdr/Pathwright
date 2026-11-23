@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795467132,
+    created = 1795467399,
     next = "Ashenvale (21-22)",
     carry = { 1358, 93739, 98024 },
     variants = {
@@ -306,7 +306,8 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Chol'aruk's Head", q = 97003, o = 1, ic = "get", n = "Chol'aruk's Head", e = "item", id = 276070, c = 1, m = 1413, x = 57.53, y = 27.06, mobs = { "Chol'aruk" }, mi = { 267307 }, nt = { { l = 2, t = "Chol'aruk, a level 20 elite, guards the Razormane camp east of the road. Fight him together at full health." } }, lvl = 20 },
         { k = "objective", t = "Kill Boss Copperplug for the Samophlange Manual Cover and the Venture Co. Enforcers and Overseers for its pages, then put them together", q = 3924, o = 1, ic = "get", n = "Samophlange Manual", e = "item", id = 11149, c = 1, m = 1413, x = 60, y = 4.1, mobs = { "Boss Copperplug", "Venture Co. Enforcer", "Venture Co. Overseer" }, mi = { 9336, 3283, 3286 }, nt = { { l = 2, t = "Boss Copperplug keeps the cover in the Boulder Lode Mine in the far north-east; the Enforcers and Overseers drop the pages. Put the cover and the pages together into the manual." } }, lvl = 20 },
         { k = "objective", t = "Cats Eye Emerald", q = 896, o = 1, ic = "get", n = "Cats Eye Emerald", e = "item", id = 5097, c = 1, m = 1413, x = 60.86, y = 4, mobs = { "Venture Co. Enforcer", "Venture Co. Overseer", "Boss Copperplug" }, mi = { 3283, 3286, 9336 }, nt = { { l = 2, t = "The Cats Eye Emerald drops very rarely from the same Overseers and Enforcers. Not after a while? Right-click the step to skip the quest." } }, lvl = 20 },
-        { k = "turnin", t = "Turn in Report to Kadrak to Kadrak", q = 6542, n = "Kadrak", e = "npc", id = 8582, m = 1413, x = 48.12, y = 5.42, nt = { { l = 2, t = "Kadrak is in the tower of Mor'shan Rampart, at the end of the road north. Leave The Warsong Reports he offers next: its scouts are in Ashenvale." } }, lvl = 20 },
+        { k = "turnin", t = "Turn in Report to Kadrak to Kadrak", q = 6542, n = "Kadrak", e = "npc", id = 8582, m = 1413, x = 48.12, y = 5.42, nt = { { l = 2, t = "Kadrak is in the tower of Mor'shan Rampart, at the end of the road north." } }, lvl = 20 },
+        { k = "accept", t = "Accept The Warsong Reports from Kadrak", q = 6543, n = "Kadrak", e = "npc", id = 8582, m = 1413, x = 48.12, y = 5.42, min = 17, nt = { { l = 2, t = "Keep the Bundle of Reports: its three Warsong scouts are in Ashenvale. Ashenvale (21-22) meets the first at Zoram'gar Outpost, Ashenvale (26-28) the other two, and brings the updates back to Kadrak." } }, lvl = 20 },
         { k = "turnin", t = "Turn in Chol'aruk the Ravener to Gur'ak", q = 97003, n = "Gur'ak", e = "npc", id = 267310, m = 1413, x = 52.65, y = 29.06, lvl = 20 },
         { k = "fly", t = "Fly to Orgrimmar", n = "Orgrimmar", e = "taxi", id = 23, m = 1413, x = 51.5, y = 30.34, lvl = 20 },
         { k = "turnin", t = "Turn in Samophlange Manual to Rilli Greasygob", q = 3924, n = "Rilli Greasygob", e = "npc", id = 9317, m = 1454, x = 76.52, y = 24.41, lvl = 20 },

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795430457,
+    created = 1795467224,
     next = "Stranglethorn Vale & Swamp of Sorrows (50-50)",
     carry = { 81, 580, 1122, 1444, 2641, 2874, 3123, 3444, 3568 },
     variants = {
@@ -141,6 +141,6 @@ Pathwright.Builtin.Register({
         { k = "train", t = "Train with Kardris Dreamseeker", n = "Kardris Dreamseeker", e = "npc", id = 3344, m = 1454, x = 38.8, y = 36.37, lvl = 50, only = { 4, 15, 21, 27 } },
         { k = "train", t = "Train with Pephredo", n = "Pephredo", e = "npc", id = 5882, m = 1454, x = 38.35, y = 85.56, lvl = 50, only = { 5, 11, 22 } },
         { k = "train", t = "Train with Zevrost", n = "Zevrost", e = "npc", id = 3326, m = 1454, x = 48.47, y = 45.43, nt = { { l = 2, t = "Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff." } }, lvl = 50, only = { 6, 12, 23 } },
-        { k = "note", t = "Take the zeppelin from the tower outside Orgrimmar to Grom'gol, in Stranglethorn Vale, for the next guide", m = 1411, x = 50.6, y = 12.6, lvl = 50 },
+        { k = "note", t = "Stay in Orgrimmar: the next guide starts at its auction house, then takes the zeppelin to Grom'gol", n = "Auctioneer Thathung", e = "npc", id = 8673, m = 1454, x = 55.9, y = 62.71, lvl = 50 },
     },
 })

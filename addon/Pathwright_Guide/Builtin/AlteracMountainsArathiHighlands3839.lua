@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795391118,
+    created = 1795467208,
     next = "Badlands (39-40)",
     carry = { 243, 1106, 1136, 1240, 1270, 1276, 1373, 1712, 1714, 95141 },
     variants = {
@@ -42,7 +42,6 @@ Pathwright.Builtin.Register({
         { race = 96, class = 11, faction = "Horde" },
     },
     steps = {
-        { k = "note", t = "From Kalimdor, take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades, then walk into Undercity", m = 1411, x = 50.8, y = 13.4, lvl = 38 },
         { k = "objective", t = "Buy 8 Liferoot at the auction house (optional)", q = 1712, o = 1, ic = "buy", n = "Liferoot", e = "item", id = 3357, c = 8, by = true, m = 1458, x = 67.55, y = 52.42, bg = true, nt = { { l = 1, t = "For Cyclonian: a vendor sells them too. Buy them here, or at the vendor, or farm them." }, { l = 2, t = "Warriors on Cyclonian need 8 Liferoot. Herbalists find it along streams; everyone else can buy it here." } }, lvl = 38, only = { 1, 7, 13, 17, 24 } },
         { k = "train", t = "Train with Christoph Walker", n = "Christoph Walker", e = "npc", id = 4593, m = 1458, x = 46.93, y = 15.23, lvl = 38, only = { 1, 7, 13, 17, 24 } },
         { k = "train", t = "Train with Garen Largo", n = "Garen Largo", e = "npc", id = 260093, m = 1458, x = 47.53, y = 14.99, lvl = 38, only = { 8 } },

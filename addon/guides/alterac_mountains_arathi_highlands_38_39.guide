@@ -36,8 +36,6 @@ next Badlands (39-40)
 
 # Undercity ------------------------------------------------------------------------------------------
 
-map Durotar
-note "From Kalimdor, take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades, then walk into Undercity" at 50.8,13.4
 map Undercity
 ah 1712.1 npc 8672
 tip Warriors on Cyclonian need 8 Liferoot. Herbalists find it along streams; everyone else can buy it here.

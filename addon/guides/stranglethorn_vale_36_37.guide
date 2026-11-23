@@ -93,8 +93,7 @@ do 97328 bg
 tip The Stolen Shipments are crates lying around the Ruins of Zul'Kunda.
 do 189 bg
 do 581 bg
-do 1712.2 bg
-tip Warriors on Cyclonian: Bath'rah wants 30 tusks and Nimboya 9, so keep going until you have 39.
+tip Warriors on Cyclonian: collect only Nimboya's 9 tusks here. Players report that handing in Hunt for Yenniku takes every Bloodscalp Tusk you carry, so Bath'rah's 30 come after it, at the end of the guide.
 accept 97329
 tip Zimmix Sputterspark, a goblin, is locked in a cage in the south of the ruins.
 do 97329
@@ -102,7 +101,6 @@ tip The key is a rare drop from any of the Bloodscalp trolls in the ruins: it wi
 do 97328
 do 189
 do 581
-do 1712.2
 turnin 97329
 accept 97331
 do 97331 at 26.9,11.4 icon text "Escort Zimmix Sputterspark out of the ruins to the east"
@@ -146,4 +144,6 @@ turnin 97331
 fly "Grom'gol, Stranglethorn" npc 2858
 turnin 568
 turnin 581
+do 1712.2 only warrior
+tip Warriors only: now gather Bath'rah's 30 Bloodscalp Tusks from the Bloodscalp trolls, the nearest north-west of Grom'gol. Handing in Hunt for Yenniku first keeps them safe.
 note "Take the zeppelin from the Grom'gol tower to Orgrimmar: the next guide starts there" at 31.5,29.5

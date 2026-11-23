@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795390603,
+    created = 1795467208,
     next = "Stranglethorn Vale & Swamp of Sorrows (41-43)",
     carry = { 243, 669, 1137, 1240, 1270, 1373, 1420, 95141, 95143 },
     variants = {
@@ -42,7 +42,7 @@ Pathwright.Builtin.Register({
         { race = 96, class = 11, faction = "Horde" },
     },
     steps = {
-        { k = "goto", t = "Ride to Rog'mar, the Horde outpost of the Riverglades, northeast of Stonard", m = 2548, x = 59, y = 45.6, r = 40, lvl = 40 },
+        { k = "goto", t = "Ride down the pass from the Badlands into the Riverglades and east along the road to Rog'mar, the Horde outpost", m = 2548, x = 59, y = 45.6, r = 40, lvl = 40 },
         { k = "bind", t = "Set your hearthstone with Innkeeper Toka", n = "Innkeeper Toka", e = "npc", id = 256675, m = 2548, x = 57.99, y = 45.1, lvl = 40 },
         { k = "turnin", t = "Turn in Finding Tan'jani to Tan'jani", q = 95143, n = "Tan'jani", e = "npc", id = 263190, m = 2548, x = 58.13, y = 45.32, nt = { { l = 2, t = "Tan'jani stands indoors." } }, lvl = 40 },
         { k = "accept", t = "Accept Fetch 'n' Fletch from Tan'jani", q = 95951, n = "Tan'jani", e = "npc", id = 263190, m = 2548, x = 58.13, y = 45.32, min = 36, lvl = 40 },

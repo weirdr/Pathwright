@@ -18,10 +18,9 @@
 #   fire spirit are on Telf Joolam's hill in Durotar (outof.games).
 #
 # Starts at Camp Narache, where Tauren begin.
+# Added from the Undead Starter's list (each starter is its own chain): Rezlak's Winds in the Desert
+#   (834) and Securing the Lines (835) in Durotar, beside A Simmering Storm (97281).
 # Dropped:
-# - Securing the Lines (835, Rezlak in Durotar): it needs Winds in the Desert (834) handed in first
-#   (outof.games: "Finish first"), and the allocation gives 834 to the Undead Starter. A Simmering
-#   Storm (97281), from the same harpies, is done.
 # - Welcome to Azeroth (95350, Alaana Stormwalker): for Windshaper Skyborne only, after their
 #   starter's last quest (95349).
 # Race-only quests: none to tell apart (this guide is for Tauren only); the class quests are kept
@@ -407,12 +406,19 @@ map Durotar
 turnin 1524
 tip Take the road east over the bridge into Durotar. Telf Joolam is on top of the hill south of the road.
 accept 1525
+accept 834
+tip Rezlak, a goblin, stands by the road in Razorwind Canyon, north of the bridge.
+do 834 at 50.2,25.2
+tip The Stolen Supply Sacks lie east of Rezlak, towards Drygulch Ravine, and along the road south of him.
+turnin 834
+accept 835
+do 835
+tip The Dustwind harpies nest in Drygulch Ravine, east of Rezlak. Interrupt the Storm Witches' Lightning Bolt.
 accept 97281 at 52.0,21.4 "Kill Dustwind Storm Witches until one drops a Dull Storm Orb, and use it"
-tip The harpies of Drygulch Ravine, north-east Durotar, near Orgrimmar. The orb doesn't drop every time.
+tip The orb doesn't drop every time, and each of you needs your own.
 do 1525.2
-tip The Burning Blade Cultists hide in Dustwind Cave, beside the ravine.
-turnin 97281
-tip Rezlak stands by the road in Razorwind Canyon.
+tip Shamans: the Burning Blade Cultists hide in Dustwind Cave, beside the ravine.
+turnin 835 97281
 map Orgrimmar
 fpath 3310
 tip Doras's tower is in the Valley of Strength, just inside the front gate.

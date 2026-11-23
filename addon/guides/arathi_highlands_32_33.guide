@@ -49,7 +49,7 @@ tip Genavie Callow stands a few steps from the flight master.
 turnin 550
 tip Varimathras stands beside the Dark Lady in the Royal Quarter.
 accept 1394
-tip Parqual Fintallas gives this one once you passed his Test of Lore: keep it, the next guide hands it in at Thousand Needles. Not offered? Skip this step.
+tip Parqual Fintallas gives this one only to those who finished his Test of Lore, which runs through the Dor'danil Barrow Den in Ashenvale and a book in Scarlet Monastery (the leveling guides leave it out). Keep it if you have it: the next guide hands it in at Thousand Needles. Not offered? Skip this step.
 fly "Tarren Mill, Hillsbrad" npc 4551
 tip Already have the Hammerfall flight path? Fly there instead and do the Boulderfist Outpost and the Dabyrie Farmstead from Hammerfall.
 

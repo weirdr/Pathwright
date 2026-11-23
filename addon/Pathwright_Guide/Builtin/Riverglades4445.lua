@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795385658,
+    created = 1795467224,
     next = "Feralas (45-46)",
     carry = { 1118, 2741, 3520, 94895, 95144 },
     variants = {
@@ -174,6 +174,6 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Death to the Executioner to Clugfist", q = 95433, n = "Clugfist", e = "npc", id = 255829, m = 2548, x = 64.25, y = 15.72, lvl = 45 },
         { k = "hearth", t = "Use your hearthstone to Innkeeper Zizplink", m = 2548, x = 78.77, y = 54.02, lvl = 45 },
         { k = "turnin", t = "Turn in The Monster Surfaces to Argo Brinewhistle", q = 95267, n = "Argo Brinewhistle", e = "npc", id = 260231, m = 2548, x = 79.92, y = 52.46, lvl = 45 },
-        { k = "note", t = "Take the boat at Powderfuse Port to Steamwheedle Port in Tanaris, ride west to Gadgetzan and fly to Camp Mojache in Feralas for the next guide", n = "Wharfmaster Whizzbuzz", e = "npc", id = 259961, m = 2548, x = 79.39, y = 52.74, nt = { { l = 2, t = "Without the Camp Mojache flight path, fly to the closest point you know (Freewind Post or Shadowprey Village) and ride into Feralas." } }, lvl = 45 },
+        { k = "note", t = "For the next guide, go to Orgrimmar: fly from Rog'mar to Undercity and take the zeppelin to Durotar", n = "Grakna", e = "npc", id = 255993, m = 2548, x = 59.59, y = 45.08, nt = { { l = 2, t = "Feralas (45-46) starts with a stop in Orgrimmar (Belgrom Rockmaul) before the flight to Camp Mojache." } }, lvl = 45 },
     },
 })
