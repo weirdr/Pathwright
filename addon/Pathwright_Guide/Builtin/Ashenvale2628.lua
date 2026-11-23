@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795455935,
+    created = 1795457739,
     next = "Thousand Needles (28-30)",
-    carry = { 1086, 1195, 1534, 6382, 6541, 97538 },
+    carry = { 1086, 1195, 1534, 5881, 6382, 6541, 97538 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

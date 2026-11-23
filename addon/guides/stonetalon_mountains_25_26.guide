@@ -1,0 +1,157 @@
+# Stonetalon Mountains (25-26): the Horde quests of Sun Rock Retreat (the Bloodfury harpies and their
+# Ripper, the fire elementals and the Gaea seeds of the Charred Vale, the druids of Stonetalon Peak),
+# Windshear Crag and its Venture Co. shredders, and Witch Doctor Jin'Zil of Malaka'jin, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/stonetalon_mountains_25_26.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Stonetalon Mountains, area
+# 406; The Barrens); RestedXP's and Zygor's routes as a check. The quest list is section 9 of
+# addon/guides/horde_1_40_allocation.md.
+#
+# Starts at the Crossroads, in the Barrens: The Barrens (24-25) should end there. The guide walks
+#   west along the road into the mountains, past Seereth Stonebreak and Malaka'jin, to take
+#   Shredding Machines (1068) and Jin'Zil's Forest Magic (1058) on the way in, rather than carry them
+#   from The Barrens & Stonetalon Mountain (15-21) through four guides.
+# Carried in (skipped by those who lack them):
+# - from Thunder Bluff, which The Barrens (24-25) passes: The Flying Machine Airport (1086,
+#   Apothecary Zamah) and Pigments for Paints (97538, Tah Winterhoof). Their objectives are done
+#   here (the Venture Co. copter pad at Windshear Crag, the Mirkweed of Mirkfallon Lake) and
+#   Ashenvale (26-28) hands them in at Thunder Bluff.
+# - Stepping Stones (79192): its Nailed Plank is in the south of the Barrens, and The Barrens (24-25)
+#   should take it; it ends at the Pocket Litter above Sun Rock Retreat, which starts Scramble (79980).
+# Left to later guides: Calling in the Reserves (5881), a letter from Maggran Earthbinder for Grish
+#   Longrunner at the Great Lift: Thousand Needles (28-30) hands it in.
+# Left out:
+# - Ordanus (1088) and The Den (1089): Keeper Ordanus is at Raynewood Retreat in central Ashenvale,
+#   his head goes back to Braelyn Firehand here, and The Den needs Ordanus done. No later guide comes
+#   back to Sun Rock Retreat in time (Ashenvale (26-28) ends at Thunder Bluff).
+# - Wet Job (79974), which Scramble leads to: a level 32 quest that ends in Loch Modan.
+# The auction house: no quest of this guide has an item worth buying, and the guide passes no city.
+#   The Shredder Operating Manual pages for The Lost Pages (6504, Ashenvale (26-28)) are best offered
+#   at The Barrens (24-25)'s visit to Thunder Bluff.
+#
+# The route: the road west from the Crossroads to Seereth Stonebreak and Malaka'jin; north up the
+# Webwinder Path to Ziz Fizziks and the Venture Co. camp at Windshear Crag (the shredders, the copter
+# pad, Gerenzo Wrenchwhistle); Sun Rock Retreat; a loop north (Mirkfallon Lake, Stonetalon Peak);
+# the Pocket Litter and a jump down into the Charred Vale (the harpies, the fire elementals, the
+# Gaea mounds); back to the Charred Vale for Bloodfury Ripper; south to Malaka'jin and Seereth, and
+# the hearthstone to Sun Rock Retreat for the flight to Zoram'gar Outpost, where Ashenvale (26-28)
+# starts.
+
+guide Stonetalon Mountains (25-26)
+faction horde
+levels 25 26
+carry 1086 79192 97538
+leave 1086 5881 97538
+next Ashenvale (26-28)
+
+# The road west from the Crossroads ------------------------------------------------------------------
+
+map The Barrens
+accept 1068
+tip From the Crossroads, follow the road west toward the mountains: Seereth Stonebreak camps where it climbs into Stonetalon. He has this for those who did his Goblin Invaders.
+
+# Malaka'jin and the Webwinder Path -----------------------------------------------------------------
+
+map Stonetalon Mountains
+accept 1058
+tip Witch Doctor Jin'Zil is at Malaka'jin, the troll camp just inside the mountains west of Seereth, in the small cave at its back.
+accept 1096
+tip Take the Webwinder Path north, past the spiders. Ziz Fizziks' hut stands where the path turns west toward Sun Rock Retreat. He has this for those who brought him Further Instructions.
+
+# Windshear Crag ------------------------------------------------------------------------------------
+
+do 1068.2
+tip XT:9, a level 23 shredder, walks back and forth across the south of the logging camp. Clear the loggers around it before you pull it.
+do 1068.1
+tip XT:4 walks the north of the camp, near Cragpool Lake. One kill counts for both of you.
+do 1086.2 at 66.5,45.5 icon use "Use the Toxic Fogger at the Venture Co. copter pad"
+tip The copter pad sits under the goblins' wooden platforms in the middle of the camp. Each of you uses your own fogger there.
+do 1096
+tip Gerenzo Wrenchwhistle (level 27) stands on the high wooden platforms by the water wheel, above the north side of the lake: take the walkway up the cliff to reach him.
+turnin 1096
+
+# Sun Rock Retreat ----------------------------------------------------------------------------------
+
+fpath 4312
+bind 7731
+tip Set your hearthstone here: it brings you back from Malaka'jin at the end of the guide.
+accept 1087
+accept 6301
+accept 6282 86576 5881
+accept 6393
+tip Tsunaman stands up the hill behind the inn, by Mor'rogal.
+
+# North: Mirkfallon Lake and Stonetalon Peak --------------------------------------------------------
+
+do 1058.3 bg
+tip The Antlered and Great Coursers (deer) graze all the way from Mirkfallon Lake to the Peak. Kill every one you pass: each of you needs thirty eyes.
+do 6301
+tip The Gaea Seeds are small brown pine cones on the ground around the shore of Mirkfallon Lake.
+do 97538
+tip The Mirkweed grows in the shallows and along the shore of the lake; the Dried Mirkweed Piles on the bank count too.
+do 1087
+tip The druids' camp is on Stonetalon Peak, around the big tree. Sentinel Amarassan, a level 27 elite night elf, patrols between it and the cliffs to the west: fight her only together and at full health, or let her pass.
+do 1058.1
+tip The Sap Beasts are green oozes in the woods south of the druids.
+do 1058.2
+tip The Twilight Runners, blue cats, prowl the slope west of the druids' camp.
+do 1058.4
+tip Any Fey Dragon or Wily Fey Dragon can drop the scale. They blink about and are easy to miss among the trees.
+do 1058.3
+tip Not thirty eyes yet? Finish on the coursers on the way back south past Mirkfallon Lake.
+
+# Sun Rock Retreat ----------------------------------------------------------------------------------
+
+turnin 6301
+accept 6381
+turnin 1087
+
+# The Pocket Litter and the Charred Vale ------------------------------------------------------------
+
+turnin 79192
+tip Take the dirt path that climbs north-west out of Sun Rock Retreat. The Pocket Litter lies on a crate on the ridge.
+accept 79980
+turnin 79980
+tip A hundred paces due north along the ridge, the Mound of Dirt waits at the top of the cliff over the Charred Vale. From there, step down the slope carefully into the vale.
+do 6393 bg
+tip Every fire elemental of the vale can drop Incendrites: the Rogue Flame Spirits at its north end, the Burning Ravagers and Destroyers further south.
+do 86576 bg
+tip Every kind of Bloodfury harpy can drop a Glittering Sunstone, the Windcallers and Storm Witches too.
+do 6282
+tip The harpies nest along the western hills of the vale: Harpies and Ambushers in the middle, Slayers and Roguefeathers at the south-west end.
+do 6381
+tip The Gaea Dirt Mounds are small heaps of earth all over the floor of the vale, most of them in its southern half. Each of you plants ten with the Enchanted Gaea Seeds.
+do 6393 at 32.3,72.0
+tip Short of Incendrites? The Burning Destroyers wander the south end of the vale.
+do 86576 at 32.5,63.1
+tip Short of sunstones? The Windcallers gather in the middle of the vale, on your way back east to Sun Rock Retreat.
+
+# Sun Rock Retreat ----------------------------------------------------------------------------------
+
+turnin 6282
+accept 6283
+turnin 86576
+turnin 6393
+turnin 6381
+sell 4082
+
+# Bloodfury Ripper -----------------------------------------------------------------------------------
+
+do 6283
+tip Bloodfury Ripper, a level 26 elite, keeps to the harpy nests on the western hills of the vale. Clear the harpies around her first and pull her alone.
+turnin 6283
+
+# South to Malaka'jin and the Barrens ----------------------------------------------------------------
+
+turnin 1058
+tip Follow the Webwinder Path back south-east to Malaka'jin.
+map The Barrens
+turnin 1068
+map Stonetalon Mountains
+hearth npc 7731
+tip Hearthstone not ready? Walk back up the Webwinder Path to Sun Rock Retreat, or go east to the Crossroads and fly to Zoram'gar from there.
+fly "Zoram'gar Outpost" npc 4312
+tip No flight path to Zoram'gar? Walk the Talondeep Path, the tunnel from the north-east of Stonetalon into Ashenvale, then head north-west past the Ruins of Stardust to the Zoram Strand.
