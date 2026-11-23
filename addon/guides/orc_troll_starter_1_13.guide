@@ -1,0 +1,458 @@
+# Orc & Troll Starter (1-13): the Valley of Trials, Sen'jin Village and the Echo Isles, Razor Hill and
+# Tiragarde Keep, Drygulch Ravine, Thunder Ridge and Skull Rock, and Orgrimmar, for an Orc or Troll duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/orc_troll_starter_1_13.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, race and class masks, drops, timers
+# and the places of mobs and objects from the game data (data/forever.sqlite), checked against
+# outof.games (Durotar, area 14; Orgrimmar; the quest pages of the unclear ones); Zygor's route as a
+# check (there is no RestedXP route below level 21). Wowhead not consulted.
+# The quest list is section 3 of addon/guides/horde_1_40_allocation.md, plus Threat from Below
+# (99051), which Silverpine Forest (13-15) dropped because it is done here.
+#
+# Orcs and Trolls both start in the Valley of Trials in this game: there are no Echo Isles starting
+# quests (the Echo Isles are visited for Sen'jin Village's quests). Each class gets a letter from
+# Gornek: Orcs a Parchment, Trolls a Tablet. The builder's `only` knows classes, not races, so both
+# letters of a class are in the guide and the tips say which race skips which.
+# Race-only quests: Therzok (1859) is for Orc rogues; the priest quests (5648, 5649, 5654) are for
+# Trolls, the only priests here.
+#
+# Taken here although the allocation gives them to another starter (the starters run side by side,
+# so an Orc or Troll never plays those guides, and guide_chain checks each chain on its own):
+# - Winds in the Desert (834, Undead Starter), Securing the Lines (835) and A Simmering Storm (97281,
+#   Tauren Starter): Rezlak's chain in Durotar. Stormy Potential (97282, ours) needs A Simmering Storm.
+# - Call of Fire (1524-1527, Tauren Starter): the shaman Fire Totem chain that follows our Call of
+#   Fire (2983), between Far Watch Post and Telf Joolam in Durotar.
+# - Meal Appeal, Favorite Food, Rocks to Rests, Yelmak's Medley, Whuut's the Rush (97246, 97249,
+#   97326, 97242, 97275, Undead Starter): Orgrimmar errands; the Undead Starter never goes there.
+# Added (on no guide's list): the Camping 101 quests of the other professions, A Pain in the Neck
+#   (96873), This Is Spinal Axe (96874), Beasts of Thunder Ridge (96875), each for its profession
+#   only (`skill`); for Troll priests, In Favor of Spirituality, Garments of Spirituality and Hex of
+#   Weakness (5649, 5648, 5654).
+# Dropped:
+# - Hidden Enemies (5729, 5730): they follow Hidden Enemies in Ragefire Chasm (5728), a dungeon.
+# - Exploring the Horde (93739), Journey to the Crossroads (98024): for Windshaper Skyborne only
+#   (after Welcome to Azeroth, 95350), per outof.games and the race masks.
+# Data notes:
+# - Finding the Antidote (813) is marked not in the client, but outof.games lists it in the current
+#   game data and Need for a Cure (812) needs it. Kor'ghan offers it only while you have Need for a
+#   Cure, which has a 45-minute timer: the guide takes 812, takes 813, abandons 812, and takes 812
+#   again from Rhinag at the end, the antidote in the bags.
+# - Fire Tar (1525) drops from the Razormane near Far Watch Post, not the Razormane Seers far south
+#   the builder picks first; Canvas Scraps (791) from the Kul Tiras Marines and Benedict.
+# Left out: Speak with Un'thuwa and Ju-Ju Heaps (1883, 1884, mages at 10: from Orgrimmar back to
+#   Sen'jin Village), The Hunter's Path breadcrumbs (6068, 6069: Thotar offers Taming the Beast
+#   anyway), Earth Sapta (1463, a repeatable purchase), A Strategic Alliance (785, not in the game).
+# The auction house: guide_ah.py finds three items, all for profession quests: the Rough Grinding
+#   Stones (96874) and Cured Light Hides (96875), crafted, not dropped, are offered at the first
+#   Orgrimmar visit; the Luminous Residue (96873, enchanters) is not, as no city comes before the
+#   Echo Isles.
+#
+# The route: the Valley of Trials (1-6); Ukor and Sen'jin Village, the makrura coast and Kolkar Crag;
+# the Ridgeshade spiders and Brakk's camp; Razor Hill, the Razormane Grounds and Tiragarde Keep; the
+# south-east coast, the raptors and tigers and the Echo Isles, back to Sen'jin and Razor Hill; class
+# quests at 10; Heglan Shadeeye north of Tiragarde Keep; the Razormane camp, Rezlak and Drygulch
+# Ravine, the naga coast; Orgrimmar (flight path, the city's errands); Rhinag's venomtails and
+# Thunder Ridge; Razor Hill; Margoz, Skull Rock and the sea giant; Razor Hill (shamans to Telf Joolam
+# and Far Watch, warriors to Far Watch); Orgrimmar again; Rhinag; and the zeppelin to Tirisfal Glades
+# from the tower outside Orgrimmar, where Silverpine Forest (13-15) starts.
+
+guide Orc & Troll Starter (1-13)
+races 2 8
+levels 1 13
+next Silverpine Forest (13-15)
+
+# The Valley of Trials ------------------------------------------------------------------------------
+
+map Durotar
+accept 4641
+tip Orcs and Trolls both start here, in the Valley of Trials. Gornek is inside the Den, the hut built into the cliff just west of Kaltunk.
+turnin 4641
+accept 788 97279
+do 97279 bg
+tip The Abandoned Training Weapons lie in the grass among the boars, east and north of the Den. Each of you picks up your own.
+do 788
+accept 790
+tip Hana'zua lies wounded north-west of the Den.
+do 790 mobs 3281 at 40.6,66.3
+tip Sarkoth is a big black scorpid walking the slope south of Hana'zua, close to the Den. If only one claw drops, wait for him to come back for the second.
+turnin 790
+accept 804
+turnin 788 804
+accept 789
+tip Gornek also has a letter from your class trainer: a Parchment for Orcs, a Tablet for Trolls. The guide lists both: right-click the one Gornek doesn't offer you to skip it.
+accept 2383 3087 3088 3089 3090 98576
+accept 3065 3082 3083 3084 3085 3086 98575
+turnin 97279
+tip Kzan Thornslash stands at the back of the Den.
+turnin 2383 3065 3087 3082 3088 3083 3089 3084 3090 98575 3085 98576 3086
+train 3153 3154 3155 3156 3157 3707 5884
+accept 4402
+accept 792 1485
+accept 5441
+tip Foreman Thazz'ril stands east of the Den. Hit the peons sleeping on the job (the snoring ones) with the Foreman's Blackjack.
+
+do 4402 bg
+tip The Cactus Apples grow at the foot of the cacti north of the Den.
+do 5441 bg
+do 789
+tip Scorpid Workers crawl all over the north of the valley.
+do 792 1485
+tip The Vile Familiars are in the north of the valley, below the cave.
+accept 1516
+tip Shamans: Canaga Earthcaller, outside the Den, has your first totem quest. The Felstalkers roam around the cave mouth in the north.
+do 1516
+turnin 789 4402
+turnin 5441
+accept 6394
+turnin 792 1485
+accept 1499
+turnin 1499
+accept 794
+turnin 1516
+accept 1517
+train 3153 3154 3155 3156 3157 3707 5884
+sell 3158
+do 6394
+tip The pick lies inside the cave at the north end of the valley.
+do 794
+tip Yarrog Baneshadow is inside the same cave, near the pick.
+turnin 6394
+turnin 794
+accept 805
+accept 96652 at 42.8,69.2
+tip The Lost Journal lies on the ground beside Zureetha Fargaze.
+accept 5649
+tip Priests: Ken'jai sends you to Tai'jin in Razor Hill.
+do 1517 at 44.0,76.2 icon use "Drink the Earth Sapta at Spirit Rock"
+tip Shamans: Spirit Rock stands south of the valley's mouth. Drink the sapta beside it and speak with the spirit that appears.
+turnin 1517
+accept 1518
+turnin 1518
+
+# Ukor and Sen'jin Village ---------------------------------------------------------------------------
+
+accept 2161
+tip Ukor stands by the road east of the valley, on the way to Sen'jin Village.
+turnin 805
+accept 808 826 823
+accept 818 97225
+accept 817 96821
+accept 97223
+accept 786
+accept 96873 skill Enchanting
+tip Pa'zula offers it to enchanters only; the guide skips it otherwise.
+train 5880
+tip Mages: Un'Thuwa, in Sen'jin Village, is the nearest mage trainer until Orgrimmar.
+
+# The makrura coast and Kolkar Crag
+
+do 818
+tip Makrura and Surf Crawlers live along the beach east of Sen'jin Village.
+do 786
+tip The three Attack Plans lie in Kolkar Crag, the centaur camp west of Sen'jin.
+accept 99123
+tip Pal'juh is hiding at the west end of Kolkar Crag. Both of you accept the escort before either starts it.
+do 99123 at 51.4,79.3 "Escort Pal'juh out of Kolkar Crag"
+turnin 818 99123
+turnin 786
+
+# The Ridgeshade spiders and Brakk's camp
+
+do 96821
+tip Ridgeshade Creepers and Lurkers fill the dry valley north of Ukor, on the way to Razor Hill.
+turnin 96652
+accept 96604
+do 96604 icon use "Sit by Brakk's campfire until you have Boosted Rest"
+turnin 96604
+accept 96655
+accept 97899 skill Alchemy
+accept 97900 skill Blacksmithing
+accept 97901 skill Enchanting
+accept 97902 skill Engineering
+accept 97903 skill First_Aid
+accept 97904 skill Fishing
+accept 97905 skill Herbalism
+accept 97906 skill Leatherworking
+accept 97907 skill Mining
+accept 97908 skill Skinning
+accept 96102 skill Tailoring
+tip Brakk offers a Camping 101 quest for each profession you know; the guide skips the others.
+
+# Razor Hill -------------------------------------------------------------------------------------------
+
+route off
+accept 96822
+tip Turroc stands on the east side of town.
+turnin 5649
+accept 5648
+turnin 97903
+train 3169 3173 3706 3172
+sell 3164
+turnin 823
+accept 806
+turnin 96821
+accept 784 837
+train 3171 3170
+turnin 96655
+accept 815 96825
+turnin 2161
+bind 6928
+turnin 97900 97902 97907
+accept 791
+tip Furl Scornbrow is on top of the watchtower at the north-west edge of town.
+route on
+
+# The Razormane Grounds and Tiragarde Keep
+
+do 5648 icon use "Heal Grunt Kor'ja, then give her Power Word: Fortitude"
+tip Priests: Grunt Kor'ja is resting by the road south of Razor Hill. Learn Lesser Heal (Rank 2) first.
+do 837.1 837.2
+do 96825
+tip The Razormane Quilboars and Scouts camp west of the road south of town; the Prickly Pears grow around their huts.
+turnin 96825
+turnin 5648
+do 784.1 784.2
+do 791 bg mobs 3129 3192 at 59.1,56.8
+do 96822
+tip The Raider's Shield, Battleaxe and Bow lie on the ground around the keep's outskirts.
+do 784.3
+tip Lieutenant Benedict is in the keep's tower. He drops Benedict's Key.
+accept 830 at 59.3,57.7
+tip Open Benedict's Chest, up the stairs of the tower: the Aged Envelope inside starts the quest.
+do 791 mobs 3129 3192 at 59.1,56.8
+tip Canvas Scraps drop from the Kul Tiras Marines and Benedict.
+turnin 784
+accept 825
+turnin 830
+accept 831
+turnin 96822
+turnin 791
+
+# The south-east coast, the Echo Isles and back --------------------------------------------------------
+
+do 825
+tip The Gnomish Toolboxes lie in the shallows around the wreck east of Tiragarde Keep.
+do 815 bg
+tip Taillasher Eggs sit in nests along the beach south of the wreck and on the coast towards the Echo Isles.
+do 817 bg mobs 3121 276198 at 68.9,72.4
+tip Durotar Tigers roam the coast; about one in four drops a fur. Shal'ma, a rare tiger, drops one every time.
+do 97223
+tip The Bloodtalon Matriarch stands on the coast east of Sen'jin.
+do 97225 bg
+tip The Forgotten Loa Idols lie on the ground across the Echo Isles. Wade across from the beach east of Sen'jin.
+do 96873 bg
+tip Enchanters: disenchant the Hexed Pendants the Echo Isles trolls drop.
+do 826.1 826.2
+do 808
+tip Minshina's Skull lies in the circle of power where Zalazane stands.
+do 826.3
+tip Zalazane stands in his circle of power, guarded by his hexed thralls: pull them one at a time.
+do 815
+do 817 mobs 3121 276198 at 68.9,72.4
+turnin 808 826 97225
+turnin 817
+turnin 97223
+turnin 96873
+train 5880
+turnin 97904
+tip Lau'Tiki fishes on the dock south of Sen'jin Village.
+accept 96876 at 52.0,56.0
+tip Ukorsbane, a level 8 elite spider, prowls the Ridgeshade valley just north of Ukor. Kill him together: he drops Ukor's Lost Pack, which starts the quest.
+turnin 96876
+hearth npc 6928
+turnin 815
+turnin 825
+
+# Class quests at 10, Razor Hill ----------------------------------------------------------------------------
+
+accept 99048
+accept 1505
+accept 1859
+tip Orc rogues only: Troll rogues, right-click the step to skip it.
+accept 2983
+accept 1506
+accept 5654
+tip Troll priests: Tai'jin sends you to Ur'kyo in Orgrimmar.
+train 3169 3171 3170 3706 3173 3172
+accept 6062
+do 6062 mobs 3099 at 52.8,35.2 icon use "Tame a Dire Mottled Boar with the Taming Rod"
+tip Hunters: use the Taming Rod from range. Dire Mottled Boars roam north of Razor Hill.
+turnin 6062
+accept 6083
+
+# Heglan Shadeeye, north of Tiragarde Keep
+
+turnin 99048
+accept 99049
+do 99049
+tip The dagger, the banner scrap and the trident lie east of Heglan, towards the water.
+turnin 99049
+accept 99051
+
+# The Razormane camp, Far Watch Post (warriors and shamans) and Rezlak -------------------------------------
+
+do 837.3 837.4
+tip The Razormane Dustrunners and Battleguards camp in the hills west of Razor Hill, on the way north.
+map The Barrens
+turnin 1505
+tip Warriors: follow the road west over the bridge; Uzzek is at Far Watch Post, the camp just across.
+accept 1498
+turnin 2983
+accept 1524
+tip Shamans: Kranal Fiss is at Far Watch Post too.
+map Durotar
+turnin 1524
+tip Shamans: Telf Joolam is in south-western Durotar, by the river.
+accept 1525
+map The Barrens
+do 1525.1 mobs 3267 3268 3269 3271 at 54.8,26.2
+tip Shamans: the Razormane Water Seekers, Thornweavers and Geomancers south-west of Far Watch drop Fire Tar.
+map Durotar
+accept 816
+accept 834
+do 834 at 50.2,25.2
+tip The Stolen Supply Sacks lie east of Rezlak, towards Drygulch Ravine, and along the road south of him.
+turnin 834
+accept 835
+do 835
+tip The Dustwind harpies nest in Drygulch Ravine, east of Rezlak. Interrupt the Storm Witches' Lightning Bolt.
+accept 97281 at 52.0,22.0
+tip The Storm Witches and the rare Dustwind Eggtender drop the Dull Storm Orb that starts the quest; each of you needs your own.
+do 1525.2
+tip Shamans: the Burning Blade Cultists in the ravine drop the Reagent Pouch.
+do 99051
+tip The Spitelash naga hold the coast east of the ravine; about one in three drops a spinefin.
+do 6083 mobs 3107 at 60.0,25.0 icon use "Tame a Surf Crawler with the Taming Rod"
+tip Hunters: Surf Crawlers walk the beach among the naga.
+turnin 835 97281
+accept 97282
+
+# Orgrimmar -----------------------------------------------------------------------------------------------
+
+accept 812
+tip Rhinag sits by the road near Orgrimmar's gate. The quest has a 45-minute timer: Kor'ghan gives Finding the Antidote only while you have it.
+map Orgrimmar
+accept 97246
+tip Thatog stands in the Valley of Strength, just inside the gate.
+fpath 3310
+ah 96874.2 npc 8673
+tip Blacksmiths: This Is Spinal Axe (Ug'thok, later in this visit) wants 5 Rough Grinding Stones. Make them from Rough Stone, or buy them here.
+ah 96875.2 npc 8673
+tip Leatherworkers: Beasts of Thunder Ridge (Kamari, later in this visit) wants 2 Cured Light Hides. Cure them yourself, or buy them here.
+turnin 97246
+accept 97249
+accept 813
+tip Kor'ghan is in the Cleft of Shadow.
+note "Abandon Need for a Cure (it stops the timer): Rhinag gives it again once you hold the antidote" at 47.2,53.6
+turnin 1859
+turnin 1506
+accept 1501
+accept 97242
+turnin 97899 97901 97905
+turnin 97906 97908 96102
+accept 96875 skill Leatherworking
+do 97242
+tip The Cattails and Speargrass grow in the Valley of Honor.
+accept 96874 skill Blacksmithing
+turnin 97242
+accept 97275
+turnin 97275
+turnin 831
+accept 5726
+turnin 97249
+accept 97326
+do 97326
+tip The Smooth Boulders lie in the Valley of Wisdom; each of you collects eight.
+turnin 97326
+turnin 5654
+
+# Thunder Ridge ------------------------------------------------------------------------------------------
+
+map Durotar
+do 813 mobs 3127 at 41.6,19.0
+tip Venomtail Scorpids roam outside the gate and around Rhinag; about one in three drops a poison sac.
+do 1498 bg
+tip Warriors: the Thunder Lizards and Lightning Hides of Thunder Ridge drop the Singed Scales.
+do 96874.1 96875.1 bg
+do 816 mobs 3231 at 36.5,20.0
+tip The Corrupted Dreadmaw Crocolisks swim the river west of Rhinag and below Thunder Ridge. Kron's Amulet drops rarely (about one in fifteen): right-click the step to skip its quest if it won't come.
+do 97282 mobs 3131 3130 at 41.3,24.3
+tip Lightning Hides and Thunder Lizards roam Thunder Ridge, west of Rezlak; about one in four Lightning Hides drops an organ.
+accept 96877 at 41.5,27.0
+tip Halikor, a level 12 elite thunder lizard, wanders the ridge. Kill him together: his hoof starts the quest.
+do 5726 bg mobs 3197 3198 at 42.3,26.7
+tip The Burning Blade Fanatics and Apprentices here and in Skull Rock sometimes drop the Lieutenant's Insignia (about one in fifteen). Right-click the step to skip its quest if it won't come.
+do 806 mobs 3203 at 42.1,26.7
+tip Fizzle Darkstorm leads the Burning Blade camp in the middle of Thunder Ridge. Kill his guards first.
+turnin 97282
+turnin 816
+
+# Razor Hill -------------------------------------------------------------------------------------------------
+
+turnin 837
+turnin 806 99051
+accept 828 99052
+turnin 6083
+accept 6082
+sell 3164
+do 6082 mobs 3126 at 48.0,36.0 icon use "Tame an Armored Scorpid with the Taming Rod"
+tip Hunters: Armored Scorpids crawl in the hills north of Razor Hill, by the road to Margoz.
+
+# Margoz, Skull Rock and the sea giant
+
+turnin 828
+accept 827
+do 827 mobs 3197 3198 at 52.9,9.4
+tip Margoz camps south-east of Skull Rock. The Searing Collars drop from the Burning Blade in Skull Rock, the cave in the cliff to the north-west.
+do 1501
+tip Warlocks: the Tablet of Verga is in the Burning Blade Stash, at the back of Skull Rock.
+accept 832 at 52.6,8.8
+tip Gazz'uz, a level 14 Burning Blade warlock, waits at the back of Skull Rock. Kill him together: he drops the Eye of Burning Shadow, which starts the quest.
+do 99052
+tip Aggor the Young is a level 11 elite sea giant on the north coast, east of Skull Rock. Fight him together.
+turnin 827
+accept 829
+
+# Razor Hill, the class errands, then Orgrimmar and the zeppelin
+
+turnin 99052
+tip Walk back south to Orgnil in Razor Hill.
+turnin 6082
+accept 6081
+turnin 1525
+tip Shamans: back to Telf Joolam in south-western Durotar.
+accept 1526
+do 1526
+tip Shamans: drink the Fire Sapta Telf gave you to see the Minor Manifestation of Fire by the shrine, kill it for the Glowing Ember, then put the ember in the brazier atop the shrine.
+turnin 1526
+accept 1527
+map The Barrens
+turnin 1527
+tip Shamans: bring the Torch of Eternal Flame to Kranal Fiss at Far Watch Post.
+turnin 1498
+tip Warriors: Uzzek is at Far Watch Post, west over the bridge.
+
+map Orgrimmar
+turnin 813
+turnin 829 832
+turnin 1501
+accept 1504
+do 1504 mobs 5676 at 49.4,50.0 icon kill "Use the Glyphs of Summoning in the Cleft of Shadow and defeat the Voidwalker"
+tip Warlocks: summon it on the summoning circle near Gan'rul and beat it down.
+turnin 1504
+turnin 96875 96877
+turnin 96874
+turnin 6081
+train 3352
+turnin 5726
+accept 5727
+do 5727 icon talk "Show the Lieutenant's Insignia to Neeru Fireblade"
+turnin 5727
+map Durotar
+accept 812 late
+do 812 at 41.5,18.6 icon get "Hold the Venomtail Antidote (Kor'ghan gave it to you)"
+turnin 812
+note "Take the zeppelin to Tirisfal Glades from the tower outside Orgrimmar's gate" npc 9564
+tip Frezza, on top of the tower east of the gate, sends the zeppelin to Tirisfal Glades. Silverpine Forest (13-15) starts where it lands.
