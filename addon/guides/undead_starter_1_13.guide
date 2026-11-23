@@ -15,7 +15,8 @@
 # Heirlooms (1821) and Heirloom Weapon (1822), the follow-ups of Speak with Coleman (1820): no guide
 # had them, and their weapon racks stand in the Agamand Family Crypt this guide clears anyway.
 # Class quests: Seeking Refuge (99144) is for paladins only in the project's data (an override),
-#   though outof.games shows no class: the builder keeps it for paladins.
+#   though outof.games shows no class: the builder keeps it for paladins, and the tip says it may not
+#   be offered (not yet checked in game).
 # Profession quests: Camping 101: Herbalism, Mining and Skinning show only to those with the
 #   profession (`skill`); Cooking is for everyone.
 # Left out: A Lesson in Divinity 94435-94441 (paladins, after 94434): no guide had them, and they
@@ -214,7 +215,7 @@ tip The Tirisfal Pumpkins grow in the farm north of the road, west of Deathguard
 do 427
 tip The Scarlet Warriors hold Crusader's Outpost, the farm and tower just west of the pumpkins.
 accept 99144
-tip Paladins: Bareth Dawnstone is held at the top of the tower, past Scarlets that come back quickly. If he isn't there, someone is escorting him: he is back within ten minutes.
+tip Paladins: this quest may not be offered to you (the sources disagree on who can take it): if Bareth doesn't offer it, right-click the step to skip it. Bareth Dawnstone is held at the top of the tower, past Scarlets that come back quickly. If he isn't there, someone is escorting him: he is back within ten minutes.
 do 99144 at 32.0,46.4 icon talk "Escort Bareth Dawnstone out of Crusader's Outpost"
 tip If you are both paladins, both take the quest before either starts the escort. Keep the Scarlets off him until he is clear of the outpost.
 hearth npc 5688

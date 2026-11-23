@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795434224,
+    created = 1795468508,
     next = "Silithus (59-60)",
     carry = { 1123, 4987, 8276 },
     variants = {
@@ -140,7 +140,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Aquementas from Eridan Bluewind", q = 4005, n = "Eridan Bluewind", e = "npc", id = 9116, m = 1448, x = 51.35, y = 81.51, min = 47, pa = { 4084 }, nt = { { l = 2, t = "Open Eridan's Supplies: the Book of Aquor, the Silvery Claws and the Irontree Heart are inside. Keep them for Tanaris." } }, lvl = 58 },
         { k = "turnin", t = "Turn in Words of the High Chief to Kelek Skykeeper", q = 5128, n = "Kelek Skykeeper", e = "npc", id = 10920, m = 1448, x = 51.14, y = 81.75, nt = { { l = 2, t = "Ride south down the road to the Emerald Sanctuary." } }, lvl = 58 },
         { k = "fly", t = "Fly to Orgrimmar", n = "Orgrimmar", e = "taxi", id = 23, m = 1440, x = 73.18, y = 61.59, nt = { { l = 2, t = "Ride on south into Ashenvale and east to Splintertree Post." } }, lvl = 58 },
-        { k = "note", t = "Take the zeppelin from the tower outside Orgrimmar to Undercity", m = 1411, x = 50.8, y = 13.5, lvl = 58 },
+        { k = "note", t = "Take the zeppelin from the tower outside Orgrimmar to Undercity", m = 1411, x = 50.8, y = 13.5, nt = { { l = 2, t = "Optional: this trip to the Eastern Kingdoms takes about 15 minutes and is only for two quests, Ka-Boom! (Undercity) and Return to Tinkee (Flame Crest). They are safe to skip: right-click Ka-Boom! and Return to Tinkee to drop them from the guide, skip the hearthstone, and go on from Orgrimmar with the flight to Thunder Bluff." } }, lvl = 58 },
         { k = "turnin", t = "Turn in Ka-Boom! to Oran Snakewrithe", q = 84399, n = "Oran Snakewrithe", e = "npc", id = 7825, m = 1458, x = 73.06, y = 32.85, nt = { { l = 2, t = "Oran Snakewrithe stands in the Magic Quarter." } }, lvl = 58 },
         { k = "fly", t = "Fly to Flame Crest", n = "Flame Crest", e = "taxi", id = 70, m = 1458, x = 63.25, y = 48.56, lvl = 58 },
         { k = "turnin", t = "Turn in Return to Tinkee to Tinkee Steamboil", q = 4810, n = "Tinkee Steamboil", e = "npc", id = 10267, m = 1428, x = 65.24, y = 24, nt = { { l = 2, t = "Tinkee Steamboil stands by the wind rider master at Flame Crest." } }, lvl = 58 },

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795466706,
+    created = 1795468517,
     next = "Silverpine Forest (13-15)",
     variants = {
         { race = 5, class = 1, faction = "Horde" },
@@ -151,7 +151,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in A Rogue's Deal to Calvin Montague", q = 590, n = "Calvin Montague", e = "npc", id = 6784, m = 1420, x = 37.79, y = 57.05, lvl = 7 },
         { k = "objective", t = "Tirisfal Pumpkin x10", q = 365, o = 1, ic = "pickup", n = "Tirisfal Pumpkin", e = "item", id = 2846, c = 10, m = 1420, x = 35.61, y = 50.19, nt = { { l = 1, t = "Loot them from Tirisfal Pumpkin." }, { l = 2, t = "The Tirisfal Pumpkins grow in the farm north of the road, west of Deathguard Simmer." } }, lvl = 7 },
         { k = "objective", t = "Kill Scarlet Warrior x10", q = 427, o = 1, ic = "kill", n = "Scarlet Warrior", e = "npc", id = 1535, m = 1420, x = 32, y = 47.89, spots = { { m = 1420, x = 36.83, y = 47.77 } }, mobs = { "Scarlet Warrior" }, mi = { 1535 }, nt = { { l = 2, t = "The Scarlet Warriors hold Crusader's Outpost, the farm and tower just west of the pumpkins." } }, lvl = 7 },
-        { k = "accept", t = "Accept Seeking Refuge from Bareth Dawnstone", q = 99144, n = "Bareth Dawnstone", e = "npc", id = 275954, m = 1420, x = 31.96, y = 46.35, min = 5, nt = { { l = 2, t = "Paladins: Bareth Dawnstone is held at the top of the tower, past Scarlets that come back quickly. If he isn't there, someone is escorting him: he is back within ten minutes." } }, lvl = 7, only = { 2 } },
+        { k = "accept", t = "Accept Seeking Refuge from Bareth Dawnstone", q = 99144, n = "Bareth Dawnstone", e = "npc", id = 275954, m = 1420, x = 31.96, y = 46.35, min = 5, nt = { { l = 2, t = "Paladins: this quest may not be offered to you (the sources disagree on who can take it): if Bareth doesn't offer it, right-click the step to skip it. Bareth Dawnstone is held at the top of the tower, past Scarlets that come back quickly. If he isn't there, someone is escorting him: he is back within ten minutes." } }, lvl = 7, only = { 2 } },
         { k = "objective", t = "Escort Bareth Dawnstone out of Crusader's Outpost", q = 99144, o = 1, ic = "talk", m = 1420, x = 32, y = 46.4, nt = { { l = 2, t = "If you are both paladins, both take the quest before either starts the escort. Keep the Scarlets off him until he is clear of the outpost." } }, lvl = 7, only = { 2 } },
         { k = "hearth", t = "Use your hearthstone to Innkeeper Renee", m = 1420, x = 61.72, y = 52.05, lvl = 7 },
         { k = "objective", t = "Buy a Coarse Thread from Abigail Shiel, the trade supplier", q = 375, o = 2, ic = "get", n = "Coarse Thread", e = "item", id = 2320, c = 1, m = 1420, x = 61, y = 52.4, lvl = 7 },
