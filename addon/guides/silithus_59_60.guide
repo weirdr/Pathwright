@@ -98,7 +98,7 @@ turnin 8318
 
 do 8281 bg at 49.4,56.7
 do 1126 at 60.2,52.5
-tip Climb to the top of the Southwind tower and disturb the hive there: Hive'Ashi Ambushers burst out, and one carries the object.
+tip Climb to the top of the Southwind tower and disturb the Gooey Nest there: two Hive'Ashi Ambushers burst out on the top floor, and one carries the object. Three Hive'Ashi Drones also appear as you enter the tower's bottom floor: be ready.
 turnin 8285
 tip Hermit Ortell hides in a small cave in the eastern hills.
 accept 8279
@@ -117,13 +117,13 @@ tip Rutgar and Frankal stand in the dwarves' tents. Listen to their whole storie
 do 8278.3 at 43.9,86.1
 do 8278.1 at 34.7,70.5
 do 8279.2 at 16.1,86.4
-tip Twilight Keeper Exeter walks around the Twilight camp in the south-west.
+tip Twilight Keeper Exeter walks around the Twilight camp in the south-west. He stuns and uses Mortal Strike: keep him on whoever can take it.
 do 8278.2 at 32.5,36.7
 do 8281 at 29.4,42.2
 do 8279.1 at 26.4,36.6
-tip Twilight Keeper Mayna walks the cultists' base camp in the north-west.
+tip Twilight Keeper Mayna walks the cultists' base camp in the north-west. Her Psychic Scream is an instant fear: clear the cultists around first so it doesn't send you into them.
 do 8279.3 at 40.9,42.2
-tip Twilight Keeper Havunth walks the Twilight camp west of Cenarion Hold.
+tip Twilight Keeper Havunth walks the east side of the Twilight camp west of Cenarion Hold. He hits very hard in bursts: open with your cooldowns.
 
 # Cenarion Hold -------------------------------------------------------------------------------------
 
@@ -141,7 +141,7 @@ accept 8287 8323
 accept 8309 8310
 do 8282 at 44.6,91.4 icon pickup "Pick up Noggle's Satchel"
 do 8283
-tip Deathclasp is a level 59 elite scorpion in the mountains south of the dwarves' camp; Noggle's Satchel lies near her.
+tip Deathclasp is a level 59 elite scorpion in the mountains south of the dwarves' camp; Noggle's Satchel lies near her, so loot it without waking her. She patrols with adds: pull them off and kite them until she resets, then fight her alone. She hits hard and poisons: keep her off your casters.
 do 8310.3 bg
 do 8306
 tip Mistress Natalia Mar'alith is a level 62 elite deep in Hive'Regal. Clear the way to her first and fight her together.
