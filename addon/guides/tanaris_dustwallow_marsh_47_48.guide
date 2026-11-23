@@ -35,11 +35,11 @@ next The Hinterlands (48-49)
 # Follow-ups for later guides: Report Back to Fizzlebub and Deliver to MacKinley (14), The Stone
 # Circle (13), Sprinkle's Secret Ingredient, Return to Apothecary Zinge and Ripple Recovery (12).
 
-# Orgrimmar ----------------------------------------------------------------------------------------
+# Camp Mojache, where the Swamp of Sorrows guide ends ------------------------------------------------
 
-map Orgrimmar
-fly "Freewind Post, Thousand Needles" npc 3310
-tip Coming from the Eastern Kingdoms: take the zeppelin from Grom'gol to Orgrimmar first. Doras, the wind rider master, stands on the tower by the Valley of Strength.
+map Feralas
+fly "Freewind Post, Thousand Needles" npc 8020
+tip The Swamp of Sorrows guide ends here at Camp Mojache. Coming from elsewhere, any flight master with a route to Freewind Post will do (Doras in Orgrimmar, on the tower by the Valley of Strength). Don't dawdle: the Fool's Stout's two-hour timer is running.
 
 # The Shimmering Flats -----------------------------------------------------------------------------
 
@@ -88,14 +88,15 @@ accept 97530
 accept 2873
 tip Stoley and Security Chief Bilgewhizzle stand inside the building by the docks.
 goto "Ride south along the coast to Lost Rigger Cove, the Southsea pirate camp" at 72.4,45.9 r 30
+tip The cove lies behind the cliffs: a small tunnel on the coast at about 68.5,41.4 leads into it.
 do 8365 bg
-tip Every Southsea pirate can drop a hat. You each need 20, so kill everything in the cove.
+tip All four kinds of Southsea pirate drop hats, about two kills in five. You each need 20, so kill everything in the cove.
 do 8366
 tip Dock workers fill the piers; more pirates stand on the wooden platforms and inside the huts.
 do 2873
-tip The stolen cargo is upstairs in the building on the west side of the cove.
+tip The stolen cargo is on the second floor of the house on the west side of the cove. Four or five pirates wait at the foot of its stairs and come together: be ready for the whole group.
 do 2875
-tip Andre Firebeard stands in the middle of the cove with guards around him: pull them apart.
+tip Andre Firebeard stands by the campfire in the middle of the walled pirate town (around 73,47) with two pirates. Clear what is around first and pull him apart from them if you can.
 do 8365
 goto "Ride back north to Steamwheedle Port" at 66.8,23.5 r 30
 turnin 8365
@@ -105,9 +106,9 @@ accept 2874
 tip Deliver to MacKinley is for a later guide in Booty Bay: keep it.
 turnin 2875
 do 2781 bg
-tip Caliph Scorpidsting walks a wide loop around the Wastewander camps with two guards.
+tip Caliph Scorpidsting spawns at the Waterspring camp (around 59,39) and walks between the water towers (60-63,31-37) with two stealthed Wastewander Rogues. Don't fight him in the camp, where the shadow mages join in: catch him out by a tower. He respawns in under ten minutes.
 do 1691 at 58.7,37.8
-tip The Wastewander Rogues and Assassins are stealthed: they show only when close.
+tip The Wastewander Rogues and Assassins are stealthed: they show only when close, so look for extra ones around every group. Each shadow mage brings a voidwalker.
 do 2781
 goto "Ride back to Gadgetzan" at 52.0,27.5 r 30
 turnin 1691
@@ -122,9 +123,9 @@ map Dustwallow Marsh
 accept 1172
 tip Draz'Zilb stands in the small cave at the south end of the village.
 do 1187
-tip The Gizmorium Shipping Crate lies at the water's edge, south of Theramore.
+tip The Gizmorium Shipping Crate lies in the wreck of a crashed zeppelin in the middle of the marsh (around 54,56). The way in over the hills is at about 55,51; the wreck itself is quiet.
 do 1172
-tip The eggs lie in the dragon caves of the Wyrmbog. Breaking one hatches whelps: clear the cave first.
+tip The eggs sit in nests in broken tree stumps across the Wyrmbog in the far south (around 53,72, 56,75, 52,83 and 56,81), several to a nest, with dragonkin guarding them: clear the guards, then click the eggs to destroy them.
 turnin 1172
 hearth npc 7733
 
@@ -147,26 +148,27 @@ accept 3444
 tip The Stone Circle is for a later guide: keep it.
 accept 3161
 do 3161 bg
-tip Use the Gahz'ridian Detector: the buried ornaments show as mounds of sand. Many lie around Broken Pillar, more south-west among the ogres.
+tip Put on the Gahz'ridian Detector (a helmet): while you wear it, the buried ornaments show on the minimap as little piles of sand to loot. They lie all over the south of Tanaris and respawn quickly; the ogre ruins have the most.
 do 82
-tip The Centipaar insects fill the Noxious Lair, the hive west of Broken Pillar.
+tip The Centipaar insects fill the Noxious Lair, the hive west of Broken Pillar; about one in three drops parts. Stay on its edges: the swarmers call up lots of little adds (they look like critters) and draw others from far away, and every Centipaar thrashes.
 do 97530 bg
 do 5863
-tip Gor'marok the Ravager waits in the small cave at the back of the compound.
+tip Gor'marok the Ravager waits alone in a shallow cave at the south end of the compound, visible from outside. Clear the ogres at its mouth first; he hits hard and uses Mortal Strike. Avoid the Dunemaul Warlocks if you can: their Curse of Thorns hurts.
 do 97530
-tip Any Dunemaul ogre can drop the bangle, but it is rare: keep killing them.
+tip The bangle drops only from the ogres of the Dunemaul Compound itself, not from the two smaller ogre camps nearby.
 do 3161 at 45.5,65.8
-tip The richest ornament fields are south of the compound and further south-west.
+tip The richest ornament fields are the Eastmoon Ruins (around 46,65) and the Southmoon Ruins (around 40,73, fewer ogres).
 do 2605 bg
 do 3362
 do 2605
-tip Only the Thistleshrub Dew Collectors drop the gland, and only now and then.
+tip Only the Thistleshrub Dew Collectors drop the gland, and only now and then. They share spawn points with the other Thistleshrubs, so killing those for Thistleshrub Valley brings more collectors.
 accept 1560
-tip Tooga has half an hour to get home, so do everything else first. He follows you on foot: walk, keep him alive.
-accept 97540 "Take Oasis from Tooga too, if he offers it"
-turnin 97540 "Hand Oasis back to Tooga"
-tip Oasis starts and ends with Tooga himself. If he only offers it later, when he stops to drink at water on the way, take it and hand it back there.
+tip Tooga stands at the north of Thistleshrub Valley (around 29,60) or near the crashed zeppelin (around 31,74), where he spawns before walking north. He has a long respawn: skip him if he isn't up. You can't take his quest while another timed quest runs.
+tip Tooga has half an hour to get home, so do everything else first. He follows you on foot and slowly: walk. If something attacks, stop and kill it, or he stays behind to fight it.
 do 1560 bg
+accept 97540 at 41.2,54.3 late "Lead Tooga to the little pool in the Dunemaul Compound and take Oasis from him"
+tip The pool lies in the middle of the compound, under a half-circle of red awnings. Tooga stops to swim in it: talk to him then. If he doesn't offer it there, look for it again when he reaches Torta.
+turnin 97540 at 41.2,54.3 "Hand Oasis back to Tooga"
 turnin 3161
 tip Walk Tooga past Broken Pillar to hand in the ornaments on the way.
 turnin 1560
@@ -189,13 +191,13 @@ turnin 5863
 
 goto "Ride south to the Gaping Chasm and go into the cave" at 55.8,68.9 r 20
 do 10
-tip Scrimshank's gear lies deep in the cave, among the Centipaar.
+tip Scrimshank's gear lies deep in the hive: go down the spiral ramp, through a big round room and the one tunnel beyond it into a big square room shaped like a butterfly. The gear, a little machine, stands in that room's north-west corner with one guard. The Hazzali swarmers call up adds fast: keep to the walls.
 accept 351 at 60.2,64.7 "Use the OOX-17/TN Distress Beacon, if one dropped"
-tip No beacon yet? Kill what is around you for a while, or skip the robot.
+tip No beacon yet? Kill what is around you for a while, or skip the robot. Both of you must hand in Find OOX-17/TN! before either accepts the escort.
 turnin 351
 accept 648
 do 648 at 66.8,24.0 "Escort OOX-17/TN to Steamwheedle Port"
-tip The robot walks on its own; ambushes jump it on the way.
+tip The robot walks on its own and is weak (level 42): stay close, or you fail the escort. Two ambushes come: three scorpids (47) at the first ridge, and three Wastewander near the end; kill the Scofflaw among them first, it executes anyone under 20% health.
 
 # Gadgetzan ----------------------------------------------------------------------------------------
 
@@ -229,7 +231,7 @@ note "Take the zeppelin to Grom'gol in Stranglethorn Vale from the tower outside
 map Stranglethorn Vale
 fly "Booty Bay, Stranglethorn" npc 1387
 turnin 648
-tip Oglethorpe Obnoticus works upstairs in the building by the Booty Bay flight master.
+tip Oglethorpe Obnoticus is in the hut right above First Mate Crazz on the main dock of Booty Bay: take the ramp up.
 fly "Rog'mar, Riverglades" npc 2858
 map Riverglades
 goto "Ride east to Powderfuse Port" at 77.1,52.9 r 20

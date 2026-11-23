@@ -51,6 +51,7 @@ Options after a step, in any order:
     icon <icon>     the step's icon (talk, use, kill, get, pickup, text...); not kill: no mobs
     nopre           take no prerequisite from the data (when it is wrong)
     after <quest>.. its real prerequisites, in place of the data's (when they are wrong)
+    late            an accept taken on purpose at a later visit to its giver (no warning)
     only <who>...   alliance, horde and class names (warrior, mage...): who the step is for
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
@@ -234,6 +235,8 @@ def parse_opts(n, words, quiet=False):
             o["bg"] = True; i += 1
         elif w == "nopre":
             o["nopre"] = True; i += 1
+        elif w == "late":
+            o["late"] = True; i += 1
         elif w == "after":
             o["after"] = []
             i += 1
@@ -266,7 +269,7 @@ def parse_opts(n, words, quiet=False):
     return o
 
 
-OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "after", "icon", "npc", "mobs", "only"}
+OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "after", "icon", "npc", "mobs", "only"}
 
 
 def opts_ok(words):
@@ -331,6 +334,7 @@ def emit(step, n, opts, filt):
     step["_line"] = n
     step["_who"] = filt
     step["_noroute"] = not route_on
+    step["_late"] = bool(opts.get("late"))
     if opts.get("at"):
         step["m"] = opts.get("in") or current_map
         step["x"], step["y"] = opts["at"]
@@ -978,7 +982,7 @@ for i, s in enumerate(steps):
         done_at.setdefault(s["q"], i)
 quests_in = {s["q"] for s in steps if s.get("q")}
 for i, s in enumerate(steps):
-    if s["k"] != "accept" or not s.get("e") in ("npc", "object"):
+    if s["k"] != "accept" or not s.get("e") in ("npc", "object") or s.get("_late"):
         continue
     q = s["_q"]
     for j in range(i):
