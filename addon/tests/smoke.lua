@@ -1748,6 +1748,65 @@ for _, f in ipairs(frames) do
     end
 end
 assert(FG.Party:Suffix(7101, 1, 8):find("Pata 3", 1, true), "party progress shown: " .. FG.Party:Suffix(7101, 1, 8))
+do
+    -- A full update keeps what was known until it has come in whole: a chunk lost on the way
+    -- takes no line away, and a quest is dropped only once an update came whole without it.
+    local function fromPata(message)
+        for _, f in ipairs(frames) do
+            if f.events.CHAT_MSG_ADDON and f.OnEvent then
+                f:OnEvent("CHAT_MSG_ADDON", "PWSYNC1", message, "PARTY", "Pata-Realm")
+            end
+        end
+    end
+    local pata = function() return FG.Party.progress.Pata or {} end
+    fromPata("E:1")
+    assert(pata()[7101] and pata()[33], "the update whole: both quests kept")
+    fromPata("R")
+    assert(pata()[7101] and pata()[7101][1] == "3", "an update starting takes nothing away")
+    fromPata("7101:4")
+    fromPata("E:2")
+    assert(pata()[7101][1] == "4" and pata()[33], "a chunk lost: its quests stay as they were")
+    fromPata("R")
+    fromPata("7101:5")
+    fromPata("E:1")
+    assert(pata()[7101][1] == "5" and not pata()[33], "whole without the quest: gone")
+    -- A member on a version that sends no end: settled by time.
+    fromPata("R")
+    fromPata("33:2")
+    assert(pata()[7101], "not settled yet")
+    runTimers()
+    assert(pata()[33] and pata()[33][1] == "2" and not pata()[7101], "settled: what was not sent again is gone")
+    fromPata("R")
+    fromPata("7101:3;33:x")
+    fromPata("E:1")
+    runTimers()
+    assert(pata()[7101] and pata()[33], "an update ended is not settled again by time")
+
+    -- What we send: our log once, then only when it changed, or when asked ("?").
+    local sent = {}
+    local realChat, realGroup, realRaid, realMembers = C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers
+    C_ChatInfo = {
+        SendAddonMessage = function(prefix, text)
+            if prefix == "PWSYNC1" then table.insert(sent, text) end
+        end,
+    }
+    IsInGroup, IsInRaid = function() return true end, function() return false end
+    GetNumGroupMembers = function() return 2 end
+    fromPata("?")
+    runTimers()
+    assert(
+        sent[1] == "R" and sent[#sent] == "E:" .. (#sent - 2),
+        "asked: R, the chunks, their number: " .. table.concat(sent, " ")
+    )
+    sent = {}
+    fire("QUEST_LOG_UPDATE")
+    runTimers()
+    assert(#sent == 0, "nothing changed: not sent again: " .. table.concat(sent, " "))
+    fromPata("?")
+    runTimers()
+    assert(sent[1] == "R", "asked again: sent again")
+    C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers = realChat, realGroup, realRaid, realMembers
+end
 print("party ok")
 
 do
@@ -3912,6 +3971,26 @@ local turnin = FG.Guide.view.tasks[1]
 assert(turnin.have == 10 and turnin.need == 20, "the turn-in shows how far the quest is")
 Press("prev")
 assert(page() == "1,2", "back to the objectives' page: " .. page())
+do
+    -- The party's line under an objective step: found by the step's name, or by its objective
+    -- index when the log's text does not hold the name (another language, a step with no name).
+    local P = FG.Party
+    local saved, inParty = P.progress, UnitInParty
+    UnitInParty = function(name) return name == "Pata" end
+    P.progress = { Pata = { [9201] = { "4", "7" } } }
+    ravagers[1].numFulfilled, ravagers[1].finished = 0, false
+    FG.Guide:Refresh()
+    local tasks = FG.Guide.view.tasks
+    assert(tasks[1].party and tasks[1].party[1].have == 4, "the first objective's party line")
+    assert(tasks[2].party and tasks[2].party[1].have == 7, "the second objective's party line")
+    ravagers[1].text, ravagers[2].text = "Schwarzer Felshetzer: 0/10", "Junger Felshetzer: 0/10"
+    FG.Guide:Refresh()
+    tasks = FG.Guide.view.tasks
+    assert(tasks[1].party and tasks[1].party[1].have == 4, "by its index, in a log in another language")
+    assert(tasks[2].party and tasks[2].party[1].have == 7, "the second one by its index too")
+    ravagers[1].text, ravagers[2].text = "Black Ravager slain: 0/10", "Young Black Ravager slain: 0/10"
+    P.progress, UnitInParty = saved, inParty
+end
 C_QuestLog.GetQuestObjectives = pageObjectives
 onQuest[9201] = nil
 print("pages ok")
