@@ -398,9 +398,9 @@ guide: it is taken and handed in there.
 - 7841 Message to the Wildhammer (level 48)
 - 7842 Another Message to the Wildhammer (level 48)
 - 7844 Cannibalistic Cousins (level 48)
-- 2641 Sprinkle's Secret Ingredient (level 49); Zygor takes it in guide 11, hands it in in guide 12
-- 2661 Delivery for Marin (level 49)
-- 2662 Noggenfogger Elixir (level 49)
+- 2641 Sprinkle's Secret Ingredient (level 49); Zygor takes it in guide 11, hands it in in guide 12; done at Gadgetzan by Feralas & Un'Goro Crater (49-50), where the Hinterlands guide's route goes next
+- 2661 Delivery for Marin (level 49); done at Gadgetzan by Feralas & Un'Goro Crater (49-50), where the Hinterlands guide's route goes next
+- 2662 Noggenfogger Elixir (level 49); done at Gadgetzan by Feralas & Un'Goro Crater (49-50), where the Hinterlands guide's route goes next
 - 7840 Lard Lost His Lunch (level 49)
 - 8428 Battle of Warsong Gulch (level 49) **(added)**
 - 8437 Conquering Arathi Basin (level 49) **(added)**

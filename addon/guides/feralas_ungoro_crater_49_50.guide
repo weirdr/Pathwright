@@ -16,38 +16,33 @@
 # Pariah's Instructions 7067): their objectives are inside the Maraudon dungeon. Perfect Yeti Hide
 # (7738): it starts from a rare hide only skinners find on the yetis.
 #
-# The route: Orgrimmar (Ripple Delivery, Bone-Bladed Weapons, the auction house); Ratchet for the
-# Stone Circle; Camp Mojache and the Muisek chain around the camp (hippogryphs, faerie dragons,
-# treants); one loop west (the Rage Scar yetis, the giants, the Northspring harpies and Edana, Zorbin
-# on the Forgotten Coast) and the hearthstone back; Gadgetzan; south-east Un'Goro (Torwa Pathfinder,
-# the ravasaurs, the wrecked raft) and Marshal's Refuge; Orgrimmar and the zeppelin to Grom'gol.
+# The route: Orgrimmar, where The Hinterlands (48-49) ends (Ripple Delivery, Bone-Bladed Weapons,
+# the auction house); Camp Mojache and the Muisek chain around the camp (hippogryphs, faerie
+# dragons, treants); one loop west (the Rage Scar yetis, Zorbin on the Forgotten Coast for his
+# shrinker, the shrunk giants, the Northspring harpies and Edana, Zorbin again) and the hearthstone
+# back; Gadgetzan (Sprinkle and Marin's Noggenfogger Elixir, Marvon); south-east Un'Goro (Torwa
+# Pathfinder, the ravasaurs, the wrecked raft) and Marshal's Refuge; Orgrimmar and the zeppelin to
+# Grom'gol.
 
 guide Feralas & Un'Goro Crater (49-50)
 faction horde
 levels 49 50
-carry 81 580 1122 1444 2874 3123 3444 3568
+carry 81 580 1122 1444 2641 2874 3123 3444 3568
 leave 580 1122 1444 2874 3568 3908 4120
 next Stranglethorn Vale & Swamp of Sorrows (50-50)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
 
-map Durotar
-note "Take the zeppelin to Durotar: from the tower outside Undercity, or from Grom'gol in Stranglethorn Vale" at 50.8,13.4
 map Orgrimmar
 turnin 81
+tip The Hinterlands guide ends here, in Orgrimmar. Dran Droffers and his son run the shop in the Drag.
 accept 4300
 tip Jes'rimon waits on a balcony above the Drag.
 ah 4284.1 npc 8673
 ah 4284.2 npc 8673
 tip J.D. Collie in Un'Goro Crater wants 7 Power Crystals of each color. Red and yellow are the slow ones to find; green and blue are cheap here too if you see them.
-fly "Ratchet, The Barrens" npc 3310
-
-# Ratchet: the Stone Circle -------------------------------------------------------------------------
-
-map The Barrens
-do 3444
-tip Marvon's Chest sits in his workshop in Ratchet.
-fly "Camp Mojache, Feralas" npc 16227
+fly "Camp Mojache, Feralas" npc 3310
+tip Marvon's chest in Ratchet (The Stone Circle) was opened on the way here by the Hinterlands guide. Not yet? Fly to Ratchet first and open it outside his workshop.
 
 # Camp Mojache -------------------------------------------------------------------------------------
 
@@ -66,7 +61,7 @@ tip The Strength of Corruption's bears and wolves are in Felwood: a later guide 
 do 3128.1 bg at 55.0,67.5
 tip A few Wandering Forest Walkers roam among the hippogryphs: kill them for Splintered Logs.
 do 3124
-tip Kill a hippogryph, then use the Hippogryph Muisek Vessel on its corpse.
+tip Kill a hippogryph, loot it, then use the Hippogryph Muisek Vessel on its corpse. The vessel has a cooldown and takes one corpse at a time, even from a pile. The Frayfeathers are thickest around 55-56,63-68.
 do 3128.3
 do 3128.4 mobs 5305 5304 5300 5306 at 55.1,71.8
 turnin 3124
@@ -76,41 +71,47 @@ accept 3125
 
 do 3128.2 bg mobs 5278 at 68.0,47.6
 do 3125 mobs 5278 at 68.0,47.6
-tip Use the Faerie Dragon Muisek Vessel on each dead Sprite Darter.
+tip Loot each Sprite Darter, then use the Faerie Dragon Muisek Vessel on its corpse (one corpse at a time, with a cooldown).
 turnin 3125
 accept 3126
 do 3126 at 76.0,40.5
-tip The Wandering Forest Walkers walk a long path around Camp Mojache and respawn slowly: wait on their path rather than chase them.
+tip The Wandering Forest Walkers walk long paths from fixed spawn spots and come back about six minutes after a kill: the big tree at about 73,57, south of Woodpaw Hills, is closest to the camp; another spawn is at 58,75 behind the Ruins of Isildien. Wait on their path rather than chase them. Cursed Sycamores don't count.
 do 3128.1 at 76.0,40.5
 turnin 3126
 accept 3127
 
-# West: the Rage Scar yetis, the giants, the Northspring harpies -----------------------------------
+# West: the Rage Scar yetis -----------------------------------------------------------------------
 
 do 7734
-tip The yetis live in and around Rage Scar Hold, a cave north-west of the camp.
+tip The yetis live in Rage Scar Hold: a hidden path climbs to its cave at about 51,32, east of the road between Dire Maul and the Twin Colossals. About one yeti in three or four drops a hide; skinners get more by skinning them.
+
+# The Forgotten Coast: Zorbin's shrinker first ----------------------------------------------------
+
+accept 7003 7721
+tip Zorbin stands at the end of the dock. His Ultra-Shrinker lasts two hours and he won't give you another, so the giants come next.
+
+# The giants and the Northspring harpies -----------------------------------------------------------
+
+do 7003 bg mobs 5357 5358 14604 14640 at 39.4,23.2
 do 3128.4 bg mobs 5357 5358 at 39.4,23.2
 do 3127
-tip Land Walkers and Cliff Giants are level 48-50 elites: pull one at a time and fight it together, then use the Mountain Giant Muisek Vessel on the corpse.
+tip Land Walkers and Cliff Giants are level 48-50 elites, but Zorbin's Ultra-Shrinker shrinks one to a normal mob: zap it, kill it, loot the residue, then use the Mountain Giant Muisek Vessel on the corpse. The darker giants attack from range.
 do 3128.2 mobs 5357 5358 at 39.4,23.2
 do 3063 bg
 do 3062 at 40.5,8.6
 tip Every harpy can drop a Horn of Hatetalon. Blow it by the Hatetalon stones at the north end of the ruins to call Edana Hatetalon, a level 50 elite.
 do 3063
+do 7003 mobs 5357 5358 14604 14640 at 39.4,23.2
+tip Short of residue? Zap and kill more giants on the way back south.
 
-# The Forgotten Coast: Zorbin Fandazzle -------------------------------------------------------------
+# Back to Zorbin ------------------------------------------------------------------------------------
 
-accept 7003 7721
-tip Zorbin stands at the end of the dock.
-do 7721 bg
-do 7003 mobs 5361 5359 5360 14638 14603 14639 at 45.0,50.5
-tip Zap a strider with Zorbin's Ultra-Shrinker first: only the zapped giants drop the residue, and they are no longer elite.
 do 7721
 tip The Sea Elementals and Sea Sprays float along the shore just south of the dock.
 turnin 7003 7721
 accept 7725
 do 7725 mobs 5361 5359 5360 14638 14603 14639 at 46.0,58.0
-tip More striders wade along the shore further south.
+tip Zap the striders wading along the shore south of the dock: shrunk, they drop the residue.
 turnin 7725
 hearth npc 7737
 
@@ -127,6 +128,12 @@ fly "Gadgetzan, Tanaris" npc 8020
 # Gadgetzan ----------------------------------------------------------------------------------------
 
 map Tanaris
+turnin 2641
+accept 2661
+turnin 2661
+accept 2662
+turnin 2662
+tip Marin needs a moment to brew the elixir: talk to him again.
 turnin 3444
 
 # Un'Goro Crater: the south-east --------------------------------------------------------------------
@@ -149,7 +156,7 @@ tip Lar'korwi's kill lies in the open plain to the north. Watch for the devilsau
 turnin 4290
 accept 4291
 do 4291 at 67.2,73.0
-tip Walk onto the ravasaur egg nests: a Lar'korwi Mate runs in to defend them.
+tip Walk onto a ravasaur egg nest (around 60,72, 62,65, 63,77, 67,73 or 67,67): a Lar'korwi Mate runs in to defend it. Each nest calls only one, so use a different nest for the next, and clear the ravasaurs around it first.
 do 4300
 tip Ravasaurs of every kind drop the claws, but only about one in five.
 turnin 4291

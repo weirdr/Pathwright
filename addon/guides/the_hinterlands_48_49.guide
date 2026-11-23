@@ -22,14 +22,15 @@
 # Village; one long loop north along the coast, through the wilds and Skulk Rock, west to Quel'Danil
 # and back by the Altar of Zul; a flight to Tarren Mill, the Final Message at Aerie Peak,
 # Shadra'Alor and straight back to Tarren Mill before the venom sacs spoil (30 minutes); a flight to
-# Revantusk, Jintha'Alor; the OOX robot and Rin'ji's secret; then Undercity, Booty Bay, Orgrimmar,
-# Sen'jin and Gadgetzan to hand everything in.
+# Revantusk, Jintha'Alor; the OOX robot and Rin'ji's secret; then Undercity, Booty Bay, the boat to
+# Ratchet (Marvon's chest), Orgrimmar and Sen'jin to hand everything in. Sprinkle's mushroom goes to
+# Gadgetzan with the next guide.
 
 guide The Hinterlands (48-49)
 faction horde
 levels 48 49
 carry 580 650 864 1122 1429 2641 2874 3123 3444
-leave 81 580 1122 1444 2874 3123 3444 3568
+leave 81 580 1122 1444 2641 2874 3123 3444 3568
 next Feralas & Un'Goro Crater (49-50)
 
 # Undercity -----------------------------------------------------------------------------------------
@@ -236,29 +237,22 @@ tip Hunters and shamans train in Orgrimmar later in this guide; druids in Thunde
 # Booty Bay -----------------------------------------------------------------------------------------
 
 note "Take the zeppelin from the tower outside Undercity to Grom'gol, in Stranglethorn Vale" at 61.0,58.9 in Tirisfal_Glades
-tip Without Rescue OOX-09/HL, take the zeppelin to Orgrimmar instead and skip to Orgrimmar.
+tip Without Rescue OOX-09/HL, take the zeppelin to Orgrimmar instead, and fly from there to Ratchet for Marvon's chest.
 map Stranglethorn Vale
 fly "Booty Bay, Stranglethorn" npc 1387
 turnin 836
 tip Oglethorpe Obnoticus is in the hut right above First Mate Crazz on the main dock of Booty Bay: take the ramp up.
 note "Take the boat from the Booty Bay docks to Ratchet" at 25.9,73.1
 
-# Orgrimmar, Sen'jin and Gadgetzan ------------------------------------------------------------------
+# Ratchet, Orgrimmar and Sen'jin --------------------------------------------------------------------
 
 map The Barrens
+do 3444
+tip Marvon's Chest stands outside his workshop in Ratchet; The Stone Circle is handed in at Gadgetzan by the next guide.
 fly "Orgrimmar, Durotar" npc 16227
 map Orgrimmar
 train 3352 3344
 map Durotar
 turnin 2935
 tip Master Gadrin is in Sen'jin Village, south of Orgrimmar.
-map Orgrimmar
-fly "Gadgetzan, Tanaris" npc 3310
-map Tanaris
-turnin 2641
-accept 2661
-turnin 2661
-accept 2662
-turnin 2662
-tip Marin needs a moment to brew the elixir: talk to him again.
-note "Fly from Gadgetzan to Camp Mojache in Feralas for the next guide" at 50.6,26.5
+note "Ride back north to Orgrimmar: the next guide, Feralas & Un'Goro Crater (49-50), starts there. Keep the Violet Tragan for Sprinkle in Gadgetzan" at 45.6,12.1
