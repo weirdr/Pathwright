@@ -1,0 +1,28 @@
+local _, pack = ...
+pack.Register({
+    name = "RestedXP Riverglades (A) / Tanaris Quests",
+    origin = "RXPGuides / RestedXP Riverglades (A)",
+    fromLevel = 1,
+    toLevel = 60,
+    locale = "enUS",
+    version = 1,
+    format = 2,
+    variants = { { ["race"] = 1, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 2, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 8, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 9, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 2, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 7, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 11, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 8, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 9, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 8, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 11, ["faction"] = "Alliance" } },
+    steps = {
+        { ["k"] = "note", ["t"] = "Along the way: Take the boat to Tanaris", ["m"] = 2548, ["x"] = 80.401, ["y"] = 54.521 },
+        { ["k"] = "turnin", ["q"] = 95296, ["t"] = "Turn in Shipping and Handling 1", ["m"] = 1446, ["x"] = 67.592, ["y"] = 23.154, ["n"] = "Wharfmaster Steamfizzle", ["e"] = "npc", ["id"] = 260405, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Wharfmaster Steamfizzle." } } },
+        { ["k"] = "accept", ["q"] = 95383, ["t"] = "Accept Shipping and Handling 2", ["m"] = 1446, ["x"] = 67.592, ["y"] = 23.154, ["n"] = "Wharfmaster Steamfizzle", ["e"] = "npc", ["id"] = 260405, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Wharfmaster Steamfizzle." } } },
+        { ["k"] = "turnin", ["q"] = 95383, ["t"] = "Turn in Shipping and Handling 2", ["m"] = 1446, ["x"] = 67.366, ["y"] = 23.978, ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Tazzik." } } },
+        { ["k"] = "accept", ["q"] = 95312, ["t"] = "Accept Coming to Collect", ["m"] = 1446, ["x"] = 67.366, ["y"] = 23.978, ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Tazzik." } } },
+        { ["k"] = "turnin", ["q"] = 95312, ["t"] = "Turn in Coming to Collect", ["m"] = 1446, ["x"] = 51.654, ["y"] = 27.83, ["n"] = "Fizbuz Mithril", ["e"] = "npc", ["id"] = 220984, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Fizbuz Mithril." } } },
+        { ["k"] = "accept", ["q"] = 95321, ["t"] = "Accept Tazzik's Dues", ["m"] = 1446, ["x"] = 51.654, ["y"] = 27.83, ["n"] = "Fizbuz Mithril", ["e"] = "npc", ["id"] = 220984, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Fizbuz Mithril." } } },
+        { ["k"] = "note", ["t"] = "Talk to Tazzik.", ["m"] = 1446, ["x"] = 67.36, ["y"] = 23.989, ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857 },
+        { ["k"] = "note", ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857, ["c"] = 1, ["t"] = "Optional. Tazzik's Dues — Tazzik", ["mobs"] = { "Tazzik" }, ["mi"] = { 260857 }, ["nt"] = { { ["l"] = 1, ["t"] = "Defeat Tazzik." } } },
+        { ["k"] = "note", ["t"] = "Along the way: Talk to Tazzik.", ["m"] = 1446, ["x"] = 67.362, ["y"] = 23.983, ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857 },
+        { ["k"] = "note", ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857, ["c"] = 1, ["t"] = "After step Tazzik confronted. Tazzik's Dues — Tazzik", ["m"] = 1446, ["x"] = 67.362, ["y"] = 23.983, ["mobs"] = { "Tazzik" }, ["mi"] = { 260857 }, ["nt"] = { { ["l"] = 1, ["t"] = "Defeat Tazzik." } } },
+        { ["k"] = "turnin", ["q"] = 95321, ["t"] = "Turn in Tazzik's Dues", ["m"] = 1446, ["x"] = 67.362, ["y"] = 23.983, ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Tazzik." } } },
+        { ["k"] = "accept", ["q"] = 95472, ["t"] = "Accept Consolation Prize", ["m"] = 1446, ["x"] = 67.362, ["y"] = 23.983, ["n"] = "Tazzik", ["e"] = "npc", ["id"] = 260857, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Tazzik." } } },
+        { ["k"] = "note", ["t"] = "Along the way: Take the boat to Riverglades" },
+        { ["k"] = "turnin", ["q"] = 95472, ["t"] = "Turn in Consolation Prize", ["m"] = 2548, ["x"] = 77.104, ["y"] = 52.912, ["n"] = "Friz Frazzlespark", ["e"] = "npc", ["id"] = 255897, ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Friz Frazzlespark." } } },
+    },
+})

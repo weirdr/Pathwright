@@ -1,0 +1,26 @@
+local _, pack = ...
+pack.Register({
+    name = "RXP Forever Dungeon Quests (A) / 25. Dire Maul (West)",
+    origin = "RXPGuides / RXP Forever Dungeon Quests (A)",
+    fromLevel = 50,
+    toLevel = 60,
+    locale = "enUS",
+    version = 1,
+    format = 2,
+    variants = { { ["race"] = 1, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 2, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 8, ["faction"] = "Alliance" }, { ["race"] = 1, ["class"] = 9, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 2, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 3, ["class"] = 7, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 4, ["class"] = 11, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 5, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 8, ["faction"] = "Alliance" }, { ["race"] = 7, ["class"] = 9, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 1, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 3, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 4, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 8, ["faction"] = "Alliance" }, { ["race"] = 95, ["class"] = 11, ["faction"] = "Alliance" } },
+    steps = {
+        { ["k"] = "note", ["t"] = "Along the way: Travel to Feralas" },
+        { ["k"] = "accept", ["q"] = 7482, ["t"] = "Accept Elven Legends", ["m"] = 1444, ["x"] = 31.8, ["y"] = 44.4, ["n"] = "Scholar Runethorn", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Scholar Runethorn" }, { ["l"] = 1, ["t"] = "Scholar Runethorn patrols slightly through Feathermoon Stronghold" } } },
+        { ["k"] = "note", ["t"] = "Enter Dire Maul (West)", ["m"] = 1414, ["x"] = 42.97, ["y"] = 67.79 },
+        { ["k"] = "accept", ["q"] = 7461, ["t"] = "Accept The Madness Within", ["n"] = "Shen'dralar Ancient", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to the Shen'dralar Ancient" }, { ["l"] = 1, ["t"] = "She is inside DM:West on the bridge in the upper section" } } },
+        { ["k"] = "objective", ["q"] = 7461, ["o"] = 1, ["n"] = "Immol'thar", ["e"] = "npc", ["id"] = 11496, ["c"] = 1, ["t"] = "The Madness Within — Immol'thar", ["mobs"] = { "Immol'thar", "Prince Tortheldrin" }, ["nt"] = { { ["l"] = 1, ["t"] = "Kill Immol'thar and Prince Tortheldrin" } } },
+        { ["k"] = "objective", ["q"] = 7461, ["o"] = 2, ["n"] = "Prince Tortheldrin", ["e"] = "npc", ["id"] = 11486, ["c"] = 1, ["t"] = "The Madness Within — Prince Tortheldrin", ["mobs"] = { "Immol'thar", "Prince Tortheldrin" }, ["nt"] = { { ["l"] = 1, ["t"] = "Kill Immol'thar and Prince Tortheldrin" } } },
+        { ["k"] = "turnin", ["q"] = 7461, ["t"] = "Turn in The Madness Within", ["n"] = "Shen'dralar Ancient", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to the Shen'dralar Ancient" }, { ["l"] = 1, ["t"] = "She is inside DM:West on the bridge in the upper section" } } },
+        { ["k"] = "accept", ["q"] = 7877, ["t"] = "Accept The Treasure of the Shen'dralar", ["n"] = "Shen'dralar Ancient", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to the Shen'dralar Ancient" }, { ["l"] = 1, ["t"] = "She is inside DM:West on the bridge in the upper section" } } },
+        { ["k"] = "turnin", ["q"] = 7877, ["t"] = "Turn in The Treasure of the Shen'dralar", ["nt"] = { { ["l"] = 1, ["t"] = "Click the The Treasure of the Shen'dralar" }, { ["l"] = 1, ["t"] = "This is found back where you killed Prince Tortheldrin in the Library, under the ramp leading to him" } } },
+        { ["k"] = "note", ["n"] = "Skeletal Remains of Telmius Dreamseeker", ["e"] = "object", ["id"] = 179544, ["t"] = "Quest in log Elven Legends. Elven Legends — Skeletal Remains of Telmius Dreamseeker", ["nt"] = { { ["l"] = 1, ["t"] = "Click the Skeletal Remains of Kariel Winthalus inside the Dire Maul Library" }, { ["l"] = 1, ["t"] = "This is located beside Lorekeeper Lydros" } } },
+        { ["k"] = "note", ["t"] = "Along the way: Travel to Feralas" },
+        { ["k"] = "turnin", ["q"] = 7482, ["t"] = "Turn in Elven Legends", ["m"] = 1444, ["x"] = 31.8, ["y"] = 44.4, ["n"] = "Scholar Runethorn", ["nt"] = { { ["l"] = 1, ["t"] = "Talk to Scholar Runethorn" }, { ["l"] = 1, ["t"] = "Scholar Runethorn patrols slightly through Feathermoon Stronghold" } } },
+        { ["k"] = "note", ["t"] = "You have completed the Dire Maul (West) quest guide. Please select a new guide" },
+    },
+})
