@@ -3,8 +3,9 @@ name: Addon release
 # After each push to main that changes the addon, and every hour as a backup (GitHub's schedules
 # can be late or skipped), when the addon changed since the last addon release: its smoke tests,
 # then the addon zipped (scripts/addon-zip.sh: every addon folder a fresh install makes) and
-# published as a GitHub release tagged Pathwright-vX.Y.Z, the commits since the last one as its
-# notes. Nothing changed: no release. Run by hand, it releases now (when something changed).
+# published as a GitHub release tagged Pathwright-vX.Y.Z, its notes what the addons' CHANGELOG.md
+# gained since the last one, then the commits since it. Nothing changed: no release. Run by hand,
+# it releases now (when something changed).
 # Semantic versions (scripts/addon-version.sh): each release bumps the patch number; set
 # addon/VERSION to start a new minor or major version. The releases before were tagged
 # addon-YYYY.MM.DD-HHMMSS. The Pathwright- prefix keeps these tags apart from release.yml's
@@ -89,6 +90,18 @@ jobs:
             echo "Pathwright addon, built from main at $(git rev-parse --short HEAD)."
             echo "Guide $guide, Profile $profile. Unzip into World of Warcraft/_forever_/Interface/AddOns."
             echo
+            # What the addons' changelogs gained since the last release: the explanation players
+            # read (in the release and its Discord message), before the list of commits.
+            if [ -n "$LAST" ]; then
+              added=$(git diff --unified=0 "$LAST" HEAD -- addon/Pathwright_Guide/CHANGELOG.md addon/Pathwright_Profile/CHANGELOG.md |
+                awk '/^\+\+\+/ { next } /^\+/ { print substr($0, 2) }')
+              if [ -n "$added" ]; then
+                echo "What's new:"
+                echo
+                printf '%s\n' "$added"
+                echo
+              fi
+            fi
             if [ -n "$LAST" ]; then
               echo "Changes since $LAST:"
               git log --no-merges --pretty='- %s' "$LAST"..HEAD -- addon scripts/install-addon.sh scripts/addon-zip.sh

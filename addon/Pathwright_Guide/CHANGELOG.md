@@ -6,6 +6,23 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- WoW Forever: the sword buttons (a mob to kill) target the nearest mob of their name that no other player has tagged, and are never disabled. Out of combat, just before it fires, a press decides from your target and the mob nameplates on screen:
+  - Your target is already an untagged mob of that name: it stays your target and gets the skull and the Attack ping. To pick the mob yourself, click it, then press the sword.
+  - The nearest mob of that name is untagged: the press targets it by name, with the skull and the ping.
+  - The nearest one is tagged by another player: the press targets it by name, then Tabs once (`/targetenemy`) to the next nearest enemy.
+  - The skull and the ping only go on when Pathwright is sure the press ends on an untagged mob of that name. Otherwise you get the target alone, so a tagged or wrong mob is never marked or pinged.
+  - With "Aim at a mob no other player has tagged" off, tagged mobs count as any other.
+- Why it works this way: what WoW Forever lets an addon do.
+  - A button can only target a mob by its name, and the game then takes the nearest one of that name. Pressing again doesn't move on to the next: it stays on the nearest.
+  - The game refuses to target a mob through its nameplate (`/target nameplate1`, `[@nameplate1]`), so Pathwright can see the right mob but cannot name that one mob to the game.
+  - A button cannot have another button check the target after it is taken: on Forever the hidden checker's `/click` never runs from the sword. The previous version relied on it, which is why tagged mobs were still targeted, marked and pinged.
+  - So everything is decided before the press, from the nameplates Pathwright already reads (four times a second): which mobs of that name are tagged, and roughly how far each one is.
+- What it cannot know, and what it does then:
+  - Distance is coarse: for a hostile mob the game only answers whether it is within about 10 yards, about 28 yards, or the range of one of your attack spells. Two mobs in the same band count as equally near; the press then targets by name without the skull and the ping instead of guessing.
+  - Tab follows the game's own order: when another enemy is as near as the untagged mob, Tab may land on it, so there is no skull or ping.
+  - Mobs with no nameplate on screen (behind you, out of nameplate range, nameplates off) can't be seen: the press takes the nearest by name.
+  - In combat the game locks every button: the sword targets the nearest by name, with the skull and the ping, without these checks.
+
 - The guide pickers group routes into Imported, Default and RestedXP. Each section remembers its name search, level range and character filter while you browse.
 
 - The toolstrip docks above the guide. Enable “Unlock the toolstrip” to drag it by its left edge.
