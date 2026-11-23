@@ -1,12 +1,15 @@
--- Check a built-in guide against another one (a Zygor guide converted by zygor_convert.lua):
--- the quests one has and not the other, and the steps whose place or NPC differ.
+-- Check a built-in guide against another one (a Zygor guide converted by zygor_convert.lua, or a
+-- RestedXP route of addon/Pathwright_RxPForever): the quests one has and not the other, and the
+-- steps whose place or NPC differ.
 --
 --   luajit addon/tools/guide_compare.lua addon/Pathwright_Guide/Builtin/SkyborneStarter.lua \
 --       debug/zygor/SkyborneStarter.lua [uiMap of the other's steps to compare, default 2521]
 local function load(path)
     local G
-    Pathwright = { Builtin = { Register = function(d) G = d end } }
-    dofile(path)
+    local function Register(d) G = d end
+    Pathwright = { Builtin = { Register = Register } }
+    -- The RestedXP routes register through their addon's own table (`local _, pack = ...`).
+    assert(loadfile(path))("Pathwright_RxPForever", { Register = Register })
     return G
 end
 local ours, zyg = load(arg[1]), load(arg[2])

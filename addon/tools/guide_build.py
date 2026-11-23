@@ -39,6 +39,7 @@ Script lines (one step each, "#" starts a comment, blank lines are ignored):
     goto <text>                   a place to reach (needs "at")
     grind <level>                 kill on the way until that level
     tip <text>                    a tip on the step before (the whole line)
+    route off / route on          keep the visits that follow in the script's order (see below)
 
 Options after a step, in any order:
 
@@ -53,6 +54,12 @@ Options after a step, in any order:
     only <who>...   alliance, horde and class names (warrior, mage...): who the step is for
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
+
+Routing: a run of visits in one place (accepts, turn-ins, trainers, vendors, the innkeeper, the
+flight master, all within HUB_SPAN map units of each other) is walked in the shortest order, from
+where the step before leaves the player to where the step after takes them. Each NPC's steps stay
+together and in the script's order, and a quest is never taken before one it needs (handed in in
+the same run) nor handed in before it is taken. `route off` keeps the script's order instead.
 
 Checks: the build stops on a quest taken and never handed in (unless left to the next guide), a
 quest handed in without being taken or before its objectives are done, a quest log over 40 (the
@@ -317,9 +324,13 @@ def relation(qid, role):
     return rs[0] if rs else (None, None)
 
 
+route_on = True  # `route off` keeps the script's order of the visits that follow
+
+
 def emit(step, n, opts, filt):
     step["_line"] = n
     step["_who"] = filt
+    step["_noroute"] = not route_on
     if opts.get("at"):
         step["m"] = opts.get("in") or current_map
         step["x"], step["y"] = opts["at"]
@@ -365,6 +376,8 @@ for n, text in lines:
         continue
     if word == "next":
         guide["next"] = rest.strip(); continue
+    if word == "route":
+        route_on = rest.strip().lower() != "off"; continue
     if word in ("carry", "leave"):
         (carried if word == "carry" else left).update(int(w) for w in rest.split())
         continue
@@ -677,6 +690,152 @@ for n, text in lines:
 
 if not guide["name"] or not guide["races"] or current_map is None:
     sys.exit("the script needs guide, races and map lines")
+
+# Routing: the visits of a hub in the shortest walk (see the top of the file). ---------------------
+VISITS = {"accept", "turnin", "train", "sell", "bind", "flight_master"}
+# A hub's visits are all within this many map units of its first one (a town or a camp).
+HUB_SPAN = 4.0
+# Up to this many NPCs, every order is tried; above, the nearest one next, then 2-opt.
+EXACT_NODES = 9
+
+
+def where(s):
+    return (s["m"], s["x"], s["y"]) if "m" in s else None
+
+
+def dist(a, b):
+    if a is None or b is None or a[0] != b[0]:
+        return 0.0
+    return math.hypot(a[1] - b[1], a[2] - b[2])
+
+
+def needs(later, earlier):
+    """Whether step `later` must come after step `earlier`."""
+    if later.get("q") is None or earlier.get("q") is None:
+        return False
+    if later["k"] == "turnin" and earlier["k"] == "accept" and later["q"] == earlier["q"]:
+        return True
+    if later["k"] == "accept" and earlier["k"] == "turnin":
+        # Its prerequisites as written on the step (the script's `after`), else the data's.
+        q = later.get("_q") or {}
+        pre = later.get("pre") or q.get("pre") or []
+        pa = later.get("pa") or q.get("pa") or []
+        return earlier["q"] in pre or earlier["q"] in pa
+    return False
+
+
+def order_run(run, start, end):
+    """The run's steps in the shortest valid walk from `start` to `end` (places or None)."""
+    # Nodes: the NPCs (or objects, or places), each with its steps in the script's order.
+    nodes, key_of = [], {}
+    for s in run:
+        key = (s.get("e"), s.get("id")) if s.get("id") else ("at", where(s))
+        if key not in key_of:
+            key_of[key] = len(nodes)
+            nodes.append([])
+        nodes[key_of[key]].append(s)
+    if len(nodes) < 2:
+        return run
+    # Node b after node a when one of b's steps needs one of a's. Both ways: keep the script's order.
+    after = [set() for _ in nodes]
+    for b, nb in enumerate(nodes):
+        for a, na in enumerate(nodes):
+            if a != b and any(needs(sb, sa) for sb in nb for sa in na):
+                after[b].add(a)
+    for b in range(len(nodes)):
+        for a in after[b]:
+            if b in after[a]:
+                return run
+    places = [where(n[0]) for n in nodes]
+
+    def length(order):
+        total, here = 0.0, start
+        for i in order:
+            total += dist(here, places[i])
+            here = places[i]
+        return total + dist(here, end)
+
+    def valid(order):
+        seen = set()
+        for i in order:
+            if not after[i] <= seen:
+                return False
+            seen.add(i)
+        return True
+
+    # Grouping an NPC's steps may make the script's own order invalid (one of its steps comes
+    # before another NPC's, the next after it): only a valid order is kept, else the script's.
+    original = list(range(len(nodes)))
+    best, best_len = (original, length(original)) if valid(original) else (None, math.inf)
+    if len(nodes) <= EXACT_NODES:
+        # Depth first over the valid orders, cut when already longer than the best.
+        def walk(order, here, so_far, left):
+            nonlocal best, best_len
+            if so_far >= best_len - 1e-9:
+                return
+            if not left:
+                total = so_far + dist(here, end)
+                if total < best_len - 1e-9:
+                    best, best_len = list(order), total
+                return
+            for i in sorted(left, key=lambda i: dist(here, places[i])):
+                if after[i] <= set(order):
+                    order.append(i)
+                    walk(order, places[i], so_far + dist(here, places[i]), left - {i})
+                    order.pop()
+        walk([], start, 0.0, set(original))
+    else:
+        order, here, left = [], start, set(original)
+        while left:
+            ready = [i for i in left if after[i] <= set(order)]
+            i = min(ready, key=lambda i: dist(here, places[i]))
+            order.append(i)
+            here = places[i]
+            left.discard(i)
+        improved = True
+        while improved:
+            improved = False
+            for a in range(len(order) - 1):
+                for b in range(a + 1, len(order)):
+                    trial = order[:a] + order[a:b + 1][::-1] + order[b + 1:]
+                    if valid(trial) and length(trial) < length(order) - 1e-9:
+                        order, improved = trial, True
+        if valid(order) and length(order) < best_len:
+            best = order
+    if best is None:
+        return run
+    return [s for i in best for s in nodes[i]]
+
+
+def route_hubs(steps):
+    out, i = [], 0
+    while i < len(steps):
+        first = steps[i]
+        if first["k"] in VISITS and where(first) and not first["_noroute"]:
+            j = i + 1
+            while (
+                j < len(steps)
+                and steps[j]["k"] in VISITS
+                and where(steps[j])
+                and not steps[j]["_noroute"]
+                and steps[j]["m"] == first["m"]
+                and all(dist(where(steps[j]), where(s)) <= HUB_SPAN for s in steps[i:j])
+            ):
+                j += 1
+            run = steps[i:j]
+            if len(run) > 1:
+                start = where(out[-1]) if out else None
+                end = where(steps[j]) if j < len(steps) else None
+                run = order_run(run, start, end)
+            out.extend(run)
+            i = j
+        else:
+            out.append(first)
+            i += 1
+    return out
+
+
+steps = route_hubs(steps)
 
 # Variants, and the steps each is in.
 variants = variants_all()

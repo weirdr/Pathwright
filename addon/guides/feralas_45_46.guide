@@ -45,7 +45,7 @@ tip Melor Stonehoof is on Hunter Rise.
 fly "Brackenwall Village" npc 2995
 map Dustwallow Marsh
 do 1205
-tip Deadmire, an old level 45 crocolisk, wades through the pools south-east of Brackenwall Village.
+tip Deadmire, a big pale-white crocolisk (level 45), patrols the river running north-east from Stonemaul Ruins, between about 47,56 and 47,61: follow the river until you spot him.
 fly "Thunder Bluff, Mulgore" npc 11899
 map Thunder Bluff
 turnin 1205
@@ -62,7 +62,7 @@ turnin 95033
 accept 3121
 tip Keep the Shrunken Head: Neeru Fireblade in Orgrimmar wants it, at the end of the guide.
 turnin 2981 at 75.8,43.6
-tip Rok Orhan wanders around the camp in red armor.
+tip Rok Orhan patrols the road through the camp, in red armor.
 accept 2975 at 75.8,43.6
 accept 2987
 accept 92878
@@ -74,22 +74,26 @@ bind 7737
 
 # North: the Woodpaw gnolls, the Gordunni ogres, the Grimtotem -----------------------------------------
 
-do 2862 at 72.6,37.6 mobs 5249 5251 5253
-tip The Woodpaw camp just north of Camp Mojache is the nearest; every Woodpaw gnoll can drop a mane.
+do 2862 at 72.6,37.6 mobs 5251 5253 5249
+tip The Woodpaw camp just north of Camp Mojache is the nearest. Trappers drop manes most often (brutes and mongrels less), and they cast a net that roots you for 10 seconds.
+tip The southern camps (around 70,53 and 76,54) have more gnolls if this one runs dry.
 do 2975.1 bg
+tip The ogre camp is on the hills north of Camp Mojache: the path up starts at about 77,34, lit by torches.
 do 2975.2 bg
 do 2975.3 bg at 77.6,33.9
 do 2987
-tip Use Orwin's Shovel on the Gordunni Dirt Mounds among the ogres.
+tip Look for small blue glows on the ground around the ogre camp and use Orwin's Shovel next to one: a Gordunni Dirt Mound appears. Loot it; only mounds that glow blue hold cobalt.
 accept 2978 at 75.1,29.7 "Pick up the Gordunni Scroll lying in the ogre camp and read it"
 tip Scrolls also lie at 74.5,27.9 and 80.5,34.3.
 do 2975.1
 do 2975.2
 do 2975.3 at 77.6,33.9
 do 92878
-tip Namida Grimtotem, a level 43 elite druid, walks through the Grimtotem camp north-west of Camp Mojache.
+tip Namida Grimtotem (level 43 elite) waits in a hut at the top of the path behind the Grimtotem compound: the path starts at about 68.5,39.6.
+tip Three guards stand with her: pull the two on the sides one at a time; the middle one comes with her. Clear around the hut first.
 do 2973
-tip The Sprite Darters flutter over the grass west of Camp Mojache; the Captured Sprite Darters in the Grimtotem camp drop them too.
+tip The Sprite Darters around 68,48 don't attack first and drop a wing almost every time; the Captured Sprite Darters in the Grimtotem camp drop them too.
+tip They shrug off most spells except Holy: melee or a wand works best.
 
 # Camp Mojache --------------------------------------------------------------------------------------
 
@@ -109,9 +113,9 @@ accept 2974
 # West and south: the Grimtotem horns, the Woodpaw alphas -------------------------------------------
 
 do 2974
-tip The Grimtotem camp west of Camp Mojache is the closest; every Grimtotem there can drop a horn.
+tip The Grimtotem camp west of Camp Mojache is the closest. Almost every Grimtotem drops a horn, often two; the raiders cast a net that roots you.
 do 2863
-tip The alphas lead the gnolls of the camps south-west of Camp Mojache; more stand in the camp to the south.
+tip Each alpha stands in the middle of a small gnoll camp with two or three guards. More camps lie around 71-74,56, south of the little lake near the battle map, and alphas respawn quickly.
 turnin 2863
 accept 2902
 turnin 2974
@@ -121,10 +125,11 @@ tip Keep the Crate of Grimtotem Horns for Belgrom Rockmaul in Orgrimmar.
 # South-east: the old key, the battle plans -----------------------------------------------------------
 
 accept 95599 at 76.6,48.0 icon pickup "Take the Old Key from the Old Crate south-east of Camp Mojache"
+tip The Old Crate stands next to the tent.
 turnin 95599
-tip The Old Chest is a short walk east of the crate.
+tip The Old Chest lies under water at 79.2,49.4. Handing in the key makes three elementals appear and attack: be ready.
 turnin 2902
-tip The battle map lies in the gnoll camp south of Camp Mojache.
+tip The battle plans lie on a crate at the camp with a bonfire (the others have campfires), around 71,55. Pull the five or six gnolls around it one or two at a time: opening the plans takes a few seconds and any hit stops it.
 accept 2903
 turnin 2903
 accept 7730
@@ -134,31 +139,36 @@ accept 7731
 
 do 7730 bg
 do 7731
-do 2741 at 57.1,76.3 icon pickup "Take a Hippogryph Egg from the nests (for the Super Egg-O-Matic)"
-tip Only if you have The Super Egg-O-Matic from Gadgetzan; otherwise skip it.
-tip Stinglasher, a level 47 wasp, crawls in the Writhing Deep, the tunnels of the Zukk'ash hive south of Camp Mojache.
+tip Stinglasher (level 47) patrols between the two entrances of the Zukk'ash hive, inside and out, wrapped in a poison cloud: he hits harder than the other wasps. Keep a cooldown for him.
 do 7730
 do 2979 bg
 do 2980.1
-tip The shamans, warlocks and mage-lords hold the Gordunni camp in the south-west.
+tip Follow the road south-west over the bridge: the Gordunni hold the ruins on the left (Ruins of Isildien).
+tip Shamans are few and spawn slowly: kill every one you see. Clearing the mobs around the little stone gazebo (a level 46 Warlord stands in it) brings more shamans there.
 do 2980.2
+do 2741 at 57.1,76.3 icon pickup "Take a Hippogryph Egg from the nests (for the Super Egg-O-Matic)"
+tip Only if you have The Super Egg-O-Matic from Gadgetzan; otherwise skip it. The nests are up the hill behind the ruins in the far south (around 57-59,75-76), and you can carry only one egg.
 do 2979
-tip Only the Gordunni Mage-Lords drop the orb, and not often: each of you needs one.
+tip Only Gordunni Mage-Lords drop the orb, rarely (about 3%), and each of you needs one: kill every Mage-Lord you meet in the ruins.
+tip If no orb has dropped once the ogre kills are done, skip Dark Ceremony (right-click its step) rather than farm it for hours.
 do 2980.3
 tip The maulers guard the ogre camp further north, with more warlocks.
 do 2822
-tip The yetis of Feral Scar Vale drop a thick hide one time in four.
+tip The yetis of Feral Scar Vale (south of the road past Dire Maul, through the cave mouth around 55,56) drop a hide about 40% of the time; skinners get a second hide by skinning them.
 accept 2766
 tip The OOX-22/FE Distress Beacon is a rare drop of almost any mob in Feralas. Only one of you found it? Share the quest. Neither? Skip the OOX-22/FE steps, here and in Booty Bay.
 turnin 2766
-tip The robot lies in a cave at the edge of Feral Scar Vale.
+tip The robot waits just past the first part of the yeti cave, in a small clearing before the next cave: kill the yetis on the way in, they respawn quickly.
+tip Both of you must hand in Find OOX-22/FE! before either of you accepts the escort, or the second one can't join it.
 accept 2767
 do 2767 at 45.6,43.4 icon text "Escort OOX-22/FE to the dock on the Forgotten Coast"
-tip Start the escort only when both of you have the quest. Ambushes wait along the way.
-do 3520 bg
-tip Screecher Spirits: when a Screecher is almost dead, use Yeh'kinya's Bramble on it to capture its spirit (only if you have the quest).
+tip Start the escort only when both of you have the quest. It is hard: three ambushes come along the way. Three yetis (46) just outside the cave before the road, three gorillas (43) after the robot turns north on the main road, then four gnolls (41-43, one a caster) at the fork after the stone bridge by a waterfall. Save your long cooldowns for the gnolls.
+tip Let the robot take a hit before you pull everything off it, or it keeps walking and leaves you fighting behind. If it doesn't move at all, another player is escorting it: wait for it to come back.
+tip Players on WoW Forever have reported the robot refusing the escort ("You don't meet the requirements"). If that happens, skip the escort and its turn-in in Booty Bay.
+do 3520 bg mobs 5308 at 46.9,48.3
+tip Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its corpse, then talk to the Screecher Spirit that appears (only if you have the quest). One bramble counts for everyone nearby in the party, so the two of you need only three spirits in all. More screechers fly north of the Feathermoon dock, around 45,40.
 do 97378
-tip Mirrorscale, a level 48 wind serpent, lairs below the waterfall near the dock.
+tip Mirrorscale, a level 48 wind serpent, spawns under the bridge just west of Dire Maul (about 49,46), roughly every 3 minutes.
 hearth npc 7737
 
 # Camp Mojache --------------------------------------------------------------------------------------
@@ -180,15 +190,16 @@ tip Only druids and paladins train here; the others train in Orgrimmar.
 fly "Orgrimmar, Durotar" npc 2995
 map Orgrimmar
 turnin 3002
-tip Uthel'nay is in the Darkbriar Lodge, in the Valley of Spirits.
+tip Uthel'nay is with the mage trainers in the Darkbriar Lodge, in the Valley of Spirits.
 train 5882 6014
 turnin 3121
-tip Neeru Fireblade is in the Cleft of Shadow.
+tip Neeru Fireblade is in a hut in the Cleft of Shadow, beside the mushroom vendor near the Ragefire Chasm entrance.
 tip Leave Neeru's next quest for now: the Swamp of Sorrows guide comes back for it.
 train 3401 3326 3344
 turnin 7732
-tip Zilzibin Drumlore stands in the Drag.
+tip Zilzibin Drumlore is on the upper level of the Drag: take the ramp past the cooking trainer and keep climbing; he is in the next house up, through a small door, across from the leatherworkers.
 turnin 2976
+tip Belgrom Rockmaul stands at the gate of the Valley of Honor.
 train 3353 3352
 
 # Stranglethorn Vale --------------------------------------------------------------------------------
@@ -198,5 +209,5 @@ note "Take the zeppelin to Grom'gol, in Stranglethorn Vale, from the tower outsi
 map Stranglethorn Vale
 fly "Booty Bay" npc 1387
 turnin 2767
-tip Oglethorpe Obnoticus works in his shop on the docks of Booty Bay.
+tip Oglethorpe Obnoticus is in the hut right above First Mate Crazz on the main dock of Booty Bay: take the ramp up.
 note "The next guide, Stranglethorn Vale (46-47), starts at Grom'gol: fly back there from Gringer" npc 2858
