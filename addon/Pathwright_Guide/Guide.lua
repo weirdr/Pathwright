@@ -208,23 +208,26 @@ local function QuestTitle(step) return step.q and QuestLog.GetTitleForQuestID(st
 local function FindObjectiveIndex(step)
     local objectives = QuestLog.GetQuestObjectives(step.q)
     if not objectives then return nil end
-    if not step.n then
-        if #objectives == 1 then return objectives[1], 1 end
-        return nil
-    end
-    local name = step.n:lower()
     local best, bestIndex, bestRest
-    for i, o in ipairs(objectives) do
-        local text = o.text and o.text:lower()
-        local at = text and text:find(name, 1, true)
-        if at then
-            local rest = #((text:sub(1, at - 1) .. text:sub(at + #name)):gsub("[%d%p%s]", ""))
-            if not best or rest < bestRest or (rest == bestRest and i == step.o) then
-                best, bestIndex, bestRest = o, i, rest
+    local name = step.n and step.n:lower()
+    if name then
+        for i, o in ipairs(objectives) do
+            local text = o.text and o.text:lower()
+            local at = text and text:find(name, 1, true)
+            if at then
+                local rest = #((text:sub(1, at - 1) .. text:sub(at + #name)):gsub("[%d%p%s]", ""))
+                if not best or rest < bestRest or (rest == bestRest and i == step.o) then
+                    best, bestIndex, bestRest = o, i, rest
+                end
             end
         end
     end
-    return best, bestIndex
+    if best then return best, bestIndex end
+    -- No name on the step, or not found in the log's text (a client in another language, a text
+    -- not loaded yet): the step's own objective index, or the quest's only objective.
+    local at = step.o and objectives[step.o] and step.o or (#objectives == 1 and 1 or nil)
+    if at then return objectives[at], at end
+    return nil
 end
 
 local function FindObjective(step)

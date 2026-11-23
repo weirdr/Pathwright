@@ -7,7 +7,7 @@ local FG = Pathwright
 local QuestLog = FG.QuestLog
 
 local PREFIX = "PWSYNC1"
-local Party = { progress = {} }
+local Party = { progress = {}, updates = {} }
 FG.Party = Party
 
 if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(PREFIX) end
@@ -35,40 +35,62 @@ function Party.Encode()
 end
 local Encode = Party.Encode
 
-local function Send()
+--- What we last sent, whole: the log is sent again only once it changed, or when asked.
+local lastSent
+--- Messages are 255 bytes at most: "R" starts a full update, then chunks, then "E:<chunks>"
+--- ends it. `force`: also when nothing changed since the last one (asked for, a newcomer).
+local function Send(force)
     if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
-    -- Messages are 255 bytes at most: "R" starts a full update, then chunks.
-    C_ChatInfo.SendAddonMessage(PREFIX, "R", "PARTY")
-    local chunk = ""
-    for _, part in ipairs(Encode()) do
+    local parts = Encode()
+    local whole = table.concat(parts, ";")
+    if not force and whole == lastSent then return end
+    lastSent = whole
+    local chunks, chunk = {}, ""
+    for _, part in ipairs(parts) do
         if #chunk + #part + 1 > 240 then
-            C_ChatInfo.SendAddonMessage(PREFIX, chunk, "PARTY")
+            table.insert(chunks, chunk)
             chunk = ""
         end
         chunk = chunk == "" and part or (chunk .. ";" .. part)
     end
-    if chunk ~= "" then C_ChatInfo.SendAddonMessage(PREFIX, chunk, "PARTY") end
+    if chunk ~= "" then table.insert(chunks, chunk) end
+    C_ChatInfo.SendAddonMessage(PREFIX, "R", "PARTY")
+    for _, c in ipairs(chunks) do
+        C_ChatInfo.SendAddonMessage(PREFIX, c, "PARTY")
+    end
+    C_ChatInfo.SendAddonMessage(PREFIX, "E:" .. #chunks, "PARTY")
 end
 
-local scheduled = false
-local function SendSoon()
+local scheduled, forced = false, false
+local function SendSoon(force)
+    forced = forced or force or false
     if scheduled or not C_Timer then return end
     scheduled = true
     C_Timer.After(2, function()
-        scheduled = false
-        Send()
+        local f = forced
+        scheduled, forced = false, false
+        Send(f)
     end)
 end
 
 --- Ask the party for their progress ("?": each member sends their log), and Questie players
 --- for theirs: after a login or a reload, nothing would show until one of their counts moved.
---- At most every ASK_EVERY seconds.
+--- At most every ASK_EVERY seconds: asked too soon, it is asked once that time has passed.
 local ASK_EVERY = 10
-local askedAt
+local askedAt, askLater
 function Party:Ask()
     if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
     local now = GetTime()
-    if askedAt and now - askedAt < ASK_EVERY then return end
+    if askedAt and now - askedAt < ASK_EVERY then
+        if not askLater and C_Timer then
+            askLater = true
+            C_Timer.After(ASK_EVERY - (now - askedAt) + 0.1, function()
+                askLater = false
+                Party:Ask()
+            end)
+        end
+        return
+    end
     askedAt = now
     C_ChatInfo.SendAddonMessage(PREFIX, "?", "PARTY")
     if FG.QuestieShare and FG.QuestieShare.Ask then FG.QuestieShare:Ask() end
@@ -79,44 +101,95 @@ local function AskSoon()
     C_Timer.After(3, function() Party:Ask() end)
 end
 
-FG:On("QUEST_LOG_UPDATE", SendSoon)
+--- The party members seen already: a member with no progress to show (no addon, an empty log)
+--- is a newcomer once, not at each roster update.
+local seen = {}
+
+FG:On("QUEST_LOG_UPDATE", function() SendSoon() end)
 FG:On("PLAYER_ENTERING_WORLD", AskSoon)
 FG:On("GROUP_ROSTER_UPDATE", function()
-    local newcomer = false
-    for name in pairs(Party.progress) do
-        if not UnitInParty(name) then Party.progress[name] = nil end
-    end
+    local newcomer, here = false, {}
     for i = 1, GetNumSubgroupMembers and GetNumSubgroupMembers() or 0 do
         local name = UnitName("party" .. i)
-        if name and not Party.progress[name] then newcomer = true end
+        if name then
+            here[name] = true
+            if not seen[name] then newcomer = true end
+        end
     end
-    SendSoon()
-    if newcomer then AskSoon() end
+    seen = here
+    for name in pairs(Party.progress) do
+        if not here[name] and not UnitInParty(name) then
+            Party.progress[name], Party.updates[name] = nil, nil
+        end
+    end
+    -- A newcomer has nothing of ours yet: our log again, changed or not, and theirs asked for.
+    if newcomer then
+        SendSoon(true)
+        AskSoon()
+    end
 end)
+
+local function Refresh()
+    if FG.Tracker then FG.Tracker:Refresh() end
+    if FG.Nameplates then FG.Nameplates:Refresh() end
+    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
+end
+
+--- Seconds after an "R" with no "E" (a member on a version that sends none) before the quests
+--- it did not send again are dropped.
+local SETTLE = 5
+
+--- The quests of `name` missing from the update under way are gone from their log (handed in,
+--- abandoned). Only when the update came whole (`complete`): a chunk lost on the way would take
+--- its quests' lines away until their next change, so what was known is kept instead.
+local function Finish(name, update, complete)
+    if Party.updates[name] ~= update then return end
+    Party.updates[name] = nil
+    local mine = Party.progress[name]
+    if not mine or not complete then return end
+    local dropped = false
+    for id in pairs(mine) do
+        if not update.quests[id] then
+            mine[id], dropped = nil, true
+        end
+    end
+    if dropped then Refresh() end
+end
 
 FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     if prefix ~= PREFIX then return end
     local name = Ambiguate(sender, "short")
     if name == UnitName("player") then return end
     -- Asked for our progress: our log, whole.
-    if message == "?" then return SendSoon() end
+    if message == "?" then return SendSoon(true) end
+    -- A full update starts: what is known stays shown until the new one has come in.
     if message == "R" then
-        Party.progress[name] = {}
-        if FG.Nameplates then FG.Nameplates:Refresh() end
+        local update = { quests = {}, chunks = 0 }
+        Party.updates[name] = update
+        if C_Timer then C_Timer.After(SETTLE, function() Finish(name, update, not update.ended) end) end
+        return
+    end
+    local update = Party.updates[name]
+    local ended = message:match("^E:(%d+)$")
+    if ended then
+        if update then
+            update.ended = true
+            Finish(name, update, update.chunks == tonumber(ended))
+        end
         return
     end
     local mine = Party.progress[name] or {}
     Party.progress[name] = mine
+    if update then update.chunks = update.chunks + 1 end
     for id, counts in message:gmatch("(%d+):([^;]*)") do
         local list = {}
         for c in counts:gmatch("[^,]+") do
             table.insert(list, c)
         end
         mine[tonumber(id)] = list
+        if update then update.quests[tonumber(id)] = true end
     end
-    if FG.Tracker then FG.Tracker:Refresh() end
-    if FG.Nameplates then FG.Nameplates:Refresh() end
-    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
+    Refresh()
 end)
 
 --- Keep a party member's progress on a quest (from Questie: counts, "x" when finished).

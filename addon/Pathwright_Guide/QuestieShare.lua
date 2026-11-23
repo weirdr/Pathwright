@@ -429,8 +429,10 @@ end
 
 local function FromGroup(sender)
     if not sender then return false end
-    local party = UnitInParty and UnitInParty(sender)
-    local raid = UnitInRaid and UnitInRaid(sender)
+    -- The sender comes as "Name-Realm"; a member of our own realm is known by its name alone.
+    local short = Ambiguate and Ambiguate(sender, "short") or sender
+    local party = UnitInParty and (UnitInParty(sender) or UnitInParty(short))
+    local raid = UnitInRaid and (UnitInRaid(sender) or UnitInRaid(short))
     return (party or raid) and true or false
 end
 
@@ -477,6 +479,7 @@ function QuestieShare:Store(message, sender)
             at = at + 2 + n * 4
         end
     end
+    if FG.Tracker then FG.Tracker:Refresh() end
     if FG.Nameplates then FG.Nameplates:Refresh() end
     if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
 end

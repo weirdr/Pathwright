@@ -6,6 +6,8 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- In a party, the progress line under an objective (“Name (3/8)”) no longer goes missing: it shows on quests with several objectives whatever the game's language, stays while a member's update is on its way, and members of your own realm running Questie are counted.
+
 - The guide pickers group routes into Imported, Default and RestedXP. Each section remembers its name search, level range and character filter while you browse.
 
 - The toolstrip docks above the guide. Enable “Unlock the toolstrip” to drag it by its left edge.
