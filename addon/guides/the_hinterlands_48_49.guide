@@ -17,11 +17,13 @@
 # Left out: Battle of Warsong Gulch (8428), Conquering Arathi Basin (8437) and Conflict at Darkspear
 # Islands (98889): they want battleground Marks of Honor, won in PvP battlegrounds, not by questing.
 #
-# The route: Orgrimmar (Ripple Recovery, the auction house), the zeppelin to Undercity, a flight to
-# Tarren Mill and the ride in; Revantusk Village; one long loop north along the coast, through the
-# wilds and Skulk Rock, west to Quel'Danil and back by the Altar of Zul; a flight to Tarren Mill, the
-# Final Message at Aerie Peak, Shadra'Alor and Jintha'Alor; the OOX robot and Rin'ji's secret; then
-# Tarren Mill, Undercity, Booty Bay, Orgrimmar, Sen'jin and Gadgetzan to hand everything in.
+# The route: a flight from Rog'mar in Riverglades (where Tanaris & Dustwallow Marsh (47-48) ends)
+# to Undercity (Zinge, Oran, the auction house), a flight to Tarren Mill and the ride in; Revantusk
+# Village; one long loop north along the coast, through the wilds and Skulk Rock, west to Quel'Danil
+# and back by the Altar of Zul; a flight to Tarren Mill, the Final Message at Aerie Peak,
+# Shadra'Alor and straight back to Tarren Mill before the venom sacs spoil (30 minutes); a flight to
+# Revantusk, Jintha'Alor; the OOX robot and Rin'ji's secret; then Undercity, Booty Bay, Orgrimmar,
+# Sen'jin and Gadgetzan to hand everything in.
 
 guide The Hinterlands (48-49)
 faction horde
@@ -33,6 +35,7 @@ next Feralas & Un'Goro Crater (49-50)
 # Undercity -----------------------------------------------------------------------------------------
 
 map Undercity
+goto "Fly to Undercity: from Rog'mar in Riverglades, by way of Hammerfall and Tarren Mill" at 63.2,48.6 r 30
 ah 7842.1 npc 8672
 accept 3568
 tip Seeping Corruption is done much later, in Azshara and Felwood & Winterspring (54-56): keep its empty vials.
@@ -70,9 +73,9 @@ tip The Jintha'Alor quests and the Call to Arms board are level 50-51 elites: th
 
 do 7815 bg
 do 580 bg
-tip Whiskey Slim's Pupellyverbos Port: small bottles on the beaches either side of Revantusk. Booty Bay wants them in a later guide.
+tip Whiskey Slim's Pupellyverbos Port: small cobalt-blue bottles standing on the shore north and south of Revantusk, a few inside the village; none under water. Turning ground clutter down makes them easy to spot. Booty Bay wants them in a later guide.
 do 7840
-tip Lard's picnic basket is on the island off the north coast. Vilebranch Kidnappers guard it.
+tip Lard's picnic basket sits on the small island north-east of the big waterfall (around 84,41). Opening it brings three level 49 Vilebranch Kidnappers, each carrying a lunch: each of you kills one. They have Execute, so keep your health above 20%.
 do 7815
 tip The Saltwater Snapjaws crawl along the whole coast between Revantusk and the island.
 do 580
@@ -83,14 +86,14 @@ do 7844 bg
 do 7828 bg
 do 7829 bg
 do 3123 bg mobs 2929 2928 2927
-tip Use the Wildkin Muisek Vessel on the corpses of owlbeasts you kill.
+tip Every kind of owlbeast counts. Loot the owlbeast first, then target its corpse and use the Wildkin Muisek Vessel (the corpse vanishes). The vessel has a 30-second cooldown and works on the other player's kills too.
 do 7830 bg
-tip The Razorbeak Skylord is a big eagle that shares the wilds with the wolves and owlbeasts.
+tip Razorbeak Skylords are a kind of gryphon, not one named beast: several roam with the wolves and owlbeasts south of Skulk Rock, south of the road (around 53-55,48-50).
 tip Keep every Long Elegant Feather the gryphons and Skylords drop: Otho wants 10 later.
 do 7839
-tip The tools sit at one Vilebranch temple at a time: Skulk Rock, Agol'watha (53,39) or Shaol'watha (71,49 and 73,53). Check each as you pass.
+tip The tools are a small bucket at one of five spots at a time: on top of Skulk Rock (53.3,38.8), 57.4,42.6, the troll forts at 66.4,44.7 and 71.0,48.6, or the ruins at 72.6,53.0. You can look into the forts from outside; check each as you pass.
 do 77
-tip The Horde Supply Crates are in the caves of Skulk Rock, east and west of the river's head.
+tip The Horde Supply Crates hold one to three bottles each. Most are inside Skulk Rock's cave (the centre pit, the east room, the top of the ramp right of the entrance), one just outside its entrance (57,38). They respawn in about five minutes.
 do 7828
 do 7829
 do 3123 mobs 2929 2928 2927
@@ -99,14 +102,15 @@ do 7830
 # Quel'Danil Lodge ------------------------------------------------------------------------------------
 
 do 7841 bg
+tip The scouts and outrunners roam the front of the lodge and the field beside it; the rangers and marksmen keep to the back, inside, and by a gazebo at the lake. Rangers cast Faerie Fire, so you can't slip away from them.
 do 2995.1
-tip The records lie inside the lodge.
+tip The records and the notes lie on the ground around the lodge, the report on a table.
 do 2995.2
 do 2995.3
 accept 2742
-tip Rin'ji is a prisoner inside the lodge. If he is gone, someone just took him: wait for him to come back.
+tip Rin'ji is locked in a cage by the lake at the back of the lodge. Clear the way out before you free him. If he is gone, someone just took him: wait for him to come back.
 do 2742 at 34.6,56.3 "Escort Rin'ji out of Quel'Danil Lodge"
-tip Two groups of three elves jump you on the way out.
+tip Two groups of three elves jump you on the way out, and he likes to walk into owlbeasts. When he nears Shadra'Alor he runs off on his own: that's the end of it.
 do 7841
 turnin 77
 accept 81
@@ -115,13 +119,13 @@ tip Ripple Delivery is for a later guide: keep the barrel.
 # Hiri'watha, the river and the Altar of Zul ------------------------------------------------------------
 
 accept 2933
-tip The Venom Bottle lies on the ground south of Gilveradin's camp; taking it starts the quest.
+tip The green Venom Bottles lie on the ground in the troll camp south of Gilveradin's; clicking one starts the quest.
 do 98203
-tip Ti'ik is in a cave west of Hiri'watha. He hits hard: fight him together.
+tip Ti'ik is in a cave west of Hiri'watha. He hits hard: fight him together. His head drops for only one of you per kill, so wait the three minutes for him to come back and kill him again.
 do 2641
-tip The Violet Tragan grows under the water of the river, in the pools south-east of Hiri'watha.
+tip The Violet Tragan is a mushroom at the bottom of Valorwind Lake (around 40,60), north-west of the Altar of Zul: dive for it. Don't eat it.
 do 7844.2
-tip The Altar of Zul is full of Soothsayers and Scalpers.
+tip The Altar of Zul is full of Soothsayers and Scalpers. The Scalpers have Execute: keep your health above 20%. Stay around the base: two level 50 elites stand at the top. Spawn points change kind, so kill everything; the river forts at Shaol'watha have more.
 do 7844.1 at 46.4,66.6
 hearth npc 14731
 
@@ -153,22 +157,34 @@ tip It flags you for PvP and the Wildhammer guards are elite: ride straight to t
 
 # Shadra'Alor -----------------------------------------------------------------------------------------
 
-do 2934
-tip Only about one Witherbark Broodguard in seven drops an Undamaged Venom Sac; each of you needs one.
 turnin 1429
 tip The Atal'ai Exile stands up on a ledge at Shadra'Alor.
 accept 1444
 tip Return to Fel'Zerul is for a later guide.
+do 2934
+tip Only about one Witherbark Broodguard in seven drops an Undamaged Venom Sac; each of you needs one. The sac spoils 30 minutes after it drops: as soon as both of you have one, ride straight to Tarren Mill.
+
+# Tarren Mill, before the venom sacs spoil ------------------------------------------------------------
+
+map Hillsbrad Foothills
+goto "Ride west out of the Hinterlands to Tarren Mill" at 61.4,19.1 r 20
+turnin 2934
+accept 2935
+tip Consult Master Gadrin goes to Sen'jin Village at the end of the guide.
+fly "Revantusk Village, The Hinterlands" npc 2389
+map The Hinterlands
 
 # Jintha'Alor -----------------------------------------------------------------------------------------
 
 do 7850 bg
 do 7862 bg
+tip The Soul Eaters keep to the second terrace, the Berserkers the third, the Blood Drinkers and Shadow Hunters the fourth and fifth.
 do 7849.1
-tip The Pile of Skulls is by the lower ruins at the north end of Jintha'Alor. Every troll here is elite: pull one at a time.
+tip The Pile of Skulls is on the top level of Jintha'Alor, the same as the priestess: turn right at the top, past a walled area with trolls, into the wolf pen (around 58,65). Pull one wolf; you can loot the skull beside the other. Every troll here is elite: pull one at a time.
 do 7862.1
 do 7862.2
 do 7849.2
+tip The Pile of Bones lies in the middle of the slime pit, one level below the top (around 62,75).
 do 7862.3
 do 7862.4
 do 7850
@@ -177,9 +193,9 @@ turnin 7845
 tip Elder Torntusk is chained at the top of Jintha'Alor.
 accept 7846
 do 7861.1
-tip Vile Priestess Hexx stands by the altar at the top; clear the guards around her first.
+tip Vile Priestess Hexx walks around the altar at the very top; clear the guards first. Her hex is a heavy damage-over-time spell she can cast again and again: dispel or heal through it.
 do 7846
-tip Hitah'ya the Keeper is in the cave behind the amphitheater at the top. The Ancient Egg is in the same cave.
+tip Hitah'ya the Keeper is at the back of the cave behind the altar: take the middle tunnel, keep to the left wall (the right one is a dead end), and go up a level to a room with a green pillar. About a dozen Aman'zasi guards stand on the way, which finishes that kill count. She walks with two guards that come together: three elites at once.
 do 7861.2
 turnin 7846
 accept 7847
@@ -200,19 +216,15 @@ tip The beacon drops rarely from any mob here, and each of you needs one. If nei
 turnin 485
 accept 836
 do 836 at 79.1,61.4 "Escort OOX-09/HL to the shore beyond Overlook Cliff"
-tip The robot walks east from the head of the river to the coast; stay with it.
+tip The robot sits on the biggest island of the lake west of Skulk Rock. It walks east to the coast; stay with it. When it calls out danger, ride ahead and take the ambush off it: three owlbeasts (46) south of Skulk Rock that enrage when low (kill one at a time), then three Vilebranch Ambushers (47) in the woods north of Jintha'Alor that execute below 20%. Both of you must hand in Find OOX-09/HL! before either accepts the escort.
 turnin 2742
-tip Rin'ji's secret is hidden on the Overlook Cliffs, above the coast north of Revantusk.
+tip Rin'ji's secret is a big stone tablet on the little island with a stone arch off the coast (86,59), about due east of the path down to the turtle beach, not on the cliffs the quest names: swim to it.
 accept 2782
 
-# Tarren Mill and Undercity ------------------------------------------------------------------------
+# Undercity ----------------------------------------------------------------------------------------
 
 goto "Ride back to Revantusk Village" at 81.7,81.8 r 20
-fly "Tarren Mill, Hillsbrad" npc 4314
-map Hillsbrad Foothills
-turnin 2934
-accept 2935
-fly "Undercity, Tirisfal" npc 2389
+fly "Undercity, Tirisfal" npc 4314
 map Undercity
 turnin 2995
 turnin 2782
@@ -228,7 +240,7 @@ tip Without Rescue OOX-09/HL, take the zeppelin to Orgrimmar instead and skip to
 map Stranglethorn Vale
 fly "Booty Bay, Stranglethorn" npc 1387
 turnin 836
-tip Oglethorpe Obnoticus has his workshop up on the cliff side of Booty Bay.
+tip Oglethorpe Obnoticus is in the hut right above First Mate Crazz on the main dock of Booty Bay: take the ramp up.
 note "Take the boat from the Booty Bay docks to Ratchet" at 25.9,73.1
 
 # Orgrimmar, Sen'jin and Gadgetzan ------------------------------------------------------------------

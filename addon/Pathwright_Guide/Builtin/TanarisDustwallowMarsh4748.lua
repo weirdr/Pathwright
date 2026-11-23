@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795426431,
+    created = 1795426491,
     next = "The Hinterlands (48-49)",
     carry = { 580, 1119, 1429, 2741, 3123, 3380, 3520, 95296 },
     variants = {
@@ -174,6 +174,6 @@ Pathwright.Builtin.Register({
         { k = "fly", t = "Fly to Rog'mar", n = "Rog'mar", e = "taxi", id = 3203, m = 1434, x = 26.87, y = 77.1, lvl = 48 },
         { k = "goto", t = "Ride east to Powderfuse Port", m = 2548, x = 77.1, y = 52.9, r = 20, lvl = 48 },
         { k = "turnin", t = "Turn in Consolation Prize to Friz Frazzlespark", q = 95472, n = "Friz Frazzlespark", e = "npc", id = 255897, m = 2548, x = 77.05, y = 52.76, lvl = 48 },
-        { k = "note", t = "For the next guide, fly from Rog'mar to the Hinterlands: to Revantusk Village if you know it, else to Hammerfall in the Arathi Highlands and ride north into the Hinterlands", n = "Grakna", e = "npc", id = 255993, m = 2548, x = 59.59, y = 45.08, lvl = 48 },
+        { k = "note", t = "For the next guide, fly from Rog'mar to Undercity (by way of Hammerfall and Tarren Mill): the Hinterlands guide starts there", n = "Grakna", e = "npc", id = 255993, m = 2548, x = 59.59, y = 45.08, lvl = 48 },
     },
 })

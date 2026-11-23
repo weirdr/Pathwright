@@ -236,4 +236,4 @@ fly "Rog'mar, Riverglades" npc 2858
 map Riverglades
 goto "Ride east to Powderfuse Port" at 77.1,52.9 r 20
 turnin 95472
-note "For the next guide, fly from Rog'mar to the Hinterlands: to Revantusk Village if you know it, else to Hammerfall in the Arathi Highlands and ride north into the Hinterlands" npc 255993
+note "For the next guide, fly from Rog'mar to Undercity (by way of Hammerfall and Tarren Mill): the Hinterlands guide starts there" npc 255993
