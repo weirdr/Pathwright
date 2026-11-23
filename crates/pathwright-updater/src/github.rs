@@ -6,9 +6,10 @@ use std::io::Read;
 
 /// The repository the addon is released from.
 pub const REPO: &str = "weirdr/Pathwright";
-/// The addon's releases are tagged `addon-YYYY.MM.DD-HHMM` (.github/workflows/addon-release.yml);
-/// the updater's own are `updater-v…` and are left alone.
-const TAG_PREFIX: &str = "addon-";
+/// The addon's releases are tagged `Pathwright-vX.Y.Z` (.github/workflows/addon-release.yml);
+/// those before were `addon-YYYY.MM.DD-HHMMSS`. The updater's own (`updater`) are left alone.
+const SEMVER_PREFIX: &str = "Pathwright-v";
+const LEGACY_PREFIX: &str = "addon-";
 /// The zip each addon release carries (scripts/addon-zip.sh).
 const ASSET: &str = "Pathwright-addon.zip";
 /// The most a zip may weigh (it is a few MB).
@@ -47,19 +48,38 @@ struct ApiAsset {
     browser_download_url: String,
 }
 
-/// The newest addon release in a releases listing (GitHub lists them newest first).
+/// The version of a `Pathwright-vX.Y.Z` tag, None for another tag (the date-stamped ones before).
+fn semver(tag: &str) -> Option<(u64, u64, u64)> {
+    let mut parts = tag.strip_prefix(SEMVER_PREFIX)?.split('.');
+    let version = (
+        parts.next()?.parse().ok()?,
+        parts.next()?.parse().ok()?,
+        parts.next()?.parse().ok()?,
+    );
+    parts.next().is_none().then_some(version)
+}
+
+/// The newest addon release with its zip in a releases listing: the highest `Pathwright-vX.Y.Z`, else
+/// (none yet) the first date-stamped one (GitHub lists them newest first).
 pub fn newest_addon_release(json: &str) -> Result<Option<Release>> {
     let releases: Vec<ApiRelease> = serde_json::from_str(json).context("the releases listing")?;
-    Ok(releases
+    let usable: Vec<Release> = releases
         .into_iter()
-        .filter(|r| !r.draft && r.tag_name.starts_with(TAG_PREFIX))
-        .find_map(|r| {
+        .filter(|r| !r.draft && (r.tag_name.starts_with(SEMVER_PREFIX) || r.tag_name.starts_with(LEGACY_PREFIX)))
+        .filter_map(|r| {
             let asset = r.assets.into_iter().find(|a| a.name == ASSET)?;
             Some(Release {
                 tag: r.tag_name,
                 zip_url: asset.browser_download_url,
             })
-        }))
+        })
+        .collect();
+    let highest = usable
+        .iter()
+        .filter_map(|r| semver(&r.tag).map(|v| (v, r)))
+        .max_by_key(|(v, _)| *v)
+        .map(|(_, r)| r.clone());
+    Ok(highest.or_else(|| usable.into_iter().next()))
 }
 
 /// Ask GitHub for the newest addon release.
@@ -108,5 +128,21 @@ mod tests {
         assert_eq!(release.tag, "addon-2026.11.23-0309");
         assert_eq!(release.zip_url, "https://example/zip");
         assert_eq!(newest_addon_release("[]").unwrap(), None);
+    }
+
+    #[test]
+    fn the_highest_semantic_version_wins_over_the_listing_order_and_the_dates() {
+        let json = r#"[
+            {"tag_name": "Pathwright-v1.0.9", "draft": false, "assets": [{"name": "Pathwright-addon.zip", "browser_download_url": "u9"}]},
+            {"tag_name": "Pathwright-v1.0.10", "draft": false, "assets": [{"name": "Pathwright-addon.zip", "browser_download_url": "u10"}]},
+            {"tag_name": "Pathwright-v2.0.0", "draft": true, "assets": [{"name": "Pathwright-addon.zip", "browser_download_url": "draft"}]},
+            {"tag_name": "addon-2026.11.23-114723", "draft": false, "assets": [{"name": "Pathwright-addon.zip", "browser_download_url": "old"}]}
+        ]"#;
+        let release = newest_addon_release(json).unwrap().unwrap();
+        assert_eq!(release.tag, "Pathwright-v1.0.10");
+        assert_eq!(release.zip_url, "u10");
+        assert_eq!(semver("Pathwright-v1.2.3"), Some((1, 2, 3)));
+        assert_eq!(semver("Pathwright-v1.2"), None);
+        assert_eq!(semver("addon-2026.11.23-0309"), None);
     }
 }

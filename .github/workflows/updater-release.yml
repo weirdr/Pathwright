@@ -3,7 +3,7 @@ name: Updater release
 # The Pathwright Updater (crates/pathwright-updater), built on GitHub's runners after each push to
 # main that changes it (or run by hand) and published to one release that always holds the
 # newest build: tag `updater`, titled "Pathwright Updater", never marked Latest (the addon's
-# releases stay first; the updater itself only looks at addon-… tags). Its files keep their
+# releases stay first; the updater itself only looks at Pathwright-v… tags, and the addon-… ones before). Its files keep their
 # names, so the README links to them for good:
 #   PathwrightUpdater-Windows.exe
 #   PathwrightUpdater-macOS-AppleSilicon.zip   (M1 and later)

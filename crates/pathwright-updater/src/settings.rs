@@ -8,7 +8,7 @@ pub struct Settings {
     /// The game's Interface/AddOns folder (found, or picked by hand).
     #[serde(default)]
     pub addons: Option<PathBuf>,
-    /// The tag of the addon release installed last (addon-YYYY.MM.DD-HHMM).
+    /// The tag of the addon release installed last (Pathwright-vX.Y.Z).
     #[serde(default)]
     pub installed: Option<String>,
     /// Start at login was set on the first run (then left to the player's choice).

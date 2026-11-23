@@ -1,6 +1,6 @@
 //! Pathwright Updater: a system tray app (macOS and Windows) that keeps the Pathwright addon up
 //! to date. Every 15 minutes (and on "Check for updates now") it looks at the addon's GitHub
-//! releases (tags addon-…, .github/workflows/addon-release.yml); when one is newer than the one
+//! releases (tags Pathwright-vX.Y.Z, .github/workflows/addon-release.yml); when one is newer than the one
 //! it installed, it downloads its zip and installs it into WoW Forever's AddOns folder, quietly:
 //! the game uses it at the next /reload or login. It finds the folder by itself (as the desktop
 //! app does), or takes the one picked from its menu. It starts at login (from its first run, a

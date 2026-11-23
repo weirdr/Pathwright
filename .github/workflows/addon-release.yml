@@ -3,9 +3,12 @@ name: Addon release
 # After each push to main that changes the addon, and every hour as a backup (GitHub's schedules
 # can be late or skipped), when the addon changed since the last addon release: its smoke tests,
 # then the addon zipped (scripts/addon-zip.sh: every addon folder a fresh install makes) and
-# published as a GitHub release tagged addon-YYYY.MM.DD-HHMMSS, the commits since the last one
-# as its notes. Nothing changed: no release. Run by hand, it releases now (when something
-# changed). These tags never match release.yml's vX.Y.Z: the apps' releases stay apart.
+# published as a GitHub release tagged Pathwright-vX.Y.Z, the commits since the last one as its
+# notes. Nothing changed: no release. Run by hand, it releases now (when something changed).
+# Semantic versions (scripts/addon-version.sh): each release bumps the patch number; set
+# addon/VERSION to start a new minor or major version. The releases before were tagged
+# addon-YYYY.MM.DD-HHMMSS. The Pathwright- prefix keeps these tags apart from release.yml's
+# vX.Y.Z (the apps' releases).
 on:
   push:
     branches: [main]
@@ -38,7 +41,7 @@ jobs:
       - name: Anything new since the last addon release?
         id: changes
         run: |
-          last=$(git tag --list 'addon-*' --sort=-creatordate | head -n 1)
+          last=$(git tag --list 'Pathwright-v*' 'addon-*' --sort=-creatordate | head -n 1)
           echo "last=$last" >> "$GITHUB_OUTPUT"
           if [ -n "$last" ] && git diff --quiet "$last" HEAD -- addon scripts/install-addon.sh scripts/addon-zip.sh; then
             echo "No addon change since $last: no release."
@@ -64,7 +67,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           LAST: ${{ steps.changes.outputs.last }}
         run: |
-          tag="addon-$(date -u +%Y.%m.%d-%H%M%S)"
+          version=$(scripts/addon-version.sh)
+          tag="Pathwright-v$version"
           guide=$(sed -n 's/^## Version: //p' addon/Pathwright_Guide/Pathwright_Guide.toc | tr -d '\r')
           profile=$(sed -n 's/^## Version: //p' addon/Pathwright_Profile/Pathwright_Profile.toc | tr -d '\r')
           {
@@ -81,6 +85,6 @@ jobs:
           gh release create "$tag" dist/Pathwright-addon.zip \
             --repo "$GITHUB_REPOSITORY" \
             --target "$(git rev-parse HEAD)" \
-            --title "Pathwright addon $(date -u '+%Y-%m-%d %H:%M') UTC" \
+            --title "Pathwright v$version" \
             --notes-file notes.md \
             --latest
