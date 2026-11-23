@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795391118,
+    created = 1795452313,
     next = "Alterac Mountains & Arathi Highlands (38-39)",
-    carry = { 1106, 1136, 1373, 1712, 95141 },
+    carry = { 1106, 1136, 1373, 1712, 1714, 95141 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

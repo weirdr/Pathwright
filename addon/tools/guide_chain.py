@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Check a chain of built-in guides (linked by `next`) and set their `carry` and `leave` lines.
 
-    python3 -I addon/tools/guide_chain.py "<first guide name>" ["<another first guide>" ...] [--write]
+    python3 -I addon/tools/guide_chain.py ["<first guide name>" ...] [--write]
+
+Without names: every guide no other guide names as its `next` starts a chain. It exits with 1
+when it finds a problem.
 
 Several first guides (the starters of each race) may lead into the same chain: each chain is
 worked out, and a guide they share carries and leaves what any of them needs.
@@ -118,6 +121,9 @@ def work(first):
         acc["leave"] |= w["leave"]
 
 
+if not firsts:
+    named = {g["next"] for g in guides.values() if g["next"]}
+    firsts = sorted(n for n in guides if n not in named)
 for f in firsts:
     work(f)
 for name, w in wants.items():
@@ -141,3 +147,5 @@ for name, w in wants.items():
             open(g["path"], "w", encoding="utf-8").write("\n".join(out))
 for p in sorted(set(problems)):
     print("problem:", p)
+if problems:
+    sys.exit(1)

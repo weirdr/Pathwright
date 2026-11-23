@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795391118,
+    created = 1795452313,
     next = "Stranglethorn Vale (36-37)",
-    carry = { 1106, 1136, 1362, 1432, 5361, 5762 },
+    carry = { 1106, 1136, 1362, 1432, 1712, 1714, 5361, 5762 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

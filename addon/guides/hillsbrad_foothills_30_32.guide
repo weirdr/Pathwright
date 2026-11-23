@@ -1,0 +1,234 @@
+# Hillsbrad Foothills (30-32): the second visit to Tarren Mill (the Battle of Hillsbrad, the Elixir
+# of Agony, Helcular's Revenge, the Dalaran internment camp and the Syndicate), with Bath'rah the
+# Windwatcher in the Alterac Mountains for warriors and the Call of Water in Silverpine Forest for
+# shamans, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/hillsbrad_foothills_30_32.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Hillsbrad Foothills, area
+# 267; Alterac Mountains, area 36) and the Wowhead WoW Forever comments; RestedXP's and Zygor's
+# routes as a check. The quest list is section 12 of addon/guides/horde_1_40_allocation.md, plus
+# Elixir of Agony (509, 513), moved here from Arathi Highlands (32-33) so the whole chain is done in
+# one guide.
+#
+# Carried in (skipped by those who lack them): Battle of Hillsbrad (529), Souvenirs of Death (546)
+#   and Dangerous! (567), from Tarren Mill on the first visit (Hillsbrad Foothills 22-24); for
+#   warriors The Windwatcher (1791, Klannoc Macleod in the Barrens); for shamans Call of Water (63,
+#   Islen Waterseer in the Barrens).
+# Left to later guides: for warriors Cyclonian (1712) and Essence of the Exile (1714), taken from
+#   Bath'rah and his cauldron here: the Bloodscalp Tusks come from Stranglethorn Vale (36-37) and
+#   Alterac Mountains & Arathi Highlands (38-39) hands both in. For shamans Call of Water (96), the
+#   Shard of Water for Islen Waterseer, handed in by Thousand Needles (33-34).
+# Left out:
+#   Regthar Deathgate (1361): a breadcrumb to Regthar Deathgate in the Barrens, which this guide
+#     never visits (Nazgrel and Belgrom Rockmaul give it in Orgrimmar too).
+#   Blood in the Streets (92434): it follows Dalaran Patrols (545), done in Alterac Mountains &
+#     Arathi Highlands (38-39). Shrewd Negotiations (97287) follows Heart of Disruption (96984),
+#     whose Arcane Mote is inside Dalaran, a dungeon.
+#   Conquering Arathi Basin (8370) and Battle of Warsong Gulch (8426): they want battleground Marks
+#     of Honor, won in PvP battlegrounds, not by questing.
+# Bought, not farmed: Turtle Meat for cooks (the snapjaws hardly ever drop it in this game), in
+#   Undercity at the start; the Troll's Blood elixir of Elixir of Agony (item 3388, called Lesser
+#   Troll's Blood Elixir in this game; alchemists brew it, nothing drops it), in Undercity halfway.
+#
+# The route: Undercity and a flight to Tarren Mill; a loop north and west (Bath'rah for warriors,
+# Valik in Sofera's Naze, the Foothill Caverns, the Lordamere Internment Camp, Hillsbrad Fields) and
+# the hearthstone back; a second loop (Growless Cave, the Foothill Caverns again, the town hall of
+# Hillsbrad Fields, Helcular's grave at Southshore, Nethander Stead); a flight to Undercity, where
+# shamans fly on to the Sepulcher for the Call of Water and hearth back; a loop south-west (Azurelode
+# Mine, the Torn Fin murlocs, the Daggerspine naga); a last loop to Dun Garok; the end in Tarren
+# Mill, where Arathi Highlands (32-33) starts.
+
+guide Hillsbrad Foothills (30-32)
+faction horde
+levels 30 32
+carry 63 529 546 567 1791
+leave 96 1712 1714
+next Arathi Highlands (32-33)
+
+# Undercity -------------------------------------------------------------------------------------------
+
+map Durotar
+note "From Kalimdor, take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades, then walk into Undercity" at 50.8,13.4
+map Undercity
+ah 7321.1 npc 8672
+tip Cooks only: Christoph Jeffcoat in Tarren Mill wants 10 Turtle Meat from each of you. Buy it here: in this game the snapjaws around Tarren Mill hardly ever drop it.
+note "Optional: learn Cooking from Eunice Burch if you want the Soothing Turtle Bisque quest in Tarren Mill" npc 4552
+tip Christoph Jeffcoat only offers it to those who know Cooking (Apprentice is enough); without it the guide skips that quest.
+train 4593 260093 4582 4606 4566 4563
+tip Hunters, shamans and druids have no trainer here: train at your next visit to Orgrimmar or Thunder Bluff.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+fly "Tarren Mill, Hillsbrad" npc 4551
+map Hillsbrad Foothills
+route off
+accept 509
+accept 7321 skill Cooking
+do 7321.2 at 62.3,19.0 npc 2393
+tip Christoph Jeffcoat sells the Soothing Spices himself.
+do 7321.1 at 62.3,19.0
+tip Done if you bought the meat in Undercity. Didn't? Farming it is very slow here (players report about one turtle in a hundred): right-click to skip Soothing Turtle Bisque.
+turnin 7321
+bind 2388
+note "Buy a Southshore Stout from Innkeeper Shay, for Henchman Valik in the Syndicate camp" npc 2388
+tip Each of you needs one. It costs a few copper and saves hunting the Drunken Footpad for it.
+accept 552
+accept 533
+tip Krusk is indoors; he has this for those who did The Rescue or WANTED: Syndicate Personnel on the first visit.
+accept 547
+accept 556
+tip Keeper Bel'varil and Magus Wordeen Voidglare stand indoors, side by side.
+accept 544 93680
+route on
+
+# North and west: Bath'rah, the Syndicate, the yetis, Dalaran's camp, Hillsbrad Fields ------------------
+
+map Alterac Mountains
+turnin 1791 only warrior
+tip Bath'rah camps by the ruins on the east bank of the river, north-east of Tarren Mill.
+accept 1712 only warrior
+accept 1714 only warrior
+tip Keep both: Bath'rah's cauldron takes the Exiles' charms for the Essence of the Exile, and the Bloodscalp Tusks of Cyclonian come from Stranglethorn Vale. Alterac Mountains & Arathi Highlands (38-39) finishes them.
+accept 535
+tip Henchman Valik lies wounded in Sofera's Naze, the Syndicate camp just north of Tarren Mill in the Alterac Mountains. Walk past the patrols to him; he is not hostile. He only talks to those on Krusk's Infiltration.
+do 535
+tip No stout? The Drunken Footpad who wanders the camp nearly always drops one.
+turnin 535
+tip Hand it in before you loot any Syndicate Missive: Valik won't take the stout from someone who already carries one. His missive completes Infiltration. He may turn on you after the hand-in: kill him, and if one of you has not handed in yet, wait for his respawn.
+do 533
+tip Done with Valik's missive. Otherwise the Syndicate Footpads and Thieves of the camp drop it, about one in three.
+
+map Hillsbrad Foothills
+do 552
+tip The yetis' cave (the Foothill Caverns, on Darrow Hill) opens in the hills west of Tarren Mill; any yeti in or just outside it can drop the rod. It is a very rare drop: players report anything from 20 to over 250 kills. In a group it drops for both of you at once. Skinners do well here; everyone else: give it a while, then right-click to skip Helcular's Revenge.
+
+map Alterac Mountains
+do 556 bg
+tip The Lordamere Internment Camp is the walled compound on a hill south of Dalaran, left of the road. The Dalaran mages around it drop the tokens, the Shield Guards most often. A Shield Guard's red shield hurts whoever hits it in melee: stop meleeing while it is up (spells and ranged attacks can carry on). The elementals nearby see you from far away and drop nothing: go around them. Players find the tokens slow in this game, with few mages and many hunters: if it drags on, right-click to skip Stone Tokens (Bracers of Binding, its follow-up in a later guide, then skips itself).
+do 544
+tip Ricter, Alina, Dermot and Kegan Darkmar are passive undead prisoners (they don't attack first): each carries one Bloodstone piece. The first three are in and around the walled camp; Kegan Darkmar (35) is upstairs in the two-storey house west of it, with guards and a caster who polymorphs: pull the guards first.
+do 93680
+tip The Warden's Footlocker is not inside the walled camp: walk past its west wall to the two-storey house beyond it, go into the second room on the ground floor, and the chest stands at the back by the stairs, near Warden Belamoore. Each of you opens it.
+do 556
+
+map Hillsbrad Foothills
+do 546 bg mobs 2267 2266 2360 2268 2387 2265 2264 2269 2503 2270
+tip Every human of Hillsbrad can drop a skull, but players get only about one in ten in this game and each of you needs 30: kill every human you pass in the fields, the town and the mine. The Battle of Hillsbrad brings you back here twice more.
+do 529
+tip The smithy stands just north of the road through Hillsbrad Fields: Blacksmith Verringtan and his apprentices work there, and the Shipment of Iron is inside the workshop. The apprentices are slow to respawn and seem to need room: clear the other mobs around the smithy if none come back. Already done on the first visit? Nothing to do.
+do 567.1
+tip Clerk Horrace Whitesteed is inside the town hall, the walled white house in the west of the town, among the Councilmen. Kill him now; you come back here for the Magistrate later.
+do 567.2
+tip Citizen Wilkes walks the road between the town hall and the smithy. These named humans take about half an hour to respawn: if someone got there first, do the rest and check again.
+do 567.4
+tip Farmer Kalaba works among the trees of the orchard by the road, on the east side of the fields.
+hearth npc 2388
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 529
+accept 532
+turnin 552
+accept 553
+turnin 533
+turnin 544 93680
+turnin 556
+
+# The Flame of Uzel, the yeti cave, Hillsbrad Fields, Helcular's grave, Nethander Stead --------------
+
+map Alterac Mountains
+do 553.3
+tip The Flame of Uzel burns in Growless Cave, in the middle of the Alterac Mountains due north of the Foothill Caverns. Ogres and yetis of level 34-35 stand on the way, and two yetis wait by the flame: clear them together before you use it.
+map Hillsbrad Foothills
+do 553.1
+tip Back in the Foothill Caverns: the Flame of Azel is on the top floor, up to the right from the entrance, at the far end.
+do 553.2
+tip The Flame of Veraz is on the bottom floor: take the curving ramp down to the left and follow the tunnel.
+do 532
+tip The town hall is the big house in the west of Hillsbrad Fields. Magistrate Burnside stands in its large room with the Proclamation in front of him and the Registry (a book) in the corner; the Councilmen are in and around the house. The rooms are packed, with casters that shoot through doorways: pull carefully and expect two or three at once. The Registry respawns within a minute, so both of you get one.
+turnin 553
+tip Helcular's grave is the easternmost one of the Southshore graveyard, next to the river. The elite Southshore guards see through stealth and daze you. Stay away from the town: come up from the river on the east side and slip between the two trees just before the graveyard, click the grave and leave the same way. A Lesser Invisibility Potion helps; if a guard catches you, die near the grave, run back as a ghost, resurrect beside it and click it at once.
+do 509
+tip The Mudsnout Blossoms grow thickly in the field of Nethander Stead, east of the river from Southshore, and respawn fast. Gnolls (shamans among them) guard it and respawn quickly in random spots: expect two or three at once.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 532
+accept 539
+turnin 509
+accept 513
+
+# Undercity and back --------------------------------------------------------------------------------
+
+fly "Undercity, Tirisfal" npc 2389
+map Undercity
+turnin 513
+accept 515
+tip Master Apothecary Faranell is in the Apothecarium.
+ah 515.1 npc 8672
+tip Faranell's quest text asks for a Strong Troll's Blood Elixir, but in this game the item is called Lesser Troll's Blood Elixir: one each, brewed by alchemists, nothing drops it. Buy them here (or ask an alchemist).
+train 4593 260093 4582 4606 4566 4563
+fly "Tarren Mill, Hillsbrad" npc 4551 only warrior paladin hunter rogue priest mage warlock druid
+
+# Silverpine Forest: the Call of Water (shamans) ------------------------------------------------------
+
+fly "The Sepulcher, Silverpine Forest" npc 4551 only shaman
+map Silverpine Forest
+goto "Climb into the hills behind the Sepulcher's inn and cross them west to the shrine of Everfount" at 41.8,41.2 r 15 only shaman
+tip A tall tree stands against the rocks behind the inn: jump up the rocks beside it, then head west over the ridge and drop down to the coast (the falls hurt a little). The shrine is a big standing stone by a ring-shaped pool.
+do 63 only shaman
+tip Stand next to the standing stone and drink the Water Sapta: water elementals appear around the pool. Only one can be attacked, the corrupt one near the middle (level 22): kill it for the bracers. If someone killed it just before you, it is back within about 5 minutes. Something went wrong? Tiev Mordune, sitting behind the stone, helps those who bring him another Sapta.
+turnin 63 only shaman
+tip Put the bracers and the Remaining Drops of Purest Water on the Brazier of Everfount.
+accept 100 only shaman
+turnin 100 only shaman
+tip The Minor Manifestation of Water appears on the islet in the middle of the pool a few seconds later. It wanders off if you wait too long, and comes back after a few minutes.
+accept 96 only shaman
+tip Keep the Shard of Water: Thousand Needles (33-34) takes it to Islen Waterseer.
+hearth npc 2388 only shaman
+tip There is no short way back to the Sepulcher: your hearthstone takes you to Tarren Mill. Not ready yet? Walk north around the mountains and back to the Sepulcher, and fly to Tarren Mill.
+
+# Azurelode Mine, the Torn Fin murlocs, the Daggerspine naga --------------------------------------
+
+map Hillsbrad Foothills
+do 539
+tip Azurelode Mine is just south of Hillsbrad Fields; the sentries outside call each other for help, the miners inside come one at a time (they run when hurt). Foreman Bonds stands on a raised platform deep inside (the entrance is on its south-west side; take the lower way in, then the first fork right). Below 20% he calls two dwarves: burst him down, or stun him as he gets low.
+do 567.3
+tip Miner Hackett is in the north-east nook of the mine, where you can jump down to a lower level.
+do 546 at 29.8,55.5 mobs 2269 2503 2270 2266 2267
+tip Still short of skulls? The miners seem to drop them more often; the Syndicate mages of Durnholde Keep, south-east of Tarren Mill across the river, are another good source. Or right-click to skip Souvenirs of Death.
+do 515.3 at 28.0,71.0
+tip The Torn Fin murlocs on the beach just south of Azurelode Mine drop the eyes more often than the big crowd south-west of Southshore. Still only about one in seven, and each of you needs five: pull the loners, groups of murlocs run for help.
+do 515.2
+tip The Daggerspine naga line the river mouth between Southshore and Nethander Stead, and the coast further south-east. About one in four drops a scale, and Sirens hit hard: fight them one at a time. Alliance players farm here too.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 539
+accept 541
+turnin 546
+turnin 567
+turnin 515
+accept 517
+
+# Dun Garok -------------------------------------------------------------------------------------------
+
+do 547 bg
+tip Any dwarf of Dun Garok can drop Humbert's Sword, but players find it rare in this game. When it drops, both of you can loot it. Not dropped by the time the keep is cleared for the Battle of Hillsbrad and the keg? Right-click to skip Humbert's Sword.
+do 541
+tip Dun Garok is the dwarven keep in the far south-east. Its Mountaineers, Riflemen and Priests are elites of level 28-30 that stand close together and respawn fast: pull into the doorways, kill the Priests first, and stop runners before they bring friends. Captain Ironhill (elite, 32) is either downstairs in the dining hall or upstairs in a barracks room: clear the room beside his first. If his guards come with him, drag them all outside and keep hitting the Captain until the others give up and go back.
+do 517
+tip One keg of Shindigger Stout sits inside the keep, at one of several spots that change: the two mess halls on either side at the top of the stairs (one hides behind a pile of boxes), the foot of either staircase, or the hall at the bottom of the main stairs by the fireplace. Check them all, and pull the elites one at a time on the way.
+
+# Tarren Mill -----------------------------------------------------------------------------------------
+
+turnin 541
+turnin 547
+turnin 517
+accept 524
+turnin 524
+tip The Dusty Rug lies upstairs in the inn, to the left, on the floor between the three Captured Farmers: click it to set the Tainted Keg down.
+note "Stay in Tarren Mill: the next guide starts here" at 62.0,20.0
