@@ -1,0 +1,263 @@
+# Thousand Needles (28-30): Freewind Post and the canyons around it (the Galak centaur, the
+# Roguefeather harpies, Highperch, Whitereach Post, the Grimtotem of Darkcloud Pinnacle, Dorn
+# Plainstalker's tests), with a first stop at Camp Taurajo and the errands that end in Ratchet and
+# Orgrimmar, for a Horde duo.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/thousand_needles_28_30.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Thousand Needles, area 400;
+# The Barrens, area 17); RestedXP's and Zygor's routes as a check. The quest list is section 11 of
+# addon/guides/horde_1_40_allocation.md.
+#
+# Starts in Thunder Bluff: Ashenvale (26-28) should end there (it hands in The Sacred Flame, 1195,
+#   to Zangen Stonehoof, who then gives 1196 here).
+# Carried in (skipped by those who lack them): Calling in the Reserves (5881, from Maggran
+#   Earthbinder at Sun Rock Retreat: Stonetalon Mountains (25-26) should take it); for shamans Call
+#   of Water (1534, from Brine in the Barrens after Call of Water 1536: The Barrens (24-25) should take
+#   it, and Ashenvale (26-28) fill its waterskin at the Ruins of Stardust).
+# Left to later guides: Parts for Kravel (1112) for Thousand Needles (33-34); for warriors The
+#   Windwatcher (1791) and for shamans Call of Water (63), both for Hillsbrad Foothills (30-32).
+# Left out: the Test of Lore (1152, 1154, 6627, 1159, 6628). In this game Braug Dimspirit asks his
+#   question (6627) only after you bring him the Legacy of the Aspects (1154) from the Dor'danil Barrow
+#   Den in southern Ashenvale, and Parqual Fintallas asks his (6628) only after the book of the Scarlet
+#   Monastery (1160, a dungeon). Braug, Dor'danil and Braug again cost about 35 minutes of running for
+#   about 4,500 XP, and the chain stops at the dungeon anyway.
+#
+# The route: Thunder Bluff and a flight to Camp Taurajo; the soldiers on the Dustwallow border and the
+# Great Lift down to Freewind Post; a loop north and east (the Galak centaur, Splithoof Hold, Dorn
+# Plainstalker, the Gravelsnout kobolds and the alien egg); a loop west (the Roguefeather Den,
+# Highperch, Steelsnap, Whitereach Post, the Boiling Pool) and the hearthstone to Thunder Bluff; Camp
+# Taurajo and a flight back to Freewind Post; a last loop (Dorn, Darkcloud Pinnacle, Rok'Alim, the
+# panther, Whitereach Post); the Shimmering Flats and Gadgetzan; flights to the Crossroads, Ratchet
+# and Orgrimmar, where Hillsbrad Foothills (30-32) starts at the zeppelin.
+
+guide Thousand Needles (28-30)
+faction horde
+levels 28 30
+carry 1534 5881
+leave 63 1112 1791
+next Hillsbrad Foothills (30-32)
+
+# Thunder Bluff ---------------------------------------------------------------------------------------
+
+map Thunder Bluff
+accept 1196
+tip Zangen Stonehoof stands on the central rise. He has this for those who brought him the moonwell water (The Sacred Flame) in Ashenvale.
+accept 1131
+tip Melor Stonehoof is on Hunter Rise.
+bind 6746
+tip Set your hearthstone here: it brings you back from the far west of Thousand Needles halfway through the guide.
+fly "Camp Taurajo" npc 2995
+tip No flight path to Camp Taurajo? Ride east out of Mulgore instead: the camp is just past the gate into the Barrens.
+
+# Camp Taurajo and the south of the Barrens ----------------------------------------------------------
+
+map The Barrens
+accept 97250
+accept 1153
+tip Tatternack Steelforge has this for those who did his Weapons of Choice. You come back here halfway through to hand both in.
+turnin 1534 only shaman
+tip Brine sits on top of the hill south of Camp Taurajo, by the road to the Great Lift.
+accept 220 only shaman
+tip Keep the Vial of Purest Water: Islen Waterseer near Ratchet wants it at the end of the guide.
+do 97250
+tip The Alliance soldiers stand a short way east of Brine's hill, at the edge of Dustwallow Marsh. The Outraged Pillager is an elite of level 23: easy for the two of you. They come back about six minutes after they die.
+turnin 5881
+tip Grish Longrunner guards the top of the Great Lift, at the southern tip of the Barrens.
+accept 4542
+tip Brave Moonhorn stands beside him. Take the lift down; don't step off before it reaches the bottom.
+
+# Freewind Post ---------------------------------------------------------------------------------------
+
+map Thousand Needles
+goto "Follow the road south-east to the mesa of Freewind Post and take the lift up" at 46.7,48.3 r 10
+tip The lifts are on the north side of the mesa. The Galak centaur camps you pass on the way are for later: don't fight your way through them yet.
+fpath 4317
+turnin 4542
+accept 4841
+accept 5147
+tip The wanted poster hangs on the post beside Cliffwatcher Longhorn.
+accept 4767
+accept 4821
+turnin 1196
+accept 1197
+tip Rau Cliffrunner is in the inn.
+accept 98069 98070
+tip Jandia stands next to Rau Cliffrunner.
+
+# North and east: the Galak centaur, Splithoof Hold, Dorn Plainstalker, the kobolds, the egg ---------
+
+do 4841 bg
+tip The Galak camps spread over the plain north of Freewind Post and around Splithoof Crag. Scouts are the fewest: kill every one you see.
+goto "Enter Splithoof Crag, the centaurs' cave, and follow it up into Splithoof Hold" at 44.1,37.3 r 10
+do 1197
+tip The Ancient Brazier stands at the back of Splithoof Hold, guarded by two level 30 centaurs: pull them away from it one at a time. Then each of you uses the Filled Etched Phial on the brazier to douse its flame and takes the Cloven Hoof from it.
+do 4841
+tip Finish the centaur around the cave mouth and the camps east of it, on your way to Dorn.
+accept 1149
+tip Dorn Plainstalker waits in a small cave in the cliffs north-east of Freewind Post.
+do 1149 at 53.9,41.5 icon talk "Talk to Dorn again to be taken to the planks above the canyon, then walk off their end"
+tip Up there, wait until the speech is over, then step off the end of the planks. You never hit the ground: you are brought back to Dorn.
+turnin 1149
+accept 1150
+do 1153
+tip The Gravelsnout Diggers and Surveyors dig just south of Dorn's cave and on along the cliffs to the east. About every other one drops a sample; each of you needs one. Stormheart, an elite of level 30, roams the plain east of Freewind Post: fight it together or let it pass.
+do 4821 at 56.4,50.4
+tip The egg lies in one of three serpent dens at the foot of the cliffs: east of the kobolds (56.4,50.4), south-east of Freewind Post (52.3,55.3) or south-west of it (37.6,56.1). Look in the two east ones first. Serpents guard it.
+
+# Freewind Post ---------------------------------------------------------------------------------------
+
+turnin 4841
+accept 5064
+turnin 1197
+turnin 4821
+accept 4865
+
+# West: the Roguefeather Den, Highperch, Steelsnap, Whitereach Post, the Boiling Pool ---------------
+
+do 98069 bg
+do 98070 bg
+tip The Screeching Canyon is west of Freewind Post: the harpies live at the foot of its cliffs and in a cave at the top (the Roguefeather Den). Windcallers knock everyone near them back and stun: fight them away from the others. The sacks lie on the ground all over the den.
+do 1150
+tip Climb to the cave at the top and go to its deepest room. Click the Harpy Foodstuffs there to spoil them: the harpies rush you, then Grenka Bloodscreech comes. Clear the room first, and keep one of you ready for her.
+do 98070
+do 98069
+do 4767 bg
+tip The Highperch wyverns guard their eggs: pick them up wherever you see them, on the lower ledges and up on the plateau.
+accept 4770
+tip Highperch is the plateau in the far west: follow the canyon wall north-west from the harpies to the ramp that climbs into it. Pao'ka Swiftmountain hides halfway up. Both of you accept before either starts the escort. Watch for Heartrazor, a rare elite wyvern of level 32 that flies about.
+do 4770 at 15.2,32.7
+tip Wyverns swoop on her along the way, and three more come at the end: let her tank, kill them before they turn on you.
+do 4767
+tip The rest of the eggs lie on the top of Highperch, at its western edge.
+do 1131
+tip Steelsnap is a big hyena that roams the north-west of the canyon, between Highperch and the northern cliffs, with two hyenas at his side. Kill the guards first. He comes back within five minutes.
+accept 4881 at 19.0,26.4 icon kill mobs 10617 "Kill the Galak Messenger, loot his Assassination Note and open it: it starts a quest"
+tip He walks the road between the Galak camps and the north-west corner of the canyon, past Whitereach Post. Not in sight? Wait by the road: he comes back within five minutes.
+route off
+turnin 4865
+tip Motega Firemane stands in Whitereach Post, the small camp by the road.
+accept 5062
+turnin 4770
+accept 5151
+tip Wizlo Bearingshiner stands in the post too. His panther is for the last loop: keep the key.
+turnin 4881
+tip Kanati Greycloud is next to Motega Firemane.
+accept 4966
+do 4966 mobs 10720
+tip Three Galak Assassins rush in as soon as Kanati hears the warning: keep them off him and kill them. If they come for each of you, one after the other, take them on together both times.
+turnin 4966
+route on
+do 5062
+tip The Incendia Agave grows around the Boiling Pool, north-east of Whitereach Post, some of it under the water. The Boiling and Scalding Elementals there burn hard: pull them out of the plants. Watch out for level 38 elites that may roam between the pool and Freewind Post (Ailgrha Splittusk, the Ravaging Tempest and its elementals): keep well away from them.
+hearth npc 6746
+
+# Thunder Bluff and Camp Taurajo ----------------------------------------------------------------------
+
+map Thunder Bluff
+turnin 1131
+tip Melor also offers Frostmaw: leave it for now, Thousand Needles (33-34) takes it here.
+turnin 5062
+accept 5088
+tip Magatha Grimtotem stands on Elder Rise. Keep the Incendia Powder she gives you.
+fly "Camp Taurajo" npc 2995
+map The Barrens
+turnin 97250
+turnin 1153
+fly "Freewind Post" npc 10378
+
+# Freewind Post ---------------------------------------------------------------------------------------
+
+map Thousand Needles
+bind 11116
+tip Set your hearthstone here: it brings you back from Whitereach Post at the end of the loop.
+turnin 4767
+turnin 98069 98070
+turnin 1150
+accept 1151
+
+# Darkcloud Pinnacle, Rok'Alim, the panther, Whitereach Post -----------------------------------------
+
+goto "Climb onto Darkcloud Pinnacle from its south-west foot" at 31.5,36.7 r 10
+tip The Grimtotem are tauren of level 28-30, often two or three together, with casters among them.
+do 5064.1
+tip Secret Note #1: the chest out in the open on top of the pinnacle.
+do 5064.2
+tip Secret Note #2: the chest inside the big tent.
+do 5064.3
+tip Secret Note #3: the chest inside the tent on the eastern plateau.
+do 5088.1
+tip The sacred fire of life burns on the needle where the Grimtotem bury their dead, north of the eastern plateau. Clear the guards around it, then each of you throws your Incendia Powder on it. Arikara, an elite serpent of level 28, comes out of it: fight her together.
+do 5088.2
+do 5147
+tip Arnak Grimtotem stands at the northern end of the pinnacle, near his captive Lakota.
+accept 4904
+tip Both of you accept before Lakota sets off.
+do 4904 at 30.9,37.1
+tip She walks down off the pinnacle to the south-west. A pair of Grimtotem jumps out at every turn of the path: stay close and kill them fast.
+do 1151
+tip Rok'Alim the Pounder is a rock elemental, an elite of level 30, who walks a long loop through the west of the canyon below Highperch. He hits hard but slowly: fight him together.
+do 5151
+tip The wrecked caravan is just north of Whitereach Post. Open the cage with Wizlo's key: the Enraged Panther inside is an elite of level 30. Rest before you open it.
+turnin 5088
+turnin 5151
+hearth npc 11116
+tip Hearthstone not ready? Ride east along the road: Freewind Post is about four minutes away.
+
+# Freewind Post and Dorn -----------------------------------------------------------------------------
+
+turnin 5064 5147
+turnin 4904
+tip Thalia Amberhide is in the inn.
+turnin 1151
+
+# The Shimmering Flats and Gadgetzan ---------------------------------------------------------------
+
+grind 30 at 63.5,59.0
+tip Kravel Koalbeard has his errand only for level 30. Not there yet? Kill the hyenas on the way east to the Shimmering Flats. Stay clear of the silithid and Qiraji at the western edge of the flats: they are level 40 and more.
+accept 1111
+tip Ride east, down onto the Shimmering Flats: Kravel stands in the camp of the Mirage Raceway, in the south of the flats.
+map Tanaris
+goto "Ride south out of the Shimmering Flats along the road to Gadgetzan" at 51.5,26.0 r 20
+tip Stay on the road: the beasts of Tanaris are level 40 and over.
+fpath 7824
+
+# The Crossroads, Ratchet and Orgrimmar ---------------------------------------------------------------
+
+fly "Thunder Bluff" npc 7824 only warrior
+map Thunder Bluff
+accept 1718 only warrior
+tip Torm Ragetotem is in the warriors' lodge on Hunter Rise.
+fly "Crossroads" npc 2995 only warrior
+map Tanaris
+fly "Crossroads" npc 7824 only paladin hunter rogue priest shaman mage warlock druid
+map The Barrens
+accept 1145
+tip Korran stands at the north gate of the Crossroads.
+fly "Ratchet" npc 3615
+turnin 1111
+accept 1112
+tip Wharfmaster Dizzywig is on the docks. Keep the parts: Thousand Needles (33-34) takes them to Kravel.
+turnin 220 only shaman
+accept 63 only shaman
+tip Islen Waterseer stands on the shore south-east of Ratchet. Keep her quest: Hillsbrad Foothills (30-32) finishes it in Silverpine Forest.
+turnin 1718 only warrior
+tip Fray Island lies off the coast south of Ratchet: wade over the sandbar from the beach.
+accept 1719 only warrior
+do 1719 at 68.6,48.7 only warrior
+tip Step on the grate in the middle of the crowd behind Klannoc: challengers come one at a time, then Big Will (level 33). You have ten minutes from accepting.
+turnin 1719 only warrior
+accept 1791 only warrior
+tip Keep it: Bath'rah is in the Alterac Mountains, Hillsbrad Foothills (30-32) hands it in.
+fly "Orgrimmar" npc 16227
+map Orgrimmar
+turnin 1145
+tip Belgrom Rockmaul stands outside the warriors' building in the Valley of Honor. Leave his next quest for now: Thousand Needles (33-34) takes it.
+train 3352 3344
+accept 1431
+tip Craven Drok walks around the Cleft of Shadow.
+turnin 1431
+tip Keldran walks around his hut in the Valley of Spirits, by the west gate. Leave his next quest for now: Thousand Needles (33-34) takes it.
+note "Walk back to the front gate of Orgrimmar: Hillsbrad Foothills (30-32) starts at the zeppelin tower just outside it" at 49.5,93.0

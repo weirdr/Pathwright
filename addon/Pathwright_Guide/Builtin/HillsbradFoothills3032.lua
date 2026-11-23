@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795452140,
+    created = 1795453671,
     next = "Arathi Highlands (32-33)",
-    carry = { 63, 529, 546, 567, 1791 },
+    carry = { 63, 529, 546, 567, 1112, 1791 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },
