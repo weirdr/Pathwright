@@ -100,7 +100,7 @@ note "Take the zeppelin from the Grom'gol tower to Orgrimmar" at 31.5,29.5
 map Orgrimmar
 bind 6929
 ah 91610.1 npc 8673
-tip Kurll in Azshara wants 10 Winter Squid. Fishers can catch them on the Azshara coast instead.
+tip Kurll in Azshara wants 10 Winter Squid for his fishing quest, which he offers only to those who know Fishing (Apprentice is enough). Buying the squid here saves the fishing; without Fishing, skip this.
 accept 4494
 tip Zilzibin is in the Drag. This one is handed in at Gadgetzan in a later guide.
 accept 91735
@@ -132,7 +132,8 @@ accept 3517
 do 91488 mobs 8759 8760 8761 at 19.7,53.3
 tip Mosshoof Runners graze around Valormok; any kind of mosshoof drops the hides.
 turnin 91488
-accept 91608 91610
+accept 91608
+accept 91610 skill Fishing
 do 91608
 tip Shoot the wasp nests out of the trees west of Valormok with the Pellet Gun and pick up the honey. Kill the wasps that come out.
 turnin 91608
@@ -144,7 +145,7 @@ tip The four tablets lie in the ruins; each kind has several spots, so click the
 do 91568
 tip Use the Treasure Trowel 3000 on the sand mounds along the shore east of the ruins. Sometimes a Makrinni Burrower comes out instead: kill it, it carries fragments too.
 do 91610 at 46.0,52.0 icon use "Fish up 10 Winter Squid along the shore"
-tip Needs Fishing. Without it, buy them at an auction house.
+tip Kurll offers this only if you know Fishing; the guide skips it otherwise. Squid bought at the auction house count too.
 accept 86746 86752
 tip Ekkal stands in the north of the ruins. Players report that Report to Rageroar and the other Ursolan furbolg quests want Neutral standing with Timbermaw Hold, which starts at Hostile. If Ekkal doesn't offer Report to Rageroar, right-click to skip it and see the note at Ursolan.
 

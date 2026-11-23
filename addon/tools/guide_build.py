@@ -52,6 +52,8 @@ Options after a step, in any order:
     nopre           take no prerequisite from the data (when it is wrong)
     after <quest>.. its real prerequisites, in place of the data's (when they are wrong)
     late            an accept taken on purpose at a later visit to its giver (no warning)
+    skill <prof> [n] an accept offered only to characters with that profession (First_Aid for two
+                    words) at rank n (1 if left out): skipped, with its other steps, without it
     only <who>...   alliance, horde and class names (warrior, mage...): who the step is for
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
@@ -237,6 +239,15 @@ def parse_opts(n, words, quiet=False):
             o["nopre"] = True; i += 1
         elif w == "late":
             o["late"] = True; i += 1
+        elif w == "skill":
+            prof = words[i + 1].replace("_", " ") if i + 1 < len(words) else ""
+            if prof not in PROFESSION_LINES:
+                fail(n, "skill <" + "|".join(sorted(PROFESSION_LINES)) + "> [rank]")
+            i += 2
+            rank = 1
+            if i < len(words) and words[i].isdigit():
+                rank = int(words[i]); i += 1
+            o["skill"] = (PROFESSION_LINES[prof], rank)
         elif w == "after":
             o["after"] = []
             i += 1
@@ -269,7 +280,7 @@ def parse_opts(n, words, quiet=False):
     return o
 
 
-OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "after", "icon", "npc", "mobs", "only"}
+OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only"}
 
 
 def opts_ok(words):
@@ -490,6 +501,8 @@ for n, text in lines:
                 m = re.match(r"^Camping 101: (.+)$", q["name"])
                 if m and m.group(1) in PROFESSION_LINES:
                     step["line"], step["sk"] = PROFESSION_LINES[m.group(1)], 1
+                if opts.get("skill"):
+                    step["line"], step["sk"] = opts["skill"]
             emit(step, n, opts, lambda v, a=filt, b=qf: a(v) and b(v))
             if kind in ("npc", "object"):
                 place(step, place_of(kind, eid, area))
