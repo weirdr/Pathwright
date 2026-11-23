@@ -1,11 +1,18 @@
 name: Addon release
 
-# Every hour, when the addon changed on main since the last addon release: its smoke tests, then
-# the addon zipped (scripts/addon-zip.sh: Pathwright_Profile and Pathwright_Guide with the
-# built-in guides) and published as a GitHub release tagged addon-YYYY.MM.DD-HHMM, the commits
-# since the last one as its notes. Nothing changed: no release. Run by hand, it releases now (when
-# something changed). These tags never match release.yml's vX.Y.Z: the apps' releases stay apart.
+# After each push to main that changes the addon, and every hour as a backup (GitHub's schedules
+# can be late or skipped), when the addon changed since the last addon release: its smoke tests,
+# then the addon zipped (scripts/addon-zip.sh: every addon folder a fresh install makes) and
+# published as a GitHub release tagged addon-YYYY.MM.DD-HHMMSS, the commits since the last one
+# as its notes. Nothing changed: no release. Run by hand, it releases now (when something
+# changed). These tags never match release.yml's vX.Y.Z: the apps' releases stay apart.
 on:
+  push:
+    branches: [main]
+    paths:
+      - "addon/**"
+      - "scripts/install-addon.sh"
+      - "scripts/addon-zip.sh"
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
@@ -57,7 +64,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           LAST: ${{ steps.changes.outputs.last }}
         run: |
-          tag="addon-$(date -u +%Y.%m.%d-%H%M)"
+          tag="addon-$(date -u +%Y.%m.%d-%H%M%S)"
           guide=$(sed -n 's/^## Version: //p' addon/Pathwright_Guide/Pathwright_Guide.toc | tr -d '\r')
           profile=$(sed -n 's/^## Version: //p' addon/Pathwright_Profile/Pathwright_Profile.toc | tr -d '\r')
           {
