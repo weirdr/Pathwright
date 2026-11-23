@@ -1,0 +1,184 @@
+# Ashenvale (26-28): the Horde quests of Zoram'gar Outpost and Splintertree Post (the Thistlefur
+# furbolgs, Vorsha the Lasher, the Ashenvale Hunt, the satyrs, Torek's assault on Silverwing Outpost,
+# Mystral Lake, the Foulweald), for a Horde duo, and the errands that end in Thunder Bluff.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/ashenvale_26_28.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Ashenvale, area 331;
+# Thunder Bluff; The Barrens); RestedXP's and Zygor's routes as a check. The quest list is section 10
+# of addon/guides/horde_1_40_allocation.md.
+#
+# Starts at Zoram'gar Outpost, on the Zoram Strand: Stonetalon Mountains (25-26) should end with the
+#   flight there from Sun Rock Retreat (it goes by the Crossroads).
+# Carried in (skipped by those who lack them):
+# - from Thunder Bluff, which The Barrens (24-25) passes: The Sacred Flame (1195, Zangen Stonehoof;
+#   its phial is filled here), The Flying Machine Airport (1086, Apothecary Zamah) and Pigments for
+#   Paints (97538, Tah Winterhoof); Stonetalon Mountains (25-26) should do the last two (the Venture
+#   Co. copter pad at Windshear Crag, the Mirkweed of Mirkfallon Lake). All three are handed in here,
+#   in Thunder Bluff, at the end.
+# - from The Barrens (24-25): The Ashenvale Hunt (6382, Jorn Skyseer at Camp Taurajo) and Report to
+#   Kadrak (6541, Thork at the Crossroads; not offered to those who did Report to Kadrak 6542 in
+#   Stonetalon). Both are handed in here.
+# - for shamans, Call of Water (1534, from Brine): its waterskin is filled here, at the Ruins of
+#   Stardust, and Thousand Needles (28-30) hands it in to Brine.
+# Left out:
+# - Baron Aquanis (6922): Baron Aquanis is summoned by the Fathom Stone deep inside Blackfathom Deeps
+#   (by Old Serra'kis and Twilight Lord Kelris, past Ghamoo-ra, Lady Sarevess and Gelihast), and his
+#   Strange Water Globe starts the quest only for those on Amongst the Ruins (6921), a dungeon quest.
+# - Warsong Supplies (6571): its Warsong Axe Shipment is picked up in Booty Bay, and Pixel trades the
+#   Warsong Saw Blades only for a Deadly Blunderbuss, made by engineers (Warsong Saw Blades, 6581).
+# The Lost Pages (6504) needs the twelve Shredder Operating Manual pages: they drop very rarely from
+#   the naga of the Zoram Strand, but the auction house sells them: the guide before this one offers
+#   them at its last city visit.
+#
+# The route: Zoram'gar Outpost and Vorsha the Lasher on the Zoram Strand; Thistlefur Village and
+# Thistlefur Hold (Ruul Snowhoof); back to Zoram'gar and a flight to Splintertree Post; the south-east
+# (the Outrunners, Sharptalon, Torek's assault, Kadrak at Mor'shan Rampart); a long loop west from
+# Splintertree (Satyrnaar, Night Run, Raynewood Retreat, the Foulweald, the moonwell, Mystral Lake,
+# Ursangous, the Ruins of Stardust) and the hearthstone back; flights to Zoram'gar Outpost and to
+# Thunder Bluff, where Thousand Needles (28-30) starts.
+
+guide Ashenvale (26-28)
+faction horde
+levels 26 28
+carry 1086 1195 1534 6382 6541 97538
+leave 1534
+next Thousand Needles (28-30)
+
+# Zoram'gar Outpost and the Zoram Strand ------------------------------------------------------------
+
+map Ashenvale
+goto "Fly to Zoram'gar Outpost, on the Zoram Strand in the north-west of Ashenvale" at 12.2,33.8 r 30
+tip No flight path there? Walk the Talondeep Path from Stonetalon Mountains into Ashenvale, then go north-west past the Ruins of Stardust and along the western hills, well clear of Astranaar.
+fpath 11901
+accept 216
+accept 6462
+tip Mitsuwa is inside the big hut.
+accept 6641
+tip Muglash waits by Karang Amakkar. Both of you accept before he sets off.
+do 6641 mobs 12940 "Follow Muglash to the Naga Brazier and keep him alive until Vorsha the Lasher dies"
+tip Muglash goes north to the naga's brazier, on an island just off the coast. Once he is there, one of you clicks the Naga Brazier to put out its flame (if it won't take, wait: it can relight). Naga then come at him in waves, and Vorsha the Lasher, a hydra, last: keep them off Muglash, he must live.
+turnin 6641
+tip The Warsong Runner stands at the edge of the outpost.
+
+# Thistlefur Village and Thistlefur Hold -------------------------------------------------------------
+
+do 216 bg
+tip The Thistlefur camps start east of the Zoram Strand, along the road. Avengers and Shamans both count; the shamans heal, kill them first.
+goto "Enter Thistlefur Hold, the furbolgs' cave at the north-east end of Thistlefur Village" at 38.7,30.6 r 8
+do 6462
+tip The Troll Chests are small wooden boxes on the ground inside the cave, most of them on its upper level. Each of you needs eight.
+accept 6482
+tip Ruul Snowhoof is held at the back of the cave. Clear his room first, and both of you accept before he sets off.
+do 6482 at 38.7,37.0
+tip He walks out of the cave and south through the village. Groups of three furbolgs jump him on the way, inside the cave and again outside: kill them fast, he must live.
+do 216
+tip Finish the Avengers and Shamans in the village on the way back west.
+
+# Zoram'gar Outpost ---------------------------------------------------------------------------------
+
+turnin 216
+accept 6621
+tip Karang gives you his banner for the Foulweald, in the middle of Ashenvale: keep it, the guide goes there later.
+turnin 6462
+fly "Splintertree Post" npc 11901
+
+# Splintertree Post ---------------------------------------------------------------------------------
+
+fpath 12616
+turnin 6482
+tip Yama Snowhoof is inside the inn, by the innkeeper.
+turnin 6382
+accept 6383
+turnin 6383
+tip Senani's three beasts (Sharptalon, Ursangous and Shadumbra) drop the trophies that start their quests: the guide passes each of them.
+accept 25
+accept 6441
+bind 12196
+tip Set your hearthstone here: it brings you back from the far west of Ashenvale at the end of the big loop.
+accept 6503
+tip Kuray'bin stands at the camp down the road south of the post.
+accept 6504
+tip Gurda Ragescar stands a little further south.
+do 6504 at 70.0,71.2
+tip Bought the pages? Put each chapter together from its four pages (1 to 4, 5 to 8, 9 to 12). Without them, right-click this step to skip the quest.
+turnin 6504
+
+# The south-east: the Outrunners, Sharptalon, Torek's assault, Kadrak --------------------------------
+
+do 6503
+tip The Outrunners are night elves in stealth, in the woods south and east of the camps. Walk slowly and look for the shimmer.
+accept 2 at 73.4,69.0 icon kill "Kill Sharptalon, loot his Sharptalon's Claw and use it: it starts a quest"
+tip Sharptalon, level 31, walks the woods south of Splintertree Post. He hits hard for your level: fight him together, at full health. In trouble, lead him to the guards of the post, but the two of you must do at least half his damage for him to drop his claw.
+accept 6544
+tip Torek stands with three Splintertree Raiders south-west of the camps. If the raiders aren't all there, wait for them: they fight with you. Both of you accept before he sets off.
+do 6544 at 64.8,75.3
+tip Torek storms Silverwing Outpost. Let him and the raiders pull the Silverwing Sentinels and Warriors first. Duriel Moonfire comes last, up on the building's balcony.
+map The Barrens
+turnin 6541
+tip Kadrak is on the middle floor of the tower of Mor'shan Rampart, just south of the Ashenvale border: follow the road south.
+map Ashenvale
+turnin 6503
+
+# Splintertree Post ---------------------------------------------------------------------------------
+
+turnin 6544
+turnin 2
+
+# The big loop: Satyrnaar, Night Run, Raynewood, the Foulweald, Mystral Lake, the Ruins of Stardust
+
+do 6441 bg
+tip Satyrnaar is the satyr camp east of Splintertree Post. The Shadowstalkers hide in stealth. A horn drops about every other kill, for each of you who still needs them.
+do 6441 at 67.2,55.0 mobs 3758 3763
+tip Not 16 each yet? The Felmusk satyrs of Night Run, the valley north-west of Splintertree Post, drop them too. Their stealthed Shadowstalkers come out of nowhere: stay together.
+note "Kill Laughing Sisters, the dryads of Raynewood Retreat, until each of you has an Etched Phial" at 59.6,55.4
+tip The phial is for The Sacred Flame (no Sacred Flame, no phial: skip this step). Keep it: the moonwell is later in the loop.
+accept 24 at 60.6,51.6 icon kill "Kill Shadumbra, loot her head and use it: it starts a quest"
+tip Shadumbra, level 28, prowls the woods around Raynewood Retreat and west of it, towards the road.
+do 6621
+tip The Foulweald furbolgs live south-east of Astranaar. Use Karang's Banner on the totem mound in their village: the furbolgs rush in to tear it down, then Chief Murgut comes. Keep them off the banner, kill Murgut and loot Murgut's Totem from the basket at the mound. Clear the camp around the mound before you plant it.
+do 1195 icon use
+tip The moonwell is south of the road, on the western bank of the Falfarren River. Use the Etched Phial at the moonwell to fill it.
+do 25.1 bg
+tip The Befouled Water Elementals float in and around Mystral Lake.
+do 25.2 at 48.9,69.6
+tip The gazebo stands on the island in the middle of the lake: walk onto it.
+accept 1918 at 49.5,70.4 icon kill "Kill Tideress, loot her Befouled Water Globe and use it: it starts a quest"
+tip Tideress, an elemental of level 27, darker than the others, drifts around the island and under the water.
+do 25.1
+accept 23 at 42.3,66.2 icon kill "Kill Ursangous, loot his paw and use it: it starts a quest"
+tip Ursangous, a bear of level 25, roams the woods west of Mystral Lake.
+do 1534 only shaman icon use
+tip The Ruins of Stardust lie against the mountains, west of Ursangous's woods. The small fountain is in the middle of their lake, under the gazebo: use the Empty Blue Waterskin there, and keep the filled one for Brine (Thousand Needles, 28-30).
+hearth npc 12196
+tip Hearthstone not ready? Ride back east: Splintertree Post is about four minutes away.
+
+# Splintertree Post ---------------------------------------------------------------------------------
+
+turnin 6441
+turnin 25
+turnin 1918
+accept 824
+tip Keep the globe: Je'neu Sancrea is in Zoram'gar Outpost.
+turnin 24 23
+accept 247
+turnin 247
+fly "Zoram'gar Outpost" npc 12616
+
+# Zoram'gar Outpost and Thunder Bluff ---------------------------------------------------------------
+
+turnin 824
+tip Je'neu Sancrea is inside the big hut.
+turnin 6621
+fly "Thunder Bluff" npc 11901
+tip The flight goes by the Crossroads.
+map Thunder Bluff
+turnin 1195
+tip Zangen Stonehoof stands on the central rise. Leave his next quest for now: Thousand Needles (28-30) takes it here.
+turnin 97538
+tip Tah Winterhoof stands a little north of him.
+turnin 1086
+tip Apothecary Zamah is in the Pools of Vision, the cave under Spirit Rise.
+train 3047 3044 3030 246344 3033 3043 3040
