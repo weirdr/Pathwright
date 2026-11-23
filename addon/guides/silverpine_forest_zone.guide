@@ -1,0 +1,129 @@
+# Silverpine Forest (17-24): the quests the leveling guides leave in Silverpine Forest, for a Horde
+# duo: the rot hide gnolls of Fenris Isle and Thule Ravenclaw (the Rot Hide chain and Assault on
+# Fenris Isle), Alaric's head and the Hidden Niche of Fenris Keep, the third Recipe For Death on the
+# islands of Lake Lordamere, and The Weaver, Archmage Ataeric of Ambermill.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/silverpine_forest_zone.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites, drops and the places of mobs and
+# objects from the game data (data/forever.sqlite), checked against outof.games (Silverpine Forest,
+# area 130; Ruins of Lordaeron, area 16611; the quest and NPC pages). Wowhead not consulted. Neither
+# Zygor nor RestedXP has these quests.
+#
+# Starts in Undercity, with a bat to the Sepulcher. Ends in Undercity (Bethor Iceshard).
+# What the leveling guides already do here: Silverpine Forest (13-15) does the Sepulcher's quests up
+#   to Rot Hide Clues (439), A Recipe For Death (450) and Ambermill Investigations (479), and
+#   Hillsbrad Foothills (22-24) does A Husband's Revenge (530), Stop the Spread (98299), Watching the
+#   Roads (95981), Beren's Peril (516), the Offering Stone (95883-95885) and Journey to Hillsbrad
+#   Foothills (493). This guide takes their follow-ups, which assume those are done.
+# Levels: the rot hides and the lake's beasts are 15-19 and their quests 16-18; The Weaver is 22
+#   and Assault on Fenris Isle 24 (Thule Ravenclaw, an elite of level 24), done last.
+# The Weaver (480) is offered only after Watching the Roads (95981), which Hillsbrad Foothills
+#   (22-24) does: before that, its steps pass by themselves.
+#
+# Left out:
+# - The New Plague (95216, Theodore Griffs in Undercity, after A Recipe For Death 451) and A
+#   Frightened Request (92401, Tabitha Heartweaver at the Sepulcher): both are done inside the Ruins
+#   of Lordaeron, a dungeon.
+# - The paladin chain from Diplomatic Incident (91858) to Old Fire-Eye (95140), Lumina Windsinger of
+#   Fenris Keep among them: class quests of Undead and Windshaper paladins that start in Tirisfal
+#   Glades and run through Hillsbrad Foothills; and The Horn of Xelthos (78261, 78307), a rogue
+#   quest. No guide takes class chains of this kind.
+# - The Dalaran quests that end at the Image of Archmage Modera (92432, 92434, 92457, 92458, 92459,
+#   96984, 97287): level 33-34, given in Hillsbrad Foothills, the Alterac Mountains or inside the City
+#   of Dalaran (some Alliance-only).
+# - No Silverpine quest is repeatable, daily or out of the client; none is left for lacking a giver.
+# The auction house: every item here is bound to its quest, so there is no AH stop.
+#
+# The route: the bat from Undercity to the Sepulcher (hearthstone, the first quests); Fenris Isle
+# for the ichor, the islands of Lake Lordamere for the moss and the tumor, Ambermill for Ataeric;
+# the Sepulcher; a bat to Undercity (Bethor Iceshard, Faranell) and the hearthstone back; Fenris
+# Isle again for Thule Ravenclaw and Alaric; the Sepulcher, and a last bat to Undercity for Bethor.
+
+guide Silverpine Forest (17-24)
+faction horde
+levels 17 24
+
+# The Sepulcher -------------------------------------------------------------------------------------
+
+map Undercity
+fly "The Sepulcher, Silverpine Forest" npc 4551
+tip Start in Undercity: Michael Garrett, the bat master, is in the Trade Quarter. No flight path to the Sepulcher? Walk out of Undercity and south along the road through Tirisfal Glades into Silverpine Forest.
+map Silverpine Forest
+bind 6739
+tip Set your hearthstone here: it brings you back from Undercity in the middle of the guide.
+accept 443
+tip High Executor Hadrec is downstairs in the crypt. He offers this to those who brought him Rot Hide Clues in Silverpine Forest (13-15).
+accept 480
+tip Shadow Priest Allister offers this only to those who finished Watching the Roads, from Hillsbrad Foothills (22-24). Not offered? Its steps pass by themselves.
+accept 451
+tip Apothecary Renferrel stands outside the crypt. He offers this to those who brought Faranell the second Recipe For Death in Silverpine Forest (13-15).
+
+# Fenris Isle, the islands of Lake Lordamere, Ambermill ------------------------------------------------
+
+do 443
+tip Fenris Isle lies in Lake Lordamere, north-east of the Sepulcher: swim across from the shore north of the Decrepit Ferry (Lake Frenzies bite in the water). The rot hide gnolls fill the isle; a bottle of ichor drops from about one in three. Keep to the outer camps: Thule Ravenclaw (an elite of level 24) is for later, and the Rot Hide Bruiser (a rare of level 22) and Snarlmane (a rare of level 23) hit hard, so fight them together, at full health, or leave them.
+tip Has A Talking Head dropped? Keep it: Alaric's quests are on the next trip to the isle.
+do 451.3 bg mobs 1958 1957 1909 1908
+tip The Hardened Tumor drops from any Vile Fin murloc, about one in twenty, for each of you who has the quest.
+do 451.2
+tip From Fenris Isle, swim east: the Elder Lake Creepers walk the island north-east of it, the Lake Creepers the island to the south-east, among the Vile Fin Tidecallers and Shorecreepers.
+do 451.3 at 78.8,30.9 mobs 1958 1957
+tip No tumor yet? Keep killing the Tidecallers and Shorecreepers around the Lake Creepers' island. At one in twenty it can take a while: right-click the step to skip the quest.
+do 451.1
+tip The Lake Skulkers roam the island south of the Lake Creepers, west of the Elder Lake Skulkers.
+do 480
+tip Swim back to the west shore and follow it south to Ambermill. Archmage Ataeric (level 22) stands among the Dalaran Conjurors and Warders on the east side of the village: clear them around him, then fight him together. Kill the Conjurors first, and pull them one at a time.
+
+# The Sepulcher -------------------------------------------------------------------------------------
+
+turnin 443
+accept 444
+tip Keep the Sample Ichor for Bethor Iceshard in Undercity.
+turnin 480
+
+# Undercity -----------------------------------------------------------------------------------------
+
+fly "Undercity, Tirisfal" npc 2226
+map Undercity
+turnin 451
+tip Master Apothecary Faranell is in the Apothecarium, in the south-west of the city.
+turnin 444
+accept 446
+tip Bethor Iceshard is in the Magic Quarter, in the east of the city. Keep his scroll for Renferrel.
+hearth npc 6739
+tip Hearthstone not ready? Fly back to the Sepulcher from the bat master.
+
+# The Sepulcher -------------------------------------------------------------------------------------
+
+map Silverpine Forest
+turnin 446
+accept 448
+turnin 448
+accept 442
+tip This one is an elite quest: Thule Ravenclaw is an elite of level 24.
+
+# Fenris Isle: Thule Ravenclaw and Alaric --------------------------------------------------------------
+
+accept 460 at 65.8,24.5 icon kill "Kill the rot hide gnolls of Fenris Isle until one drops A Talking Head, then read it: it starts a quest"
+tip Swim back to Fenris Isle. The head drops rarely, from about one gnoll in fifty, and to one of you at a time: keep killing until both of you have one, or right-click the step to skip Alaric's quests.
+turnin 460
+tip The Shallow Grave is by the stable, at the east side of Fenris Keep.
+accept 461
+turnin 461
+tip The hidden alcove is in the south-west tower of the keep, behind the Dusty Shelf.
+accept 491
+tip Keep the Woven Wand for Bethor Iceshard in Undercity.
+do 442
+tip Thule Ravenclaw (an elite of level 24) is inside Fenris Keep. Heal up, clear the gnolls around him, and pull him alone; the Rot Hide Bruiser and Snarlmane roam the keep too, so don't fight them at the same time. His head drops for each of you.
+
+# The Sepulcher and Undercity ----------------------------------------------------------------------
+
+turnin 442
+tip High Executor Hadrec, downstairs in the crypt.
+fly "Undercity, Tirisfal" npc 2226
+tip Skipped Alaric's quests? Then you are done here: no need to fly.
+map Undercity
+turnin 491
+tip Bethor Iceshard is in the Magic Quarter, in the east of the city.
