@@ -6888,8 +6888,17 @@ local function SuiteFontTest()
         self.path, self.size, self.flags = path, size, flags
         return true
     end
+    function text:SetFontObject() end -- pinned: a font object no longer changes it
     Skin:Font(text)
     assert(text.path == "Suite.ttf" and text.size == 12, "the suite's font by default")
+    -- A row of the guide drawn smaller (the party line shrunk to fit, a "mobs on the way" row).
+    Skin:Resize(text, 9)
+    assert(text.path == "Suite.ttf" and text.size == 9, "a pinned text still takes another size")
+    text.path = nil
+    Skin:Resize(text, 9)
+    assert(text.path == nil, "the size it has: nothing written")
+    Skin:Resize(text, 12)
+    assert(text.path == "Suite.ttf" and text.size == 12, "and back")
     local locale = GetLocale
     GetLocale = function() return "enUS" end
     FG:Save("uiFont", "Morpheus")

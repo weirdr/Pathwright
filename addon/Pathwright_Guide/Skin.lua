@@ -177,6 +177,8 @@ local made = {}
 --- another face is to be written on the text itself.
 local texts = setmetatable({}, { __mode = "k" })
 local pinned = setmetatable({}, { __mode = "k" })
+--- The size last asked for a text through Resize: text -> size and flags.
+local sized = setmetatable({}, { __mode = "k" })
 
 -- The fonts to choose from are those the player's addons share through LibSharedMedia (the
 -- library most addons list their fonts in: the game's own are there too, each client's own
@@ -486,6 +488,10 @@ end)
 --- font object it is given later: so the size is written on the text too, when the font object
 --- did not give it.
 function Skin:Resize(fs, size, flags, shadowed)
+    -- A row drawn again asks for the size it has: nothing to do.
+    local asked = size .. (flags or "") .. (shadowed and "+" or "")
+    if sized[fs] == asked then return end
+    sized[fs] = asked
     fs:SetFontObject(self.FontObject(size, flags, shadowed))
     self:Font(fs)
     pcall(function()
