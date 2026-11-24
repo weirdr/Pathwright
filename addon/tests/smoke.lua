@@ -2378,7 +2378,11 @@ do
         end)
         string.format = format
         assert(ok, tostring(err))
-        assert(S.Seal("x", "y") == string.format("%08x", tonumber(S.Seal("x", "y"), 16)), "same digits as before")
+        -- Pinned from the old string.format("%08x", Hash(...)) seal, computed with 32-bit FNV-1a.
+        assert(S.Seal("w1", "y") == "2e4eebe9", "seal below 2^31 unchanged")
+        assert(S.Seal("w199", "y") == "000607ff", "seal keeps its zero padding")
+        assert(S.Seal("x", "y") == "a79e930f", "seal at or above 2^31 unchanged")
+        assert(S.Seal("a", "b") == "daeebe19", "high half stays first")
     end
     local refusedBefore = peer.refused
     S:Receive(sealed(911, "Ally"), friend, nil, nil, "Ally Wick")
@@ -2603,9 +2607,230 @@ do
     assert(#P:Members(900, 1, 8) == 1, "progress kept while a refresh is under way")
     fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
     assert(P:Members(900, 1, 8)[1].have == 5, "the chunk replaces it")
+    -- Tokens only go up: the first R's timer does not wipe a second R's progress.
+    P.progress = {}
+    runTimers()
+    local refreshes = 0
+    local realRefresh = FG.Guide.Refresh
+    FG.Guide.Refresh = function() refreshes = refreshes + 1 end
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    local first = P.pending.Amy
+    local timer1 = timers[#timers] -- the R's own timer is the last one it queued
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
+    assert(P.pending.Amy == nil and P.progress.Amy[900], "the chunk clears the pending token")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    assert(P.pending.Amy and P.pending.Amy ~= first, "a new token for the second R")
+    local timer2 = timers[#timers]
+    assert(timer1 ~= timer2, "one timer per R")
+    timer1() -- the first R's timer: its token is no longer current
+    assert(P.progress.Amy and P.progress.Amy[900], "the first timer leaves the second R's progress")
+    assert(P.pending.Amy, "the second R is still pending")
+    refreshes = 0
+    timer2() -- the second R's own timer
+    assert(P.pending.Amy == nil and P.progress.Amy[900] == nil, "the last timer clears the progress")
+    assert(refreshes >= 1, "the timer redraws the guide")
+    FG.Guide.Refresh = realRefresh
+    -- Asked once per missing quest, until the roster changes; only once a request went out.
+    local sentAsk = {}
+    local c2, g2, r2, t2 = C_ChatInfo, IsInGroup, IsInRaid, GetTime
+    local now = 9000
+    GetTime = function() return now end
+    local function asks()
+        local n = 0
+        for _, t in ipairs(sentAsk) do
+            if t == "?" then n = n + 1 end
+        end
+        return n
+    end
+    C_ChatInfo = { SendAddonMessage = function(_, text) table.insert(sentAsk, text) end }
+    IsInGroup, IsInRaid = function() return false end, function() return false end
+    P.askedFor = {}
+    P:AskFor(778)
+    assert(not P.askedFor[778] and asks() == 0, "nothing sent outside a group: not marked as asked")
+    IsInGroup = function() return true end
+    P:AskFor(777)
+    P:AskFor(777)
+    assert(asks() == 1 and P.askedFor[777], "exactly one ask for a missing quest")
+    P:AskFor(778) -- within the throttle: a request is pending, so it counts as asked
+    assert(asks() == 1 and P.askedFor[778], "a request inside the throttle marks the quest")
+    fire("GROUP_ROSTER_UPDATE")
+    assert(P.askedFor[777] == nil, "the flag goes with a roster change")
+    -- The guide asks from events: the quest log, a roster change, the guide shown; never a redraw.
+    do
+        local realObjectives = C_QuestLog.GetQuestObjectives
+        C_QuestLog.GetQuestObjectives = function(q)
+            if q == 7102 then
+                return {
+                    { text = "First thing: 0/4", type = "monster", finished = false, numFulfilled = 0, numRequired = 4 },
+                    { text = "Second thing: 0/6", type = "monster", finished = false, numFulfilled = 0, numRequired = 6 },
+                }
+            end
+            return realObjectives(q)
+        end
+        onQuest[7102] = true
+        -- No name, two objectives, o = 2: the party line is on objective 2.
+        FG.Routes["ask-test"] = {
+            race = 7,
+            class = 8,
+            faction = "Alliance",
+            fromLevel = 1,
+            toLevel = 60,
+            time = 1,
+            steps = { { k = "objective", t = "Kill things", q = 7102, o = 2, lvl = 5 } },
+        }
+        useRoute("ask-test")
+        local realInParty = UnitInParty
+        UnitInParty = function() return true end
+        local saved2 = P.progress
+        P.progress = {}
+        P.askedFor = {}
+        sentAsk = {}
+        now = now + 100
+        P:Store("Amy", 7102, { "3" }) -- Amy has objective 1 only: objective 2 is missing
+        fire("QUEST_LOG_UPDATE")
+        fire("QUEST_LOG_UPDATE")
+        assert(asks() == 1, "two quest log updates, one ask: " .. asks())
+        FG.Guide:Refresh()
+        FG.Guide:Refresh()
+        assert(asks() == 1, "a redraw sends nothing")
+        fire("GROUP_ROSTER_UPDATE")
+        now = now + 11
+        fire("QUEST_LOG_UPDATE")
+        assert(asks() == 2, "asked again after a roster change: " .. asks())
+        -- Amy now has objective 2: the no-name step takes its index from `o`, nothing is missing.
+        P:Store("Amy", 7102, { "1", "2" })
+        fire("GROUP_ROSTER_UPDATE")
+        now = now + 11
+        fire("QUEST_LOG_UPDATE")
+        assert(asks() == 2, "the no-name step finds objective 2 by its index: " .. asks())
+        -- Shown again, however (options, key binding): one ask for a missing line.
+        P.progress = {}
+        FG:Save("guideShown", false)
+        now = now + 11
+        FG:Save("guideShown", true)
+        assert(asks() == 3, "the guide shown asks once: " .. asks())
+        P.progress = saved2
+        UnitInParty = realInParty
+        C_QuestLog.GetQuestObjectives = realObjectives
+        onQuest[7102] = nil
+    end
+    GetTime = t2
+    -- A redraw sends nothing.
+    local before = #sentAsk
+    FG.Guide:Refresh()
+    assert(#sentAsk == before, "a redraw sends no addon message")
+    C_ChatInfo, IsInGroup, IsInRaid = c2, g2, r2
     Ambiguate = realAmb
     P.progress = saved
     print("party lines ok")
+end
+
+-- The party line of the guide viewer (TaskView's v.party): a member's count by objective index,
+-- Questie's data through the same index, the step's own index when its name matches nothing, and
+-- no line when done, in a raid or with the sync off. Then the "R" timeout.
+do
+    local P = FG.Party
+    local saved = P.progress
+    local objectives, isOn, titleOf = C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest, C_QuestLog.GetTitleForQuestID
+    local realParty, realGroup, realRaid, realAmb = UnitInParty, IsInGroup, IsInRaid, Ambiguate
+    local realChat = C_ChatInfo
+    local log = {
+        [8801] = { { text = "Wolf Pelt: 2/8", numFulfilled = 2, numRequired = 8, finished = false } },
+        [8802] = { { text = "Something Else: 1/4", numFulfilled = 1, numRequired = 4, finished = false } },
+        [8803] = { { text = "Wolf Pelt: 8/8", numFulfilled = 8, numRequired = 8, finished = true } },
+    }
+    C_QuestLog.GetQuestObjectives = function(q) return log[q] or objectives(q) end
+    C_QuestLog.IsOnQuest = function(q) return log[q] ~= nil or isOn(q) end
+    C_QuestLog.GetTitleForQuestID = function(q) return log[q] and ("Party Quest " .. q) or titleOf(q) end
+    UnitInParty = function(name) return name == "Amy" or name == "Questy-Realm" end
+    IsInGroup, IsInRaid = function() return true end, function() return false end
+    Ambiguate = function(n) return (n:gsub("%-.*", "")) end
+    -- Nothing is sent when the guide asks for the party's data.
+    C_ChatInfo = { SendAddonMessage = function() end }
+    FG.Routes["partyline-test"] = {
+        race = 7,
+        class = 8,
+        faction = "Alliance",
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
+        steps = {
+            { k = "objective", t = "Wolf Pelt x8", q = 8801, o = 1, n = "Wolf Pelt", lvl = 1 },
+            { k = "objective", t = "Gather", q = 8802, o = 1, n = "No Such Text", lvl = 1 },
+            { k = "objective", t = "Wolf Pelt x8", q = 8803, o = 1, n = "Wolf Pelt", lvl = 1 },
+            { k = "grind", t = "Grind", lvl = 60 },
+        },
+    }
+    useRoute("partyline-test")
+    P.progress = {}
+    local function task(q)
+        FG.Guide:Go(q - 8800)
+        FG.Guide:Refresh()
+        for _, v in ipairs(FG.Guide.view.tasks) do
+            if v.step and v.step.q == q then return v end
+        end
+    end
+    -- A member's data: "Name (have/need)".
+    P:Store("Amy", 8801, { "5" })
+    local v = task(8801)
+    assert(v and v.party and #v.party == 1, "the party line of the shown objective")
+    assert(v.party[1].name == "Amy" and v.party[1].have == 5 and v.party[1].need == 8, "Amy (5/8)")
+    -- Questie's data: an update, then a whole log, stored for a member through the same index.
+    P.progress = {}
+    local QS = FG.QuestieShare
+    QS:Store(
+        QS.Serialize({ ver = "1.0.0", msgVer = 5, msgId = 1, quest = { id = 8801, objectives = { { ful = 6 } } } }),
+        "Questy-Realm"
+    )
+    v = task(8801)
+    assert(v and v.party and v.party[1].name == "Questy" and v.party[1].have == 6, "a Questie update shown")
+    P.progress = {}
+    QS:Store(
+        QS.Serialize({ ver = "1.0.0", msgVer = 5, msgId = 12, [1] = { 1, 8801, 1, 109, 3, 4, 8 } }),
+        "Questy-Realm"
+    )
+    v = task(8801)
+    assert(v and v.party and v.party[1].name == "Questy" and v.party[1].have == 4, "a Questie full list shown")
+    -- A name matching no objective text: the step's own index (step.o) finds it.
+    P.progress = {}
+    P:Store("Amy", 8802, { "3" })
+    v = task(8802)
+    assert(v and v.party and v.party[1].have == 3 and v.party[1].need == 4, "the step.o fallback: Amy (3/4)")
+    -- Done: the row is done, and the card draws no party line for a done row (v.party and not v.done).
+    P.progress = {}
+    P:Store("Amy", 8803, { "4" })
+    v = task(8803)
+    assert(v and v.done, "a done objective is a done row")
+    assert(not (v.party and not v.done), "a done row draws no party line")
+    -- In a raid, or with the sync off: no line.
+    P:Store("Amy", 8801, { "5" })
+    assert(task(8801).party, "the line is there to begin with")
+    IsInRaid = function() return true end
+    assert(task(8801).party == nil, "no party line in a raid")
+    IsInRaid = function() return false end
+    FG:Save("partySync", false)
+    assert(task(8801).party == nil, "no party line with partySync off")
+    FG:Save("partySync", nil)
+    assert(task(8801).party, "and back")
+    -- The "R" timeout: no chunk follows, progress is cleared once the timer fires.
+    P.progress = {}
+    runTimers()
+    P:Store("Amy", 8801, { "5" })
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    assert(P.progress.Amy and P.progress.Amy[8801], "kept until the timer fires")
+    runTimers()
+    assert(P.progress.Amy and P.progress.Amy[8801] == nil, "cleared once the timer fired with no chunk")
+    assert(#P:Members(8801, 1, 8) == 0, "no members left on the objective")
+    -- A chunk arriving first keeps the timer from clearing it.
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "8801:7", "PARTY", "Amy-Realm")
+    runTimers()
+    assert(P.progress.Amy[8801] and P.progress.Amy[8801][1] == "7", "a chunk before the timer keeps its data")
+    C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest, C_QuestLog.GetTitleForQuestID = objectives, isOn, titleOf
+    UnitInParty, IsInGroup, IsInRaid, Ambiguate, C_ChatInfo = realParty, realGroup, realRaid, realAmb, realChat
+    P.progress = saved
+    useRoute("skip-test")
+    print("party line view ok")
 end
 
 -- Death skip: done once back at the spirit healer the step stands at.

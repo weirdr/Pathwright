@@ -28,7 +28,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Addon
 
-- Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store": the seal is now written in two halves, with the same digits as before.
+- Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store".
 
 ## 0.21.0 (2026-11-16)
 
