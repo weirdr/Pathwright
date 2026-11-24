@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""Generate addon/Pathwright_Guide/StatsData.lua, the game data the quest scores need (Stats.lua).
+
+    python3 addon/tools/stats_data.py [--db data/forever.sqlite] [--out addon/Pathwright_Guide/StatsData.lua]
+
+The same for every player, whatever guide they use:
+  quests[questID] = "p;mask;npc,npc,..."
+    p     the drop rate expected over the quest's item objectives, in thousandths (0: unknown).
+          An objective's own rate is the mean chance of its better sources (those at half the
+          best one or more); the quest's is items needed / kills expected for them all.
+    mask  bit (index - 1) set for each item objective whose item drops in the world (a mob or
+          an object): bought instead of looted, its units count for half.
+    npc   the mobs that drop its items (the MAX_MOBS likeliest per objective).
+  escort  "|questID|questID|...": the escort quests (flagged as an escort or event by the game,
+          and their end says someone is escorted, protected, led or helped to safety).
+"""
+import argparse
+import json
+import os
+import re
+import sqlite3
+import subprocess
+import tempfile
+
+MAX_MOBS = 12
+# What the end of an escort says ("Escort Miran to the excavation site"); the other flagged
+# quests are events (overhear a talk, cleanse a well): no score of their own.
+ESCORT = re.compile(
+    r"escort|protect|defend|must reach|safely|safety|escape|rescue|^lead |^take .+ to |^help .+ (to|get|find) ",
+    re.I,
+)
+# Escorts the database does not flag (WoW Forever's own), and flagged quests that are none.
+EXTRA_ESCORTS = {86796}
+NOT_ESCORTS = set()
+
+
+def open_db(path):
+    if path.endswith(".zst"):
+        tmp = tempfile.NamedTemporaryFile(suffix=".sqlite", delete=False)
+        tmp.close()
+        subprocess.run(["zstd", "-d", "-f", "-q", path, "-o", tmp.name], check=True)
+        return sqlite3.connect(tmp.name), tmp.name
+    return sqlite3.connect(path), None
+
+
+def chance(value):
+    """A source's drop chance as a fraction (some sources give a percent)."""
+    c = float(value or 0)
+    return c / 100 if c > 1 else c
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--db", default="data/forever.sqlite")
+    ap.add_argument("--out", default="addon/Pathwright_Guide/StatsData.lua")
+    args = ap.parse_args()
+    db_path = args.db if os.path.exists(args.db) else args.db + ".zst"
+    db, tmp = open_db(db_path)
+
+    sources = {}  # item -> { "npc": [(chance, id)], "object": n }
+    for item, kind, source, c in db.execute(
+        "select item_id, from_type, from_id, chance from m_item_source where from_type in ('npc', 'object')"
+    ):
+        s = sources.setdefault(item, {"npc": [], "object": 0})
+        if kind == "npc":
+            s["npc"].append((chance(c), source))
+        else:
+            s["object"] += 1
+
+    quests = {}  # quest -> [(idx, item, amount)]
+    for quest, idx, item, amount in db.execute(
+        """select o.quest_id, o.idx, o.target_id, o.amount from m_quest_objective o
+           join m_quest q on q.id = o.quest_id
+           where o.type = 'item' and q.status in ('available', 'incomplete') order by 1, 2"""
+    ):
+        quests.setdefault(quest, []).append((idx, item, int(amount or 1)))
+
+    lines = []
+    for quest in sorted(quests):
+        mask, mobs, needed, kills, known = 0, [], 0, 0.0, True
+        for idx, item, amount in quests[quest]:
+            s = sources.get(item)
+            if not s:
+                known = False
+                continue
+            if 1 <= idx <= 30:
+                mask |= 1 << (idx - 1)
+            ranked = sorted(s["npc"], reverse=True)
+            for _, npc in ranked[:MAX_MOBS]:
+                if npc not in mobs:
+                    mobs.append(npc)
+            best = ranked[0][0] if ranked else 0
+            good = [c for c, _ in ranked if c > 0 and c >= best / 2]
+            if good and not s["object"]:
+                rate = sum(good) / len(good)
+                needed += amount
+                kills += amount / rate
+            else:
+                known = False
+        p = round(1000 * needed / kills) if known and kills > 0 else 0
+        if mask or mobs:
+            lines.append('[%d]="%d;%d;%s",' % (quest, min(p, 1000), mask, ",".join(map(str, mobs))))
+
+    escorts = set(EXTRA_ESCORTS)
+    for quest, name, flags, extra in db.execute(
+        "select id, name, quest_flags, extra from m_quest where status in ('available', 'incomplete') order by id"
+    ):
+        end = ""
+        try:
+            end = (json.loads(extra or "{}").get("trigger_end") or [""])[0] or ""
+        except (ValueError, TypeError, AttributeError, IndexError, KeyError):
+            end = ""
+        if (flags or 0) & 2 and (ESCORT.search(end) or ESCORT.search(name or "")):
+            escorts.add(quest)
+    escorts = sorted(escorts - NOT_ESCORTS)
+
+    with open(args.out, "w", encoding="utf-8") as f:
+        f.write("-- Generated by addon/tools/stats_data.py from the game database: do not edit.\n")
+        f.write("-- The data the quest scores need, the same for every player (see Stats.lua).\n")
+        f.write("Pathwright.StatsData = {\n")
+        f.write('    escort = "|%s|",\n' % "|".join(map(str, escorts)))
+        f.write("    quests = {\n")
+        for i in range(0, len(lines), 6):
+            f.write("        " + " ".join(lines[i : i + 6]) + "\n")
+        f.write("    },\n}\n")
+    print("%s: %d quests with item data, %d escorts" % (args.out, len(lines), len(escorts)))
+    if tmp:
+        os.unlink(tmp)
+
+
+if __name__ == "__main__":
+    main()

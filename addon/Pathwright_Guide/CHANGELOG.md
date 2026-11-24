@@ -6,6 +6,31 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The leaderboard scores quests by new rules. The scores you already have stay in your total as they are; the new rules apply to the quests you hand in from this version on.
+  - Which quests count: those with something to count (kills, items, objects to use) and escorts. Deliveries, talks, breadcrumbs and "explore this place" quests score nothing. A quest scores once per character, when you hand it in.
+  - Score = (base + speed + luck − deaths) × difficulty, never below 0.
+    - Base: 40 + 1 for each kill or item the quest asks.
+    - Speed: 60 × par ÷ your time, at most 150. Par is 20 seconds a kill and 15 seconds any other objective.
+    - Luck: −40 to +60, the kills your drops took against the kills they take on average. The average comes from the other players' records of the same quest, and from the game data until they hold 20 kills. The guide in use no longer changes any score.
+    - Deaths: −15 each, on one quest only: the one whose mob you were fighting, else an escort under way, else the quest you last made progress on nearby.
+    - Difficulty: the quest's color for your level when its objectives complete. Red ×1.5, orange ×1.25, yellow ×1, green ×0.75, gray ×0.5.
+  - Time: a quest's clock starts with the fight of its first kill, for an item quest the first kill of a mob that drops the item, not the first drop. It stops when the objectives complete; the walk to hand it in is not timed. When you do several quests in one place, the time before each kill goes to that kill's quest.
+  - Bought items: a unit you looted yourself counts in full. A unit you bought, traded or got by mail counts for half the base when the item also drops in the world, and brings no speed or luck (buy 9 of 10 and a tenth of the speed and luck points is left). An item nothing drops (crafted, sold by a vendor) scores as before. What you loot before taking a quest counts as looted.
+  - Escorts: a flat 100 × difficulty, less 15 for each death and each failed attempt.
+  - Abandoning a quest and taking it again no longer starts it over: the time, kills and deaths of every attempt add up.
+  - Your total is kept forever (the limit of 2000 quests is gone).
+- A new leaderboard window (/pw board or the crown under the guide).
+  - Two tabs, Friends and Guild. Each player's row shows their class color, total, quests, average, and a bar of what their average quest is made of: base, speed, luck, and what deaths or bad luck cost.
+  - Beside the list, the detail of one player: the parts of their average quest, the colors of their quests, and their latest quests with time, luck and points. It opens on you; click a player to see theirs.
+  - Drag the corner at the bottom right to make the window taller (more players) or wider, and the line between the list and the detail to give one more room than the other. The mouse wheel scrolls the list and the quests.
+  - Scores from before the new rules show as a gray part of the bars, since what they were made of is not known.
+- The leaderboard is shared with your guild as well as your friends and your party (setting "Share my scores with my friends and guild").
+- Keeping scores honest: what is shared is each quest's facts (kills, drops, time, deaths, levels), and every player's addon works the score out itself.
+  - The first record a player sends for a quest stays; a different one for the same quest is refused and the player's name turns red on the board.
+  - A record that cannot be (30 kills in 2 seconds) is refused.
+  - Each record is sealed with its facts and its character's name: edited by hand in the saved file, it no longer matches and is left out.
+  - This stops edited and impossible records. It cannot stop someone who writes code to fake records from the start: only the game server knows what really happened.
+
 - WoW Forever: the sword buttons (a mob to kill) target the nearest mob of their name that no other player has tagged, and are never disabled. Out of combat, just before it fires, a press decides from your target and the mob nameplates on screen:
   - Your target is already an untagged mob of that name: it stays your target and gets the skull and the Attack ping. To pick the mob yourself, click it, then press the sword.
   - The nearest mob of that name is untagged: the press targets it by name, with the skull and the ping.

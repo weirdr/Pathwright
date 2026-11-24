@@ -1678,47 +1678,89 @@ do
     print("shipped guides ok: " .. count .. " routes")
 end
 
--- Quest stats (Stats.lua): a quest's time runs from its first count to its last, only while in
--- its area; drop rates of its items from the corpses looted; a score; friends' records.
+-- Quest stats (Stats.lua): a quest's time runs from the fight of its first kill to its last
+-- count, only in its area, each kill's time going to its own quest; how each unit of an item
+-- was got; the score worked out from a record's facts; sealed records shared with friends.
 do
     local S = FG.Stats
-    local realWhere = S.where
-    local clockNow, wallNow, at = 1000, 50000, { 0, 100, 100 }
+    local realWhere, realFacts = S.where, S.ItemFacts
+    local realData = FG.StatsData
+    FG.StatsData = { escort = "|950|", quests = { [901] = "500;1;5", [902] = "0;1;" } }
+    S.dataCache = {}
+    local clockNow, wallNow, at = 1000, 1800000000, { 0, 100, 100 }
     S.clock, S.now = function() return clockNow end, function() return wallNow end
     S.where = function() return at[1], at[2], at[3] end
+    S.ItemFacts = function(name) return name == "Bear Ass" and 4002 or nil, false end
+    local realLevel = playerLevel
+    playerLevel = 10
     local quests = S:Quests()
     for id in pairs(quests) do
         quests[id] = nil
     end
-    local function Log(kills, claws)
-        return {
-            [900] = { { have = kills, need = 3, type = "monster", text = "Kobold slain: " .. kills .. "/3" } },
-            [901] = { { have = claws, need = 2, type = "item", text = "Wolf Claw: " .. claws .. "/2" } },
+    local spare = S:Spare()
+    for id in pairs(spare) do
+        spare[id] = nil
+    end
+    local function Log(kills, claws, more)
+        local log = {
+            [900] = { level = 10, { have = kills, need = 3, type = "monster", text = "Kobold slain: " .. kills .. "/3" } },
+            [901] = { level = 10, { have = claws, need = 2, type = "item", text = "Wolf Claw: " .. claws .. "/2" } },
         }
+        for id, entry in pairs(more or {}) do
+            log[id] = entry
+        end
+        return log
     end
     S:Apply(Log(0, 0), true)
     S:Tick()
     assert(_G.next(quests) == nil, "nothing under way yet")
+    -- The clock starts with the fight of the first kill.
+    S:Fight(true, 77)
+    clockNow = clockNow + 8
+    S:Kill(77, "kobold-1")
+    S:Fight(false)
     S:Apply(Log(1, 0))
     local rec = quests[900]
-    assert(rec and rec.s == wallNow and rec.t == 0, "the clock starts at the first count")
+    assert(rec and rec.v == 2 and rec.s == wallNow and rec.t == 8, "the first kill's fight is its time")
+    assert(rec.mobs and rec.mobs[77], "the mob its objective counts is remembered")
     clockNow = clockNow + 5
     S:Tick()
-    assert(rec.t == 5, "in its area: counted, " .. tostring(rec.t))
+    assert(rec.t == 8 and S.pend[900] == 5, "in its area: waiting for its next count")
+    S:Apply(Log(2, 0))
+    assert(rec.t == 13 and S.pend[900] == nil, "the count takes the time since the last one")
     at = { 0, 2000, 2000 } -- a hearth to town
     clockNow = clockNow + 5
     S:Tick()
-    assert(rec.t == 5, "away from its area: not counted")
+    assert(S.pend[900] == nil, "away from its area: not counted")
     clockNow = clockNow + 3600 -- logged out
     at = { 0, 120, 90 }
     S:Tick()
-    assert(rec.t == 15, "a long gap counts " .. 10 .. " s at most: " .. tostring(rec.t))
-    -- Loot: of the corpses of the mobs that drop the claw, the share that had it.
-    S:Loot({ { npc = 5, items = { ["wolf claw"] = 1 } }, { npc = 5, items = {} }, { npc = 7, items = {} } })
-    S:Apply(Log(1, 1))
+    assert(S.pend[900] == 10, "a long gap counts 10 s at most")
+    -- An item quest starts at the first kill of a mob that drops its item, not at its first drop;
+    -- the time waiting goes to the quest of that kill, not to the kobolds'.
+    S:Fight(true, 5)
+    clockNow = clockNow + 6
+    S:Kill(5, "wolf-1")
+    S:Fight(false)
     local wolf = quests[901]
-    assert(wolf and S.Rate(wolf) == 0.5, "drop rate of the corpses of its mobs: " .. tostring(S.Rate(wolf)))
-    -- Finished: the time stops, a score, the step's small line, a message to the friends.
+    assert(wolf and wolf.s == wallNow and wolf.t == 6 and wolf.ki == 1, "started by the kill of a mob that drops it")
+    assert(S.pend[900] == nil, "the time before a kill is its quest's alone")
+    -- Loot: the units dropped, the mobs killed (a kill and its corpse are one), what no quest
+    -- wants kept as looted.
+    S:Loot({
+        { npc = 5, guid = "wolf-1", items = { ["wolf claw"] = 1 }, ids = { ["wolf claw"] = 4001 } },
+        { npc = 5, guid = "wolf-2", items = {} },
+        { npc = 7, guid = "bear-1", items = { ["bear ass"] = 2 }, ids = { ["bear ass"] = 4002 } },
+    })
+    assert(wolf.ki == 2 and wolf.dr == 1 and wolf.got["wolf claw"] == 1, "kills and drops of its mobs")
+    assert(S.Rate(wolf, "wolf claw") == 0.5, "drop rate of the corpses of its mobs")
+    assert(spare[4002] == 2 and not spare[4001], "what no quest wants yet is kept as looted")
+    S:Apply(Log(2, 1))
+    -- A death: on the quest of the mob fought.
+    S:Fight(true, 77)
+    assert(S:Died() == 900 and rec.de == 1 and not wolf.de, "a death counts on the quest of the mob fought")
+    S:Fight(false)
+    -- Objectives complete: the clock stops, the score shows; nothing is sent before the hand-in.
     local sent = {}
     local realChat, realFriends = C_ChatInfo, C_FriendList
     C_ChatInfo = {
@@ -1729,42 +1771,241 @@ do
     C_FriendList = {
         GetNumFriends = function() return 2 end,
         GetFriendInfoByIndex = function(i)
-            return i == 1 and { name = "Ally", connected = true } or { name = "Offline", connected = false }
+            return i == 1 and { name = "Ally", connected = true } or { name = "Old", connected = true }
         end,
     }
+    S.Forget(true)
+    local function drain()
+        for _ = 1, 100 do
+            runTimers()
+        end
+    end
     clockNow = clockNow + 5
+    S:Tick()
     S:Apply(Log(3, 1))
-    assert(rec.e == wallNow and rec.t == 20 and rec.sc and rec.sc > 40, "finished: time and score")
-    assert(S.Score({ e = 1, s = 1, t = 60, need = 3, kills = 3 }) == 103, "40 + 3 + 60 at par")
-    assert(S.Score({ e = 1, s = 1, t = 60, need = 3, kills = 3, deaths = 1 }) == 88, "a death costs 15")
+    assert(rec.e == wallNow and rec.t == 18 and rec.k == 3 and rec.lv == 10 and rec.pl == 10, "complete: its facts")
+    assert(#sent == 0 and not rec.d, "not final before it is handed in")
     local line = S:StepLine({ k = "objective", q = 900 })
-    assert(line and line:find("0:20", 1, true) and line:find(tostring(rec.sc), 1, true), tostring(line))
+    assert(line and line:find("0:18", 1, true) and line:find(" pts", 1, true), tostring(line))
     local claw = S:StepLine({ k = "objective", q = 901, e = "item", n = "Wolf Claw" })
     assert(claw and claw:find("50%", 1, true), tostring(claw))
+    -- Handed in: only its facts stay, sealed, and go to the friends.
+    S:TurnedIn(900)
+    drain()
+    assert(rec.d == wallNow and rec.seal and not rec.area and not rec.mobs, "handed in: final, only its facts kept")
     local q = sent[1]
     assert(q and q.prefix == "PWStats" and q.channel == "WHISPER" and q.target:find("^Ally%-"), "to online friends")
-    assert(q.text:find("^Q|900|20||" .. rec.sc .. "|"), q.text)
-    -- Friends' records: taken from friends only.
-    local friend = sent[1].target
-    S:Receive("H|1|500|1", friend)
-    S:Receive("Q|900|12|60|130|49000", friend)
-    S:Receive("H|1|9999|1", "Stranger-Realm")
-    local board = S:Standings()
-    assert(board[1].total == 500 and board[1].name == "Ally" and #board == 2, "the leaderboard: friends only")
-    local tip = S:TooltipLines({ q = 900 })
-    assert(tip and tip[#tip]:find("Ally", 1, true) and tip[#tip]:find("130", 1, true), "friends in the tooltip")
-    -- A request: our records finished after the time given.
+    local f, seal, wire = S.Parse(q.text:sub(3))
+    assert(f and f.q == 900 and f.k == 3 and f.t == 18 and f.de == 1, q.text)
+    assert(seal == rec.seal and seal == S.Seal(wire, "Brouz") and S.Plausible(f, wallNow), "sealed with the character's name")
+    local total, count, records, mark = S:Total()
+    -- 40 + 3, speed 150 at most (par 60 s in 18 s), one death: 178.
+    assert(total == 178 and count == 1 and records == 1 and mark == tonumber(seal, 16), "my total: " .. total)
+
+    -- The score, from a record's facts.
+    local function pts(facts, rate, drops)
+        facts.lv, facts.pl = facts.lv or 10, facts.pl or 10
+        return S.Points(facts, rate, drops)
+    end
+    assert(pts({ k = 8, t = 160 }) == 108, "40 + 8 + 60 at par")
+    assert(pts({ k = 8, t = 80 }) == 168, "twice as fast")
+    assert(pts({ k = 8, t = 160, de = 1 }) == 93, "a death costs 15")
+    assert(pts({ k = 8, t = 160, lv = 13 }) == 135, "an orange quest: x 1.25")
+    assert(pts({ k = 8, t = 160, lv = 15 }) == 162, "a red quest: x 1.5")
+    assert(pts({ k = 8, t = 160, lv = 7 }) == 81, "a green quest: x 0.75")
+    assert(pts({ k = 8, t = 160, lv = 4 }) == 54, "a gray quest: x 0.5")
+    assert(pts({ it = 10, on = 10, ki = 20, dr = 10, t = 400 }, 0.5) == 110, "items farmed at par, average luck")
+    assert(pts({ it = 10, on = 10, ki = 20, dr = 10, t = 400 }, 0.25) == 150, "half the kills expected: + 40")
+    assert(pts({ it = 10, on = 10, ki = 100, dr = 10, t = 2000 }, 0.25) == 70, "bad luck: - 40 at most")
+    assert(pts({ it = 10, on = 10, ki = 20, dr = 10, t = 400 }) == 110, "no rate known: no luck")
+    assert(pts({ it = 10, ob = 10 }) == 25, "all bought, of an item that drops: half the base")
+    assert(pts({ it = 10, ou = 10 }) == 50, "an item nothing drops: the base")
+    assert(pts({ it = 10, ou = 10 }, nil, true) == 25, "seen to drop since: bought")
+    assert(pts({ it = 10, ea = 10 }) == 50, "looted before the quest: the base, no speed")
+    assert(pts({ it = 10, on = 1, ob = 9, ki = 2, dr = 1, t = 10 }) == 43, "9 of 10 bought: a tenth of the speed")
+    assert(pts({ x = 1 }) == 100 and pts({ x = 1, de = 1, f = 1 }) == 70, "an escort: flat, less deaths and failures")
+    assert(pts({ x = 1, lv = 15 }) == 150, "an escort takes the color too")
+    assert(S.Color(15, 10) == 1 and S.Color(13, 10) == 2 and S.Color(8, 10) == 3, "red, orange, yellow")
+    assert(S.Color(7, 10) == 4 and S.Color(4, 10) == 5 and S.Color(0, 10) == 3, "green, gray, unknown")
+    assert(S.Color(48, 60) == 5 and S.Color(52, 60) == 4, "gray and green at 60")
+
+    -- Bought or farmed: 3 Bear Ass asked, 2 looted before the quest, 1 got otherwise.
+    local bear = { level = 10, { have = 3, need = 3, type = "item", text = "Bear Ass: 3/3" } }
+    S:Apply(Log(3, 1, { [902] = bear }))
+    local b = quests[902]
+    assert(b and b.e and b.it == 3 and b.on == 0 and b.ea == 2 and b.ob == 1, "looted earlier, and bought")
+    assert(spare[4002] == nil, "the units looted earlier are used")
+    assert(S:Score(b, 902) == 36, "(40 + 3) x (1 - 0.5 / 3): " .. S:Score(b, 902))
+
+    -- Abandoned and taken again: the same record goes on.
+    local function Rats(n) return { level = 10, { have = n, need = 2, type = "monster", text = "Rat: " .. n .. "/2" } } end
+    S:Apply(Log(3, 1, { [903] = Rats(0) }))
+    S:Fight(true, 80)
+    clockNow = clockNow + 4
+    S:Fight(false)
+    S:Apply(Log(3, 1, { [903] = Rats(1) }))
+    assert(quests[903].t == 4, "its first kill")
+    S:Apply(Log(3, 1)) -- abandoned
+    assert(quests[903] and quests[903].t == 4 and not quests[903].e, "abandoned: its record is kept")
+    S:Apply(Log(3, 1, { [903] = Rats(0) }))
+    clockNow = clockNow + 7
+    S:Tick()
+    S:Apply(Log(3, 1, { [903] = Rats(1) }))
+    assert(quests[903].t == 11, "taken again: its time adds up")
+
+    -- An escort: taken, a death, a failure, complete, handed in: flat.
+    local function Escort(state)
+        return Log(3, 1, { [903] = Rats(1), [950] = { level = 10, complete = state == "done", failed = state == "failed" } })
+    end
+    S:Apply(Escort())
+    local escort = quests[950]
+    assert(escort and escort.x == 1 and escort.s == wallNow, "an escort in the log")
+    S:Fight(true, 4242)
+    assert(S:Died() == 950 and escort.de == 1, "a death during an escort is its own")
+    S:Apply(Escort("failed"))
+    S:Apply(Escort("failed"))
+    assert(escort.f == 1, "a failed attempt, counted once")
+    S:Apply(Escort("done"))
+    assert(escort.e == wallNow, "complete")
     sent = {}
-    S:Receive("R|0", friend)
-    assert(sent[1] and sent[1].text:find("^Q|900|"), "records sent on request")
+    completed[950] = true
+    S:Apply(Log(3, 1, { [903] = Rats(1) })) -- gone from the log, flagged complete: handed in
+    drain()
+    completed[950] = nil
+    assert(escort.d and S:Score(escort, 950, true) == 70, "100 - 15 - 15")
+    assert(sent[1] and sent[1].text:find("^F|950,"), "the escort's record is sent")
+
+    -- Friends' records: from friends only, sealed with their name, the first one kept.
+    local friend, old = sent[1].target, sent[1].target:gsub("^Ally", "Old")
+    local theirs = S.Wire(900, { d = wallNow - 10, t = 60, lv = 10, pl = 10, k = 3 })
+    local theirSeal = S.Seal(theirs, "Ally")
+    sent = {}
+    S:Receive("H|2|9999|1|" .. tonumber(theirSeal, 16) .. "|1|0|0", friend)
+    drain()
+    local askedFor
+    for _, m in ipairs(sent) do
+        if m.text == "S|0" and m.target == friend then askedFor = true end
+    end
+    assert(askedFor, "their records are asked for")
+    S:Receive("F|" .. theirs .. "," .. theirSeal, friend)
+    S:Receive("H|2|9999|1|1|1|0|0", "Stranger-Realm")
+    S:Receive("H|1|500|1", old)
+    S:Receive("Q|900|12|60|130|49000", old)
+    local board = S:Standings()
+    local byName = {}
+    for _, e in ipairs(board) do
+        byName[e.name] = e
+    end
+    assert(#board == 3 and not byName.Stranger, "the leaderboard: friends only")
+    assert(byName.Ally.total == 103 and byName.Ally.count == 1, "a friend's total is worked out from their records")
+    assert(byName.Old.total == 500, "a friend with the older addon: as they say")
+    local tip = S:TooltipLines({ q = 900 })
+    assert(tip and table.concat(tip, "\n"):find("Ally", 1, true) and table.concat(tip, "\n"):find("103", 1, true), "friends in the tooltip")
+    -- A record edited (its seal no longer its own), an impossible one, a second one for the quest.
+    local peer = PathwrightDB.stats.peers[friend]
+    S:Receive("F|" .. theirs:gsub(",60,", ",6,", 1) .. "," .. theirSeal, friend)
+    assert(peer.refused == 1 and not peer.flag, "a record that does not match its seal is refused")
+    local fast = S.Wire(905, { d = wallNow - 5, t = 2, lv = 10, pl = 10, k = 30 })
+    S:Receive("F|" .. fast .. "," .. S.Seal(fast, "Ally"), friend)
+    assert(peer.refused == 2 and not peer.q[905], "30 kills in 2 s cannot be")
+    local again = S.Wire(900, { d = wallNow - 10, t = 20, lv = 10, pl = 10, k = 3 })
+    S:Receive("F|" .. again .. "," .. S.Seal(again, "Ally"), friend)
+    assert(peer.flag and peer.q[900] == theirs .. "," .. theirSeal, "the first record of a quest stays, the player is marked")
+    peer.flag = nil
+    -- A request: a page of our records, oldest first, then its end.
+    sent = {}
+    S:Receive("S|0", friend)
+    drain()
+    assert(sent[1].text:find("^F|9%d%d,") and sent[1].text:find(";", 1, true), "records sent by the page: " .. sent[1].text)
+    assert(sent[#sent].text == "E|0|" .. wallNow, "then the end of the page: " .. sent[#sent].text)
+    sent = {}
+    S:Receive("R|0", old)
+    drain()
+    assert(sent[1] and sent[1].text:find("^Q|9%d%d|"), "the older addon is still answered")
+    -- An item nothing is known to drop: the kills of a mob count from its first one, once it
+    -- has dropped the item.
+    local function Hides(n) return { level = 10, { have = n, need = 2, type = "item", text = "Odd Hide: " .. n .. "/2" } } end
+    S:Apply(Log(3, 1, { [903] = Rats(1), [904] = Hides(0) }))
+    S:Fight(true, 60)
+    clockNow = clockNow + 9
+    S:Kill(60, "odd-1")
+    S:Fight(false)
+    local odd = quests[904]
+    assert(odd and not odd.s and odd.pre[60].n == 1 and odd.pre[60].t == 9, "a mob that may drop it is remembered")
+    clockNow = clockNow + 5
+    S:Tick()
+    S:Kill(60, "odd-2")
+    S:Loot({ { npc = 60, guid = "odd-2", items = { ["odd hide"] = 1 }, ids = { ["odd hide"] = 4004 } } })
+    assert(odd.s == wallNow and odd.t == 14 and odd.ki == 2 and odd.dr == 1 and not odd.pre, "its clock from the first kill")
+    assert(odd.src[60], "the mob is one of its own from now on")
+    -- The guild: a hello on its channel is taken from any member, ours coming back is not.
+    local realInGuild, realMembers, realRoster = IsInGuild, GetNumGuildMembers, GetGuildRosterInfo
+    IsInGuild, GetNumGuildMembers = function() return true end, function() return 1 end
+    GetGuildRosterInfo = function() return "Gil" end
+    S.Forget(true)
+    local gil = friend:gsub("^Ally", "Gil")
+    S:Receive("H|2|77|0|0|0|77|3", gil, nil, "GUILD")
+    S:Receive("H|2|5|0|0|0|5|1", friend:gsub("^Ally", "Brouz"), nil, "GUILD")
+    assert(PathwrightDB.stats.peers[gil].lt == 77 and #S:Standings() == 4, "a guild member is on the board")
+    S:Receive("H|2|999|0|0|0|999|9", gil, nil, "GUILD")
+    assert(select(1, S:PeerTotal(PathwrightDB.stats.peers[gil])) == 77, "what they scored before: as first said")
+    sent = {}
+    S:Hello()
+    drain()
+    local toGuild
+    for _, m in ipairs(sent) do
+        toGuild = toGuild or m.channel == "GUILD"
+    end
+    assert(toGuild, "our hello goes to the guild")
+    -- Two friends of a player compare what they hold of them.
+    S:Receive("P|" .. friend .. "|1|12345", old)
+    assert(peer.flag, "as many records, not the same: the player is marked")
+    peer.flag = nil
+    IsInGuild, GetNumGuildMembers, GetGuildRosterInfo = realInGuild, realMembers, realRoster
+    -- A record of mine edited by hand: left out.
+    rec.k = 99
+    S:Verify()
+    assert(rec.bad and select(3, S:Total()) == 1, "an edited record no longer matches its seal")
+    -- The board: each player with what their average quest is made of, their latest quests in
+    -- the detail a click opens, more or fewer rows as the window is dragged taller.
+    local mine, ally
+    for _, e in ipairs(S:Standings()) do
+        if e.me then mine = e end
+        if e.full == friend then ally = e end
+    end
+    assert(mine.total == 70 and mine.records == 1 and mine.parts.base == 100 and mine.parts.lost == 30, "my escort's parts")
+    assert(ally.total == 103 and ally.parts.base == 43 and ally.parts.speed == 60 and ally.colors[3] == 1, "a friend's parts")
+    local history = S:History(ally)
+    assert(#history == 1 and history[1].q == 900 and history[1].pts == 103 and history[1].t == 60, "a friend's quests")
+    assert(S:History(mine)[1].escort and S:History(mine)[1].pts == 70, "my quests: the escort")
     S:ToggleBoard()
+    local board = S.board
+    assert(board:IsShown() and board.pane.content:IsShown() and S.selected == "me", "the board opens on you")
+    board.rows[1]:GetScript("OnClick")(board.rows[1])
+    assert(S.selected == board.rows[1].full and S.selected ~= "me", "a click on a player shows their detail")
+    board.rows[1]:GetScript("OnClick")(board.rows[1])
+    assert(S.selected == board.rows[1].full and board.pane.content:IsShown(), "the detail stays open")
+    PathwrightDB.stats.boardRows, PathwrightDB.stats.boardList, PathwrightDB.stats.boardPane = 5, 600, 100
+    S:FillBoard()
+    assert(not (board.rows[6] and board.rows[6]:IsShown()), "fewer rows when the window is made shorter")
+    assert(board.barWidth == 600 - 308 - 32 and board.pane.bar.width == 70, "a wider list, the narrowest detail")
+    board.tabs.guild:GetScript("OnClick")(board.tabs.guild)
+    assert(S.scope == "guild" and board.rows[2]:IsShown() and not board.rows[3]:IsShown(), "the guild's tab: its members")
+    assert(S.selected == "me", "a tab opens on you too")
+    S.scope = nil
     S:ToggleBoard()
     C_ChatInfo, C_FriendList = realChat, realFriends
+    S.Forget(true)
     PathwrightDB.stats = nil
     for id in pairs(quests) do
         quests[id] = nil
     end
-    S.clock, S.now, S.where = GetTime, time, realWhere
+    for id in pairs(spare) do
+        spare[id] = nil
+    end
+    FG.StatsData, S.dataCache = realData, {}
+    playerLevel = realLevel
+    S.clock, S.now, S.where, S.ItemFacts = GetTime, time, realWhere, realFacts
     print("quest stats ok")
 end
 
