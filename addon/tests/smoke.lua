@@ -2378,7 +2378,11 @@ do
         end)
         string.format = format
         assert(ok, tostring(err))
-        assert(S.Seal("x", "y") == string.format("%08x", tonumber(S.Seal("x", "y"), 16)), "same digits as before")
+        -- Pinned from the old string.format("%08x", Hash(...)) seal, computed with 32-bit FNV-1a.
+        assert(S.Seal("w1", "y") == "2e4eebe9", "seal below 2^31 unchanged")
+        assert(S.Seal("w199", "y") == "000607ff", "seal keeps its zero padding")
+        assert(S.Seal("x", "y") == "a79e930f", "seal at or above 2^31 unchanged")
+        assert(S.Seal("a", "b") == "daeebe19", "high half stays first")
     end
     local refusedBefore = peer.refused
     S:Receive(sealed(911, "Ally"), friend, nil, nil, "Ally Wick")

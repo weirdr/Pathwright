@@ -6,8 +6,8 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store".
 - WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.
-- Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store": the seal is now written in two halves, with the same digits as before.
 - With a UI suite's look (EllesmereUI, ElvUI), the guide's texts that change size are drawn at the right size again: the party line shrinks to fit, and the "mobs on the way" rows and the level marks of the next steps are small as intended.
 - You can choose the addon's font: "Addon font" under Display, after the addon's colors. The list is every font your other addons share (through LibSharedMedia, as most addons with a font choice do), and the change shows at once in the guide, the quest panel, the toolstrip, the compass and the leaderboard. Without such an addon, the game's four fonts are offered.
 - The toolstrip can be laid out as a list, and from either side, so long names no longer push it off the screen. Five new settings under Toolstrip:
