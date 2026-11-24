@@ -1957,6 +1957,23 @@ do
         toGuild = toGuild or m.channel == "GUILD"
     end
     assert(toGuild, "our hello goes to the guild")
+    -- Fingerprints above the signed limit must reach peers as the original decimal digits.
+    do
+        local total, record = S.Total, peer.q[900]
+        S.Total = function() return 2033, 25, 7, 2436634204, 1403, 18 end
+        peer.q[900] = theirs .. ",ffffffff"
+        sent = {}
+        S:Hello(friend)
+        S:HelloAll()
+        drain()
+        S.Total, peer.q[900] = total, record
+        local hello, comparison
+        for _, m in ipairs(sent) do
+            if m.target == friend and m.text:find("^H|2|2033|25|2436634204|7|1403|18|") then hello = true end
+            if m.target == old and m.text == "P|" .. friend .. "|1|4294967295" then comparison = true end
+        end
+        assert(hello and comparison, "unsigned fingerprints in both stats messages")
+    end
     -- Two friends of a player compare what they hold of them.
     S:Receive("P|" .. friend .. "|1|12345", old)
     assert(peer.flag, "as many records, not the same: the player is marked")

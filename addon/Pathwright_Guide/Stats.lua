@@ -1273,7 +1273,8 @@ local function Sealed(questID, rec) return Stats.Wire(questID, rec) .. "," .. re
 
 function Stats:Hello(only, channel)
     local total, count, records, mark, oldTotal, oldCount = self:Total()
-    local text = string.format("H|%d|%d|%d|%d|%d|%d|%d", VERSION, total, count, mark, records, oldTotal, oldCount)
+    -- The fingerprint is an unsigned 32-bit sum. WoW's %d only accepts signed 32-bit values.
+    local text = string.format("H|%d|%d|%d|%.0f|%d|%d|%d", VERSION, total, count, mark, records, oldTotal, oldCount)
     -- Who we are, for the board: class and level.
     text = text .. "|" .. (Stats.MyClass() or "") .. "|" .. (tonumber(Readable(UnitLevel("player"))) or 0)
     if channel then return Queue({ channel = channel, text = text }) end
@@ -1466,7 +1467,7 @@ function Stats:HelloAll()
         if peer and not guild[about] then
             local have, mark = Held(peer)
             for _, name in ipairs(direct) do
-                if name ~= about then self:Send(string.format("P|%s|%d|%d", about, have, mark), name) end
+                if name ~= about then self:Send(string.format("P|%s|%d|%.0f", about, have, mark), name) end
             end
         end
         gossip[about] = nil
