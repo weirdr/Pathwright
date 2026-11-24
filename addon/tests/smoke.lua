@@ -2632,7 +2632,7 @@ do
     P.progress = {}
     local QS = FG.QuestieShare
     QS:Store(
-        QS.Serialize({ ver = "1.0.0", msgVer = 5, msgId = 3, quest = { id = 8801, objectives = { { ful = 6 } } } }),
+        QS.Serialize({ ver = "1.0.0", msgVer = 5, msgId = 1, quest = { id = 8801, objectives = { { ful = 6 } } } }),
         "Questy-Realm"
     )
     v = task(8801)
@@ -2653,7 +2653,8 @@ do
     P.progress = {}
     P:Store("Amy", 8803, { "4" })
     v = task(8803)
-    assert(not v or v.done, "a done objective is a done row, its party line not drawn")
+    assert(v and v.done, "a done objective is a done row")
+    assert(not (v.party and not v.done), "a done row draws no party line")
     -- In a raid, or with the sync off: no line.
     P:Store("Amy", 8801, { "5" })
     assert(task(8801).party, "the line is there to begin with")

@@ -148,7 +148,7 @@ end
 --- The party's progress on objective `objective` (its index in the log) of a quest, at most
 --- 4 players, by name: { { name, have, need, done } }. `need`: the objective's count.
 function Party:Members(questID, objective, need)
-    if not FG:Get("partySync") then return {} end
+    if not FG:Get("partySync") or (IsInRaid and IsInRaid()) then return {} end
     local out = {}
     for name, quests in pairs(self.progress) do
         local c = quests[questID] and quests[questID][objective]
@@ -167,7 +167,7 @@ end
 
 --- " (Name 3, Name ✓)" for an objective of a quest the party also has.
 function Party:Suffix(questID, objective, required)
-    if not FG:Get("partySync") then return "" end
+    if not FG:Get("partySync") or (IsInRaid and IsInRaid()) then return "" end
     local parts = {}
     for name, quests in pairs(self.progress) do
         local c = quests[questID] and quests[questID][objective]
