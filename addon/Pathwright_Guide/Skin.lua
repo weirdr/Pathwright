@@ -371,6 +371,20 @@ function Skin:Font(fs)
     if suite and suite.font then pcall(suite.font, fs) end
 end
 
+--- Give a font string letters of `size` (and `flags`), at any time. A UI suite writes its font
+--- on the text itself (Font, above), and the game then keeps that text's face and size whatever
+--- font object it is given later: so the size is written on the text too, when the font object
+--- did not give it.
+function Skin:Resize(fs, size, flags, shadowed)
+    fs:SetFontObject(self.FontObject(size, flags, shadowed))
+    self:Font(fs)
+    pcall(function()
+        local path, current, style = fs:GetFont()
+        if type(path) ~= "string" or type(current) ~= "number" then return end
+        if math.abs(current - size) > 0.05 then fs:SetFont(path, size, style or flags or "") end
+    end)
+end
+
 --- Name of the UI suite styling the addon, nil when none.
 function Skin:Suite()
     local suite = ActiveSuite()

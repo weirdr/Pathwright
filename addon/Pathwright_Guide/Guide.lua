@@ -246,6 +246,17 @@ local function FindObjective(step)
     return best
 end
 
+--- How far a step's objective is, as the quest log counts it: have, need (what the guide shows
+--- beside the step). Nil when the step is no counted objective of a quest in the log.
+function Guide.Count(step)
+    if type(step) ~= "table" or step.k ~= "objective" or not step.q then return nil end
+    if not QuestLog.IsOnQuest(step.q) then return nil end
+    local o = FindObjective(step)
+    local need = o and tonumber(o.numRequired)
+    if not need or need <= 0 then return nil end
+    return tonumber(o.numFulfilled) or 0, need
+end
+
 --- Right after an accept the game lists no objectives (or blank ones) for a moment, while
 --- IsComplete may already read true: nothing about the quest's progress can be trusted yet.
 local function ObjectivesLoading(q)

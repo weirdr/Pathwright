@@ -6,6 +6,14 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The toolstrip can be laid out as a list, and from either side, so long names no longer push it off the screen. Five new settings under Toolstrip:
+  - "Toolstrip layout": Row (as before: the buttons side by side, a short name under each icon) or List (one button a line, its whole name beside its icon).
+  - "Toolstrip side": Left (the icons at the left edge, the names running to the right) or Right (the icons at the right edge, the names running to the left and ending at the icon). The strip is then held over the guide by that corner.
+  - "Toolstrip icon size": from 12 to 48 pixels, one pixel at a time.
+  - "Toolstrip name length": how many characters of each name are kept, from 0 (no names, the icons alone) to 40.
+  - "Toolstrip text size": the size of the names and of the objective progress, from 8 to 20.
+- The toolstrip shows the key each button is bound to over its icon, and how far the objective is after the name, such as "Highland Strider (3/10)", kept up to date as you kill and loot, in a fight too. Each can be turned off under Toolstrip: "Key on the toolstrip icons" and "Objective progress on the toolstrip".
+
 - WoW Forever: each character has its own guide again. The characters of one account were kept as a single one (the game gives them the same name, "Weirdman" for both "Weirdman Dan" and "Weirdman Blueback"), so one character opened on another's guide at its step, and they shared their quest scores, bank notes and profile. Each is now told apart by its own number in the game.
   - What was kept so far goes to the character it was last used by (its class and race). Your other characters start on their own: the guide for their level, no scores yet.
 - WoW Forever: the leaderboard takes your friends' records. Every record was refused, because a record is sealed with its character's name and the two sides did not name the character the same way (its first word alone on its own game, its whole name on the others'). Records refused so far are asked for again at your next login.

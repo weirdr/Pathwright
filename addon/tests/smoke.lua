@@ -1122,6 +1122,158 @@ do
     InCombatLockdown = function() return false end
     fire("PLAYER_REGEN_ENABLED")
     assert(not strip.pending and named("PWStrip1").action.kind == "talk", "changed when combat ended")
+    -- Its layout, from the settings: a row or a list, from the left or from the right, the
+    -- icons' size and the names' length.
+    do
+        local guideSteps = strip.steps
+        local mobs = { { mobs = { "Highland Strider", "Highland Thrasher" } } }
+        local one, two, bar = named("PWStrip1"), named("PWStrip2"), named("PathwrightToolstrip")
+        local at = {}
+        local function watch(frame, key)
+            frame.SetPoint = function(_, ...) at[key] = { ... } end
+        end
+        watch(one, "one")
+        watch(two, "two")
+        watch(one.icon, "icon")
+        watch(one.caption, "caption")
+        watch(bar, "bar")
+        local function set(key, value)
+            FG:Save(key, value)
+            strip:SetSteps(mobs)
+        end
+        set("toolstripLayout", "list")
+        assert(one.caption:GetText() == "Highland Strider", "a list shows the whole name")
+        assert(at.one[1] == "TOPLEFT" and at.two[5] < at.one[5], "a list: one button under the other")
+        assert(at.icon[1] == "LEFT" and at.caption[1] == "LEFT" and at.caption[3] == "RIGHT", "left: the name right of the icon")
+        assert(at.bar[1] == "BOTTOMLEFT", "held by the guide's left corner")
+        set("toolstripSide", "right")
+        assert(at.one[1] == "TOPRIGHT" and at.icon[1] == "RIGHT", "right: the icons at the right edge")
+        assert(at.caption[1] == "RIGHT" and at.caption[3] == "LEFT", "the name runs left and ends at the icon")
+        assert(at.bar[1] == "BOTTOMRIGHT", "held by the guide's right corner")
+        set("toolstripNameLength", 8)
+        assert(one.caption:GetText() == "Highland...", "names cut to the length asked: " .. one.caption:GetText())
+        set("toolstripNameLength", 0)
+        assert(one.caption:GetText() == "", "no names at 0")
+        set("toolstripNameLength", nil)
+        set("toolstripLayout", nil)
+        assert(at.one[1] == "RIGHT" and at.one[4] < 0 and at.two[4] < at.one[4], "a row from the right edge")
+        assert(one.caption:GetText() == "Strider", "a row keeps the short names")
+        set("toolstripSide", nil)
+        assert(at.one[1] == "LEFT" and at.one[4] > 0, "and from the left, as before")
+        local size
+        one.icon.SetSize = function(_, w) size = w end
+        set("toolstripIcon", 30)
+        assert(size == 30 and strip.Layout().size == 30, "the icons' size")
+        set("toolstripIcon", 500)
+        assert(strip.Layout().size == 48, "within what the setting allows")
+        set("toolstripIcon", nil)
+        -- The letters' size: the line under the icons grows with it.
+        local height
+        one.SetSize = function(_, _, h) height = h end
+        set("toolstripFont", 14)
+        assert(strip.Layout().font == 14 and height == 24 + 16, "larger letters, a taller line: " .. tostring(height))
+        set("toolstripFont", 99)
+        assert(strip.Layout().font == 20, "within what the setting allows")
+        set("toolstripFont", nil)
+        assert(strip.Layout().font == 10 and height == 24 + 12, "and back: " .. tostring(height))
+        one.SetSize = nil
+        -- A text a UI suite wrote its font on keeps that size whatever font object comes later
+        -- (the game pins it): the size is then written on the text itself.
+        do
+            local pinned = { size = 10 }
+            function pinned:SetFontObject() end
+            function pinned:GetFont() return "Fonts\\Suite.ttf", self.size, "OUTLINE" end
+            function pinned:SetFont(path, size, flags) self.path, self.size, self.flags = path, size, flags end
+            FG.Skin:Resize(pinned, 14)
+            assert(pinned.size == 14 and pinned.flags == "OUTLINE", "a pinned text takes the size, keeps its face")
+            pinned.path = nil
+            FG.Skin:Resize(pinned, 14)
+            assert(pinned.path == nil, "nothing written when the size is already right")
+        end
+        assert(strip.Limited("Élan des bois", 4) == "Élan..." and strip.Limited("Wolf", 4) == "Wolf", "cut between characters")
+        one.SetPoint, two.SetPoint, one.icon.SetPoint, one.caption.SetPoint, bar.SetPoint = nil, nil, nil, nil, nil
+        one.icon.SetSize = nil
+        strip:SetSteps(guideSteps)
+    end
+    -- The key a button is bound to over its icon, and its objective's count after its name.
+    do
+        local guideSteps = strip.steps
+        local one, two = named("PWStrip1"), named("PWStrip2")
+        -- A text of the stubs knows SetShown alone.
+        local function shown(text) return rawget(text, "_shown") == true end
+        assert(strip.KeyText("SHIFT-F") == "s-F" and strip.KeyText("F5") == "F5", "a modifier as one letter")
+        assert(strip.KeyText("ALT-CTRL-BUTTON4") == "a-c-M4" and strip.KeyText("NUMPAD7") == "N7", "long names short")
+        assert(strip.KeyText("CTRL--") == "c--" and strip.KeyText("MOUSEWHEELUP") == "WU", "a dash is a key too")
+        assert(strip.KeyText(nil) == "", "no key, no text")
+        local bound = { ["CLICK PWStrip1:LeftButton"] = "SHIFT-1" }
+        local binding = GetBindingKey
+        GetBindingKey = function(command) return bound[command] end
+        local have = 3
+        local objectives, isOn = C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest
+        C_QuestLog.IsOnQuest = function(q) return q == 7301 or isOn(q) end
+        C_QuestLog.GetQuestObjectives = function(q)
+            if q ~= 7301 then return objectives(q) end
+            return { { text = "Raptor Head: " .. have .. "/10", numFulfilled = have, numRequired = 10 } }
+        end
+        local steps = {
+            {
+                k = "objective",
+                q = 7301,
+                o = 1,
+                n = "Raptor Head",
+                mobs = { "Highland Strider", "Highland Thrasher" },
+            },
+            { k = "turnin", q = 7302, e = "npc", n = "Marshal McBride" },
+        }
+        strip:SetSteps(steps)
+        assert(one.key:GetText() == "s-1" and shown(one.key), "the key over the icon: " .. tostring(one.key:GetText()))
+        assert(not shown(two.key), "none over a button without a key")
+        bound["CLICK PWStrip2:LeftButton"] = "BUTTON4"
+        fire("UPDATE_BINDINGS")
+        assert(two.key:GetText() == "M4" and shown(two.key), "bound anew, shown at once")
+        FG:Save("toolstripKeys", false)
+        strip:SetSteps(steps)
+        assert(not shown(one.key) and not shown(two.key), "no keys when turned off")
+        FG:Save("toolstripKeys", nil)
+        strip:SetSteps(steps)
+        assert(shown(one.key), "and back")
+        -- Every mob of the step has the step's count; the NPC of a turn-in has none.
+        assert(one.caption:GetText() == "Strider" and one.count:GetText() == "(3/10)", "the count after the name")
+        assert(two.count:GetText() == "(3/10)" and not shown(named("PWStrip3").count), "a turn-in has no count")
+        have = 4
+        fire("QUEST_LOG_UPDATE")
+        assert(one.count:GetText() == "(4/10)" and two.count:GetText() == "(4/10)", "it follows the quest log")
+        -- In a fight the text moves on; a wider one is laid out when the fight ends.
+        InCombatLockdown = function() return true end
+        have = 5
+        fire("QUEST_LOG_UPDATE")
+        assert(one.count:GetText() == "(5/10)" and not strip.pending, "counted during a fight")
+        have = 10
+        fire("QUEST_LOG_UPDATE")
+        assert(one.count:GetText() == "(10/10)" and strip.pending, "a wider count waits for the fight's end")
+        local width
+        one.SetSize = function(_, w) width = w end
+        InCombatLockdown = function() return false end
+        fire("PLAYER_REGEN_ENABLED")
+        assert(not strip.pending and width, "then the strip is laid out again")
+        one.SetSize = nil
+        have = 3
+        FG:Save("toolstripLayout", "list")
+        strip:SetSteps(steps)
+        assert(one.caption:GetText() == "Highland Strider" and one.count:GetText() == "(3/10)", "in a list too")
+        FG:Save("toolstripNameLength", 0)
+        strip:SetSteps(steps)
+        assert(one.caption:GetText() == "" and one.count:GetText() == "3/10", "bare without a name")
+        FG:Save("toolstripNameLength", nil)
+        FG:Save("toolstripLayout", nil)
+        FG:Save("toolstripProgress", false)
+        strip:SetSteps(steps)
+        assert(not shown(one.count) and strip.Count(strip.actions[1]) == nil, "no counts when turned off")
+        FG:Save("toolstripProgress", nil)
+        C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest = objectives, isOn
+        GetBindingKey = binding
+        strip:SetSteps(guideSteps)
+    end
     -- Turned off: the strip goes.
     FG:Save("toolstrip", false)
     assert(not named("PathwrightToolstrip"):IsShown(), "the strip hidden when turned off")

@@ -16,11 +16,22 @@ local Skin = FG.Skin
 --- Buttons with a key binding (PWStrip1..PWStrip5), then unnamed ones up to MAX.
 local BOUND = 5
 local MAX = 10
-local SIZE = 24
+--- The icons' size and the names' length (characters) unless the settings say otherwise, and
+--- what the settings may ask for.
+local SIZE, MIN_SIZE, MAX_SIZE = 24, 12, 48
+local NAME_LENGTH, MAX_NAME = 24, 40
+--- The size of the names' letters (and of the counts after them), likewise.
+local FONT, MIN_FONT, MAX_FONT = 10, 8, 20
 local RESTED_SIZE = 16
-local BUTTON_HEIGHT = SIZE + 12
+--- The height a name takes under or beside its icon, and the most room one takes under an icon
+--- (in a row: the game cuts a longer one with dots, so a row of many buttons stays short).
+--- (Both for letters of the usual size, FONT: larger letters take as much more.)
+local CAPTION_HEIGHT = 12
 local MAX_LABEL_WIDTH = 62
+local BUTTON_HEIGHT = SIZE + CAPTION_HEIGHT
 local GAP = 4
+--- Between a name and the count after it.
+local COUNT_GAP = 3
 local GRIP = 10
 --- Between the trash can and the other buttons.
 local SEPARATOR = 2
@@ -44,6 +55,8 @@ local function ActionOf(b)
     return type(a) == "table" and a or nil
 end
 local buttons = {}
+--- The count shown after a button's name: button -> { text = "3/10", width, named }.
+local countOf = setmetatable({}, { __mode = "k" })
 --- Buttons whose step got done during a fight (locked until it ends): button -> true.
 local staleOf = setmetatable({}, { __mode = "k" })
 
@@ -427,7 +440,7 @@ local function QuestItem(steps)
             asked[step.q] = true
             if GetQuestLogSpecialItemInfo then
                 local link, texture = GetQuestLogSpecialItemInfo(index)
-                if link then return link, texture end
+                if link then return link, texture, nil, step end
             end
             local id = FG.QuestItems and FG.QuestItems[step.q]
             if id and (tonumber(FG.ItemCount(id)) or 0) > 0 and Usable(id) then
@@ -436,43 +449,109 @@ local function QuestItem(steps)
                     name, link, texture = nil, nil, nil
                 end
                 texture = texture or (GetItemIcon and GetItemIcon(id)) or nil
-                return type(link) == "string" and link or ("item:" .. id), texture, name
+                return type(link) == "string" and link or ("item:" .. id), texture, name, step
             end
         end
     end
 end
 
 --- What the strip offers for these steps, in order: { kind = "item"|"kill"|"talk", name, link,
---- texture, macro }. A mob or NPC named twice is listed once.
+--- texture, macro, step }. A mob or NPC named twice is listed once, with the first step that
+--- names it (its objective's count goes after the name, see Count).
 function Toolstrip.Actions(steps)
     local list, seen = {}, {}
-    local link, texture, known = QuestItem(steps)
+    local link, texture, known, itemStep = QuestItem(steps)
     if link then
         local name = known or FG.ItemInfo(link) or link:match("%[(.-)%]") or ITEM or "Item"
-        table.insert(list, { kind = "item", link = link, texture = texture, name = name })
+        table.insert(list, { kind = "item", link = link, texture = texture, name = name, step = itemStep })
     end
-    local function add(kind, name)
+    local function add(kind, name, step)
         if not name or name == "" or seen[kind .. "\0" .. name] or #list >= MAX then return end
         seen[kind .. "\0" .. name] = true
         local macro = kind == "kill" and Toolstrip.KillMacro(name) or Toolstrip.TalkMacro(name)
-        table.insert(list, { kind = kind, name = name, texture = ICONS[kind], macro = macro })
+        table.insert(list, { kind = kind, name = name, texture = ICONS[kind], macro = macro, step = step })
     end
     for _, step in ipairs(steps) do
         if step.mobs then
             for _, name in ipairs(step.mobs) do
-                add("kill", name)
+                add("kill", name, step)
             end
         elseif step.e == "npc" then
-            add("talk", step.n)
+            add("talk", step.n, step)
         end
     end
     return list
 end
 
+--- How far an action's objective is, as the quest log has it now: "3/10". Nil when its step has
+--- no counted objective (a talk, a turn-in), or when the setting is off.
+function Toolstrip.Count(a)
+    local step = a and a.step
+    local count = FG.Guide and FG.Guide.Count
+    if type(step) ~= "table" or not count or not FG:Get("toolstripProgress") then return nil end
+    local ok, have, need = pcall(count, step)
+    if not ok or not have or not need then return nil end
+    return string.format("%d/%d", have, need)
+end
+
+--- A key as it fits on an icon: the modifiers as one letter ("SHIFT-F" -> "s-F"), the long names
+--- short ("BUTTON4" -> "M4", "NUMPAD7" -> "N7", "MOUSEWHEELUP" -> "WU").
+local MODIFIERS = { ALT = "a-", CTRL = "c-", SHIFT = "s-", META = "m-" }
+local KEYS = {
+    SPACE = "Spc",
+    ESCAPE = "Esc",
+    BACKSPACE = "Bksp",
+    DELETE = "Del",
+    INSERT = "Ins",
+    PAGEUP = "PgUp",
+    PAGEDOWN = "PgDn",
+    HOME = "Home",
+    END = "End",
+    ENTER = "Ent",
+    TAB = "Tab",
+    CAPSLOCK = "Caps",
+    NUMLOCK = "NumL",
+    PRINTSCREEN = "Prt",
+    UP = "Up",
+    DOWN = "Dn",
+    LEFT = "Lt",
+    RIGHT = "Rt",
+    MOUSEWHEELUP = "WU",
+    MOUSEWHEELDOWN = "WD",
+    NUMPADPLUS = "N+",
+    NUMPADMINUS = "N-",
+    NUMPADMULTIPLY = "N*",
+    NUMPADDIVIDE = "N/",
+    NUMPADDECIMAL = "N.",
+}
+function Toolstrip.KeyText(key)
+    if type(key) ~= "string" then return "" end
+    local modifiers, rest = "", key
+    -- The modifiers come first, each with its dash; the key itself may be a dash ("CTRL--").
+    while true do
+        local modifier, after = rest:match("^(%u+)%-(.+)$")
+        local short = modifier and MODIFIERS[modifier:gsub("^[LR]", "")] or MODIFIERS[modifier or ""]
+        if not short then break end
+        modifiers, rest = modifiers .. short, after
+    end
+    rest = KEYS[rest] or (rest:gsub("^NUMPAD(%d)$", "N%1"):gsub("^BUTTON(%d+)$", "M%1"))
+    return modifiers .. rest
+end
+
 local function Signature(actions)
-    local parts = { FG:Get("toolstrip") and "on" or "off", FG:Get("toolstripTrash") and "trash" or "" }
+    local L = Toolstrip.Layout()
+    local parts = {
+        FG:Get("toolstrip") and "on" or "off",
+        FG:Get("toolstripTrash") and "trash" or "",
+        (L.list and "list" or "row") .. (L.right and ":right:" or ":left:") .. L.size .. ":" .. L.limit,
+        "font:" .. L.font,
+        (FG:Get("toolstripKeys") and "keys" or "") .. (FG:Get("toolstripProgress") and ":counts" or ""),
+    }
     for _, a in ipairs(actions) do
-        table.insert(parts, a.kind .. ":" .. (a.link or a.macro or "") .. "\0" .. a.name)
+        -- With the objective counted after its name: the same mob for another quest is another button.
+        local step = type(a.step) == "table" and a.step.k == "objective" and a.step or nil
+        local counted = step and (tostring(step.q) .. ":" .. tostring(step.n)) or ""
+        table.insert(parts, a.kind .. ":" .. (a.link or a.macro or "") .. "\0" .. a.name .. "\0" .. counted)
     end
     return table.concat(parts, "\n")
 end
@@ -624,6 +703,40 @@ local function TrashTooltip(self)
     GameTooltip:Show()
 end
 
+--- How the strip is laid out, from its settings:
+---   list   one button a line, its name in full beside its icon (else: side by side, a short
+---          name under each icon);
+---   right  the icons at the strip's right edge, the names running to their left, and the
+---          strip held by its right corner (else: all of that from the left);
+---   size   of the icons, in pixels; limit: the characters kept of a name (0: no names);
+---   font   the size of the names' letters and of the counts after them.
+local function Layout()
+    local size = tonumber(FG:Get("toolstripIcon")) or SIZE
+    local limit = tonumber(FG:Get("toolstripNameLength")) or NAME_LENGTH
+    local font = tonumber(FG:Get("toolstripFont")) or FONT
+    return {
+        font = math.max(MIN_FONT, math.min(MAX_FONT, math.floor(font + 0.5))),
+        list = FG:Get("toolstripLayout") == "list",
+        right = FG:Get("toolstripSide") == "right",
+        size = math.max(MIN_SIZE, math.min(MAX_SIZE, math.floor(size + 0.5))),
+        limit = math.max(0, math.min(MAX_NAME, math.floor(limit + 0.5))),
+    }
+end
+Toolstrip.Layout = Layout
+
+--- A name cut to `limit` characters (never inside one), three dots where it was cut.
+function Toolstrip.Limited(text, limit)
+    if limit <= 0 then return "" end
+    local count, i = 0, 1
+    while i <= #text do
+        local byte = text:byte(i)
+        count = count + 1
+        if count > limit then return (text:sub(1, i - 1):gsub("%s+$", "")) .. "..." end
+        i = i + (byte >= 240 and 4 or byte >= 224 and 3 or byte >= 192 and 2 or 1)
+    end
+    return text
+end
+
 local function AddButtonArt(b)
     b.icon = b:CreateTexture(nil, "ARTWORK")
     b.icon:SetSize(SIZE, SIZE)
@@ -631,15 +744,92 @@ local function AddButtonArt(b)
     b.caption = Skin:Text(b, 10, "text")
     b.caption:SetPoint("TOP", b.icon, "BOTTOM", 0, -1)
     b.caption:SetJustifyH("CENTER")
+    -- Its objective's count, after the name: a text of its own, so that it moves on during a
+    -- fight (a text may change then, a secure button's size may not).
+    b.count = Skin:Text(b, 10, "text2")
+    b.count:Hide()
 end
 
-local function SetCaption(b, text)
+--- The size of the key's letters for icons of this size: 8 on the smallest, 11 on the largest.
+local function KeyFont(size) return Skin.FontObject(math.floor(size / 10) + 7, "OUTLINE", true) end
+
+--- Give a button its look for the layout `L`: its icon's size, and its name under the icon (a
+--- row) or beside it, on the side away from the strip's edge (a list); after the name, the
+--- `count` of its objective ("3/10": in brackets after a name, bare without one). Returns its
+--- width and height: the whole of it is the button, name included.
+local function Dress(b, text, L, count)
+    text = Toolstrip.Limited(text or "", L.limit)
+    local named = text ~= ""
+    local counted = type(count) == "string" and count ~= ""
+    b.icon:SetSize(L.size, L.size)
+    b.icon:ClearAllPoints()
+    -- The letters' size, and with it the room a line of them takes.
+    Skin:Resize(b.caption, L.font)
+    Skin:Resize(b.count, L.font)
+    local lineHeight = L.font + (CAPTION_HEIGHT - FONT)
+    b.caption:ClearAllPoints()
     b.caption:SetWidth(0)
     b.caption:SetText(text)
-    local width = math.max(SIZE, math.min(MAX_LABEL_WIDTH, math.ceil(b.caption:GetStringWidth()) + 2))
-    b.caption:SetWidth(width)
-    b:SetSize(width, BUTTON_HEIGHT)
-    return width
+    b.caption:SetShown(named)
+    b.count:ClearAllPoints()
+    b.count:SetText(counted and (named and "(" .. count .. ")" or count) or "")
+    b.count:SetShown(counted)
+    local textWidth = named and math.ceil(tonumber(b.caption:GetStringWidth()) or 0) + 2 or 0
+    local countWidth = counted and math.ceil(tonumber(b.count:GetStringWidth()) or 0) + 2 or 0
+    countOf[b] = counted and { text = count, width = countWidth, named = named } or nil
+    -- In a row a long name is cut by the game (see MAX_LABEL_WIDTH), never its count.
+    if not L.list then textWidth = math.min(math.floor(MAX_LABEL_WIDTH * L.font / FONT), textWidth) end
+    local line = textWidth + (named and counted and COUNT_GAP or 0) + countWidth
+    local lettered = named or counted
+    local width, height
+    if L.list then
+        if L.right then
+            -- From the icon leftward: the count, then the name ending at it.
+            b.icon:SetPoint("RIGHT")
+            b.count:SetPoint("RIGHT", b.icon, "LEFT", -GAP, 0)
+            if counted then
+                b.caption:SetPoint("RIGHT", b.count, "LEFT", -COUNT_GAP, 0)
+            else
+                b.caption:SetPoint("RIGHT", b.icon, "LEFT", -GAP, 0)
+            end
+            b.caption:SetJustifyH("RIGHT")
+        else
+            b.icon:SetPoint("LEFT")
+            b.caption:SetPoint("LEFT", b.icon, "RIGHT", GAP, 0)
+            if named then
+                b.count:SetPoint("LEFT", b.caption, "RIGHT", COUNT_GAP, 0)
+            else
+                b.count:SetPoint("LEFT", b.icon, "RIGHT", GAP, 0)
+            end
+            b.caption:SetJustifyH("LEFT")
+        end
+        width = L.size + (lettered and GAP + line or 0)
+        height = math.max(L.size, lettered and lineHeight or 0)
+    else
+        b.icon:SetPoint("TOP")
+        width = math.max(L.size, line)
+        height = L.size + (lettered and lineHeight or 0)
+        if named and counted then
+            -- The name and its count, the two of them centred under the icon.
+            b.caption:SetPoint("TOPLEFT", b, "TOPLEFT", math.floor((width - line) / 2), -(L.size + 1))
+            b.caption:SetJustifyH("LEFT")
+            b.count:SetPoint("LEFT", b.caption, "RIGHT", COUNT_GAP, 0)
+        else
+            b.caption:SetPoint("TOP", b.icon, "BOTTOM", 0, -1)
+            b.caption:SetJustifyH("CENTER")
+            b.count:SetPoint("TOP", b.icon, "BOTTOM", 0, -1)
+        end
+    end
+    if named then b.caption:SetWidth(textWidth) end
+    b:SetSize(width, height)
+    -- The check over a step done during a fight and the key's letters (the secure buttons have
+    -- them, the trash can none).
+    local done = rawget(b, "done")
+    if done then done:SetSize(L.size * 0.6, L.size * 0.6) end
+    local key = rawget(b, "key")
+    -- (Never the UI suite's font: it would take the outline that keeps a key readable on an icon.)
+    if key then key:SetFontObject(KeyFont(L.size)) end
+    return width, height
 end
 
 local function RestedAvailable()
@@ -743,7 +933,7 @@ local function Create()
         trash:RegisterForClicks("LeftButtonUp", "RightButtonUp")
         AddButtonArt(trash)
         trash.icon:SetTexture(TRASH_ICON)
-        trash.columnWidth = SetCaption(trash, BAG_FILTER_JUNK or "Junk")
+        trash.columnWidth = Dress(trash, BAG_FILTER_JUNK or "Junk", Layout())
         trash:SetScript("OnClick", function(self, mouse)
             if mouse == "RightButton" then
                 Toolstrip:Keep()
@@ -796,6 +986,16 @@ local function Button(i)
     local cooldown = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
     cooldown:SetAllPoints(b.icon)
     b.cooldown = cooldown
+    -- The key it is bound to, over the icon's corner (as the game's action bars show theirs).
+    if name then
+        b.key = b:CreateFontString(nil, "OVERLAY")
+        b.key:SetFontObject(KeyFont(SIZE))
+        b.key:SetTextColor(1, 1, 1)
+        b.key:SetJustifyH("RIGHT")
+        b.key:SetWordWrap(false)
+        b.key:SetPoint("TOPRIGHT", b.icon, "TOPRIGHT", 1, -1)
+        b.key:Hide()
+    end
     b:SetScript("OnEnter", Tooltip)
     b:SetScript("OnLeave", function() GameTooltip:Hide() end)
     b:SetScript("PreClick", function(self) Toolstrip:Press(self) end)
@@ -838,6 +1038,53 @@ function Toolstrip:RefreshTrash()
     trash:SetAlpha(has and 1 or 0.45)
 end
 
+--- The key each bound button answers to, over its icon (when asked). A text: at any time.
+function Toolstrip:Keys()
+    local on = FG:Get("toolstripKeys")
+    for _, b in ipairs(buttons) do
+        local label = rawget(b, "key")
+        if label then
+            local key = on and ActionOf(b) and b.binding and GetBindingKey and Readable(GetBindingKey(b.binding))
+            local text = Toolstrip.KeyText(key)
+            label:SetText(text)
+            label:SetShown(text ~= "")
+        end
+    end
+end
+
+--- The counts after the names, as the quest log has them now. In a fight too: the texts move
+--- on, the buttons keep their size. True when a count took another width, came or went: the
+--- strip is to be laid out again (when the fight ends).
+function Toolstrip:Counts()
+    if not strip or not strip:IsShown() then return false end
+    local resized = false
+    for _, b in ipairs(buttons) do
+        local a = ActionOf(b)
+        if a and b:IsShown() then
+            local count, shown = Toolstrip.Count(a), countOf[b]
+            if (count == nil) ~= (shown == nil) then
+                resized = true
+            elseif shown and count ~= shown.text then
+                shown.text = count
+                b.count:SetText(shown.named and "(" .. count .. ")" or count)
+                local width = math.ceil(tonumber(b.count:GetStringWidth()) or 0) + 2
+                if width ~= shown.width then resized = true end
+            end
+        end
+    end
+    return resized
+end
+
+--- The quest log moved on: the counts with it, and the strip's layout when one changed width.
+function Toolstrip:Progress()
+    if not self:Counts() then return end
+    if InCombatLockdown() then
+        self.pending = true
+    else
+        self:Refresh()
+    end
+end
+
 --- Lay the strip out for `actions` (out of combat).
 local function Apply(actions, host, gap)
     if not Create() or not trash then return end
@@ -857,30 +1104,27 @@ local function Apply(actions, host, gap)
         strip:Hide()
         return
     end
-    -- Junk first, then the bound step buttons.
-    local x = GRIP + GAP
+    -- Junk first, then a separator, then the bound step buttons, then the rested reminder.
+    local L = Layout()
+    local items = {}
     local withTrash = FG:Get("toolstripTrash") and true or false
     trash:SetShown(withTrash)
     if withTrash then
-        trash:ClearAllPoints()
-        trash:SetPoint("LEFT", strip, "LEFT", x, 0)
-        x = x + trash.columnWidth + GAP
+        local width, height = Dress(trash, BAG_FILTER_JUNK or "Junk", L)
+        trash.columnWidth = width
+        items[#items + 1] = { frame = trash, width = width, height = height }
         Toolstrip:RefreshTrash()
     end
     local withSeparator = withTrash and actions[1] ~= nil
     separator:SetShown(withSeparator)
-    if withSeparator then
-        separator:ClearAllPoints()
-        separator:SetPoint("LEFT", strip, "LEFT", x, 0)
-        x = x + SEPARATOR + GAP
-    end
+    if withSeparator then items[#items + 1] = { frame = separator, separator = true } end
+    -- In a row a short name (its distinctive word) under each icon; in a list the name whole.
     local labels = ShortNames(actions)
     for i, a in ipairs(actions) do
         local b = Button(i)
         Arm(b, a)
-        b:ClearAllPoints()
-        b:SetPoint("LEFT", strip, "LEFT", x, 0)
-        x = x + SetCaption(b, labels[i]) + GAP
+        local width, height = Dress(b, L.list and a.name or labels[i], L, Toolstrip.Count(a))
+        items[#items + 1] = { frame = b, width = width, height = height }
     end
     for i = #actions + 1, #buttons do
         buttons[i].action = nil
@@ -889,23 +1133,65 @@ local function Apply(actions, host, gap)
         buttons[i]:SetAttribute("macrotext", nil)
         buttons[i]:Hide()
     end
-    -- The reminder can appear in combat without moving or overlapping a secure action button.
+    -- The reminder can appear in combat without moving or overlapping a secure action button:
+    -- it has its place whether it shows or not, and only takes room when it does.
     if rested then
-        rested:ClearAllPoints()
-        rested:SetPoint("LEFT", strip, "LEFT", x, 0)
-        if withRested then x = x + RESTED_SIZE + GAP end
+        items[#items + 1] = { frame = rested, width = RESTED_SIZE, height = RESTED_SIZE, absent = not withRested }
     end
-    strip:SetWidth(x)
-    strip:SetHeight(BUTTON_HEIGHT + 2 * GAP)
+    local widest, tallest = L.size, L.size
+    for _, item in ipairs(items) do
+        if not item.separator and not item.absent then
+            widest, tallest = math.max(widest, item.width), math.max(tallest, item.height)
+        end
+    end
+    -- From the strip's edge: the grip (where it is dragged by), then the icons.
+    local edge = GRIP + GAP
+    if L.list then
+        local corner = L.right and "TOPRIGHT" or "TOPLEFT"
+        local y = GAP
+        for _, item in ipairs(items) do
+            item.frame:ClearAllPoints()
+            item.frame:SetPoint(corner, strip, corner, L.right and -edge or edge, -y)
+            if item.separator then
+                item.frame:SetSize(widest, SEPARATOR)
+                y = y + SEPARATOR + GAP
+            elseif not item.absent then
+                y = y + item.height + GAP
+            end
+        end
+        strip:SetWidth(edge + widest + GAP)
+        strip:SetHeight(y)
+    else
+        local side = L.right and "RIGHT" or "LEFT"
+        local x = edge
+        for _, item in ipairs(items) do
+            item.frame:ClearAllPoints()
+            item.frame:SetPoint(side, strip, side, L.right and -x or x, 0)
+            if item.separator then
+                item.frame:SetSize(SEPARATOR, math.max(6, tallest - 6))
+                x = x + SEPARATOR + GAP
+            elseif not item.absent then
+                x = x + item.width + GAP
+            end
+        end
+        strip:SetWidth(x)
+        strip:SetHeight(tallest + 2 * GAP)
+    end
     strip:ClearAllPoints()
     if host then
-        strip:SetPoint("BOTTOMLEFT", host, "TOPLEFT", 0, gap)
+        -- Docked over the guide, at its left corner or its right one.
+        if L.right then
+            strip:SetPoint("BOTTOMRIGHT", host, "TOPRIGHT", 0, gap)
+        else
+            strip:SetPoint("BOTTOMLEFT", host, "TOPLEFT", 0, gap)
+        end
     else
         local state = FG.Guide:State()
         local point = state and state.toolstripPoint or DEFAULT_POINT
         strip:SetPoint(point[1], _G[point[2]] or UIParent, point[3], point[4], point[5])
     end
     strip:Show()
+    Toolstrip:Keys()
     Toolstrip:Cooldowns()
     Toolstrip:Aim()
 end
@@ -922,7 +1208,10 @@ function Toolstrip:SetSteps(steps)
         host = (minimal and FG.Mini or FG.Card):Frame()
         gap = 6 + (minimal and FG.Mini:TopInset() or 0) * FG:Get("scale")
     end
-    if signature == self.signature and host == self.host and gap == self.gap and not self.pending then return end
+    -- The same buttons: only their counts may have moved on.
+    local resized = self:Counts()
+    local same = signature == self.signature and host == self.host and gap == self.gap
+    if same and not self.pending and not resized then return end
     self.actions = actions
     self.item = actions[1] and actions[1].kind == "item" and actions[1].link or nil
     if InCombatLockdown() then
@@ -1022,6 +1311,9 @@ FG:On("PLAYER_REGEN_ENABLED", function()
     Toolstrip:Aim()
 end)
 FG:On("BAG_UPDATE_COOLDOWN", function() Toolstrip:Cooldowns() end)
+-- The quest log moved on (a kill counted, in a fight too), or the keys were bound anew.
+FG:On("QUEST_LOG_UPDATE", function() Toolstrip:Progress() end)
+FG:On("UPDATE_BINDINGS", function() Toolstrip:Keys() end)
 if FG.Edition == "forever" then
     for _, event in ipairs({ "PLAYER_ENTERING_WORLD", "UPDATE_EXHAUSTION", "PLAYER_XP_UPDATE", "PLAYER_REGEN_ENABLED" }) do
         FG:On(event, RefreshRested)
