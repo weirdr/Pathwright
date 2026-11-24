@@ -96,7 +96,6 @@ tip Keep the shards for later: the basilisks are on the way back from the Zanzil
 # Booty Bay ------------------------------------------------------------------------------------------------
 
 fly "Booty Bay, Stranglethorn" npc 1387
-fpath 2858
 accept 580
 tip Whiskey Slim's Lost Grog: its bottles are on the Hinterlands beaches (a later guide), and it is handed in back here in the Stranglethorn Vale & Swamp of Sorrows (50-50) guide.
 turnin 95295
