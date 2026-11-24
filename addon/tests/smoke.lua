@@ -1679,6 +1679,29 @@ end
 assert(taken == 3, "flight to the step's node taken")
 print("auto fly ok")
 
+-- A flight path asked for right after a flight there is done with the flight; one after a step
+-- that was not a flight (on foot, by boat) is still asked for.
+FG.Routes["fly-fpath-test"] = {
+    race = 7,
+    class = 8,
+    faction = "Alliance",
+    fromLevel = 1,
+    toLevel = 60,
+    time = 1,
+    steps = {
+        { k = "fly", t = "Fly to Ironforge", e = "taxi", id = 6, n = "Ironforge", lvl = 3 },
+        { k = "flight_master", t = "Get the flight path from Gloria", e = "npc", id = 1, n = "Gloria", lvl = 3 },
+        { k = "note", t = "Walk", lvl = 3 },
+        { k = "flight_master", t = "Get the flight path from Gloria", e = "npc", id = 1, n = "Gloria", lvl = 3 },
+    },
+}
+useRoute("fly-fpath-test")
+assert(not FG.Guide:IsDone(FG.Guide:Route().steps[2], 2), "no flight taken yet: the path is asked for")
+char.guide.marks[1] = true
+assert(FG.Guide:IsDone(FG.Guide:Route().steps[2], 2), "flown there: the path is known")
+assert(not FG.Guide:IsDone(FG.Guide:Route().steps[4], 4), "not after a flight: still asked for")
+print("fpath after fly ok")
+
 -- The flight map's arrow (Taxi.lua): over the destination of the guide's fly step, found by
 -- its flight point, or by its name where the client lists none; none where it cannot be flown to.
 do
