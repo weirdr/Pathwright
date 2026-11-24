@@ -22,6 +22,10 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 - WoW Forever: In Demand - Plague Records, In Demand - Titan Relics and Ott's Finest Work now have their giver, more quest and object names in French, German and Spanish, and fresher drop rates measured in game by players.
 - WoW Forever: nine quest chains no longer broken, Your First Horse, Swift as the Wind, Scalebeard and Bait the Beast in the guides, creatures at fresher places, and more names in Spanish, French, Russian and Korean.
 
+### Addon
+
+- Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store": the seal is now written in two halves, with the same digits as before.
+
 ## 0.21.0 (2026-11-16)
 
 Kills count for every quest that wants them, trainers that teach the rank you need, guides exported as a Polestar addon, and more WoW Forever quests in the guides.

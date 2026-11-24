@@ -1757,6 +1757,38 @@ do
     print("two flights ok")
 end
 
+-- Hearth steps: passed when the hearthstone is on a long cooldown, kept when it is ready or
+-- nearly so.
+do
+    local cd, saved = { 0, 0 }, C_Container
+    C_Container = { GetItemCooldown = function() return cd[1], cd[2], 1 end }
+    FG.Routes["hearth-test"] = {
+        race = 7, class = 8, faction = "Alliance", fromLevel = 1, toLevel = 60, time = 1,
+        steps = {
+            { k = "hearth", t = "Use your hearthstone", lvl = 3 },
+            { k = "note", t = "Cooldown check item,6948,>0,1. Hearth to Everlook", lvl = 3 },
+        },
+    }
+    local function probe(start, duration)
+        cd = { start, duration }
+        useRoute("hearth-test")
+        local steps = FG.Guide:Route().steps
+        return (FG.Guide:IsDone(steps[1], 1)) and true or false, (FG.Guide:IsDone(steps[2], 2)) and true or false
+    end
+    local a, b = probe(0, 0)
+    assert(not a and not b, "hearthstone ready: steps stay")
+    a, b = probe(GetTime() - 10, 3600)
+    assert(a and b, "long cooldown: steps passed")
+    a, b = probe(GetTime() - 3500, 3600)
+    assert(not a and not b, "nearly ready: steps stay")
+    C_Container = {}
+    a, b = probe(0, 0)
+    assert(not a and not b, "no hearthstone info: no error, steps stay")
+    C_Container = saved
+    useRoute("fly-test")
+    print("hearth cooldown ok")
+end
+
 -- Teleport: done once the character is there (around the city's class trainer).
 FG.Routes["teleport-test"] = {
     race = 7,
@@ -2289,6 +2321,34 @@ do
         local wire = S.Wire(quest, { d = wallNow - 20, t = 60, lv = 10, pl = 10, k = 3 })
         return "F|" .. wire .. "," .. S.Seal(wire, name)
     end
+    -- A seal at or above 2^31 (half of them): the game's string.format raises on such a value.
+    do
+        local format = string.format
+        string.format = function(pattern, ...)
+            for i = 1, select("#", ...) do
+                local v = select(i, ...)
+                if pattern:find("%%[%d.]*[xd]") and type(v) == "number" and (v < -2147483648 or v > 2147483647) then
+                    error("integer overflow attempting to store " .. format("%.0f", v))
+                end
+            end
+            return format(pattern, ...)
+        end
+        local ok, err = pcall(function()
+            local quest, wire, seal
+            for q = 1100, 1200 do
+                wire = S.Wire(q, { d = wallNow - 20, t = 60, lv = 10, pl = 10, k = 3 })
+                seal = S.Seal(wire, "Ally")
+                if tonumber(seal, 16) >= 2147483648 then quest = q break end
+            end
+            assert(quest, "a seal with the top bit set")
+            assert(#seal == 8 and seal:match("^%x+$"), "eight hex digits")
+            S:Receive("F|" .. wire .. "," .. seal, friend)
+            assert(peer.q[quest], "the record with a high seal is accepted")
+        end)
+        string.format = format
+        assert(ok, tostring(err))
+        assert(S.Seal("x", "y") == string.format("%08x", tonumber(S.Seal("x", "y"), 16)), "same digits as before")
+    end
     local refusedBefore = peer.refused
     S:Receive(sealed(911, "Ally"), friend, nil, nil, "Ally Wick")
     S:Receive(sealed(912, "AllyWick"), friend, nil, nil, "Ally Wick")
@@ -2503,6 +2563,16 @@ do
     assert(#sentParty == 0, "not asked again at once")
     C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers = realChat, realGroup, realRaid, realMembers
     UnitInParty = realParty
+    -- An "R" leaves the old progress shown until its first chunk comes.
+    P.progress = {}
+    local realAmb = Ambiguate
+    Ambiguate = function(n) return (n:gsub("%-.*", "")) end
+    P:Store("Amy", 900, { "3" })
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    assert(#P:Members(900, 1, 8) == 1, "progress kept while a refresh is under way")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
+    assert(P:Members(900, 1, 8)[1].have == 5, "the chunk replaces it")
+    Ambiguate = realAmb
     P.progress = saved
     print("party lines ok")
 end
