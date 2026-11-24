@@ -73,7 +73,11 @@ jobs:
           luajit addon/tests/smoke.lua profile
       - name: Zip
         if: steps.changes.outputs.release == 'true'
-        run: scripts/addon-zip.sh dist/Pathwright-addon.zip
+        run: |
+          # The release's name goes into the addon it carries: a feedback report says which one.
+          printf 'Pathwright.release = "Pathwright-v%s"\n' "$(scripts/addon-version.sh)" \
+            > addon/Pathwright_Guide/Release.lua
+          scripts/addon-zip.sh dist/Pathwright-addon.zip
       - name: Publish
         id: publish
         if: steps.changes.outputs.release == 'true'

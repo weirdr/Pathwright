@@ -1,6 +1,6 @@
 [package]
 name = "pathwright-updater"
-version = "0.1.0"
+version = "0.2.0"
 description = "Keeps the Pathwright addon up to date from its GitHub releases, from the system tray."
 edition.workspace = true
 rust-version.workspace = true

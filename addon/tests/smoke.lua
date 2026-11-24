@@ -2009,6 +2009,68 @@ do
     print("quest stats ok")
 end
 
+-- Feedback (Feedback.lua): a report of what was typed and of the game then; left for the updater
+-- in the saved variables; cut to fit one Discord message when pasted by hand.
+do
+    local F = FG.Feedback
+    local report = F:Report("The wolves are not at the marker")
+    assert(report.report == "pathwright-feedback" and report.what_went_wrong:find("wolves"), "the words typed")
+    assert(report.char.level == playerLevel and report.char.faction == "Alliance", "the character, without its name")
+    assert(not FG.JSON(report):find("Brouz", 1, true), "no character name in a report")
+    assert(report.client.locale == "frFR" and report.addon.release == "dev", "the game and the addon")
+    assert(type(report.quests) == "table" and report.place.map, "the quest log and the place")
+    local guide = report.guide
+    assert(guide and guide.name == FG.Guide:RouteName() and guide.step == FG.Guide:CurrentStep(), "the guide and its step")
+    assert(guide.of == #FG.Guide:Route().steps and guide.now and guide.now.i == guide.step, "the step itself")
+    local text = F:Text("The wolves are not at the marker")
+    assert(text:find("^Please open a GitHub issue from this report%.\n```json\n{") and text:find("\n```$"), text:sub(1, 80))
+    assert(#text <= 1900, "one Discord message: " .. #text)
+    -- Too long to paste: the parts that say least go first, the words typed last.
+    local big = { report = "pathwright-feedback", v = 1, what_went_wrong = string.rep("é", 250), quests = {}, errors = {} }
+    for i = 1, 40 do
+        big.quests[i] = { 90000 + i, 0, { { 3, 8 }, { 0, 12 }, { 1, 1 } } }
+        big.errors[#big.errors + 1] = string.rep("x", 100)
+    end
+    big.guide = { name = "A guide", step = 3, of = 9, now = { i = 3, t = string.rep("t", 120) }, next = { { i = 4 } } }
+    local cut = F.Fit(big)
+    assert(#cut <= 1900 and big.cut and big.quests[1][3] == nil and not big.guide.next, "cut to fit: " .. #cut)
+    assert(#F.Fit(big, 700) <= 700 and big.more_quests == 28 and #big.quests == 12, "then the quests beyond twelve")
+    assert(cut:find("what_went_wrong", 1, true) and not cut:find("errors", 1, true), "the words stay, the errors go")
+    assert(F.Cut("aéb", 2) == "a" and F.Cut("aéb", 3) == "aé", "never cut inside a character")
+    assert(F.Base64("Man") == "TWFu" and F.Base64("Ma") == "TWE=" and F.Base64("M") == "TQ==", "base64")
+    -- Left for the updater: a line it reads from the saved variables once the game has written them.
+    PathwrightDB.feedback = nil
+    local sent = F:Submit("  The wolves are not at the marker  ")
+    assert(sent and sent:find("wolves", 1, true) and F.id, "OK makes the report")
+    local line = PathwrightDB.feedback[1]
+    local head = "PWFB1:" .. F.id .. ":"
+    assert(#PathwrightDB.feedback == 1 and line:sub(1, #head) == head, "waiting for the updater: " .. line:sub(1, 40))
+    assert(line:sub(#head + 1):find("^[%w%+/=]+$"), "the report in base64, nothing to escape")
+    assert(F:Submit("  ") == nil and #PathwrightDB.feedback == 1, "nothing typed: no report")
+    for _ = 1, 7 do
+        F:Submit("again and again")
+    end
+    assert(#PathwrightDB.feedback == 5, "five reports wait at most")
+    -- The updater's answer, read at login: the report it sent leaves the list.
+    local first = PathwrightDB.feedback[1]:match("^PWFB1:([%w%-]+):")
+    assert(not F.HasUpdater(), "no updater seen")
+    FG.updater = { at = time(), sent = { [first] = "https://github.com/weirdr/Pathwright/issues/99" } }
+    assert(F.HasUpdater(), "the updater ran here lately")
+    F:Acknowledge()
+    assert(#PathwrightDB.feedback == 4 and not PathwrightDB.feedback[1]:find(first, 1, true), "sent: off the list")
+    -- The window: opened from its button under the guide, it stays open after OK.
+    F:Toggle()
+    assert(F.frame:IsShown() and not F.frame.reload:IsShown(), "the window, before OK")
+    F:Submit("The wolves are not at the marker")
+    assert(F.frame:IsShown() and F.frame.reload:IsShown() and F.text, "after OK: still open, a reload sends it")
+    FG.updater = nil
+    F:Submit("The wolves are not at the marker")
+    assert(F.frame.reload:IsShown(), "no updater seen yet: the reload is offered all the same")
+    F:Toggle()
+    FG.updater, PathwrightDB.feedback = nil, nil
+    print("feedback ok")
+end
+
 -- The party's progress for the guide's step lines (Party.lua): Pathwright members and Questie
 -- players alike, at most 4, done ones flagged; Questie's whole-log message read.
 do

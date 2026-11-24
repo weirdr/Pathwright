@@ -411,5 +411,7 @@ SlashCmdList.PATHWRIGHT = function(msg)
     end
     -- "/pw board": the quest stats leaderboard (the guide part).
     if type(msg) == "string" and msg:lower():match("^%s*board") and FG.Stats then return FG.Stats:ToggleBoard() end
+    -- "/pw feedback": tell us what went wrong (the guide part).
+    if type(msg) == "string" and msg:lower():match("^%s*feedback") and FG.Feedback then return FG.Feedback:Toggle() end
     FG.Options:Open()
 end

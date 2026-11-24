@@ -11,8 +11,9 @@ use std::fs;
 use std::io::{Cursor, Read};
 use std::path::{Component, Path, PathBuf};
 
-/// Files the desktop app writes into the addon's folders: an update keeps the installed ones.
-const KEEP: &[&str] = &["Config.lua", "Routes.lua", "Services.lua", "Sent.lua"];
+/// Files the desktop app (and this updater: Updater.lua, feedback.rs) writes into the addon's
+/// folders: an update keeps the installed ones.
+const KEEP: &[&str] = &["Config.lua", "Routes.lua", "Services.lua", "Sent.lua", "Updater.lua"];
 /// Next to AddOns (same disk, so folders move in at once): the new folders, the old ones.
 const STAGING: &str = ".pathwright-update";
 const BACKUP: &str = ".pathwright-previous";
