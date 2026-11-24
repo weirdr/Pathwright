@@ -1757,6 +1757,38 @@ do
     print("two flights ok")
 end
 
+-- Hearth steps: passed when the hearthstone is on a long cooldown, kept when it is ready or
+-- nearly so.
+do
+    local cd, saved = { 0, 0 }, C_Container
+    C_Container = { GetItemCooldown = function() return cd[1], cd[2], 1 end }
+    FG.Routes["hearth-test"] = {
+        race = 7, class = 8, faction = "Alliance", fromLevel = 1, toLevel = 60, time = 1,
+        steps = {
+            { k = "hearth", t = "Use your hearthstone", lvl = 3 },
+            { k = "note", t = "Cooldown check item,6948,>0,1. Hearth to Everlook", lvl = 3 },
+        },
+    }
+    local function probe(start, duration)
+        cd = { start, duration }
+        useRoute("hearth-test")
+        local steps = FG.Guide:Route().steps
+        return (FG.Guide:IsDone(steps[1], 1)) and true or false, (FG.Guide:IsDone(steps[2], 2)) and true or false
+    end
+    local a, b = probe(0, 0)
+    assert(not a and not b, "hearthstone ready: steps stay")
+    a, b = probe(GetTime() - 10, 3600)
+    assert(a and b, "long cooldown: steps passed")
+    a, b = probe(GetTime() - 3500, 3600)
+    assert(not a and not b, "nearly ready: steps stay")
+    C_Container = {}
+    a, b = probe(0, 0)
+    assert(not a and not b, "no hearthstone info: no error, steps stay")
+    C_Container = saved
+    useRoute("fly-test")
+    print("hearth cooldown ok")
+end
+
 -- Teleport: done once the character is there (around the city's class trainer).
 FG.Routes["teleport-test"] = {
     race = 7,
