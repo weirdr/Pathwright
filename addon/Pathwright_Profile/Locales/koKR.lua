@@ -275,6 +275,7 @@ FG.Locales.koKR = {
     ["%d quests  avg %d per quest"] = "퀘스트 %d개  퀘스트당 평균 %d",
     ["before these rules"] = "이 규칙 이전",
     ["Old rules"] = "이전 규칙",
+    ["%s is not a flight you can take from here."] = "%s: 여기서 탈 수 있는 비행 경로가 아닙니다.",
     ["Feedback"] = "피드백",
     ["Feedback: tell us what went wrong"] = "피드백: 무엇이 잘못됐는지 알려주세요",
     ["What went wrong?"] = "무엇이 잘못됐나요?",

@@ -275,6 +275,7 @@ FG.Locales.deDE = {
     ["%d quests  avg %d per quest"] = "%d Quests  Ø %d pro Quest",
     ["before these rules"] = "vor diesen Regeln",
     ["Old rules"] = "Alte Regeln",
+    ["%s is not a flight you can take from here."] = "%s ist kein Flug, den du von hier nehmen kannst.",
     ["Feedback"] = "Feedback",
     ["Feedback: tell us what went wrong"] = "Feedback: Sag uns, was schiefging",
     ["What went wrong?"] = "Was ging schief?",

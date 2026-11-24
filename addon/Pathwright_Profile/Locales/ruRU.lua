@@ -275,6 +275,7 @@ FG.Locales.ruRU = {
     ["%d quests  avg %d per quest"] = "%d заданий  ср. %d за задание",
     ["before these rules"] = "до этих правил",
     ["Old rules"] = "Старые правила",
+    ["%s is not a flight you can take from here."] = "%s — отсюда туда нельзя улететь.",
     ["Feedback"] = "Отзыв",
     ["Feedback: tell us what went wrong"] = "Отзыв: расскажите, что пошло не так",
     ["What went wrong?"] = "Что пошло не так?",

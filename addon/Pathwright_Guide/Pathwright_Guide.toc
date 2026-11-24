@@ -52,7 +52,9 @@ Arrow.lua
 Nearby.lua
 NpcMark.lua
 Poulpix.lua
+QuestItems.lua
 Toolstrip.lua
+Taxi.lua
 Nameplates.lua
 QuestieShare.lua
 Merchant.lua

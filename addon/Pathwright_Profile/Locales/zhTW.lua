@@ -275,6 +275,7 @@ FG.Locales.zhTW = {
     ["%d quests  avg %d per quest"] = "%d 個任務  每個平均 %d",
     ["before these rules"] = "這些規則之前",
     ["Old rules"] = "舊規則",
+    ["%s is not a flight you can take from here."] = "%s 不是你能從這裡搭乘的航線。",
     ["Feedback"] = "回饋",
     ["Feedback: tell us what went wrong"] = "回饋：告訴我們哪裡出了問題",
     ["What went wrong?"] = "哪裡出了問題？",

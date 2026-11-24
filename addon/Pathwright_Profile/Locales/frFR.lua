@@ -368,6 +368,7 @@ FG.Locales.frFR = {
     ["%d quests  avg %d per quest"] = "%d quêtes  moy. %d par quête",
     ["before these rules"] = "avant ces règles",
     ["Old rules"] = "Anciennes règles",
+    ["%s is not a flight you can take from here."] = "%s n'est pas un vol que vous pouvez prendre d'ici.",
     ["Feedback"] = "Retour",
     ["Feedback: tell us what went wrong"] = "Retour : dites-nous ce qui n'a pas marché",
     ["What went wrong?"] = "Qu'est-ce qui n'a pas marché ?",
