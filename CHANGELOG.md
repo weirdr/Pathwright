@@ -8,6 +8,10 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ## Unreleased
 
+### Guides
+
+- Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path right after a flight to Booty Bay, which already gave it.
+
 ### Addon
 
 - WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.
