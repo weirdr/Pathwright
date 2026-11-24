@@ -1,5 +1,6 @@
 mod audit;
 mod diff;
+mod guide_walks;
 mod route;
 mod talents;
 mod travel;
@@ -214,6 +215,17 @@ enum Command {
         #[arg(long)]
         cells: bool,
     },
+    /// The walks of a batch of legs as a guide of the app gives them to the addon (`wp`), for the
+    /// built-in guides: legs JSON in (`-`: stdin), the walks JSON out
+    #[command(hide = true)]
+    GuideWalks {
+        /// {"faction": "horde", "legs": [{"from": place, "to": place, "level": 21}]}, a place
+        /// {"m": uiMap, "x": percent, "y": percent} or {"taxi": node id or name}
+        legs: PathBuf,
+        /// Write the walks there instead of to stdout
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
     /// Look for each known kind of data problem in all the edition's data, for every race
     /// (accepted findings: overrides/audit.toml); fails when some are left to fix
     Audit {
@@ -384,6 +396,7 @@ fn main() -> Result<()> {
         }
         Command::TerrainOverrides { faction } => travel::overrides(&open()?, &overrides, &faction)?,
         Command::Walks { route, out, cells } => walks::run(&open()?, &overrides, &route, &out, cells)?,
+        Command::GuideWalks { legs, out } => guide_walks::run(&open()?, &overrides, &legs, out.as_deref())?,
         Command::Audit { checks, all, proposals } => {
             audit::run(&open()?, &overrides, &checks, all, proposals.as_deref())?;
         }

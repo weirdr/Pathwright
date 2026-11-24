@@ -218,7 +218,7 @@ pub fn to_lua(routes: &[Route]) -> String {
             }
             // The walk to it (world x, y): where it starts and turns, for the compass.
             // The guide keeps the whole walk; the addon gets it lightened (the only place it is).
-            let walk = lighten_walk(s);
+            let walk = step_walk(s);
             if !walk.is_empty() {
                 fields.push(format!(
                     "wp = {{ {} }}",
@@ -343,10 +343,18 @@ pub fn to_lua(routes: &[Route]) -> String {
 /// Yards a walk may stray from the one the guide keeps once written for the addon.
 const WALK_TOLERANCE: f64 = 6.0;
 
-/// The walk of a step for the addon: its points farther than `WALK_TOLERANCE` from the line
-/// between their neighbours (Douglas-Peucker, the step's place the last end), in whole yards.
-/// This is the only place a walk is simplified.
-fn lighten_walk(step: &Step) -> Vec<[f64; 2]> {
+/// The walk of a step for the addon (`lighten_walk`, to its place).
+fn step_walk(step: &Step) -> Vec<[f64; 2]> {
+    match step.world {
+        Some([_, x, y]) => lighten_walk(&step.path, [x, y]),
+        None => step.path.clone(),
+    }
+}
+
+/// A walk (its start and turns) to `end` for the addon: its points farther than
+/// `WALK_TOLERANCE` from the line between their neighbours (Douglas-Peucker, `end` the last
+/// end), in whole yards, `end` left out. This is the only place a walk is simplified.
+pub fn lighten_walk(path: &[[f64; 2]], end: [f64; 2]) -> Vec<[f64; 2]> {
     fn keep(path: &[[f64; 2]], out: &mut Vec<[f64; 2]>) {
         let (a, b) = (path[0], path[path.len() - 1]);
         let (dx, dy) = (b[0] - a[0], b[1] - a[1]);
@@ -374,11 +382,8 @@ fn lighten_walk(step: &Step) -> Vec<[f64; 2]> {
             }
         }
     }
-    let Some(end) = step.world else {
-        return step.path.clone();
-    };
-    let mut path = step.path.clone();
-    path.push([end[1], end[2]]);
+    let mut path = path.to_vec();
+    path.push(end);
     let mut kept = Vec::new();
     if path.len() > 2 {
         keep(&path, &mut kept);

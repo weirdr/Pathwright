@@ -2,7 +2,8 @@
 """Build a built-in Pathwright guide from an authored guide script and the game data.
 
     python3 addon/tools/guide_build.py addon/guides/skyborne_starter.guide \
-        [--db data/forever.sqlite.zst] [--out addon/Pathwright_Guide/Builtin]
+        [--db data/forever.sqlite.zst] [--out addon/Pathwright_Guide/Builtin] [--fg target/release/fg]
+        [--no-walks]
 
 The script (addon/guides/*.guide) says the order: which quests to take, do and hand in, where to
 train, sell or set the hearthstone. The game data (data/forever.sqlite.zst) fills in the rest: who
@@ -71,19 +72,39 @@ quest handed in without being taken or before its objectives are done, a quest l
 game's limit, the quests carried in counted; over 36 warns), and warns of a quest taken
 at a giver met earlier in the guide while it could already be taken there (take everything a hub
 gives at once), and of a quest taken whose objectives no step does.
+
+Walks: each step gets the walk to it (`wp`: where it starts, then where it turns around the steep
+ground, world coordinates), as the app's guides do, for the addon's compass and path lines. The
+walk starts where the step before leaves the character: its place; where the flight of a `fly`
+lands; the inn of a `hearth` (no walk to it: the hearthstone takes the character there), and so
+does a `goto` that says it is reached by flight, zeppelin or boat; nowhere after a `note` that
+says to take a flight, zeppelin, boat or teleport. Steps done along the way (`bg`) neither get a
+walk nor move its start; a step without a place keeps it. The step before may differ between the
+variants (`only`): a step whose walk does is given the most common one (`wp`) and the others
+(`wv = { { { variant index, ... }, { x1, y1, ... } }, ... }`, an empty walk for none), which
+Builtin.Expand resolves. The walks are worked out by the app's planner, once per faction:
+`fg --db <db> guide-walks -` (`--fg <binary>` or $FG_BIN, else `cargo run --release -p fg`);
+`--no-walks` leaves them out (quicker, while writing the script). scripts/build-builtin-guides.sh
+rebuilds every guide with them.
 """
-import argparse, math, os, re, shlex, sqlite3, subprocess, sys, tempfile, time
+import argparse, atexit, json, math, os, re, shlex, sqlite3, subprocess, sys, tempfile, time
 
 ap = argparse.ArgumentParser()
 ap.add_argument("script")
 ap.add_argument("--db", default="data/forever.sqlite.zst")
 ap.add_argument("--out", default="addon/Pathwright_Guide/Builtin")
+ap.add_argument("--fg", default=os.environ.get("FG_BIN"),
+                help="the fg binary that works out the walks (default: $FG_BIN, else cargo run --release -p fg)")
+ap.add_argument("--no-walks", action="store_true", help="leave the walks out (quicker, to try a script)")
 args = ap.parse_args()
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # The game data (zstd compressed in the repository).
 if args.db.endswith(".zst"):
     tmp = tempfile.NamedTemporaryFile(suffix=".sqlite", delete=False)
     tmp.close()
+    # Removed at the end, also when the build stops.
+    atexit.register(os.unlink, tmp.name)
     subprocess.run(["zstd", "-dqf", args.db, "-o", tmp.name], check=True)
     dbpath = tmp.name
 else:
@@ -1055,6 +1076,89 @@ for w in WARNINGS:
     print(w, file=sys.stderr)
 
 
+# Walks (see the top of the file) ----------------------------------------------------------------
+
+# A note or goto about travelling by flight, zeppelin, boat or teleport: a goto is where it lands
+# (no walk to it), a note where it leaves from (no walk from it).
+TRAVEL = re.compile(r"\b(fly|flights?|zeppelins?|boats?|ship|teleport|portal|hearthstone)\b", re.I)
+
+
+def walk_legs(vi):
+    """The walks of variant `vi`: {step index: (start, place, level)}, the places as the
+    guide-walks command takes them ({m, x, y} or {taxi})."""
+    legs, start = {}, None
+    for i, s in enumerate(steps):
+        if vi not in s["_in"] or s.get("bg"):
+            continue
+        here = {"m": s["m"], "x": s["x"], "y": s["y"]} if "m" in s else None
+        travel = s["k"] in ("note", "goto") and TRAVEL.search(s.get("t") or "")
+        arrive = s["k"] == "hearth" or (s["k"] == "goto" and travel)
+        if here and start and here != start and not arrive:
+            level = s["lvl"] if s["k"] != "grind" else min(s.get("_lvl", guide["from"]), guide["to"])
+            legs[i] = (start, here, level)
+        if s["k"] == "fly":
+            start = {"taxi": s["id"]}
+        elif s["k"] == "note" and travel:
+            start = None
+        elif here:
+            start = here
+    return legs
+
+
+def guide_walks(faction, legs):
+    """The walks of `legs` ([{from, to, level}]) for a faction, from the app's planner."""
+    db_arg = ["--db", os.path.abspath(dbpath), "guide-walks", "-"]
+    cmd = [os.path.abspath(args.fg)] + db_arg if args.fg else ["cargo", "run", "--release", "-q", "-p", "fg", "--"] + db_arg
+    p = subprocess.run(cmd, input=json.dumps({"faction": faction, "legs": legs}), capture_output=True, text=True,
+                       cwd=ROOT)
+    if p.returncode != 0:
+        sys.stderr.write(p.stderr)
+        sys.exit(f"{args.script}: {' '.join(cmd)} failed (exit {p.returncode}); --no-walks builds without the walks")
+    try:
+        walks = json.loads(p.stdout)["walks"]
+    except (ValueError, KeyError, TypeError):
+        sys.stderr.write(p.stderr)
+        sys.exit(f"{args.script}: guide-walks gave no walks: {p.stdout[:200]!r}")
+    if len(walks) != len(legs):
+        sys.exit(f"{args.script}: guide-walks gave {len(walks)} walks for {len(legs)} legs")
+    return [tuple(int(round(c)) for c in w) for w in walks]
+
+
+walk_count, leg_count = 0, 0
+if not args.no_walks:
+    # Every variant's legs, the same ones asked once per faction.
+    per_variant = {vi: walk_legs(vi) for vi in range(1, len(variants) + 1)}
+    asked = {}  # faction -> {key: index}
+    for vi, legs in per_variant.items():
+        keys = asked.setdefault(variants[vi - 1]["faction"].lower(), {})
+        for leg in legs.values():
+            keys.setdefault(json.dumps(leg, sort_keys=True), len(keys))
+    found = {}
+    for faction, keys in sorted(asked.items()):
+        if not keys:
+            continue
+        legs = [json.loads(k) for k in keys]
+        leg_count += len(legs)
+        walks = guide_walks(faction, [{"from": a, "to": b, "level": l} for a, b, l in legs])
+        for key, idx in keys.items():
+            found[(faction, key)] = walks[idx]
+    for i, s in enumerate(steps):
+        # The variants of the step by their walk: the most common one (then the first variant's)
+        # is `wp`, the others `wv`.
+        by_walk = {}
+        for vi in s["_in"]:
+            leg = per_variant[vi].get(i)
+            walk = found[(variants[vi - 1]["faction"].lower(), json.dumps(leg, sort_keys=True))] if leg else ()
+            by_walk.setdefault(walk, []).append(vi)
+        ranked = sorted(by_walk.items(), key=lambda kv: (-len(kv[1]), kv[1][0]))
+        if ranked[0][0]:
+            s["wp"] = list(ranked[0][0])
+        if len(ranked) > 1:
+            s["wv"] = [[vis, list(walk)] for walk, vis in sorted(ranked[1:], key=lambda kv: kv[1][0])]
+        if any(walk for walk in by_walk):
+            walk_count += 1
+
+
 # Output ------------------------------------------------------------------------------------------
 
 def lua(v):
@@ -1067,6 +1171,8 @@ def lua(v):
     if isinstance(v, str):
         return '"' + v.replace("\\", "\\\\").replace('"', '\\"') + '"'
     if isinstance(v, list):
+        if not v:
+            return "{}"
         return "{ " + ", ".join(lua(x) for x in v) + " }"
     if isinstance(v, dict):
         return "{ " + ", ".join(f"{k} = {lua(x)}" for k, x in v.items()) + " }"
@@ -1074,7 +1180,7 @@ def lua(v):
 
 
 ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
-         "pre", "pa", "line", "sk", "bg", "nt", "lvl", "only"]
+         "pre", "pa", "line", "sk", "bg", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")
 src = os.path.relpath(args.script)
@@ -1105,7 +1211,6 @@ counts = {}
 for s in steps:
     counts[s["k"]] = counts.get(s["k"], 0) + 1
 quests = {s["q"] for s in steps if s.get("q")}
+walks_said = "walks left out" if args.no_walks else f"{walk_count} with a walk ({leg_count} legs asked)"
 print(f"{guide['name']}: {len(WARNINGS)} warning(s), log at most {log_peak}, {len(steps)} steps ({', '.join(f'{k} {c}' for k, c in sorted(counts.items()))}), "
-      f"{len(quests)} quests, {len(variants)} variants -> {path}")
-if tmp:
-    os.unlink(tmp.name)
+      f"{walks_said}, {len(quests)} quests, {len(variants)} variants -> {path}")

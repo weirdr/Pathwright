@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The built-in guides show the walk to each step on the map and the compass follows its turns, as in the guides made in the app.
 - A Feedback button: the white speech bubble under the guide, left of the leaderboard's crown (or `/pw feedback`). It asks "What went wrong?" and makes a report of your answer and of the game at that moment, so a guide's mistake can be found without questions.
   - The window shows what is sent with your words: your level, class and race, where you stand, the guide and its step, your quest log with its progress, the addon's and the game's versions. No character or account name is included.
   - With the Pathwright Updater running on your computer, "Reload and send" sends it: the game reloads, the updater picks the report up and opens the issue, and the addon tells you its address at your next login.

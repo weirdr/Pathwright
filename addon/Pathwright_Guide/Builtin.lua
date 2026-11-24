@@ -6,6 +6,10 @@
 --           variants = { { race, class, faction }, ... },
 --           steps = { step, ... } }   -- a step with `only = { variant index, ... }` is for those only
 --
+-- A step's walk (`wp`, as in the app's guides) may depend on the variant, the step before being
+-- another: `wp` is then the most common one and `wv = { { { variant index, ... }, walk }, ... }`
+-- the others (an empty walk: none for them).
+--
 -- One guide is offered per def, as a route like the app's (its steps those of the variant): the
 -- variant made for the character (its race, class and faction), else the closest one (its class,
 -- else its faction), so that any character can open it in a tab.
@@ -29,8 +33,16 @@ local function Has(list, v)
     return false
 end
 
---- The route of variant `index` of `def`: its steps (without `only`), the variant's race, class
---- and faction.
+--- The walk of step `s` for variant `index`: its own in `wv`, else `wp` (nil: none).
+local function Walk(s, index)
+    for _, other in ipairs(s.wv or {}) do
+        if Has(other[1], index) then return other[2][1] and other[2] or nil end
+    end
+    return s.wp
+end
+
+--- The route of variant `index` of `def`: its steps (without `only`, with the variant's walk),
+--- the variant's race, class and faction.
 function Builtin.Expand(def, index)
     local v = def.variants[index]
     if not v then return nil end
@@ -39,8 +51,9 @@ function Builtin.Expand(def, index)
         if not s.only or Has(s.only, index) then
             local copy = {}
             for k, x in pairs(s) do
-                if k ~= "only" then copy[k] = x end
+                if k ~= "only" and k ~= "wv" then copy[k] = x end
             end
+            copy.wp = Walk(s, index)
             steps[#steps + 1] = copy
         end
     end

@@ -37,7 +37,9 @@ pub use options::{
     FactionOption, FlightOption, NamedId, Options, RaceOption, ZoneOption, class_quests, options, race_classes,
 };
 pub use overrides::{Overrides, RaceDef, curve_by_level};
-pub use paths::{add_walk_paths, route_walks, walk_world};
+pub use paths::{
+    add_walk_paths, landing, leveled_walk_world, map_position, route_walks, walk_shown, walk_turns, walk_world,
+};
 pub use race::{optimize, optimize_interruptible};
 pub use reputation::race_base;
 pub use request::{
