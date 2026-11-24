@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- You can choose the addon's font: "Addon font" under Display, after the addon's colors. The list is every font your other addons share (through LibSharedMedia, as most addons with a font choice do), and the change shows at once in the guide, the quest panel, the toolstrip, the compass and the leaderboard. Without such an addon, the game's four fonts are offered.
 - The toolstrip can be laid out as a list, and from either side, so long names no longer push it off the screen. Five new settings under Toolstrip:
   - "Toolstrip layout": Row (as before: the buttons side by side, a short name under each icon) or List (one button a line, its whole name beside its icon).
   - "Toolstrip side": Left (the icons at the left edge, the names running to the right) or Right (the icons at the right edge, the names running to the left and ending at the icon). The strip is then held over the guide by that corner.

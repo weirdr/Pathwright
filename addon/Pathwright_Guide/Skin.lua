@@ -167,8 +167,73 @@ function Skin:AccentLine(texture)
     if not ok then texture:SetColorTexture(b[1], b[2], b[3], 1) end
 end
 
--- Fonts: the game's font (each client's own, so every language shows), in a few sizes, shadowed.
+-- Fonts: the game's font (each client's own, so every language shows) unless the player chose
+-- another (the setting `uiFont`), in a few sizes, shadowed.
 local fonts = {}
+--- Every font object made: { font, size, flags }, given another face when the setting changes.
+local made = {}
+--- The font strings that went through Font (theirs changes with the setting), and those a UI
+--- suite wrote its font on: the game then keeps that text's face whatever font object it has, so
+--- another face is to be written on the text itself.
+local texts = setmetatable({}, { __mode = "k" })
+local pinned = setmetatable({}, { __mode = "k" })
+
+-- The fonts to choose from are those the player's addons share through LibSharedMedia (the
+-- library most addons list their fonts in: the game's own are there too, each client's own
+-- files). Without it, the game's four, on the clients whose language they can write.
+local GAME_FONTS = {
+    { "Arial Narrow", "Fonts\\ARIALN.TTF" },
+    { "Friz Quadrata TT", "Fonts\\FRIZQT__.TTF" },
+    { "Morpheus", "Fonts\\MORPHEUS.TTF" },
+    { "Skurri", "Fonts\\SKURRI.TTF" },
+}
+local OTHER_ALPHABETS = { ruRU = true, koKR = true, zhCN = true, zhTW = true }
+
+local function Media() return LibStub and LibStub("LibSharedMedia-3.0", true) or nil end
+
+local function GameFonts()
+    if OTHER_ALPHABETS[GetLocale and GetLocale() or "enUS"] then return {} end
+    return GAME_FONTS
+end
+
+--- The names of the fonts to choose from, in order.
+function Skin.Fonts()
+    local names = {}
+    local media = Media()
+    local ok, list = pcall(function() return media and media:List("font") end)
+    if ok and type(list) == "table" then
+        for _, name in ipairs(list) do
+            if type(name) == "string" then names[#names + 1] = name end
+        end
+    else
+        for _, font in ipairs(GameFonts()) do
+            names[#names + 1] = font[1]
+        end
+    end
+    return names
+end
+
+--- The file of font `name` (the one chosen in the settings when nil). Nil for the game's own
+--- font: none chosen, or one that is no longer there (its addon is gone).
+function Skin.FontFile(name)
+    if name == nil then name = FG:Get("uiFont") end
+    if type(name) ~= "string" or name == "" then return nil end
+    local media = Media()
+    local ok, path = pcall(function() return media and media:Fetch("font", name, true) end)
+    if ok and type(path) == "string" and path ~= "" then return path end
+    for _, font in ipairs(GameFonts()) do
+        if font[1] == name then return font[2] end
+    end
+    return nil
+end
+
+--- Give a font object this face; the game's own when the file cannot be read.
+local function Face(font, path, size, flags)
+    local game = GameFontNormal:GetFont()
+    if not path or font:SetFont(path, size, flags) == false or not font:GetFont() then
+        font:SetFont(game, size, flags)
+    end
+end
 
 --- Font object of `size` (and `flags`), cached.
 function Skin.FontObject(size, flags, shadowed)
@@ -177,8 +242,8 @@ function Skin.FontObject(size, flags, shadowed)
     if fonts[key] then return fonts[key] end
     if not CreateFont or not GameFontNormal then return "GameFontHighlightSmall" end
     local font = CreateFont("PathwrightFont" .. key:gsub("%W", ""))
-    local path = GameFontNormal:GetFont()
-    font:SetFont(path, size, flags or "")
+    Face(font, Skin.FontFile(), size, flags or "")
+    made[#made + 1] = { font = font, size = size, flags = flags or "" }
     -- A dark shadow under the light texts; none under the dark inks of a light theme.
     font:SetShadowColor(0, 0, 0, shadowed and 1 or 0)
     font:SetShadowOffset(1, -1)
@@ -351,6 +416,12 @@ function Skin:Style(frame, kind, fonts, again)
             if field(frame, "accent") then frame.accent:Hide() end
             local ok, err = pcall(suite.apply, frame, kind, fonts)
             if not ok then FG:Debug("%s skin: %s", suite.name, tostring(err)) end
+            -- The suite wrote its font on these: the font chosen in the settings goes over it.
+            local chosen = Skin.FontFile() ~= nil
+            for _, fs in ipairs(fonts or {}) do
+                texts[fs], pinned[fs] = true, true
+                if chosen then self:Font(fs) end
+            end
         end
     elseif not styled.base then
         styled.base = true
@@ -365,11 +436,50 @@ function Skin:Style(frame, kind, fonts, again)
     end
 end
 
---- Give a font string the UI suite's font (rows created after the frame), same size.
+--- Give a font string its face, same size: the font chosen in the settings (its font object has
+--- it: written on the text only when a UI suite's font is), else the UI suite's (rows created
+--- after the frame), else the game's.
 function Skin:Font(fs)
-    local suite = ActiveSuite()
-    if suite and suite.font then pcall(suite.font, fs) end
+    texts[fs] = true
+    local path = Skin.FontFile()
+    local suite = not path and ActiveSuite() or nil
+    if suite and suite.font then
+        pinned[fs] = true
+        pcall(suite.font, fs)
+    elseif pinned[fs] then
+        pcall(function()
+            local _, size, flags = fs:GetFont()
+            if type(size) ~= "number" then return end
+            local game = GameFontNormal and GameFontNormal:GetFont()
+            if not path or fs:SetFont(path, size, flags or "") == false then fs:SetFont(game, size, flags or "") end
+        end)
+    end
 end
+
+--- The font chosen in the settings changed (or its addon has just shared it): every font object
+--- and every text takes it.
+function Skin:ApplyFont()
+    local path = Skin.FontFile()
+    for _, f in ipairs(made) do
+        pcall(Face, f.font, path, f.size, f.flags)
+    end
+    for fs in pairs(texts) do
+        self:Font(fs)
+    end
+end
+
+FG:OnSetting("uiFont", function() Skin:ApplyFont() end)
+-- The addons loaded after this one have shared their fonts by now; one shared later still (an
+-- addon loaded on demand) is taken when it comes.
+FG:On("PLAYER_LOGIN", function()
+    if Skin.FontFile() then Skin:ApplyFont() end
+    local media = Media()
+    if media and media.RegisterCallback then
+        pcall(media.RegisterCallback, Skin, "LibSharedMedia_Registered", function(_, kind, name)
+            if kind == "font" and name == FG:Get("uiFont") then Skin:ApplyFont() end
+        end)
+    end
+end)
 
 --- Give a font string letters of `size` (and `flags`), at any time. A UI suite writes its font
 --- on the text itself (Font, above), and the game then keeps that text's face and size whatever

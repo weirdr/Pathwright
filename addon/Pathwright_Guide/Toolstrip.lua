@@ -544,7 +544,7 @@ local function Signature(actions)
         FG:Get("toolstrip") and "on" or "off",
         FG:Get("toolstripTrash") and "trash" or "",
         (L.list and "list" or "row") .. (L.right and ":right:" or ":left:") .. L.size .. ":" .. L.limit,
-        "font:" .. L.font,
+        "font:" .. L.font .. ":" .. tostring(FG:Get("uiFont")),
         (FG:Get("toolstripKeys") and "keys" or "") .. (FG:Get("toolstripProgress") and ":counts" or ""),
     }
     for _, a in ipairs(actions) do

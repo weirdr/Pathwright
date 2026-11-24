@@ -415,6 +415,17 @@ local LANGUAGE = {
     reload = true,
 }
 
+-- The addon's font, beside the schema's settings too: its choices are the fonts the player's
+-- addons share (Skin.Fonts), known in game only. Shown after the addon's colors.
+local FONT = {
+    key = "uiFont",
+    kind = "select",
+    default = "",
+    label = "Addon font",
+    help = "The font of the addon's windows: any font your addons share (LibSharedMedia), or the game's own. With a UI suite's look, the default is the suite's font.",
+    after = "uiTheme",
+}
+
 local settings = {} -- key -> the game's setting
 local writing -- the key a control is writing (no notice back to it)
 local reloadAsked
@@ -426,8 +437,21 @@ local function RequirementMet(option)
     return v ~= false and v ~= "off"
 end
 
---- The choices of a select: { value, label } (the language: the game's, then every language).
+--- The choices of a select: { value, label } (the language: the game's, then every language;
+--- the font: the default, then every font shared, and the one chosen when it is gone).
 local function Choices(option)
+    if option == FONT then
+        local out = { { value = "", label = T("Default") } }
+        local chosen, listed = FG:Get("uiFont"), false
+        for _, name in ipairs(FG.Skin.Fonts()) do
+            out[#out + 1] = { value = name, label = name }
+            listed = listed or name == chosen
+        end
+        if chosen ~= "" and not listed then
+            out[#out + 1] = { value = chosen, label = string.format(T("%s (not installed)"), chosen) }
+        end
+        return out
+    end
     if option ~= LANGUAGE then
         local out = {}
         for _, choice in ipairs(option.options) do
@@ -563,13 +587,19 @@ local function GroupPage(parent, group)
     end
 end
 
--- The groups' pages, the language at the end of the first one.
+-- The groups' pages; on the first one the font after the setting it belongs with, and the
+-- language at the end.
 Options:AddPage(function(parent)
     for i, group in ipairs(FG.SettingsSchema or {}) do
         if i == 1 then
             local sections = {}
             for _, section in ipairs(group.sections) do
-                sections[#sections + 1] = section
+                local options = {}
+                for _, option in ipairs(section.options) do
+                    options[#options + 1] = option
+                    if option.key == FONT.after then options[#options + 1] = FONT end
+                end
+                sections[#sections + 1] = { title = section.title, options = options }
             end
             sections[#sections + 1] = { title = "Language", options = { LANGUAGE } }
             group = { title = group.title, sections = sections }

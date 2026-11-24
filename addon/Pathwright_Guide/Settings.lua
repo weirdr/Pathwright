@@ -33,6 +33,10 @@ for locale, texts in pairs(FG.SettingsTexts or {}) do
 end
 FG.SettingsTexts = nil
 
+-- The addon's font (Skin.lua): the name of one the player's addons share, "" for the game's own.
+-- Not in the schema: its choices are the fonts installed, known in game only.
+FG.defaults.uiFont = ""
+
 -- Settings only changed in game, outside the options.
 -- The whole addon's UI (a key binding shows or hides it), for the session only.
 FG.defaults.uiShown = true

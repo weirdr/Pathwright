@@ -77,6 +77,9 @@ CreateVector2D = function(x, y)
         GetXY = function() return x, y end,
     }
 end
+-- A UI suite the addon can take its look from (EllesmereUI's skinning API): it only keeps the
+-- callback, called by the last test (until then no suite is ready, the addon has its own look).
+EllesmereUI = { RegisterSkin = function(_, fn) EllesmereUI.skin = fn end }
 -- The game's options (Blizzard_Settings), recorded: categories and their controls (initializers),
 -- the proxy settings by variable, the category opened. Checks what the game checks (value types).
 local options = { categories = {}, settings = {}, notified = {}, opened = nil }
@@ -1281,6 +1284,77 @@ do
     assert(named("PathwrightToolstrip"):IsShown(), "and back")
 end
 print("toolstrip ok")
+
+-- The addon's font: one of those the player's addons share, chosen in the options, taken at once
+-- by every font object and by the texts a UI suite wrote its own font on.
+do
+    local Skin = FG.Skin
+    local locale = GetLocale
+    GetLocale = function() return "enUS" end
+    assert(#Skin.Fonts() == 4 and Skin.FontFile() == nil, "without the library: the game's four, none chosen")
+    assert(Skin.FontFile("Morpheus") == "Fonts\\MORPHEUS.TTF", "one of the game's by its name")
+    GetLocale = function() return "koKR" end
+    assert(#Skin.Fonts() == 0 and Skin.FontFile("Morpheus") == nil, "none of them where they cannot write the language")
+    GetLocale = locale
+    -- The library the addons share their fonts through.
+    local shared = { Expressway = "Interface\\AddOns\\Shared\\Expressway.ttf", ["Friz Quadrata TT"] = "Fonts\\FRIZQT__.TTF" }
+    local media = LibStub:NewLibrary("LibSharedMedia-3.0", 1)
+    function media:List(kind)
+        local names = {}
+        for name in pairs(kind == "font" and shared or {}) do
+            names[#names + 1] = name
+        end
+        table.sort(names)
+        return names
+    end
+    function media:Fetch(kind, name) return kind == "font" and shared[name] or nil end
+    assert(table.concat(Skin.Fonts(), ",") == "Expressway,Friz Quadrata TT", "the fonts shared, in order")
+    -- Its choice in the options: the default, then each font.
+    local function Entries()
+        for _, init in ipairs(options.Controls()) do
+            if init.data.kind == "dropdown" and init.data.name == FG.T("Addon font") then return init.data.options() end
+        end
+    end
+    local entries = assert(Entries(), "the font's drop-down")
+    assert(#entries == 3 and entries[1].value == "" and entries[2].value == "Expressway", "the default first")
+    -- Font objects as the game makes them.
+    local createFont, gameFont = CreateFont, GameFontNormal
+    CreateFont = function(name)
+        local font = { name = name }
+        function font:SetFont(path, size, flags)
+            if path == "missing.ttf" then return false end
+            self.path, self.size, self.flags = path, size, flags
+            return true
+        end
+        function font:GetFont() return self.path, self.size, self.flags end
+        function font:SetShadowColor() end
+        function font:SetShadowOffset() end
+        function font:SetTextColor() end
+        return font
+    end
+    GameFontNormal = { GetFont = function() return "Fonts\\GAME.TTF", 12, "" end }
+    local font = Skin.FontObject(37)
+    assert(font.path == "Fonts\\GAME.TTF" and font.size == 37, "the game's font until one is chosen")
+    Option("Pathwright_uiFont"):SetValue("Expressway")
+    assert(FG:Get("uiFont") == "Expressway" and Skin.FontFile() == shared.Expressway, "chosen in the options")
+    assert(font.path == shared.Expressway and font.size == 37, "the font objects take it at once, same size")
+    assert(Skin.FontObject(38).path == shared.Expressway, "and those made later")
+    -- A font whose file cannot be read, or whose addon is gone: the game's own.
+    shared.Broken = "missing.ttf"
+    FG:Save("uiFont", "Broken")
+    assert(font.path == "Fonts\\GAME.TTF", "a file that cannot be read: the game's font")
+    FG:Save("uiFont", "Expressway")
+    shared.Expressway = nil
+    Skin:ApplyFont()
+    assert(font.path == "Fonts\\GAME.TTF" and Skin.FontFile() == nil, "a font that is gone: the game's font")
+    entries = Entries()
+    assert(entries[#entries].value == "Expressway" and entries[#entries].label:find("Expressway", 1, true), "still listed, as gone")
+    FG:Save("uiFont", nil)
+    assert(FG:Get("uiFont") == "" and font.path == "Fonts\\GAME.TTF", "back to the default")
+    CreateFont, GameFontNormal = createFont, gameFont
+    shared["Friz Quadrata TT"] = nil
+end
+print("font ok")
 
 -- The sword's press, out of combat: one mob in sight, alive and not tagged by someone else, then
 -- the checker clears a wrong target at once, else puts the skull and the ping on it.
@@ -6794,3 +6868,36 @@ local function GuideSelectionTest()
     print("guide sections and filters ok")
 end
 GuideSelectionTest()
+
+
+-- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
+-- then written on the text too, and the suite's comes back with the default. Last: once a suite
+-- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)
+local function SuiteFontTest()
+    local Skin = FG.Skin
+    local facade = { Font = function(fs)
+        local _, size = fs:GetFont()
+        fs:SetFont("Suite.ttf", size, "")
+    end }
+    FG:Save("suiteSkin", true)
+    EllesmereUI.skin(setmetatable(facade, { __index = function() return function() end end }))
+    assert(Skin:Suite() == "EllesmereUI", "the suite is ready")
+    local text = { size = 12 }
+    function text:GetFont() return self.path, self.size, self.flags end
+    function text:SetFont(path, size, flags)
+        self.path, self.size, self.flags = path, size, flags
+        return true
+    end
+    Skin:Font(text)
+    assert(text.path == "Suite.ttf" and text.size == 12, "the suite's font by default")
+    local locale = GetLocale
+    GetLocale = function() return "enUS" end
+    FG:Save("uiFont", "Morpheus")
+    assert(text.path == "Fonts\\MORPHEUS.TTF" and text.size == 12, "the font chosen, written over the suite's")
+    FG:Save("uiFont", nil)
+    assert(text.path == "Suite.ttf", "and the suite's again with the default")
+    GetLocale = locale
+    FG:Save("suiteSkin", nil)
+    print("suite font ok")
+end
+SuiteFontTest()
