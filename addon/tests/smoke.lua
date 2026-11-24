@@ -5681,6 +5681,23 @@ assert(pins == 0, "map pins removed on hide")
 provider:RefreshAllData()
 assert(pins == 0, "a map refresh adds no pin while hidden")
 
+-- An NPC's walking path (`path`) is placed on the step's own map; none without it.
+do
+    local pts = FG.MapPins.PathOn({ m = 1412, path = { 50, 60, 55, 64 } }, 1412)
+    assert(pts and #pts == 4 and pts[1] == 0.5 and pts[4] == 0.64, "the path on its map")
+    assert(FG.MapPins.PathOn({ m = 1412, x = 1, y = 1 }, 1412) == nil, "no path, no line")
+    assert(FG.MapPins.PathOn({ m = 1412, path = { 50, 60 } }, 1412) == nil, "one point is no line")
+    local found, register = nil, FG.Builtin.Register
+    FG.Builtin.Register = function(def)
+        for _, s in ipairs(def.steps) do
+            if s.id == 2988 and s.k == "accept" then found = s end
+        end
+    end
+    assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
+    FG.Builtin.Register = register
+    assert(found and found.path and #found.path >= 4 and #found.path % 2 == 0, "Morin's path in the guide data")
+end
+
 -- No safety alert while hidden.
 local alerts = 0
 UIErrorsFrame = { AddMessage = function() alerts = alerts + 1 end }
