@@ -1777,10 +1777,24 @@ do
     end
     local a, b = probe(0, 0)
     assert(not a and not b, "hearthstone ready: steps stay")
-    a, b = probe(GetTime() - 10, 3600)
+    a, b = probe(GetTime() - 120, 3600)
     assert(a and b, "long cooldown: steps passed")
     a, b = probe(GetTime() - 3500, 3600)
     assert(not a and not b, "nearly ready: steps stay")
+    -- Long cooldown, Astral Recall known and ready: the step stays.
+    local savedSpell, savedKnown = C_Spell, IsPlayerSpell
+    C_Spell = { GetSpellCooldown = function() return { startTime = 0, duration = 0 } end }
+    IsPlayerSpell = function(id) return id == 556 end
+    a, b = probe(GetTime() - 120, 3600)
+    assert(not a and not b, "astral recall ready: steps stay")
+    C_Spell, IsPlayerSpell = savedSpell, savedKnown
+    -- Cooldown just started with the player at the step: played, not passed.
+    FG.Routes["hearth-test"].steps[1].m, FG.Routes["hearth-test"].steps[1].x, FG.Routes["hearth-test"].steps[1].y = 1426, 30.1, 71.3
+    cd = { GetTime() - 5, 3600 }
+    useRoute("hearth-test")
+    local done, passed = FG.Guide:IsDone(FG.Guide:Route().steps[1], 1)
+    assert(done and not passed, "hearth just used and arrived: done and played")
+    FG.Routes["hearth-test"].steps[1].m, FG.Routes["hearth-test"].steps[1].x, FG.Routes["hearth-test"].steps[1].y = nil, nil, nil
     C_Container = {}
     a, b = probe(0, 0)
     assert(not a and not b, "no hearthstone info: no error, steps stay")
