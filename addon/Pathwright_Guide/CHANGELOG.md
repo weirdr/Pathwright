@@ -6,7 +6,12 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- WoW Forever: each character has its own guide again. The characters of one account were kept as a single one (the game gives them the same name, "Weirdman" for both "Weirdman Dan" and "Weirdman Blueback"), so one character opened on another's guide at its step, and they shared their quest scores, bank notes and profile. Each is now told apart by its own number in the game.
+  - What was kept so far goes to the character it was last used by (its class and race). Your other characters start on their own: the guide for their level, no scores yet.
+- WoW Forever: the leaderboard takes your friends' records. Every record was refused, because a record is sealed with its character's name and the two sides did not name the character the same way (its first word alone on its own game, its whole name on the others'). Records refused so far are asked for again at your next login.
+
 - The built-in guides show the walk to each step on the map and the compass follows its turns, as in the guides made in the app.
+
 - On the flight master's map, a green arrow bobs over the destination the guide's step says to fly to (setting "Arrow on the flight's destination"). With "Take the step's flight automatically" on, the flight is still taken as the map opens: the arrow shows when that is off, or with Shift held to choose by hand. A destination you cannot fly to from there gets no arrow, and the chat says so.
 - The toolstrip shows the quest item to use for more quests. It only knew the item the game itself names for a quest, which the game does for some quests only, and on WoW Forever it could not find the quest in the log at all. It now also offers the item the quest hands out when you take it, when you carry it and it can be used.
 

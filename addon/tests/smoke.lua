@@ -2056,6 +2056,30 @@ do
     assert(peer.flag, "as many records, not the same: the player is marked")
     peer.flag = nil
     IsInGuild, GetNumGuildMembers, GetGuildRosterInfo = realInGuild, realMembers, realRoster
+    -- A player's name in a seal: the same on both sides, whatever form the game gives it. On WoW
+    -- Forever a character's own game names it by its first word ("Kel" for "Kel Wick"), and a
+    -- sender's name loses its space on the way.
+    local function sealed(quest, name)
+        local wire = S.Wire(quest, { d = wallNow - 20, t = 60, lv = 10, pl = 10, k = 3 })
+        return "F|" .. wire .. "," .. S.Seal(wire, name)
+    end
+    local refusedBefore = peer.refused
+    S:Receive(sealed(911, "Ally"), friend, nil, nil, "Ally Wick")
+    S:Receive(sealed(912, "AllyWick"), friend, nil, nil, "Ally Wick")
+    S:Receive(sealed(913, "Ally Wick"), friend, nil, nil, "Ally Wick-Realm")
+    assert(peer.q[911] and peer.q[912] and peer.q[913] and peer.refused == refusedBefore, "sealed with any form of their name")
+    S:Receive(sealed(914, "Wick"), friend, nil, nil, "Ally Wick")
+    assert(not peer.q[914] and peer.refused == refusedBefore + 1, "but not with another name")
+    assert(table.concat(S.SealNames("Kel Wick-Realm"), "|") == "KelWick|Kel|Kel Wick", "the names a seal may bear")
+    -- Our own hello back from the guild's channel, under our whole name: not a friend.
+    local echo = friend:gsub("^Ally", "BrouzTwo")
+    S:Receive("H|2|5|1|1|1|0|0", echo, nil, "GUILD", "Brouz Two")
+    assert(not PathwrightDB.stats.peers[echo] and PathwrightDB.stats.own[echo], "our own message is no friend's")
+    -- At login: friends an older version refused records of are asked for them again.
+    peer.cursor = 99
+    S:Verify()
+    assert(peer.refused == nil and peer.cursor == 0, "refused records are asked for again")
+    peer.q[911], peer.q[912], peer.q[913], S.shared = nil, nil, nil, nil
     -- A record of mine edited by hand: left out.
     rec.k = 99
     S:Verify()
@@ -2101,6 +2125,34 @@ do
     playerLevel = realLevel
     S.clock, S.now, S.where, S.ItemFacts = GetTime, time, realWhere, realFacts
     print("quest stats ok")
+end
+
+-- A character's key (Core.lua): its own on WoW Forever, where the characters of an account share
+-- the name the game gives them; what they shared before goes to the one it was last used by.
+do
+    local key, realm = FG.CharacterKeyOf("Weirdman", "", "Player-6923-0001C1EB")
+    assert(key == "Weirdman-#6923-0001C1EB" and realm == "#6923-0001C1EB", "a character's own key: " .. key)
+    assert(FG.CharacterKeyOf("Weirdman", nil, "Player-6923-03BF5F88") ~= key, "another character of the name: another key")
+    assert(FG.CharacterKeyOf("Brouz", "Realm", "Player-1-2") == "Brouz-Realm", "a realm with a name: as before")
+    assert(select(2, FG.CharacterKeyOf("Weirdman", "", nil)) == "", "not known yet without a realm or a GUID")
+    local db = {
+        characters = {
+            ["Weirdman-#6923"] = { class = "SHAMAN", race = "Troll", guide = { route = "Feralas (45-46)" } },
+            ["Weirdman-"] = { class = "WARLOCK", race = "Orc", guide = { route = "Riverglades (44-45)" } },
+        },
+        profiles = { ["Weirdman-#6923"] = { level = 46 } },
+        sent = { ["Weirdman-#6923"] = 7 },
+    }
+    local druid, shaman, warlock = "Weirdman-#6923-AAAA", "Weirdman-#6923-BBBB", "Weirdman-#6923-CCCC"
+    assert(FG.AdoptCharacter(db, druid, "Weirdman", "#6923-AAAA", "DRUID", "Tauren", 6) == nil, "the druid takes nobody's")
+    assert(db.characters[druid] == nil and db.characters["Weirdman-#6923"], "what was the shaman's stays for it")
+    assert(FG.AdoptCharacter(db, shaman, "Weirdman", "#6923-BBBB", "SHAMAN", "Troll", 8) == "Weirdman-#6923", "the shaman's")
+    assert(db.characters[shaman].guide.route == "Feralas (45-46)" and not db.characters["Weirdman-#6923"], "moved to it")
+    assert(db.profiles[shaman].level == 46 and db.sent[shaman] == 7 and not db.sent["Weirdman-#6923"], "with its profile")
+    assert(FG.AdoptCharacter(db, warlock, "Weirdman", "#6923-CCCC", "WARLOCK", "Orc", 2) == "Weirdman-", "the warlock's")
+    assert(db.characters[warlock].guide.route == "Riverglades (44-45)", "each its own guide")
+    assert(FG.AdoptCharacter(db, "Brouz-Realm", "Brouz", "Realm", "MAGE", "Gnome", 7) == nil, "nothing to do with a realm's name")
+    print("character keys ok")
 end
 
 -- Feedback (Feedback.lua): a report of what was typed and of the game then; left for the updater

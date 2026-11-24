@@ -268,32 +268,57 @@ end
 
 local characterKey -- once known, for the session
 
---- This character's key in the saved variables: "Name-Realm". WoW Forever gives no realm name at
---- login: the realm's number from the character's GUID then ("Name-#1234"), so that characters
---- of the same name on different realms do not share their guides and progress. The entry an
---- older version kept as "Name-" goes to the character it was made for (its race and class).
+--- A character's key from its name, its realm's name and its GUID: "Name-Realm". Where the
+--- game gives no realm name (WoW Forever), the realm is told by the GUID, "#<realm's number>-
+--- <the character's own number>": on WoW Forever the characters of one account share their
+--- name as the game gives it ("Weirdman" for "Weirdman Dan" and "Weirdman Blueback"), so the
+--- character's own number is what tells them apart. Returns the key and its realm part ("" while
+--- neither a realm name nor a GUID is known).
+function FG.CharacterKeyOf(name, realm, guid)
+    name = name or ""
+    if not realm or realm == "" then
+        local server, id = (type(guid) == "string" and guid or ""):match("^Player%-(%d+)%-(%x+)")
+        realm = server and ("#" .. server .. "-" .. id) or ""
+    end
+    return name .. "-" .. realm, realm
+end
+
+--- What older versions kept for this character under a key several characters shared goes to
+--- the character it was last used by (its class and race): "Name-#<realm>", which every
+--- character of that name on the realm had, and "Name-" before that. The others start anew.
+function FG.AdoptCharacter(db, key, name, realm, class, race, raceID)
+    local chars = type(db) == "table" and type(db.characters) == "table" and db.characters
+    if not chars or chars[key] or realm:sub(1, 1) ~= "#" then return nil end
+    local server = realm:match("^#(%d+)")
+    for _, old in ipairs({ name .. "-#" .. (server or ""), name .. "-" }) do
+        local was = old ~= key and chars[old]
+        if type(was) == "table" and was.class == class and (was.race == race or was.race == raceID) then
+            chars[key], chars[old] = was, nil
+            for _, kept in ipairs({ "profiles", "sent" }) do
+                local t = db[kept]
+                if type(t) == "table" and t[old] ~= nil and t[key] == nil then
+                    t[key], t[old] = t[old], nil
+                end
+            end
+            return old
+        end
+    end
+    return nil
+end
+
+--- This character's key in the saved variables (FG.CharacterKeyOf), the same for a whole
+--- session once its name and realm are known.
 function FG:CharacterKey()
     if characterKey then return characterKey end
     local name = UnitName("player") or ""
     local realm = GetNormalizedRealmName and GetNormalizedRealmName() or nil
     if not realm or realm == "" then realm = GetRealmName and GetRealmName() or "" end
-    if realm == "" then
-        local guid = UnitGUID and FG.Readable(UnitGUID("player"))
-        local server = type(guid) == "string" and guid:match("^Player%-(%d+)%-")
-        if server then realm = "#" .. server end
-    end
-    local key = name .. "-" .. realm
-    if name == "" or realm == "" then return key end
+    local key, known = FG.CharacterKeyOf(name, realm, UnitGUID and FG.Readable(UnitGUID("player")))
+    if name == "" or known == "" then return key end
     characterKey = key
-    local chars = type(PathwrightDB) == "table" and type(PathwrightDB.characters) == "table" and PathwrightDB.characters
-    local old = chars and realm:sub(1, 1) == "#" and chars[name .. "-"]
-    if old and not chars[key] then
-        local _, classFile = UnitClass("player")
-        local _, _, raceID = UnitRace("player")
-        if old.class == classFile and old.race == raceID then
-            chars[key], chars[name .. "-"] = old, nil
-        end
-    end
+    local _, classFile = UnitClass("player")
+    local _, raceFile, raceID = UnitRace("player")
+    FG.AdoptCharacter(PathwrightDB, key, name, known, classFile, raceFile, raceID)
     return key
 end
 

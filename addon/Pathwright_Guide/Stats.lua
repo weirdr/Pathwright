@@ -1000,6 +1000,26 @@ end
 
 local function MyName() return Readable(UnitName("player")) or "" end
 
+--- A player's name as a seal takes it: no realm, no space. The game gives a character its own
+--- name with or without its second word depending on who asks ("Weirdman", "Weirdman Dan"), and
+--- a sender's name loses its spaces on the way (Full): both sides must name it the same.
+local function Bare(name) return (tostring(name or ""):gsub("%-.*", ""):gsub("%s", "")) end
+
+--- The names a sender's records may be sealed with: its bare name; its first word alone (the
+--- name its own game gives it); and as an older version sealed, its name with its spaces.
+local function SealNames(raw)
+    local name = tostring(raw or ""):gsub("%-.*", "")
+    local names, seen = {}, {}
+    for _, candidate in ipairs({ Bare(name), name:match("^(%S+)") or "", name }) do
+        if candidate ~= "" and not seen[candidate] then
+            seen[candidate] = true
+            names[#names + 1] = candidate
+        end
+    end
+    return names
+end
+Stats.SealNames = SealNames
+
 --- A quest handed in: its record is final. Only its facts stay, sealed, and go to the friends.
 function Stats:TurnedIn(questID, now)
     local rec = self:Quests()[questID]
@@ -1014,7 +1034,7 @@ function Stats:TurnedIn(questID, now)
     for _, key in ipairs({ "area", "src", "mobs", "pre", "got", "loot", "failed", "old", "s" }) do
         rec[key] = nil
     end
-    rec.seal = Stats.Seal(Stats.Wire(questID, rec), MyName())
+    rec.seal = Stats.Seal(Stats.Wire(questID, rec), Bare(MyName()))
     pend[questID] = nil
     self.shared = nil
     self:Finished(questID, rec)
@@ -1024,7 +1044,22 @@ end
 function Stats:Verify()
     local name = MyName()
     for questID, rec in pairs(self:Quests()) do
-        if rec.v == 2 and rec.d then rec.bad = rec.seal ~= Stats.Seal(Stats.Wire(questID, rec), name) or nil end
+        if rec.v == 2 and rec.d then
+            local wire = Stats.Wire(questID, rec)
+            local seal = Stats.Seal(wire, Bare(name))
+            -- Sealed by an older version with the name as the game gave it: sealed anew.
+            if rec.seal ~= seal and rec.seal == Stats.Seal(wire, name) then rec.seal = seal end
+            rec.bad = rec.seal ~= seal or nil
+        end
+    end
+    -- Friends whose records an older version refused for their name are asked for them again;
+    -- what came back of our own messages is no friend.
+    local db = DB()
+    for full, peer in pairs(db.peers) do
+        if peer.refused then
+            peer.refused, peer.cursor, peer.full = nil, 0, nil
+        end
+        if db.own and db.own[full] then db.peers[full] = nil end
     end
     self.shared = nil
 end
@@ -1102,8 +1137,6 @@ local function Full(name, realm)
     return (name:gsub("%s", ""))
 end
 
---- A player's name alone: what a seal is made with.
-local function Short(full) return (full:gsub("%-.*", "")) end
 
 local guild -- the guild's members, { [full name] = { class, level } }; nil: to read again
 local classTokens -- the game's class names in this language -> their tokens ("Voleur" -> "ROGUE")
@@ -1304,11 +1337,15 @@ local gossip = {} -- full name -> true: what we hold of them changed, to tell ou
 
 --- Take one record a player sent: its seal must be theirs, it must be possible, and the first
 --- one they sent for a quest stays.
-function Stats:Take(sender, peer, text)
+function Stats:Take(sender, peer, text, raw)
     local f, seal, wire = Stats.Parse(text)
     if not f then return false end
     peer.cursor = math.max(peer.cursor or 0, f.d)
-    if seal ~= Stats.Seal(wire, Short(sender)) or not Stats.Plausible(f, self.now()) then
+    local theirs = false
+    for _, name in ipairs(SealNames(raw or sender)) do
+        theirs = theirs or seal == Stats.Seal(wire, name)
+    end
+    if not theirs or not Stats.Plausible(f, self.now()) then
         peer.refused = (peer.refused or 0) + 1
         return false
     end
@@ -1354,11 +1391,22 @@ end
 
 --- A message from `sender` (full name), when they are a friend, in the party or in the guild
 --- (`channel`: how it came).
-function Stats:Receive(text, sender, friends, channel)
+function Stats:Receive(text, sender, friends, channel, raw)
     friends = friends or self.Friends()
     if type(text) ~= "string" or not sender or sender == Me() then return end
+    raw = raw or sender
     local broadcast = channel == "GUILD" or channel == "PARTY"
-    if broadcast and Short(sender) == MyName() then return end -- our own, back from the channel
+    if broadcast then
+        -- Our own, back from the channel: under our whole name, or the one our game gives us.
+        local mine = MyName()
+        local first = tostring(raw):gsub("%-.*", ""):match("^(%S+)")
+        if Bare(raw) == Bare(mine) or (first == mine and not mine:find("%s")) then
+            local db = DB()
+            db.own = db.own or {}
+            db.own[sender], db.peers[sender] = true, nil
+            return
+        end
+    end
     if not (channel == "GUILD" or friends.allowed[sender]) then return end
     local kind, a, b, c, d, e, f, g, h, i = strsplit("|", text)
     local peers = DB().peers
@@ -1414,7 +1462,7 @@ function Stats:Receive(text, sender, friends, channel)
     elseif kind == "F" then
         peer.v = 2
         for one in text:sub(3):gmatch("[^;]+") do
-            self:Take(sender, peer, one)
+            self:Take(sender, peer, one, raw)
         end
     elseif kind == "E" then
         peer.cursor = math.max(peer.cursor or 0, tonumber(b) or 0)
@@ -2476,13 +2524,14 @@ for _, event in ipairs(CIRCLE) do
 end
 FG:On("CHAT_MSG_ADDON", function(prefix, text, channel, sender)
     if prefix ~= PREFIX then return end
-    FG:Try("stats receive", Stats.Receive, Stats, text, Full(Readable(sender)), nil, Readable(channel))
+    sender = Readable(sender)
+    FG:Try("stats receive", Stats.Receive, Stats, text, Full(sender), nil, Readable(channel), sender)
 end)
 FG:On("BN_CHAT_MSG_ADDON", function(prefix, text, _, gameAccountID)
     if prefix ~= PREFIX or not C_BattleNet or not C_BattleNet.GetGameAccountInfoByID then return end
     local g = C_BattleNet.GetGameAccountInfoByID(gameAccountID)
     local name = g and g.characterName and Full(g.characterName, g.realmName)
-    if name then FG:Try("stats receive", Stats.Receive, Stats, text, name) end
+    if name then FG:Try("stats receive", Stats.Receive, Stats, text, name, nil, nil, g.characterName) end
 end)
 FG:On("PLAYER_LOGIN", function()
     FG:OnSetting("statsShare", function(on)
