@@ -42,6 +42,9 @@ Mini.lua
 Tabs.lua
 StatsData.lua
 Stats.lua
+Release.lua
+Updater.lua
+Feedback.lua
 GuideBrowser.lua
 Compass.lua
 Pathing.lua

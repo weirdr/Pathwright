@@ -14,6 +14,12 @@ A small system tray app (macOS and Windows) that keeps the Pathwright addon up t
 - It finds World of Warcraft by itself (Battle.net's list of installed games, then the usual
   folders). **Choose WoW folder…** takes the game's folder, its `_forever_` folder or AddOns.
 - On its first run it asks whether to start at login; **Start at login** in its menu changes that.
+- It sends the feedback reports made in the addon's "What went wrong?" window (the speech bubble
+  under the guide): after the game reloads, it reads the report from the addon's saved data
+  (`WTF/Account/<account>/SavedVariables/Pathwright_Profile.lua`, only the report's own lines),
+  posts it to the project's relay (`relay/`), which opens a GitHub issue, and tells the addon the
+  issue's address through `Pathwright_Guide/Updater.lua`. Nothing is sent without OK in that
+  window, and nothing at all while `RELAY_URL` in `src/feedback.rs` is empty.
 
 Its settings are in `settings.json` under the system's config folder, `Pathwright Updater`
 (`~/Library/Application Support` on macOS, `%APPDATA%` on Windows).

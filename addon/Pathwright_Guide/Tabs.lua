@@ -14,6 +14,7 @@ local L = {
     close = T("Right-click: close the tab"),
     follow = T("Click: follow this guide"),
     board = T("Leaderboard: your quest scores with your friends"),
+    feedback = T("Feedback: tell us what went wrong"),
 }
 
 local HEIGHT, MAX_W, PLUS_W, GAP = 18, 118, 22, 2
@@ -119,6 +120,21 @@ local function CreateBar()
     end)
     bar.board:SetScript("OnEnter", function(self) Tooltip(self, { L.board }) end)
     bar.board:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    -- Left of it, a white speech bubble: tell us what went wrong (Feedback.lua).
+    bar.feedback = CreateFrame("Button", nil, bar)
+    bar.feedback:SetSize(PLUS_W, HEIGHT)
+    bar.feedback:SetPoint("TOPRIGHT", bar.board, "TOPLEFT", -GAP, 0)
+    bar.feedback.bg = bar.feedback:CreateTexture(nil, "BACKGROUND")
+    bar.feedback.bg:SetAllPoints()
+    bar.feedback.icon = bar.feedback:CreateTexture(nil, "ARTWORK")
+    bar.feedback.icon:SetSize(12, 12)
+    bar.feedback.icon:SetPoint("CENTER")
+    bar.feedback.icon:SetTexture("Interface\\AddOns\\Pathwright_Guide\\Media\\Feedback")
+    bar.feedback:SetScript("OnClick", function()
+        if FG.Feedback then FG.Feedback:Toggle() end
+    end)
+    bar.feedback:SetScript("OnEnter", function(self) Tooltip(self, { L.feedback }) end)
+    bar.feedback:SetScript("OnLeave", function() GameTooltip:Hide() end)
 end
 
 --- Draw the tabs at the guide's look of the moment (`ui`: FG.Card or FG.Mini).
@@ -141,6 +157,7 @@ function Tabs:Render(ui)
     bar:SetWidth(width)
     bar:Show()
     Paint(bar.board.bg, "bg", 0.75)
+    Paint(bar.feedback.bg, "bg", 0.75)
 
     local names = FG.Guide:Tabs()
     local current = FG.Guide:RouteName()
@@ -152,7 +169,7 @@ function Tabs:Render(ui)
         wanted[i] = math.min(MAX_W, (tonumber(b.label:GetStringWidth()) or 60) + 14)
         total = total + wanted[i] + GAP
     end
-    local room = width - 2 * PLUS_W - GAP
+    local room = width - 3 * PLUS_W - 2 * GAP
     local factor = total > room and room / total or 1
     local x = 0
     for i, name in ipairs(names) do

@@ -6,9 +6,13 @@
 //! app does), or takes the one picked from its menu. On its first run it asks whether to start
 //! at login (a choice in its menu after that). `--uninstall` (its Windows installer runs it when
 //! the updater is removed) only takes it off the programs started at login.
+//!
+//! It also sends the feedback reports the addon's "What went wrong?" window leaves in its saved
+//! variables (feedback.rs), when a relay is set.
 #![cfg_attr(windows, windows_subsystem = "windows")]
 
 mod autostart;
+mod feedback;
 mod github;
 mod install;
 mod settings;
@@ -32,6 +36,9 @@ enum UserEvent {
     Menu(MenuEvent),
 }
 
+/// Between two looks at the addon's saved variables for a feedback report (feedback.rs).
+const FEEDBACK_EVERY: Duration = Duration::from_secs(10);
+
 /// Look for a new release and install it: the status line of the menu.
 fn check() -> String {
     let mut settings = Settings::load();
@@ -54,6 +61,9 @@ fn check() -> String {
     let result = github::download(&release).and_then(|zip| install::install(&addons, &zip));
     match result {
         Ok(_) => {
+            // Read again: the feedback watch may have saved its own in the meantime.
+            let mut settings = Settings::load();
+            settings.addons = Some(addons);
             settings.installed = Some(release.tag.clone());
             settings.save();
             format!("Up to date: {}", release.tag)
@@ -120,6 +130,22 @@ fn main() {
                 Ok(()) | Err(mpsc::RecvTimeoutError::Timeout) => {}
                 Err(mpsc::RecvTimeoutError::Disconnected) => return,
             }
+        }
+    });
+
+    // The feedback reports the addon left in its saved variables: sent as they appear.
+    let feedback_proxy = event_loop.create_proxy();
+    std::thread::spawn(move || {
+        let mut watch = feedback::Watch::default();
+        loop {
+            let addons = Settings::load().addons.filter(|path| path.is_dir());
+            if let Some(addons) = addons
+                && let Some(text) = watch.look(feedback::RELAY_URL, &addons)
+                && feedback_proxy.send_event(UserEvent::Status(text)).is_err()
+            {
+                return;
+            }
+            std::thread::sleep(FEEDBACK_EVERY);
         }
     });
 

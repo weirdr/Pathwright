@@ -6,6 +6,11 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- A Feedback button: the white speech bubble under the guide, left of the leaderboard's crown (or `/pw feedback`). It asks "What went wrong?" and makes a report of your answer and of the game at that moment, so a guide's mistake can be found without questions.
+  - The window shows what is sent with your words: your level, class and race, where you stand, the guide and its step, your quest log with its progress, the addon's and the game's versions. No character or account name is included.
+  - With the Pathwright Updater running on your computer, "Reload and send" sends it: the game reloads, the updater picks the report up and opens the issue, and the addon tells you its address at your next login.
+  - Without it, the report shows selected: copy it and paste it in a message to @Pathwright on Discord.
+
 - The leaderboard scores quests by new rules. The scores you already have stay in your total as they are; the new rules apply to the quests you hand in from this version on.
   - Which quests count: those with something to count (kills, items, objects to use) and escorts. Deliveries, talks, breadcrumbs and "explore this place" quests score nothing. A quest scores once per character, when you hand it in.
   - Score = (base + speed + luck − deaths) × difficulty, never below 0.

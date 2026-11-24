@@ -1,6 +1,7 @@
 //! What the updater remembers: the AddOns folder, the release installed.
 
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 use std::path::PathBuf;
 
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -14,6 +15,9 @@ pub struct Settings {
     /// The first run asked whether to start at login (then left to the menu's check box).
     #[serde(default)]
     pub autostart_set: bool,
+    /// The feedback reports sent (feedback.rs): their id, and the address of their issue.
+    #[serde(default)]
+    pub sent: BTreeMap<String, String>,
 }
 
 fn path() -> Option<PathBuf> {

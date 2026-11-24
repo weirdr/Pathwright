@@ -2078,6 +2078,9 @@ local function CloseButton(board)
     return b
 end
 
+--- The pieces of this window that the feedback window (Feedback.lua) is made of too.
+FG.Panel = { Text = Text, Solid = Solid, Fade = Fade, Wash = Wash, CloseButton = CloseButton }
+
 --- Make `handle` a thing dragged with the mouse held: `moved(dx, dy)` is called as it goes, with
 --- how far the mouse is from where it was pressed (right and down are positive), in the
 --- window's own units. The window is held by its top left corner meanwhile: it grows from there.
