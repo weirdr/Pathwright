@@ -275,6 +275,7 @@ FG.Locales.ptBR = {
     ["%d quests  avg %d per quest"] = "%d missões  média %d por missão",
     ["before these rules"] = "antes destas regras",
     ["Old rules"] = "Regras antigas",
+    ["%s is not a flight you can take from here."] = "%s não é um voo que você possa pegar daqui.",
     ["Feedback"] = "Feedback",
     ["Feedback: tell us what went wrong"] = "Feedback: conte o que deu errado",
     ["What went wrong?"] = "O que deu errado?",

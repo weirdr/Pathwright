@@ -397,13 +397,47 @@ function Toolstrip:Aimed(b)
 end
 
 --- The first quest item of these steps (quests in the log with a usable item): link, texture.
+--- Whether an item can be used (it has a spell of its own): a letter to hand over has none.
+local function Usable(item)
+    local spell = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+    if not spell then return true end
+    local ok, name = pcall(spell, item)
+    return ok and name ~= nil
+end
+
+--- A quest's line in the log (nil when it is not there). The newer clients have no
+--- GetQuestLogIndexByID: asked through the addon's own quest log.
+local function LogIndex(questID)
+    local find = FG.QuestLog and FG.QuestLog.GetLogIndexForQuestID
+    local ok, index = pcall(find or function() end, questID)
+    index = ok and tonumber(FG.Readable(index)) or nil
+    return index and index > 0 and index or nil
+end
+
+--- The quest item to use for these steps: its link (or "item:<id>"), texture and name.
+---   The item the game itself names for the quest (the one its own tracker shows), when it does.
+---   Else the item the quest hands out when taken (QuestItems.lua, from the game data), when
+---   the character carries it and it can be used: the game names an item for some quests only.
 local function QuestItem(steps)
-    if not FG:Get("questItemButton") or not GetQuestLogSpecialItemInfo or not GetQuestLogIndexByID then return end
+    if not FG:Get("questItemButton") then return end
+    local asked = {}
     for _, step in ipairs(steps) do
-        local index = step.q and GetQuestLogIndexByID(step.q)
-        if index and index > 0 then
-            local link, texture = GetQuestLogSpecialItemInfo(index)
-            if link then return link, texture end
+        local index = step.q and not asked[step.q] and LogIndex(step.q)
+        if index then
+            asked[step.q] = true
+            if GetQuestLogSpecialItemInfo then
+                local link, texture = GetQuestLogSpecialItemInfo(index)
+                if link then return link, texture end
+            end
+            local id = FG.QuestItems and FG.QuestItems[step.q]
+            if id and (tonumber(FG.ItemCount(id)) or 0) > 0 and Usable(id) then
+                local ok, name, link, _, _, _, _, _, _, _, texture = pcall(FG.ItemInfo, id)
+                if not ok then
+                    name, link, texture = nil, nil, nil
+                end
+                texture = texture or (GetItemIcon and GetItemIcon(id)) or nil
+                return type(link) == "string" and link or ("item:" .. id), texture, name
+            end
         end
     end
 end
@@ -412,9 +446,9 @@ end
 --- texture, macro }. A mob or NPC named twice is listed once.
 function Toolstrip.Actions(steps)
     local list, seen = {}, {}
-    local link, texture = QuestItem(steps)
+    local link, texture, known = QuestItem(steps)
     if link then
-        local name = FG.ItemInfo(link) or link:match("%[(.-)%]") or ITEM or "Item"
+        local name = known or FG.ItemInfo(link) or link:match("%[(.-)%]") or ITEM or "Item"
         table.insert(list, { kind = "item", link = link, texture = texture, name = name })
     end
     local function add(kind, name)

@@ -6,6 +6,9 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- On the flight master's map, a green arrow bobs over the destination the guide's step says to fly to (setting "Arrow on the flight's destination"). With "Take the step's flight automatically" on, the flight is still taken as the map opens: the arrow shows when that is off, or with Shift held to choose by hand. A destination you cannot fly to from there gets no arrow, and the chat says so.
+- The toolstrip shows the quest item to use for more quests. It only knew the item the game itself names for a quest, which the game does for some quests only, and on WoW Forever it could not find the quest in the log at all. It now also offers the item the quest hands out when you take it, when you carry it and it can be used.
+
 - A Feedback button: the white speech bubble under the guide, left of the leaderboard's crown (or `/pw feedback`). It asks "What went wrong?" and makes a report of your answer and of the game at that moment, so a guide's mistake can be found without questions.
   - The window shows what is sent with your words: your level, class and race, where you stand, the guide and its step, your quest log with its progress, the addon's and the game's versions. No character or account name is included.
   - With the Pathwright Updater running on your computer, "Reload and send" sends it: the game reloads, the updater picks the report up and opens the issue, and the addon tells you its address at your next login.

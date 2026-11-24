@@ -1453,6 +1453,49 @@ end
 assert(taken == 3, "flight to the step's node taken")
 print("auto fly ok")
 
+-- The flight map's arrow (Taxi.lua): over the destination of the guide's fly step, found by
+-- its flight point, or by its name where the client lists none; none where it cannot be flown to.
+do
+    local Taxi = FG.Taxi
+    local step = FG.Guide:Route().steps[1]
+    assert(Taxi.Wanted() == step, "the flight the guide asks for")
+    local slot, reachable = Taxi.Slot(step)
+    assert(slot == 3 and reachable, "the destination's button, by its flight point")
+    TaxiButton3 = CreateFrame("Button", "TaxiButton3")
+    Taxi.open = true
+    assert(Taxi:Show() == TaxiButton3 and Taxi.arrow:IsShown(), "the arrow over the destination")
+    -- It bobs along a sine: after one whole bob it is back where it began, nothing to jump from.
+    local bob = Taxi.arrow:GetScript("OnUpdate")
+    bob(Taxi.arrow, 0.225)
+    assert(Taxi.arrow.clock == 0.225, "the bob follows the time")
+    bob(Taxi.arrow, 0.9)
+    assert(math.abs(Taxi.arrow.clock - 0.225) < 1e-9, "one bob on, it is where it was")
+    FG:Save("taxiArrow", false)
+    assert(Taxi:Show() == nil and not Taxi.arrow:IsShown(), "no arrow with its setting off")
+    FG:Save("taxiArrow", nil)
+    -- A client that lists no flight points: by name, without the zone.
+    local realNodes = C_TaxiMap.GetAllTaxiNodes
+    C_TaxiMap.GetAllTaxiNodes = function() return {} end
+    NumTaxiNodes = function() return 4 end
+    TaxiNodeName = function(i) return i == 3 and "Ironforge, Dun Morogh" or "Elsewhere, Far Away" end
+    TaxiNodeGetType = function() return "REACHABLE" end
+    assert(Taxi.Slot(step) == 3, "by its name")
+    -- Not learned yet: no arrow, said once in the chat.
+    TaxiNodeGetType = function() return "DISTANT" end
+    local said = {}
+    local realPrint = FG.Print
+    FG.Print = function(_, fmt, ...) said[#said + 1] = string.format(fmt, ...) end
+    assert(Taxi:Show() == nil and Taxi:Show() == nil and not Taxi.arrow:IsShown(), "no arrow where one cannot fly")
+    assert(#said == 1 and said[1]:find("Ironforge", 1, true), "said once: " .. tostring(said[1]))
+    -- The map closed (the flight taken): nothing shown, nothing said.
+    Taxi.open, Taxi.told = false, nil
+    assert(Taxi:Show() == nil and #said == 1, "nothing once the map has closed")
+    FG.Print = realPrint
+    C_TaxiMap.GetAllTaxiNodes = realNodes
+    NumTaxiNodes, TaxiNodeName, TaxiNodeGetType, TaxiButton3 = nil, nil, nil, nil
+    print("flight map arrow ok")
+end
+
 -- Two flights in a row: taking off on the first does not do the second; it waits for its own
 -- take-off.
 do
@@ -4843,6 +4886,29 @@ GetQuestLogIndexByID = function() return 1 end
 GetQuestLogSpecialItemInfo = function() return "item:123", 123 end
 FG.Toolstrip:SetSteps({ { q = 7101 } })
 GetQuestLogSpecialItemInfo, GetQuestLogIndexByID = oldItemInfo, oldQuestIndex
+-- The quest's own item where the game names none: the one the quest hands out (QuestItems.lua),
+-- when it is carried and can be used. On a client without GetQuestLogIndexByID too.
+do
+    local realIndex, realFind, realItems = GetQuestLogIndexByID, C_QuestLog.GetLogIndexForQuestID, FG.QuestItems
+    local realCount, realInfo, realSpell = FG.ItemCount, FG.ItemInfo, GetItemSpell
+    GetQuestLogIndexByID = nil
+    C_QuestLog.GetLogIndexForQuestID = function(q) return (q == 1534 or q == 1535) and 4 or nil end
+    FG.QuestItems = { [1534] = 7767, [1535] = 7768, [1536] = 7769 }
+    local carried = { [7767] = 1, [7768] = 1, [7769] = 1 }
+    FG.ItemCount = function(id) return carried[id] or 0 end
+    FG.ItemInfo = function(id) return "Item " .. tostring(id), nil, nil, nil, nil, nil, nil, nil, nil, 134 end
+    GetItemSpell = function(id) return id == 7767 and "Fill Waterskin" or nil end
+    local actions = FG.Toolstrip.Actions({ { k = "objective", q = 1534, ic = "use" } })
+    assert(actions[1] and actions[1].kind == "item" and actions[1].link == "item:7767", "the quest's item to use")
+    assert(actions[1].name == "Item 7767" and actions[1].texture == 134, "its name and icon")
+    assert(#FG.Toolstrip.Actions({ { q = 1535 } }) == 0, "an item that cannot be used is not offered")
+    assert(#FG.Toolstrip.Actions({ { q = 1536 } }) == 0, "nor the item of a quest not in the log")
+    carried[7767] = 0
+    assert(#FG.Toolstrip.Actions({ { q = 1534 } }) == 0, "nor one not carried")
+    GetQuestLogIndexByID, C_QuestLog.GetLogIndexForQuestID, FG.QuestItems = realIndex, realFind, realItems
+    FG.ItemCount, FG.ItemInfo, GetItemSpell = realCount, realInfo, realSpell
+    print("toolstrip quest item ok")
+end
 local owned = {}
 for _, f in ipairs(frames) do
     if f:GetParent() == root and f:GetName() then owned[f:GetName()] = f end
