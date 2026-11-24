@@ -41,6 +41,8 @@ Script lines (one step each, "#" starts a comment, blank lines are ignored):
     goto <text>                   a place to reach (needs "at")
     grind <level>                 kill on the way until that level
     tip <text>                    a tip on the step before (the whole line)
+    path                          the walking path of the NPC of the step before (the data's
+                                  m_npc_path), drawn on the world map while the step is current
     route off / route on          keep the visits that follow in the script's order (see below)
 
 Options after a step, in any order:
@@ -443,6 +445,22 @@ for n, text in lines:
     if word == "levels":
         a, b = rest.split()
         guide["from"], guide["to"] = int(a), int(b); continue
+
+    if word == "path":
+        prev = steps[-1]
+        if prev.get("e") != "npc" or not prev.get("id"):
+            fail(n, "path needs a step with an NPC before it")
+        pts = []
+        for z, x, y in rows("select zone_id, x, y from m_npc_path where npc_id=? order by point", prev["id"]):
+            # Only the points on the map of the step (a path may cross into an unmapped zone).
+            if area_map.get(int(z)) != prev["m"]:
+                continue
+            if not pts or abs(pts[-1][0] - x) > 0.05 or abs(pts[-1][1] - y) > 0.05:
+                pts.append((x, y))
+        if len(pts) < 2:
+            fail(n, f"no walking path in the data for npc {prev['id']} on map {prev['m']}")
+        prev["path"] = [round(v, 2) for pt in pts for v in pt]
+        continue
 
     # Free text: the quoted or remaining text, then the options.
     if word in ("note", "tip", "goto"):
@@ -1180,7 +1198,7 @@ def lua(v):
 
 
 ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
-         "pre", "pa", "line", "sk", "bg", "nt", "lvl", "only", "wp", "wv"]
+         "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")
 src = os.path.relpath(args.script)
