@@ -1,0 +1,11 @@
+# Accepted exceptions of addon/tools/guide_validate.py, one per line, each with its reason:
+#
+#   <check> <guide file name without .lua, or *> <quest id, or *>   # why it is accepted
+#
+# A line that matches nothing is reported (allow-unused): drop it once the guide is fixed.
+
+# The 56-58 guide still routes two quests the data marks removed. They need an author's choice of
+# replacement (or their removal from addon/guides/western_eastern_plaguelands_56_58.guide), not a
+# guess: allowed until then so that new errors are not hidden behind them.
+quest-removed WesternEasternPlaguelands5658 7790   # "REUSE", a placeholder name: steps 87-89
+quest-removed WesternEasternPlaguelands5658 8152   # "Rapid Escape": steps 90 and 117
