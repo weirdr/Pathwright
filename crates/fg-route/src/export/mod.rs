@@ -16,7 +16,7 @@ mod vendors;
 mod writer;
 
 pub use format::{FORMAT, read_route};
-pub use lua::{lua_str, to_lua};
+pub use lua::{lighten_walk, lua_str, to_lua};
 pub use phrase::{Arg, Phrase};
 pub use templates::Lang;
 pub use types::{

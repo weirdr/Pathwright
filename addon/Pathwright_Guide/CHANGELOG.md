@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The built-in guides show the walk to each step on the map and the compass follows its turns, as in the guides made in the app.
 - On the flight master's map, a green arrow bobs over the destination the guide's step says to fly to (setting "Arrow on the flight's destination"). With "Take the step's flight automatically" on, the flight is still taken as the map opens: the arrow shows when that is off, or with Shift held to choose by hand. A destination you cannot fly to from there gets no arrow, and the chat says so.
 - The toolstrip shows the quest item to use for more quests. It only knew the item the game itself names for a quest, which the game does for some quests only, and on WoW Forever it could not find the quest in the log at all. It now also offers the item the quest hands out when you take it, when you carry it and it can be used.
 

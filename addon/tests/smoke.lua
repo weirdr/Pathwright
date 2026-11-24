@@ -1665,6 +1665,30 @@ do
     table.remove(FG.Builtin.defs)
     table.remove(FG.Builtin.defs)
     FG.Routes, FG.Import.info = routes, info
+    -- The walks: one for every variant (`wp`), another for some (`wv`), none for some.
+    local walks = {
+        variants = {
+            { race = 2, class = 1, faction = "Horde" },
+            { race = 2, class = 3, faction = "Horde" },
+            { race = 8, class = 5, faction = "Horde" },
+        },
+        steps = {
+            { k = "goto", t = "Shared", m = 1411, x = 40, y = 60, lvl = 1, wp = { 1, 2, 3, 4 } },
+            { k = "goto", t = "Per variant", m = 1411, x = 45, y = 65, lvl = 1, wp = { 5, 6 }, wv = { { { 2 }, { 7, 8, 9, 10 } }, { { 3 }, {} } } },
+            { k = "goto", t = "Some", m = 1411, x = 50, y = 70, lvl = 1, only = { 1, 3 }, wv = { { { 3 }, { 11, 12 } } } },
+            { k = "note", t = "None", lvl = 1 },
+        },
+    }
+    local function wp(index, n)
+        local s = FG.Builtin.Expand(walks, index).steps[n]
+        assert(s.wv == nil and s.only == nil, "no wv nor only in the route")
+        return s.wp and table.concat(s.wp, ",") or "none"
+    end
+    assert(wp(1, 1) == "1,2,3,4" and wp(2, 1) == "1,2,3,4" and wp(3, 1) == "1,2,3,4", "a walk for all")
+    assert(wp(1, 2) == "5,6" and wp(2, 2) == "7,8,9,10" and wp(3, 2) == "none", "a walk per variant")
+    assert(wp(1, 3) == "none" and wp(2, 3) == "none" and #FG.Builtin.Expand(walks, 2).steps == 3, "variant 2: no step 3")
+    assert(wp(3, 3) == "11,12" and wp(3, 4) == "none", "the variant's own walk, none")
+    assert(walks.steps[2].wp[1] == 5 and walks.steps[2].wv, "the def unchanged")
     print("builtin ok")
 end
 
@@ -1691,9 +1715,12 @@ do
         fly = true,
         hearth = true,
     }
-    local count = 0
+    -- Walks (guide_build.py): every guide has some.
+    local wantWalks = true
+    local count, walked = 0, 0
     for i = before + 1, #FG.Builtin.defs do
         local def = FG.Builtin.defs[i]
+        local walks = 0
         for v = 1, #def.variants do
             local r = FG.Builtin.Expand(def, v)
             assert(r.race and r.class and r.faction and #r.steps > 0, def.name .. ": variant " .. v)
@@ -1706,6 +1733,11 @@ do
                 assert(kinds[s.k], where .. ": kind " .. tostring(s.k))
                 assert(s.t and s.lvl, where .. ": text and level")
                 assert(s.k == "grind" or s.k == "note" or (s.m and s.x and s.y), where .. ": place")
+                assert(s.wv == nil, where .. ": wv resolved")
+                if s.wp then
+                    assert(#s.wp >= 2 and #s.wp % 2 == 0 and not s.bg, where .. ": walk")
+                    walks = walks + 1
+                end
                 if s.k == "accept" then taken[s.q] = true end
                 -- An item to buy at the auction house may come before its quest is taken.
                 if s.k == "turnin" or (s.k == "objective" and not s.by) then
@@ -1714,11 +1746,13 @@ do
             end
             count = count + 1
         end
+        assert(walks > 0 or not wantWalks, def.name .. ": no walk")
+        if walks > 0 then walked = walked + 1 end
     end
     for _ = before + 1, #FG.Builtin.defs do
         table.remove(FG.Builtin.defs)
     end
-    print("shipped guides ok: " .. count .. " routes")
+    print("shipped guides ok: " .. count .. " routes, " .. walked .. " guides with walks")
 end
 
 -- Quest stats (Stats.lua): a quest's time runs from the fight of its first kill to its last
