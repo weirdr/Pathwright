@@ -7,7 +7,7 @@ local FG = Pathwright
 local QuestLog = FG.QuestLog
 
 local PREFIX = "PWSYNC1"
-local Party = { progress = {}, pending = {} }
+local Party = { progress = {}, pending = {}, askedFor = {}, token = 0 }
 FG.Party = Party
 
 if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(PREFIX) end
@@ -62,16 +62,25 @@ end
 
 --- Ask the party for their progress ("?": each member sends their log), and Questie players
 --- for theirs: after a login or a reload, nothing would show until one of their counts moved.
---- At most every ASK_EVERY seconds.
+--- At most every ASK_EVERY seconds. Returns true when the request went out, or one did within
+--- the last ASK_EVERY seconds (false when nothing can be sent: sync off, no party, a raid).
 local ASK_EVERY = 10
 local askedAt
 function Party:Ask()
-    if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return end
+    if not FG:Get("partySync") or not IsInGroup() or IsInRaid() or not C_ChatInfo then return false end
     local now = GetTime()
-    if askedAt and now - askedAt < ASK_EVERY then return end
+    if askedAt and now - askedAt < ASK_EVERY then return true end
     askedAt = now
     C_ChatInfo.SendAddonMessage(PREFIX, "?", "PARTY")
     if FG.QuestieShare and FG.QuestieShare.Ask then FG.QuestieShare:Ask() end
+    return true
+end
+
+--- Ask because a quest has no member data: once per quest until the roster changes.
+function Party:AskFor(questID)
+    if self.askedFor[questID] then return end
+    -- Flagged only once a request is out (or pending in the throttle window).
+    if self:Ask() then self.askedFor[questID] = true end
 end
 
 local function AskSoon()
@@ -82,6 +91,7 @@ end
 FG:On("QUEST_LOG_UPDATE", SendSoon)
 FG:On("PLAYER_ENTERING_WORLD", AskSoon)
 FG:On("GROUP_ROSTER_UPDATE", function()
+    Party.askedFor = {}
     local newcomer = false
     for name in pairs(Party.progress) do
         if not UnitInParty(name) then Party.progress[name] = nil end
@@ -103,13 +113,17 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     if message == "R" then
         -- A full update starts: what we have stays shown until its first chunk replaces it
         -- (an empty log sends no chunk: the old data goes after a few seconds).
-        Party.pending[name] = (Party.pending[name] or 0) + 1
-        local token = Party.pending[name]
+        Party.token = Party.token + 1
+        local token = Party.token
+        Party.pending[name] = token
         if C_Timer then
             C_Timer.After(5, function()
                 if Party.pending[name] == token then
                     Party.pending[name] = nil
                     Party.progress[name] = {}
+                    if FG.Tracker then FG.Tracker:Refresh() end
+                    if FG.Nameplates then FG.Nameplates:Refresh() end
+                    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
                 end
             end)
         end

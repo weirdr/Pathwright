@@ -2607,6 +2607,119 @@ do
     assert(#P:Members(900, 1, 8) == 1, "progress kept while a refresh is under way")
     fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
     assert(P:Members(900, 1, 8)[1].have == 5, "the chunk replaces it")
+    -- Tokens only go up: the first R's timer does not wipe a second R's progress.
+    P.progress = {}
+    runTimers()
+    local refreshes = 0
+    local realRefresh = FG.Guide.Refresh
+    FG.Guide.Refresh = function() refreshes = refreshes + 1 end
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    local first = P.pending.Amy
+    local timer1 = timers[#timers] -- the R's own timer is the last one it queued
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
+    assert(P.pending.Amy == nil and P.progress.Amy[900], "the chunk clears the pending token")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    assert(P.pending.Amy and P.pending.Amy ~= first, "a new token for the second R")
+    local timer2 = timers[#timers]
+    assert(timer1 ~= timer2, "one timer per R")
+    timer1() -- the first R's timer: its token is no longer current
+    assert(P.progress.Amy and P.progress.Amy[900], "the first timer leaves the second R's progress")
+    assert(P.pending.Amy, "the second R is still pending")
+    refreshes = 0
+    timer2() -- the second R's own timer
+    assert(P.pending.Amy == nil and P.progress.Amy[900] == nil, "the last timer clears the progress")
+    assert(refreshes >= 1, "the timer redraws the guide")
+    FG.Guide.Refresh = realRefresh
+    -- Asked once per missing quest, until the roster changes; only once a request went out.
+    local sentAsk = {}
+    local c2, g2, r2, t2 = C_ChatInfo, IsInGroup, IsInRaid, GetTime
+    local now = 9000
+    GetTime = function() return now end
+    local function asks()
+        local n = 0
+        for _, t in ipairs(sentAsk) do
+            if t == "?" then n = n + 1 end
+        end
+        return n
+    end
+    C_ChatInfo = { SendAddonMessage = function(_, text) table.insert(sentAsk, text) end }
+    IsInGroup, IsInRaid = function() return false end, function() return false end
+    P.askedFor = {}
+    P:AskFor(778)
+    assert(not P.askedFor[778] and asks() == 0, "nothing sent outside a group: not marked as asked")
+    IsInGroup = function() return true end
+    P:AskFor(777)
+    P:AskFor(777)
+    assert(asks() == 1 and P.askedFor[777], "exactly one ask for a missing quest")
+    P:AskFor(778) -- within the throttle: a request is pending, so it counts as asked
+    assert(asks() == 1 and P.askedFor[778], "a request inside the throttle marks the quest")
+    fire("GROUP_ROSTER_UPDATE")
+    assert(P.askedFor[777] == nil, "the flag goes with a roster change")
+    -- The guide asks from events: the quest log, a roster change, the guide shown; never a redraw.
+    do
+        local realObjectives = C_QuestLog.GetQuestObjectives
+        C_QuestLog.GetQuestObjectives = function(q)
+            if q == 7102 then
+                return {
+                    { text = "First thing: 0/4", type = "monster", finished = false, numFulfilled = 0, numRequired = 4 },
+                    { text = "Second thing: 0/6", type = "monster", finished = false, numFulfilled = 0, numRequired = 6 },
+                }
+            end
+            return realObjectives(q)
+        end
+        onQuest[7102] = true
+        -- No name, two objectives, o = 2: the party line is on objective 2.
+        FG.Routes["ask-test"] = {
+            race = 7,
+            class = 8,
+            faction = "Alliance",
+            fromLevel = 1,
+            toLevel = 60,
+            time = 1,
+            steps = { { k = "objective", t = "Kill things", q = 7102, o = 2, lvl = 5 } },
+        }
+        useRoute("ask-test")
+        local realInParty = UnitInParty
+        UnitInParty = function() return true end
+        local saved2 = P.progress
+        P.progress = {}
+        P.askedFor = {}
+        sentAsk = {}
+        now = now + 100
+        P:Store("Amy", 7102, { "3" }) -- Amy has objective 1 only: objective 2 is missing
+        fire("QUEST_LOG_UPDATE")
+        fire("QUEST_LOG_UPDATE")
+        assert(asks() == 1, "two quest log updates, one ask: " .. asks())
+        FG.Guide:Refresh()
+        FG.Guide:Refresh()
+        assert(asks() == 1, "a redraw sends nothing")
+        fire("GROUP_ROSTER_UPDATE")
+        now = now + 11
+        fire("QUEST_LOG_UPDATE")
+        assert(asks() == 2, "asked again after a roster change: " .. asks())
+        -- Amy now has objective 2: the no-name step takes its index from `o`, nothing is missing.
+        P:Store("Amy", 7102, { "1", "2" })
+        fire("GROUP_ROSTER_UPDATE")
+        now = now + 11
+        fire("QUEST_LOG_UPDATE")
+        assert(asks() == 2, "the no-name step finds objective 2 by its index: " .. asks())
+        -- Shown again, however (options, key binding): one ask for a missing line.
+        P.progress = {}
+        FG:Save("guideShown", false)
+        now = now + 11
+        FG:Save("guideShown", true)
+        assert(asks() == 3, "the guide shown asks once: " .. asks())
+        P.progress = saved2
+        UnitInParty = realInParty
+        C_QuestLog.GetQuestObjectives = realObjectives
+        onQuest[7102] = nil
+    end
+    GetTime = t2
+    -- A redraw sends nothing.
+    local before = #sentAsk
+    FG.Guide:Refresh()
+    assert(#sentAsk == before, "a redraw sends no addon message")
+    C_ChatInfo, IsInGroup, IsInRaid = c2, g2, r2
     Ambiguate = realAmb
     P.progress = saved
     print("party lines ok")
