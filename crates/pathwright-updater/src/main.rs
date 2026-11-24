@@ -3,8 +3,9 @@
 //! releases (tags Pathwright-vX.Y.Z, .github/workflows/addon-release.yml); when one is newer than the one
 //! it installed, it downloads its zip and installs it into WoW Forever's AddOns folder, quietly:
 //! the game uses it at the next /reload or login. It finds the folder by itself (as the desktop
-//! app does), or takes the one picked from its menu. It starts at login (from its first run, a
-//! choice in its menu).
+//! app does), or takes the one picked from its menu. On its first run it asks whether to start
+//! at login (a choice in its menu after that). `--uninstall` (its Windows installer runs it when
+//! the updater is removed) only takes it off the programs started at login.
 #![cfg_attr(windows, windows_subsystem = "windows")]
 
 mod autostart;
@@ -81,13 +82,13 @@ fn icon() -> Option<Icon> {
 }
 
 fn main() {
-    let mut settings = Settings::load();
-    // The first run sets it to start at login; the menu's check box changes it after that.
-    if !settings.autostart_set {
-        autostart::set(true);
-        settings.autostart_set = true;
-        settings.save();
+    if std::env::args().any(|arg| arg == "--uninstall") {
+        autostart::set(false);
+        return;
     }
+    // The first run asks whether to start at login, once its menu is there (below); the menu's
+    // check box changes it after that.
+    let mut first_run = !Settings::load().autostart_set;
 
     let mut event_loop = EventLoopBuilder::<UserEvent>::with_user_event().build();
     // A tray app only: no Dock icon on macOS.
@@ -152,6 +153,23 @@ fn main() {
                     builder = builder.with_icon(icon);
                 }
                 tray = builder.build().ok();
+                if first_run {
+                    first_run = false;
+                    let answer = rfd::MessageDialog::new()
+                        .set_title("Pathwright Updater")
+                        .set_description(
+                            "Start Pathwright Updater when you log in, so the addon stays up to date?\n\n\
+                             You can change this any time from its menu in the system tray.",
+                        )
+                        .set_buttons(rfd::MessageButtons::YesNo)
+                        .show();
+                    if answer == rfd::MessageDialogResult::Yes {
+                        start_at_login.set_checked(autostart::set(true));
+                    }
+                    let mut settings = Settings::load();
+                    settings.autostart_set = true;
+                    settings.save();
+                }
             }
             Event::UserEvent(UserEvent::Status(text)) => {
                 status.set_text(&text);

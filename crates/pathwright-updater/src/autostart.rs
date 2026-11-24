@@ -5,8 +5,9 @@ use std::path::PathBuf;
 
 #[cfg(target_os = "macos")]
 const LABEL: &str = "com.pathwright.updater";
+/// Under HKEY_CURRENT_USER: the programs Windows starts at login, by name.
 #[cfg(windows)]
-const RUN_KEY: &str = r"HKCU\Software\Microsoft\Windows\CurrentVersion\Run";
+const RUN_KEY: &str = r"Software\Microsoft\Windows\CurrentVersion\Run";
 #[cfg(windows)]
 const VALUE: &str = "Pathwright Updater";
 
@@ -23,7 +24,10 @@ pub fn enabled() -> bool {
     }
     #[cfg(windows)]
     {
-        reg(&["query", RUN_KEY, "/v", VALUE])
+        windows_registry::CURRENT_USER
+            .open(RUN_KEY)
+            .and_then(|key| key.get_string(VALUE))
+            .is_ok()
     }
     #[cfg(not(any(target_os = "macos", windows)))]
     {
@@ -58,13 +62,16 @@ pub fn set(on: bool) -> bool {
         }
         std::fs::write(path, plist).is_ok()
     }
+    // Written through the registry's own calls: no other program is started for it.
     #[cfg(windows)]
     {
+        let Ok(key) = windows_registry::CURRENT_USER.create(RUN_KEY) else {
+            return false;
+        };
         if on {
-            let value = format!("\"{}\"", exe.display());
-            reg(&["add", RUN_KEY, "/v", VALUE, "/t", "REG_SZ", "/d", &value, "/f"])
+            key.set_string(VALUE, format!("\"{}\"", exe.display())).is_ok()
         } else {
-            reg(&["delete", RUN_KEY, "/v", VALUE, "/f"]) || !enabled()
+            key.remove_value(VALUE).is_ok() || !enabled()
         }
     }
     #[cfg(not(any(target_os = "macos", windows)))]
@@ -72,18 +79,4 @@ pub fn set(on: bool) -> bool {
         let _ = (on, exe);
         false
     }
-}
-
-/// Run reg.exe without a console window; whether it succeeded.
-#[cfg(windows)]
-fn reg(args: &[&str]) -> bool {
-    use std::os::windows::process::CommandExt;
-    const CREATE_NO_WINDOW: u32 = 0x0800_0000;
-    std::process::Command::new("reg")
-        .args(args)
-        .creation_flags(CREATE_NO_WINDOW)
-        .stdout(std::process::Stdio::null())
-        .stderr(std::process::Stdio::null())
-        .status()
-        .is_ok_and(|s| s.success())
 }

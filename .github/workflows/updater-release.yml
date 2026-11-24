@@ -5,7 +5,8 @@ name: Updater release
 # newest build: tag `updater`, titled "Pathwright Updater", never marked Latest (the addon's
 # releases stay first; the updater itself only looks at Pathwright-v… tags, and the addon-… ones before). Its files keep their
 # names, so the README links to them for good:
-#   PathwrightUpdater-Windows.exe
+#   PathwrightUpdater-Windows.msi           (the installer: scripts/updater-msi.sh)
+#   PathwrightUpdater-Windows.exe           (the program alone, as before the installer)
 #   PathwrightUpdater-macOS-AppleSilicon.zip   (M1 and later)
 #   PathwrightUpdater-macOS-Intel.zip
 on:
@@ -13,6 +14,7 @@ on:
     branches: [main]
     paths:
       - "crates/pathwright-updater/**"
+      - "scripts/updater-msi.sh"
       - ".github/workflows/updater-release.yml"
   workflow_dispatch:
 
@@ -42,14 +44,14 @@ jobs:
             echo
             echo "| System | Download |"
             echo "|---|---|"
-            echo "| Windows | PathwrightUpdater-Windows.exe |"
+            echo "| Windows | PathwrightUpdater-Windows.msi |"
             echo "| macOS, Apple Silicon (M1 and later) | PathwrightUpdater-macOS-AppleSilicon.zip |"
             echo "| macOS, Intel | PathwrightUpdater-macOS-Intel.zip |"
             echo
-            echo "- **Windows:** run the .exe. SmartScreen may warn about an unsigned app: More info, Run anyway."
+            echo "- **Windows:** run the .msi: it installs for you alone (no administrator rights), adds a Start menu shortcut and starts the updater. SmartScreen may warn about an unsigned app: More info, Run anyway. Remove it from Settings, Apps. PathwrightUpdater-Windows.exe is the program alone, without an installer."
             echo "- **macOS:** unzip, move Pathwright Updater to Applications, then right-click it and choose Open the first time (it is not notarized)."
             echo
-            echo "It finds World of Warcraft by itself (or use its menu's Choose WoW folder…), checks for a new addon release every 15 minutes and installs it; the game uses it at the next /reload. It starts at login (a choice in its menu)."
+            echo "It finds World of Warcraft by itself (or use its menu's Choose WoW folder…), checks for a new addon release every 15 minutes and installs it; the game uses it at the next /reload. On its first run it asks whether to start at login (a choice in its menu after that)."
           } > notes.md
           if gh release view updater --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
             # The tag moves to this commit; the files are replaced by the builds below.
@@ -138,8 +140,13 @@ jobs:
           rustup toolchain install
           cargo build --release --locked -p pathwright-updater
           cp target/release/pathwright-updater.exe PathwrightUpdater-Windows.exe
+      - name: Installer
+        shell: bash
+        run: scripts/updater-msi.sh PathwrightUpdater-Windows.msi
       - name: Add to the release
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload updater PathwrightUpdater-Windows.exe --repo "$GITHUB_REPOSITORY" --clobber
+        run: |
+          gh release upload updater PathwrightUpdater-Windows.msi PathwrightUpdater-Windows.exe \
+            --repo "$GITHUB_REPOSITORY" --clobber

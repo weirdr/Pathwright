@@ -4,11 +4,12 @@
 
 **Pathwright Updater** keeps the Pathwright addon up to date for you. It runs in the system tray
 (the menu bar on a Mac), finds World of Warcraft by itself, checks for a new addon release every
-15 minutes and installs it; the game uses it at your next `/reload`. It starts when you log in.
+15 minutes and installs it; the game uses it at your next `/reload`. The first time it runs, it
+asks whether to start when you log in.
 
 | System | Download |
 |---|---|
-| Windows | [PathwrightUpdater-Windows.exe](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-Windows.exe) |
+| Windows | [PathwrightUpdater-Windows.msi](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-Windows.msi) |
 | macOS, Apple Silicon (M1 and later) | [PathwrightUpdater-macOS-AppleSilicon.zip](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-macOS-AppleSilicon.zip) |
 | macOS, Intel | [PathwrightUpdater-macOS-Intel.zip](https://github.com/weirdr/Pathwright/releases/download/updater/PathwrightUpdater-macOS-Intel.zip) |
 
@@ -17,7 +18,9 @@ Not sure which Mac you have? Apple menu > **About This Mac**: "Chip: Apple M…"
 
 The first time you open it:
 
-- **Windows:** if SmartScreen warns about an unrecognized app, click **More info**, then **Run anyway**.
+- **Windows:** run the installer. It installs for you alone, without administrator rights, adds a
+  Start menu shortcut and starts the updater. If SmartScreen warns about an unrecognized app, click
+  **More info**, then **Run anyway**. To remove it: Settings > Apps > Installed apps.
 - **macOS:** unzip it, move **Pathwright Updater** to Applications, then right-click it and choose
   **Open** (it is not notarized by Apple).
 

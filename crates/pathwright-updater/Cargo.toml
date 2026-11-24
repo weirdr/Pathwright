@@ -19,5 +19,13 @@ tray-icon = "0.25"
 ureq = "3"
 zip = { version = "9", default-features = false, features = ["deflate"] }
 
+# The programs started at login, written through the registry's own calls.
+[target.'cfg(windows)'.dependencies]
+windows-registry = "0.6"
+
+# The .exe's icon, version and publisher (build.rs).
+[target.'cfg(windows)'.build-dependencies]
+tauri-winres = "0.3"
+
 [lints]
 workspace = true

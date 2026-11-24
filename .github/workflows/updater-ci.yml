@@ -1,0 +1,47 @@
+name: Updater (Windows build)
+
+# The Pathwright Updater built on Windows, with its installer, for each pull request that
+# changes it: the Windows build cannot be made on the other systems, and the release
+# (updater-release.yml) only builds it once the change is on main. The program and its
+# installer are kept with the run for a week, to try before they are released. Unsigned.
+on:
+  pull_request:
+    paths:
+      - "crates/pathwright-updater/**"
+      - "scripts/updater-msi.sh"
+      - "Cargo.lock"
+      - ".github/workflows/updater-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build
+        shell: bash
+        run: |
+          rustup toolchain install
+          cargo build --release --locked -p pathwright-updater
+      - name: Installer
+        shell: bash
+        run: scripts/updater-msi.sh PathwrightUpdater-Windows.msi
+      - name: Keep the builds with the run
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: PathwrightUpdater-Windows
+          path: |
+            PathwrightUpdater-Windows.msi
+            target/release/pathwright-updater.exe
+          retention-days: 7
+          if-no-files-found: error
