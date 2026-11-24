@@ -56,8 +56,9 @@ local Provider = CreateFromMixins and CreateFromMixins(MapCanvasDataProviderMixi
 
 --- Position of a step on map `mapID` (any map of the same continent), or nil.
 local function PositionOn(step, mapID)
-    if not step.m or not C_Map.GetWorldPosFromMapPos then return nil end
+    if not step.m then return nil end
     if step.m == mapID then return step.x / 100, step.y / 100 end
+    if not C_Map.GetWorldPosFromMapPos then return nil end
     local continent, world = C_Map.GetWorldPosFromMapPos(step.m, CreateVector2D(step.x / 100, step.y / 100))
     if not continent then return nil end
     local _, pos = C_Map.GetMapPosFromWorldPos(continent, world, mapID)
@@ -76,7 +77,8 @@ local function PathOn(step, mapID)
     for i = 1, #path - 1, 2 do
         local x, y = PositionOn({ m = step.m, x = path[i], y = path[i + 1] }, mapID)
         if not x then return nil end
-        out[#out + 1], out[#out + 1] = x, y
+        out[#out + 1] = x
+        out[#out + 1] = y
     end
     return out
 end

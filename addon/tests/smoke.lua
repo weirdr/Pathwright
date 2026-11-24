@@ -258,6 +258,7 @@ IsInInstance = function() return false end
 IsInGroup = function() return false end
 IsInRaid = function() return false end
 GetNumGroupMembers = function() return IsInGroup() and 2 or 0 end
+UnitInParty = function() return false end
 ObjectiveTrackerFrame = {
     hidden = false,
     Hide = function(self) self.hidden = true end,
@@ -5686,7 +5687,7 @@ do
     local found, register = nil, FG.Builtin.Register
     FG.Builtin.Register = function(def)
         for _, s in ipairs(def.steps) do
-            if s.id == 2988 and s.k == "accept" then found = s end
+            if not found and s.id == 2988 and s.k == "accept" then found = s end
         end
     end
     assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
