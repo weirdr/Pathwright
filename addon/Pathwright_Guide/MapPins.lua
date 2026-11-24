@@ -67,7 +67,57 @@ local function PositionOn(step, mapID)
     return x, y
 end
 
-function Provider:RemoveAllData() self:GetMap():RemoveAllPinsByTemplate("PWStepPinTemplate") end
+--- The walking path of an NPC (`step.path`: x1, y1, x2, y2... on the step's map, in percent) on map
+--- `mapID`, as a flat list of positions (0 to 1), or nil when the step has none or it is off the map.
+local function PathOn(step, mapID)
+    local path = step and step.path
+    if type(path) ~= "table" or #path < 4 then return nil end
+    local out = {}
+    for i = 1, #path - 1, 2 do
+        local x, y = PositionOn({ m = step.m, x = path[i], y = path[i + 1] }, mapID)
+        if not x then return nil end
+        out[#out + 1], out[#out + 1] = x, y
+    end
+    return out
+end
+
+-- The path's lines are drawn on the map canvas, reused from one refresh to the next.
+local pathFrame, pathLines = nil, {}
+
+local function ClearPath()
+    for _, line in ipairs(pathLines) do line:Hide() end
+end
+
+local function DrawPath(map, points)
+    local canvas = map.GetCanvas and map:GetCanvas()
+    if not canvas or not canvas.GetWidth or not CreateFrame then return end
+    if not pathFrame then
+        pathFrame = CreateFrame("Frame", nil, canvas)
+        pathFrame:SetAllPoints()
+    end
+    pathFrame:SetParent(canvas)
+    pathFrame:SetFrameLevel(canvas:GetFrameLevel() + 5)
+    local w, h = canvas:GetWidth(), canvas:GetHeight()
+    local count = #points / 2 - 1
+    for i = 1, count do
+        local line = pathLines[i]
+        if not line then
+            line = pathFrame:CreateLine(nil, "OVERLAY")
+            line:SetThickness(3)
+            line:SetColorTexture(1, 0.82, 0, 0.9)
+            pathLines[i] = line
+        end
+        line:SetStartPoint("TOPLEFT", canvas, points[2 * i - 1] * w, -points[2 * i] * h)
+        line:SetEndPoint("TOPLEFT", canvas, points[2 * i + 1] * w, -points[2 * i + 2] * h)
+        line:Show()
+    end
+    for i = count + 1, #pathLines do pathLines[i]:Hide() end
+end
+
+function Provider:RemoveAllData()
+    self:GetMap():RemoveAllPinsByTemplate("PWStepPinTemplate")
+    ClearPath()
+end
 
 function Provider:RefreshAllData()
     self:RemoveAllData()
@@ -76,6 +126,9 @@ function Provider:RefreshAllData()
     local mapID = self:GetMap():GetMapID()
     local first = FG.Guide:CurrentStep()
     local n, shown = 0, 0
+    -- The path of the NPC of the step to do now, only while it is the current one.
+    local points = PathOn(route.steps[first], mapID)
+    if points then DrawPath(self:GetMap(), points) end
     for i = first, #route.steps do
         local step = route.steps[i]
         if not step.bg then
@@ -98,6 +151,7 @@ end
 
 local MapPins = {}
 FG.MapPins = MapPins
+MapPins.PathOn = PathOn
 
 local added = false
 local function Attach()
