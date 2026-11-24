@@ -7,6 +7,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 ## Unreleased
 
 - Tauren Starter (1-13): the Palemane Tanner step now points its marker at the Palemane camp south of the Winterhoof well (51.5, 73.5).
+- On the step that takes The Ravaged Caravan from Morin Cloudstalker, the world map draws the road he walks as a line, for as long as that step is the one to do.
 - Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store".
 - WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.
 - With a UI suite's look (EllesmereUI, ElvUI), the guide's texts that change size are drawn at the right size again: the party line shrinks to fit, and the "mobs on the way" rows and the level marks of the next steps are small as intended.
