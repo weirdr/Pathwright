@@ -6,7 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
-- Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path right after a flight to Booty Bay, which already gave it.
+- Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path after it has already had you fly there, because you already know it.
 - Tauren Starter (1-13): the Palemane Tanner step now points its marker at the Palemane camp south of the Winterhoof well (51.5, 73.5).
 - On the step that takes The Ravaged Caravan from Morin Cloudstalker, the world map draws the road he walks as a line, for as long as that step is the one to do.
 - Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store".
