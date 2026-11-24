@@ -225,6 +225,8 @@ local function FindObjectiveIndex(step)
             end
         end
     end
+    -- No name matched: the step's own index in the quest, when the log has it.
+    if not best and step.o and objectives[step.o] then return objectives[step.o], step.o end
     return best, bestIndex
 end
 
@@ -961,6 +963,8 @@ local function TaskView(step, index, withProgress)
         local o, at = FindObjectiveIndex(step)
         if at then v.party = FG.Party:Members(step.q, at, o and o.numRequired) end
         if v.party and not v.party[1] then v.party = nil end
+        -- Nobody's data yet: ask again (Party:Ask keeps to once per 10 s).
+        if not v.party and FG.Party.Ask then FG.Party:Ask() end
     end
     -- An objective guide done below the level its quests ask: said on the current step until reached.
     local recommended = route and route.recommendedLevel

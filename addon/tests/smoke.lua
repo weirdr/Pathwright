@@ -2563,6 +2563,16 @@ do
     assert(#sentParty == 0, "not asked again at once")
     C_ChatInfo, IsInGroup, IsInRaid, GetNumGroupMembers = realChat, realGroup, realRaid, realMembers
     UnitInParty = realParty
+    -- An "R" leaves the old progress shown until its first chunk comes.
+    P.progress = {}
+    local realAmb = Ambiguate
+    Ambiguate = function(n) return (n:gsub("%-.*", "")) end
+    P:Store("Amy", 900, { "3" })
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    assert(#P:Members(900, 1, 8) == 1, "progress kept while a refresh is under way")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
+    assert(P:Members(900, 1, 8)[1].have == 5, "the chunk replaces it")
+    Ambiguate = realAmb
     P.progress = saved
     print("party lines ok")
 end
