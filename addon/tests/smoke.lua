@@ -2289,6 +2289,34 @@ do
         local wire = S.Wire(quest, { d = wallNow - 20, t = 60, lv = 10, pl = 10, k = 3 })
         return "F|" .. wire .. "," .. S.Seal(wire, name)
     end
+    -- A seal at or above 2^31 (half of them): the game's string.format raises on such a value.
+    do
+        local format = string.format
+        string.format = function(pattern, ...)
+            for i = 1, select("#", ...) do
+                local v = select(i, ...)
+                if pattern:find("%%[%d.]*[xd]") and type(v) == "number" and (v < -2147483648 or v > 2147483647) then
+                    error("integer overflow attempting to store " .. format("%.0f", v))
+                end
+            end
+            return format(pattern, ...)
+        end
+        local ok, err = pcall(function()
+            local quest, wire, seal
+            for q = 1100, 1200 do
+                wire = S.Wire(q, { d = wallNow - 20, t = 60, lv = 10, pl = 10, k = 3 })
+                seal = S.Seal(wire, "Ally")
+                if tonumber(seal, 16) >= 2147483648 then quest = q break end
+            end
+            assert(quest, "a seal with the top bit set")
+            assert(#seal == 8 and seal:match("^%x+$"), "eight hex digits")
+            S:Receive("F|" .. wire .. "," .. seal, friend)
+            assert(peer.q[quest], "the record with a high seal is accepted")
+        end)
+        string.format = format
+        assert(ok, tostring(err))
+        assert(S.Seal("x", "y") == string.format("%08x", tonumber(S.Seal("x", "y"), 16)), "same digits as before")
+    end
     local refusedBefore = peer.refused
     S:Receive(sealed(911, "Ally"), friend, nil, nil, "Ally Wick")
     S:Receive(sealed(912, "AllyWick"), friend, nil, nil, "Ally Wick")
