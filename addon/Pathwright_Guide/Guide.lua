@@ -211,6 +211,7 @@ local function FindObjectiveIndex(step)
     if not objectives then return nil end
     if not step.n then
         if #objectives == 1 then return objectives[1], 1 end
+        if step.o and objectives[step.o] then return objectives[step.o], step.o end
         return nil
     end
     local name = step.n:lower()
@@ -963,8 +964,6 @@ local function TaskView(step, index, withProgress)
         local o, at = FindObjectiveIndex(step)
         if at then v.party = FG.Party:Members(step.q, at, o and o.numRequired) end
         if v.party and not v.party[1] then v.party = nil end
-        -- Nobody's data yet: ask again (Party:Ask keeps to once per 10 s).
-        if not v.party and FG.Party.Ask then FG.Party:Ask() end
     end
     -- An objective guide done below the level its quests ask: said on the current step until reached.
     local recommended = route and route.recommendedLevel
@@ -2177,7 +2176,27 @@ function Guide:SkipCurrent()
 end
 
 --- Hide the guide, or show it again (a key binding; the setting, saved).
-function Guide:ToggleShown() FG:Save("guideShown", not FG:Get("guideShown")) end
+--- Ask the party about the shown objective steps whose quest has no member data (once per
+--- quest until the roster changes; Party:Ask still throttles). Called on events only, never
+--- from a redraw.
+function Guide:AskMissing()
+    if not FG.Party or not FG.Party.AskFor or not route or not state or not FG:Get("guideShown") then return end
+    for _, index in ipairs(CurrentGroup()) do
+        local step = route.steps[index]
+        if step and step.k == "objective" and step.q and QuestLog.IsOnQuest(step.q) then
+            local o, at = FindObjectiveIndex(step)
+            local members = at and FG.Party:Members(step.q, at, o and o.numRequired)
+            if at and not (members and members[1]) then FG.Party:AskFor(step.q) end
+        end
+    end
+end
+
+FG:On("QUEST_LOG_UPDATE", function() Guide:AskMissing() end)
+
+function Guide:ToggleShown()
+    FG:Save("guideShown", not FG:Get("guideShown"))
+    self:AskMissing()
+end
 
 -- The key bindings (Bindings.xml, the game's key bindings: Pathwright). What they do while playing
 -- is not in the addon's options.

@@ -2573,6 +2573,38 @@ do
     assert(#P:Members(900, 1, 8) == 1, "progress kept while a refresh is under way")
     fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
     assert(P:Members(900, 1, 8)[1].have == 5, "the chunk replaces it")
+    -- Tokens only go up: a second "R" is not wiped by the first one's timer.
+    P.progress = {}
+    runTimers()
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    local first = P.pending.Amy
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    assert(P.pending.Amy and P.pending.Amy ~= first, "a new token for the second R")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "900:6", "PARTY", "Amy-Realm")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
+    runTimers() -- the timers of the earlier R's run: only the last one's token is current
+    assert(P.progress.Amy and P.progress.Amy[900], "an older timer leaves the newer R's progress")
+    -- Asked once per missing quest, until the roster changes.
+    local sentAsk = {}
+    local c2, g2, r2 = C_ChatInfo, IsInGroup, IsInRaid
+    C_ChatInfo = { SendAddonMessage = function(_, text) table.insert(sentAsk, text) end }
+    IsInGroup, IsInRaid = function() return true end, function() return false end
+    P.askedFor = {}
+    P:AskFor(777)
+    P:AskFor(777)
+    local asks = 0
+    for _, t in ipairs(sentAsk) do
+        if t == "?" then asks = asks + 1 end
+    end
+    assert(asks <= 1 and P.askedFor[777], "one ask per missing quest")
+    fire("GROUP_ROSTER_UPDATE")
+    assert(P.askedFor[777] == nil, "the flag goes with a roster change")
+    -- A redraw sends nothing.
+    local before = #sentAsk
+    FG.Guide:Refresh()
+    assert(#sentAsk == before, "a redraw sends no addon message")
+    C_ChatInfo, IsInGroup, IsInRaid = c2, g2, r2
     Ambiguate = realAmb
     P.progress = saved
     print("party lines ok")

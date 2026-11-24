@@ -7,7 +7,7 @@ local FG = Pathwright
 local QuestLog = FG.QuestLog
 
 local PREFIX = "PWSYNC1"
-local Party = { progress = {}, pending = {} }
+local Party = { progress = {}, pending = {}, askedFor = {}, token = 0 }
 FG.Party = Party
 
 if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(PREFIX) end
@@ -74,6 +74,13 @@ function Party:Ask()
     if FG.QuestieShare and FG.QuestieShare.Ask then FG.QuestieShare:Ask() end
 end
 
+--- Ask because a quest has no member data: once per quest until the roster changes.
+function Party:AskFor(questID)
+    if self.askedFor[questID] then return end
+    self.askedFor[questID] = true
+    self:Ask()
+end
+
 local function AskSoon()
     if not C_Timer then return Party:Ask() end
     C_Timer.After(3, function() Party:Ask() end)
@@ -82,6 +89,7 @@ end
 FG:On("QUEST_LOG_UPDATE", SendSoon)
 FG:On("PLAYER_ENTERING_WORLD", AskSoon)
 FG:On("GROUP_ROSTER_UPDATE", function()
+    Party.askedFor = {}
     local newcomer = false
     for name in pairs(Party.progress) do
         if not UnitInParty(name) then Party.progress[name] = nil end
@@ -103,13 +111,17 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     if message == "R" then
         -- A full update starts: what we have stays shown until its first chunk replaces it
         -- (an empty log sends no chunk: the old data goes after a few seconds).
-        Party.pending[name] = (Party.pending[name] or 0) + 1
-        local token = Party.pending[name]
+        Party.token = Party.token + 1
+        local token = Party.token
+        Party.pending[name] = token
         if C_Timer then
             C_Timer.After(5, function()
                 if Party.pending[name] == token then
                     Party.pending[name] = nil
                     Party.progress[name] = {}
+                    if FG.Tracker then FG.Tracker:Refresh() end
+                    if FG.Nameplates then FG.Nameplates:Refresh() end
+                    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
                 end
             end)
         end
