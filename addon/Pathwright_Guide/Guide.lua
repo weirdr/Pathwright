@@ -1777,9 +1777,14 @@ FG:On("PLAYER_LOGIN", function()
     UseRoute(PickRoute())
     FG.Card:Create(state)
     if FG.Mini then FG.Mini:Create(state) end
-    for _, key in ipairs({ "guideMode", "nextTab", "guideShown", "questPanel", "compassShown", "arrowShown" }) do
+    for _, key in ipairs({ "guideMode", "nextTab", "questPanel", "compassShown", "arrowShown" }) do
         FG:OnSetting(key, function() Guide:Refresh() end)
     end
+    -- However the guide is shown (key binding, options, slash command), ask for what is missing.
+    FG:OnSetting("guideShown", function(shown)
+        Guide:Refresh()
+        if shown then Guide:AskMissing() end
+    end)
     -- Any other setting chosen in the options shows at once.
     FG:OnSetting("*", function(key)
         if key ~= "uiShown" and key ~= "scale" then Guide:Refresh() end
@@ -1789,6 +1794,7 @@ FG:On("PLAYER_LOGIN", function()
         if not shown and waypointStep and C_Map.ClearUserWaypoint then C_Map.ClearUserWaypoint() end
         waypointStep = nil
         Guide:Refresh()
+        if shown then Guide:AskMissing() end
     end)
     FG:OnSetting("waypoints", function(on)
         waypointStep = nil
@@ -2180,7 +2186,7 @@ end
 --- quest until the roster changes; Party:Ask still throttles). Called on events only, never
 --- from a redraw.
 function Guide:AskMissing()
-    if not FG.Party or not FG.Party.AskFor or not route or not state or not FG:Get("guideShown") then return end
+    if not FG.Party or not FG.Party.AskFor or not route or not state or not FG:Get("guideShown") or not FG:Get("uiShown") then return end
     for _, index in ipairs(CurrentGroup()) do
         local step = route.steps[index]
         if step and step.k == "objective" and step.q and QuestLog.IsOnQuest(step.q) then
@@ -2195,7 +2201,6 @@ FG:On("QUEST_LOG_UPDATE", function() Guide:AskMissing() end)
 
 function Guide:ToggleShown()
     FG:Save("guideShown", not FG:Get("guideShown"))
-    self:AskMissing()
 end
 
 -- The key bindings (Bindings.xml, the game's key bindings: Pathwright). What they do while playing
