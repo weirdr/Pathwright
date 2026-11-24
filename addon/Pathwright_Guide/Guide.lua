@@ -500,17 +500,6 @@ function IsDone(step, index)
         and (select(2, FG.ProfessionSkill(ProfessionLine(step))) or 0) >= step.sk
     then
         return true -- rank already learned
-    elseif step.k == "flight_master" and state.marks[index or state.step] then
-        return true
-    elseif
-        step.k == "flight_master"
-        and route.steps[(index or state.step) - 1]
-        and route.steps[(index or state.step) - 1].k == "fly"
-        and state.marks[(index or state.step) - 1]
-    then
-        -- Flown here by the step before: the flight path is known already, or the flight could not
-        -- have been taken. A player who came on foot or by boat has no such flight, and still gets it.
-        return true
     elseif
         step.k == "flight_master"
         or step.k == "train"
