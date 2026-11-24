@@ -26,6 +26,10 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 - WoW Forever: In Demand - Plague Records, In Demand - Titan Relics and Ott's Finest Work now have their giver, more quest and object names in French, German and Spanish, and fresher drop rates measured in game by players.
 - WoW Forever: nine quest chains no longer broken, Your First Horse, Swift as the Wind, Scalebeard and Bait the Beast in the guides, creatures at fresher places, and more names in Spanish, French, Russian and Korean.
 
+### Guides
+
+- Tauren Starter (1-13): the Palemane Tanner step now points its marker at the Palemane camp south of the Winterhoof well (51.5, 73.5).
+
 ### Addon
 
 - Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store".

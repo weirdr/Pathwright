@@ -257,6 +257,8 @@ GetMoney = function() return 0 end
 IsInInstance = function() return false end
 IsInGroup = function() return false end
 IsInRaid = function() return false end
+GetNumGroupMembers = function() return IsInGroup() and 2 or 0 end
+UnitInParty = function() return false end
 ObjectiveTrackerFrame = {
     hidden = false,
     Hide = function(self) self.hidden = true end,
@@ -2633,7 +2635,10 @@ do
     -- Asked once per missing quest, until the roster changes; only once a request went out.
     local sentAsk = {}
     local c2, g2, r2, t2 = C_ChatInfo, IsInGroup, IsInRaid, GetTime
-    local now = 9000
+    -- The fake clock starts well past the real stub, hence past the askedAt an earlier test left
+    -- in Party (the first ask here must go out). The clock restored afterwards carries on from
+    -- the fake one, so it never jumps behind the last askedAt and a later ask can pass the throttle.
+    local now = t2() + 100
     GetTime = function() return now end
     local function asks()
         local n = 0
@@ -2714,7 +2719,9 @@ do
         C_QuestLog.GetQuestObjectives = realObjectives
         onQuest[7102] = nil
     end
-    GetTime = t2
+    P.askedFor = {}
+    local offset = now - t2()
+    GetTime = function() return t2() + offset end
     -- A redraw sends nothing.
     local before = #sentAsk
     FG.Guide:Refresh()
@@ -5685,12 +5692,93 @@ do
     local found, register = nil, FG.Builtin.Register
     FG.Builtin.Register = function(def)
         for _, s in ipairs(def.steps) do
-            if s.id == 2988 and s.k == "accept" then found = s end
+            if not found and s.id == 2988 and s.k == "accept" then found = s end
         end
     end
     assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
     FG.Builtin.Register = register
     assert(found and found.path and #found.path >= 4 and #found.path % 2 == 0, "Morin's path in the guide data")
+end
+
+-- The path's lines are drawn on the map canvas, reused, and hidden again; the game calls
+-- `RefreshAllData` itself, outside `FG:Try`, so the drawing code must run here from start to finish.
+do
+    local lines, created = {}, 0
+    local function LineStub()
+        local l = { shown = false }
+        function l:SetThickness() end
+        function l:SetColorTexture() end
+        function l:SetStartPoint() end
+        function l:SetEndPoint() end
+        function l:Show() self.shown = true end
+        function l:Hide() self.shown = false end
+        return l
+    end
+    local function FrameStub()
+        local f = {}
+        function f:GetWidth() return 1000 end
+        function f:GetHeight() return 500 end
+        function f:GetFrameLevel() return 3 end
+        function f:SetFrameLevel() end
+        function f:SetAllPoints() end
+        function f:SetParent() end
+        function f:CreateLine()
+            created = created + 1
+            local l = LineStub()
+            lines[#lines + 1] = l
+            return l
+        end
+        return f
+    end
+    local canvas = FrameStub()
+    -- `DrawPath` makes its own child frame of the canvas with the global `CreateFrame`: that one
+    -- must be the recording stub, the others stay as they were.
+    local createFrame = CreateFrame
+    CreateFrame = function(kind, name, parent, ...)
+        if parent == canvas then return FrameStub() end
+        return createFrame(kind, name, parent, ...)
+    end
+    local map = WorldMapFrame
+    local getCanvas, getMapID = map.GetCanvas, map.GetMapID
+    map.GetCanvas = function() return canvas end
+    map.GetMapID = function() return 1412 end
+    local function Visible()
+        local n = 0
+        for _, l in ipairs(lines) do
+            if l.shown then n = n + 1 end
+        end
+        return n
+    end
+    local get, route, current = FG.Get, FG.Guide.Route, FG.Guide.CurrentStep
+    local steps = {
+        { k = "accept", m = 1412, x = 10, y = 10, t = "a", path = { 50, 60, 55, 64, 60, 66, 62, 70 } },
+        { k = "accept", m = 1412, x = 10, y = 10, t = "b" },
+    }
+    local at = 1
+    FG.Get = function(self, key)
+        if key == "uiShown" or key == "mapPins" then return true end
+        return get(self, key)
+    end
+    FG.Guide.Route = function() return { steps = steps } end
+    FG.Guide.CurrentStep = function() return at end
+    local ok, err = pcall(function()
+        provider:RefreshAllData()
+        assert(Visible() == 3 and created == 3, "a path of 4 points draws 3 lines, got " .. Visible())
+        provider:RefreshAllData()
+        assert(Visible() == 3 and created == 3, "the lines are reused")
+        at = 2
+        provider:RefreshAllData()
+        assert(Visible() == 0, "no line on a step without a path")
+        at = 1
+        provider:RefreshAllData()
+        assert(Visible() == 3, "the path back")
+        provider:RemoveAllData()
+        assert(Visible() == 0, "RemoveAllData hides the lines")
+    end)
+    FG.Get, FG.Guide.Route, FG.Guide.CurrentStep = get, route, current
+    map.GetCanvas, map.GetMapID = getCanvas, getMapID
+    CreateFrame = createFrame
+    assert(ok, err)
 end
 
 -- No safety alert while hidden.
