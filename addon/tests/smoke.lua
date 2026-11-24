@@ -2344,6 +2344,7 @@ do
             assert(#seal == 8 and seal:match("^%x+$"), "eight hex digits")
             S:Receive("F|" .. wire .. "," .. seal, friend)
             assert(peer.q[quest], "the record with a high seal is accepted")
+            peer.q[quest], S.shared = nil, nil -- not a quest of the board's tally below
         end)
         string.format = format
         assert(ok, tostring(err))
