@@ -95,10 +95,16 @@ local function Stock(families, want, budget)
     if not offer or want <= 0 then return 0 end
     local have = 0
     for _, entry in ipairs(offer.ids) do
-        if entry[1] >= offer.level - 10 then have = have + GetItemCount(entry[2]) end
+        if entry[1] >= offer.level - 10 then have = have + (FG.ItemCount(entry[2]) or 0) end
     end
     local missing = math.min(want - have, math.floor(budget / math.max(1, offer.unit)))
-    local stack = GetMerchantItemMaxStack(offer.index)
+    local stack = 1
+    if GetMerchantItemMaxStack then
+        stack = GetMerchantItemMaxStack(offer.index)
+    elseif C_MerchantFrame and C_MerchantFrame.GetMerchantItemMaxStack then
+        stack = C_MerchantFrame.GetMerchantItemMaxStack(offer.index)
+    end
+    stack = math.max(1, stack or 1)
     local bought = 0
     while missing > 0 do
         local n = math.min(missing, stack)
