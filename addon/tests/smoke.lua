@@ -2581,16 +2581,18 @@ do
     FG.Guide.Refresh = function() refreshes = refreshes + 1 end
     fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
     local first = P.pending.Amy
+    local timer1 = timers[#timers] -- the R's own timer is the last one it queued
     fire("CHAT_MSG_ADDON", "PWSYNC1", "900:5", "PARTY", "Amy-Realm")
     assert(P.pending.Amy == nil and P.progress.Amy[900], "the chunk clears the pending token")
     fire("CHAT_MSG_ADDON", "PWSYNC1", "R", "PARTY", "Amy-Realm")
     assert(P.pending.Amy and P.pending.Amy ~= first, "a new token for the second R")
-    assert(#timers == 2, "one timer per R")
-    table.remove(timers, 1)() -- the first R's timer: its token is no longer current
+    local timer2 = timers[#timers]
+    assert(timer1 ~= timer2, "one timer per R")
+    timer1() -- the first R's timer: its token is no longer current
     assert(P.progress.Amy and P.progress.Amy[900], "the first timer leaves the second R's progress")
     assert(P.pending.Amy, "the second R is still pending")
     refreshes = 0
-    table.remove(timers, 1)() -- the second R's own timer
+    timer2() -- the second R's own timer
     assert(P.pending.Amy == nil and P.progress.Amy[900] == nil, "the last timer clears the progress")
     assert(refreshes >= 1, "the timer redraws the guide")
     FG.Guide.Refresh = realRefresh
