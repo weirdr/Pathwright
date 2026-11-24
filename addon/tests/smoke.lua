@@ -3081,6 +3081,35 @@ do
 end
 print("merchant quest items ok")
 
+-- Merchant supplies on a client without the global GetItemCount (only C_Item.GetItemCount).
+do
+    local realGet, realMoney, realOpt = GetItemCount, GetMoney, FG.Get
+    local bought, carried = 0, 5
+    GetItemCount = nil
+    local realCI = C_Item.GetItemCount
+    C_Item.GetItemCount = function() return carried end
+    GetMoney = function() return 100000 end
+    FG.Get = function(self, k)
+        if k == "autoSupplies" then return true end
+        if k == "suppliesFood" then return 8 end
+        if k == "autoSellJunk" or k == "autoRepair" then return false end
+        return realOpt(self, k)
+    end
+    GetMerchantNumItems = function() return 1 end
+    GetMerchantItemID = function() return 4540 end
+    GetMerchantItemMaxStack = function() return 20 end
+    C_MerchantFrame = { GetItemInfo = function() return { price = 10, stackCount = 1, numAvailable = -1 } end }
+    BuyMerchantItem = function(_, n) bought = bought + (n or 1) end
+    local errors = PathwrightDB and PathwrightDB.errors and next(PathwrightDB.errors)
+    fire("MERCHANT_SHOW")
+    assert(bought == 3, "supplies bought with only C_Item.GetItemCount, got " .. bought)
+    assert(not (PathwrightDB and PathwrightDB.errors and next(PathwrightDB.errors)) or errors, "no error raised")
+    GetItemCount, GetMoney, FG.Get, C_Item.GetItemCount = realGet, realMoney, realOpt, realCI
+    GetMerchantNumItems, GetMerchantItemID, GetMerchantItemMaxStack, C_MerchantFrame, BuyMerchantItem =
+        nil, nil, nil, nil, nil
+end
+print("merchant supplies without GetItemCount ok")
+
 -- Skins: a skin registered through the public API styles every frame made so far.
 local skinned = {}
 PathwrightAPI.RegisterSkin("Test", function(frame, kind) skinned[kind] = (skinned[kind] or 0) + 1 end)
