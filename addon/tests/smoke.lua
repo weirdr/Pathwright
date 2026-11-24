@@ -257,6 +257,7 @@ GetMoney = function() return 0 end
 IsInInstance = function() return false end
 IsInGroup = function() return false end
 IsInRaid = function() return false end
+GetNumGroupMembers = function() return IsInGroup() and 2 or 0 end
 ObjectiveTrackerFrame = {
     hidden = false,
     Hide = function(self) self.hidden = true end,
