@@ -2633,7 +2633,9 @@ do
     -- Asked once per missing quest, until the roster changes; only once a request went out.
     local sentAsk = {}
     local c2, g2, r2, t2 = C_ChatInfo, IsInGroup, IsInRaid, GetTime
-    local now = 9000
+    -- The fake clock starts far behind the real stub: Party's throttle time (askedAt) then stays
+    -- behind real time once GetTime is restored, and a later ask is not swallowed by the throttle.
+    local now = t2() - 100000
     GetTime = function() return now end
     local function asks()
         local n = 0
@@ -2714,6 +2716,7 @@ do
         C_QuestLog.GetQuestObjectives = realObjectives
         onQuest[7102] = nil
     end
+    P.askedFor = {}
     GetTime = t2
     -- A redraw sends nothing.
     local before = #sentAsk
