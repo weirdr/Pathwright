@@ -3087,7 +3087,7 @@ do
     local bought, carried = 0, 5
     GetItemCount = nil
     local realCI = C_Item.GetItemCount
-    C_Item.GetItemCount = function() return carried end
+    C_Item.GetItemCount = function(id) return id == 4540 and carried or 0 end
     GetMoney = function() return 100000 end
     FG.Get = function(self, k)
         if k == "autoSupplies" then return true end
@@ -3100,10 +3100,15 @@ do
     GetMerchantItemMaxStack = function() return 20 end
     C_MerchantFrame = { GetItemInfo = function() return { price = 10, stackCount = 1, numAvailable = -1 } end }
     BuyMerchantItem = function(_, n) bought = bought + (n or 1) end
-    local errors = PathwrightDB and PathwrightDB.errors and next(PathwrightDB.errors)
+    local before = {}
+    for msg, n in pairs(PathwrightDB.errors or {}) do
+        before[msg] = n
+    end
     fire("MERCHANT_SHOW")
+    for msg, n in pairs(PathwrightDB.errors or {}) do
+        assert(before[msg] == n, "merchant handler raised: " .. msg)
+    end
     assert(bought == 3, "supplies bought with only C_Item.GetItemCount, got " .. bought)
-    assert(not (PathwrightDB and PathwrightDB.errors and next(PathwrightDB.errors)) or errors, "no error raised")
     GetItemCount, GetMoney, FG.Get, C_Item.GetItemCount = realGet, realMoney, realOpt, realCI
     GetMerchantNumItems, GetMerchantItemID, GetMerchantItemMaxStack, C_MerchantFrame, BuyMerchantItem =
         nil, nil, nil, nil, nil
