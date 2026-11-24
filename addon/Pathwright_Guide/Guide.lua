@@ -371,26 +371,43 @@ local function CooldownLeft(start, duration)
     return math.max(0, start + duration - GetTime())
 end
 
+--- Seconds since a cooldown started (nil when none is running or unknown).
+local function CooldownElapsed(start, duration)
+    if type(start) ~= "number" or type(duration) ~= "number" or start <= 0 or duration <= 0 then return nil end
+    return GetTime() - start
+end
+
+-- A cooldown that started this recently (seconds) is the hearthstone the player just used.
+local JUST_USED = 60
+
+--- Whether Astral Recall is known and ready (its cooldown left at most Guide.HEARTH_WAIT).
+local function RecallReady()
+    if not (IsPlayerSpell and IsPlayerSpell(ASTRAL_RECALL)) then return false end
+    local spell = C_Spell and C_Spell.GetSpellCooldown
+    if spell then
+        local ok, info = pcall(spell, ASTRAL_RECALL)
+        if not ok or type(info) ~= "table" then return false end
+        return CooldownLeft(info.startTime, info.duration) <= Guide.HEARTH_WAIT
+    end
+    if GetSpellCooldown then
+        local ok, start, duration = pcall(GetSpellCooldown, ASTRAL_RECALL)
+        return ok and CooldownLeft(start, duration) <= Guide.HEARTH_WAIT
+    end
+    return false
+end
+
 --- Whether the way home is closed for long: the hearthstone is on a cooldown above
---- Guide.HEARTH_WAIT, and no Astral Recall is ready instead. Without a hearthstone (or an API to
---- ask), nothing is known and the step stays as written.
+--- Guide.HEARTH_WAIT, and no Astral Recall is ready instead. A cooldown that has just started is
+--- the hearthstone the player took, not a block. Without a hearthstone (or an API to ask),
+--- nothing is known and the step stays as written.
 local function HearthBlocked()
     local item = C_Container and C_Container.GetItemCooldown or GetItemCooldown
     if not item or not GetTime then return false end
     local ok, start, duration = pcall(item, HEARTHSTONE)
     if not ok or CooldownLeft(start, duration) <= Guide.HEARTH_WAIT then return false end
-    local spell = C_Spell and C_Spell.GetSpellCooldown
-    if spell then
-        local ok2, info = pcall(spell, ASTRAL_RECALL)
-        if ok2 and type(info) == "table" and info.duration and info.duration > 0 and CooldownLeft(info.startTime, info.duration) == 0 then
-            return false
-        end
-        -- Known to the character and ready: a zero duration.
-        if ok2 and type(info) == "table" and info.duration == 0 and IsPlayerSpell and IsPlayerSpell(ASTRAL_RECALL) then
-            return false
-        end
-    end
-    return true
+    local elapsed = CooldownElapsed(start, duration)
+    if elapsed and elapsed < JUST_USED then return false end
+    return not RecallReady()
 end
 
 --- Whether a step is done; the second value is true when it was passed rather than played
@@ -499,9 +516,10 @@ function IsDone(step, index)
         return mark == true
     elseif step.k == "hearth" then
         if state.marks[index or state.step] then return true end
-        if HearthBlocked() then return true, true end
         local d = Distance(step)
-        return d ~= nil and d < 100
+        if d ~= nil and d < 100 then return true end
+        if HearthBlocked() then return true, true end
+        return false
     elseif step.k == "deathskip" then
         -- Died on purpose: done once back at the spirit healer the step stands at.
         if state.marks[index or state.step] then return true end
