@@ -863,7 +863,13 @@ local function Hash(text)
 end
 
 --- The seal of a record: of its text and its character's name.
-function Stats.Seal(wire, name) return string.format("%08x", Hash(wire .. "|" .. (name or "") .. "|" .. PEPPER)) end
+--- The game's string.format keeps %x and %d in a signed 32-bit integer and raises above 2^31 - 1,
+--- so the 32 bits go out as two halves of 16.
+function Stats.Seal(wire, name)
+    local h = Hash(wire .. "|" .. (name or "") .. "|" .. PEPPER)
+    local lo = h % 65536
+    return string.format("%04x%04x", (h - lo) / 65536, lo)
+end
 
 --- Whether a record can be: its item units add up, drops need kills, a kill takes a second,
 --- it was not handed in tomorrow.
