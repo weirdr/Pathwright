@@ -7,7 +7,7 @@ local FG = Pathwright
 local QuestLog = FG.QuestLog
 
 local PREFIX = "PWSYNC1"
-local Party = { progress = {} }
+local Party = { progress = {}, pending = {} }
 FG.Party = Party
 
 if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(PREFIX) end
@@ -101,9 +101,23 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     -- Asked for our progress: our log, whole.
     if message == "?" then return SendSoon() end
     if message == "R" then
-        Party.progress[name] = {}
-        if FG.Nameplates then FG.Nameplates:Refresh() end
+        -- A full update starts: what we have stays shown until its first chunk replaces it
+        -- (an empty log sends no chunk: the old data goes after a few seconds).
+        Party.pending[name] = (Party.pending[name] or 0) + 1
+        local token = Party.pending[name]
+        if C_Timer then
+            C_Timer.After(5, function()
+                if Party.pending[name] == token then
+                    Party.pending[name] = nil
+                    Party.progress[name] = {}
+                end
+            end)
+        end
         return
+    end
+    if Party.pending[name] then
+        Party.pending[name] = nil
+        Party.progress[name] = {}
     end
     local mine = Party.progress[name] or {}
     Party.progress[name] = mine
