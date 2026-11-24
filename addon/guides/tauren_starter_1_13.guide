@@ -179,7 +179,7 @@ turnin 96130
 do 754 at 51.8,68.4 icon use "Use the Winterhoof Cleansing Totem at the Winterhoof Water Well"
 do 771.1 at 51.8,68.6
 tip The Well Stones are the flat grey rocks around the well.
-do 745.1
+do 745.1 at 51.5,73.5
 tip The Palemane camp is just south of the well.
 do 743
 tip The Windfury harpies nest on the hills to the east. Interrupt the Wind Witches' heals.
