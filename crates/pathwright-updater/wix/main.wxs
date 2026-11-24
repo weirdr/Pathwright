@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The Windows installer of the Pathwright Updater (WiX 3, built by scripts/updater-msi.sh).
+  For the user who runs it, without administrator rights: the program goes under
+  %LOCALAPPDATA%\Programs\Pathwright Updater, with a Start menu shortcut and an entry in
+  "Installed apps" to remove it. The updater is started once installed; a build installed over
+  another replaces it (the running one is closed first). Removing it takes it off the programs
+  started at login (the updater does that itself, run with -uninstall).
+  Never change UpgradeCode or the components' Guids: Windows knows the installed updater by them.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="*" Name="Pathwright Updater" Language="1033" Version="$(var.Version)" Manufacturer="Pathwright"
+           UpgradeCode="D244E302-701F-43A4-AA31-90083E080EE0">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perUser"
+             Description="Keeps the Pathwright addon for WoW Forever up to date" />
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+                  DowngradeErrorMessage="A newer Pathwright Updater is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <Icon Id="AppIcon" SourceFile="$(var.Icon)" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/weirdr/Pathwright" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="LocalAppDataFolder">
+        <Directory Id="ProgramsFolder" Name="Programs">
+          <Directory Id="INSTALLFOLDER" Name="Pathwright Updater" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" />
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="Updater" Guid="9CD86702-E91A-4B55-913C-067031D189EC">
+        <File Id="UpdaterExe" Source="$(var.Exe)" Name="pathwright-updater.exe" />
+        <RegistryValue Root="HKCU" Key="Software\Pathwright\Updater" Name="Installed" Type="integer" Value="1"
+                       KeyPath="yes" />
+        <RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="StartMenuShortcut" Guid="65F08073-D66F-4A74-9D2F-407478EE6621">
+        <Shortcut Id="StartMenu" Name="Pathwright Updater" Target="[#UpdaterExe]" WorkingDirectory="INSTALLFOLDER"
+                  Description="Keeps the Pathwright addon up to date" />
+        <RegistryValue Root="HKCU" Key="Software\Pathwright\Updater" Name="Shortcut" Type="integer" Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="Main" Title="Pathwright Updater" Level="1">
+      <ComponentRef Id="Updater" />
+      <ComponentRef Id="StartMenuShortcut" />
+    </Feature>
+
+    <!-- The updater running (an older build, or the one being removed) is closed first. -->
+    <util:CloseApplication Id="CloseUpdater" Target="pathwright-updater.exe" CloseMessage="yes" RebootPrompt="no"
+                           TerminateProcess="0" />
+
+    <CustomAction Id="NoMoreAtLogin" FileKey="UpdaterExe" ExeCommand="--uninstall" Return="ignore" />
+    <CustomAction Id="StartUpdater" FileKey="UpdaterExe" ExeCommand="" Return="asyncNoWait" />
+    <InstallExecuteSequence>
+      <Custom Action="NoMoreAtLogin" Before="RemoveFiles">REMOVE="ALL" AND NOT UPGRADINGPRODUCTCODE</Custom>
+      <Custom Action="StartUpdater" After="InstallFinalize">NOT REMOVE</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>

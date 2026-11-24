@@ -13,7 +13,7 @@ A small system tray app (macOS and Windows) that keeps the Pathwright addon up t
   leaves the installed addon as it was. Other addons are never touched.
 - It finds World of Warcraft by itself (Battle.net's list of installed games, then the usual
   folders). **Choose WoW folder…** takes the game's folder, its `_forever_` folder or AddOns.
-- It starts at login from its first run; **Start at login** in its menu turns that off.
+- On its first run it asks whether to start at login; **Start at login** in its menu changes that.
 
 Its settings are in `settings.json` under the system's config folder, `Pathwright Updater`
 (`~/Library/Application Support` on macOS, `%APPDATA%` on Windows).
@@ -25,7 +25,10 @@ Its settings are in `settings.json` under the system's config folder, `Pathwrigh
 
 `.github/workflows/updater-release.yml` builds it after each push to main that changes it and
 publishes the builds to one release that always holds the newest (tag `updater`):
-`PathwrightUpdater-Windows.exe`, `PathwrightUpdater-macOS-AppleSilicon.zip` and
-`PathwrightUpdater-macOS-Intel.zip`. The repository's README links to them. Neither is signed by
+`PathwrightUpdater-Windows.msi` (the installer, built by `scripts/updater-msi.sh` from
+`wix/main.wxs`; `PathwrightUpdater-Windows.exe` is the program alone),
+`PathwrightUpdater-macOS-AppleSilicon.zip` and `PathwrightUpdater-macOS-Intel.zip`.
+`.github/workflows/updater-ci.yml` builds the Windows ones for each pull request that changes
+the updater. The repository's README links to them. Neither is signed by
 a developer account: Windows SmartScreen and macOS Gatekeeper warn the first time (Windows: More
 info, Run anyway; macOS: right-click, Open).

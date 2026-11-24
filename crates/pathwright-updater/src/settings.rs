@@ -11,7 +11,7 @@ pub struct Settings {
     /// The tag of the addon release installed last (Pathwright-vX.Y.Z).
     #[serde(default)]
     pub installed: Option<String>,
-    /// Start at login was set on the first run (then left to the player's choice).
+    /// The first run asked whether to start at login (then left to the menu's check box).
     #[serde(default)]
     pub autostart_set: bool,
 }
