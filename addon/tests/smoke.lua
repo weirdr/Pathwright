@@ -5724,6 +5724,13 @@ do
         return f
     end
     local canvas = FrameStub()
+    -- `DrawPath` makes its own child frame of the canvas with the global `CreateFrame`: that one
+    -- must be the recording stub, the others stay as they were.
+    local createFrame = CreateFrame
+    CreateFrame = function(kind, name, parent, ...)
+        if parent == canvas then return FrameStub() end
+        return createFrame(kind, name, parent, ...)
+    end
     local map = WorldMapFrame
     local getCanvas, getMapID = map.GetCanvas, map.GetMapID
     map.GetCanvas = function() return canvas end
@@ -5763,6 +5770,7 @@ do
     end)
     FG.Get, FG.Guide.Route, FG.Guide.CurrentStep = get, route, current
     map.GetCanvas, map.GetMapID = getCanvas, getMapID
+    CreateFrame = createFrame
     assert(ok, err)
 end
 
