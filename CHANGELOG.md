@@ -8,6 +8,10 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ## Unreleased
 
+### Addon
+
+- WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.
+
 ### WoW data
 
 - WoW Forever: the latest quest data, with named monsters and quest givers at the places they really stand instead of dozens of sightings, and more quests seen in game by players.
