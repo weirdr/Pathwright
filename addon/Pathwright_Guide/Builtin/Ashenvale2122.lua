@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795581256,
     next = "Hillsbrad Foothills (22-24)",
     carry = { 264, 1063, 1511, 1536, 3301, 6543, 6562, 93739 },
     variants = {
@@ -80,7 +80,7 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Watch Shenthul salute you, then /salute him back", q = 2460, o = 1, ic = "talk", n = "Shenthul", e = "npc", id = 3401, m = 1454, x = 43.05, y = 53.74, nt = { { l = 2, t = "Rogues only: Shenthul is in the Cleft of Shadow. Target him and type /salute once he has saluted you." } }, lvl = 21, only = { 3, 9, 19, 26 } },
         { k = "turnin", t = "Turn in The Shattered Salute to Shenthul", q = 2460, n = "Shenthul", e = "npc", id = 3401, m = 1454, x = 43.05, y = 53.74, lvl = 21, only = { 3, 9, 19, 26 } },
         { k = "accept", t = "Accept Deep Cover from Shenthul", q = 2458, n = "Shenthul", e = "npc", id = 3401, m = 1454, x = 43.05, y = 53.74, min = 20, pa = { 2460 }, nt = { { l = 2, t = "Keep the Flare Gun: you need it at the Venture Co. tower." } }, lvl = 21, only = { 3, 9, 19, 26 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, nt = { { l = 2, t = "Rogues only: set your hearthstone here, at the inn of the Valley of Strength. It brings you back from the tower." } }, lvl = 21, only = { 3, 9, 19, 26 }, wp = { 1771, -4284, 1779, -4296, 1763, -4304, 1738, -4279, 1763, -4254, 1763, -4229, 1754, -4221, 1713, -4238, 1688, -4263, 1696, -4263, 1696, -4279, 1713, -4296, 1713, -4321, 1696, -4363, 1629, -4429 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, inn = "Orgrimmar", ia = { 1637 }, nt = { { l = 2, t = "Rogues only: set your hearthstone here, at the inn of the Valley of Strength. It brings you back from the tower." } }, lvl = 21, only = { 3, 9, 19, 26 }, wp = { 1771, -4284, 1779, -4296, 1763, -4304, 1738, -4279, 1763, -4254, 1763, -4229, 1754, -4221, 1713, -4238, 1688, -4263, 1696, -4263, 1696, -4279, 1713, -4296, 1713, -4321, 1696, -4363, 1629, -4429 } },
         { k = "fly", t = "Fly to Crossroads", n = "Crossroads", e = "taxi", id = 25, m = 1454, x = 45.12, y = 63.89, lvl = 21, only = { 3, 9, 19, 26 }, wp = { 1634, -4439, 1629, -4429, 1654, -4404, 1654, -4329 } },
         { k = "turnin", t = "Turn in Deep Cover to Taskmaster Fizzule", q = 2458, n = "Taskmaster Fizzule", e = "npc", id = 7233, m = 1413, x = 55.44, y = 5.56, nt = { { l = 2, t = "Run north from the Crossroads along the road to Mor'shan Rampart; the tower stands east of the road, north of the Sludge Fen. In sight of it, fire the Flare Gun twice, then walk up to Taskmaster Fizzule and /salute him." } }, lvl = 21, only = { 3, 9, 19, 26 }, wp = { -442, -2596, -421, -2621, -371, -2638, -346, -2663, 538, -2663, 829, -2963, 1071, -2963, 1104, -2996 } },
         { k = "accept", t = "Accept Mission: Possible But Not Probable from Taskmaster Fizzule", q = 2478, n = "Taskmaster Fizzule", e = "npc", id = 7233, m = 1413, x = 55.44, y = 5.56, min = 20, pa = { 2458 }, lvl = 21, only = { 3, 9, 19, 26 } },

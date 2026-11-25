@@ -250,6 +250,19 @@ pub fn to_lua(routes: &[Route]) -> String {
                     lua_str(&t.name)
                 ));
             }
+            if let Some(inn) = &s.inn {
+                fields.push(format!("inn = {}", lua_str(inn)));
+            }
+            if !s.inn_areas.is_empty() {
+                fields.push(format!(
+                    "ia = {{ {} }}",
+                    s.inn_areas
+                        .iter()
+                        .map(ToString::to_string)
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                ));
+            }
             if let Some(c) = s.child {
                 fields.push(format!("cq = {c}"));
             }

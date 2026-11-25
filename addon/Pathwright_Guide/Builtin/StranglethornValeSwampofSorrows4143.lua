@@ -90,7 +90,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Skullsplitter Tusks from Kebok", q = 209, n = "Kebok", e = "npc", id = 737, m = 1434, x = 27.03, y = 77.17, min = 37, pa = { 189 }, lvl = 41 },
         { k = "accept", t = "Accept Dream Dust in the Swamp from Krazek", q = 1116, n = "Krazek", e = "npc", id = 773, m = 1434, x = 26.99, y = 77.23, min = 30, pa = { 1115 }, lvl = 41 },
         { k = "accept", t = "Accept Tran'rek from Krazek", q = 2864, n = "Krazek", e = "npc", id = 773, m = 1434, x = 26.99, y = 77.23, min = 40, lvl = 41 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Skindle", n = "Innkeeper Skindle", e = "npc", id = 6807, m = 1434, x = 27.06, y = 77.32, lvl = 41 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Skindle", n = "Innkeeper Skindle", e = "npc", id = 6807, m = 1434, x = 27.06, y = 77.32, inn = "Booty Bay", ia = { 35 }, lvl = 41 },
         { k = "accept", t = "Accept Venture Company Mining from Crank Fizzlebub", q = 600, n = "Crank Fizzlebub", e = "npc", id = 2498, m = 1434, x = 27.1, y = 77.28, min = 30, pa = { 605 }, lvl = 41 },
         { k = "accept", t = "Accept Stoley's Debt from \"Sea Wolf\" MacKinley", q = 2872, n = "\"Sea Wolf\" MacKinley", e = "npc", id = 2501, m = 1434, x = 27.74, y = 77.11, min = 40, lvl = 41, wp = { -14456, 492, -14438, 471 } },
         { k = "accept", t = "Accept Some Assembly Required from Drizzlik", q = 577, n = "Drizzlik", e = "npc", id = 2495, m = 1434, x = 28.26, y = 77.54, min = 31, pa = { 575 }, nt = { { l = 2, t = "Drizzlik is on the upper level of the docks." } }, lvl = 41 },

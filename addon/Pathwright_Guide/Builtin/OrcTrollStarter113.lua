@@ -175,7 +175,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Break a Few Eggs from Cook Torka", q = 815, n = "Cook Torka", e = "npc", id = 3191, m = 1411, x = 51.21, y = 42.47, min = 6, lvl = 7 },
         { k = "accept", t = "Accept This Fruit Could Bite Back from Cook Torka", q = 96825, n = "Cook Torka", e = "npc", id = 3191, m = 1411, x = 51.21, y = 42.47, min = 3, lvl = 7 },
         { k = "turnin", t = "Turn in A Peon's Burden to Innkeeper Grosk", q = 2161, n = "Innkeeper Grosk", e = "npc", id = 6928, m = 1411, x = 51.72, y = 41.83, lvl = 7 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Grosk", n = "Innkeeper Grosk", e = "npc", id = 6928, m = 1411, x = 51.72, y = 41.83, lvl = 7 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Grosk", n = "Innkeeper Grosk", e = "npc", id = 6928, m = 1411, x = 51.72, y = 41.83, inn = "Razor Hill", ia = { 362 }, lvl = 7 },
         { k = "turnin", t = "Turn in Camping 101: Blacksmithing to Dwukk", q = 97900, n = "Dwukk", e = "npc", id = 3174, m = 1411, x = 52.03, y = 40.72, lvl = 7, wp = { 334, -4697, 329, -4704, 338, -4713 } },
         { k = "turnin", t = "Turn in Camping 101: Engineering to Mukdrak", q = 97902, n = "Mukdrak", e = "npc", id = 11025, m = 1411, x = 52.18, y = 40.8, lvl = 7 },
         { k = "turnin", t = "Turn in Camping 101: Mining to Krunn", q = 97907, n = "Krunn", e = "npc", id = 3175, m = 1411, x = 51.81, y = 40.88, lvl = 7 },

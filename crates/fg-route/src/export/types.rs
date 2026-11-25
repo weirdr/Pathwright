@@ -197,6 +197,13 @@ pub struct Step {
     pub zone: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub zone_id: Option<i64>,
+    /// Bind steps: the English name of the inn's place (what `GetBindLocation` says) and its
+    /// AreaTable IDs (to match it in another language), so the addon passes the step when the
+    /// hearthstone is bound there already.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub inn: Option<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub inn_areas: Vec<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub map: Option<MapPointOut>,
     /// Inside a dungeon: where on its floor's map (`ui_map` a floor of `dungeon_floor`).
@@ -329,6 +336,8 @@ impl Step {
             target: None,
             zone: None,
             zone_id: None,
+            inn: None,
+            inn_areas: Vec::new(),
             map: None,
             floor: None,
             spots: Vec::new(),
