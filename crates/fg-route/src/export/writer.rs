@@ -316,6 +316,8 @@ impl StepWriter<'_> {
             target: None,
             zone: None,
             zone_id: None,
+            inn: None,
+            inn_areas: Vec::new(),
             map: None,
             floor: None,
             spots: Vec::new(),
@@ -807,6 +809,12 @@ impl StepWriter<'_> {
                         .arg("who", entity(loc))
                         .arg("zone", self.zone(loc.zone)),
                 );
+                // The inn's place as `GetBindLocation` names it: the addon passes the step when
+                // the hearthstone is bound there already.
+                if let Some((area, name)) = self.planner.world.place(&loc.pos) {
+                    step.inn = Some(name.to_owned());
+                    step.inn_areas = vec![area];
+                }
             }
             _ => {
                 step.kind = StepKind::FlightMaster;

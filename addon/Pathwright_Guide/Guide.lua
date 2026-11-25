@@ -397,12 +397,34 @@ local function RecallReady()
     return false
 end
 
--- The inns of the bind steps by innkeeper NPC: the name GetBindLocation gives in English. A step
--- may carry its own (`inn` name, `ia` area ids), which wins; the area ids of the profile (the
--- inn's name in the game's language) serve other languages.
+-- Bind steps written by an app or the guide builder carry their inn: `inn`, the English name
+-- GetBindLocation gives, and `ia`, its AreaTable ids (the profile finds those of the bind's name in the
+-- game's language). The table below is the fallback for guides written before that, by innkeeper NPC.
 local INNS = {
     [5688] = { name = "Gallows' End Tavern", areas = {} },
 }
+
+-- How close (yards) a binding seen next to an innkeeper must be to count as that inn: the planner's
+-- BIND_RADIUS.
+local BIND_RADIUS = 60
+
+--- Yards between the place the profile saw the character bind and a bind step, both turned into
+--- world coordinates so that the map the game reported them on does not matter; nil when unknown.
+local function BindDistance(at, step)
+    if not (at and at.x and at.y and step.m and step.x and step.y) then return nil end
+    if C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D and at.map then
+        local c1, w1 = C_Map.GetWorldPosFromMapPos(at.map, CreateVector2D(at.x / 100, at.y / 100))
+        local c2, w2 = C_Map.GetWorldPosFromMapPos(step.m, CreateVector2D(step.x / 100, step.y / 100))
+        if c1 and c1 == c2 and w1 and w2 then
+            local x1, y1 = w1:GetXY()
+            local x2, y2 = w2:GetXY()
+            return math.sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
+        end
+    end
+    -- No world positions: the same map in percent is all there is (about 1% of a zone).
+    if at.map == step.m then return math.max(math.abs(at.x - step.x), math.abs(at.y - step.y)) * BIND_RADIUS end
+    return nil
+end
 
 --- Whether the hearthstone is bound already to the inn of a bind step: GetBindLocation names it
 --- (English name, or an area id of the step's `ia` among those the profile found for the bind's
@@ -421,11 +443,8 @@ local function BoundHere(step)
             if id == want then return true end
         end
     end
-    local at = bind.position
-    if at and step.m and at.map == step.m and step.x and step.y then
-        return math.abs(at.x - step.x) < 1 and math.abs(at.y - step.y) < 1
-    end
-    return false
+    local d = BindDistance(bind.position, step)
+    return d ~= nil and d <= BIND_RADIUS
 end
 
 --- Whether the way home is closed for long: the hearthstone is on a cooldown above
@@ -2232,7 +2251,16 @@ end
 --- quest until the roster changes; Party:Ask still throttles). Called on events only, never
 --- from a redraw.
 function Guide:AskMissing()
-    if not FG.Party or not FG.Party.AskFor or not route or not state or not FG:Get("guideShown") or not FG:Get("uiShown") then return end
+    if
+        not FG.Party
+        or not FG.Party.AskFor
+        or not route
+        or not state
+        or not FG:Get("guideShown")
+        or not FG:Get("uiShown")
+    then
+        return
+    end
     for _, index in ipairs(CurrentGroup()) do
         local step = route.steps[index]
         if step and step.k == "objective" and step.q and QuestLog.IsOnQuest(step.q) then
@@ -2245,9 +2273,7 @@ end
 
 FG:On("QUEST_LOG_UPDATE", function() Guide:AskMissing() end)
 
-function Guide:ToggleShown()
-    FG:Save("guideShown", not FG:Get("guideShown"))
-end
+function Guide:ToggleShown() FG:Save("guideShown", not FG:Get("guideShown")) end
 
 -- The key bindings (Bindings.xml, the game's key bindings: Pathwright). What they do while playing
 -- is not in the addon's options.

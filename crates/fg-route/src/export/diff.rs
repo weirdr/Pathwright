@@ -826,6 +826,8 @@ mod tests {
             target,
             zone: Some(format!("zone {zone}")),
             zone_id: Some(zone),
+            inn: None,
+            inn_areas: Vec::new(),
             map: Some(MapPointOut {
                 ui_map: zone,
                 x: 50.0,

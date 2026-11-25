@@ -204,6 +204,36 @@ def place_of(kind, i, prefer_area):
     return None
 
 
+# Near an inn: a place of the zone map is its inn's when its overlay's center is this close (percent
+# of the map), as the app's landmarks name a place (`World::place`).
+INN_NEAR = 15.0
+
+
+def inn_place(step):
+    """Give a bind step the place of its inn: `inn`, the English name GetBindLocation says, and `ia`,
+    its AreaTable ids (to match it in another language), from the zone map's overlays closest to the
+    innkeeper. Left out when the data has no overlay there (the addon then falls back to its marks)."""
+    if "m" not in step:
+        return
+    best = None
+    for aid, name, cx, cy in rows("""
+            select t.ID, t.AreaName_lang,
+                   (o.OffsetX + o.TextureWidth / 2.0) * 100.0 / l.LayerWidth,
+                   (o.OffsetY + o.TextureHeight / 2.0) * 100.0 / l.LayerHeight
+            from client_worldmapoverlay o
+            join client_uimapxmapart x on x.UiMapArtID = o.UiMapArtID
+            join client_uimapart ua on ua.ID = o.UiMapArtID
+            join client_uimapartstylelayer l on l.UiMapArtStyleID = ua.UiMapArtStyleID and l.LayerIndex = 0
+            join client_areatable t on t.ID in (o.AreaID_0, o.AreaID_1, o.AreaID_2, o.AreaID_3)
+            where x.UiMapID = ?""", step["m"]):
+        d = math.hypot(float(cx) - step["x"], float(cy) - step["y"])
+        if d <= INN_NEAR and (best is None or d < best[0]):
+            best = (d, int(aid), name)
+    if best:
+        step["inn"] = best[2]
+        step["ia"] = [best[1]]
+
+
 def area_of_map(name):
     r = one("select ID from client_areatable where AreaName_lang=? and ParentAreaID=0 order by ID", name)
     return int(r[0]) if r else None
@@ -703,6 +733,8 @@ for n, text in lines:
         step = {"k": word, "t": t, "e": "npc", "id": npc, "n": nm}
         emit(step, n, opts, filt)
         place(step, place_of("npc", npc, area))
+        if word == "bind":
+            inn_place(step)
         continue
 
     if word == "ah":
@@ -1198,7 +1230,7 @@ def lua(v):
 
 
 ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
-         "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
+         "inn", "ia", "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")
 src = os.path.relpath(args.script)

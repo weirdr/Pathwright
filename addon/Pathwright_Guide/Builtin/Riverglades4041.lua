@@ -43,7 +43,7 @@ Pathwright.Builtin.Register({
     },
     steps = {
         { k = "goto", t = "Ride down the pass from the Badlands into the Riverglades and east along the road to Rog'mar, the Horde outpost", m = 2548, x = 59, y = 45.6, r = 40, lvl = 40 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Toka", n = "Innkeeper Toka", e = "npc", id = 256675, m = 2548, x = 57.99, y = 45.1, lvl = 40, wp = { -7941, -4753, -7921, -4721 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Toka", n = "Innkeeper Toka", e = "npc", id = 256675, m = 2548, x = 57.99, y = 45.1, inn = "Rog'mar", ia = { 16743 }, lvl = 40, wp = { -7941, -4753, -7921, -4721 } },
         { k = "turnin", t = "Turn in Finding Tan'jani to Tan'jani", q = 95143, n = "Tan'jani", e = "npc", id = 263190, m = 2548, x = 58.13, y = 45.32, nt = { { l = 2, t = "Tan'jani stands indoors." } }, lvl = 40 },
         { k = "accept", t = "Accept Fetch 'n' Fletch from Tan'jani", q = 95951, n = "Tan'jani", e = "npc", id = 263190, m = 2548, x = 58.13, y = 45.32, min = 36, lvl = 40 },
         { k = "accept", t = "Accept WANTED: Ghostmaw from WANTED!", q = 95992, ic = "object", n = "WANTED!", e = "object", id = 645164, m = 2548, x = 59.46, y = 47.03, min = 38, nt = { { l = 2, t = "Ghostmaw is a level 42 elite white crocolisk that swims up and down the river; you will cross his path often." } }, lvl = 40 },
