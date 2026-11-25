@@ -855,6 +855,24 @@ impl World {
         area
     }
 
+    /// The place an inn binds the hearthstone to, from the area the innkeeper stands in: its
+    /// English name (what `GetBindLocation` says) and the AreaTable IDs that carry it. Only a
+    /// subzone is a place of its own (a tavern, a village); a whole zone says nothing about
+    /// which of its inns it is, so none is given then rather than a nearby landmark's name.
+    pub fn inn_place(&self, area: i64) -> Option<(&str, Vec<i64>)> {
+        self.area_parents.contains_key(&area).then(|| {
+            let name = self.zone_name(area);
+            let mut ids: Vec<i64> = self
+                .zone_names
+                .iter()
+                .filter(|(_, n)| *n == name)
+                .map(|(&id, _)| id)
+                .collect();
+            ids.sort_unstable();
+            (name, ids)
+        })
+    }
+
     /// Nearest flight master node index within `radius` yards.
     pub fn taxi_near(&self, p: &Pos, radius: f64) -> Option<usize> {
         // Asked at every stop: only the nodes about as far along x are looked at (a yard more

@@ -433,11 +433,17 @@ local function BoundHere(step)
     local name = GetBindLocation and GetBindLocation()
     if not name or name == "" then return false end
     local inn = INNS[step.id] or {}
-    if (step.inn or inn.name) == name then return true end
+    -- Neither source hides the other: a guide's own name is tried with the table's.
+    if step.inn == name or inn.name == name then return true end
     local profile = PathwrightDB and PathwrightDB.profiles and PathwrightDB.profiles[FG:CharacterKey()]
     local bind = type(profile) == "table" and profile.bind
     if type(bind) ~= "table" or bind.name ~= name then return false end
-    local wanted = step.ia or inn.areas or {}
+    local wanted = {}
+    for _, list in ipairs({ step.ia or {}, inn.areas or {} }) do
+        for _, id in ipairs(list) do
+            table.insert(wanted, id)
+        end
+    end
     for _, id in ipairs(bind.areas or {}) do
         for _, want in ipairs(wanted) do
             if id == want then return true end

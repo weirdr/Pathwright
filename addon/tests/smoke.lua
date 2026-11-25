@@ -4371,6 +4371,61 @@ useRoute("bind-ia-test")
 assert(char.guide.step == 1, "a binding at another inn keeps the step, step " .. char.guide.step)
 profile.bind = nil
 bindLocation = "Kharanos"
+-- The bind step as the guide builder wrote it (the built-in Undead Starter guide, Innkeeper Renee):
+-- the player's report was a hearthstone bound in Brill's tavern, the step left to play.
+do
+    local renee, base
+    local before = #FG.Builtin.defs
+    assert(loadfile("addon/Pathwright_Guide/Builtin/UndeadStarter113.lua"))()
+    for i = before + 1, #FG.Builtin.defs do
+        local def = FG.Builtin.defs[i]
+        do
+            for v = 1, #def.variants do
+                local r = FG.Builtin.Expand(def, v)
+                for _, st in ipairs(r.steps) do
+                    if st.k == "bind" and st.id == 5688 and not renee then
+                        renee, base = st, r
+                    end
+                end
+            end
+        end
+    end
+    for _ = before + 1, #FG.Builtin.defs do
+        table.remove(FG.Builtin.defs)
+    end
+    assert(renee, "the Undead Starter guide has the bind step of Innkeeper Renee")
+    assert(renee.inn == "Gallows' End Tavern", "the step names the inn GetBindLocation says: " .. tostring(renee.inn))
+    local step = {}
+    for k, v in pairs(renee) do
+        step[k] = v
+    end
+    FG.Routes["bind-builtin-test"] = {
+        race = base.race,
+        class = base.class,
+        faction = base.faction,
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
+        steps = { step, { k = "accept", t = "Accept B", q = 8223, lvl = 1 } },
+    }
+    profile.bind = nil
+    bindLocation = "Gallows' End Tavern"
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 2, "bound in Brill's tavern: the built-in bind step is passed, step " .. char.guide.step)
+    bindLocation = "Kharanos"
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 1, "bound to another inn: the built-in bind step stays, step " .. char.guide.step)
+    -- Another language: the tavern's area ids, found by the profile for its name there.
+    bindLocation = "Taverne de la Fin des gibets"
+    profile.bind = { name = bindLocation, areas = { renee.ia[1] } }
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 2, "the tavern by its area id in another language, step " .. char.guide.step)
+    profile.bind = { name = bindLocation, areas = { 166 } }
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 1, "another place's area id keeps the step, step " .. char.guide.step)
+    profile.bind = nil
+    bindLocation = "Kharanos"
+end
 print("bind step ok")
 
 -- A quest handed in far ahead of the guide (found on the way, done out of order) does not pass

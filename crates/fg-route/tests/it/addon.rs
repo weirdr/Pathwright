@@ -197,3 +197,14 @@ fn capitals_are_known_from_the_area_flags() {
         assert!(!world.is_capital(zone), "{}", world.zone_name(zone));
     }
 }
+
+/// A bind step is given the inn's place from the area the innkeeper stands in: the tavern of
+/// Brill by its own name and ID, never a subzone nearby, and nothing for a whole zone.
+#[test]
+fn an_inn_place_is_the_area_of_the_innkeeper() {
+    let world = world(Faction::Horde);
+    let (name, ids) = world.inn_place(2119).unwrap();
+    assert_eq!(name, "Gallows' End Tavern");
+    assert!(ids.contains(&2119));
+    assert!(world.inn_place(85).is_none(), "Tirisfal Glades is a zone, not an inn");
+}
