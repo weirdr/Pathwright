@@ -804,7 +804,14 @@ do
         shown = nil
         FG.Guide:Refresh()
         for _, c in ipairs(shown and shown.tasks[1] and shown.tasks[1].chips or {}) do
-            if c.text == string.format(FG.T("Level %d needed to take this quest, you are %d"), 3, 2) then
+            if
+                c.text
+                == string.format(
+                    FG.T("Level %d needed to take this quest, you are %d: do the next steps and come back"),
+                    3,
+                    2
+                )
+            then
                 return true
             end
         end

@@ -163,6 +163,7 @@ FG.Locales.zhCN = {
     ["windows unlocked: drag them to move them"] = "窗口已解锁：拖动即可移动",
     ["for %s"] = "仅限%s",
     ["Level %d recommended, you are %d"] = "建议等级 %d，你是 %d 级",
+    ["Level %d needed to take this quest, you are %d: do the next steps and come back"] = "需要 %d 级才能接取此任务，你是 %d 级：先做接下来的步骤，之后再回来",
     ["marked done, waiting for %s"] = "已标记完成，等待%s",
     ["%s: step %d"] = "%s：第%d步",
     ["%s ahead: step %d"] = "%s领先：第%d步",

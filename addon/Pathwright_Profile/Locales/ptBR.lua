@@ -163,6 +163,7 @@ FG.Locales.ptBR = {
     ["windows unlocked: drag them to move them"] = "janelas destravadas: arraste-as para movê-las",
     ["for %s"] = "para %s",
     ["Level %d recommended, you are %d"] = "Nível %d recomendado, você é nível %d",
+    ["Level %d needed to take this quest, you are %d: do the next steps and come back"] = "Nível %d necessário para esta missão, você é nível %d: faça os próximos passos e volte",
     ["marked done, waiting for %s"] = "marcada como feita, aguardando %s",
     ["%s: step %d"] = "%s: etapa %d",
     ["%s ahead: step %d"] = "%s adiantado: etapa %d",

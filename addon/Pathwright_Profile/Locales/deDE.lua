@@ -163,6 +163,7 @@ FG.Locales.deDE = {
     ["windows unlocked: drag them to move them"] = "Fenster entsperrt: zum Verschieben ziehen",
     ["for %s"] = "für %s",
     ["Level %d recommended, you are %d"] = "Stufe %d empfohlen, du bist %d",
+    ["Level %d needed to take this quest, you are %d: do the next steps and come back"] = "Stufe %d nötig für diese Quest, du bist %d: erledige die nächsten Schritte und komm zurück",
     ["marked done, waiting for %s"] = "als erledigt markiert, wartet auf %s",
     ["%s: step %d"] = "%s: Schritt %d",
     ["%s ahead: step %d"] = "%s voraus: Schritt %d",
