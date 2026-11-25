@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Dustwallow Marsh (37-38)",
     carry = { 1106, 1136, 1373, 1712, 1714, 5762, 5763 },
     variants = {
@@ -51,7 +51,7 @@ Pathwright.Builtin.Register({
         { k = "goto", t = "Follow the road south through the jungle to Booty Bay, at the southern tip of Stranglethorn", m = 1434, x = 28.1, y = 74.4, r = 25, nt = { { l = 2, t = "Keep to the road: the trolls, ogres and raptors away from it are higher level than you." } }, lvl = 36, wp = { -12414, 149, -12396, 129, -12404, 113, -12463, 163, -12496, 171, -12721, 171, -12738, 188, -12813, 188, -12938, 304, -12988, 321, -13104, 438, -13246, 438, -13263, 421, -13313, 421, -13438, 304, -13546, 304, -13563, 288, -13613, 288, -13663, 238, -13871, 246, -13921, 296, -13954, 304, -14096, 304, -14121, 329, -14238, 329, -14279, 371, -14279, 413, -14321, 463, -14354, 429, -14346, 421 } },
         { k = "accept", t = "Accept Supply and Demand from Drizzlik", q = 575, n = "Drizzlik", e = "npc", id = 2495, m = 1434, x = 28.26, y = 77.54, min = 26, nt = { { l = 2, t = "Drizzlik has a shop on the upper walkway on the far side of the bay." } }, lvl = 36, wp = { -14334, 428, -14346, 421, -14371, 429, -14379, 421, -14429, 421, -14446, 429 } },
         { k = "accept", t = "Accept Singing Blue Shards from Crank Fizzlebub", q = 605, n = "Crank Fizzlebub", e = "npc", id = 2498, m = 1434, x = 27.1, y = 77.28, min = 30, lvl = 36, wp = { -14467, 417, -14438, 454, -14438, 479 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Skindle", n = "Innkeeper Skindle", e = "npc", id = 6807, m = 1434, x = 27.06, y = 77.32, lvl = 36 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Skindle", n = "Innkeeper Skindle", e = "npc", id = 6807, m = 1434, x = 27.06, y = 77.32, inn = "Booty Bay", ia = { 35 }, lvl = 36 },
         { k = "accept", t = "Accept Investigate the Camp from Krazek", q = 201, n = "Krazek", e = "npc", id = 773, m = 1434, x = 26.99, y = 77.23, min = 28, nt = { { l = 2, t = "Krazek and Kebok stand on the top floor of the inn; Crank Fizzlebub is on its ground floor." } }, lvl = 36 },
         { k = "accept", t = "Accept Bloodscalp Ears from Kebok", q = 189, n = "Kebok", e = "npc", id = 737, m = 1434, x = 27.03, y = 77.17, min = 30, lvl = 36 },
         { k = "accept", t = "Accept Hostile Takeover from Kebok", q = 213, n = "Kebok", e = "npc", id = 737, m = 1434, x = 27.03, y = 77.17, min = 31, lvl = 36 },

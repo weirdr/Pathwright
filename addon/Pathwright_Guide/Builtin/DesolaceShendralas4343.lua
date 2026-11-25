@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795582230,
     next = "Tanaris (43-43)",
     carry = { 243, 1117, 1137, 1183, 1261, 1373, 2864, 2872, 93464 },
     variants = {
@@ -46,7 +46,7 @@ Pathwright.Builtin.Register({
         { k = "note", t = "Buy a Barbaric Harness at the auction house, for Talra of the Gelkis later (leatherworkers can make one)", n = "Auctioneer Thathung", e = "npc", id = 8673, m = 1454, x = 55.9, y = 62.71, nt = { { l = 2, t = "It is cheap and rarely farmed; a Gelkis leatherworker asks for it in Desolace." } }, lvl = 43, wp = { 1713, -4382, 1671, -4413, 1671, -4438, 1688, -4454 } },
         { k = "fly", t = "Fly to Shadowprey Village", n = "Shadowprey Village", e = "taxi", id = 38, m = 1454, x = 45.12, y = 63.89, nt = { { l = 2, t = "No flight path to Shadowprey yet? Fly to Sun Rock Retreat in the Stonetalon Mountains and ride south-west into Desolace." } }, lvl = 43, wp = { 1687, -4465, 1654, -4421, 1654, -4329 } },
         { k = "flight_master", t = "Get the flight path from Thalon", n = "Thalon", e = "npc", id = 6726, m = 1443, x = 21.6, y = 74.13, lvl = 43 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Sikewa", n = "Innkeeper Sikewa", e = "npc", id = 11106, m = 1443, x = 24.09, y = 68.21, lvl = 43, wp = { -1770, 3262, -1638, 3121, -1621, 3121 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Sikewa", n = "Innkeeper Sikewa", e = "npc", id = 11106, m = 1443, x = 24.09, y = 68.21, inn = "Shadowprey Village", ia = { 2408 }, lvl = 43, wp = { -1770, 3262, -1638, 3121, -1621, 3121 } },
         { k = "accept", t = "Accept Portals of the Legion from Taiga Wisemane", q = 5581, n = "Taiga Wisemane", e = "npc", id = 11624, m = 1443, x = 25.82, y = 68.21, min = 32, pa = { 5381 }, nt = { { l = 2, t = "Use the Hand of Iruxos at a portal of Mannoroc Coven once its guardian is dead." } }, lvl = 43, wp = { -1593, 3150, -1604, 3146, -1604, 3113 } },
         { k = "accept", t = "Accept Lost Shipping Crate from Lost Shipping Crate", q = 94895, ic = "object", n = "Lost Shipping Crate", e = "object", id = 658115, m = 1443, x = 23.44, y = 72.61, min = 36, nt = { { l = 2, t = "The crate lies by the water south of the village. Its owner is in the Riverglades, for a later guide." } }, lvl = 43, wp = { -1593, 3073, -1704, 3179 } },
         { k = "accept", t = "Accept Khan Hratha from Umarak", q = 96222, n = "Umarak", e = "npc", id = 253066, m = 1443, x = 43.48, y = 78.98, min = 35, nt = { { l = 2, t = "Umarak, a Kolkar, stands east of the Gelkis Village." } }, lvl = 43, wp = { -1725, 3180, -1713, 3171, -1721, 3129, -1804, 3046, -1804, 3021, -1813, 3013, -1821, 2779, -1813, 2771, -1813, 2663, -1904, 2571, -1904, 2313 } },

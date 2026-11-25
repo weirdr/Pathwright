@@ -1149,7 +1149,10 @@ do
         set("toolstripLayout", "list")
         assert(one.caption:GetText() == "Highland Strider", "a list shows the whole name")
         assert(at.one[1] == "TOPLEFT" and at.two[5] < at.one[5], "a list: one button under the other")
-        assert(at.icon[1] == "LEFT" and at.caption[1] == "LEFT" and at.caption[3] == "RIGHT", "left: the name right of the icon")
+        assert(
+            at.icon[1] == "LEFT" and at.caption[1] == "LEFT" and at.caption[3] == "RIGHT",
+            "left: the name right of the icon"
+        )
         assert(at.bar[1] == "BOTTOMLEFT", "held by the guide's left corner")
         set("toolstripSide", "right")
         assert(at.one[1] == "TOPRIGHT" and at.icon[1] == "RIGHT", "right: the icons at the right edge")
@@ -1188,14 +1191,19 @@ do
             local pinned = { size = 10 }
             function pinned:SetFontObject() end
             function pinned:GetFont() return "Fonts\\Suite.ttf", self.size, "OUTLINE" end
-            function pinned:SetFont(path, size, flags) self.path, self.size, self.flags = path, size, flags end
+            function pinned:SetFont(path, size, flags)
+                self.path, self.size, self.flags = path, size, flags
+            end
             FG.Skin:Resize(pinned, 14)
             assert(pinned.size == 14 and pinned.flags == "OUTLINE", "a pinned text takes the size, keeps its face")
             pinned.path = nil
             FG.Skin:Resize(pinned, 14)
             assert(pinned.path == nil, "nothing written when the size is already right")
         end
-        assert(strip.Limited("Élan des bois", 4) == "Élan..." and strip.Limited("Wolf", 4) == "Wolf", "cut between characters")
+        assert(
+            strip.Limited("Élan des bois", 4) == "Élan..." and strip.Limited("Wolf", 4) == "Wolf",
+            "cut between characters"
+        )
         one.SetPoint, two.SetPoint, one.icon.SetPoint, one.caption.SetPoint, bar.SetPoint = nil, nil, nil, nil, nil
         one.icon.SetSize = nil
         strip:SetSteps(guideSteps)
@@ -1299,7 +1307,8 @@ do
     assert(#Skin.Fonts() == 0 and Skin.FontFile("Morpheus") == nil, "none of them where they cannot write the language")
     GetLocale = locale
     -- The library the addons share their fonts through.
-    local shared = { Expressway = "Interface\\AddOns\\Shared\\Expressway.ttf", ["Friz Quadrata TT"] = "Fonts\\FRIZQT__.TTF" }
+    local shared =
+        { Expressway = "Interface\\AddOns\\Shared\\Expressway.ttf", ["Friz Quadrata TT"] = "Fonts\\FRIZQT__.TTF" }
     local media = LibStub:NewLibrary("LibSharedMedia-3.0", 1)
     function media:List(kind)
         local names = {}
@@ -1350,7 +1359,10 @@ do
     Skin:ApplyFont()
     assert(font.path == "Fonts\\GAME.TTF" and Skin.FontFile() == nil, "a font that is gone: the game's font")
     entries = Entries()
-    assert(entries[#entries].value == "Expressway" and entries[#entries].label:find("Expressway", 1, true), "still listed, as gone")
+    assert(
+        entries[#entries].value == "Expressway" and entries[#entries].label:find("Expressway", 1, true),
+        "still listed, as gone"
+    )
     FG:Save("uiFont", nil)
     assert(FG:Get("uiFont") == "" and font.path == "Fonts\\GAME.TTF", "back to the default")
     CreateFont, GameFontNormal = createFont, gameFont
@@ -1464,7 +1476,10 @@ do
     C_NamePlate.GetNamePlates = function() error("refused") end
     sword.aimed = nil
     sword.PreClick(sword)
-    assert(sword.aimed == byName and strip.expect and strip.expect.skipTapped, "by name and checked: " .. tostring(sword.aimed))
+    assert(
+        sword.aimed == byName and strip.expect and strip.expect.skipTapped,
+        "by name and checked: " .. tostring(sword.aimed)
+    )
     C_NamePlate.GetNamePlates = plates
     mobs.target = nil
     -- A target already fit: kept, the skull and the ping on it (no target taken by name).
@@ -1493,7 +1508,8 @@ do
     -- interaction distances (10, then 28 yards), then the player's own harmful spells' ranges.
     local near = {}
     CheckInteractDistance = function(u, index) return near[u] ~= nil and near[u] <= ({ [3] = 10, [4] = 28 })[index] end
-    local book = { { name = "Fireball", range = 35 }, { name = "Frost Nova", range = 0 }, { name = "Shoot", range = 30 } }
+    local book =
+        { { name = "Fireball", range = 35 }, { name = "Frost Nova", range = 0 }, { name = "Shoot", range = 30 } }
     GetNumSpellTabs = function() return 1 end
     GetSpellTabInfo = function() return "General", nil, 0, #book end
     GetSpellBookItemName = function(i) return book[i].name end
@@ -1532,9 +1548,15 @@ do
     sword.PreClick(sword)
     assert(sword.aimed == strip.TabMacro("Kobold Vermin", false) and not sword.aimed:find("/tm"), sword.aimed)
     near.nameplate1, near.nameplate2, near.nameplate5 = nil, 8, nil
-    assert(strip.Pick("Kobold Vermin", true) == "nameplate2", "the mob next to the player, off the middle of the screen")
+    assert(
+        strip.Pick("Kobold Vermin", true) == "nameplate2",
+        "the mob next to the player, off the middle of the screen"
+    )
     near.nameplate2, near.nameplate3 = 33, 29
-    assert(strip.Range("nameplate2") == 35 and strip.Range("nameplate3") == 30, "spell ranges: " .. strip.Range("nameplate3"))
+    assert(
+        strip.Range("nameplate2") == 35 and strip.Range("nameplate3") == 30,
+        "spell ranges: " .. strip.Range("nameplate3")
+    )
     assert(strip.Pick("Kobold Vermin", true) == "nameplate3", "within the shorter spell's range")
     near.nameplate2, near.nameplate3 = 20, 20
     assert(strip.Pick("Kobold Vermin", true) == "nameplate3", "the same range: the closest to the middle")
@@ -1813,7 +1835,12 @@ do
     local cd, saved = { 0, 0 }, C_Container
     C_Container = { GetItemCooldown = function() return cd[1], cd[2], 1 end }
     FG.Routes["hearth-test"] = {
-        race = 7, class = 8, faction = "Alliance", fromLevel = 1, toLevel = 60, time = 1,
+        race = 7,
+        class = 8,
+        faction = "Alliance",
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
         steps = {
             { k = "hearth", t = "Use your hearthstone", lvl = 3 },
             { k = "note", t = "Cooldown check item,6948,>0,1. Hearth to Everlook", lvl = 3 },
@@ -1839,12 +1866,14 @@ do
     assert(not a and not b, "astral recall ready: steps stay")
     C_Spell, IsPlayerSpell = savedSpell, savedKnown
     -- Cooldown just started with the player at the step: played, not passed.
-    FG.Routes["hearth-test"].steps[1].m, FG.Routes["hearth-test"].steps[1].x, FG.Routes["hearth-test"].steps[1].y = 1426, 30.1, 71.3
+    FG.Routes["hearth-test"].steps[1].m, FG.Routes["hearth-test"].steps[1].x, FG.Routes["hearth-test"].steps[1].y =
+        1426, 30.1, 71.3
     cd = { GetTime() - 5, 3600 }
     useRoute("hearth-test")
     local done, passed = FG.Guide:IsDone(FG.Guide:Route().steps[1], 1)
     assert(done and not passed, "hearth just used and arrived: done and played")
-    FG.Routes["hearth-test"].steps[1].m, FG.Routes["hearth-test"].steps[1].x, FG.Routes["hearth-test"].steps[1].y = nil, nil, nil
+    FG.Routes["hearth-test"].steps[1].m, FG.Routes["hearth-test"].steps[1].x, FG.Routes["hearth-test"].steps[1].y =
+        nil, nil, nil
     -- Cooldown just started, player not at the step: neither done nor passed; past the window: passed.
     a, b = probe(GetTime() - 5, 3600)
     assert(not a and not b, "hearth just used, not arrived: neither done nor passed")
@@ -2012,8 +2041,26 @@ do
         },
         steps = {
             { k = "goto", t = "Shared", m = 1411, x = 40, y = 60, lvl = 1, wp = { 1, 2, 3, 4 } },
-            { k = "goto", t = "Per variant", m = 1411, x = 45, y = 65, lvl = 1, wp = { 5, 6 }, wv = { { { 2 }, { 7, 8, 9, 10 } }, { { 3 }, {} } } },
-            { k = "goto", t = "Some", m = 1411, x = 50, y = 70, lvl = 1, only = { 1, 3 }, wv = { { { 3 }, { 11, 12 } } } },
+            {
+                k = "goto",
+                t = "Per variant",
+                m = 1411,
+                x = 45,
+                y = 65,
+                lvl = 1,
+                wp = { 5, 6 },
+                wv = { { { 2 }, { 7, 8, 9, 10 } }, { { 3 }, {} } },
+            },
+            {
+                k = "goto",
+                t = "Some",
+                m = 1411,
+                x = 50,
+                y = 70,
+                lvl = 1,
+                only = { 1, 3 },
+                wv = { { { 3 }, { 11, 12 } } },
+            },
             { k = "note", t = "None", lvl = 1 },
         },
     }
@@ -2024,7 +2071,10 @@ do
     end
     assert(wp(1, 1) == "1,2,3,4" and wp(2, 1) == "1,2,3,4" and wp(3, 1) == "1,2,3,4", "a walk for all")
     assert(wp(1, 2) == "5,6" and wp(2, 2) == "7,8,9,10" and wp(3, 2) == "none", "a walk per variant")
-    assert(wp(1, 3) == "none" and wp(2, 3) == "none" and #FG.Builtin.Expand(walks, 2).steps == 3, "variant 2: no step 3")
+    assert(
+        wp(1, 3) == "none" and wp(2, 3) == "none" and #FG.Builtin.Expand(walks, 2).steps == 3,
+        "variant 2: no step 3"
+    )
     assert(wp(3, 3) == "11,12" and wp(3, 4) == "none", "the variant's own walk, none")
     assert(walks.steps[2].wp[1] == 5 and walks.steps[2].wv, "the def unchanged")
     print("builtin ok")
@@ -2118,7 +2168,10 @@ do
     end
     local function Log(kills, claws, more)
         local log = {
-            [900] = { level = 10, { have = kills, need = 3, type = "monster", text = "Kobold slain: " .. kills .. "/3" } },
+            [900] = {
+                level = 10,
+                { have = kills, need = 3, type = "monster", text = "Kobold slain: " .. kills .. "/3" },
+            },
             [901] = { level = 10, { have = claws, need = 2, type = "item", text = "Wolf Claw: " .. claws .. "/2" } },
         }
         for id, entry in pairs(more or {}) do
@@ -2212,7 +2265,10 @@ do
     assert(q and q.prefix == "PWStats" and q.channel == "WHISPER" and q.target:find("^Ally%-"), "to online friends")
     local f, seal, wire = S.Parse(q.text:sub(3))
     assert(f and f.q == 900 and f.k == 3 and f.t == 18 and f.de == 1, q.text)
-    assert(seal == rec.seal and seal == S.Seal(wire, "Brouz") and S.Plausible(f, wallNow), "sealed with the character's name")
+    assert(
+        seal == rec.seal and seal == S.Seal(wire, "Brouz") and S.Plausible(f, wallNow),
+        "sealed with the character's name"
+    )
     local total, count, records, mark = S:Total()
     -- 40 + 3, speed 150 at most (par 60 s in 18 s), one death: 178.
     assert(total == 178 and count == 1 and records == 1 and mark == tonumber(seal, 16), "my total: " .. total)
@@ -2270,7 +2326,11 @@ do
 
     -- An escort: taken, a death, a failure, complete, handed in: flat.
     local function Escort(state)
-        return Log(3, 1, { [903] = Rats(1), [950] = { level = 10, complete = state == "done", failed = state == "failed" } })
+        return Log(
+            3,
+            1,
+            { [903] = Rats(1), [950] = { level = 10, complete = state == "done", failed = state == "failed" } }
+        )
     end
     S:Apply(Escort())
     local escort = quests[950]
@@ -2315,7 +2375,10 @@ do
     assert(byName.Ally.total == 103 and byName.Ally.count == 1, "a friend's total is worked out from their records")
     assert(byName.Old.total == 500, "a friend with the older addon: as they say")
     local tip = S:TooltipLines({ q = 900 })
-    assert(tip and table.concat(tip, "\n"):find("Ally", 1, true) and table.concat(tip, "\n"):find("103", 1, true), "friends in the tooltip")
+    assert(
+        tip and table.concat(tip, "\n"):find("Ally", 1, true) and table.concat(tip, "\n"):find("103", 1, true),
+        "friends in the tooltip"
+    )
     -- A record edited (its seal no longer its own), an impossible one, a second one for the quest.
     local peer = PathwrightDB.stats.peers[friend]
     S:Receive("F|" .. theirs:gsub(",60,", ",6,", 1) .. "," .. theirSeal, friend)
@@ -2325,13 +2388,19 @@ do
     assert(peer.refused == 2 and not peer.q[905], "30 kills in 2 s cannot be")
     local again = S.Wire(900, { d = wallNow - 10, t = 20, lv = 10, pl = 10, k = 3 })
     S:Receive("F|" .. again .. "," .. S.Seal(again, "Ally"), friend)
-    assert(peer.flag and peer.q[900] == theirs .. "," .. theirSeal, "the first record of a quest stays, the player is marked")
+    assert(
+        peer.flag and peer.q[900] == theirs .. "," .. theirSeal,
+        "the first record of a quest stays, the player is marked"
+    )
     peer.flag = nil
     -- A request: a page of our records, oldest first, then its end.
     sent = {}
     S:Receive("S|0", friend)
     drain()
-    assert(sent[1].text:find("^F|9%d%d,") and sent[1].text:find(";", 1, true), "records sent by the page: " .. sent[1].text)
+    assert(
+        sent[1].text:find("^F|9%d%d,") and sent[1].text:find(";", 1, true),
+        "records sent by the page: " .. sent[1].text
+    )
     assert(sent[#sent].text == "E|0|" .. wallNow, "then the end of the page: " .. sent[#sent].text)
     sent = {}
     S:Receive("R|0", old)
@@ -2339,7 +2408,9 @@ do
     assert(sent[1] and sent[1].text:find("^Q|9%d%d|"), "the older addon is still answered")
     -- An item nothing is known to drop: the kills of a mob count from its first one, once it
     -- has dropped the item.
-    local function Hides(n) return { level = 10, { have = n, need = 2, type = "item", text = "Odd Hide: " .. n .. "/2" } } end
+    local function Hides(n)
+        return { level = 10, { have = n, need = 2, type = "item", text = "Odd Hide: " .. n .. "/2" } }
+    end
     S:Apply(Log(3, 1, { [903] = Rats(1), [904] = Hides(0) }))
     S:Fight(true, 60)
     clockNow = clockNow + 9
@@ -2351,7 +2422,10 @@ do
     S:Tick()
     S:Kill(60, "odd-2")
     S:Loot({ { npc = 60, guid = "odd-2", items = { ["odd hide"] = 1 }, ids = { ["odd hide"] = 4004 } } })
-    assert(odd.s == wallNow and odd.t == 14 and odd.ki == 2 and odd.dr == 1 and not odd.pre, "its clock from the first kill")
+    assert(
+        odd.s == wallNow and odd.t == 14 and odd.ki == 2 and odd.dr == 1 and not odd.pre,
+        "its clock from the first kill"
+    )
     assert(odd.src[60], "the mob is one of its own from now on")
     -- The guild: a hello on its channel is taken from any member, ours coming back is not.
     local realInGuild, realMembers, realRoster = IsInGuild, GetNumGuildMembers, GetGuildRosterInfo
@@ -2418,7 +2492,10 @@ do
             for q = 1100, 1200 do
                 wire = S.Wire(q, { d = wallNow - 20, t = 60, lv = 10, pl = 10, k = 3 })
                 seal = S.Seal(wire, "Ally")
-                if tonumber(seal, 16) >= 2147483648 then quest = q break end
+                if tonumber(seal, 16) >= 2147483648 then
+                    quest = q
+                    break
+                end
             end
             assert(quest, "a seal with the top bit set")
             assert(#seal == 8 and seal:match("^%x+$"), "eight hex digits")
@@ -2438,7 +2515,10 @@ do
     S:Receive(sealed(911, "Ally"), friend, nil, nil, "Ally Wick")
     S:Receive(sealed(912, "AllyWick"), friend, nil, nil, "Ally Wick")
     S:Receive(sealed(913, "Ally Wick"), friend, nil, nil, "Ally Wick-Realm")
-    assert(peer.q[911] and peer.q[912] and peer.q[913] and peer.refused == refusedBefore, "sealed with any form of their name")
+    assert(
+        peer.q[911] and peer.q[912] and peer.q[913] and peer.refused == refusedBefore,
+        "sealed with any form of their name"
+    )
     S:Receive(sealed(914, "Wick"), friend, nil, nil, "Ally Wick")
     assert(not peer.q[914] and peer.refused == refusedBefore + 1, "but not with another name")
     assert(table.concat(S.SealNames("Kel Wick-Realm"), "|") == "KelWick|Kel|Kel Wick", "the names a seal may bear")
@@ -2462,8 +2542,14 @@ do
         if e.me then mine = e end
         if e.full == friend then ally = e end
     end
-    assert(mine.total == 70 and mine.records == 1 and mine.parts.base == 100 and mine.parts.lost == 30, "my escort's parts")
-    assert(ally.total == 103 and ally.parts.base == 43 and ally.parts.speed == 60 and ally.colors[3] == 1, "a friend's parts")
+    assert(
+        mine.total == 70 and mine.records == 1 and mine.parts.base == 100 and mine.parts.lost == 30,
+        "my escort's parts"
+    )
+    assert(
+        ally.total == 103 and ally.parts.base == 43 and ally.parts.speed == 60 and ally.colors[3] == 1,
+        "a friend's parts"
+    )
     local history = S:History(ally)
     assert(#history == 1 and history[1].q == 900 and history[1].pts == 103 and history[1].t == 60, "a friend's quests")
     assert(S:History(mine)[1].escort and S:History(mine)[1].pts == 70, "my quests: the escort")
@@ -2479,7 +2565,10 @@ do
     assert(not (board.rows[6] and board.rows[6]:IsShown()), "fewer rows when the window is made shorter")
     assert(board.barWidth == 600 - 308 - 32 and board.pane.bar.width == 70, "a wider list, the narrowest detail")
     board.tabs.guild:GetScript("OnClick")(board.tabs.guild)
-    assert(S.scope == "guild" and board.rows[2]:IsShown() and not board.rows[3]:IsShown(), "the guild's tab: its members")
+    assert(
+        S.scope == "guild" and board.rows[2]:IsShown() and not board.rows[3]:IsShown(),
+        "the guild's tab: its members"
+    )
     assert(S.selected == "me", "a tab opens on you too")
     S.scope = nil
     S:ToggleBoard()
@@ -2503,7 +2592,10 @@ end
 do
     local key, realm = FG.CharacterKeyOf("Weirdman", "", "Player-6923-0001C1EB")
     assert(key == "Weirdman-#6923-0001C1EB" and realm == "#6923-0001C1EB", "a character's own key: " .. key)
-    assert(FG.CharacterKeyOf("Weirdman", nil, "Player-6923-03BF5F88") ~= key, "another character of the name: another key")
+    assert(
+        FG.CharacterKeyOf("Weirdman", nil, "Player-6923-03BF5F88") ~= key,
+        "another character of the name: another key"
+    )
     assert(FG.CharacterKeyOf("Brouz", "Realm", "Player-1-2") == "Brouz-Realm", "a realm with a name: as before")
     assert(select(2, FG.CharacterKeyOf("Weirdman", "", nil)) == "", "not known yet without a realm or a GUID")
     local db = {
@@ -2515,14 +2607,32 @@ do
         sent = { ["Weirdman-#6923"] = 7 },
     }
     local druid, shaman, warlock = "Weirdman-#6923-AAAA", "Weirdman-#6923-BBBB", "Weirdman-#6923-CCCC"
-    assert(FG.AdoptCharacter(db, druid, "Weirdman", "#6923-AAAA", "DRUID", "Tauren", 6) == nil, "the druid takes nobody's")
+    assert(
+        FG.AdoptCharacter(db, druid, "Weirdman", "#6923-AAAA", "DRUID", "Tauren", 6) == nil,
+        "the druid takes nobody's"
+    )
     assert(db.characters[druid] == nil and db.characters["Weirdman-#6923"], "what was the shaman's stays for it")
-    assert(FG.AdoptCharacter(db, shaman, "Weirdman", "#6923-BBBB", "SHAMAN", "Troll", 8) == "Weirdman-#6923", "the shaman's")
-    assert(db.characters[shaman].guide.route == "Feralas (45-46)" and not db.characters["Weirdman-#6923"], "moved to it")
-    assert(db.profiles[shaman].level == 46 and db.sent[shaman] == 7 and not db.sent["Weirdman-#6923"], "with its profile")
-    assert(FG.AdoptCharacter(db, warlock, "Weirdman", "#6923-CCCC", "WARLOCK", "Orc", 2) == "Weirdman-", "the warlock's")
+    assert(
+        FG.AdoptCharacter(db, shaman, "Weirdman", "#6923-BBBB", "SHAMAN", "Troll", 8) == "Weirdman-#6923",
+        "the shaman's"
+    )
+    assert(
+        db.characters[shaman].guide.route == "Feralas (45-46)" and not db.characters["Weirdman-#6923"],
+        "moved to it"
+    )
+    assert(
+        db.profiles[shaman].level == 46 and db.sent[shaman] == 7 and not db.sent["Weirdman-#6923"],
+        "with its profile"
+    )
+    assert(
+        FG.AdoptCharacter(db, warlock, "Weirdman", "#6923-CCCC", "WARLOCK", "Orc", 2) == "Weirdman-",
+        "the warlock's"
+    )
     assert(db.characters[warlock].guide.route == "Riverglades (44-45)", "each its own guide")
-    assert(FG.AdoptCharacter(db, "Brouz-Realm", "Brouz", "Realm", "MAGE", "Gnome", 7) == nil, "nothing to do with a realm's name")
+    assert(
+        FG.AdoptCharacter(db, "Brouz-Realm", "Brouz", "Realm", "MAGE", "Gnome", 7) == nil,
+        "nothing to do with a realm's name"
+    )
     print("character keys ok")
 end
 
@@ -2537,13 +2647,20 @@ do
     assert(report.client.locale == "frFR" and report.addon.release == "dev", "the game and the addon")
     assert(type(report.quests) == "table" and report.place.map, "the quest log and the place")
     local guide = report.guide
-    assert(guide and guide.name == FG.Guide:RouteName() and guide.step == FG.Guide:CurrentStep(), "the guide and its step")
+    assert(
+        guide and guide.name == FG.Guide:RouteName() and guide.step == FG.Guide:CurrentStep(),
+        "the guide and its step"
+    )
     assert(guide.of == #FG.Guide:Route().steps and guide.now and guide.now.i == guide.step, "the step itself")
     local text = F:Text("The wolves are not at the marker")
-    assert(text:find("^Please open a GitHub issue from this report%.\n```json\n{") and text:find("\n```$"), text:sub(1, 80))
+    assert(
+        text:find("^Please open a GitHub issue from this report%.\n```json\n{") and text:find("\n```$"),
+        text:sub(1, 80)
+    )
     assert(#text <= 1900, "one Discord message: " .. #text)
     -- Too long to paste: the parts that say least go first, the words typed last.
-    local big = { report = "pathwright-feedback", v = 1, what_went_wrong = string.rep("é", 250), quests = {}, errors = {} }
+    local big =
+        { report = "pathwright-feedback", v = 1, what_went_wrong = string.rep("é", 250), quests = {}, errors = {} }
     for i = 1, 40 do
         big.quests[i] = { 90000 + i, 0, { { 3, 8 }, { 0, 12 }, { 1, 1 } } }
         big.errors[#big.errors + 1] = string.rep("x", 100)
@@ -2714,8 +2831,20 @@ do
         C_QuestLog.GetQuestObjectives = function(q)
             if q == 7102 then
                 return {
-                    { text = "First thing: 0/4", type = "monster", finished = false, numFulfilled = 0, numRequired = 4 },
-                    { text = "Second thing: 0/6", type = "monster", finished = false, numFulfilled = 0, numRequired = 6 },
+                    {
+                        text = "First thing: 0/4",
+                        type = "monster",
+                        finished = false,
+                        numFulfilled = 0,
+                        numRequired = 4,
+                    },
+                    {
+                        text = "Second thing: 0/6",
+                        type = "monster",
+                        finished = false,
+                        numFulfilled = 0,
+                        numRequired = 6,
+                    },
                 }
             end
             return realObjectives(q)
@@ -4216,6 +4345,136 @@ useRoute("visits-test")
 assert(char.guide.step == 5, "visits before the last turn-in are done, step " .. char.guide.step)
 assert(char.guide.marks[1] and char.guide.marks[3] and not char.guide.marks[5], "only the visits behind")
 completed[8201] = nil
+
+-- A bind step done already: the hearthstone is bound to the inn of the innkeeper.
+FG.Routes["bind-test"] = {
+    race = 7,
+    class = 8,
+    faction = "Alliance",
+    fromLevel = 1,
+    toLevel = 60,
+    time = 1,
+    steps = {
+        { k = "bind", t = "Bind", e = "npc", id = 5688, m = 1420, x = 61.72, y = 52.05, lvl = 1 },
+        { k = "accept", t = "Accept B", q = 8221, lvl = 1 },
+    },
+}
+bindLocation = "Kharanos"
+useRoute("bind-test")
+assert(char.guide.step == 1, "bound to another inn: the bind step stays, step " .. char.guide.step)
+bindLocation = "Gallows' End Tavern"
+useRoute("bind-test")
+assert(char.guide.step == 2, "bound to the inn already: the bind step is passed, step " .. char.guide.step)
+-- Another language: the profile saw the bind next to the innkeeper.
+bindLocation = "Taverne de la Fin des gibets"
+profile.bind = { name = bindLocation, areas = {}, position = { map = 1420, x = 61.7, y = 52 } }
+useRoute("bind-test")
+assert(char.guide.step == 2, "bound here in another language, step " .. char.guide.step)
+profile.bind = { name = bindLocation, areas = {} }
+useRoute("bind-test")
+assert(char.guide.step == 1, "an unknown inn in another language stays, step " .. char.guide.step)
+-- Another language, nothing seen at the binding, the inn from the guide's own `ia`.
+FG.Routes["bind-ia-test"] = {
+    race = 7,
+    class = 8,
+    faction = "Alliance",
+    fromLevel = 1,
+    toLevel = 60,
+    time = 1,
+    steps = {
+        {
+            k = "bind",
+            t = "Bind",
+            e = "npc",
+            id = 6928,
+            m = 1429,
+            x = 40,
+            y = 61,
+            inn = "Lions Rest",
+            ia = { 4411 },
+            lvl = 1,
+        },
+        { k = "accept", t = "Accept B", q = 8222, lvl = 1 },
+    },
+}
+bindLocation = "Auberge du Lion"
+profile.bind = { name = bindLocation, areas = { 4411 } }
+useRoute("bind-ia-test")
+assert(char.guide.step == 2, "bound to the step's inn by area id alone, step " .. char.guide.step)
+profile.bind = { name = bindLocation, areas = { 9999 } }
+useRoute("bind-ia-test")
+assert(char.guide.step == 1, "another inn's area id keeps the step, step " .. char.guide.step)
+-- English name written by the guide for an innkeeper the addon has no table entry for.
+bindLocation = "Lions Rest"
+profile.bind = nil
+useRoute("bind-ia-test")
+assert(char.guide.step == 2, "the step's own inn name passes it, step " .. char.guide.step)
+-- A binding seen near the innkeeper, on another map than the step's: compared in world yards.
+bindLocation = "Auberge du Lion"
+profile.bind = { name = bindLocation, areas = {}, position = { map = 1429, x = 40.2, y = 61.1 } }
+useRoute("bind-ia-test")
+assert(char.guide.step == 2, "a binding next to the innkeeper passes, step " .. char.guide.step)
+profile.bind = { name = bindLocation, areas = {}, position = { map = 1429, x = 55, y = 61 } }
+useRoute("bind-ia-test")
+assert(char.guide.step == 1, "a binding at another inn keeps the step, step " .. char.guide.step)
+profile.bind = nil
+bindLocation = "Kharanos"
+-- The bind step as the guide builder wrote it (the built-in Undead Starter guide, Innkeeper Renee):
+-- the player's report was a hearthstone bound in Brill's tavern, the step left to play.
+do
+    local renee, base
+    local before = #FG.Builtin.defs
+    assert(loadfile("addon/Pathwright_Guide/Builtin/UndeadStarter113.lua"))()
+    for i = before + 1, #FG.Builtin.defs do
+        local def = FG.Builtin.defs[i]
+        do
+            for v = 1, #def.variants do
+                local r = FG.Builtin.Expand(def, v)
+                for _, st in ipairs(r.steps) do
+                    if st.k == "bind" and st.id == 5688 and not renee then
+                        renee, base = st, r
+                    end
+                end
+            end
+        end
+    end
+    for _ = before + 1, #FG.Builtin.defs do
+        table.remove(FG.Builtin.defs)
+    end
+    assert(renee, "the Undead Starter guide has the bind step of Innkeeper Renee")
+    assert(renee.inn == "Gallows' End Tavern", "the step names the inn GetBindLocation says: " .. tostring(renee.inn))
+    local step = {}
+    for k, v in pairs(renee) do
+        step[k] = v
+    end
+    FG.Routes["bind-builtin-test"] = {
+        race = base.race,
+        class = base.class,
+        faction = base.faction,
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
+        steps = { step, { k = "accept", t = "Accept B", q = 8223, lvl = 1 } },
+    }
+    profile.bind = nil
+    bindLocation = "Gallows' End Tavern"
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 2, "bound in Brill's tavern: the built-in bind step is passed, step " .. char.guide.step)
+    bindLocation = "Kharanos"
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 1, "bound to another inn: the built-in bind step stays, step " .. char.guide.step)
+    -- Another language: the tavern's area ids, found by the profile for its name there.
+    bindLocation = "Taverne de la Fin des gibets"
+    profile.bind = { name = bindLocation, areas = { renee.ia[1] } }
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 2, "the tavern by its area id in another language, step " .. char.guide.step)
+    profile.bind = { name = bindLocation, areas = { 166 } }
+    useRoute("bind-builtin-test")
+    assert(char.guide.step == 1, "another place's area id keeps the step, step " .. char.guide.step)
+    profile.bind = nil
+    bindLocation = "Kharanos"
+end
+print("bind step ok")
 
 -- A quest handed in far ahead of the guide (found on the way, done out of order) does not pass
 -- the visits before it: only those followed by a quest step done, up to the first one not done.
@@ -7712,12 +7971,18 @@ ShareTest = nil
 -- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)
 local function SuiteFontTest()
     local Skin = FG.Skin
-    local facade = { Font = function(fs)
-        local _, size = fs:GetFont()
-        fs:SetFont("Suite.ttf", size, "")
-    end }
+    local facade = {
+        Font = function(fs)
+            local _, size = fs:GetFont()
+            fs:SetFont("Suite.ttf", size, "")
+        end,
+    }
     FG:Save("suiteSkin", true)
-    EllesmereUI.skin(setmetatable(facade, { __index = function() return function() end end }))
+    EllesmereUI.skin(setmetatable(facade, {
+        __index = function()
+            return function() end
+        end,
+    }))
     assert(Skin:Suite() == "EllesmereUI", "the suite is ready")
     local text = { size = 12 }
     function text:GetFont() return self.path, self.size, self.flags end

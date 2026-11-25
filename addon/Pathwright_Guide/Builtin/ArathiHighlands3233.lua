@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795582230,
     next = "Thousand Needles (33-34)",
     carry = { 96, 1112, 1712, 1714 },
     variants = {
@@ -57,7 +57,7 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Fardel's Head", q = 1164, o = 3, ic = "get", n = "Fardel's Head", e = "item", id = 5831, c = 1, m = 1417, x = 55.67, y = 38.45, mobs = { "Fardel Dabyrie" }, mi = { 4479 }, nt = { { l = 2, t = "The Dabyrie Farmstead is on the way east to Hammerfall. Kenata and Marcel are inside the buildings; Fardel walks around the farm." } }, lvl = 32 },
         { k = "accept", t = "Accept Hammerfall from Gor'mul", q = 655, n = "Gor'mul", e = "npc", id = 2792, m = 1417, x = 72.64, y = 33.93, min = 29, lvl = 32, wp = { -1056, -2871, -979, -2946, -979, -2988, -938, -3046, -938, -3071, -913, -3096, -913, -3179, -871, -3221, -863, -3504, -871, -3513, -896, -3504, -921, -3479 } },
         { k = "flight_master", t = "Get the flight path from Urda", n = "Urda", e = "npc", id = 2851, m = 1417, x = 73.02, y = 32.7, lvl = 32 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Adegwa", n = "Innkeeper Adegwa", e = "npc", id = 9501, m = 1417, x = 73.84, y = 32.46, lvl = 32 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Adegwa", n = "Innkeeper Adegwa", e = "npc", id = 9501, m = 1417, x = 73.84, y = 32.46, inn = "Hammerfall", ia = { 321 }, lvl = 32 },
         { k = "turnin", t = "Turn in The Hammer May Fall to Drum Fel", q = 676, n = "Drum Fel", e = "npc", id = 2771, m = 1417, x = 74.24, y = 33.92, lvl = 32 },
         { k = "accept", t = "Accept Call to Arms from Drum Fel", q = 677, n = "Drum Fel", e = "npc", id = 2771, m = 1417, x = 74.24, y = 33.92, min = 30, lvl = 32 },
         { k = "turnin", t = "Turn in Hammerfall to Tor'gan", q = 655, n = "Tor'gan", e = "npc", id = 2706, m = 1417, x = 74.72, y = 36.29, lvl = 32, wp = { -947, -3539, -996, -3538 } },

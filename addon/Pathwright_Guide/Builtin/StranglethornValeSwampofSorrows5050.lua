@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Blasted Lands (50-51)",
     carry = { 580, 1122, 1444, 2874, 2932, 3568, 3908, 4120 },
     variants = {
@@ -82,7 +82,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in The Bloodsail Buccaneers to Fleet Master Seahorn", q = 608, n = "Fleet Master Seahorn", e = "npc", id = 2487, m = 1434, x = 27.15, y = 76.98, lvl = 50 },
         { k = "fly", t = "Fly to Stonard", n = "Stonard", e = "taxi", id = 56, m = 1434, x = 26.87, y = 77.1, lvl = 50 },
         { k = "turnin", t = "Turn in Return to Fel'Zerul to Fel'zerul", q = 1444, n = "Fel'zerul", e = "npc", id = 1443, m = 1435, x = 47.93, y = 54.78, nt = { { l = 2, t = "Fel'zerul is upstairs in the great hall." } }, lvl = 50, wp = { -10457, -3279, -10446, -3296, -10463, -3313 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Karakul", n = "Innkeeper Karakul", e = "npc", id = 6930, m = 1435, x = 45.16, y = 56.66, lvl = 50, wp = { -10459, -3322, -10446, -3296, -10471, -3263 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Karakul", n = "Innkeeper Karakul", e = "npc", id = 6930, m = 1435, x = 45.16, y = 56.66, inn = "Stonard", ia = { 75 }, lvl = 50, wp = { -10459, -3322, -10446, -3296, -10471, -3263 } },
         { k = "accept", t = "Accept The Swamp Talker from Bengor", q = 2623, n = "Bengor", e = "npc", id = 7643, m = 1435, x = 44.97, y = 57.37, min = 45, pa = { 2622 }, lvl = 50 },
         { k = "objective", t = "Warchief's Orders", q = 2623, o = 1, ic = "get", n = "Warchief's Orders", e = "item", id = 8463, c = 1, m = 1435, x = 62.84, y = 86.29, spots = { { m = 1435, x = 63.66, y = 90.69 }, { m = 1435, x = 63.12, y = 80.76 }, { m = 1435, x = 65.87, y = 71.07 } }, mobs = { "Swamp Talker" }, mi = { 950 }, nt = { { l = 2, t = "The Swamp Talker is in Stagalbog Cave (its mouth is near 66,76): keep right inside, to the room at the back (around 62,89), where he stands with two or three murlocs and calls more, one at a time." } }, lvl = 50, wp = { -10498, -3254, -10463, -3271, -10546, -3354, -10554, -3388, -10571, -3404, -10579, -3446, -10629, -3504, -10638, -3529, -10638, -3621, -10746, -3738, -10829, -3738, -10913, -3663 } },
         { k = "turnin", t = "Turn in The Swamp Talker to Fallen Hero of the Horde", q = 2623, n = "Fallen Hero of the Horde", e = "npc", id = 7572, m = 1435, x = 34.29, y = 66.14, nt = { { l = 2, t = "The Fallen Hero of the Horde stands alone in the south-west of the swamp." } }, lvl = 50, wp = { -10940, -3664, -10913, -3688, -10888, -3696, -10846, -3738, -10788, -3738, -10754, -3704, -10713, -3704, -10529, -3521, -10521, -3096, -10604, -3013 } },

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Dustwallow Marsh (43-44)",
     carry = { 243, 1117, 1137, 1183, 1261, 2864, 2872, 94895 },
     variants = {
@@ -59,7 +59,7 @@ Pathwright.Builtin.Register({
         { k = "flight_master", t = "Get the flight path from Bulkrek Ragefist", n = "Bulkrek Ragefist", e = "npc", id = 7824, m = 1446, x = 51.6, y = 25.4, nt = { { l = 2, t = "Bulkrek Ragefist, the wind rider master, stands at the north edge of town." } }, lvl = 43 },
         { k = "turnin", t = "Turn in Tran'rek to Tran'rek", q = 2864, n = "Tran'rek", e = "npc", id = 7876, m = 1446, x = 51.58, y = 26.79, nt = { { l = 2, t = "Tran'rek's Scarab Shells is for a later guide." } }, lvl = 43, wp = { -7043, -3779, -7063, -3796, -7088, -3796 } },
         { k = "accept", t = "Accept Gritty Business from Quinn", q = 97534, n = "Quinn", e = "npc", id = 11756, m = 1446, x = 51.1, y = 27.9, min = 40, lvl = 43, wp = { -7107, -3778, -7138, -3746 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Fizzgrimble", n = "Innkeeper Fizzgrimble", e = "npc", id = 7733, m = 1446, x = 52.5, y = 27.94, nt = { { l = 2, t = "The innkeeper stands inside the inn." } }, lvl = 43 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Fizzgrimble", n = "Innkeeper Fizzgrimble", e = "npc", id = 7733, m = 1446, x = 52.5, y = 27.94, inn = "Gadgetzan", ia = { 976 }, nt = { { l = 2, t = "The innkeeper stands inside the inn." } }, lvl = 43 },
         { k = "accept", t = "Accept Water Pouch Bounty from Spigot Operator Luglunket", q = 1707, n = "Spigot Operator Luglunket", e = "npc", id = 7408, m = 1446, x = 52.43, y = 28.44, min = 40, lvl = 43 },
         { k = "turnin", t = "Turn in Into the Field to Chief Engineer Bilgewhizzle", q = 243, n = "Chief Engineer Bilgewhizzle", e = "npc", id = 7407, m = 1446, x = 52.42, y = 28.44, lvl = 43 },
         { k = "accept", t = "Accept Slake That Thirst from Chief Engineer Bilgewhizzle", q = 379, n = "Chief Engineer Bilgewhizzle", e = "npc", id = 7407, m = 1446, x = 52.42, y = 28.44, min = 38, pa = { 243 }, lvl = 43 },

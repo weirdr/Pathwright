@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Feralas & Un'Goro Crater (49-50)",
     carry = { 580, 650, 864, 1122, 1429, 2641, 2874, 2932, 3123, 3444 },
     variants = {
@@ -54,7 +54,7 @@ Pathwright.Builtin.Register({
         { k = "flight_master", t = "Get the flight path from Gorkas", n = "Gorkas", e = "npc", id = 4314, m = 1425, x = 81.7, y = 81.76, lvl = 48 },
         { k = "accept", t = "Accept Snapjaws, Mon! from Katoom the Angler", q = 7815, n = "Katoom the Angler", e = "npc", id = 14740, m = 1425, x = 80.33, y = 81.54, min = 44, lvl = 48 },
         { k = "accept", t = "Accept Gammerita, Mon! from Katoom the Angler", q = 7816, n = "Katoom the Angler", e = "npc", id = 14740, m = 1425, x = 80.33, y = 81.54, min = 44, lvl = 48 },
-        { k = "bind", t = "Set your hearthstone with Lard", n = "Lard", e = "npc", id = 14731, m = 1425, x = 78.14, y = 81.38, lvl = 48, wp = { -626, -4668, -596, -4638, -596, -4613 } },
+        { k = "bind", t = "Set your hearthstone with Lard", n = "Lard", e = "npc", id = 14731, m = 1425, x = 78.14, y = 81.38, inn = "Revantusk Village", ia = { 3317 }, lvl = 48, wp = { -626, -4668, -596, -4638, -596, -4613 } },
         { k = "accept", t = "Accept Lard Lost His Lunch from Lard", q = 7840, n = "Lard", e = "npc", id = 14731, m = 1425, x = 78.14, y = 81.38, min = 44, lvl = 48 },
         { k = "accept", t = "Accept Dark Vessels from Primal Torntusk", q = 7850, n = "Primal Torntusk", e = "npc", id = 14736, m = 1425, x = 78.2, y = 81.18, min = 46, lvl = 48 },
         { k = "accept", t = "Accept Kidnapped Elder Torntusk! from Primal Torntusk", q = 7845, n = "Primal Torntusk", e = "npc", id = 14736, m = 1425, x = 78.2, y = 81.18, min = 46, lvl = 48 },

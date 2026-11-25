@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Winterspring (58-59)",
     carry = { 1123, 3564, 5601, 6029, 6030 },
     variants = {
@@ -43,7 +43,7 @@ Pathwright.Builtin.Register({
     },
     steps = {
         { k = "accept", t = "Accept A Call to Arms: The Plaguelands! from Harbinger Balthazad", q = 5094, n = "Harbinger Balthazad", e = "npc", id = 10879, m = 1458, x = 63.9, y = 44.08, min = 50, nt = { { l = 2, t = "Harbinger Balthazad walks a slow circle around the Trade Quarter." } }, lvl = 56 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Norman", n = "Innkeeper Norman", e = "npc", id = 6741, m = 1458, x = 67.74, y = 37.89, lvl = 56, wp = { 1596, 260, 1621, 221, 1629, 229 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Norman", n = "Innkeeper Norman", e = "npc", id = 6741, m = 1458, x = 67.74, y = 37.89, inn = "Undercity", ia = { 1497 }, lvl = 56, wp = { 1596, 260, 1621, 221, 1629, 229 } },
         { k = "train", t = "Train with Garen Largo", n = "Garen Largo", e = "npc", id = 260093, m = 1458, x = 47.53, y = 14.99, lvl = 56, only = { 8 }, wp = { 1635, 223, 1674, 267, 1679, 246, 1721, 246, 1729, 254, 1729, 271, 1713, 288, 1713, 321, 1738, 346, 1771, 354, 1788, 371 } },
         { k = "train", t = "Train with Christoph Walker", n = "Christoph Walker", e = "npc", id = 4593, m = 1458, x = 46.93, y = 15.23, lvl = 56, only = { 1, 7, 13, 17, 24 }, wp = { 1635, 223, 1674, 267, 1679, 246, 1721, 246, 1729, 254, 1729, 271, 1713, 288, 1713, 321, 1738, 346, 1771, 354, 1788, 371 } },
         { k = "train", t = "Train with Carolyn Ward", n = "Carolyn Ward", e = "npc", id = 4582, m = 1458, x = 83.86, y = 72.07, lvl = 56, only = { 3, 9, 19, 26 }, wp = { 1635, 223, 1654, 238, 1704, 238, 1721, 254, 1846, 238, 1854, 229, 1888, 263, 1888, 321, 1871, 354, 1863, 479, 1846, 496, 1538, 488, 1529, 479, 1496, 479, 1454, 454, 1321, 321, 1321, 229, 1354, 129, 1454, 21, 1479, 29, 1438, 71 } },

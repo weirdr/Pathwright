@@ -208,6 +208,34 @@ def place_of(kind, i, prefer_area):
     return None
 
 
+# The place each inn binds the hearthstone to is listed in overrides/inns.toml (the guide writer of
+# the app reads the same file): the English name GetBindLocation says after binding with that
+# innkeeper. An innkeeper missing there gets no `inn`, and the addon falls back to its marks and the
+# binding's position, so a bind step without one must be a deliberate choice: NO_INN lists them.
+import tomllib
+
+with open(os.path.join(ROOT, "overrides", "inns.toml"), "rb") as f:
+    INN_PLACES = {i["npc"]: i["place"] for i in tomllib.load(f)["inn"]}
+
+# Innkeepers left without a place on purpose: WoW Forever's camps, which have no AreaTable row.
+NO_INN = {256675, 255894, 244512, 254089, 255940}
+
+
+def inn_place(step):
+    """Give a bind step the place of its inn: `inn`, the English name GetBindLocation says, and `ia`,
+    the AreaTable ids of that name (to match it in another language)."""
+    name = INN_PLACES.get(step["id"])
+    if not name:
+        if step["id"] not in NO_INN:
+            sys.exit(f"bind {step['id']}: add the inn's place to overrides/inns.toml (or to NO_INN)")
+        return
+    ids = [int(r[0]) for r in rows("select ID from client_areatable where AreaName_lang=? order by ID", name)]
+    if not ids:
+        sys.exit(f"overrides/inns.toml: no area named {name!r} for npc {step['id']}")
+    step["inn"] = name
+    step["ia"] = ids
+
+
 def area_of_map(name):
     r = one("select ID from client_areatable where AreaName_lang=? and ParentAreaID=0 order by ID", name)
     return int(r[0]) if r else None
@@ -719,6 +747,8 @@ for n, text in lines:
         step = {"k": word, "t": t, "e": "npc", "id": npc, "n": nm}
         emit(step, n, opts, filt)
         place(step, place_of("npc", npc, area))
+        if word == "bind":
+            inn_place(step)
         continue
 
     if word == "ah":
@@ -1214,7 +1244,7 @@ def lua(v):
 
 
 ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
-         "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
+         "inn", "ia", "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")
 src = os.path.relpath(args.script)

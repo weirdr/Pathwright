@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795582230,
     next = "Riverglades (40-41)",
     carry = { 243, 669, 687, 1106, 1136, 1240, 1270, 1276, 1373, 95141, 97332 },
     variants = {
@@ -58,7 +58,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Report to Helgrum from Neeka Bloodscar", q = 1420, n = "Neeka Bloodscar", e = "npc", id = 5394, m = 1418, x = 6.49, y = 47.2, min = 30, nt = { { l = 2, t = "Neeka Bloodscar keeps watch from the top of a tower. Report to Helgrum is for Stonard, in a later guide: keep it." } }, lvl = 39 },
         { k = "accept", t = "Accept Supplies and Studies from Mus'hale", q = 97663, n = "Mus'hale", e = "npc", id = 269647, m = 1418, x = 4.09, y = 46.22, min = 34, lvl = 39 },
         { k = "flight_master", t = "Get the flight path from Gorrik", n = "Gorrik", e = "npc", id = 2861, m = 1418, x = 3.99, y = 44.78, lvl = 39 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Shul'kar", n = "Innkeeper Shul'kar", e = "npc", id = 9356, m = 1418, x = 2.82, y = 45.86, lvl = 39 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Shul'kar", n = "Innkeeper Shul'kar", e = "npc", id = 9356, m = 1418, x = 2.82, y = 45.86, inn = "Kargath", ia = { 340 }, lvl = 39 },
         { k = "accept", t = "Accept Badlands Reagent Run from Jarkal Mossmeld", q = 2258, n = "Jarkal Mossmeld", e = "npc", id = 6868, m = 1418, x = 2.42, y = 46.06, min = 36, nt = { { l = 2, t = "Jarkal is upstairs in the building at the back of Kargath." } }, lvl = 39 },
         { k = "objective", t = "Coyote Jawbone x30", q = 1419, o = 1, ic = "get", n = "Coyote Jawbone", e = "item", id = 6166, c = 30, m = 1418, x = 18.5, y = 78.7, spots = { { m = 1418, x = 48.24, y = 34.29 }, { m = 1418, x = 52.92, y = 20.53 }, { m = 1418, x = 50.91, y = 13.66 } }, mobs = { "Crag Coyote", "Elder Crag Coyote", "Feral Crag Coyote", "Rabid Crag Coyote" }, mi = { 2727, 2729, 2728, 2730 }, bg = true, lvl = 39 },
         { k = "objective", t = "Crag Coyote Fang x10", q = 2258, o = 2, ic = "get", n = "Crag Coyote Fang", e = "item", id = 7846, c = 10, m = 1418, x = 18.5, y = 78.7, spots = { { m = 1418, x = 48.24, y = 34.29 }, { m = 1418, x = 52.92, y = 20.53 }, { m = 1418, x = 50.91, y = 13.66 } }, mobs = { "Crag Coyote", "Elder Crag Coyote", "Feral Crag Coyote", "Rabid Crag Coyote" }, mi = { 2727, 2729, 2728, 2730 }, bg = true, nt = { { l = 2, t = "Every Crag Coyote drops a jawbone; only about one in three drops a fang. The Elder Crag Coyotes roam all of the west." } }, lvl = 39 },

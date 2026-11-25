@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Azshara (54-54)",
     carry = { 3518, 3563, 3568, 3909, 4120, 4494, 5084, 5158 },
     variants = {
@@ -52,7 +52,7 @@ Pathwright.Builtin.Register({
         { k = "fly", t = "Fly to Gadgetzan", n = "Gadgetzan", e = "taxi", id = 40, m = 1413, x = 63.06, y = 37.18, lvl = 53, wp = { -1345, -4048, -1313, -4013, -1313, -3904, -1146, -3729, -996, -3729, -954, -3771 } },
         { k = "turnin", t = "Turn in March of the Silithid to Alchemist Pestlezugg", q = 4494, n = "Alchemist Pestlezugg", e = "npc", id = 5594, m = 1446, x = 50.89, y = 26.96, lvl = 53, wp = { -7049, -3780, -7071, -3754, -7088, -3754 } },
         { k = "accept", t = "Accept Bungle in the Jungle from Alchemist Pestlezugg", q = 4496, n = "Alchemist Pestlezugg", e = "npc", id = 5594, m = 1446, x = 50.89, y = 26.96, min = 50, pa = { 4493, 4494 }, lvl = 53 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Fizzgrimble", n = "Innkeeper Fizzgrimble", e = "npc", id = 7733, m = 1446, x = 52.5, y = 27.94, lvl = 53, wp = { -7115, -3730, -7163, -3788 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Fizzgrimble", n = "Innkeeper Fizzgrimble", e = "npc", id = 7733, m = 1446, x = 52.5, y = 27.94, inn = "Gadgetzan", ia = { 976 }, lvl = 53, wp = { -7115, -3730, -7163, -3788 } },
         { k = "accept", t = "Accept The Apes of Un'Goro from Torwa Pathfinder", q = 4289, n = "Torwa Pathfinder", e = "npc", id = 9619, m = 1449, x = 71.64, y = 75.96, min = 47, lvl = 53, wp = { -7160, -3841, -7188, -3813, -7188, -3746, -7196, -3729, -7471, -3463, -7996, -2929, -7996, -2663, -8046, -2621, -8463, -2188, -8463, -2129, -8497, -2082, -8271, -2079, -8263, -2088, -8171, -2088, -8163, -2096, -8129, -2096, -8096, -2121, -8004, -2121, -7996, -2129, -7913, -2129, -7896, -2113 } },
         { k = "accept", t = "Accept The Bait for Lar'korwi from Torwa Pathfinder", q = 4292, n = "Torwa Pathfinder", e = "npc", id = 9619, m = 1449, x = 71.64, y = 75.96, min = 48, pa = { 4291 }, lvl = 53 },
         { k = "accept", t = "Accept Uncanny Crystal from Torwa Pathfinder", q = 87492, n = "Torwa Pathfinder", e = "npc", id = 9619, m = 1449, x = 71.64, y = 75.96, min = 50, nt = { { l = 2, t = "Ride south-west out of Gadgetzan and down the slope into the crater: Torwa camps at its foot." } }, lvl = 53 },

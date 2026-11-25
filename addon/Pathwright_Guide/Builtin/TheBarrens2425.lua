@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Stonetalon Mountains (25-26)",
     carry = { 529, 546, 567, 1067, 1536, 6543 },
     variants = {
@@ -66,7 +66,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Betrayal from Within from Mangletooth", q = 879, n = "Mangletooth", e = "npc", id = 3430, m = 1413, x = 44.55, y = 59.26, min = 17, pa = { 5052 }, nt = { { l = 2, t = "Mangletooth trades buffs for Blood Shards: spend any you carry on the way out." } }, lvl = 24, wp = { -2285, -1947, -2313, -1946, -2371, -1888 } },
         { k = "accept", t = "Accept The Ashenvale Hunt from Jorn Skyseer", q = 6382, n = "Jorn Skyseer", e = "npc", id = 3387, m = 1413, x = 44.86, y = 59.14, min = 20, pa = { 882 }, lvl = 24 },
         { k = "accept", t = "Accept Mahren Skyseer from Jorn Skyseer", q = 874, n = "Jorn Skyseer", e = "npc", id = 3387, m = 1413, x = 44.86, y = 59.14, min = 9, pa = { 913 }, nt = { { l = 2, t = "Keep The Ashenvale Hunt for Ashenvale (26-28). Mahren Skyseer waits on the coast south of Ratchet, at the end of the guide." } }, lvl = 24 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Byula", n = "Innkeeper Byula", e = "npc", id = 7714, m = 1413, x = 45.58, y = 59.04, nt = { { l = 2, t = "Set your hearthstone here: it brings you back from Bael Modan at the end of the loop south." } }, lvl = 24, wp = { -2383, -1923, -2363, -1938, -2363, -1963, -2379, -1979 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Byula", n = "Innkeeper Byula", e = "npc", id = 7714, m = 1413, x = 45.58, y = 59.04, inn = "Camp Taurajo", ia = { 378 }, nt = { { l = 2, t = "Set your hearthstone here: it brings you back from Bael Modan at the end of the loop south." } }, lvl = 24, wp = { -2383, -1923, -2363, -1938, -2363, -1963, -2379, -1979 } },
         { k = "accept", t = "Kill Owatanka and open the Tailspike it drops: it starts a quest", q = 884, n = "Owatanka's Tailspike", e = "item", id = 5102, m = 1413, x = 46.5, y = 61.3, min = 10, nt = { { l = 2, t = "Owatanka, a blue thunder lizard, has a few spots on the plain just south and east of the camp. One Tailspike drops per kill, for one of you: it comes back in about seven minutes, maybe at another spot, for the second. Not found? Right-click this step to skip the quest." } }, lvl = 24, wp = { -2376, -1996, -2471, -2088 } },
         { k = "objective", t = "Silithid Egg x12", q = 868, o = 1, ic = "pickup", n = "Silithid Egg", e = "item", id = 5058, c = 12, m = 1413, x = 45.77, y = 70.87, nt = { { l = 1, t = "Loot them from Silithid Mound." }, { l = 2, t = "The Silithid Mounds are spread over the Field of Giants, most of them in its west half and a cluster to the east. Each mound gives one egg: each of you digs twelve." } }, lvl = 24, wp = { -2529, -2089, -2729, -2096, -2796, -2063, -2846, -2013 } },
         { k = "accept", t = "Kill the Silithid Harvester and open the head it drops: it starts a quest", q = 897, n = "Harvester's Head", e = "item", id = 5138, m = 1413, x = 45, y = 71, min = 10, nt = { { l = 2, t = "The Silithid Harvester is a rare that comes back only after hours: if you see it, kill it, and the one who loots its head gets the quest. Not up? Right-click this step to skip it." } }, lvl = 24 },

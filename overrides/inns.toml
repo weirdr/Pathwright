@@ -1,0 +1,127 @@
+# The place each innkeeper binds the hearthstone to: the English name `GetBindLocation()` says after
+# binding with him (the subzone he stands in, else the town). The game data has no sub-area for a
+# spawn (only its zone) nor an overlay for a tavern, so the places are listed by hand. Read by the
+# guide writer (`World::inn_place`) and by `addon/tools/guide_build.py`, which look the name up in
+# AreaTable to give a bind step its `inn` and the AreaTable ids `ia` (to match it on another
+# language's client). An innkeeper not listed gets neither: the addon then falls back to its marks
+# and to the binding's position.
+#
+# Left out on purpose (`guide_build.py` lists them in NO_INN): the WoW Forever camps' innkeepers
+# (Toka 256675, Zizplink 255894, Ortak Lomgok 244512, Coriella Calmbreeze 254089, Donaal Downbreeze
+# 255940), whose camps have no AreaTable row to name.
+
+[[inn]]
+npc = 5688
+place = "Gallows' End Tavern"
+reason = "Innkeeper Renee, the tavern of Brill"
+
+[[inn]]
+npc = 15174
+place = "Cenarion Hold"
+reason = "Innkeeper Vizzie"
+
+[[inn]]
+npc = 11116
+place = "Freewind Post"
+reason = "Innkeeper Abeqwa"
+
+[[inn]]
+npc = 9501
+place = "Hammerfall"
+reason = "Innkeeper Adegwa"
+
+[[inn]]
+npc = 6739
+place = "The Sepulcher"
+reason = "Innkeeper Bates"
+
+[[inn]]
+npc = 3934
+place = "The Crossroads"
+reason = "Innkeeper Boorand Plainswind"
+
+[[inn]]
+npc = 7714
+place = "Camp Taurajo"
+reason = "Innkeeper Byula"
+
+[[inn]]
+npc = 7733
+place = "Gadgetzan"
+reason = "Innkeeper Fizzgrimble"
+
+[[inn]]
+npc = 7737
+place = "Camp Mojache"
+reason = "Innkeeper Greul"
+
+[[inn]]
+npc = 6928
+place = "Razor Hill"
+reason = "Innkeeper Grosk"
+
+[[inn]]
+npc = 7731
+place = "Sun Rock Retreat"
+reason = "Innkeeper Jayka"
+
+[[inn]]
+npc = 6930
+place = "Stonard"
+reason = "Innkeeper Karakul"
+
+[[inn]]
+npc = 12196
+place = "Splintertree Post"
+reason = "Innkeeper Kaya Flathoof"
+
+[[inn]]
+npc = 2388
+place = "Tarren Mill"
+reason = "Innkeeper Shay"
+
+[[inn]]
+npc = 9356
+place = "Kargath"
+reason = "Innkeeper Shul'kar"
+
+[[inn]]
+npc = 11106
+place = "Shadowprey Village"
+reason = "Innkeeper Lyshaerya"
+
+[[inn]]
+npc = 6807
+place = "Booty Bay"
+reason = "Innkeeper Skindle"
+
+[[inn]]
+npc = 5814
+place = "Grom'gol Base Camp"
+reason = "Innkeeper Thulbek"
+
+[[inn]]
+npc = 11118
+place = "Everlook"
+reason = "Innkeeper Vizzklick"
+
+[[inn]]
+npc = 14731
+place = "Revantusk Village"
+reason = "Innkeeper Wiley"
+
+# The capitals' inns: the hearthstone says the city's name.
+[[inn]]
+npc = 6929
+place = "Orgrimmar"
+reason = "Innkeeper Gryshka; the city's name, as the capitals bind to it"
+
+[[inn]]
+npc = 6746
+place = "Thunder Bluff"
+reason = "Innkeeper Pala; the city's name, as the capitals bind to it"
+
+[[inn]]
+npc = 6741
+place = "Undercity"
+reason = "Innkeeper Norman; the city's name, as the capitals bind to it"

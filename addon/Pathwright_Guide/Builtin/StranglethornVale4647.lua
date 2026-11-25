@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795561564,
+    created = 1795582230,
     next = "Swamp of Sorrows (47-47)",
     carry = { 1118, 2741, 3520, 95295, 95296 },
     variants = {
@@ -70,7 +70,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Grim Message from Nimboya", q = 2932, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, min = 35, nt = { { l = 2, t = "Nimboya gives you his pike for the Witherbark trolls of the Hinterlands, a later guide: keep it in your bags. He takes the quest back when the guides bring you through Grom'gol again." } }, lvl = 46 },
         { k = "flight_master", t = "Get the flight path from Thysta", n = "Thysta", e = "npc", id = 1387, m = 1434, x = 32.47, y = 29.28, lvl = 46 },
         { k = "accept", t = "Accept Mok'thardin's Enchantment from Far Seer Mok'thardin", q = 571, n = "Far Seer Mok'thardin", e = "npc", id = 2465, m = 1434, x = 32.12, y = 29.24, min = 33, pa = { 572 }, lvl = 46 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Thulbek", n = "Innkeeper Thulbek", e = "npc", id = 5814, m = 1434, x = 31.49, y = 29.78, lvl = 46, wp = { -12413, 171, -12413, 213, -12421, 221 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Thulbek", n = "Innkeeper Thulbek", e = "npc", id = 5814, m = 1434, x = 31.49, y = 29.78, inn = "Grom'gol Base Camp", ia = { 117 }, lvl = 46, wp = { -12413, 171, -12413, 213, -12421, 221 } },
         { k = "objective", t = "Kill Skullsplitter Hunter x8", q = 586, o = 1, ic = "kill", n = "Skullsplitter Hunter", e = "npc", id = 669, m = 1434, x = 45.76, y = 41.67, mobs = { "Skullsplitter Hunter" }, mi = { 669 }, bg = true, nt = { { l = 2, t = "The hunters roam the lower level of the ruins. The headhunters and berserkers stand on the upper level to the east (around 48,43), only four or five of each: kill the mystics there too, their spawns can come back as headhunters." } }, lvl = 46 },
         { k = "objective", t = "Kill Skullsplitter Headhunter x6", q = 586, o = 2, ic = "kill", n = "Skullsplitter Headhunter", e = "npc", id = 781, m = 1434, x = 46.79, y = 43.73, mobs = { "Skullsplitter Headhunter" }, mi = { 781 }, bg = true, lvl = 46 },
         { k = "objective", t = "Kill Skullsplitter Berserker x4", q = 586, o = 3, ic = "kill", n = "Skullsplitter Berserker", e = "npc", id = 783, m = 1434, x = 46.69, y = 44.26, mobs = { "Skullsplitter Berserker" }, mi = { 783 }, bg = true, lvl = 46 },
