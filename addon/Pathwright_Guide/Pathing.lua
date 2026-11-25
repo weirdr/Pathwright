@@ -336,8 +336,8 @@ end
 
 -- Shortest Path Forever -------------------------------------------------------------------
 
--- The place sent (its key), the one the player replaced or cleared there (not sent again), and
--- the subscription to its changes.
+-- The place sent (its key), the one cleared or replaced by the player (not sent again until
+-- the target changes), and the subscription to changes.
 local sent, refused, subscribed
 -- Its way, read at most every WAY_EVERY seconds and when it says it changed: { continent,
 -- north, west, text }, false without one, nil to read again.
@@ -367,7 +367,7 @@ local function Changed()
     if not api or not sent or (api.CurrentStop and api.CurrentStop(OWNER)) then return end
     local why = api.Ended and api.Ended(OWNER)
     -- Arrived: not sent again either, while the place stays the same.
-    if why == "replaced" or why == "cleared" then refused = sent end
+    if why == "replaced" or why == "cleared" then refused, sent = sent, nil end
 end
 
 local function Cancel(api)
@@ -392,9 +392,11 @@ function Pathing:SetTarget(place, step, info)
     end
     if not place or not place.m or not place.x then
         Cancel(api)
+        refused = nil
         return
     end
     local key = Key(place)
+    if key ~= refused then refused = nil end
     if key == sent or key == refused then return end
     info = info or {}
     local stop = { map = place.m, x = place.x / 100, y = place.y / 100, title = info.title, kind = KINDS[info.kind] }
@@ -405,7 +407,7 @@ function Pathing:SetTarget(place, step, info)
     -- Refused in combat, without a position or with its journeys turned off: tried again at the
     -- next refresh.
     if api.NavigateRoute(OWNER, { stop }) then
-        sent, way = key, nil
+        sent, refused, way = key, nil, nil
     end
 end
 

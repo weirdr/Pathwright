@@ -5095,6 +5095,49 @@ do
     FG.Guide:PointToStep(1)
     assert(#sent == 2, "picked on the compass: sent again")
 
+    -- A clear holds while the guide stays on A, not after it points to B or no place.
+    do
+        local api = ShortestPathForever.API
+        local navigate = api.NavigateRoute
+        local a, b = { m = 1426, x = 10, y = 20 }, { m = 1426, x = 30, y = 40 }
+        local function clear()
+            current, ended = nil, "cleared"
+            for _, fn in ipairs(subscribers) do
+                fn({ ended = true })
+            end
+        end
+        local function sentA(count, what)
+            assert(#sent == count and close(sent[count].stop.x, 0.1), what)
+        end
+
+        FG.Pathing:SetTarget(a)
+        local count = #sent
+        sentA(count, "A sent")
+        clear()
+        FG.Pathing:SetTarget(a)
+        assert(#sent == count, "manual clear survives a refresh of A")
+        FG.Pathing:SetTarget(b)
+        assert(#sent == count + 1 and close(sent[count + 1].stop.x, 0.3), "B sent")
+        FG.Pathing:SetTarget(a)
+        sentA(count + 2, "A sent again after B")
+
+        clear()
+        api.NavigateRoute = function() return false end
+        FG.Pathing:SetTarget(b)
+        api.NavigateRoute = navigate
+        assert(#sent == count + 2, "B was rejected")
+        FG.Pathing:SetTarget(a)
+        sentA(count + 3, "A sent again even after a rejected B")
+
+        clear()
+        FG.Pathing:SetTarget(nil)
+        FG.Pathing:SetTarget(a)
+        sentA(count + 4, "A sent again after there was no target")
+
+        FG.Pathing:Forget()
+        FG.Guide:PointToStep(1)
+    end
+
     onQuest[8102] = true
     FG.Guide:PointToStep(2)
     stop = sent[#sent].stop
@@ -6240,6 +6283,24 @@ do
     debuff, xp = nil, secret
     check("UPDATE_EXHAUSTION", false)
     xp, levelXP = 1, 0
+    check("UPDATE_EXHAUSTION", false)
+    -- Invalid inputs must hide a visible reminder without throwing.
+    local function relight()
+        xp, levelXP = 0, 80800
+        check("UPDATE_EXHAUSTION", true)
+    end
+    for _, bad in ipairs({ false, "403", { 403 }, -1, math.huge, 0 / 0 }) do
+        relight()
+        xp = bad
+        check("UPDATE_EXHAUSTION", false)
+    end
+    for _, bad in ipairs({ math.huge, -80800, "80800", { 80800 }, 0 / 0 }) do
+        relight()
+        levelXP = bad
+        check("UPDATE_EXHAUSTION", false)
+    end
+    relight()
+    levelXP = nil
     check("UPDATE_EXHAUSTION", false)
     UnitXPMax = savedMax
     GetXPExhaustion, C_UnitAuras, issecretvalue = savedXP, savedAuras, savedSecret
@@ -8259,3 +8320,54 @@ local function SuiteFontTest()
     print("suite font ok")
 end
 SuiteFontTest()
+
+-- Imported routes may omit the current planned level, even when a later step has one.
+;(function()
+    local function route(current, upcoming)
+        return { steps = {
+            { k = "accept", t = "First", q = 991001, m = 1426, x = 10, y = 10, lvl = current },
+            { k = "accept", t = "Second", q = 991002, m = 1426, x = 90, y = 90, lvl = upcoming },
+        } }
+    end
+    local view
+    local render = FG.Card.Render
+    FG.Card.Render = function(self, v)
+        view = v
+        return render(self, v)
+    end
+    FG:Set("guideMode", "full")
+    FG.Routes["unknown-plan"] = route(nil, nil)
+    FG.Routes["mixed-plan"] = route(nil, playerLevel + 1)
+    FG.Routes["numeric-plan"] = route(playerLevel, playerLevel + 1)
+    local card = FG.Card:Frame()
+    local function hover(over)
+        card.wait = 0
+        card.IsMouseOver = function() return over end
+        card:OnUpdate(1)
+    end
+    local function choose(name)
+        useRoute(name)
+        assert(char.guide.route == name and char.guide.step == 1, "first synthetic step is active")
+    end
+    hover(false)
+    choose("numeric-plan")
+    assert(card.planned._shown and card.planned:GetText() ~= "", "numeric plan shown")
+    assert(view.next[1].marker == playerLevel + 1, "numeric next-level marker kept")
+    choose("mixed-plan")
+    assert(view.next[1] and view.next[1].index == 2 and not view.next[1].marker, "upcoming step without a fabricated marker")
+    assert(not card.planned._shown and card.planned:GetText() == "", "mixed route hides an absent current plan")
+    choose("unknown-plan")
+    assert(not card.planned._shown and card.planned:GetText() == "", "missing plan hidden and cleared")
+    assert(card.level:GetText():find(FG.Skin.Hex("text"), 1, true) == 1, "actual level neutral")
+    hover(true)
+    hover(false)
+    assert(not card.planned._shown, "hover exit must not show a missing plan")
+    hover(true)
+    choose("numeric-plan")
+    assert(not card.planned._shown, "numeric plan remains hidden while hovered")
+    hover(false)
+    assert(card.planned._shown and card.planned:GetText() ~= "", "hover exit restores numeric plan")
+    assert(card.level:GetText():find(FG.Skin.Hex("green"), 1, true) == 1, "numeric color restored")
+    FG.Card.Render = render
+    print("optional planned level ok")
+end)()
