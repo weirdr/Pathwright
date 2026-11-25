@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795582230,
     next = "Searing Gorge (51-51)",
     carry = { 3568, 3908, 4120 },
     variants = {

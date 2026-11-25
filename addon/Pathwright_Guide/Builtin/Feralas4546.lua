@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Stranglethorn Vale (46-47)",
     carry = { 1118, 2741, 3520, 95033, 95295, 95296 },
     variants = {

@@ -61,7 +61,9 @@ Options after a step, in any order:
                     words) at rank n (1 if left out): skipped, with its other steps, without it
     only <who>...   alliance, horde, class names (warrior, mage...) and race names (orc, undead,
                     tauren, troll, windshaper...): who the step is for ("only priest troll")
-    have <item>     a note's item: the note is done once the bags hold it (a kill and loot)
+    have <item> [quest]
+                    a note's item: the note is done once the bags hold it (a kill and loot), or
+                    once the quest the item starts is in the log or turned in
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
 
@@ -321,8 +323,12 @@ def parse_opts(n, words, quiet=False):
             o["npc"] = int(words[i + 1]); i += 2
         elif w == "have":
             if i + 1 >= len(words) or not words[i + 1].isdigit():
-                fail(n, "have <item id>")
+                fail(n, "have <item id> [quest id]")
             o["have"] = int(words[i + 1]); i += 2
+            # The quest the item is used for: the note stays done once that quest's objective is
+            # fulfilled or it is turned in (being on it alone does not count).
+            if i < len(words) and words[i].isdigit():
+                o["havequest"] = int(words[i]); i += 1
         elif w == "mobs":
             o["mobs"] = []
             i += 1
@@ -527,6 +533,8 @@ for n, text in lines:
             step["r"] = opts.get("r", 15)
         if opts.get("have") and word == "note":
             step["hv"] = opts["have"]
+            if opts.get("havequest"):
+                step["hq"] = opts["havequest"]
         if opts.get("npc"):
             step["e"], step["id"], step["n"] = "npc", opts["npc"], name_of("npc", opts["npc"])
             place(step, None)
@@ -1235,7 +1243,7 @@ def lua(v):
     raise TypeError(v)
 
 
-ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
+ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
          "inn", "ia", "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")
