@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795582230,
     next = "Felwood & Winterspring (54-56)",
     carry = { 980, 1123, 3562, 3563, 3568, 3909, 5084, 5159 },
     variants = {

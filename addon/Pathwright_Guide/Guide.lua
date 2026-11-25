@@ -597,6 +597,15 @@ function IsDone(step, index)
         if state.marks[index or state.step] then return true end
         -- A kill and loot (`hv`): done once the item is in the bags, so the player need not mark it.
         if step.hv and (FG.ItemCount(step.hv) or 0) > 0 then return true end
+        -- The item is used for a quest (`hq`) later on (buried at Marla's Grave) and used up, so
+        -- the note stays done once that quest's objective is fulfilled or it is turned in. Being
+        -- on the quest alone does not count: it is taken before the kill.
+        if step.hq then
+            if QuestLog.IsQuestFlaggedCompleted(step.hq) then return true end
+            if QuestLog.IsOnQuest(step.hq) and not ObjectivesLoading(step.hq) and QuestLog.IsComplete(step.hq) then
+                return true
+            end
+        end
         -- A hearth with a cooldown check: passed when the hearthstone is far from ready.
         if step.t and step.t:find("Cooldown check item,6948", 1, true) and HearthBlocked() then return true, true end
         return false

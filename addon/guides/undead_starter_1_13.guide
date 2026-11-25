@@ -109,7 +109,7 @@ accept 381
 
 # The Scarlet camp ---------------------------------------------------------------------------------
 
-note "Kill Samuel Fipps and loot his remains" npc 1919 at 36.7,61.6 have 16333
+note "Kill Samuel Fipps and loot his remains" npc 1919 at 36.7,61.6 have 16333 6395
 tip Samuel Fipps, a zombie, shambles about the fields east of Deathknell, on your way to the Scarlet camp.
 do 381
 tip The Scarlet Converts and Initiates fill the camp south-east of Deathknell. Meven Korgal is there too: leave him for now.

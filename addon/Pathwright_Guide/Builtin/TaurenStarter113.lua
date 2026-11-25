@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795581256,
+    created = 1795582230,
     next = "Silverpine Forest (13-15)",
     variants = {
         { race = 6, class = 1, faction = "Horde" },

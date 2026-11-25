@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795582230,
     next = "Thousand Needles (33-34)",
     carry = { 96, 1112, 1712, 1714 },
     variants = {

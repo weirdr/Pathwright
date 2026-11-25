@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Riverglades (44-45)",
     carry = { 1118, 94895 },
     variants = {

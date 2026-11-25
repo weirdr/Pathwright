@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Feralas & Un'Goro Crater (49-50)",
     carry = { 580, 650, 864, 1122, 1429, 2641, 2874, 2932, 3123, 3444 },
     variants = {

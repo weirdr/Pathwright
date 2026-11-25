@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795582230,
     next = "Stonetalon Mountains (25-26)",
     carry = { 529, 546, 567, 1067, 1536, 6543 },
     variants = {
