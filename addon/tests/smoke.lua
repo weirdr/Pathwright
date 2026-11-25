@@ -6055,6 +6055,14 @@ do
     assert(#FG.Toolstrip.Actions({ { q = 1536 } }) == 0, "nor the item of a quest not in the log")
     carried[7767] = 0
     assert(#FG.Toolstrip.Actions({ { q = 1534 } }) == 0, "nor one not carried")
+    -- An item a step names (ui) is offered when carried, whatever the quest hands out.
+    carried[7767] = 1
+    GetItemSpell = function() return "Break" end
+    local named = FG.Toolstrip.Actions({ { k = "objective", ui = 7767, mobs = { "Bael'dun Digger" } } })
+    assert(named[1] and named[1].kind == "item" and named[1].link == "item:7767", "the step's item to use")
+    assert(named[2] and named[2].kind == "kill" and named[2].name == "Bael'dun Digger", "then its mob")
+    carried[7767] = 0
+    assert(#FG.Toolstrip.Actions({ { ui = 7767 } }) == 0, "not carried: not offered")
     GetQuestLogIndexByID, C_QuestLog.GetLogIndexForQuestID, FG.QuestItems = realIndex, realFind, realItems
     FG.ItemCount, FG.ItemInfo, GetItemSpell = realCount, realInfo, realSpell
     print("toolstrip quest item ok")
