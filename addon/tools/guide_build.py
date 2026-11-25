@@ -50,6 +50,7 @@ Options after a step, in any order:
 
     at <x>,<y>      the place (else the data's: the NPC, the main group of its mobs)
     in <uiMap>      the map of "at" for this step only
+    useitem <id>    an item to use on this step: the toolstrip offers it as a button
     mobs <npc>...   the mobs of an objective (else the data's); makes a count-less one a kill
     r <yards>       how close a "goto" is reached
     bg              an objective done along the way, while doing the steps after it
@@ -353,6 +354,10 @@ def parse_opts(n, words, quiet=False):
             i += 1
             while i < len(words) and words[i].isdigit():
                 o["mobs"].append(int(words[i])); i += 1
+        elif w == "useitem":
+            if i + 1 >= len(words) or not words[i + 1].isdigit():
+                fail(n, "useitem <item id>")
+            o["useitem"] = int(words[i + 1]); i += 2
         elif w == "only":
             i += 1
             start = i
@@ -367,7 +372,7 @@ def parse_opts(n, words, quiet=False):
     return o
 
 
-OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only", "have"}
+OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only", "have", "useitem"}
 
 
 def opts_ok(words):
@@ -447,6 +452,8 @@ def emit(step, n, opts, filt):
         step["x"], step["y"] = opts["at"]
     if opts.get("bg"):
         step["bg"] = True
+    if opts.get("useitem"):
+        step["ui"] = opts["useitem"]
     if opts.get("icon"):
         # Not a kill: no mobs for the target buttons.
         step["ic"] = opts["icon"]
@@ -1268,7 +1275,7 @@ def lua(v):
     raise TypeError(v)
 
 
-ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
+ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "ui", "min",
          "inn", "ia", "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")

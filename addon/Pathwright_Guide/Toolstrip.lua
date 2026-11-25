@@ -479,6 +479,24 @@ function Toolstrip.Actions(steps)
         local name = known or FG.ItemInfo(link) or link:match("%[(.-)%]") or ITEM or "Item"
         table.insert(list, { kind = "item", link = link, texture = texture, name = name, step = itemStep })
     end
+    -- An item a step names to use (`ui`, e.g. the Prospector's Pick dropped by the Bael'dun
+    -- dwarves: no quest hands it out), when it is carried and can be used.
+    for _, step in ipairs(steps) do
+        local id = tonumber(step.ui)
+        if id and #list < MAX and not seen["item\0" .. id] and (tonumber(FG.ItemCount(id)) or 0) > 0 and Usable(id) then
+            seen["item\0" .. id] = true
+            local ok, name, ilink, _, _, _, _, _, _, _, tex = pcall(FG.ItemInfo, id)
+            if not ok then name, ilink, tex = nil, nil, nil end
+            tex = tex or (GetItemIcon and GetItemIcon(id)) or nil
+            table.insert(list, {
+                kind = "item",
+                link = type(ilink) == "string" and ilink or ("item:" .. id),
+                texture = tex,
+                name = name or ITEM or "Item",
+                step = step,
+            })
+        end
+    end
     local function add(kind, name, step)
         if not name or name == "" or seen[kind .. "\0" .. name] or #list >= MAX then return end
         seen[kind .. "\0" .. name] = true
