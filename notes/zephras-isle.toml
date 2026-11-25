@@ -287,3 +287,11 @@ ru = "Корабль причаливает к маленькому пирсу �
 ko = "배는 큰 부두가 아니라 {npc:251968} 바로 옆 작은 선착장(58, 80.7 근처)에 정박합니다. 도착까지 몇 분 걸릴 수 있습니다."
 zh_cn = "飞船停靠在{npc:251968}旁边的小码头（约58, 80.7），不是大码头。可能要等几分钟才到。"
 zh_tw = "飛船停靠在{npc:251968}旁邊的小碼頭（約58, 80.7），不是大碼頭。可能要等幾分鐘才到。"
+
+# Vulgara's Head: Vulgara is an elite, so it can be too hard alone at this level; the quest is optional.
+[[note]]
+quest = 93318
+phase = "objective"
+level = "warning"
+editions = ["forever"]
+en = "Vulgara is an elite and may need a group. If it is too hard, skip this quest."
