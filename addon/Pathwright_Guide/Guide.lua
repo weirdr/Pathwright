@@ -14,6 +14,7 @@ FG.Guide = Guide
 
 local L = {
     recommended = T("Level %d recommended, you are %d"),
+    needsLevel = T("Level %d needed to take this quest, you are %d"),
     todo = T("To do"),
     next = T("Next"),
     pickup = T("To pick up"),
@@ -1051,6 +1052,11 @@ local function TaskView(step, index, withProgress)
     local recommended = route and route.recommendedLevel
     if recommended and state and index == state.step and UnitLevel("player") < recommended then
         Chip(v, string.format(L.recommended, recommended, UnitLevel("player")), "orange")
+    end
+    -- A quest the character cannot take yet (the guide planned the level a little early): said on
+    -- the current step, which is taken from the list of pickups once the level is reached.
+    if step.k == "accept" and state and index == state.step and step.min and UnitLevel("player") < step.min then
+        Chip(v, string.format(L.needsLevel, step.min, UnitLevel("player")), "orange")
     end
     return v
 end

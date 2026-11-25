@@ -782,6 +782,45 @@ do
 end
 print("recommended level ok")
 
+-- An accept step whose quest asks a level the character lacks says so while it is the current step.
+do
+    FG.Routes["minlevel-test"] = {
+        race = 7,
+        class = 8,
+        faction = "Alliance",
+        fromLevel = 1,
+        toLevel = 5,
+        time = 1,
+        steps = {
+            { k = "accept", t = "Accept Level Three Quest", q = 5201, min = 3, lvl = 3 },
+            { k = "turnin", t = "Turn in Level Three Quest", q = 5201, lvl = 3 },
+        },
+    }
+    local shown
+    local card, mini = FG.Card.Render, FG.Mini.Render
+    FG.Card.Render = function(_, view) shown = view end
+    FG.Mini.Render = FG.Card.Render
+    local function warned()
+        shown = nil
+        FG.Guide:Refresh()
+        for _, c in ipairs(shown and shown.tasks[1] and shown.tasks[1].chips or {}) do
+            if c.text == string.format(FG.T("Level %d needed to take this quest, you are %d"), 3, 2) then
+                return true
+            end
+        end
+        return false
+    end
+    playerLevel = 2
+    useRoute("minlevel-test")
+    assert(warned(), "the level a quest needs, said on its accept step")
+    playerLevel = 3
+    assert(not warned(), "nothing once the level is reached")
+    playerLevel = 21
+    FG.Card.Render, FG.Mini.Render = card, mini
+    useRoute("skip-test")
+end
+print("quest minimum level ok")
+
 -- Quest notes and icons (`nt`, `ic`): the step's icon says how it is done, a mark after its name
 -- takes the color of its most important note, and the tooltip lists the notes.
 do
