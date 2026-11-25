@@ -200,14 +200,22 @@ def best_area(kind, i):
 # NPCs whose place the data gets wrong are listed in overrides/npc_places.toml.
 with open(os.path.join(ROOT, "overrides", "npc_places.toml"), "rb") as f:
     import tomllib as _toml
-    NPC_PLACES = {n["id"]: (n["map"], float(n["x"]), float(n["y"])) for n in _toml.load(f).get("npc", [])}
+    NPC_PLACES = {}
+    for _n in _toml.load(f).get("npc", []):
+        # `quests`, when given, limits the place to the steps of those quests.
+        NPC_PLACES.setdefault(_n["id"], []).append(
+            (set(_n.get("quests", [])), (_n["map"], float(_n["x"]), float(_n["y"])))
+        )
 
 
-def place_of(kind, i, prefer_area):
+def place_of(kind, i, prefer_area, quest=None):
     """(uiMap, x, y) of an NPC or object: in the zone of the moment when it spawns there, else
-    where it spawns the most. An NPC of overrides/npc_places.toml stands where that file says."""
+    where it spawns the most. An NPC of overrides/npc_places.toml stands where that file says (for
+    the steps of its `quests` only, when it lists some; the place with no `quests` is for the rest)."""
     if kind == "npc" and i in NPC_PLACES:
-        return NPC_PLACES[i]
+        for quests, where in sorted(NPC_PLACES[i], key=lambda e: not e[0]):
+            if not quests or quest in quests:
+                return where
     for a in (prefer_area, best_area(kind, i)):
         if a is None:
             continue
@@ -622,7 +630,7 @@ for n, text in lines:
                     step["line"], step["sk"] = opts["skill"]
             emit(step, n, opts, lambda v, a=filt, b=qf: a(v) and b(v))
             if kind in ("npc", "object"):
-                place(step, place_of(kind, eid, area))
+                place(step, place_of(kind, eid, area, q["id"]))
             if "m" not in step and len(steps) > 1:
                 # Started by an item (looted on the step before) or by no one known: where the step
                 # before is.

@@ -9,6 +9,7 @@
 # map = 1412        # uiMap
 # x = 48.3
 # y = 63.6
+# quests = [751]    # optional: only the steps of these quests (the others keep the data's place)
 # reason = "why this is right"
 
 [[npc]]
@@ -19,3 +20,12 @@ y = 63.6
 reason = """The data holds three places for him: Questie's 48.35, 63.74 and two of Wowhead's, \
 49.4, 60.4 and 49.6, 60.6. The builder grouped them into one at 49.12, 61.58, a place where \
 nobody stands. A player checked in game (#64): he stands at 48.3, 63.6, where Questie has him."""
+
+[[npc]]
+id = 2988 # Morin Cloudstalker, Bloodhoof Village
+quests = [751] # his other steps keep the place of the data; he walks the road east of the village
+map = 1412
+x = 50.4
+y = 62.8
+reason = """A player turning in The Ravaged Caravan (#73) found him at 50.4, 62.8, not at 54.94, \
+61.52, where the data's spawns put him."""

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795623336,
+    created = 1795637716,
     next = "Silverpine Forest (13-15)",
     variants = {
         { race = 6, class = 1, faction = "Horde" },
@@ -149,7 +149,7 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Flatland Cougar Femur", q = 766, o = 2, ic = "get", n = "Flatland Cougar Femur", e = "item", id = 4805, c = 1, m = 1412, x = 52.03, y = 44.18, spots = { { m = 1412, x = 46.28, y = 44.19 }, { m = 1412, x = 47.74, y = 48.7 }, { m = 1412, x = 38.31, y = 48.77 } }, mobs = { "Flatland Cougar" }, mi = { 3035 }, nt = { { l = 2, t = "Flatland Cougars drop the femur." } }, lvl = 8 },
         { k = "turnin", t = "Turn in The Ravaged Caravan to Sealed Supply Crate", q = 749, ic = "object", n = "Sealed Supply Crate", e = "object", id = 2908, m = 1412, x = 51.87, y = 53.37, nt = { { l = 2, t = "The Sealed Supply Crate lies at the Ravaged Caravan north-east of the village." } }, lvl = 8 },
         { k = "accept", t = "Accept The Ravaged Caravan from Sealed Supply Crate", q = 751, ic = "object", n = "Sealed Supply Crate", e = "object", id = 2908, m = 1412, x = 51.87, y = 53.37, min = 5, pa = { 749 }, lvl = 8 },
-        { k = "turnin", t = "Turn in The Ravaged Caravan to Morin Cloudstalker", q = 751, n = "Morin Cloudstalker", e = "npc", id = 2988, m = 1412, x = 54.94, y = 61.52, lvl = 8 },
+        { k = "turnin", t = "Turn in The Ravaged Caravan to Morin Cloudstalker", q = 751, n = "Morin Cloudstalker", e = "npc", id = 2988, m = 1412, x = 50.4, y = 62.8, lvl = 8, wp = { -1923, -713, -1988, -779, -2113, -779, -2146, -746, -2163, -746, -2288, -621 } },
         { k = "accept", t = "Accept The Venture Co. from Morin Cloudstalker", q = 764, n = "Morin Cloudstalker", e = "npc", id = 2988, m = 1412, x = 54.94, y = 61.52, min = 5, pa = { 751 }, lvl = 9 },
         { k = "accept", t = "Accept Supervisor Fizsprocket from Morin Cloudstalker", q = 765, n = "Morin Cloudstalker", e = "npc", id = 2988, m = 1412, x = 54.94, y = 61.52, min = 5, pa = { 751 }, lvl = 9 },
         { k = "turnin", t = "Turn in Thunderhorn Totem to Mull Thunderhorn", q = 756, n = "Mull Thunderhorn", e = "npc", id = 2948, m = 1412, x = 47.52, y = 63.58, lvl = 9 },

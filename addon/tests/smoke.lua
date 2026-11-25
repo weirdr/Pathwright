@@ -867,6 +867,25 @@ do
     end
     assert(found >= 5, "the steps with Krang Stonehoof were found: " .. found)
 end
+-- Morin Cloudstalker (2988) is met at 50.4, 62.8 to turn in The Ravaged Caravan (#73); his other
+-- steps keep the place of the data.
+do
+    local def
+    local register = FG.Builtin.Register
+    FG.Builtin.Register = function(d) def = d end
+    assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
+    FG.Builtin.Register = register
+    local found = 0
+    for _, st in ipairs(def.steps) do
+        if st.e == "npc" and st.id == 2988 and st.k == "turnin" and st.q == 751 then
+            found = found + 1
+            assert(st.m == 1412 and st.x == 50.4 and st.y == 62.8, "Morin Cloudstalker turn-in 751 at 50.4, 62.8")
+        elseif st.e == "npc" and st.id == 2988 and st.q == 749 then
+            assert(st.x == 54.94 and st.y == 61.52, "Morin Cloudstalker's other steps keep their place")
+        end
+    end
+    assert(found == 1, "the turn in of quest 751 was found once: " .. found)
+end
 print("quest minimum level ok")
 
 -- Quest notes and icons (`nt`, `ic`): the step's icon says how it is done, a mark after its name
