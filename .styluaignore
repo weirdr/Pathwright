@@ -7,3 +7,5 @@ addon/tests/guides/
 addon/Pathwright_Guide/Builtin/
 # Built by addon/tools/terrain_export.py and passages_export.py (the walkable ground).
 addon/Pathwright_Guide/Terrain/
+# Built by addon/tools/travel_export.py (boats, zeppelins, flight points, inns).
+addon/Pathwright_Guide/TravelData.lua

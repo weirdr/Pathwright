@@ -8300,6 +8300,200 @@ end
 DockTest()
 DockTest = nil
 
+-- The journey to a place that is more than a walk away: the flight paths known, the boats and
+-- zeppelins, the hearthstone, the walks counted as the ground has them; then the guide's pathing
+-- leading to its next stop. (In a function: the file has its 200 locals.)
+JourneyTest = function()
+    local Journey, Pathing, Walker = FG.Journey, FG.Pathing, FG.Walker
+    local data = FG.TravelData
+    assert(#data.links > 10 and data.nodes[23] and #data.flights > 100 and #data.inns > 20, "the travel data")
+    local function said(plan) return plan and Journey.Text(plan) or "none" end
+    local flights = {}
+    for _, id in ipairs({ 22, 23, 25, 40, 42, 77, 80 }) do
+        flights[id] = true
+    end
+    -- Orgrimmar to Hamur in the Riverglades, on the other continent.
+    local org = { continent = 1, north = 1600, west = -4400 }
+    local hamur = { continent = 0, north = -7170, west = -5153 }
+    local who = { faction = "H", speed = 11.2, flights = flights }
+    local plan = Journey.Plan(org, hamur, who)
+    assert(
+        said(plan) == "Fly to Gadgetzan, Tanaris > Boat Steamwheedle Port - Powderfuse Port > walk",
+        "by the flight known and the boat: " .. said(plan)
+    )
+    local fly, boat = plan.stops[1], plan.stops[2]
+    assert(
+        fly.kind == "fly" and fly.continent == 1 and math.abs(fly.north - 1678) < 1,
+        "from Orgrimmar's flight master"
+    )
+    assert(fly.to.continent == 1 and math.abs(fly.to.north + 7049) < 1, "to Gadgetzan's")
+    assert(boat.kind == "link" and boat.continent == 1 and boat.to.continent == 0, "the boat across")
+    assert(#plan.walks == 3 and plan.seconds > 600 and plan.seconds < 1500, "its walks and its time: " .. plan.seconds)
+    -- No flight known: the zeppelin, then the long walk.
+    plan = Journey.Plan(org, hamur, { faction = "H", speed = 11.2, flights = {} })
+    assert(said(plan) == "Zeppelin Orgrimmar - Grom'gol > walk", "without flights: " .. said(plan))
+    -- The hearthstone bound next to the place; not when it is far from ready.
+    who.hearth = { continent = 0, north = -7924, west = -4783, name = "Rog'mar", wait = 0 }
+    plan = Journey.Plan(org, hamur, who)
+    assert(said(plan) == "Use your hearthstone (Rog'mar) > walk", "the hearthstone: " .. said(plan))
+    assert(plan.stops[1].kind == "hearth" and plan.stops[1].north == nil, "done where the character stands")
+    who.hearth.wait = 60
+    assert(Journey.Plan(org, hamur, who).stops[1].text:find("in 60 s", 1, true), "ready soon: waited for")
+    who.hearth.wait = 900
+    assert(Journey.Plan(org, hamur, who).stops[1].kind == "fly", "far from ready: another way")
+    who.hearth = nil
+    -- The other faction's zeppelins and flight points are not taken; no way across is none.
+    plan = Journey.Plan(
+        org,
+        { continent = 0, north = 1600, west = 240 },
+        { faction = "A", speed = 7, flights = flights }
+    )
+    assert(said(plan):find("Zeppelin") == nil and said(plan):find("Fly to") == nil, "not the Horde's: " .. said(plan))
+    assert(Journey.Plan(org, { continent = 530, north = 0, west = 0 }, who) == nil, "nothing leads there")
+    -- A link a quest opens: only once it is taken.
+    local isle = { continent = 2991, north = 1990, west = 900 }
+    local mulgore = { continent = 1, north = -700, west = 400 }
+    assert(Journey.Plan(isle, mulgore, who) == nil, "closed without its quest")
+    who.quest = function(id) return id == 95349 end
+    assert(said(Journey.Plan(isle, mulgore, who)) == "Zephras Isle - Mulgore > walk", "open with it")
+    who.quest = nil
+    -- A short walk is a walk. Counted as the ground has it: long, the flight is taken instead;
+    -- not walkable, another way or none.
+    local razor = { continent = 1, north = 300, west = -4700, key = "razor" }
+    plan = Journey.Plan(org, razor, who)
+    assert(plan and #plan.stops == 0 and #plan.walks == 1, "a walk: " .. said(plan))
+    local taurajo = { continent = 1, north = -2300, west = -1900, key = "taurajo" }
+    who.flights = { [23] = true, [25] = true }
+    plan = Journey.Plan(org, taurajo, who)
+    assert(said(plan) == "Fly to Crossroads, The Barrens > walk", "to the closest point known: " .. said(plan))
+    who.measured = { ["start>taurajo"] = { blocked = true } }
+    assert(said(Journey.Plan(org, razor, who)) == "walk", "what is known of another walk does not count")
+    who.measured = { ["start>razor"] = { yards = 30000 } }
+    plan = Journey.Plan(org, razor, who)
+    assert(plan.stops[1] and plan.stops[1].kind == "fly", "a walk the ground makes long: a flight instead")
+    who.measured = { ["start>razor"] = { blocked = true } }
+    plan = Journey.Plan(org, razor, who)
+    assert(plan and plan.stops[1] and plan.stops[1].kind == "fly", "no way on foot from here: by a flight")
+    local far = { continent = 530, north = 0, west = 0 }
+    who.measured = { ["start>there"] = { blocked = true } }
+    assert(
+        Journey.Plan(far, { continent = 530, north = 90, west = 0, key = "there" }, who) == nil,
+        "and none without one"
+    )
+    who.measured = nil
+    -- The stop being gone to is kept against one hardly faster.
+    who.flights = flights
+    local between = { continent = 1, north = -3900, west = -1700, key = "between" }
+    plan = Journey.Plan(org, between, who)
+    local first = plan.stops[1].to.name
+    who.keep = plan.stops[1].key
+    assert(Journey.Plan(org, between, who).stops[1].to.name == first, "the same stop, kept")
+    who.keep = nil
+
+    -- The guide's pathing. The tests' world is the map's fractions times 1000 on continent 0: the
+    -- place there, the character in Orgrimmar (continent 1, the real ground).
+    local faction, bound, count, taxi = UnitFactionGroup, GetBindLocation, GetItemCount, UnitOnTaxi
+    UnitFactionGroup = function() return "Horde" end
+    GetBindLocation = function() return nil end
+    local clock, now = GetTime, 9000
+    GetTime = function() return now end
+    local printed = {}
+    local print0 = FG.Print
+    FG.Print = function(_, fmt, ...) printed[#printed + 1] = string.format(fmt, ...) end
+    ShortestPathForever = nil
+    FG:Save("spfLink", nil)
+    FG:Save("pathMode", "on")
+    Journey:Reset()
+    local place = { m = 1426, x = 40, y = 71.2 }
+    Pathing:SetTarget(place, place, { title = "The place", kind = "objective" })
+    local n, w = Pathing:Aim(1, 1600, -4400)
+    local stop = Pathing:Stop()
+    assert(stop and stop.text == "Zeppelin Orgrimmar - Undercity", "the zeppelin to the place's continent")
+    assert(n and math.abs(n - stop.north) < 1 and math.abs(w - stop.west) < 1, "the way leads to its tower")
+    assert(#printed == 1 and printed[1]:find("way: Zeppelin Orgrimmar - Undercity > walk", 1, true), "said once")
+    local left = Pathing:Remaining(1, 1600, -4400)
+    assert(left and math.abs(left[#left][1] - stop.north) < 1, "drawn to the stop")
+    -- The way to it is looked for on the ground; the journey stays, said once.
+    Walker:Finish()
+    now = now + 1
+    Pathing:Aim(1, 1600, -4400)
+    assert(
+        Pathing:Stop() and Pathing:Stop().text:find("Zeppelin Orgrimmar", 1, true),
+        "kept once the ground has answered"
+    )
+    now = now + 10
+    Pathing:Aim(1, 1590, -4410)
+    assert(#printed == 1, "not said again: " .. #printed)
+    -- Off the zeppelin, on the place's continent: a walk again, to the place.
+    now = now + 10
+    Pathing:Aim(0, 420, 700)
+    assert(Pathing:Stop() == nil, "arrived on its continent: no stop left")
+    left = Pathing:Remaining(0, 420, 700)
+    assert(left and math.abs(left[#left][1] - 400) < 0.01 and math.abs(left[#left][2] - 712) < 0.01, "to the place")
+    -- The hearthstone bound on the place's continent, known by its inn's name.
+    GetBindLocation = function() return "Undercity" end
+    GetItemCount = function(id) return id == 6948 and 1 or 0 end
+    local hearth = Journey.Hearth()
+    assert(hearth and hearth.continent == 0 and hearth.name == "Undercity" and hearth.wait == 0, "the inn of that name")
+    now = now + 10
+    n = Pathing:Aim(1, 1600, -4400)
+    stop = Pathing:Stop()
+    assert(stop and stop.kind == "hearth" and n == nil, "the hearthstone: nowhere to go to")
+    assert(Pathing:Remaining(1, 1600, -4400) == nil, "and nothing drawn")
+    -- In the air: nothing to go to either. Turned off: no journey.
+    GetItemCount = function() return 0 end
+    assert(Journey.Hearth() == nil, "no hearthstone, none")
+    UnitOnTaxi = function() return true end
+    now = now + 10
+    assert(Pathing:Aim(1, 1600, -4400) == nil and Pathing:Stop() == nil, "on a flight: no stop")
+    UnitOnTaxi = taxi
+    now = now + 10
+    Pathing:Aim(1, 1600, -4400)
+    assert(Pathing:Stop() and Pathing:Stop().kind == "link", "landed: the journey again")
+    -- A flight of the journey: the flight map's arrow goes over where it flies to, as for a fly
+    -- step of the guide.
+    local profile = PathwrightDB.profiles[FG:CharacterKey()]
+    local known = profile.flights
+    profile.flights = { [10] = true, [11] = true, [13] = true, [20] = true, [21] = true }
+    Journey:Reset()
+    now = now + 10
+    Pathing:Aim(0, -6630, -2180)
+    stop = Pathing:Stop()
+    assert(stop and stop.kind == "fly" and stop.to.id and stop.text:find("Fly to", 1, true), "a flight from Kargath")
+    local wanted = FG.Taxi.Wanted()
+    assert(wanted and wanted.k == "fly" and wanted.id == stop.to.id, "the flight map's arrow: the journey's flight")
+    assert(wanted.n == stop.to.name and FG.Taxi.Wanted() == wanted, "by its name too, the same while it lasts")
+    profile.flights = known
+    Journey:Reset()
+    now = now + 10
+    Pathing:Aim(1, 1600, -4400)
+    assert(FG.Taxi.Wanted() == nil, "no flight asked once the journey has none")
+    FG:Save("pathJourney", false)
+    Pathing:SetTarget(place, place, { title = "The place", kind = "objective" })
+    now = now + 10
+    assert(Pathing:Aim(1, 1600, -4400) == nil and Pathing:Stop() == nil, "turned off: none")
+    FG:Save("pathJourney", nil)
+    -- Where the hearthstone takes the character is kept under the name it has.
+    GetBindLocation = function() return "Some Camp" end
+    GetItemCount = function(id) return id == 6948 and 1 or 0 end
+    assert(Journey.Hearth() == nil, "a place not known")
+    fire("UNIT_SPELLCAST_SUCCEEDED", "player", "cast", 8690)
+    Pathing:SetTarget(place, place, { title = "The place", kind = "objective" })
+    now = now + 10
+    Pathing:Aim(0, 3000, 3000)
+    hearth = Journey.Hearth()
+    assert(hearth and hearth.continent == 0 and hearth.north == 3000, "learned on arrival")
+
+    UnitFactionGroup, GetBindLocation, GetItemCount, GetTime = faction, bound, count, clock
+    FG.Print = print0
+    FG:Save("pathMode", nil)
+    Journey:Reset()
+    Pathing:SetTarget(nil)
+    print("journey ok")
+end
+JourneyTest()
+JourneyTest = nil
+
 -- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
 -- then written on the text too, and the suite's comes back with the default. Last: once a suite
 -- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)

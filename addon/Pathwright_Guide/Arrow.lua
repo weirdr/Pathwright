@@ -4,7 +4,8 @@
 -- frames of the chevron turned counter-clockwise (8 x 8, frame 0 straight ahead). Dragged
 -- anywhere unless frames are locked. Without a position (instances) or on another continent it
 -- only says so, unless Shortest Path Forever leads to the way there (then towards it, with its
--- distance).
+-- distance). On a journey (Journey.lua: a flight, a boat, the hearthstone): towards its next
+-- stop, with what to do there below instead of the place's name.
 
 local FG = Pathwright
 local T = FG.T
@@ -49,12 +50,22 @@ local function Update(self, elapsed)
     if continent and FG.Pathing then
         wn, ww = FG.Pathing:Aim(continent, pn, pw)
     end
+    -- A journey: its next stop is where to go, and what to do there is said below.
+    local stop = continent and FG.Pathing and FG.Pathing:Stop() or nil
+    local title = stop and stop.text or self.name or ""
+    if self.said ~= title then
+        self.said = title
+        self.title:SetText(title)
+    end
+    if stop then
+        c2, tn, tw = stop.continent, stop.north, stop.west
+    end
     -- The place on another continent: the way there when there is one (a dock, a flight master).
     local there = continent ~= nil and continent == c2
     if not continent or not facing or not (there or wn) then
         self.arrow:Hide()
         self.check:Hide()
-        self.distance:SetText(L.elsewhere)
+        self.distance:SetText(stop and "" or L.elsewhere)
         return
     end
     local dn, dw = (there and tn or wn) - pn, (there and tw or ww) - pw
@@ -124,7 +135,8 @@ function Arrow:SetTarget(place, name)
         f:Hide()
         return
     end
-    f.title:SetText(name or "")
+    f.name, f.said = name or "", nil
+    f.title:SetText(f.name)
     f.wait = 0
     f:Show()
 end

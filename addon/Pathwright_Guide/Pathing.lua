@@ -4,6 +4,10 @@
 --   (Walker.lua, `pathLive`): around the steep ground, over the bridges, through the caves and
 --   the lifts; found again when the character leaves it. It joins the walk the guide planned
 --   where that is shorter than going on alone;
+--   the journey there when a walk is not the fastest way, or no way at all (Journey.lua,
+--   `pathJourney`): the flight paths the character knows, the boats and zeppelins, the
+--   hearthstone. The way shown then leads to its next stop (a flight master, a dock), found on
+--   the ground as the way to a step is, and the arrow says what to do there;
 --   the walk the guide planned to the step (`wp`: where it starts, then where it turns around
 --   the steep ground, world coordinates), shown on the compass as the way to go while the
 --   character is close to it (`pathMode`): until the way from here is found, and where the
@@ -70,6 +74,11 @@ end
 -- character stands (`walk.live`), else `planned`, the guide's.
 local walk, walkPlace, reached
 local planned, plannedWp
+-- The guide's own walk to the place (`planned` unless a journey's stop comes first), the place
+-- ({ continent, north, west, key }), the journey's next stop (Journey.lua; nil: none, the way is
+-- a walk) and when it was last asked for.
+local base, goal, stop, travelAt, said
+local TRAVEL_EVERY = 0.5
 
 -- The way from here: found again when the character is more than OFF yards off it (at most
 -- every AGAIN seconds); after a search that found none, when the character has moved MOVED
@@ -110,10 +119,12 @@ local function SetWalk(place, step)
         return
     end
     walk, walkPlace, reached, planned, plannedWp = nil, place, 1, nil, wp
+    base, goal, stop, travelAt = nil, nil, nil, nil
     ForgetLive()
     if not place or not place.m or not place.x then return end
     local continent, north, west = FG.Compass.World(place.m, place.x / 100, place.y / 100)
     if not continent then return end
+    goal = { continent = continent, north = north, west = west, key = Key(place) }
     local points = {}
     if step and place == step and step.wp and #step.wp >= 2 then
         for i = 1, #step.wp - 1, 2 do
@@ -122,7 +133,7 @@ local function SetWalk(place, step)
     end
     points[#points + 1] = { north, west }
     walk = { continent = continent, points = points }
-    planned = walk
+    planned, base = walk, walk
 end
 
 --- The leg of the walk closest to (`north`, `west`) from the one reached on, the closest point on
@@ -138,6 +149,56 @@ local function Closest(north, west)
     end
     return best, bestDistance, bestN, bestW
 end
+
+-- The journey ------------------------------------------------------------------------------
+
+--- Whether the journey to the place is planned: the setting, the way shown at all, and not
+--- while Shortest Path Forever guides (it plans its own).
+function Pathing:JourneyWanted()
+    return FG:Get("pathJourney") == true and FG.Journey ~= nil and self:PathShown() and not self:Guiding()
+end
+
+--- Ask for the journey's next stop for a character at (`north`, `west`) of `continent`, every
+--- TRAVEL_EVERY seconds: the way shown leads to it, or to the place again once none is left.
+function Pathing:Travel(continent, north, west)
+    if not goal then return end
+    local now = GetTime and GetTime() or 0
+    if travelAt and now - travelAt < TRAVEL_EVERY and now >= travelAt then return end
+    travelAt = now
+    local next = self:JourneyWanted() and FG.Journey:Update(continent, north, west, goal) or nil
+    if (next and next.key or nil) == (stop and stop.key or nil) then
+        -- The same stop: what it says may have changed (the flight's end, the hearthstone's wait).
+        stop = next
+        return
+    end
+    stop = next
+    ForgetLive()
+    reached = 1
+    -- Said once in the chat: the whole journey from here.
+    local plan = next and (next.north or next.kind == "hearth") and FG.Journey:Current()
+    if plan and said ~= goal.key .. ">" .. next.key then
+        said = goal.key .. ">" .. next.key
+        FG:Print(
+            FG.T("way: %s (about %d min)"),
+            FG.Journey.Text(plan),
+            math.max(1, math.floor(plan.seconds / 60 + 0.5))
+        )
+    end
+    if not next then
+        planned = base
+    elseif next.north then
+        planned = { continent = next.continent, points = { { next.north, next.west } } }
+    else
+        -- Nowhere to go to (the hearthstone, a flight being taken).
+        planned = nil
+    end
+    walk = planned
+    if FG.PathLines then FG.PathLines:Refresh() end
+end
+
+--- The journey's next stop: { kind ("fly", "link", "hearth"), text (what to do there),
+--- continent, north, west (none for the hearthstone, or in the air) }; nil when the way is a walk.
+function Pathing:Stop() return stop end
 
 -- The way from here ------------------------------------------------------------------------
 
@@ -182,6 +243,10 @@ end
 local function Found(key, route, why, north, west)
     if live.key ~= key then return end
     live.job, live.time, live.at = nil, GetTime and GetTime() or 0, { north, west }
+    -- The journey counts what the walk really takes (or that there is none).
+    if FG.Journey and planned and goal and why ~= "error" then
+        FG.Journey:Walked(planned.continent, north, west, stop and stop.key or goal.key, route, why)
+    end
     if not route then
         live.state, live.why = "failed", why
         return
@@ -231,7 +296,7 @@ function Pathing:Live(continent, north, west)
         need = away > SHORT and since > RETRY and (moved > MOVED or since > RETRY * 4)
     end
     if not need then return end
-    local key = Key(walkPlace)
+    local key = stop and stop.key or Key(walkPlace)
     live.key = key
     local indoors
     if IsIndoors then indoors = IsIndoors() and true or false end
@@ -254,12 +319,20 @@ function Pathing:LiveState()
         yards = live.yards,
         explored = live.explored,
         points = walk and walk.live and #walk.points or nil,
+        journey = stop and FG.Journey and FG.Journey:Current() or nil,
     }
 end
 
 --- `/pw way`: say in the chat what the way from here is doing.
 function Pathing:Say()
     local s = self:LiveState()
+    if s.journey and s.journey.stops[1] then
+        FG:Print(
+            FG.T("way: %s (about %d min)"),
+            FG.Journey.Text(s.journey),
+            math.max(1, math.floor(s.journey.seconds / 60 + 0.5))
+        )
+    end
     if not s.wanted then
         FG:Print(FG.T("way: found from where you stand is turned off (Options, Path)"))
     elseif s.state == "found" then
@@ -288,10 +361,17 @@ function Pathing:Aim(continent, north, west)
         if way.continent ~= continent then return nil end
         return way.north, way.west, false
     end
+    self:Travel(continent, north, west)
     if not walk or walk.continent ~= continent or not self:PathShown() then return nil end
     self:Live(continent, north, west)
     local points = walk.points
     local best, bestDistance, bestN, bestW = Closest(north, west)
+    -- A journey's stop is not the place the compass and the arrow show: it is the way itself,
+    -- to its very end.
+    if stop and (not best or bestDistance > REJOIN or best == #points - 1) then
+        if best and bestDistance <= REJOIN then reached = best end
+        return points[#points][1], points[#points][2], false
+    end
     if not best or bestDistance > REJOIN then return nil end
     reached = best
     if best == #points - 1 then return nil end
@@ -312,6 +392,7 @@ end
 --- { { north, west }, ... } from the character (or from the walk's closest point when on it) to
 --- the place; the whole walk left when far from it; nil without a walk or with it not shown.
 function Pathing:Remaining(continent, north, west)
+    self:Travel(continent, north, west)
     if not walk or walk.continent ~= continent or not self:PathShown() then return nil end
     self:Live(continent, north, west)
     local points = walk.points
@@ -437,6 +518,11 @@ end
 function Pathing:Forget()
     sent, refused, way = nil, nil, nil
 end
+
+FG:OnSetting("pathJourney", function()
+    travelAt = nil
+    if FG.PathLines then FG.PathLines:Refresh() end
+end)
 
 FG:OnSetting("spfLink", function(on)
     if not on then Cancel(API()) end

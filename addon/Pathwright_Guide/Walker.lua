@@ -493,10 +493,19 @@ local jobs, pump = {}, nil
 local clock = debugprofilestop
 
 local function Run()
-    local job = jobs[1]
-    while job and job.cancelled do
-        table.remove(jobs, 1)
-        job = jobs[1]
+    for i = #jobs, 1, -1 do
+        if jobs[i].cancelled then table.remove(jobs, i) end
+    end
+    -- The first one waiting, those that can wait (`low`) after the others.
+    local job, index
+    for i, waiting in ipairs(jobs) do
+        if not waiting.low then
+            job, index = waiting, i
+            break
+        end
+    end
+    if not job then
+        job, index = jobs[1], 1
     end
     if not job then
         if pump then pump:Hide() end
@@ -507,7 +516,7 @@ local function Run()
     job.budget = budget
     local ok, route, why = coroutine.resume(job.thread)
     if coroutine.status(job.thread) == "dead" then
-        table.remove(jobs, 1)
+        table.remove(jobs, index)
         if not job.cancelled then
             if not ok then
                 FG:Error("walker", route)
@@ -519,9 +528,9 @@ local function Run()
 end
 
 --- Find the way for `request` (see Solve) a little every frame, then call `done(route, why)`.
---- Returns the job, to cancel it (Walker:Cancel).
-function Walker:Start(request, done)
-    local job = { done = done }
+--- Returns the job, to cancel it (Walker:Cancel). `low`: it can wait, the others go first.
+function Walker:Start(request, done, low)
+    local job = { done = done, low = low }
     local function tick()
         if clock and clock() - job.since >= job.budget then coroutine.yield() end
     end

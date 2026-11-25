@@ -35,6 +35,7 @@ local L = {
     back = T("Back to the planned way"),
     spfWay = T("Shortest Path Forever's way"),
     spfWayTip = T("Go this way: the route Shortest Path Forever planned to the step"),
+    journeyTip = T("Go this way: the next stop of the fastest journey to the step"),
     title = T("Compass"),
     move = T("Drag: move it"),
     size = T("Ctrl + mouse wheel: its size"),
@@ -212,7 +213,11 @@ local function MakeWay()
     m:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
         local spf = FG.Pathing and FG.Pathing:Way()
-        if spf then
+        local stop = FG.Pathing and FG.Pathing:Stop()
+        if stop and not spf then
+            GameTooltip:AddLine(stop.text, 1, 1, 1, true)
+            GameTooltip:AddLine(L.journeyTip, 0.73, 0.77, 0.84, true)
+        elseif spf then
             GameTooltip:AddLine(spf.text or L.spfWay, 1, 1, 1, true)
             GameTooltip:AddLine(L.spfWayTip, 0.73, 0.77, 0.84, true)
         else
@@ -550,6 +555,13 @@ function Compass:Draw()
         wn, ww, back = FG.Pathing:Aim(continent, pn, pw)
     end
     if wn then any = true end
+    -- Elsewhere, or what the journey there asks for now (the hearthstone, a flight being taken).
+    local stop = FG.Pathing and FG.Pathing:Stop()
+    local elsewhere = stop and stop.text or L.elsewhere
+    if frame.elsewhereText ~= elsewhere then
+        frame.elsewhereText = elsewhere
+        frame.elsewhere:SetText(elsewhere)
+    end
     frame.elsewhere:SetShown(not any)
     if not any then
         HideFrom(ticks, 1)

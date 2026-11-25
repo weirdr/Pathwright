@@ -1,5 +1,7 @@
 -- The flight map: when the guide's step says to fly somewhere, a green arrow bobs over that
--- destination on the flight master's map, so it is found at a glance among the others.
+-- destination on the flight master's map, so it is found at a glance among the others. So does
+-- the flight of the journey to the step (Journey.lua: "Fly to ..."), when the guide's steps
+-- ask for none themselves.
 --
 -- With "Take the step's flight automatically" on, the flight is taken as the map opens
 -- (Automation.lua) and the arrow is hardly seen; it shows when that setting is off, when Shift
@@ -30,7 +32,8 @@ local L = {
 }
 
 --- The flight the guide asks for now: the first "fly" step not taken among the steps shown,
---- else the current step when it is one. Nil when no flight is asked.
+--- else the current step when it is one, else the flight the journey to the step takes next
+--- (as a step: { k = "fly", id, n }). Nil when no flight is asked.
 function Taxi.Wanted()
     local Guide = FG.Guide
     local route, state = Guide and Guide:Route(), Guide and Guide:State()
@@ -40,7 +43,17 @@ function Taxi.Wanted()
         if step and step.k == "fly" and not (state.marks and state.marks[index]) then return step end
     end
     local step = route.steps[Guide:CurrentStep()]
-    return step and step.k == "fly" and step or nil
+    if step and step.k == "fly" then return step end
+    local stop = FG.Pathing and FG.Pathing.Stop and FG.Pathing:Stop()
+    local to = stop and stop.kind == "fly" and stop.to
+    if not to or not to.id then return nil end
+    -- The same table while the flight is the same (what was said of it is not said again).
+    local flight = Taxi.journey
+    if not flight or flight.id ~= to.id then
+        flight = { k = "fly", id = to.id, n = to.name }
+        Taxi.journey = flight
+    end
+    return flight
 end
 
 --- The map the flight map shows: the game says it, else the continent the character is on

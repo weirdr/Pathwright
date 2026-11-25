@@ -50,6 +50,8 @@ Compass.lua
 Terrain\Terrain.xml
 Terrain.lua
 Walker.lua
+TravelData.lua
+Journey.lua
 Pathing.lua
 Arrow.lua
 Nearby.lua
