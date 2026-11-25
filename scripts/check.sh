@@ -8,7 +8,7 @@ cd "$(dirname "$0")/.."
 has() { command -v "$1" >/dev/null 2>&1; }
 
 cargo fmt --all --check
-python3 scripts/check-inns.py
+if has zstd && has python3; then python3 scripts/check-inns.py; else echo "skip: check-inns (needs zstd and python3)"; fi
 cargo clippy --workspace --all-targets --locked -- -D warnings
 cargo test --workspace --locked --release
 if has cargo-deny; then cargo deny --log-level error check; else echo "skip: cargo deny (cargo install cargo-deny)"; fi

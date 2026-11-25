@@ -18,7 +18,7 @@ reason = "Innkeeper Renee, the tavern of Brill"
 [[inn]]
 npc = 15174
 place = "Cenarion Hold"
-reason = "Innkeeper Vizzie"
+reason = "Calandrath"
 
 [[inn]]
 npc = 11116
@@ -73,7 +73,7 @@ reason = "Innkeeper Karakul"
 [[inn]]
 npc = 12196
 place = "Splintertree Post"
-reason = "Innkeeper Kaya Flathoof"
+reason = "Innkeeper Kaylisk"
 
 [[inn]]
 npc = 2388
@@ -88,7 +88,7 @@ reason = "Innkeeper Shul'kar"
 [[inn]]
 npc = 11106
 place = "Shadowprey Village"
-reason = "Innkeeper Lyshaerya"
+reason = "Innkeeper Sikewa"
 
 [[inn]]
 npc = 6807
@@ -103,14 +103,13 @@ reason = "Innkeeper Thulbek"
 [[inn]]
 npc = 11118
 place = "Everlook"
-reason = "Innkeeper Vizzklick"
+reason = "Innkeeper Vizzie"
 
 [[inn]]
 npc = 14731
 place = "Revantusk Village"
-reason = "Innkeeper Wiley"
+reason = "Lard"
 
-# The capitals' inns: the hearthstone says the city's name.
 [[inn]]
 npc = 6929
 place = "Orgrimmar"
@@ -129,309 +128,305 @@ reason = "Innkeeper Norman; the city's name, as the capitals bind to it"
 [[inn]]
 npc = 295
 place = "Goldshire"
-reason = "Innkeeper Farley"
-
-[[inn]]
-npc = 1247
-place = "Kharanos"
-reason = "Innkeeper Belm"
-
-[[inn]]
-npc = 1464
-place = "Menethil Harbor"
-reason = "Innkeeper Helbrek"
+reason = "Innkeeper Farley; Goldshire has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 2352
 place = "Southshore"
-reason = "Innkeeper Anderson"
+reason = "Innkeeper Anderson; Southshore has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 5111
 place = "Ironforge"
-reason = "Innkeeper Firebrew"
-
-[[inn]]
-npc = 6272
-place = "Theramore Isle"
-reason = "Innkeeper Janene"
+reason = "Innkeeper Firebrew; the city's name, a zone of its own in AreaTable, as the capitals bind to it"
 
 [[inn]]
 npc = 6727
 place = "Lakeshire"
-reason = "Innkeeper Brianna"
-
-[[inn]]
-npc = 6734
-place = "Thelsamar"
-reason = "Innkeeper Hearthstove"
+reason = "Innkeeper Brianna; Lakeshire has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 6735
 place = "Darnassus"
-reason = "Innkeeper Saelienne"
+reason = "Innkeeper Saelienne; the city's name, a zone of its own in AreaTable, as the capitals bind to it"
 
 [[inn]]
 npc = 6736
 place = "Dolanaar"
-reason = "Innkeeper Keldamyr"
+reason = "Innkeeper Keldamyr; Dolanaar has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 6737
 place = "Auberdine"
-reason = "Innkeeper Shaussiy"
+reason = "Innkeeper Shaussiy; Auberdine has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 6738
 place = "Astranaar"
-reason = "Innkeeper Kimlya"
+reason = "Innkeeper Kimlya; Astranaar has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 6740
 place = "Stormwind City"
-reason = "Innkeeper Allison"
+reason = "Innkeeper Allison; the city's name, a zone of its own in AreaTable, as the capitals bind to it"
 
 [[inn]]
 npc = 6747
 place = "Bloodhoof Village"
-reason = "Innkeeper Kauth"
+reason = "Innkeeper Kauth; Bloodhoof Village has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 6790
 place = "Darkshire"
-reason = "Innkeeper Trelayne"
+reason = "Innkeeper Trelayne; Darkshire has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 6791
 place = "Ratchet"
-reason = "Innkeeper Wiley"
+reason = "Innkeeper Wiley; Ratchet has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 7736
 place = "Feathermoon Stronghold"
-reason = "Innkeeper Shyria"
-
-[[inn]]
-npc = 7744
-place = "Aerie Peak"
-reason = "Innkeeper Thulfram"
+reason = "Innkeeper Shyria; Feathermoon Stronghold has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 8931
 place = "Sentinel Hill"
-reason = "Innkeeper Heather"
+reason = "Innkeeper Heather; Sentinel Hill has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 11103
 place = "Nijel's Point"
-reason = "Innkeeper Lyshaerya"
+reason = "Innkeeper Lyshaerya; Nijel's Point has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
 npc = 16256
 place = "Light's Hope Chapel"
-reason = "Jessica Chambers"
+reason = "Jessica Chambers; Light's Hope Chapel has no inn or tavern sub-area in AreaTable"
 
-# Left out on purpose: the innkeepers below have no place listed, as their name in `GetBindLocation()`
-# is not known for sure (Outland and WoW Forever towns, camps with no AreaTable row, Faralia's Stonetalon
-# post). Their bind steps carry neither `inn` nor `ia`. Move one to an `[[inn]]` once its name is checked
-# in game. `scripts/check-inns.py` fails on an innkeeper that is in neither list.
+# Left out on purpose: no place is listed, as the name `GetBindLocation()` says there is not settled by
+# the data (a town with an inn or tavern sub-area of its own, Outland and WoW Forever towns, Faralia's
+# Stonetalon post) or the camp has no AreaTable row. Their bind steps carry neither `inn` nor `ia`, and
+# the addon falls back to the marks and the bind's position. Move one to an `[[inn]]` once its name is
+# checked in game.
+
+[[left_out]]
+npc = 1247
+reason = "Innkeeper Belm; name not confirmed in game; candidates: Kharanos or Thunderbrew Distillery"
+
+[[left_out]]
+npc = 1464
+reason = "Innkeeper Helbrek; name not confirmed in game; candidates: Menethil Harbor or Deepwater Tavern"
+
+[[left_out]]
+npc = 6272
+reason = "Innkeeper Janene; name not confirmed in game; candidates: Theramore Isle or the inn's own tavern (Shady Rest Inn is an inn sub-area of Dustwallow Marsh in AreaTable; the Theramore inn may bind to Theramore Isle or to its own tavern)"
+
+[[left_out]]
+npc = 6734
+reason = "Innkeeper Hearthstove; name not confirmed in game; candidates: Thelsamar or Stoutlager Inn"
+
+[[left_out]]
+npc = 7744
+reason = "Innkeeper Thulfram; name not confirmed in game; candidates: Aerie Peak or Wildhammer Keep"
 
 [[left_out]]
 npc = 15397
-reason = "Marniel Amberlight"
+reason = "Marniel Amberlight; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Eversong Woods)"
 
 [[left_out]]
 npc = 15433
-reason = "Innkeeper Delaniel"
+reason = "Innkeeper Delaniel; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Eversong Woods)"
 
 [[left_out]]
 npc = 16458
-reason = "Innkeeper Faralia"
+reason = "Innkeeper Faralia; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Stonetalon Mountains)"
 
 [[left_out]]
 npc = 16542
-reason = "Innkeeper Kalarin"
+reason = "Innkeeper Kalarin; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Ghostlands)"
 
 [[left_out]]
 npc = 16553
-reason = "Caregiver Chellan"
+reason = "Caregiver Chellan; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Azuremyst Isle)"
 
 [[left_out]]
 npc = 16602
-reason = "Floyd Pinkus"
+reason = "Floyd Pinkus; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Hellfire Peninsula)"
 
 [[left_out]]
 npc = 16618
-reason = "Innkeeper Velandra"
+reason = "Innkeeper Velandra; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Silvermoon City)"
 
 [[left_out]]
 npc = 16739
-reason = "Caregiver Breel"
+reason = "Caregiver Breel; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, The Exodar)"
 
 [[left_out]]
 npc = 16826
-reason = "Sid Limbardi"
+reason = "Sid Limbardi; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Hellfire Peninsula)"
 
 [[left_out]]
 npc = 17553
-reason = "Caregiver Topher Loaal"
+reason = "Caregiver Topher Loaal; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Bloodmyst Isle)"
 
 [[left_out]]
 npc = 17630
-reason = "Innkeeper Jovia"
+reason = "Innkeeper Jovia; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Silvermoon City)"
 
 [[left_out]]
 npc = 18245
-reason = "Merajit"
+reason = "Merajit; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Zangarmarsh)"
 
 [[left_out]]
 npc = 18251
-reason = "Caregiver Abidaar"
+reason = "Caregiver Abidaar; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Zangarmarsh)"
 
 [[left_out]]
 npc = 18905
-reason = "Innkeeper Bazil Olof'tazun"
+reason = "Innkeeper Bazil Olof'tazun; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Hellfire Peninsula)"
 
 [[left_out]]
 npc = 18906
-reason = "Caregiver Ophera Windfury"
+reason = "Caregiver Ophera Windfury; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Hellfire Peninsula)"
 
 [[left_out]]
 npc = 18907
-reason = "Innkeeper Coryth Stoktron"
+reason = "Innkeeper Coryth Stoktron; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Zangarmarsh)"
 
 [[left_out]]
 npc = 18908
-reason = "Innkeeper Kerp"
+reason = "Innkeeper Kerp; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Zangarmarsh)"
 
 [[left_out]]
 npc = 18913
-reason = "Matron Tikkit"
+reason = "Matron Tikkit; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Nagrand)"
 
 [[left_out]]
 npc = 18914
-reason = "Caregiver Isel"
+reason = "Caregiver Isel; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Nagrand)"
 
 [[left_out]]
 npc = 18957
-reason = "Innkeeper Grilka"
+reason = "Innkeeper Grilka; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Terokkar Forest)"
 
 [[left_out]]
 npc = 19046
-reason = "Minalei"
+reason = "Minalei; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shattrath City)"
 
 [[left_out]]
 npc = 19232
-reason = "Innkeeper Haelthol"
+reason = "Innkeeper Haelthol; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shattrath City)"
 
 [[left_out]]
 npc = 19296
-reason = "Innkeeper Biribi"
+reason = "Innkeeper Biribi; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Terokkar Forest)"
 
 [[left_out]]
 npc = 19319
-reason = "Innkeeper Darg Bloodclaw"
+reason = "Innkeeper Darg Bloodclaw; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shadowmoon Valley)"
 
 [[left_out]]
 npc = 19352
-reason = "Dreg Cloudsweeper"
+reason = "Dreg Cloudsweeper; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shadowmoon Valley)"
 
 [[left_out]]
 npc = 19470
-reason = "Gholah"
+reason = "Gholah; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Blade's Edge Mountains)"
 
 [[left_out]]
 npc = 19495
-reason = "Innkeeper Shaunessy"
+reason = "Innkeeper Shaunessy; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Blade's Edge Mountains)"
 
 [[left_out]]
 npc = 19531
-reason = "Eyonix"
+reason = "Eyonix; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Netherstorm)"
 
 [[left_out]]
 npc = 19571
-reason = "Innkeeper Remi Dodoso"
+reason = "Innkeeper Remi Dodoso; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Stonetalon Mountains)"
 
 [[left_out]]
 npc = 21088
-reason = "Matron Varah"
+reason = "Matron Varah; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Dustwallow Marsh)"
 
 [[left_out]]
 npc = 21110
-reason = "Fizit \"Doc\" Clocktock"
+reason = "Fizit \"Doc\" Clocktock; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Blade's Edge Mountains)"
 
 [[left_out]]
 npc = 21744
-reason = "Roldemar"
+reason = "Roldemar; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shadowmoon Valley)"
 
 [[left_out]]
 npc = 21746
-reason = "Caretaker Aluuro"
+reason = "Caretaker Aluuro; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shadowmoon Valley)"
 
 [[left_out]]
 npc = 22922
-reason = "Innkeeper Aelerya"
+reason = "Innkeeper Aelerya; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Hillsbrad Foothills)"
 
 [[left_out]]
 npc = 23143
-reason = "Horus"
+reason = "Horus; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shadowmoon Valley)"
 
 [[left_out]]
 npc = 23995
-reason = "Axle"
+reason = "Axle; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Dustwallow Marsh)"
 
 [[left_out]]
 npc = 24208
-reason = "\"Little\" Logok"
+reason = "\"Little\" Logok; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Dustwallow Marsh)"
 
 [[left_out]]
 npc = 25036
-reason = "Caregiver Inaara"
+reason = "Caregiver Inaara; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Isle of Quel'Danas)"
 
 [[left_out]]
 npc = 28687
-reason = "Amisi Azuregaze"
+reason = "Amisi Azuregaze; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Alterac Mountains)"
 
 [[left_out]]
 npc = 32413
-reason = "Isirami Fairwind"
+reason = "Isirami Fairwind; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Alterac Mountains)"
 
 [[left_out]]
 npc = 240482
-reason = "Berdun Cliffbrew"
+reason = "Berdun Cliffbrew; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Azshara)"
 
 [[left_out]]
 npc = 243815
-reason = "Sebelia"
+reason = "Sebelia; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Mount Hyjal)"
 
 [[left_out]]
 npc = 244512
-reason = "Ortak Lomgok"
+reason = "Ortak Lomgok; WoW Forever camp with no AreaTable row"
 
 [[left_out]]
 npc = 252691
-reason = "Adarien"
+reason = "Adarien; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Shen'dralas)"
 
 [[left_out]]
 npc = 254089
-reason = "Coriella Calmbreeze"
+reason = "Coriella Calmbreeze; WoW Forever camp with no AreaTable row"
 
 [[left_out]]
 npc = 255894
-reason = "Innkeeper Zizplink"
+reason = "Innkeeper Zizplink; WoW Forever camp with no AreaTable row"
 
 [[left_out]]
 npc = 255940
-reason = "Donaal Downbreeze"
+reason = "Donaal Downbreeze; WoW Forever camp with no AreaTable row"
 
 [[left_out]]
 npc = 256675
-reason = "Innkeeper Toka"
+reason = "Innkeeper Toka; WoW Forever camp with no AreaTable row"
 
 [[left_out]]
 npc = 257595
-reason = "Barracks Master Harlan"
+reason = "Barracks Master Harlan; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Riverglades)"
 
 [[left_out]]
 npc = 258380
-reason = "Caitir Flinthew"
+reason = "Caitir Flinthew; name not confirmed in game; candidates: the town's name or its inn's own name (the data gives only the zone, Mount Hyjal)"

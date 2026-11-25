@@ -46,3 +46,16 @@ fn only_listed_innkeepers_have_a_place() {
         assert!(e.place.is_none(), "left-out innkeeper {} names a place", e.npc);
     }
 }
+
+/// A left-out innkeeper says why: a camp with no AreaTable row, or a name to confirm in game.
+#[test]
+fn left_out_innkeepers_say_what_to_check() {
+    for e in &file().left_out {
+        assert!(
+            e.reason.contains("no AreaTable row") || e.reason.contains("name not confirmed in game"),
+            "left-out innkeeper {} does not say why: {}",
+            e.npc,
+            e.reason
+        );
+    }
+}
