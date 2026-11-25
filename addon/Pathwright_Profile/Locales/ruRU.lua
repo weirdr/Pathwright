@@ -163,6 +163,7 @@ FG.Locales.ruRU = {
     ["windows unlocked: drag them to move them"] = "окна откреплены: перетащите их, чтобы переместить",
     ["for %s"] = "для %s",
     ["Level %d recommended, you are %d"] = "Рекомендуется уровень %d, у вас %d",
+    ["Level %d needed to take this quest, you are %d: do the next steps and come back"] = "Для этого задания нужен уровень %d, у вас %d: выполните следующие шаги и вернитесь",
     ["marked done, waiting for %s"] = "отмечено выполненным, ждём %s",
     ["%s: step %d"] = "%s: шаг %d",
     ["%s ahead: step %d"] = "%s впереди: шаг %d",

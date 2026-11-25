@@ -782,6 +782,72 @@ do
 end
 print("recommended level ok")
 
+-- An accept step whose quest asks a level the character lacks says so while it is the current step.
+do
+    FG.Routes["minlevel-test"] = {
+        race = 7,
+        class = 8,
+        faction = "Alliance",
+        fromLevel = 1,
+        toLevel = 5,
+        time = 1,
+        steps = {
+            { k = "accept", t = "Accept Level Three Quest", q = 5201, min = 3, lvl = 3 },
+            { k = "turnin", t = "Turn in Level Three Quest", q = 5201, lvl = 3 },
+        },
+    }
+    local shown
+    local card, mini = FG.Card.Render, FG.Mini.Render
+    FG.Card.Render = function(_, view) shown = view end
+    FG.Mini.Render = FG.Card.Render
+    local function warned()
+        shown = nil
+        FG.Guide:Refresh()
+        for _, c in ipairs(shown and shown.tasks[1] and shown.tasks[1].chips or {}) do
+            if
+                c.text
+                == string.format(
+                    FG.T("Level %d needed to take this quest, you are %d: do the next steps and come back"),
+                    3,
+                    2
+                )
+            then
+                return true
+            end
+        end
+        return false
+    end
+    playerLevel = 2
+    useRoute("minlevel-test")
+    assert(warned(), "the level a quest needs, said on its accept step")
+    playerLevel = 3
+    assert(not warned(), "nothing once the level is reached")
+    playerLevel = 21
+    FG.Card.Render, FG.Mini.Render = card, mini
+    useRoute("skip-test")
+end
+-- The Tauren starter takes Break Sharptusk! (level 3) only after the second camp visit has handed
+-- in The Hunt Continues (750): a real run is still level 2 at the first visit. The builder once counted
+-- the plainstrider meat and feathers as separate kills and planned it there.
+do
+    local def
+    local register = FG.Builtin.Register
+    FG.Builtin.Register = function(d) def = d end
+    assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
+    FG.Builtin.Register = register
+    local hunt, sharptusk
+    for i, st in ipairs(def.steps) do
+        if st.k == "turnin" and st.q == 750 then hunt = hunt or i end
+        if st.k == "accept" and st.q == 3376 then sharptusk = i end
+    end
+    assert(hunt and sharptusk and sharptusk > hunt, "Break Sharptusk! is taken after The Hunt Continues is handed in")
+    assert(
+        def.steps[sharptusk].lvl >= def.steps[sharptusk].min,
+        "Break Sharptusk! is planned at a level that can take it"
+    )
+end
+print("quest minimum level ok")
+
 -- Quest notes and icons (`nt`, `ic`): the step's icon says how it is done, a mark after its name
 -- takes the color of its most important note, and the tooltip lists the notes.
 do

@@ -163,6 +163,7 @@ FG.Locales.koKR = {
     ["windows unlocked: drag them to move them"] = "창 고정 해제: 드래그해서 옮기세요",
     ["for %s"] = "%s 전용",
     ["Level %d recommended, you are %d"] = "%d레벨 권장, 현재 %d레벨",
+    ["Level %d needed to take this quest, you are %d: do the next steps and come back"] = "이 퀘스트는 %d레벨이 필요합니다, 현재 %d레벨: 다음 단계를 진행하고 돌아오세요",
     ["marked done, waiting for %s"] = "완료 표시됨, %s 대기 중",
     ["%s: step %d"] = "%s: %d단계",
     ["%s ahead: step %d"] = "%s 앞서 있음: %d단계",

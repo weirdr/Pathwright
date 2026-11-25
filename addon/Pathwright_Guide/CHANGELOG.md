@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- An accept step for a quest above your level now says "Level 3 needed to take this quest, you are 2: do the next steps and come back" instead of looking available. The Tauren Starter guide now takes Break Sharptusk! on the second visit to Camp Narache, when a level 2 character has reached level 3.
 - The toolstrip's icons (quest item, swords, speech bubbles) can also show inside the guide window, and are pressed there as on the toolstrip. Two settings under Toolstrip, both off by default: "Toolstrip icons beside the guide's steps" puts each left or right of the step it belongs to, and "Toolstrip icons at the top of the guide" lines them up under the header. Not in minimal mode.
 - The danger alerts (elite or much higher target, low health) are now only given in the open world, never in a dungeon, a raid, a battleground or any other instanced content.
 - The dots of the path can be made larger or smaller: "Minimap path dot size" and "World map path dot size" under Path. Larger dots are spaced further apart, so the path stays dotted.
