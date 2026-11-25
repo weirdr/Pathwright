@@ -440,6 +440,10 @@ SlashCmdList.PATHWRIGHT = function(msg)
     if type(msg) == "string" and msg:lower():match("^%s*way") and FG.Pathing and FG.Pathing.Say then
         return FG.Pathing:Say()
     end
+    -- "/pw party": who in the party runs the addon, and whether quests are shared (Party.lua).
+    if type(msg) == "string" and msg:lower():match("^%s*party") and FG.Party and FG.Party.Say then
+        return FG.Party:Say()
+    end
     -- "/pw feedback": tell us what went wrong (the guide part).
     if type(msg) == "string" and msg:lower():match("^%s*feedback") and FG.Feedback then return FG.Feedback:Toggle() end
     FG.Options:Open()

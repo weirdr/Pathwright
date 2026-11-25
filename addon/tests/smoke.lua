@@ -7489,6 +7489,176 @@ end
 WalkerTest()
 WalkerTest = nil
 
+-- A quest taken in a party is shared with it (Party.lua): when every member runs the addon, or
+-- with any party when that is not asked for; not shared back, nor with members who have it.
+ShareTest = function()
+    local P = FG.Party
+    local saved = {
+        group = IsInGroup,
+        raid = IsInRaid,
+        members = GetNumSubgroupMembers,
+        name = UnitName,
+        chat = C_ChatInfo,
+        push = QuestLogPushQuest,
+        pushable = C_QuestLog.IsPushableQuest,
+        index = C_QuestLog.GetLogIndexForQuestID,
+        select = C_QuestLog.SetSelectedQuest,
+        selected = C_QuestLog.GetSelectedQuest,
+        combat = InCombatLockdown,
+        time = GetTime,
+    }
+    local now = 5000
+    GetTime = function() return now end
+    local party = { party1 = "Pata Blue", party2 = "Zed" }
+    UnitName = function(unit) return unit == "player" and "Brouz" or party[unit] end
+    IsInGroup = function() return true end
+    IsInRaid = function() return false end
+    GetNumSubgroupMembers = function() return 2 end
+    local groupMembers = GetNumGroupMembers
+    GetNumGroupMembers = function() return 3 end
+    local said = {}
+    C_ChatInfo = { SendAddonMessage = function(prefix, text) said[#said + 1] = prefix .. " " .. text end }
+    local pushed, selection = {}, 77
+    QuestLogPushQuest = function(index) pushed[#pushed + 1] = { index = index, selected = selection } end
+    C_QuestLog.IsPushableQuest = function(q) return q ~= 9902 end
+    C_QuestLog.GetLogIndexForQuestID = function(q) return q >= 9900 and q - 9897 or nil end
+    C_QuestLog.SetSelectedQuest = function(q) selection = q end
+    C_QuestLog.GetSelectedQuest = function() return selection end
+    InCombatLockdown = function() return false end
+    local function hear(text, sender) fire("CHAT_MSG_ADDON", "PWSYNC1", text, "PARTY", sender) end
+    local fired = fire
+    local function saidText(text)
+        for _, m in ipairs(said) do
+            if m == "PWSYNC1 " .. text then return true end
+        end
+        return false
+    end
+    runTimers()
+    P.users, P.progress = {}, {}
+    said = {}
+
+    -- Nobody known to run the addon: asked on a roster change, and nothing shared.
+    fired("GROUP_ROSTER_UPDATE")
+    runTimers()
+    assert(saidText("!?"), "who runs the addon is asked")
+    assert(not P:Everyone() and not P:Uses("Pata Blue"))
+    local shared, why = P:Share(9900)
+    assert(not shared and why == "members", "not shared while a member does not run the addon: " .. tostring(why))
+
+    -- One of two answered: still not everyone. Names are matched whatever the realm and the spaces.
+    hear("!", "Pata Blue-Realm")
+    assert(P:Uses("Pata Blue") and P:Uses("Pata") and not P:Everyone())
+    -- A member asking says that it runs the addon, and is answered.
+    said = {}
+    hear("!?", "Zed-Realm")
+    runTimers()
+    assert(P:Everyone(), "everyone runs the addon")
+    assert(saidText("!"), "a member who asks is answered")
+    -- Our own message coming back (under our whole name on WoW Forever) is not a member's.
+    assert(P.Own("Brouz") and P.Own("Brouz Red") and not P.Own("Pata Blue"))
+
+    -- A quest taken: the party is told, and it is shared a moment later, the log's selection put back.
+    said, pushed = {}, {}
+    fired("QUEST_ACCEPTED", 9900)
+    assert(saidText("A:9900"), "the party is told the quest was taken")
+    assert(#pushed == 0, "not shared before the members could say they took it too")
+    runTimers()
+    assert(#pushed == 1 and pushed[1].index == 3 and pushed[1].selected == 9900, "the quest is shared")
+    assert(selection == 77, "the log's selection is put back")
+    assert(saidText("P:9900"), "the members are told it was shared")
+    -- Classic Era and TBC pass the log's index first.
+    pushed = {}
+    fired("QUEST_ACCEPTED", 4, 9901)
+    runTimers()
+    assert(#pushed == 1 and pushed[1].index == 4, "the quest id is the second argument on Classic")
+
+    -- A quest the game does not let share is not, and the party is not told it was.
+    said, pushed = {}, {}
+    fired("QUEST_ACCEPTED", 9902)
+    runTimers()
+    assert(#pushed == 0 and not saidText("P:9902"), "an unshareable quest is left alone")
+
+    -- A quest a member shared with us is not shared back.
+    pushed = {}
+    hear("P:9903", "Zed")
+    fired("QUEST_ACCEPTED", 9903)
+    runTimers()
+    assert(#pushed == 0, "not shared back")
+    shared, why = P:Share(9903)
+    assert(why == "offered", tostring(why))
+    now = now + 400
+    hear("A:9903", "Pata Blue")
+    shared, why = P:Share(9903)
+    assert(why == "have", "every member has it: " .. tostring(why))
+
+    -- Members who took it at the same quest giver, or whose progress holds it, are not offered it.
+    pushed = {}
+    hear("A:9904", "Zed")
+    P:Store("Pata Blue", 9904, { "0" })
+    fired("QUEST_ACCEPTED", 9904)
+    runTimers()
+    assert(#pushed == 0, "everyone has the quest already")
+    P:Forget("Pata Blue", 9904)
+    shared = P:Share(9904)
+    assert(shared and #pushed == 1, "shared when one member lacks it")
+
+    -- In a fight: after it.
+    pushed = {}
+    InCombatLockdown = function() return true end
+    shared, why = P:Share(9905)
+    assert(not shared and why == "combat" and #pushed == 0)
+    InCombatLockdown = function() return false end
+    fired("PLAYER_REGEN_ENABLED")
+    assert(#pushed == 1 and pushed[1].index == 8, "shared after the fight")
+
+    -- A member without the addon: only when the setting does not ask for all.
+    party.party2 = "Nob"
+    pushed = {}
+    fired("QUEST_ACCEPTED", 9906)
+    runTimers()
+    assert(#pushed == 0, "a member without the addon: not shared")
+    FG:Save("questShareAll", false)
+    fired("QUEST_ACCEPTED", 9906)
+    runTimers()
+    assert(#pushed == 1, "shared with any party when not asked for all")
+    -- Turned off: nothing shared, the party still told the quest was taken.
+    FG:Save("questShare", false)
+    said, pushed = {}, {}
+    fired("QUEST_ACCEPTED", 9907)
+    runTimers()
+    assert(#pushed == 0 and saidText("A:9907"), "turned off")
+    shared, why = P:Share(9907)
+    assert(why == "off")
+    FG:Save("questShare", true)
+    FG:Save("questShareAll", true)
+
+    -- A raid, or no party: nothing, and who ran the addon is forgotten on leaving.
+    IsInRaid = function() return true end
+    shared, why = P:Share(9908)
+    assert(why == "alone")
+    IsInRaid = function() return false end
+    IsInGroup = function() return false end
+    GetNumSubgroupMembers = function() return 0 end
+    fired("GROUP_ROSTER_UPDATE")
+    local known = 0
+    for _ in pairs(P.users) do
+        known = known + 1
+    end
+    assert(known == 0, "forgotten on leaving the party")
+    P:Say()
+
+    IsInGroup, IsInRaid, GetNumSubgroupMembers, UnitName = saved.group, saved.raid, saved.members, saved.name
+    C_ChatInfo, QuestLogPushQuest, InCombatLockdown, GetTime = saved.chat, saved.push, saved.combat, saved.time
+    C_QuestLog.IsPushableQuest, C_QuestLog.GetLogIndexForQuestID = saved.pushable, saved.index
+    C_QuestLog.SetSelectedQuest, C_QuestLog.GetSelectedQuest = saved.select, saved.selected
+    P.progress = {}
+    runTimers()
+    GetNumGroupMembers = groupMembers
+    print("share ok")
+end
+ShareTest()
+ShareTest = nil
+
 -- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
 -- then written on the text too, and the suite's comes back with the default. Last: once a suite
 -- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)

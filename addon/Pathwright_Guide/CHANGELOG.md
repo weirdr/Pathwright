@@ -6,6 +6,10 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- A quest you take in a party is shared with it at once, so the others need not find the quest giver. Two settings under World map and group:
+  - "Share the quests you take with the party": on by default.
+  - "Only when the whole party uses Pathwright": on by default, so players without the addon get no quest offers they did not ask for. Unticked, quests are shared with any party.
+  - A quest is not offered to members who already have it or took it at the same moment, is not shared back by who receives it, and one taken in a fight is shared after it. `/pw party` says who in your party runs the addon.
 - The way to the guide's place is now found in game from where you stand, on the same walkable ground the app plans its walks on: around steep ground and water, over bridges, through caves, and by the lifts of Thunder Bluff, the Undercity and the Great Lift. It is found again when you leave it, and shown on the compass, the world map and the minimap. Before, the guide's walk started at the previous step and was only followed when you were near it. "Route found from where you stand" under Path turns it off; `/pw way` says what it is doing. With Shortest Path Forever linked, that addon still leads.
 - Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path after it has already had you fly there, because you already know it.
 - Tauren Starter (1-13): the Palemane Tanner step now points its marker at the Palemane camp south of the Winterhoof well (51.5, 73.5).
