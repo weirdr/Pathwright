@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795638324,
     next = "Arathi Highlands (32-33)",
     carry = { 63, 529, 546, 567, 1112, 1791 },
     variants = {

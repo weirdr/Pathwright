@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625819,
+    created = 1795638324,
     next = "The Hinterlands (48-49)",
     carry = { 580, 1119, 1429, 2741, 2932, 3123, 3380, 3520 },
     variants = {

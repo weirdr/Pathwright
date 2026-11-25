@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795638324,
     next = "Azshara (54-54)",
     carry = { 3518, 3563, 3568, 3909, 4120, 4494, 5084, 5158 },
     variants = {

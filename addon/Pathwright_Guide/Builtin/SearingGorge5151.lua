@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795638324,
     next = "Burning Steppes & Azshara (51-52)",
     carry = { 3568, 3908, 4120 },
     variants = {

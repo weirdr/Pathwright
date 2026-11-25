@@ -23,9 +23,10 @@ nobody stands. A player checked in game (#64): he stands at 48.3, 63.6, where Qu
 
 [[npc]]
 id = 2988 # Morin Cloudstalker, Bloodhoof Village
-quests = [751] # his other steps keep the place of the data; he walks the road east of the village
 map = 1412
 x = 50.4
 y = 62.8
 reason = """A player turning in The Ravaged Caravan (#73) found him at 50.4, 62.8, not at 54.94, \
-61.52, where the data's spawns put him."""
+61.52, where the data's spawns put him. 50.4, 62.8 is the west end (point 1) of his m_npc_path near \
+Bloodhoof Village, and he walks the road east from there. All his steps use it, so the arrow does \
+not move between consecutive steps at him."""

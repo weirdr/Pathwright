@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795638324,
     next = "Ashenvale (21-22)",
     carry = { 1358, 93739, 98024 },
     variants = {
