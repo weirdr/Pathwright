@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains.
 - A quest you take in a party is shared with it at once, so the others need not find the quest giver. Two settings under World map and group:
   - "Share the quests you take with the party": on by default.
   - "Only when the whole party uses Pathwright": on by default, so players without the addon get no quest offers they did not ask for. Unticked, quests are shared with any party.
