@@ -197,9 +197,17 @@ def best_area(kind, i):
     return None
 
 
+# NPCs whose place the data gets wrong are listed in overrides/npc_places.toml.
+with open(os.path.join(ROOT, "overrides", "npc_places.toml"), "rb") as f:
+    import tomllib as _toml
+    NPC_PLACES = {n["id"]: (n["map"], float(n["x"]), float(n["y"])) for n in _toml.load(f).get("npc", [])}
+
+
 def place_of(kind, i, prefer_area):
     """(uiMap, x, y) of an NPC or object: in the zone of the moment when it spawns there, else
-    where it spawns the most."""
+    where it spawns the most. An NPC of overrides/npc_places.toml stands where that file says."""
+    if kind == "npc" and i in NPC_PLACES:
+        return NPC_PLACES[i]
     for a in (prefer_area, best_area(kind, i)):
         if a is None:
             continue

@@ -1,0 +1,19 @@
+# Where an NPC stands, when the game data's places for it disagree. Read by
+# `addon/tools/guide_build.py`: a step for the NPC (accept, turn in, train, sell...) gets this
+# place instead of the one worked out from the data's spawns, in that map only.
+#
+# [[npc]]
+# id = 1234
+# map = 1412        # uiMap
+# x = 48.3
+# y = 63.6
+# reason = "why this is right"
+
+[[npc]]
+id = 3063 # Krang Stonehoof, warrior trainer, Bloodhoof Village
+map = 1412
+x = 48.3
+y = 63.6
+reason = """The data holds three places for him: Questie's 48.35, 63.74 and two of Wowhead's, \
+49.4, 60.4 and 49.6, 60.6. The builder grouped them into one at 49.12, 61.58, a place where \
+nobody stands. A player checked in game (#64): he stands at 48.3, 63.6, where Questie has him."""
