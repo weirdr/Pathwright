@@ -6,9 +6,9 @@
 # language's client). An innkeeper not listed gets neither: the addon then falls back to its marks
 # and to the binding's position.
 #
-# Left out on purpose (`guide_build.py` lists them in NO_INN): the WoW Forever camps' innkeepers
-# (Toka 256675, Zizplink 255894, Ortak Lomgok 244512, Coriella Calmbreeze 254089, Donaal Downbreeze
-# 255940), whose camps have no AreaTable row to name.
+# Left out on purpose: the `[[left_out]]` entries at the end (`guide_build.py` reads them too), among
+# them the WoW Forever camps' innkeepers, whose camps have no AreaTable row to name.
+# `scripts/check-inns.py` fails on an innkeeper of the game data in neither list.
 
 [[inn]]
 npc = 5688
@@ -125,3 +125,313 @@ reason = "Innkeeper Pala; the city's name, as the capitals bind to it"
 npc = 6741
 place = "Undercity"
 reason = "Innkeeper Norman; the city's name, as the capitals bind to it"
+
+[[inn]]
+npc = 295
+place = "Goldshire"
+reason = "Innkeeper Farley"
+
+[[inn]]
+npc = 1247
+place = "Kharanos"
+reason = "Innkeeper Belm"
+
+[[inn]]
+npc = 1464
+place = "Menethil Harbor"
+reason = "Innkeeper Helbrek"
+
+[[inn]]
+npc = 2352
+place = "Southshore"
+reason = "Innkeeper Anderson"
+
+[[inn]]
+npc = 5111
+place = "Ironforge"
+reason = "Innkeeper Firebrew"
+
+[[inn]]
+npc = 6272
+place = "Theramore Isle"
+reason = "Innkeeper Janene"
+
+[[inn]]
+npc = 6727
+place = "Lakeshire"
+reason = "Innkeeper Brianna"
+
+[[inn]]
+npc = 6734
+place = "Thelsamar"
+reason = "Innkeeper Hearthstove"
+
+[[inn]]
+npc = 6735
+place = "Darnassus"
+reason = "Innkeeper Saelienne"
+
+[[inn]]
+npc = 6736
+place = "Dolanaar"
+reason = "Innkeeper Keldamyr"
+
+[[inn]]
+npc = 6737
+place = "Auberdine"
+reason = "Innkeeper Shaussiy"
+
+[[inn]]
+npc = 6738
+place = "Astranaar"
+reason = "Innkeeper Kimlya"
+
+[[inn]]
+npc = 6740
+place = "Stormwind City"
+reason = "Innkeeper Allison"
+
+[[inn]]
+npc = 6747
+place = "Bloodhoof Village"
+reason = "Innkeeper Kauth"
+
+[[inn]]
+npc = 6790
+place = "Darkshire"
+reason = "Innkeeper Trelayne"
+
+[[inn]]
+npc = 6791
+place = "Ratchet"
+reason = "Innkeeper Wiley"
+
+[[inn]]
+npc = 7736
+place = "Feathermoon Stronghold"
+reason = "Innkeeper Shyria"
+
+[[inn]]
+npc = 7744
+place = "Aerie Peak"
+reason = "Innkeeper Thulfram"
+
+[[inn]]
+npc = 8931
+place = "Sentinel Hill"
+reason = "Innkeeper Heather"
+
+[[inn]]
+npc = 11103
+place = "Nijel's Point"
+reason = "Innkeeper Lyshaerya"
+
+[[inn]]
+npc = 16256
+place = "Light's Hope Chapel"
+reason = "Jessica Chambers"
+
+# Left out on purpose: the innkeepers below have no place listed, as their name in `GetBindLocation()`
+# is not known for sure (Outland and WoW Forever towns, camps with no AreaTable row, Faralia's Stonetalon
+# post). Their bind steps carry neither `inn` nor `ia`. Move one to an `[[inn]]` once its name is checked
+# in game. `scripts/check-inns.py` fails on an innkeeper that is in neither list.
+
+[[left_out]]
+npc = 15397
+reason = "Marniel Amberlight"
+
+[[left_out]]
+npc = 15433
+reason = "Innkeeper Delaniel"
+
+[[left_out]]
+npc = 16458
+reason = "Innkeeper Faralia"
+
+[[left_out]]
+npc = 16542
+reason = "Innkeeper Kalarin"
+
+[[left_out]]
+npc = 16553
+reason = "Caregiver Chellan"
+
+[[left_out]]
+npc = 16602
+reason = "Floyd Pinkus"
+
+[[left_out]]
+npc = 16618
+reason = "Innkeeper Velandra"
+
+[[left_out]]
+npc = 16739
+reason = "Caregiver Breel"
+
+[[left_out]]
+npc = 16826
+reason = "Sid Limbardi"
+
+[[left_out]]
+npc = 17553
+reason = "Caregiver Topher Loaal"
+
+[[left_out]]
+npc = 17630
+reason = "Innkeeper Jovia"
+
+[[left_out]]
+npc = 18245
+reason = "Merajit"
+
+[[left_out]]
+npc = 18251
+reason = "Caregiver Abidaar"
+
+[[left_out]]
+npc = 18905
+reason = "Innkeeper Bazil Olof'tazun"
+
+[[left_out]]
+npc = 18906
+reason = "Caregiver Ophera Windfury"
+
+[[left_out]]
+npc = 18907
+reason = "Innkeeper Coryth Stoktron"
+
+[[left_out]]
+npc = 18908
+reason = "Innkeeper Kerp"
+
+[[left_out]]
+npc = 18913
+reason = "Matron Tikkit"
+
+[[left_out]]
+npc = 18914
+reason = "Caregiver Isel"
+
+[[left_out]]
+npc = 18957
+reason = "Innkeeper Grilka"
+
+[[left_out]]
+npc = 19046
+reason = "Minalei"
+
+[[left_out]]
+npc = 19232
+reason = "Innkeeper Haelthol"
+
+[[left_out]]
+npc = 19296
+reason = "Innkeeper Biribi"
+
+[[left_out]]
+npc = 19319
+reason = "Innkeeper Darg Bloodclaw"
+
+[[left_out]]
+npc = 19352
+reason = "Dreg Cloudsweeper"
+
+[[left_out]]
+npc = 19470
+reason = "Gholah"
+
+[[left_out]]
+npc = 19495
+reason = "Innkeeper Shaunessy"
+
+[[left_out]]
+npc = 19531
+reason = "Eyonix"
+
+[[left_out]]
+npc = 19571
+reason = "Innkeeper Remi Dodoso"
+
+[[left_out]]
+npc = 21088
+reason = "Matron Varah"
+
+[[left_out]]
+npc = 21110
+reason = "Fizit \"Doc\" Clocktock"
+
+[[left_out]]
+npc = 21744
+reason = "Roldemar"
+
+[[left_out]]
+npc = 21746
+reason = "Caretaker Aluuro"
+
+[[left_out]]
+npc = 22922
+reason = "Innkeeper Aelerya"
+
+[[left_out]]
+npc = 23143
+reason = "Horus"
+
+[[left_out]]
+npc = 23995
+reason = "Axle"
+
+[[left_out]]
+npc = 24208
+reason = "\"Little\" Logok"
+
+[[left_out]]
+npc = 25036
+reason = "Caregiver Inaara"
+
+[[left_out]]
+npc = 28687
+reason = "Amisi Azuregaze"
+
+[[left_out]]
+npc = 32413
+reason = "Isirami Fairwind"
+
+[[left_out]]
+npc = 240482
+reason = "Berdun Cliffbrew"
+
+[[left_out]]
+npc = 243815
+reason = "Sebelia"
+
+[[left_out]]
+npc = 244512
+reason = "Ortak Lomgok"
+
+[[left_out]]
+npc = 252691
+reason = "Adarien"
+
+[[left_out]]
+npc = 254089
+reason = "Coriella Calmbreeze"
+
+[[left_out]]
+npc = 255894
+reason = "Innkeeper Zizplink"
+
+[[left_out]]
+npc = 255940
+reason = "Donaal Downbreeze"
+
+[[left_out]]
+npc = 256675
+reason = "Innkeeper Toka"
+
+[[left_out]]
+npc = 257595
+reason = "Barracks Master Harlan"
+
+[[left_out]]
+npc = 258380
+reason = "Caitir Flinthew"

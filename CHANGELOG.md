@@ -10,6 +10,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Guides
 
+- Bind steps in guides the app writes now name the inn for Alliance characters and for more Horde inns (Bloodhoof Village, Ratchet, Light's Hope Chapel...), so a hearthstone already set there passes the step.
 - Skyborne Starter (1-13): Vulgara's Head now warns that Vulgara is an elite who may need a group, and that the quest can be skipped if it is too hard.
 - Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains.
 - Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path after it has already had you fly there, because you already know it.

@@ -209,14 +209,15 @@ def place_of(kind, i, prefer_area):
 # The place each inn binds the hearthstone to is listed in overrides/inns.toml (the guide writer of
 # the app reads the same file): the English name GetBindLocation says after binding with that
 # innkeeper. An innkeeper missing there gets no `inn`, and the addon falls back to its marks and the
-# binding's position, so a bind step without one must be a deliberate choice: NO_INN lists them.
+# binding's position, so a bind step without one must be a deliberate choice: the `[[left_out]]` of that file lists them.
 import tomllib
 
 with open(os.path.join(ROOT, "overrides", "inns.toml"), "rb") as f:
-    INN_PLACES = {i["npc"]: i["place"] for i in tomllib.load(f)["inn"]}
+    _inns = tomllib.load(f)
+INN_PLACES = {i["npc"]: i["place"] for i in _inns["inn"]}
 
-# Innkeepers left without a place on purpose: WoW Forever's camps, which have no AreaTable row.
-NO_INN = {256675, 255894, 244512, 254089, 255940}
+# Innkeepers left without a place on purpose (the `[[left_out]]` of the same file).
+NO_INN = {i["npc"] for i in _inns.get("left_out", [])}
 
 
 def inn_place(step):
@@ -225,7 +226,7 @@ def inn_place(step):
     name = INN_PLACES.get(step["id"])
     if not name:
         if step["id"] not in NO_INN:
-            sys.exit(f"bind {step['id']}: add the inn's place to overrides/inns.toml (or to NO_INN)")
+            sys.exit(f"bind {step['id']}: add the inn's place to overrides/inns.toml (or list it as [[left_out]])")
         return
     ids = [int(r[0]) for r in rows("select ID from client_areatable where AreaName_lang=? order by ID", name)]
     if not ids:

@@ -1018,6 +1018,31 @@ fn round_trips(direct: &[Vec<f64>]) -> Vec<bool> {
 mod tests {
     use super::{fastest_flights, round_trips};
 
+    /// An innkeeper is listed once, either with its place or as left out on purpose: the check of
+    /// `scripts/check-inns.py` (against the game data) relies on the two lists not overlapping.
+    #[test]
+    fn inns_file_lists_each_innkeeper_once() {
+        #[derive(serde::Deserialize)]
+        struct Entry {
+            npc: i64,
+        }
+        #[derive(serde::Deserialize)]
+        struct File {
+            inn: Vec<Entry>,
+            left_out: Vec<Entry>,
+        }
+        let file: File = toml::from_str(include_str!("../../../overrides/inns.toml")).expect("inns.toml parses");
+        let mut seen = std::collections::HashSet::new();
+        for e in file.inn.iter().chain(&file.left_out) {
+            assert!(
+                seen.insert(e.npc),
+                "innkeeper {} is listed twice in overrides/inns.toml",
+                e.npc
+            );
+        }
+        assert!(!file.inn.is_empty() && !file.left_out.is_empty());
+    }
+
     /// A quest flight (one way) is not a flight master: towns flying to each other are.
     #[test]
     fn one_way_nodes_are_not_flight_masters() {
