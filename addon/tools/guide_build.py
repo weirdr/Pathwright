@@ -37,7 +37,8 @@ Script lines (one step each, "#" starts a comment, blank lines are ignored):
                                   farming them: optional (along the way), done once the bags hold
                                   them, so farming them later completes it too; it may come before
                                   the quest is taken (addon/tools/guide_ah.py lists the candidates)
-    note <text>                   something to do by hand (marked done)
+    note <text>                   something to do by hand (marked done; with "have", done once
+                                  the item is in the bags)
     goto <text>                   a place to reach (needs "at")
     grind <level>                 kill on the way until that level
     tip <text>                    a tip on the step before (the whole line)
@@ -60,6 +61,7 @@ Options after a step, in any order:
                     words) at rank n (1 if left out): skipped, with its other steps, without it
     only <who>...   alliance, horde, class names (warrior, mage...) and race names (orc, undead,
                     tauren, troll, windshaper...): who the step is for ("only priest troll")
+    have <item>     a note's item: the note is done once the bags hold it (a kill and loot)
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
 
@@ -315,6 +317,10 @@ def parse_opts(n, words, quiet=False):
             if not words[i + 1].isdigit():
                 fail(n, "npc <id>")
             o["npc"] = int(words[i + 1]); i += 2
+        elif w == "have":
+            if i + 1 >= len(words) or not words[i + 1].isdigit():
+                fail(n, "have <item id>")
+            o["have"] = int(words[i + 1]); i += 2
         elif w == "mobs":
             o["mobs"] = []
             i += 1
@@ -334,7 +340,7 @@ def parse_opts(n, words, quiet=False):
     return o
 
 
-OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only"}
+OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only", "have"}
 
 
 def opts_ok(words):
@@ -517,6 +523,8 @@ for n, text in lines:
             if not opts.get("at"):
                 fail(n, "goto needs at x,y")
             step["r"] = opts.get("r", 15)
+        if opts.get("have") and word == "note":
+            step["hv"] = opts["have"]
         if opts.get("npc"):
             step["e"], step["id"], step["n"] = "npc", opts["npc"], name_of("npc", opts["npc"])
             place(step, None)
@@ -1225,7 +1233,7 @@ def lua(v):
     raise TypeError(v)
 
 
-ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
+ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
          "inn", "ia", "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")

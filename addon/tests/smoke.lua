@@ -1781,6 +1781,20 @@ do
     print("two flights ok")
 end
 
+-- A kill-and-loot note (`hv`): done once the item is in the bags, not before.
+do
+    FG.Routes["loot-note-test"] = {
+        race = 7, class = 8, faction = "Horde", fromLevel = 1, toLevel = 60, time = 1,
+        steps = { { k = "note", t = "Kill Samuel Fipps and loot his remains", hv = 16333, lvl = 4 } },
+    }
+    useRoute("loot-note-test")
+    local step = FG.Guide:Route().steps[1]
+    assert(not FG.Guide:IsDone(step, 1), "loot note: not done without the item")
+    bags[16333] = 1
+    assert(FG.Guide:IsDone(step, 1), "loot note: done once the item is in the bags")
+    bags[16333] = nil
+end
+
 -- Hearth steps: passed when the hearthstone is on a long cooldown, kept when it is ready or
 -- nearly so.
 do

@@ -595,6 +595,8 @@ function IsDone(step, index)
     elseif step.k == "note" then
         -- Something only the player sees (built-in guides): done once marked.
         if state.marks[index or state.step] then return true end
+        -- A kill and loot (`hv`): done once the item is in the bags, so the player need not mark it.
+        if step.hv and (FG.ItemCount(step.hv) or 0) > 0 then return true end
         -- A hearth with a cooldown check: passed when the hearthstone is far from ready.
         if step.t and step.t:find("Cooldown check item,6948", 1, true) and HearthBlocked() then return true, true end
         return false
