@@ -6,9 +6,39 @@
 # language's client). An innkeeper not listed gets neither: the addon then falls back to its marks
 # and to the binding's position.
 #
-# Left out on purpose (`guide_build.py` lists them in NO_INN): the WoW Forever camps' innkeepers
-# (Toka 256675, Zizplink 255894, Ortak Lomgok 244512, Coriella Calmbreeze 254089, Donaal Downbreeze
-# 255940), whose camps have no AreaTable row to name.
+[[inn]]
+npc = 15397
+place = "Fairbreeze Village"
+reason = "Marniel Amberlight; Fairbreeze Village has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16542
+place = "Tranquillien"
+reason = "Innkeeper Kalarin; Tranquillien has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16553
+place = "Azure Watch"
+reason = "Caregiver Chellan; Azure Watch has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16618
+place = "Silvermoon City"
+reason = "Innkeeper Velandra; the city's name, as the capitals bind to it"
+
+[[inn]]
+npc = 16739
+place = "The Exodar"
+reason = "Caregiver Breel; the city's name, as the capitals bind to it"
+
+[[inn]]
+npc = 17630
+place = "Silvermoon City"
+reason = "Innkeeper Jovia; the city's name, as the capitals bind to it"
+
+# Left out on purpose: the `[[left_out]]` entries at the end (`guide_build.py` reads them too), among
+# them the WoW Forever camps' innkeepers, whose camps have no AreaTable row to name.
+# `scripts/check-inns.py` fails on an innkeeper of the game data in neither list.
 
 [[inn]]
 npc = 5688
@@ -18,7 +48,7 @@ reason = "Innkeeper Renee, the tavern of Brill"
 [[inn]]
 npc = 15174
 place = "Cenarion Hold"
-reason = "Innkeeper Vizzie"
+reason = "Calandrath"
 
 [[inn]]
 npc = 11116
@@ -73,7 +103,7 @@ reason = "Innkeeper Karakul"
 [[inn]]
 npc = 12196
 place = "Splintertree Post"
-reason = "Innkeeper Kaya Flathoof"
+reason = "Innkeeper Kaylisk"
 
 [[inn]]
 npc = 2388
@@ -88,7 +118,7 @@ reason = "Innkeeper Shul'kar"
 [[inn]]
 npc = 11106
 place = "Shadowprey Village"
-reason = "Innkeeper Lyshaerya"
+reason = "Innkeeper Sikewa"
 
 [[inn]]
 npc = 6807
@@ -103,14 +133,13 @@ reason = "Innkeeper Thulbek"
 [[inn]]
 npc = 11118
 place = "Everlook"
-reason = "Innkeeper Vizzklick"
+reason = "Innkeeper Vizzie"
 
 [[inn]]
 npc = 14731
 place = "Revantusk Village"
-reason = "Innkeeper Wiley"
+reason = "Lard"
 
-# The capitals' inns: the hearthstone says the city's name.
 [[inn]]
 npc = 6929
 place = "Orgrimmar"
@@ -125,3 +154,311 @@ reason = "Innkeeper Pala; the city's name, as the capitals bind to it"
 npc = 6741
 place = "Undercity"
 reason = "Innkeeper Norman; the city's name, as the capitals bind to it"
+
+[[inn]]
+npc = 295
+place = "Goldshire"
+reason = "Innkeeper Farley; Goldshire has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 2352
+place = "Southshore"
+reason = "Innkeeper Anderson; Southshore has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 5111
+place = "Ironforge"
+reason = "Innkeeper Firebrew; the city's name, a zone of its own in AreaTable, as the capitals bind to it"
+
+[[inn]]
+npc = 6727
+place = "Lakeshire"
+reason = "Innkeeper Brianna; Lakeshire has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 6735
+place = "Darnassus"
+reason = "Innkeeper Saelienne; the city's name, a zone of its own in AreaTable, as the capitals bind to it"
+
+[[inn]]
+npc = 6736
+place = "Dolanaar"
+reason = "Innkeeper Keldamyr; Dolanaar has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 6737
+place = "Auberdine"
+reason = "Innkeeper Shaussiy; Auberdine has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 6738
+place = "Astranaar"
+reason = "Innkeeper Kimlya; Astranaar has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 6740
+place = "Stormwind City"
+reason = "Innkeeper Allison; the city's name, a zone of its own in AreaTable, as the capitals bind to it"
+
+[[inn]]
+npc = 6747
+place = "Bloodhoof Village"
+reason = "Innkeeper Kauth; Bloodhoof Village has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 6790
+place = "Darkshire"
+reason = "Innkeeper Trelayne; Darkshire has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 6791
+place = "Ratchet"
+reason = "Innkeeper Wiley; Ratchet has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 7736
+place = "Feathermoon Stronghold"
+reason = "Innkeeper Shyria; Feathermoon Stronghold has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 8931
+place = "Sentinel Hill"
+reason = "Innkeeper Heather; Sentinel Hill has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 11103
+place = "Nijel's Point"
+reason = "Innkeeper Lyshaerya; Nijel's Point has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16256
+place = "Light's Hope Chapel"
+reason = "Jessica Chambers; Light's Hope Chapel has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16458
+place = "Stonetalon Peak"
+reason = "Innkeeper Faralia; Stonetalon Peak has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16602
+place = "Thrallmar"
+reason = "Floyd Pinkus; Thrallmar has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 16826
+place = "Honor Hold"
+reason = "Sid Limbardi; Honor Hold has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18245
+place = "Zabra'jin"
+reason = "Merajit; Zabra'jin has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18251
+place = "Telredor"
+reason = "Caregiver Abidaar; Telredor has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18905
+place = "Falcon Watch"
+reason = "Innkeeper Bazil Olof'tazun; Falcon Watch has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18906
+place = "Temple of Telhamat"
+reason = "Caregiver Ophera Windfury; Temple of Telhamat has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18907
+place = "Cenarion Refuge"
+reason = "Innkeeper Coryth Stoktron; Cenarion Refuge has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18908
+place = "Orebor Harborage"
+reason = "Innkeeper Kerp; Orebor Harborage has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18913
+place = "Garadar"
+reason = "Matron Tikkit; Garadar has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 18957
+place = "Stonebreaker Hold"
+reason = "Innkeeper Grilka; Stonebreaker Hold has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19296
+place = "Allerian Stronghold"
+reason = "Innkeeper Biribi; Allerian Stronghold has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19319
+place = "Shadowmoon Village"
+reason = "Innkeeper Darg Bloodclaw; Shadowmoon Village has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19352
+place = "Wildhammer Stronghold"
+reason = "Dreg Cloudsweeper; Wildhammer Stronghold has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19470
+place = "Thunderlord Stronghold"
+reason = "Gholah; Thunderlord Stronghold has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19495
+place = "Sylvanaar"
+reason = "Innkeeper Shaunessy; Sylvanaar has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19531
+place = "The Stormspire"
+reason = "Eyonix; The Stormspire has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 19571
+place = "Area 52"
+reason = "Innkeeper Remi Dodoso; Area 52 has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 21088
+place = "Mok'Nathal Village"
+reason = "Matron Varah; Mok'Nathal Village has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 21110
+place = "Toshley's Station"
+reason = "Fizit \"Doc\" Clocktock; Toshley's Station has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 21744
+place = "Sanctum of the Stars"
+reason = "Roldemar; Sanctum of the Stars has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 21746
+place = "Altar of Sha'tar"
+reason = "Caretaker Aluuro; Altar of Sha'tar has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 23143
+place = "Netherwing Ledge"
+reason = "Horus; Netherwing Ledge has no inn or tavern sub-area in AreaTable"
+
+[[inn]]
+npc = 24208
+place = "Brackenwall Village"
+reason = "\"Little\" Logok; Brackenwall Village has no inn or tavern sub-area in AreaTable"
+
+# One rule decides between `[[inn]]` and `[[left_out]]`: an innkeeper is listed when the data settles the
+# name: a capital (it binds to the city's name), or a town with no inn or tavern sub-area of its own in
+# AreaTable (it binds to the town's name). It is left out, with the candidates in its `reason`, when
+# the town has an inn or tavern sub-area, when the data gives no town at the spawn, when the data does not
+# tell two places apart, or when the camp has no AreaTable row.
+# Their bind steps carry neither `inn` nor `ia`, and the addon falls back to the marks and the bind's
+# position. Move one to an `[[inn]]` once its name is checked in game.
+
+[[left_out]]
+npc = 1247
+reason = "Innkeeper Belm; name not confirmed in game; candidates: Kharanos or Thunderbrew Distillery (the inn sub-area of Dun Morogh in AreaTable)"
+
+[[left_out]]
+npc = 1464
+reason = "Innkeeper Helbrek; name not confirmed in game; candidates: Menethil Harbor or Deepwater Tavern (the inn sub-area of Wetlands in AreaTable)"
+
+[[left_out]]
+npc = 6272
+reason = "Innkeeper Janene; name not confirmed in game; candidates: Theramore Isle; AreaTable has no tavern sub-area for Theramore"
+
+[[left_out]]
+npc = 6734
+reason = "Innkeeper Hearthstove; name not confirmed in game; candidates: Thelsamar or Stoutlager Inn (the inn sub-area of Loch Modan in AreaTable)"
+
+[[left_out]]
+npc = 7744
+reason = "Innkeeper Thulfram; name not confirmed in game; candidates: Aerie Peak or Wildhammer Keep (the data's overlay gives no town at the spawn, in The Hinterlands)"
+
+[[left_out]]
+npc = 15433
+reason = "Innkeeper Delaniel; name not confirmed in game; candidates: Silvermoon City (the map overlay at the spawn, in Eversong Woods) or Farstrider Retreat (a nearby sub-area of Eversong Woods); not told apart by the data"
+
+[[left_out]]
+npc = 17553
+reason = "Caregiver Topher Loaal; name not confirmed in game; candidates: the data gives no town at the spawn (zone Bloodmyst Isle only, no overlay, no sub-areas); someone must read the place in game"
+
+[[left_out]]
+npc = 18914
+reason = "Caregiver Isel; name not confirmed in game; candidates: the data gives no town at the spawn (zone Nagrand only, no overlay); someone must read the place in game"
+
+[[left_out]]
+npc = 19046
+reason = "Minalei; name not confirmed in game; candidates: Shattrath City or its quarter (Aldor Rise, Scryer's Tier, Terrace of Light or Lower City), which the data does not tell apart"
+
+[[left_out]]
+npc = 19232
+reason = "Innkeeper Haelthol; name not confirmed in game; candidates: Shattrath City or its quarter (Aldor Rise, Scryer's Tier, Terrace of Light or Lower City), which the data does not tell apart"
+
+[[left_out]]
+npc = 22922
+reason = "Innkeeper Aelerya; name not confirmed in game; candidates: Evergrove or Ruuan Weald (the map overlay at the spawn); no inn sub-area in AreaTable under Blade's Edge Mountains"
+
+[[left_out]]
+npc = 23995
+reason = "Axle; name not confirmed in game; candidates: Mudsprocket (a sub-area of Dustwallow Marsh, guessed from the zone as the map overlay gives no town at the spawn); no inn sub-area in AreaTable there"
+
+[[left_out]]
+npc = 25036
+reason = "Caregiver Inaara; name not confirmed in game; candidates: Sun's Reach Harbor or Dawnstar Village (sub-areas of the Isle of Quel'Danas); the data gives no town at the spawn"
+
+[[left_out]]
+npc = 28687
+reason = "Amisi Azuregaze; name not confirmed in game; candidates: Dalaran (the map overlay at the spawn, in Alterac Mountains); AreaTable has no inn sub-area for it"
+
+[[left_out]]
+npc = 32413
+reason = "Isirami Fairwind; name not confirmed in game; candidates: Dalaran (the map overlay at the spawn, in Alterac Mountains); AreaTable has no inn sub-area for it"
+
+[[left_out]]
+npc = 240482
+reason = "Berdun Cliffbrew; name not confirmed in game; candidates: Shadowsong Shrine (the map overlay at the spawn, in Azshara); the data has no inn sub-area, and the town's own name is not given"
+
+[[left_out]]
+npc = 243815
+reason = "Sebelia; name not confirmed in game; candidates: Summit of Eternity (the map overlay at the spawn, in Mount Hyjal); the data has no inn sub-area, and the town's own name is not given"
+
+[[left_out]]
+npc = 244512
+reason = "Ortak Lomgok; WoW Forever camp with no AreaTable row"
+
+[[left_out]]
+npc = 252691
+reason = "Adarien; name not confirmed in game; candidates: the data gives no town at the spawn (zone Shen'dralas only, no overlay); someone must read the place in game"
+
+[[left_out]]
+npc = 254089
+reason = "Coriella Calmbreeze; WoW Forever camp with no AreaTable row"
+
+[[left_out]]
+npc = 255894
+reason = "Innkeeper Zizplink; WoW Forever camp with no AreaTable row"
+
+[[left_out]]
+npc = 255940
+reason = "Donaal Downbreeze; WoW Forever camp with no AreaTable row"
+
+[[left_out]]
+npc = 256675
+reason = "Innkeeper Toka; WoW Forever camp with no AreaTable row"
+
+[[left_out]]
+npc = 257595
+reason = "Barracks Master Harlan; name not confirmed in game; candidates: Farholde Keep (the map overlay at the spawn, in Riverglades); AreaTable has no inn or tavern sub-area under Riverglades"
+
+[[left_out]]
+npc = 258380
+reason = "Caitir Flinthew; name not confirmed in game; candidates: Elderwild (the map overlay at the spawn, in Mount Hyjal); AreaTable has no inn or tavern sub-area under Mount Hyjal"
