@@ -557,7 +557,7 @@ function Card:Create(guideState)
         self.over = over
         self.tools:SetShown(over)
         self.level:SetShown(not over)
-        self.planned:SetShown(not over)
+        self.planned:SetShown(not over and self.hasPlan == true)
     end)
     frame:SetScale(FG:Get("scale"))
     FG:OnSetting("scale", function(v) frame:SetScale(v) end)
@@ -598,6 +598,7 @@ function Card:Render(view)
     if FG.Compass then FG.Compass:Free() end
 
     local sections = not view.message
+    frame.hasPlan = sections and type(view.planned) == "number"
     for _, f in ipairs({
         frame.stepLine,
         frame.level,
@@ -638,13 +639,18 @@ function Card:Render(view)
     -- Header.
     frame.zone:SetText(view.zone or "")
     frame.stepLine:SetText(string.format(L.stepOf, view.step, view.total))
-    local levelColor = view.level >= view.planned and "green" or (view.level + 1 >= view.planned and "gold" or "red")
+    local levelColor = "text"
+    if frame.hasPlan then
+        levelColor = view.level >= view.planned and "green" or (view.level + 1 >= view.planned and "gold" or "red")
+        frame.planned:SetText(
+            string.format(L.planned, view.planned) .. (view.timing ~= "" and (" • " .. view.timing) or "")
+        )
+    else
+        frame.planned:SetText("")
+    end
     frame.level:SetText(Skin.Hex(levelColor) .. string.format(L.level, view.level) .. "|r")
-    frame.planned:SetText(
-        string.format(L.planned, view.planned) .. (view.timing ~= "" and (" • " .. view.timing) or "")
-    )
     frame.level:SetShown(not frame.over)
-    frame.planned:SetShown(not frame.over)
+    frame.planned:SetShown(not frame.over and frame.hasPlan)
 
     local y = -42
     -- XP against the guide's.

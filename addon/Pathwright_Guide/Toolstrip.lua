@@ -870,9 +870,11 @@ local function RestedAvailable()
     local xp = GetXPExhaustion()
     local levelXP = UnitXPMax("player")
     if issecretvalue and (issecretvalue(xp) or issecretvalue(levelXP)) then return false end
-    return type(levelXP) == "number"
-        and levelXP > 0
-        and (xp or 0) < levelXP * 0.005
+    if xp == nil then xp = 0 end
+    -- Anything but a finite, non-negative pool and a finite, positive maximum is unknown.
+    if type(xp) ~= "number" or type(levelXP) ~= "number" then return false end
+    if not (xp >= 0 and xp < math.huge and levelXP > 0 and levelXP < math.huge) then return false end
+    return xp < levelXP * 0.005
         and FG.HasPlayerAura(BOOSTED_RESTED) == false
 end
 
