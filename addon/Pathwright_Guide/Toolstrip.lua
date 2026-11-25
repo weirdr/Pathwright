@@ -8,6 +8,9 @@
 -- The buttons are secure: their actions, the strip's size and its place only change out of
 -- combat; a change during a fight waits for its end. The trash can is not secure (it runs no
 -- protected action), its look follows the bags at any time.
+--
+-- The step buttons can show in the guide's card too (see "In the guide window"): beside the step
+-- each belongs to, in a row under the card's header, or both.
 
 local FG = Pathwright
 local T = FG.T
@@ -55,6 +58,17 @@ local function ActionOf(b)
     return type(a) == "table" and a or nil
 end
 local buttons = {}
+--- The same actions on buttons inside the guide's card (see "In the guide window").
+local docked = {}
+--- Every secure step button: the strip's, then the card's.
+local function Each(fn)
+    for _, b in ipairs(buttons) do
+        fn(b)
+    end
+    for _, b in ipairs(docked) do
+        fn(b)
+    end
+end
 --- The count shown after a button's name: button -> { text = "3/10", width, named }.
 local countOf = setmetatable({}, { __mode = "k" })
 --- Buttons whose step got done during a fight (locked until it ends): button -> true.
@@ -1196,11 +1210,128 @@ local function Apply(actions, host, gap)
     Toolstrip:Aim()
 end
 
---- Follow these steps (the guide's steps to do, Guide.lua): now, or when combat ends.
-function Toolstrip:SetSteps(steps)
+-- In the guide window ----------------------------------------------------------------------------
+-- The same actions on buttons inside the guide's card (Card.lua), when asked: beside the step each
+-- belongs to (`guideToolsSide`), in a row under the card's header (`guideToolsTop`), or both. The
+-- icons alone: the name is in the step's line and in the tooltip. They are secure buttons of
+-- their own, children of the card and placed from its corner where the card says its rows are
+-- (Card.places); never anchored to a row, which could then not move during a fight. Like the
+-- strip's, they change out of combat only: a step done during a fight leaves its button dimmed
+-- and checked where it was until the fight ends.
+
+--- What the card makes room for with these actions: nil for nothing, else { top = whether they
+--- go in a row under the header, side = "left" or "right" of their step (nil: not there),
+--- count = how many they are, of = { [step] = how many are its own } }.
+function Toolstrip.Docking(actions)
+    local side, top = FG:Get("guideToolsSide"), FG:Get("guideToolsTop") and true or false
+    if side ~= "left" and side ~= "right" then side = nil end
+    if not (side or top) or not actions or not actions[1] then return nil end
+    local of = {}
+    for _, a in ipairs(actions) do
+        if a.step then of[a.step] = (of[a.step] or 0) + 1 end
+    end
+    return { top = top, side = side, count = #actions, of = of }
+end
+
+--- The same, for the card to draw by: during a fight, what its buttons are held to.
+function Toolstrip:DockPlan(actions)
+    if InCombatLockdown() then return self.dock end
+    return Toolstrip.Docking(actions)
+end
+
+--- The card's buttons wanted for these actions, and the card: { action, x, y, size }, from the
+--- card's top left corner. None in minimal mode, nor when the card drew no room for them.
+local function DockWanted(actions)
+    local out = {}
+    local card = FG.Card and FG.Card.Frame and FG.Card:Frame()
+    local places = FG.Card and FG.Card.places
+    if not card or not places or not FG:Get("guideShown") or FG:Get("guideMode") == "minimal" then return out, card end
+    local nth = {}
+    for i, a in ipairs(actions) do
+        local top = places.top
+        if top then out[#out + 1] = { action = a, x = top.x + (i - 1) * top.step, y = top.y, size = top.size } end
+        local row = a.step and places.rows[a.step]
+        if row then
+            local k = nth[a.step] or 0
+            nth[a.step] = k + 1
+            out[#out + 1] = { action = a, x = row.x + k * row.step, y = row.y, size = row.size }
+        end
+    end
+    return out, card
+end
+
+--- What is asked of the card (see Docking) and where its buttons go: when either changes, the
+--- buttons are placed again. During a fight the card draws by what it had (DockPlan), so the
+--- places stay: what is asked tells that a setting changed meanwhile.
+local function DockSignature(wanted, plan)
+    local parts = { plan and ((plan.top and "top" or "") .. ":" .. (plan.side or "") .. ":" .. plan.count) or "" }
+    for _, w in ipairs(wanted) do
+        local a = w.action
+        parts[#parts + 1] = table.concat({ a.kind, a.link or a.macro or "", w.x, w.y, w.size }, "\0")
+    end
+    return table.concat(parts, "\n")
+end
+
+--- The card's secure button `i` (created out of combat): its icon alone.
+local function DockButton(i, card)
+    if docked[i] then return docked[i] end
+    local b = CreateFrame("Button", nil, card, "SecureActionButtonTemplate")
+    b:RegisterForClicks("AnyUp", "AnyDown")
+    -- Over the card's rows: the press is the button's, not the row's under it.
+    b:SetFrameLevel((tonumber(card:GetFrameLevel()) or 1) + 10)
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetAllPoints()
+    b.done = b:CreateTexture(nil, "OVERLAY")
+    b.done:SetTexture("Interface\\RaidFrame\\ReadyCheck-Ready")
+    b.done:SetPoint("CENTER")
+    b.done:Hide()
+    local cooldown = CreateFrame("Cooldown", nil, b, "CooldownFrameTemplate")
+    cooldown:SetAllPoints(b.icon)
+    b.cooldown = cooldown
+    b:SetScript("OnEnter", Tooltip)
+    b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    b:SetScript("PreClick", function(self) Toolstrip:Press(self) end)
+    docked[i] = b
+    return b
+end
+
+--- Put the card's buttons where they are wanted (out of combat).
+local function ApplyDock(wanted, card)
+    for i, w in ipairs(wanted) do
+        local b = DockButton(i, card)
+        Arm(b, w.action)
+        b.place = w
+        b:SetSize(w.size, w.size)
+        b.done:SetSize(w.size * 0.6, w.size * 0.6)
+        b:ClearAllPoints()
+        b:SetPoint("TOPLEFT", card, "TOPLEFT", w.x, w.y)
+    end
+    for i = #wanted + 1, #docked do
+        local b = docked[i]
+        b.action, b.place, staleOf[b] = nil, nil, nil
+        b:SetAttribute("type", nil)
+        b:SetAttribute("macrotext", nil)
+        b:Hide()
+    end
+end
+
+--- The card's buttons that show now, in order (for the card's own checks and the tests).
+function Toolstrip.Docked()
+    local out = {}
+    for _, b in ipairs(docked) do
+        if ActionOf(b) and b:IsShown() then out[#out + 1] = b end
+    end
+    return out
+end
+
+--- Follow these steps (the guide's steps to do, Guide.lua): now, or when combat ends. `actions`:
+--- what Toolstrip.Actions made of them, when the guide has it already.
+function Toolstrip:SetSteps(steps, actions)
     self.steps = steps or {}
-    local actions = Toolstrip.Actions(self.steps)
+    actions = actions or Toolstrip.Actions(self.steps)
     local signature = Signature(actions)
+    local wanted, card = DockWanted(actions)
+    local dockSignature = DockSignature(wanted, Toolstrip.Docking(actions))
     local state = FG.Guide:State()
     local host, gap
     if FG:Get("guideShown") and not (FG:Get("toolstripUnlocked") and state and state.toolstripPoint) then
@@ -1210,7 +1341,10 @@ function Toolstrip:SetSteps(steps)
     end
     -- The same buttons: only their counts may have moved on.
     local resized = self:Counts()
-    local same = signature == self.signature and host == self.host and gap == self.gap
+    local same = signature == self.signature
+        and host == self.host
+        and gap == self.gap
+        and dockSignature == self.dockSignature
     if same and not self.pending and not resized then return end
     self.actions = actions
     self.item = actions[1] and actions[1].kind == "item" and actions[1].link or nil
@@ -1222,18 +1356,25 @@ function Toolstrip:SetSteps(steps)
         for _, a in ipairs(actions) do
             still[a.kind .. "\0" .. (a.link or a.macro or "")] = true
         end
-        for _, b in ipairs(buttons) do
+        Each(function(b)
             local a = ActionOf(b)
             if a and b:IsShown() then
                 staleOf[b] = not still[a.kind .. "\0" .. (a.link or a.macro or "")] or nil
                 SetState(b, b.state)
             end
-        end
+        end)
         return
     end
     self.pending = false
     Apply(actions, host, gap)
-    self.signature, self.host, self.gap = signature, host, gap
+    if wanted[1] or docked[1] then
+        ApplyDock(wanted, card)
+        Toolstrip:Cooldowns()
+        Toolstrip:Aim()
+    end
+    -- What the card drew room for, kept for it to draw by during a fight.
+    self.dock = wanted[1] and Toolstrip.Docking(actions) or nil
+    self.signature, self.host, self.gap, self.dockSignature = signature, host, gap, dockSignature
 end
 
 --- Again with the same steps (a setting changed).
@@ -1245,41 +1386,43 @@ end
 --- The quest item's cooldown on its button.
 function Toolstrip:Cooldowns()
     if not GetItemCooldown then return end
-    for _, b in ipairs(buttons) do
+    Each(function(b)
         local a = ActionOf(b)
         if a and a.kind == "item" and b:IsShown() then
             local id = tonumber(a.link:match("item:(%d+)"))
             local start, duration = GetItemCooldown(id)
             if start then b.cooldown:SetCooldown(start, duration) end
         end
-    end
+    end)
 end
 
 --- Show how every sword button stands with the mobs in sight (the press decides for itself).
 function Toolstrip:Aim()
-    if not strip or not strip:IsShown() then return end
+    -- The card's buttons too, whether the strip shows or not.
+    if not (strip and strip:IsShown()) and not docked[1] then return end
     local on = FG:Get("targetSkipTapped")
-    for _, b in ipairs(buttons) do
+    local found = {}
+    Each(function(b)
         local a = ActionOf(b)
         if a and a.kind == "kill" and b:IsShown() then
-            local state = "name"
-            if not InCombatLockdown() then
-                if Toolstrip.Pick(a.name, on) then state = "aim" end
+            -- Looked for once a name: the same mob has a button on the strip and in the card.
+            if found[a.name] == nil then
+                found[a.name] = not InCombatLockdown() and Toolstrip.Pick(a.name, on) and true or false
             end
-            SetState(b, state)
+            SetState(b, found[a.name] and "aim" or "name")
             if GameTooltip:IsOwned(b) then Tooltip(b) end
         end
-    end
+    end)
 end
 
 --- Back to targeting by name (combat starts: the buttons are fixed until it ends).
 function Toolstrip:Unaim()
     if InCombatLockdown() then return end
-    for _, b in ipairs(buttons) do
+    Each(function(b)
         local a = ActionOf(b)
         if a and (a.kind == "kill" or a.kind == "talk") then SetMacro(b, a.macro) end
         if a and a.kind == "kill" then SetState(b, "name") end
-    end
+    end)
     if self.checker then
         self.checker.macro = ""
         self.checker:SetAttribute("macrotext", "")
@@ -1307,6 +1450,11 @@ end)
 FG:On("PLAYER_REGEN_DISABLED", function() Toolstrip:Unaim() end)
 
 FG:On("PLAYER_REGEN_ENABLED", function()
+    -- With buttons in the card, the card first: it kept their room as it was during the fight.
+    local inCard = Toolstrip.dock ~= nil or Toolstrip.Docking(Toolstrip.actions) ~= nil
+    if Toolstrip.pending and inCard and FG.Guide and FG.Guide.Refresh then
+        FG:Try("guide after the fight", FG.Guide.Refresh, FG.Guide)
+    end
     if Toolstrip.pending then Toolstrip:SetSteps(Toolstrip.steps) end
     Toolstrip:Aim()
 end)

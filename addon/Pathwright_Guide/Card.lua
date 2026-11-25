@@ -2,6 +2,8 @@
 -- against the plan), the character's XP against the guide's, the current tasks (the one the
 -- compass points at in light), the talent to learn, the next steps or the quests to pick up; the
 -- tools (previous, next, start over, settings, minimal mode) show when the mouse is over it.
+-- When asked, room for the toolstrip's buttons too (Toolstrip.lua, "In the guide window"): in a
+-- row under the header, and beside the task each belongs to.
 -- Draws what Guide:Refresh describes (see Guide.lua).
 
 local FG = Pathwright
@@ -37,6 +39,10 @@ local WIDTH, PAD = 300, 10
 local NEXT_LINES, NEXT_MORE = 4, 10
 -- Left of the task's text (icon and its gap).
 local TEXT_LEFT = 37
+-- The toolstrip's buttons beside a task: their size, and from one to the next. In the row under
+-- the header: the gap between two, the smallest they get, and the room left under them.
+local ROW_TOOL, ROW_TOOL_STEP = 20, 22
+local TOP_TOOL_GAP, TOP_TOOL_MIN, TOP_TOOL_UNDER = 4, 12, 6
 
 local Skin = FG.Skin
 local frame, state
@@ -222,8 +228,12 @@ local function PartyLine(row, members)
     end
 end
 
---- Draw a task row; returns its height.
-local function DrawTask(row, v, view)
+--- Draw a task row; returns its height. `tools` of the toolstrip's buttons stand on its `side`
+--- ("left": after its icon, "right": at its edge): its texts leave them the room.
+local function DrawTask(row, v, view, side, tools)
+    local room = (tools or 0) * ROW_TOOL_STEP
+    local left = TEXT_LEFT + (side == "left" and room or 0)
+    local right = PAD + (side == "right" and room or 0)
     row.index = v.index
     row:SetAlpha(v.done and 0.45 or 1)
     if v.kind == "farm" then
@@ -258,12 +268,17 @@ local function DrawTask(row, v, view)
     Skin:Resize(row.name, 12)
     TextColor(row.name, "text")
     row.name:ClearAllPoints()
-    row.name:SetPoint("TOPLEFT", TEXT_LEFT, -5)
+    row.name:SetPoint("TOPLEFT", left, -5)
     row.name:SetPoint("RIGHT", row.count, "LEFT", -6, 0)
     row.name:SetText((v.name or "") .. (v.mark or ""))
     TextColor(row.count, v.done and "green" or "text2")
     row.count:ClearAllPoints()
-    row.count:SetPoint("TOPRIGHT", -PAD, -6)
+    row.count:SetPoint("TOPRIGHT", -right, -6)
+    row.stats:ClearAllPoints()
+    row.stats:SetPoint("TOPRIGHT", -right, -21)
+    row.sub:ClearAllPoints()
+    row.sub:SetPoint("TOPLEFT", left, -21)
+    row.sub:SetPoint("RIGHT", row.stats, "LEFT", -6, 0)
     row.count:SetText(v.have and v.need and string.format("%d/%d", v.have, v.need) or "")
     local chips = Chips(v, v.target and view.distance and math.floor(view.distance + 0.5) or nil)
     local sub = v.sub or ""
@@ -562,8 +577,18 @@ local function HideAll(list, from)
     end
 end
 
+--- The size of `count` buttons in a row across the card: the toolstrip's, smaller when they
+--- would not all fit.
+local function TopToolSize(count)
+    local wanted = FG.Toolstrip.Layout().size
+    local fit = math.floor((WIDTH - 2 * PAD - (count - 1) * TOP_TOOL_GAP) / count)
+    return math.max(TOP_TOOL_MIN, math.min(wanted, fit))
+end
+
 function Card:Render(view)
     if not frame then return end
+    -- Where the toolstrip's buttons go in this drawing (Toolstrip.lua places them): none yet.
+    Card.places = nil
     local resize = FG.CanLayout(frame)
     if view.hidden then
         if resize then frame:Hide() end
@@ -629,6 +654,16 @@ function Card:Render(view)
     if FG.XpPlan then FG.XpPlan:Draw(frame.xpBar, WIDTH - 2 * PAD) end
     y = y - 12
 
+    -- The toolstrip's buttons, when it shows some here: a row of them under the header, and
+    -- beside their tasks below. Positions from the card's top left corner.
+    local dock = FG.Toolstrip and FG.Toolstrip.DockPlan and FG.Toolstrip:DockPlan(view.actions) or nil
+    local places = { rows = {} }
+    if dock and dock.top then
+        local size = TopToolSize(dock.count)
+        places.top = { x = PAD, y = y, size = size, step = size + TOP_TOOL_GAP }
+        y = y - size - TOP_TOOL_UNDER
+    end
+
     frame.ahead:SetShown(view.ahead ~= nil)
     if view.ahead then
         frame.ahead:ClearAllPoints()
@@ -654,7 +689,13 @@ function Card:Render(view)
     y = y - 14
     for i, v in ipairs(view.tasks) do
         local row = TaskRow(i)
-        local h = DrawTask(row, v, view)
+        local tools = dock and dock.side and v.kind ~= "farm" and not v.done and dock.of[v.step] or 0
+        local h = DrawTask(row, v, view, dock and dock.side, tools)
+        if tools > 0 and dock.side == "left" then
+            places.rows[v.step] = { x = TEXT_LEFT, y = y - 4, size = ROW_TOOL, step = ROW_TOOL_STEP }
+        elseif tools > 0 then
+            places.rows[v.step] = { x = WIDTH - PAD - ROW_TOOL, y = y - 4, size = ROW_TOOL, step = -ROW_TOOL_STEP }
+        end
         row:ClearAllPoints()
         row:SetPoint("TOPLEFT", 0, y)
         row:SetPoint("TOPRIGHT", 0, y)
@@ -751,4 +792,5 @@ function Card:Render(view)
         -- A position saved anchored by the bottom: from now on the card grows downwards.
         state.point = FG.PinTopIfNeeded(frame) or state.point
     end
+    if dock then Card.places = places end
 end

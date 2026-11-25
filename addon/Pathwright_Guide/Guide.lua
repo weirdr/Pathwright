@@ -1408,9 +1408,11 @@ function Guide:Refresh()
         FG.Compass:SetPoints(points)
     end
     self.view = view
+    -- The toolstrip's actions before the card is drawn: it makes room for those it shows itself.
+    if FG.Toolstrip then view.actions = FG.Toolstrip.Actions(todo) end
     ui:Render(view)
     if FG.Tabs then FG.Tabs:Render(ui) end
-    if FG.Toolstrip then FG.Toolstrip:SetSteps(todo) end
+    if FG.Toolstrip then FG.Toolstrip:SetSteps(todo, view.actions) end
 end
 
 -- Navigation -------------------------------------------------------------------

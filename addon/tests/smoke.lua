@@ -8092,6 +8092,127 @@ end
 SafetyTest()
 SafetyTest = nil
 
+-- The toolstrip's buttons in the guide's card (Toolstrip.lua, "In the guide window"): in a row
+-- under the header, beside the step they belong to, or both; none in minimal mode; held as they
+-- are during a fight. (In a function: the file has its 200 locals.)
+DockTest = function()
+    local strip, Card = FG.Toolstrip, FG.Card
+    local was = FG.Guide:State().route
+    FG.Routes["dock-test"] = {
+        race = 7,
+        class = 8,
+        faction = "Alliance",
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
+        steps = {
+            {
+                k = "objective",
+                t = "Kill kobolds",
+                q = 7301,
+                o = 1,
+                e = "npc",
+                id = 6,
+                n = "Kobold Vermin",
+                mobs = { "Kobold Vermin", "Kobold Worker" },
+                lvl = 5,
+            },
+            { k = "turnin", t = "Turn in Kobold Camp", q = 7301, e = "npc", id = 197, n = "Marshal McBride", lvl = 5 },
+        },
+    }
+    onQuest[7301] = true
+    FG:Save("guideMode", "full")
+    FG:Save("guideShown", true)
+    useRoute("dock-test")
+    local step = FG.Routes["dock-test"].steps[1]
+    assert(#strip.actions == 2 and strip.actions[1].step == step, "two swords for the step: " .. #strip.actions)
+    assert(#strip.Docked() == 0 and Card.places == nil, "none in the card unless asked")
+    assert(strip.Docking(strip.actions) == nil, "and no room asked of the card")
+
+    -- In a row under the header: every action, at the toolstrip's icon size.
+    FG:Save("guideToolsTop", true)
+    local shown = strip.Docked()
+    assert(#shown == 2, "a row of them under the header: " .. #shown)
+    assert(shown[1].action == strip.actions[1] and shown[2].action == strip.actions[2], "the same actions, in order")
+    assert(shown[1]:GetAttribute("macrotext") == strip.actions[1].macro, "armed with the action's macro")
+    local top = Card.places.top
+    assert(top and top.size == 24 and top.x == 10, "at the icons' size, from the card's edge")
+    assert(shown[1].place.x == 10 and shown[2].place.x == 38 and shown[2].place.y == top.y, "side by side")
+    for _ in pairs(Card.places.rows) do
+        error("none beside the steps")
+    end
+    -- A press aims as on the strip.
+    shown[1].PreClick(shown[1])
+    assert(type(shown[1].aimed) == "string" and strip.expect, "a press decides its macro")
+    strip.expect = nil
+    -- Larger icons than fit the card: as large as fit.
+    FG:Save("toolstripIcon", 48)
+    assert(Card.places.top.size == 48 and strip.Docked()[2].place.x == 62, "the size the toolstrip has")
+    FG:Save("toolstripIcon", nil)
+
+    -- Beside their step: after its icon on the left, the texts leaving them the room.
+    local row = Card:Frame().rows[1]
+    local nameAt, countAt
+    row.name.SetPoint = function(_, point, x) nameAt = point == "TOPLEFT" and x or nameAt end
+    row.count.SetPoint = function(_, point, x) countAt = point == "TOPRIGHT" and x or countAt end
+    FG:Save("guideToolsTop", false)
+    FG:Save("guideToolsSide", "left")
+    shown = strip.Docked()
+    local place = Card.places.rows[step]
+    assert(#shown == 2 and Card.places.top == nil and place, "beside the step, no row at the top")
+    assert(shown[1].place.x == 37 and shown[2].place.x == 59 and shown[1].place.size == 20, "after the step's icon")
+    assert(shown[1].place.y == place.y and shown[2].place.y == place.y, "on the step's line")
+    assert(nameAt == 37 + 44 and countAt == -10, "the name after them: " .. tostring(nameAt))
+    FG:Save("guideToolsSide", "right")
+    shown = strip.Docked()
+    assert(shown[1].place.x == 270 and shown[2].place.x == 248, "from the card's right edge")
+    assert(nameAt == 37 and countAt == -(10 + 44), "the count before them: " .. tostring(countAt))
+    -- Both at once: the row and the step's own.
+    FG:Save("guideToolsTop", true)
+    assert(#strip.Docked() == 4, "in the row and beside the step: " .. #strip.Docked())
+
+    -- During a fight nothing moves: the card keeps the room, the change comes when it ends.
+    InCombatLockdown = function() return true end
+    FG:Save("guideToolsTop", false)
+    FG:Save("guideToolsSide", "off")
+    assert(strip.pending and #strip.Docked() == 4, "held during the fight")
+    assert(Card.places and Card.places.top and Card.places.rows[step], "the card keeps their room")
+    InCombatLockdown = function() return false end
+    fire("PLAYER_REGEN_ENABLED")
+    assert(not strip.pending and #strip.Docked() == 0 and Card.places == nil, "gone when the fight ends")
+    assert(nameAt == 37 and countAt == -10, "the texts back in their place")
+
+    -- A step done during a fight: its buttons stay, shown done, and leave when the fight ends.
+    FG:Save("guideToolsSide", "left")
+    assert(#strip.Docked() == 2, "back beside the step")
+    InCombatLockdown = function() return true end
+    strip:SetSteps({})
+    shown = strip.Docked()
+    assert(#shown == 2 and strip.IsStale(shown[1]) and strip.IsStale(shown[2]), "done: held, shown done")
+    InCombatLockdown = function() return false end
+    fire("PLAYER_REGEN_ENABLED")
+    assert(#strip.Docked() == 2 and not strip.IsStale(strip.Docked()[1]), "the guide's steps again after the fight")
+
+    -- Not in minimal mode: the card is not shown.
+    FG:Save("guideMode", "minimal")
+    assert(#strip.Docked() == 0, "none in minimal mode")
+    FG:Save("guideMode", "full")
+    assert(#strip.Docked() == 2, "back with the card")
+
+    FG:Save("guideToolsSide", nil)
+    FG:Save("guideToolsTop", nil)
+    FG:Save("guideMode", nil)
+    FG:Save("guideShown", nil)
+    assert(#strip.Docked() == 0, "none once the settings are back")
+    row.name.SetPoint, row.count.SetPoint = nil, nil
+    onQuest[7301] = nil
+    FG.Routes["dock-test"] = nil
+    if was and FG.Routes[was] then useRoute(was) end
+    print("guide window tools ok")
+end
+DockTest()
+DockTest = nil
+
 -- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
 -- then written on the text too, and the suite's comes back with the default. Last: once a suite
 -- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)
