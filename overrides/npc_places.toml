@@ -1,6 +1,8 @@
 # Where an NPC stands, when the game data's places for it disagree. Read by
-# `addon/tools/guide_build.py`: a step for the NPC (accept, turn in, train, sell...) gets this
-# place instead of the one worked out from the data's spawns, in that map only.
+# `addon/tools/guide_build.py` ONLY, so it corrects the built-in guides of the addon and nothing
+# else: the guide writer of the app (`crates/fg-route`) does not read it, and guides the app writes
+# still place these NPCs where the data's spawns put them (Krang Stonehoof at 49.12, 61.58).
+# In the addon's guides a step for the NPC (accept, turn in, train, sell...) gets this place instead of the one worked out from the data's spawns, in that map only.
 #
 # [[npc]]
 # id = 1234

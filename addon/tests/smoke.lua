@@ -846,6 +846,27 @@ do
         "Break Sharptusk! is planned at a level that can take it"
     )
 end
+-- Krang Stonehoof (3063) stands at 48.3, 63.6 in Bloodhoof Village (#64), not at 49.12, 61.58, the
+-- average of the data's spawns: every step with him must say so, whatever builds the file.
+do
+    local def
+    local register = FG.Builtin.Register
+    FG.Builtin.Register = function(d) def = d end
+    assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
+    FG.Builtin.Register = register
+    local found = 0
+    for _, st in ipairs(def.steps) do
+        if st.e == "npc" and st.id == 3063 then
+            found = found + 1
+            assert(st.m == 1412, "Krang Stonehoof is in Mulgore")
+            assert(
+                math.abs(st.x - 48.3) <= 0.5 and math.abs(st.y - 63.6) <= 0.5,
+                "Krang Stonehoof stands at 48.3, 63.6, not " .. st.x .. ", " .. st.y
+            )
+        end
+    end
+    assert(found >= 5, "the steps with Krang Stonehoof were found: " .. found)
+end
 print("quest minimum level ok")
 
 -- Quest notes and icons (`nt`, `ic`): the step's icon says how it is done, a mark after its name
