@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625819,
+    created = 1795638324,
     next = "Desolace & Shen'dralas (43-43)",
     carry = { 243, 669, 1137, 1240, 1270, 1373, 1420, 95033, 95295, 95296 },
     variants = {

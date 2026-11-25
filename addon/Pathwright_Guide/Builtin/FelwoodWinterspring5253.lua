@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795638324,
     next = "Un'Goro Crater (53-54)",
     carry = { 3518, 3541, 3568, 3908, 4120, 4494, 4808 },
     variants = {

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625819,
+    created = 1795638324,
     next = "Tanaris (44-44)",
     carry = { 1118, 1261, 95033 },
     variants = {

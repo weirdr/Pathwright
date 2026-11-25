@@ -867,8 +867,8 @@ do
     end
     assert(found >= 5, "the steps with Krang Stonehoof were found: " .. found)
 end
--- Morin Cloudstalker (2988) is met at 50.4, 62.8 to turn in The Ravaged Caravan (#73); his other
--- steps keep the place of the data.
+-- Morin Cloudstalker (2988) stands at 50.4, 62.8 (#73): the turn-in of The Ravaged Caravan and
+-- the accepts that follow it at the same NPC all point there.
 do
     local def
     local register = FG.Builtin.Register
@@ -877,14 +877,14 @@ do
     FG.Builtin.Register = register
     local found = 0
     for _, st in ipairs(def.steps) do
-        if st.e == "npc" and st.id == 2988 and st.k == "turnin" and st.q == 751 then
-            found = found + 1
-            assert(st.m == 1412 and st.x == 50.4 and st.y == 62.8, "Morin Cloudstalker turn-in 751 at 50.4, 62.8")
-        elseif st.e == "npc" and st.id == 2988 and st.q == 749 then
-            assert(st.x == 54.94 and st.y == 61.52, "Morin Cloudstalker's other steps keep their place")
+        if st.e == "npc" and st.id == 2988 then
+            if (st.k == "turnin" and st.q == 751) or (st.k == "accept" and (st.q == 764 or st.q == 765)) then
+                found = found + 1
+            end
+            assert(st.m == 1412 and st.x == 50.4 and st.y == 62.8, "Morin Cloudstalker step of quest " .. tostring(st.q) .. " at 50.4, 62.8")
         end
     end
-    assert(found == 1, "the turn in of quest 751 was found once: " .. found)
+    assert(found == 3, "the steps of quests 751, 764 and 765 were found: " .. found)
 end
 print("quest minimum level ok")
 

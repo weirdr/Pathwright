@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795638324,
     next = "Blasted Lands (50-51)",
     carry = { 580, 1122, 1444, 2874, 2932, 3568, 3908, 4120 },
     variants = {
