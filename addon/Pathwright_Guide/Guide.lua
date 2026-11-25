@@ -694,7 +694,8 @@ function Guide:ItemsToKeep()
                     local accept = acceptIndex[s.q] and route.steps[acceptIndex[s.q]]
                     local name = QuestTitle(s) or (accept and accept.t) or s.t
                     table.insert(item.quests, { q = s.q, name = name, count = count, lvl = s.lvl })
-                    item.lvl = math.min(item.lvl or s.lvl, s.lvl)
+                    -- A step without a level (a dungeon's quests): needed now.
+                    if s.lvl then item.lvl = math.min(item.lvl or s.lvl, s.lvl) end
                 end
             end
         end
@@ -1329,7 +1330,8 @@ function Guide:Refresh()
     -- The next steps after the current ones (those done already greyed, those done along the way
     -- left out), with the place where the guide plans the next level.
     local index, last = group[#group] + 1, group[#group] + PICKUP_AHEAD
-    local level, marked, nextTurnIn = view.planned, false, nil
+    -- A guide without levels on its steps (a dungeon's quests): no level planned, no marker.
+    local level, marked, nextTurnIn = view.planned or math.huge, false, nil
     while #view.next < 12 and route.steps[index] and index <= last do
         local step = route.steps[index]
         if not step.bg and not listed[index] then

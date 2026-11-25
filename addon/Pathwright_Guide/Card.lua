@@ -638,11 +638,16 @@ function Card:Render(view)
     -- Header.
     frame.zone:SetText(view.zone or "")
     frame.stepLine:SetText(string.format(L.stepOf, view.step, view.total))
-    local levelColor = view.level >= view.planned and "green" or (view.level + 1 >= view.planned and "gold" or "red")
+    -- A guide without levels on its steps (a dungeon's quests) plans none: the level uncoloured.
+    local planned = view.planned
+    local levelColor = not planned and "text"
+        or view.level >= planned and "green"
+        or (view.level + 1 >= planned and "gold" or "red")
     frame.level:SetText(Skin.Hex(levelColor) .. string.format(L.level, view.level) .. "|r")
-    frame.planned:SetText(
-        string.format(L.planned, view.planned) .. (view.timing ~= "" and (" • " .. view.timing) or "")
-    )
+    local parts = {}
+    if planned then parts[#parts + 1] = string.format(L.planned, planned) end
+    if view.timing ~= "" then parts[#parts + 1] = view.timing end
+    frame.planned:SetText(table.concat(parts, " • "))
     frame.level:SetShown(not frame.over)
     frame.planned:SetShown(not frame.over)
 

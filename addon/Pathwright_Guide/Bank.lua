@@ -43,15 +43,16 @@ function Bank:Items(all)
         item.icon = icon or select(5, FG.ItemInfoInstant(item.id))
         item.bags = FG.ItemCount(item.id) or 0
         item.bank = char.bank[item.id]
+        local lvl = item.lvl or level -- no level planned (a dungeon's quests): needed now
         item.marked = char.bankMarks[item.id] or false
         if self.open then
-            if (item.bank or 0) > 0 and item.bags < item.need and item.lvl <= level + SOON then
+            if (item.bank or 0) > 0 and item.bags < item.need and lvl <= level + SOON then
                 item.hint = "take"
-            elseif item.bags > 0 and item.lvl >= level + LATER then
+            elseif item.bags > 0 and lvl >= level + LATER then
                 item.hint = "leave"
             end
         end
-        if all or item.bags > 0 or (item.bank or 0) > 0 or item.marked or item.lvl <= level + SOON then
+        if all or item.bags > 0 or (item.bank or 0) > 0 or item.marked or lvl <= level + SOON then
             table.insert(shown, item)
         else
             later = later + 1
