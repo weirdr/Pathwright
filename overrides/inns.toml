@@ -354,13 +354,38 @@ npc = 24208
 place = "Brackenwall Village"
 reason = "\"Little\" Logok; Brackenwall Village has no inn or tavern sub-area in AreaTable"
 
+[[inn]]
+npc = 6272
+place = "Theramore Isle"
+reason = "Innkeeper Janene; Theramore Isle (513) is a sub-area of Dustwallow Marsh with no inn or tavern sub-area in AreaTable (Foothold Citadel (514) is only a sibling area, as it is for the listed Brackenwall Village)"
+
+[[inn]]
+npc = 28687
+place = "Dalaran"
+reason = "Amisi Azuregaze; Dalaran (279) is a sub-area of Alterac Mountains with no inn or tavern sub-area in AreaTable (classic and tbc)"
+
+[[inn]]
+npc = 32413
+place = "Dalaran"
+reason = "Isirami Fairwind; Dalaran (279) is a sub-area of Alterac Mountains with no inn or tavern sub-area in AreaTable (classic and tbc)"
+
+[[inn]]
+npc = 257595
+place = "Farholde Keep"
+reason = "Barracks Master Harlan; Farholde Keep (16724) is a sub-area of Riverglades with no inn or tavern sub-area in forever.sqlite's AreaTable"
+
+[[inn]]
+npc = 258380
+place = "Elderwild"
+reason = "Caitir Flinthew; Elderwild (16848) is a sub-area of Mount Hyjal with no inn or tavern sub-area in forever.sqlite's AreaTable"
+
 # One rule decides between `[[inn]]` and `[[left_out]]`: an innkeeper is listed when the data settles the
 # name: a capital (it binds to the city's name), or a town with no inn or tavern sub-area of its own in
 # AreaTable (it binds to the town's name). It is left out, with the candidates in its `reason`, when
-# the town has an inn or tavern sub-area, when the data gives no town at the spawn, when the data does not
-# tell two places apart, when the camp has no AreaTable row, or when its one candidate is a name taken
-# only from the map overlay at the spawn or from a map of its own (Dalaran, Farholde Keep, Elderwild,
-# Theramore Isle), which no AreaTable sub-area backs and nobody has checked against what the bind says.
+# the town has an inn or tavern sub-area, when the data gives no town at the spawn, when the data does
+# not tell two places apart, or when the camp has no AreaTable row. Every name still unconfirmed in
+# game is held to this rule alone: no other fact (a map overlay, a keep next to the town) sets a town
+# apart, as Brackenwall Village, listed, has Foothold Citadel next to it too.
 # Their bind steps carry neither `inn` nor `ia`, and the addon falls back to the marks and the bind's
 # position. Move one to an `[[inn]]` once its name is checked in game.
 
@@ -371,10 +396,6 @@ reason = "Innkeeper Belm; name not confirmed in game; candidates: Kharanos or Th
 [[left_out]]
 npc = 1464
 reason = "Innkeeper Helbrek; name not confirmed in game; candidates: Menethil Harbor or Deepwater Tavern (the inn sub-area of Wetlands in AreaTable)"
-
-[[left_out]]
-npc = 6272
-reason = "Innkeeper Janene; name not confirmed in game; candidates: Theramore Isle; AreaTable has no tavern sub-area for Theramore, but the candidate is a map's name, which is the rule's exception (see above)"
 
 [[left_out]]
 npc = 6734
@@ -417,14 +438,6 @@ npc = 25036
 reason = "Caregiver Inaara; name not confirmed in game; candidates: Sun's Reach Harbor or Dawnstar Village (sub-areas of the Isle of Quel'Danas); the data gives no town at the spawn"
 
 [[left_out]]
-npc = 28687
-reason = "Amisi Azuregaze; name not confirmed in game; candidates: Dalaran (the map overlay at the spawn, in Alterac Mountains); AreaTable has no inn sub-area for it, but the name comes only from the map overlay, which is the rule's exception (see above)"
-
-[[left_out]]
-npc = 32413
-reason = "Isirami Fairwind; name not confirmed in game; candidates: Dalaran (the map overlay at the spawn, in Alterac Mountains); AreaTable has no inn sub-area for it, but the name comes only from the map overlay, which is the rule's exception (see above)"
-
-[[left_out]]
 npc = 240482
 reason = "Berdun Cliffbrew; name not confirmed in game; candidates: Shadowsong Shrine (the map overlay at the spawn, in Azshara); the data has no inn sub-area, and the town's own name is not given"
 
@@ -456,10 +469,3 @@ reason = "Donaal Downbreeze; WoW Forever camp with no AreaTable row"
 npc = 256675
 reason = "Innkeeper Toka; WoW Forever camp with no AreaTable row"
 
-[[left_out]]
-npc = 257595
-reason = "Barracks Master Harlan; name not confirmed in game; candidates: Farholde Keep (the map overlay at the spawn, in Riverglades); AreaTable has no inn or tavern sub-area under Riverglades, but the name comes only from the map overlay, which is the rule's exception (see above)"
-
-[[left_out]]
-npc = 258380
-reason = "Caitir Flinthew; name not confirmed in game; candidates: Elderwild (the map overlay at the spawn, in Mount Hyjal); AreaTable has no inn or tavern sub-area under Mount Hyjal, but the name comes only from the map overlay, which is the rule's exception (see above)"
