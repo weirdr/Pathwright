@@ -436,6 +436,10 @@ SlashCmdList.PATHWRIGHT = function(msg)
     end
     -- "/pw board": the quest stats leaderboard (the guide part).
     if type(msg) == "string" and msg:lower():match("^%s*board") and FG.Stats then return FG.Stats:ToggleBoard() end
+    -- "/pw way": what the way from here is doing (the guide part: Pathing.lua).
+    if type(msg) == "string" and msg:lower():match("^%s*way") and FG.Pathing and FG.Pathing.Say then
+        return FG.Pathing:Say()
+    end
     -- "/pw feedback": tell us what went wrong (the guide part).
     if type(msg) == "string" and msg:lower():match("^%s*feedback") and FG.Feedback then return FG.Feedback:Toggle() end
     FG.Options:Open()

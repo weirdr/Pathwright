@@ -7334,6 +7334,160 @@ local function GuideSelectionTest()
 end
 GuideSelectionTest()
 
+-- The way on foot found in game: the walkable ground (Terrain/*.lua, as the release ships it),
+-- a walk on it around the steep ground and through a lift, the planned walk joined, and the
+-- guide's pathing taking the way found from where the character stands. (In a function: the
+-- file has its 200 locals.)
+WalkerTest = function()
+    local Terrain, Walker, Pathing = FG.Terrain, FG.Walker, FG.Pathing
+    assert(not Terrain.Has(1), "no ground before its files are loaded")
+    local list = io.popen("ls addon/Pathwright_Guide/Terrain")
+    local names = {}
+    for name in list:lines() do
+        if name:match("^Tiles%d+%.lua$") then names[#names + 1] = name end
+    end
+    list:close()
+    table.sort(names, function(a, b) return tonumber(a:match("%d+")) < tonumber(b:match("%d+")) end)
+    assert(names[1] == "Tiles0.lua" and #names > 1, "the ground's files, the first one first")
+    for _, name in ipairs(names) do
+        assert(loadfile("addon/Pathwright_Guide/Terrain/" .. name))()
+    end
+    assert(loadfile("addon/Pathwright_Guide/Terrain/Passages.lua"))()
+    Terrain.maps = nil
+    assert(Terrain.Has(0) and Terrain.Has(1) and not Terrain.Has(530), "the continents whose ground is known")
+    -- Every tile reads: its format, its floors counted as its records are.
+    local read = 0
+    for key in pairs(FG.TerrainData) do
+        local map, tr, tc = key:match("^(%d+):(%d+):(%d+)$")
+        if (tonumber(tr) + tonumber(tc)) % 7 == 0 then
+            assert(Terrain.Tile(tonumber(map), tonumber(tr), tonumber(tc)), "tile " .. key .. " reads")
+            read = read + 1
+        end
+    end
+    assert(read > 100 and Terrain.Kept() <= 80, "tiles read, the least used forgotten: " .. Terrain.Kept())
+    Terrain.Forget()
+    -- Durotar, Razor Hill to the south-west: the app walks 1385 yards around the steep ground
+    -- (1002 straight).
+    local from, to = { 292.6, -4712.0 }, { -588.7, -4236.1 }
+    local route = assert(Walker.Solve({ map = 1, north = from[1], west = from[2], target = to }))
+    assert(route.yards > 1300 and route.yards < 1480, "around the steep ground: " .. route.yards)
+    local first, last = route.points[1], route.points[#route.points]
+    assert(first[1] == from[1] and first[2] == from[2], "from where the character stands")
+    assert(last[1] == to[1] and last[2] == to[2] and not route.join, "to the place itself")
+    assert(#route.points > 4 and #route.points < 40, "a few turns, not every floor: " .. #route.points)
+    local shortest = assert(Walker.Solve({ map = 1, north = from[1], west = from[2], target = to, weight = 1 }))
+    assert(shortest.yards <= route.yards and shortest.yards < 1400, "the shortest way: " .. shortest.yards)
+    -- Each leg of the way is walked in a line: its length is the way's, near enough.
+    local length = 0
+    for k = 1, #shortest.points - 1 do
+        local a, b = shortest.points[k], shortest.points[k + 1]
+        length = length + math.sqrt((b[1] - a[1]) ^ 2 + (b[2] - a[2]) ^ 2)
+    end
+    assert(length <= shortest.yards + 20 and length > 1002, "drawn straighter than floor by floor: " .. length)
+    -- Up to Thunder Bluff: the floors do not hold the lifts, the passage does (1682 in the app).
+    local bluff = assert(Walker.Solve({ map = 1, north = -2112.5, west = -474.8, target = { -1267.5, 47.0 } }))
+    assert(bluff.yards > 1500 and bluff.yards < 1900, "by the lift: " .. bluff.yards)
+    -- No ground: another continent, the open sea.
+    local none, why = Walker.Solve({ map = 530, north = 0, west = 0, target = { 10, 10 } })
+    assert(none == nil and why == "nodata", "no ground known there")
+    none, why = Walker.Solve({ map = 1, north = from[1], west = from[2], target = { 292, -9000 } })
+    assert(none == nil and why == "offmesh", "a place off the floors: " .. tostring(why))
+    -- A walk planned to the place is joined where that is the shortest: here one that passes
+    -- beside the character and counts little from there.
+    local joined = assert(Walker.Solve({
+        map = 1,
+        north = from[1],
+        west = from[2],
+        target = to,
+        joins = { { 262.5, -4729.2, left = 50, leg = 3 } },
+    }))
+    assert(joined.join and joined.join.leg == 3 and joined.yards < 200, "the planned walk joined: " .. joined.yards)
+    last = joined.points[#joined.points]
+    assert(last[1] == 262.5 and last[2] == -4729.2, "its way ends on the join")
+    -- A place in a cave (Skull Rock: four floors there, the hill and the cave's under it): the
+    -- floor is the one the planned walk leads to, and from beside that walk the way joins it.
+    local cave = { 1462.9, -4701.4 }
+    local walkIn = { { 1188, -4629 }, { 1346, -4629 }, { 1396, -4679 }, { 1421, -4679 }, cave }
+    local joins, left = {}, 0
+    for k = #walkIn - 1, 1, -1 do
+        local a, b = walkIn[k], walkIn[k + 1]
+        left = left + math.sqrt((b[1] - a[1]) ^ 2 + (b[2] - a[2]) ^ 2)
+        table.insert(joins, 1, { a[1], a[2], left = left, leg = k })
+    end
+    local inside = assert(Walker.Solve({ map = 1, north = 1000, west = -4500, target = cave, joins = joins }))
+    local total = inside.yards + (inside.join and inside.join.left or 0)
+    assert(total > 480 and total < 620, "into the cave by its mouth: " .. total)
+    local alone = assert(Walker.Solve({ map = 1, north = 1000, west = -4500, target = cave }))
+    assert(math.abs(alone.yards - total) < 60, "as without a planned walk here: " .. alone.yards)
+    -- A little every frame: the job ends, its way given once.
+    local got, calls = nil, 0
+    local job = Walker:Start({ map = 1, north = from[1], west = from[2], target = to }, function(r)
+        got, calls = r, calls + 1
+    end)
+    local dropped = Walker:Start(
+        { map = 1, north = from[1], west = from[2], target = to },
+        function() calls = calls + 10 end
+    )
+    Walker:Cancel(dropped)
+    assert(job and got == nil, "not found at once")
+    Walker:Finish()
+    assert(got and calls == 1 and math.abs(got.yards - route.yards) < 1, "found, the job given up not called")
+    -- The guide's pathing: the tests' world is the map's fractions times 1000 on continent 0,
+    -- real ground there (the Hillsbrad foothills). A place 350 yards away, a planned walk that
+    -- starts elsewhere: the compass follows the way from where the character stands.
+    ShortestPathForever = nil
+    FG:Save("spfLink", nil)
+    FG:Save("pathMode", nil)
+    FG:Save("pathLive", nil)
+    local place = { m = 1426, x = 40, y = 71.2, wp = { 299, 712, 299, 800, 400, 800 } }
+    Pathing:SetTarget(place, place, { title = "The place", kind = "objective" })
+    assert(
+        Pathing:Aim(0, 100, 600) == nil and Pathing:LiveState().state == "searching",
+        "far from the planned walk: looked for"
+    )
+    Walker:Finish()
+    local state = Pathing:LiveState()
+    assert(
+        state.state == "found" and state.yards > 300 and state.yards < 500,
+        "the way from here: " .. tostring(state.yards)
+    )
+    local n, w, back = Pathing:Aim(0, 100, 600)
+    assert(n and n > 100 and w > 600 and not back, "the compass follows it from where the character stands")
+    local left = Pathing:Remaining(0, 100, 600)
+    local ends = left and left[#left]
+    assert(
+        ends and #left >= 2 and math.abs(ends[1] - 400) < 0.01 and math.abs(ends[2] - 712) < 0.01,
+        "drawn to the place"
+    )
+    -- On the way: nothing looked for again. Off it: found again from there.
+    local clock, now = GetTime, 5000
+    GetTime = function() return now end
+    Pathing:Aim(0, 101, 601)
+    assert(Pathing:LiveState().state == "found", "on the way: kept")
+    now = now + 10
+    Pathing:Aim(0, 100, 660)
+    assert(Pathing:LiveState().state == "searching", "off the way: looked for again")
+    Walker:Finish()
+    assert(Pathing:LiveState().state == "found", "and found from there")
+    -- Turned off: the guide's planned walk, as before. (A setting changed draws the guide again,
+    -- which points at its own step: the tests' place is set again.)
+    FG:Save("pathLive", false)
+    Pathing:SetTarget(place, place, { title = "The place", kind = "objective" })
+    now = now + 10
+    assert(
+        Pathing:Aim(0, 100, 600) == nil and Pathing:LiveState().state == "none",
+        "turned off: the planned walk alone"
+    )
+    n = Pathing:Aim(0, 299.3, 712)
+    assert(n and math.abs(n - 299) < 1, "which is followed when close to it")
+    FG:Save("pathLive", nil)
+    Pathing:SetTarget(nil)
+    GetTime = clock
+    Terrain.Forget()
+    print("walker ok")
+end
+WalkerTest()
+WalkerTest = nil
 
 -- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
 -- then written on the text too, and the suite's comes back with the default. Last: once a suite

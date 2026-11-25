@@ -14,6 +14,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Addon
 
+- The way to the guide's place is now found in game from where you stand, around steep ground and water and by the lifts, and found again when you leave it. "Route found from where you stand" under Path turns it off; `/pw way` says what it is doing.
 - WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.
 
 ### WoW data

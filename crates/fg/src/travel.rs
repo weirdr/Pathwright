@@ -211,7 +211,7 @@ fn flights(
 /// `fg travel --overrides`: what the walkable floors make of the hand-made terrain overrides
 /// (`passes.toml`): the areas declared enclosed the floors join to the mainland, the caves they
 /// hold, the passages whose sides they join.
-pub fn overrides(conn: &Connection, overrides_dir: &Path, faction: &str) -> Result<()> {
+pub fn overrides(conn: &Connection, overrides_dir: &Path, faction: &str, sides: Option<&Path>) -> Result<()> {
     let overrides = Overrides::load_edition(overrides_dir, crate::edition())?;
     let params = &overrides.params;
     let faction =
@@ -310,6 +310,28 @@ pub fn overrides(conn: &Connection, overrides_dir: &Path, faction: &str) -> Resu
             }
         };
         println!("pass {}: {how}", p.name);
+    }
+    if let Some(path) = sides {
+        // For the addon, which walks the same floors in game: a passage joins its sides there too.
+        let passes: Vec<serde_json::Value> = (world.passes.iter())
+            .map(|p| {
+                let sides: Vec<serde_json::Value> = (p.areas.iter())
+                    .map(|(area, at)| serde_json::json!({ "area": area, "x": at.x, "y": at.y, "z": at.z }))
+                    .collect();
+                serde_json::json!({
+                    "name": p.name,
+                    "continent": p.pos.continent,
+                    "x": p.pos.x,
+                    "y": p.pos.y,
+                    "lift": p.lift,
+                    "shortcut": p.shortcut,
+                    "one_way": p.one_way,
+                    "sides": sides,
+                })
+            })
+            .collect();
+        std::fs::write(path, serde_json::to_string_pretty(&passes)?)
+            .with_context(|| format!("writing {}", path.display()))?;
     }
     Ok(())
 }

@@ -1,8 +1,13 @@
 -- How the guide takes the character to the place it points at, besides the compass's straight
 -- line:
+--   the way on foot from where the character stands, found in game on the walkable ground
+--   (Walker.lua, `pathLive`): around the steep ground, over the bridges, through the caves and
+--   the lifts; found again when the character leaves it. It joins the walk the guide planned
+--   where that is shorter than going on alone;
 --   the walk the guide planned to the step (`wp`: where it starts, then where it turns around
 --   the steep ground, world coordinates), shown on the compass as the way to go while the
---   character is close to it (`pathMode`);
+--   character is close to it (`pathMode`): until the way from here is found, and where the
+--   ground is not known;
 --   on WoW Forever, Shortest Path Forever when it is loaded (`spfLink`): it gets the place and
 --   plans the way there (flights, boats, the walk), drawn with its own lines and the game's
 --   waypoint (ours is left to it); the compass and the arrow then show its way, the next point
@@ -61,8 +66,28 @@ end
 
 -- { continent, points = { { north, west }, ..., the place } } (the place alone when the walk
 -- goes straight), the place it leads to, and the leg reached (only goes on: a walk going back on
--- itself is not pointed backwards).
+-- itself is not pointed backwards). `walk` is the way shown: the one found from where the
+-- character stands (`walk.live`), else `planned`, the guide's.
 local walk, walkPlace, reached
+local planned, plannedWp
+
+-- The way from here: found again when the character is more than OFF yards off it (at most
+-- every AGAIN seconds); after a search that found none, when the character has moved MOVED
+-- yards or RETRY seconds have gone by. No search within SHORT yards of the place, and the
+-- planned walk is joined at points every JOIN_EVERY yards of it (JOINS at most).
+local OFF, AGAIN, MOVED, RETRY, SHORT = 22, 1.5, 60, 20, 30
+local JOIN_EVERY, JOINS = 33, 300
+local LIVE_EVERY = 0.25
+-- { key (the place's), state ("found", "failed"; nil: not looked for), why, job, at = { north,
+-- west } (where it was looked for from), time, checked, yards, explored }.
+local live = {}
+
+local function Key(place) return place.m .. ":" .. place.x .. ":" .. place.y end
+
+local function ForgetLive()
+    if live.job and FG.Walker then FG.Walker:Cancel(live.job) end
+    live = {}
+end
 
 --- The closest point of the leg from `a` to `b` to (`n`, `w`), and how far it is.
 local function Project(a, b, n, w)
@@ -75,8 +100,17 @@ end
 
 --- The walk to `place`: the step's planned one when the place is the step's own, else straight.
 local function SetWalk(place, step)
-    if walkPlace == place then return end
-    walk, walkPlace, reached = nil, place, 1
+    -- The same place with the same planned walk (the guide drawn again gives some places anew,
+    -- a detour's): nothing changes, the way found is kept.
+    local wp = step and place == step and step.wp or nil
+    local same = walkPlace == place
+        or (walkPlace and place and walkPlace.m and place.m and place.x and Key(walkPlace) == Key(place))
+    if same and wp == plannedWp then
+        walkPlace = place
+        return
+    end
+    walk, walkPlace, reached, planned, plannedWp = nil, place, 1, nil, wp
+    ForgetLive()
     if not place or not place.m or not place.x then return end
     local continent, north, west = FG.Compass.World(place.m, place.x / 100, place.y / 100)
     if not continent then return end
@@ -88,6 +122,7 @@ local function SetWalk(place, step)
     end
     points[#points + 1] = { north, west }
     walk = { continent = continent, points = points }
+    planned = walk
 end
 
 --- The leg of the walk closest to (`north`, `west`) from the one reached on, the closest point on
@@ -104,6 +139,145 @@ local function Closest(north, west)
     return best, bestDistance, bestN, bestW
 end
 
+-- The way from here ------------------------------------------------------------------------
+
+--- Whether the way is looked for from where the character stands: the setting, the ground
+--- known, and the way shown at all (not while Shortest Path Forever guides).
+function Pathing:LiveWanted(continent)
+    return FG:Get("pathLive") == true
+        and FG.Walker ~= nil
+        and FG.Terrain ~= nil
+        and FG.Terrain.Has(continent)
+        and self:PathShown()
+end
+
+--- Points of the planned walk to join: { north, west, left = yards from there to the place,
+--- leg = the leg it is on }, every JOIN_EVERY yards.
+local function Joins()
+    local points = planned.points
+    local lengths, total = {}, 0
+    for k = 1, #points - 1 do
+        lengths[k] = math.sqrt((points[k + 1][1] - points[k][1]) ^ 2 + (points[k + 1][2] - points[k][2]) ^ 2)
+        total = total + lengths[k]
+    end
+    local every = math.max(JOIN_EVERY, total / JOINS)
+    local joins, left = {}, total
+    for k = 1, #points - 1 do
+        local a, b = points[k], points[k + 1]
+        for i = 0, math.floor(lengths[k] / every) do
+            local t = lengths[k] > 0 and i * every / lengths[k] or 0
+            joins[#joins + 1] = {
+                a[1] + (b[1] - a[1]) * t,
+                a[2] + (b[2] - a[2]) * t,
+                left = left - lengths[k] * t,
+                leg = k,
+            }
+        end
+        left = left - lengths[k]
+    end
+    return joins
+end
+
+--- The way found (nil: none): it is the way shown from now on, the planned walk after its join.
+local function Found(key, route, why, north, west)
+    if live.key ~= key then return end
+    live.job, live.time, live.at = nil, GetTime and GetTime() or 0, { north, west }
+    if not route then
+        live.state, live.why = "failed", why
+        return
+    end
+    local points = route.points
+    if route.join then
+        for k = route.join.leg + 1, #planned.points do
+            points[#points + 1] = planned.points[k]
+        end
+    end
+    walk = { continent = planned.continent, points = points, live = true }
+    reached = 1
+    live.state, live.why, live.yards, live.explored = "found", nil, route.yards, route.explored
+    if FG.PathLines then FG.PathLines:Refresh() end
+end
+
+--- Look for the way from (`north`, `west`) when it is time to: none yet for this place, the
+--- character off the one found, or enough moved or waited since none was found.
+function Pathing:Live(continent, north, west)
+    if not planned or planned.continent ~= continent or not walkPlace then return end
+    -- On a flight the ground under the character is not where it walks.
+    if UnitOnTaxi and UnitOnTaxi("player") then return end
+    local now = GetTime and GetTime() or 0
+    if live.job or (live.checked and now - live.checked < LIVE_EVERY and now >= live.checked) then return end
+    live.checked = now
+    if not self:LiveWanted(continent) then
+        -- Turned off: back to the guide's walk.
+        if walk ~= planned then
+            walk, reached = planned, 1
+            ForgetLive()
+        end
+        return
+    end
+    local place = planned.points[#planned.points]
+    local away = math.sqrt((place[1] - north) ^ 2 + (place[2] - west) ^ 2)
+    local since = now - (live.time or 0)
+    local need
+    if live.state == nil then
+        need = away > SHORT
+    elseif live.state == "found" then
+        -- Off the way found (from the leg reached on): looked for again from here.
+        local _, off = Closest(north, west)
+        need = off ~= nil and off > OFF and since > AGAIN and away > SHORT
+    else
+        -- None found: not looked for again at once (a search that finds none is the longest).
+        local moved = live.at and math.sqrt((live.at[1] - north) ^ 2 + (live.at[2] - west) ^ 2) or math.huge
+        need = away > SHORT and since > RETRY and (moved > MOVED or since > RETRY * 4)
+    end
+    if not need then return end
+    local key = Key(walkPlace)
+    live.key = key
+    local indoors
+    if IsIndoors then indoors = IsIndoors() and true or false end
+    live.job = FG.Walker:Start({
+        map = continent,
+        north = north,
+        west = west,
+        indoors = indoors,
+        target = { place[1], place[2] },
+        joins = #planned.points > 1 and Joins() or nil,
+    }, function(route, why) Found(key, route, why, north, west) end)
+end
+
+--- What the way from here is doing, for `/pw way`: its state and numbers.
+function Pathing:LiveState()
+    return {
+        wanted = FG:Get("pathLive") == true,
+        state = live.job and "searching" or live.state or "none",
+        why = live.why,
+        yards = live.yards,
+        explored = live.explored,
+        points = walk and walk.live and #walk.points or nil,
+    }
+end
+
+--- `/pw way`: say in the chat what the way from here is doing.
+function Pathing:Say()
+    local s = self:LiveState()
+    if not s.wanted then
+        FG:Print(FG.T("way: found from where you stand is turned off (Options, Path)"))
+    elseif s.state == "found" then
+        FG:Print(
+            FG.T("way: found, %d yards, %d turns (%d floors looked at)"),
+            s.yards or 0,
+            s.points or 0,
+            s.explored or 0
+        )
+    elseif s.state == "searching" then
+        FG:Print(FG.T("way: looking for the way..."))
+    elseif s.state == "failed" then
+        FG:Print(FG.T("way: none found (%s); the guide's own walk is shown"), tostring(s.why))
+    else
+        FG:Print(FG.T("way: nothing to look for here (no place, too close, or Shortest Path Forever guides)"))
+    end
+end
+
 --- Where the compass shows the way for a character at (`north`, `west`) of `continent`: AHEAD
 --- yards along the walk from its closest point; nil without a walk, off it, or on its last leg
 --- (straight to the place). Second value: true when the character is beside the walk, going
@@ -115,6 +289,7 @@ function Pathing:Aim(continent, north, west)
         return way.north, way.west, false
     end
     if not walk or walk.continent ~= continent or not self:PathShown() then return nil end
+    self:Live(continent, north, west)
     local points = walk.points
     local best, bestDistance, bestN, bestW = Closest(north, west)
     if not best or bestDistance > REJOIN then return nil end
@@ -138,6 +313,7 @@ end
 --- the place; the whole walk left when far from it; nil without a walk or with it not shown.
 function Pathing:Remaining(continent, north, west)
     if not walk or walk.continent ~= continent or not self:PathShown() then return nil end
+    self:Live(continent, north, west)
     local points = walk.points
     local out = {}
     local best, bestDistance, bestN, bestW = Closest(north, west)
@@ -167,8 +343,6 @@ local sent, refused, subscribed
 -- north, west, text }, false without one, nil to read again.
 local way, wayRead
 local WAY_EVERY = 0.5
-
-local function Key(place) return place.m .. ":" .. place.x .. ":" .. place.y end
 
 --- The next point Shortest Path Forever leads to on the guide's journey, and its leg's words.
 local function ReadWay(api)

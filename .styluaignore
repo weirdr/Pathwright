@@ -5,3 +5,5 @@ addon/tests/fixtures/
 addon/tests/guides/
 # Built by addon/tools/guide_build.py from addon/guides/*.guide (one step a line).
 addon/Pathwright_Guide/Builtin/
+# Built by addon/tools/terrain_export.py and passages_export.py (the walkable ground).
+addon/Pathwright_Guide/Terrain/

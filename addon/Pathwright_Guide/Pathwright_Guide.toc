@@ -47,6 +47,9 @@ Updater.lua
 Feedback.lua
 GuideBrowser.lua
 Compass.lua
+Terrain\Terrain.xml
+Terrain.lua
+Walker.lua
 Pathing.lua
 Arrow.lua
 Nearby.lua

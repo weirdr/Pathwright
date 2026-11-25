@@ -202,6 +202,10 @@ enum Command {
     TerrainOverrides {
         #[arg(long, default_value = "Alliance")]
         faction: String,
+        /// Write each passage's sides there (JSON: where it is and the point of each walkable
+        /// area it joins), for the addon's own walks (addon/tools/passages_export.py)
+        #[arg(long)]
+        sides: Option<PathBuf>,
     },
     /// The walks of a guide from step to step as the planner walks them, a line each (to compare
     /// the walks of two versions)
@@ -394,7 +398,9 @@ fn main() -> Result<()> {
         } => {
             travel::run(&open()?, &overrides, &faction, &from, &to, level, cells.as_deref())?;
         }
-        Command::TerrainOverrides { faction } => travel::overrides(&open()?, &overrides, &faction)?,
+        Command::TerrainOverrides { faction, sides } => {
+            travel::overrides(&open()?, &overrides, &faction, sides.as_deref())?;
+        }
         Command::Walks { route, out, cells } => walks::run(&open()?, &overrides, &route, &out, cells)?,
         Command::GuideWalks { legs, out } => guide_walks::run(&open()?, &overrides, &legs, out.as_deref())?,
         Command::Audit { checks, all, proposals } => {

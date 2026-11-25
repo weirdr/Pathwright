@@ -57,6 +57,24 @@ for addon in "$@"; do
             echo '</Ui>'
         } >"$dest/Builtin/Builtin.xml"
     fi
+    # The walkable ground (Terrain/Tiles*.lua, then the passages) and its index, Terrain.xml,
+    # which the TOC loads.
+    if [ "$addon" = Pathwright_Guide ] && [ -d "$src/Terrain" ]; then
+        rm -rf "$dest/Terrain"
+        mkdir -p "$dest/Terrain"
+        {
+            echo '<Ui xmlns="http://www.blizzard.com/wow/ui/">'
+            for f in "$src/Terrain/Tiles0.lua" "$src"/Terrain/Tiles*.lua "$src/Terrain/Passages.lua"; do
+                [ -e "$f" ] || continue
+                # Tiles0.lua first (it makes the table the others fill), once.
+                if [ "$f" != "$src/Terrain/Tiles0.lua" ] || [ ! -e "$dest/Terrain/Tiles0.lua" ]; then
+                    cp "$f" "$dest/Terrain/"
+                    echo "    <Script file=\"$(basename "$f")\"/>"
+                fi
+            done
+            echo '</Ui>'
+        } >"$dest/Terrain/Terrain.xml"
+    fi
     # Textures.
     if [ -d "$src/Media" ]; then
         mkdir -p "$dest/Media"
