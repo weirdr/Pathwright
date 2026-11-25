@@ -12,6 +12,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 - Bind steps in guides the app writes now name the inn at the capitals and at most towns, so a hearthstone already set there passes the step.
 - Tauren Starter (1-13): the Broken Tools step now offers the Bael'dun Digger as its first target button, and a button to use the Prospector's Pick once you carry one.
+- Tauren Starter (1-13): the Broken Tools step now also offers the Bael'dun Appraiser as a target button after the Digger, and the Prospector's Pick button follows the quest item button setting.
 - Tauren Starter (1-13): the steps with Morin Cloudstalker now point to where he stands (50.4, 62.8).
 - Tauren Starter (1-13): the steps at Krang Stonehoof, the warrior trainer in Bloodhoof Village, now point to where he stands (48.3, 63.6) instead of a spot north of him.
 - Skyborne Starter (1-13): Vulgara's Head now warns that Vulgara is an elite who may need a group, and that the quest can be skipped if it is too hard.

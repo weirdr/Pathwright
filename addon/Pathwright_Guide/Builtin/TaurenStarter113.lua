@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795641253,
+    created = 1795642543,
     next = "Silverpine Forest (13-15)",
     variants = {
         { race = 6, class = 1, faction = "Horde" },
@@ -159,7 +159,7 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Use the Thunderhorn Cleansing Totem at the Thunderhorn Water Well", q = 758, o = 1, ic = "use", m = 1412, x = 44.2, y = 51.1, lvl = 9 },
         { k = "turnin", t = "Turn in Rite of Vision to Seer Wiserunner", q = 772, n = "Seer Wiserunner", e = "npc", id = 2984, m = 1412, x = 34.31, y = 43.29, nt = { { l = 2, t = "You can drink the Water of the Seers by the village fire for the vision, but there's no need to follow it: Seer Wiserunner waits in a small cave south of Thunder Bluff." } }, lvl = 9 },
         { k = "accept", t = "Accept Rite of Wisdom from Seer Wiserunner", q = 773, n = "Seer Wiserunner", e = "npc", id = 2984, m = 1412, x = 34.31, y = 43.29, min = 3, pa = { 772 }, lvl = 9 },
-        { k = "objective", t = "Broken Tools x5", q = 746, o = 1, ic = "pickup", n = "Broken Tools", e = "item", id = 4703, c = 5, m = 1412, x = 33.1, y = 54.8, spots = { { m = 1412, x = 33.17, y = 47.8 } }, mobs = { "Bael'dun Digger" }, mi = { 2989 }, ui = 4702, nt = { { l = 1, t = "Loot them from Forge." }, { l = 2, t = "The Bael'dun dwarves drop the Prospector's Picks. Use them by the forge in the digsite to break them into Broken Tools." } }, lvl = 9 },
+        { k = "objective", t = "Broken Tools x5", q = 746, o = 1, ic = "pickup", n = "Broken Tools", e = "item", id = 4703, c = 5, m = 1412, x = 33.1, y = 54.8, spots = { { m = 1412, x = 33.17, y = 47.8 } }, mobs = { "Bael'dun Digger", "Bael'dun Appraiser" }, mi = { 2989, 2990 }, ui = 4702, nt = { { l = 1, t = "Loot them from Forge." }, { l = 2, t = "The Bael'dun dwarves drop the Prospector's Picks. Use them by the forge in the digsite to break them into Broken Tools." } }, lvl = 9 },
         { k = "turnin", t = "Turn in Dwarven Digging to Baine Bloodhoof", q = 746, n = "Baine Bloodhoof", e = "npc", id = 2993, m = 1412, x = 46.67, y = 63.38, lvl = 9, wp = { -1981, 442, -1954, 421, -1954, 363, -1988, 329, -1988, 304, -2129, 163, -2129, -4, -2171, -38, -2171, -229, -2229, -288, -2238, -313, -2321, -396 } },
         { k = "turnin", t = "Turn in Thunderhorn Cleansing to Mull Thunderhorn", q = 758, n = "Mull Thunderhorn", e = "npc", id = 2948, m = 1412, x = 47.52, y = 63.58, lvl = 9 },
         { k = "accept", t = "Accept Wildmane Totem from Mull Thunderhorn", q = 759, n = "Mull Thunderhorn", e = "npc", id = 2948, m = 1412, x = 47.52, y = 63.58, min = 4, pa = { 758 }, lvl = 9 },

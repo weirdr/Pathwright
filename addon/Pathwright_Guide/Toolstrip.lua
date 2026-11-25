@@ -483,7 +483,7 @@ function Toolstrip.Actions(steps)
     -- dwarves: no quest hands it out), when it is carried and can be used.
     for _, step in ipairs(steps) do
         local id = tonumber(step.ui)
-        if id and #list < MAX and not seen["item\0" .. id] and (tonumber(FG.ItemCount(id)) or 0) > 0 and Usable(id) then
+        if id and FG:Get("questItemButton") and #list < MAX and not seen["item\0" .. id] and (tonumber(FG.ItemCount(id)) or 0) > 0 and Usable(id) then
             seen["item\0" .. id] = true
             local ok, name, ilink, _, _, _, _, _, _, _, tex = pcall(FG.ItemInfo, id)
             if not ok then name, ilink, tex = nil, nil, nil end
