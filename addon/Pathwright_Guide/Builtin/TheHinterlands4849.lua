@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795617002,
     next = "Feralas & Un'Goro Crater (49-50)",
     carry = { 580, 650, 864, 1122, 1429, 2641, 2874, 2932, 3123, 3444 },
     variants = {
@@ -117,7 +117,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Stalking the Stalkers to Huntsman Markhor", q = 7828, n = "Huntsman Markhor", e = "npc", id = 14741, m = 1425, x = 79.16, y = 79.53, lvl = 48 },
         { k = "turnin", t = "Turn in Hunt the Savages to Huntsman Markhor", q = 7829, n = "Huntsman Markhor", e = "npc", id = 14741, m = 1425, x = 79.16, y = 79.53, lvl = 48 },
         { k = "turnin", t = "Turn in Avenging the Fallen to Huntsman Markhor", q = 7830, n = "Huntsman Markhor", e = "npc", id = 14741, m = 1425, x = 79.16, y = 79.53, lvl = 48 },
-        { k = "turnin", t = "Turn in Message to the Wildhammer to Otho Moji'ko", q = 7841, n = "Otho Moji'ko", e = "npc", id = 14738, m = 1425, x = 79.38, y = 79.08, lvl = 49 },
+        { k = "turnin", t = "Turn in Message to the Wildhammer to Otho Moji'ko", q = 7841, n = "Otho Moji'ko", e = "npc", id = 14738, m = 1425, x = 79.38, y = 79.08, lvl = 48 },
         { k = "accept", t = "Accept Another Message to the Wildhammer from Otho Moji'ko", q = 7842, n = "Otho Moji'ko", e = "npc", id = 14738, m = 1425, x = 79.38, y = 79.08, min = 44, pa = { 7841 }, lvl = 49 },
         { k = "turnin", t = "Turn in Cannibalistic Cousins to Mystic Yayo'jin", q = 7844, n = "Mystic Yayo'jin", e = "npc", id = 14739, m = 1425, x = 78.8, y = 78.25, lvl = 49 },
         { k = "turnin", t = "Turn in Witch Doctor Ti'ik to Qujo", q = 98203, n = "Qujo", e = "npc", id = 270780, m = 1425, x = 77.95, y = 77.83, lvl = 49 },

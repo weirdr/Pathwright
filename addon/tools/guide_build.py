@@ -1004,6 +1004,9 @@ def mob_level(npc):
 
 for vi in range(1, len(variants) + 1):
     level, xp = guide["from"], 0
+    # The kills already counted for a quest's item objectives, by the mob they drop from: two items
+    # dropped by the same mob (plainstrider meat and feather) come from the same kills.
+    counted = {}
     for s in steps:
         if vi not in s["_in"]:
             continue
@@ -1016,6 +1019,9 @@ for vi in range(1, len(variants) + 1):
             if s["ic"] == "kill" and s.get("e") == "npc":
                 kills = int(one("select coalesce(amount, 1) from m_quest_objective where quest_id=? and idx=?",
                                 s["q"], s["o"])[0] or 1)
+            if s.get("e") == "item":
+                key = (s["q"], tuple(s["mi"]))
+                kills, counted[key] = max(0, kills - counted.get(key, 0)), max(kills, counted.get(key, 0))
             gain = kills * mob_xp(level, mob_level(s["mi"][0]))
         elif s["k"] == "grind":
             while level < s["lvl"]:

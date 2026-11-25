@@ -826,6 +826,26 @@ do
     FG.Card.Render, FG.Mini.Render = card, mini
     useRoute("skip-test")
 end
+-- The Tauren starter takes Break Sharptusk! (level 3) only after the second camp visit has handed
+-- in The Hunt Continues (750): a real run is still level 2 at the first visit. The builder once counted
+-- the plainstrider meat and feathers as separate kills and planned it there.
+do
+    local def
+    local register = FG.Builtin.Register
+    FG.Builtin.Register = function(d) def = d end
+    assert(loadfile("addon/Pathwright_Guide/Builtin/TaurenStarter113.lua"))()
+    FG.Builtin.Register = register
+    local hunt, sharptusk
+    for i, st in ipairs(def.steps) do
+        if st.k == "turnin" and st.q == 750 then hunt = hunt or i end
+        if st.k == "accept" and st.q == 3376 then sharptusk = i end
+    end
+    assert(hunt and sharptusk and sharptusk > hunt, "Break Sharptusk! is taken after The Hunt Continues is handed in")
+    assert(
+        def.steps[sharptusk].lvl >= def.steps[sharptusk].min,
+        "Break Sharptusk! is planned at a level that can take it"
+    )
+end
 print("quest minimum level ok")
 
 -- Quest notes and icons (`nt`, `ic`): the step's icon says how it is done, a mark after its name
