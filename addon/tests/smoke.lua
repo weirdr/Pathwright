@@ -6061,6 +6061,11 @@ do
     local named = FG.Toolstrip.Actions({ { k = "objective", ui = 7767, mobs = { "Bael'dun Digger" } } })
     assert(named[1] and named[1].kind == "item" and named[1].link == "item:7767", "the step's item to use")
     assert(named[2] and named[2].kind == "kill" and named[2].name == "Bael'dun Digger", "then its mob")
+    local realButton = FG:Get("questItemButton")
+    FG:Set("questItemButton", false)
+    local off = FG.Toolstrip.Actions({ { k = "objective", ui = 7767, mobs = { "Bael'dun Digger" } } })
+    assert(#off == 1 and off[1].kind == "kill", "setting off: no item button for the step's item, its mob stays")
+    FG:Set("questItemButton", realButton)
     carried[7767] = 0
     assert(#FG.Toolstrip.Actions({ { ui = 7767 } }) == 0, "not carried: not offered")
     GetQuestLogIndexByID, C_QuestLog.GetLogIndexForQuestID, FG.QuestItems = realIndex, realFind, realItems
