@@ -1771,11 +1771,36 @@ do
     bags[16333] = 1
     assert(FG.Guide:IsDone(step, 1), "loot note: done once the item is in the bags")
     bags[16333] = nil
-    -- With the quest the item starts (`hq`), the note stays done once the item is used up.
+    -- With the quest the item is used for (`hq`), the note stays done once the item is used up.
     FG.Routes["loot-note-test"].steps[1].hq = 6395
+    FG.Routes["loot-note-test"].steps[2] = { k = "note", t = "Bury the remains", lvl = 4 }
     assert(not FG.Guide:IsDone(step, 1), "loot note: not done without the item or the quest")
+    local objectives, isComplete = C_QuestLog.GetQuestObjectives, C_QuestLog.IsComplete
+    local fulfilled = false
+    C_QuestLog.GetQuestObjectives = function(q)
+        if q ~= 6395 then return objectives(q) end
+        local n = fulfilled and 1 or 0
+        return { { text = "Samuel's Remains: " .. n .. "/1", numFulfilled = n, numRequired = 1, finished = fulfilled } }
+    end
+    C_QuestLog.IsComplete = function(q)
+        if q == 6395 then return fulfilled end
+        return isComplete(q)
+    end
+    -- On the quest at 0/1 without the item (taken before the kill): not done.
     onQuest[6395] = true
-    assert(FG.Guide:IsDone(step, 1), "loot note: done while the quest is in the log")
+    assert(not FG.Guide:IsDone(step, 1), "loot note: not done on the quest at 0/1")
+    -- The item looted: the guide moves on by itself.
+    useRoute("loot-note-test")
+    assert(FG.Guide:CurrentStep() == 1, "loot note: stops at the note")
+    bags[16333] = 1
+    FG.Guide:Advance()
+    assert(FG.Guide:CurrentStep() == 2, "loot note: moves on once looted: " .. FG.Guide:CurrentStep())
+    bags[16333] = nil
+    -- The item used up, the objective fulfilled: done.
+    fulfilled = true
+    assert(FG.Guide:IsDone(step, 1), "loot note: done once the objective is fulfilled")
+    fulfilled = false
+    C_QuestLog.GetQuestObjectives, C_QuestLog.IsComplete = objectives, isComplete
     onQuest[6395] = nil
     completed[6395] = true
     assert(FG.Guide:IsDone(step, 1), "loot note: done once the quest is turned in")

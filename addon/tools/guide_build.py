@@ -297,7 +297,8 @@ def parse_opts(n, words, quiet=False):
             if i + 1 >= len(words) or not words[i + 1].isdigit():
                 fail(n, "have <item id> [quest id]")
             o["have"] = int(words[i + 1]); i += 2
-            # The quest the item starts: the note stays done once the item is used up.
+            # The quest the item is used for: the note stays done once that quest's objective is
+            # fulfilled or it is turned in (being on it alone does not count).
             if i < len(words) and words[i].isdigit():
                 o["havequest"] = int(words[i]); i += 1
         elif w == "mobs":
