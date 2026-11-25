@@ -4169,6 +4169,36 @@ assert(char.guide.step == 5, "visits before the last turn-in are done, step " ..
 assert(char.guide.marks[1] and char.guide.marks[3] and not char.guide.marks[5], "only the visits behind")
 completed[8201] = nil
 
+-- A bind step done already: the hearthstone is bound to the inn of the innkeeper.
+FG.Routes["bind-test"] = {
+    race = 7,
+    class = 8,
+    faction = "Alliance",
+    fromLevel = 1,
+    toLevel = 60,
+    time = 1,
+    steps = {
+        { k = "bind", t = "Bind", e = "npc", id = 5688, m = 1420, x = 61.72, y = 52.05, lvl = 1 },
+        { k = "accept", t = "Accept B", q = 8221, lvl = 1 },
+    },
+}
+bindLocation = "Kharanos"
+useRoute("bind-test")
+assert(char.guide.step == 1, "bound to another inn: the bind step stays, step " .. char.guide.step)
+bindLocation = "Gallows' End Tavern"
+useRoute("bind-test")
+assert(char.guide.step == 2, "bound to the inn already: the bind step is passed, step " .. char.guide.step)
+-- Another language: the profile saw the bind next to the innkeeper.
+bindLocation = "Taverne de la Fin des gibets"
+profile.bind = { name = bindLocation, areas = {}, position = { map = 1420, x = 61.7, y = 52 } }
+useRoute("bind-test")
+assert(char.guide.step == 2, "bound here in another language, step " .. char.guide.step)
+profile.bind = { name = bindLocation, areas = {} }
+useRoute("bind-test")
+assert(char.guide.step == 1, "an unknown inn in another language stays, step " .. char.guide.step)
+bindLocation = "Kharanos"
+print("bind step ok")
+
 -- A quest handed in far ahead of the guide (found on the way, done out of order) does not pass
 -- the visits before it: only those followed by a quest step done, up to the first one not done.
 FG.Routes["visits-ahead-test"] = {

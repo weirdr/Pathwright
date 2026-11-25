@@ -397,6 +397,37 @@ local function RecallReady()
     return false
 end
 
+-- The inns of the bind steps by innkeeper NPC: the name GetBindLocation gives in English. A step
+-- may carry its own (`inn` name, `ia` area ids), which wins; the area ids of the profile (the
+-- inn's name in the game's language) serve other languages.
+local INNS = {
+    [5688] = { name = "Gallows' End Tavern", areas = {} },
+}
+
+--- Whether the hearthstone is bound already to the inn of a bind step: GetBindLocation names it
+--- (English name, or an area id of the step's `ia` among those the profile found for the bind's
+--- name in the game's language), or the profile saw the character bind next to the innkeeper.
+local function BoundHere(step)
+    local name = GetBindLocation and GetBindLocation()
+    if not name or name == "" then return false end
+    local inn = INNS[step.id] or {}
+    if (step.inn or inn.name) == name then return true end
+    local profile = PathwrightDB and PathwrightDB.profiles and PathwrightDB.profiles[FG:CharacterKey()]
+    local bind = type(profile) == "table" and profile.bind
+    if type(bind) ~= "table" or bind.name ~= name then return false end
+    local wanted = step.ia or inn.areas or {}
+    for _, id in ipairs(bind.areas or {}) do
+        for _, want in ipairs(wanted) do
+            if id == want then return true end
+        end
+    end
+    local at = bind.position
+    if at and step.m and at.map == step.m and step.x and step.y then
+        return math.abs(at.x - step.x) < 1 and math.abs(at.y - step.y) < 1
+    end
+    return false
+end
+
 --- Whether the way home is closed for long: the hearthstone is on a cooldown above
 --- Guide.HEARTH_WAIT, and no Astral Recall is ready instead. A cooldown that has just started is
 --- the hearthstone the player took, not a block. Without a hearthstone (or an API to ask),
@@ -500,13 +531,10 @@ function IsDone(step, index)
         and (select(2, FG.ProfessionSkill(ProfessionLine(step))) or 0) >= step.sk
     then
         return true -- rank already learned
-    elseif
-        step.k == "flight_master"
-        or step.k == "train"
-        or step.k == "sell"
-        or step.k == "bind"
-        or step.k == "profession"
-    then
+    elseif step.k == "bind" then
+        -- Done by talking to the innkeeper, or already bound to that inn.
+        return state.marks[index or state.step] or BoundHere(step)
+    elseif step.k == "flight_master" or step.k == "train" or step.k == "sell" or step.k == "profession" then
         return state.marks[index or state.step] or false
     elseif step.k == "dungeon" then
         -- Followed by the quests done inside (steps of their own): done on entering the dungeon.

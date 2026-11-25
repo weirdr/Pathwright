@@ -14,6 +14,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Addon
 
+- A bind step is passed when your hearthstone is already set to that inn, instead of asking you to talk to the innkeeper again.
 - A quest you take in a party is shared with it at once. Two settings under World map and group, both on by default: "Share the quests you take with the party" and "Only when the whole party uses Pathwright". `/pw party` says who in your party runs the addon.
 - The way to the guide's place is now found in game from where you stand, around steep ground and water and by the lifts, and found again when you leave it. "Route found from where you stand" under Path turns it off; `/pw way` says what it is doing.
 - WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.
