@@ -5173,6 +5173,19 @@ do
     assert(close(x, -20) and close(y, 0), "west: left")
     x, y = FG.PathLines.OnMinimap(0, 10, 2, math.pi / 2)
     assert(math.abs(x) < 1e-9 and close(y, 20), "facing west on a turning minimap: west is up")
+    -- The dots' sizes are settings; larger ones are further apart, smaller ones no closer.
+    local size, apart = FG.PathLines.DotSize("pathDotSize")
+    assert(size == 5 and apart == 1, "the minimap's dots as before: " .. tostring(size))
+    size, apart = FG.PathLines.DotSize("pathMapDotSize")
+    assert(size == 6 and apart == 1, "the world map's dots as before: " .. tostring(size))
+    FG:Set("pathDotSize", 10)
+    FG:Set("pathMapDotSize", 3)
+    size, apart = FG.PathLines.DotSize("pathDotSize")
+    assert(size == 10 and apart == 2, "twice as large, twice as far apart")
+    size, apart = FG.PathLines.DotSize("pathMapDotSize")
+    assert(size == 3 and apart == 1, "smaller dots keep their spacing")
+    FG:Set("pathDotSize", nil)
+    FG:Set("pathMapDotSize", nil)
 end
 print("walk on the maps ok")
 

@@ -6,6 +6,8 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The dots of the path can be made larger or smaller: "Minimap path dot size" and "World map path dot size" under Path. Larger dots are spaced further apart, so the path stays dotted.
+- Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains.
 - A bind step is passed when your hearthstone is already set to that inn, instead of asking you to talk to the innkeeper again.
 - Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains. It stays done after you bury them or hand in Marla's Last Wish.
 - Desolace (34-36), Ashenvale (26-28), Desolace & Shen'dralas (43) and Western & Eastern Plaguelands (56-58): the steps that ask you to kill for an item (the Flayed Demon Skin, the Etched Phial, the Tattered Journal, the Dalson Cabinet Key) now complete by themselves once you have looted it.

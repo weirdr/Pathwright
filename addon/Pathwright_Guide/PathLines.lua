@@ -19,6 +19,17 @@ local MINIMAP_YARDS = {
     outdoor = { [0] = 466 + 2 / 3, 400, 333 + 1 / 3, 266 + 2 / 3, 200, 133 + 1 / 3 },
 }
 
+-- The width of a dot in pixels: the settings `pathDotSize` (minimap) and `pathMapDotSize` (world
+-- map), and what each is when the setting is not there.
+local SIZES = { pathDotSize = 5, pathMapDotSize = 6 }
+
+--- The width of a dot in pixels (`key`: one of SIZES), then how much further apart the dots are
+--- than at the usual size: larger dots keep the gaps between them, and the line stays dotted.
+function PathLines.DotSize(key)
+    local size = tonumber(FG:Get(key)) or SIZES[key]
+    return size, math.max(1, size / SIZES[key])
+end
+
 local function CVar(name)
     local get = C_CVar and C_CVar.GetCVar or GetCVar
     return get and get(name)
@@ -73,6 +84,8 @@ end
 
 function PWWalkDotMixin:OnAcquired(x, y)
     self:SetPosition(x, y)
+    local size = PathLines.DotSize("pathMapDotSize")
+    self:SetSize(size, size)
     self.Dot:SetVertexColor(GREEN[1], GREEN[2], GREEN[3])
 end
 
@@ -92,7 +105,8 @@ function Provider:RefreshAllData()
         local x, y = pos:GetXY()
         onMap[#onMap + 1] = { x, y }
     end
-    for _, d in ipairs(PathLines.Sample(onMap, MAP_STEP, MAP_DOTS)) do
+    local _, apart = PathLines.DotSize("pathMapDotSize")
+    for _, d in ipairs(PathLines.Sample(onMap, MAP_STEP * apart, MAP_DOTS)) do
         if d[1] >= 0 and d[1] <= 1 and d[2] >= 0 and d[2] <= 1 then
             self:GetMap():AcquirePin("PWWalkDotTemplate", d[1], d[2])
         end
@@ -133,7 +147,6 @@ local function Dot(i)
     if not d then
         d = mini:CreateTexture(nil, "OVERLAY")
         d:SetTexture(DOT)
-        d:SetSize(5, 5)
         d:SetVertexColor(GREEN[1], GREEN[2], GREEN[3])
         dots[i] = d
     end
@@ -149,6 +162,7 @@ local function DrawMinimap()
         local rotate = CVar("rotateMinimap") == "1"
         local facing = rotate and GetPlayerFacing and GetPlayerFacing() or nil
         local ppy = Minimap:GetWidth() / 2 / radius
+        local size, apart = PathLines.DotSize("pathDotSize")
         -- Only the legs that come within the minimap.
         local function Near(a, b)
             local dn, dw = b[1] - a[1], b[2] - a[2]
@@ -157,11 +171,16 @@ local function DrawMinimap()
             local qn, qw = a[1] + t * dn - north, a[2] + t * dw - west
             return qn * qn + qw * qw <= radius * radius
         end
-        for _, p in ipairs(PathLines.Sample(points, radius * MINI_STEP, MINI_DOTS * 4, Near)) do
+        for _, p in ipairs(PathLines.Sample(points, radius * MINI_STEP * apart, MINI_DOTS * 4, Near)) do
             local dn, dw = p[1] - north, p[2] - west
             if dn * dn + dw * dw <= inside * inside and shown < MINI_DOTS then
                 shown = shown + 1
                 local d = Dot(shown)
+                -- Written only when it changes: the dots are drawn ten times a second.
+                if d.size ~= size then
+                    d.size = size
+                    d:SetSize(size, size)
+                end
                 d:ClearAllPoints()
                 d:SetPoint("CENTER", Minimap, "CENTER", PathLines.OnMinimap(dn, dw, ppy, facing))
                 d:Show()
@@ -210,6 +229,6 @@ end)
 FG:On("ADDON_LOADED", function(name)
     if name == "Blizzard_WorldMap" then Attach() end
 end)
-for _, key in ipairs({ "pathMap", "pathMode", "spfLink", "uiShown" }) do
+for _, key in ipairs({ "pathMap", "pathMapDotSize", "pathMode", "spfLink", "uiShown" }) do
     FG:OnSetting(key, function() PathLines:Refresh() end)
 end
