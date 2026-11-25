@@ -9,6 +9,7 @@ mod common;
 mod completion;
 mod draft;
 mod edit;
+mod inns;
 mod required;
 mod routes;
 mod timeline;

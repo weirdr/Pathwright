@@ -47,6 +47,9 @@ jobs:
         run: cargo clippy --workspace --all-targets --locked -- -D warnings
       - name: Tests
         run: cargo test --workspace --locked
+      # A data update that adds an innkeeper fails here until overrides/inns.toml decides about it.
+      - name: Innkeepers of the data are all decided on
+        run: python3 scripts/check-inns.py
 
   deny:
     name: Dependencies (cargo deny)
