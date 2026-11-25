@@ -1771,6 +1771,15 @@ do
     bags[16333] = 1
     assert(FG.Guide:IsDone(step, 1), "loot note: done once the item is in the bags")
     bags[16333] = nil
+    -- With the quest the item starts (`hq`), the note stays done once the item is used up.
+    FG.Routes["loot-note-test"].steps[1].hq = 6395
+    assert(not FG.Guide:IsDone(step, 1), "loot note: not done without the item or the quest")
+    onQuest[6395] = true
+    assert(FG.Guide:IsDone(step, 1), "loot note: done while the quest is in the log")
+    onQuest[6395] = nil
+    completed[6395] = true
+    assert(FG.Guide:IsDone(step, 1), "loot note: done once the quest is turned in")
+    completed[6395] = nil
 end
 
 -- Hearth steps: passed when the hearthstone is on a long cooldown, kept when it is ready or

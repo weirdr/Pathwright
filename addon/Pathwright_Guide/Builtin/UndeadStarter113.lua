@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795581071,
     next = "Silverpine Forest (13-15)",
     variants = {
         { race = 5, class = 1, faction = "Horde" },
@@ -73,7 +73,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Scavenging Deathknell to Deathguard Saltain", q = 3902, n = "Deathguard Saltain", e = "npc", id = 1740, m = 1420, x = 31.61, y = 65.6, lvl = 4 },
         { k = "turnin", t = "Turn in Night Web's Hollow to Executor Arren", q = 380, n = "Executor Arren", e = "npc", id = 1570, m = 1420, x = 32.15, y = 66.01, lvl = 4 },
         { k = "accept", t = "Accept The Scarlet Crusade from Executor Arren", q = 381, n = "Executor Arren", e = "npc", id = 1570, m = 1420, x = 32.15, y = 66.01, min = 2, pa = { 380 }, lvl = 4 },
-        { k = "note", t = "Kill Samuel Fipps and loot his remains", n = "Samuel Fipps", e = "npc", id = 1919, hv = 16333, m = 1420, x = 36.7, y = 61.6, nt = { { l = 2, t = "Samuel Fipps, a zombie, shambles about the fields east of Deathknell, on your way to the Scarlet camp." } }, lvl = 4 },
+        { k = "note", t = "Kill Samuel Fipps and loot his remains", n = "Samuel Fipps", e = "npc", id = 1919, hv = 16333, hq = 6395, m = 1420, x = 36.7, y = 61.6, nt = { { l = 2, t = "Samuel Fipps, a zombie, shambles about the fields east of Deathknell, on your way to the Scarlet camp." } }, lvl = 4 },
         { k = "objective", t = "Scarlet Armband x12", q = 381, o = 1, ic = "get", n = "Scarlet Armband", e = "item", id = 3266, c = 12, m = 1420, x = 37.53, y = 67.94, mobs = { "Scarlet Initiate", "Scarlet Convert", "Meven Korgal" }, mi = { 1507, 1506, 1667 }, nt = { { l = 2, t = "The Scarlet Converts and Initiates fill the camp south-east of Deathknell. Meven Korgal is there too: leave him for now." } }, lvl = 4 },
         { k = "objective", t = "Bury Samuel's Remains at Marla's Grave", q = 6395, o = 1, ic = "use", n = "Marla's Grave", e = "object", id = 178090, m = 1420, x = 31.17, y = 65.08, nt = { { l = 2, t = "Marla's Grave is in the graveyard beside the chapel." } }, lvl = 5, wp = { 1791, 1337, 1871, 1421 } },
         { k = "turnin", t = "Turn in Marla's Last Wish to Novice Elreth", q = 6395, n = "Novice Elreth", e = "npc", id = 1661, m = 1420, x = 30.86, y = 66.05, lvl = 5 },

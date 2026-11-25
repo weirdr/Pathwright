@@ -10,7 +10,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Guides
 
-- Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains.
+- Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains. It stays done after you bury them or hand in Marla's Last Wish.
 - Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path after it has already had you fly there, because you already know it.
 
 ### Addon
