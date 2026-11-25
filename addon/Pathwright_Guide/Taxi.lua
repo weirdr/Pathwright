@@ -1,7 +1,7 @@
--- The flight map: when the guide's step says to fly somewhere, a green arrow bobs over that
--- destination on the flight master's map, so it is found at a glance among the others. So does
--- the flight of the journey to the step (Journey.lua: "Fly to ..."), when the guide's steps
--- ask for none themselves.
+-- The flight map: when the guide's step says to fly somewhere, a green arrow with a soft glow
+-- bobs over that destination on the flight master's map, so it is found at a glance among the
+-- others. So does the flight of the journey to the step (Journey.lua: "Fly to ..."), when the
+-- guide's steps ask for none themselves.
 --
 -- With "Take the step's flight automatically" on, the flight is taken as the map opens
 -- (Automation.lua) and the arrow is hardly seen; it shows when that setting is off, when Shift
@@ -21,7 +21,10 @@ local Taxi = {}
 FG.Taxi = Taxi
 
 local TEXTURE = "Interface\\AddOns\\Pathwright_Guide\\Media\\TaxiArrow"
-local SIZE = 30
+-- The texture (addon/tools/taxi_arrow.py) holds the arrow with room for its glow around it: SIZE
+-- px wide, the arrow itself is 30, and ROOM px under its tip are the glow's (the arrow sits that
+-- much lower, its tip just over the button).
+local SIZE, ROOM = 40, 5
 --- The arrow bobs: how far up it goes (pixels), and how long one bob up and back takes (seconds).
 local BOB, PERIOD = 8, 0.9
 --- C_TaxiMap node states: where the character stands, where it can fly, where it cannot.
@@ -134,7 +137,7 @@ local function Arrow()
         if not pin then return end
         self.clock = (self.clock + (tonumber(elapsed) or 0)) % PERIOD
         local lift = BOB * (1 - math.cos(2 * math.pi * self.clock / PERIOD)) / 2
-        self:SetPoint("BOTTOM", pin, "TOP", 0, 1 + lift)
+        self:SetPoint("BOTTOM", pin, "TOP", 0, 1 - ROOM + lift)
     end)
     arrow:Hide()
     Taxi.arrow = arrow
@@ -167,7 +170,7 @@ function Taxi:Show(quiet)
     arrow:SetParent(pin)
     arrow:SetFrameStrata("TOOLTIP")
     arrow:ClearAllPoints()
-    arrow:SetPoint("BOTTOM", pin, "TOP", 0, 1)
+    arrow:SetPoint("BOTTOM", pin, "TOP", 0, 1 - ROOM)
     arrow.clock = 0
     self.pin = pin
     arrow:Show()
