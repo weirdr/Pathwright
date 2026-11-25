@@ -2169,6 +2169,32 @@ do
     FG.Import:Apply()
     local other = FG.Routes["builtin-other"]
     assert(other and other.race == 1 and other.class == 8 and not FG.Import.Fits(other), "closest variant offered")
+    -- A guide whose steps plan no level (RestedXP's dungeon quests): it opens, the card shows no
+    -- planned level and later levels are marked against the character's.
+    FG.Builtin.Register({
+        name = "builtin-nolevel",
+        variants = { { race = 7, class = 8, faction = "Alliance" } },
+        steps = {
+            { k = "note", t = "No level" },
+            { k = "note", t = "No level either" },
+            { k = "note", t = "Far ahead", lvl = 59 },
+        },
+    })
+    FG.Import:Apply()
+    for name, r in pairs(routes) do
+        FG.Routes[name] = FG.Routes[name] or r
+    end
+    FG.Guide:Choose("builtin-nolevel")
+    assert(FG.Guide:RouteName() == "builtin-nolevel", "the guide without levels opens")
+    local planned = FG.Card:Frame().planned:GetText() or ""
+    assert(not planned:find("planned"), "no planned level on the card: " .. planned)
+    local markers = 0
+    for _, v in ipairs(FG.Guide.view.next) do
+        if v.marker == 59 then markers = markers + 1 end
+    end
+    assert(markers == 1, "a later level marked: " .. markers)
+    FG.Guide:CloseTab("builtin-nolevel")
+    table.remove(FG.Builtin.defs)
     -- A guide both factions play: the next guide of the variant's faction.
     FG.Builtin.Register({
         name = "builtin-both",
