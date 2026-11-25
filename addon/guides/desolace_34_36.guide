@@ -97,7 +97,7 @@ do 5741
 tip The Burning Blade Seer stands on top of the tower in the middle of the fortress.
 do 5381
 tip Clear the room, use the Demon Pick on the red crystal, then kill the Demon Spirit that comes out.
-note "Kill Burning Blade cultists until one drops a Flayed Demon Skin" at 54.5,28.5
+note "Kill Burning Blade cultists until one drops a Flayed Demon Skin" at 54.5,28.5 have 20310 1480
 tip It is a rare drop from any Burning Blade cultist; it comes along with the gems.
 accept 1480 at 54.5,28.5 icon get "Open the Flayed Demon Skin: it starts a quest"
 do 1435

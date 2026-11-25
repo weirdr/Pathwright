@@ -143,7 +143,7 @@ do 6441 bg
 tip Satyrnaar is the satyr camp east of Splintertree Post. The Shadowstalkers hide in stealth. A horn drops about every other kill, for each of you who still needs them.
 do 6441 at 67.2,55.0 mobs 3758 3763
 tip Not 16 each yet? The Felmusk satyrs of Night Run, the valley north-west of Splintertree Post, drop them too. Their stealthed Shadowstalkers come out of nowhere: stay together.
-note "Kill Laughing Sisters, the dryads of Raynewood Retreat, until each of you has an Etched Phial" at 59.6,55.4
+note "Kill Laughing Sisters, the dryads of Raynewood Retreat, until each of you has an Etched Phial" at 59.6,55.4 have 5867 1195
 tip The phial is for The Sacred Flame (no Sacred Flame, no phial: skip this step). Keep it: the moonwell is later in the loop.
 accept 24 at 60.6,51.6 icon kill "Kill Shadumbra, loot her head and use it: it starts a quest"
 tip Shadumbra, level 28, prowls the woods around Raynewood Retreat and west of it, towards the road.

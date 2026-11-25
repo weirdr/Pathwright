@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795583051,
     next = "Stranglethorn Vale (36-37)",
     carry = { 1106, 1136, 1362, 1432, 1712, 1714, 5361, 5762 },
     variants = {
@@ -72,7 +72,7 @@ Pathwright.Builtin.Register({
         { k = "objective", t = "Infused Burning Gem x15", q = 1435, o = 1, ic = "get", n = "Infused Burning Gem", e = "item", id = 6435, c = 15, m = 1443, x = 54.38, y = 29.54, spots = { { m = 1443, x = 56.31, y = 23.39 } }, mobs = { "Burning Blade Augur", "Burning Blade Felsworn", "Burning Blade Adept", "Burning Blade Summoner" }, mi = { 4663, 4666, 4665, 4668 }, bg = true, lvl = 34 },
         { k = "objective", t = "Sceptre of Light", q = 5741, o = 1, ic = "get", n = "Sceptre of Light", e = "item", id = 15750, c = 1, m = 1443, x = 55.17, y = 30.15, mobs = { "Burning Blade Seer" }, mi = { 13019 }, nt = { { l = 2, t = "The Burning Blade Seer stands on top of the tower in the middle of the fortress." } }, lvl = 34, wp = { -460, 2612, -554, 2521, -554, 2421, -529, 2404, -521, 1813, -504, 1779, -504, 1754, -471, 1713, -438, 1713, -429, 1721 } },
         { k = "objective", t = "Demon Box", q = 5381, o = 1, ic = "get", n = "Demon Box", e = "item", id = 13542, c = 1, m = 1443, x = 55, y = 26.6, mobs = { "Demon Spirit" }, mi = { 11876 }, nt = { { l = 2, t = "Clear the room, use the Demon Pick on the red crystal, then kill the Demon Spirit that comes out." } }, lvl = 34, wp = { -452, 1753, -429, 1729, -379, 1746, -346, 1729, -329, 1746 } },
-        { k = "note", t = "Kill Burning Blade cultists until one drops a Flayed Demon Skin", m = 1443, x = 54.5, y = 28.5, nt = { { l = 2, t = "It is a rare drop from any Burning Blade cultist; it comes along with the gems." } }, lvl = 34, wp = { -345, 1761, -329, 1746, -346, 1729, -363, 1746, -396, 1738 } },
+        { k = "note", t = "Kill Burning Blade cultists until one drops a Flayed Demon Skin", hv = 20310, hq = 1480, m = 1443, x = 54.5, y = 28.5, nt = { { l = 2, t = "It is a rare drop from any Burning Blade cultist; it comes along with the gems." } }, lvl = 34, wp = { -345, 1761, -329, 1746, -346, 1729, -363, 1746, -396, 1738 } },
         { k = "accept", t = "Open the Flayed Demon Skin: it starts a quest", q = 1480, ic = "get", n = "Flayed Demon Skin", e = "item", id = 20310, m = 1443, x = 54.5, y = 28.5, min = 25, lvl = 34 },
         { k = "objective", t = "Infused Burning Gem x15", q = 1435, o = 1, ic = "get", n = "Infused Burning Gem", e = "item", id = 6435, c = 15, m = 1443, x = 54.38, y = 29.54, spots = { { m = 1443, x = 56.31, y = 23.39 } }, mobs = { "Burning Blade Augur", "Burning Blade Felsworn", "Burning Blade Adept", "Burning Blade Summoner" }, mi = { 4663, 4666, 4665, 4668 }, lvl = 34 },
         { k = "turnin", t = "Turn in The Burning of Spirits to Maurin Bonesplitter", q = 1435, n = "Maurin Bonesplitter", e = "npc", id = 4498, m = 1443, x = 52.25, y = 53.44, lvl = 34, wp = { -434, 1788, -429, 1721, -438, 1713, -1171, 1713, -1196, 1738, -1196, 1771, -1154, 1846 } },

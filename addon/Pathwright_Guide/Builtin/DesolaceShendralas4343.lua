@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795583051,
     next = "Tanaris (43-43)",
     carry = { 243, 1117, 1137, 1183, 1261, 1373, 2864, 2872, 93464 },
     variants = {
@@ -78,7 +78,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Outing Outcasts from Nerlokh", q = 93037, n = "Nerlokh", e = "npc", id = 253177, m = 2652, x = 20.93, y = 22.68, min = 35, pre = { 93034 }, lvl = 43 },
         { k = "objective", t = "Kill 6 Undead Ravagers", q = 93035, o = 1, ic = "kill", m = 2652, x = 33.1, y = 27.1, mobs = { "Undead Ravager" }, mi = { 11561 }, bg = true, lvl = 43 },
         { k = "objective", t = "Kill Outcast Necromancers until one drops a Necromantic Garb", q = 93037, o = 1, ic = "kill", m = 2652, x = 25, y = 25.6, mobs = { "Outcast Necromancer" }, mi = { 11559 }, nt = { { l = 2, t = "The Outcast Necromancers are the weaker necromancers near the entrance, not the Magram ones." } }, lvl = 43, wp = { -2210, 1596, -2246, 1563 } },
-        { k = "note", t = "Keep killing necromancers until one drops a Tattered Journal", m = 2652, x = 25, y = 25.6, nt = { { l = 2, t = "The Magram necromancers deeper in the valley drop it too." } }, lvl = 43 },
+        { k = "note", t = "Keep killing necromancers until one drops a Tattered Journal", hv = 260347, hq = 93644, m = 2652, x = 25, y = 25.6, nt = { { l = 2, t = "The Magram necromancers deeper in the valley drop it too." } }, lvl = 43 },
         { k = "accept", t = "Open the Tattered Journal: it starts a quest", q = 93644, ic = "get", m = 2652, x = 25, y = 25.6, min = 35, lvl = 43 },
         { k = "objective", t = "Tattered Journal", q = 93644, o = 1, ic = "get", n = "Tattered Journal", e = "item", id = 260347, c = 1, m = 2652, x = 25, y = 25.6, spots = { { m = 2652, x = 34.36, y = 21.78 }, { m = 2652, x = 29.78, y = 26.84 }, { m = 2652, x = 43.52, y = 30.78 } }, mobs = { "Magram Necromancer", "Outcast Necromancer" }, mi = { 253272, 11559 }, lvl = 43 },
         { k = "objective", t = "Kill 6 Undead Ravagers", q = 93035, o = 1, ic = "kill", m = 2652, x = 33.1, y = 27.1, mobs = { "Undead Ravager" }, mi = { 11561 }, lvl = 43, wp = { -2250, 1513, -2271, 1488 } },

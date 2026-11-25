@@ -131,7 +131,7 @@ accept 93035 93037
 do 93035 bg at 33.1,27.1 mobs 11561 "Kill 6 Undead Ravagers"
 do 93037 at 25.0,25.6 mobs 11559 "Kill Outcast Necromancers until one drops a Necromantic Garb"
 tip The Outcast Necromancers are the weaker necromancers near the entrance, not the Magram ones.
-note "Keep killing necromancers until one drops a Tattered Journal" at 25.0,25.6
+note "Keep killing necromancers until one drops a Tattered Journal" at 25.0,25.6 have 260347 93644
 tip The Magram necromancers deeper in the valley drop it too.
 accept 93644 at 25.0,25.6 icon get "Open the Tattered Journal: it starts a quest"
 do 93644 at 25.0,25.6
