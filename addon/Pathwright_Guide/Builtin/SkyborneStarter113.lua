@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795580346,
     next = { Horde = "Silverpine Forest (13-15)" },
     variants = {
         { race = 95, class = 1, faction = "Alliance" },
@@ -182,7 +182,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Meddlesome Mages to Illaya Amberwind", q = 94411, n = "Illaya Amberwind", e = "npc", id = 251902, m = 2521, x = 43.51, y = 44.77, lvl = 7, only = { 6, 7, 8, 9, 10 } },
         { k = "objective", t = "Kill Windshaper Novice Seer x6", q = 94413, o = 1, ic = "kill", n = "Windshaper Novice Seer", e = "npc", id = 257532, m = 2521, x = 38.8, y = 47.5, mobs = { "Windshaper Novice Seer" }, mi = { 257532 }, lvl = 7, only = { 1, 2, 3, 4, 5 } },
         { k = "objective", t = "Prideclaw Pelt x10", q = 92515, o = 1, ic = "get", n = "Prideclaw Pelt", e = "item", id = 252670, c = 10, m = 2521, x = 38.9, y = 47.6, spots = { { m = 2521, x = 38.89, y = 47.62 }, { m = 2521, x = 41.59, y = 41.78 }, { m = 2521, x = 39.28, y = 55.13 } }, mobs = { "Prideclaw" }, mi = { 251245 }, lvl = 7 },
-        { k = "objective", t = "Vulgara's Head", q = 93318, o = 1, ic = "get", n = "Vulgara's Head", e = "item", id = 257942, c = 1, m = 2521, x = 42.66, y = 52.8, mobs = { "Vulgara the Insatiable" }, mi = { 254589 }, lvl = 8, wp = { 3191, 2067, 3063, 1938, 3063, 1846, 3054, 1838, 3038, 1854 } },
+        { k = "objective", t = "Vulgara's Head", q = 93318, o = 1, ic = "get", n = "Vulgara's Head", e = "item", id = 257942, c = 1, m = 2521, x = 42.66, y = 52.8, mobs = { "Vulgara the Insatiable" }, mi = { 254589 }, nt = { { l = 2, t = "Vulgara is an elite and may need a group. If it is too hard, skip this quest." } }, lvl = 8, wp = { 3191, 2067, 3063, 1938, 3063, 1846, 3054, 1838, 3038, 1854 } },
         { k = "objective", t = "Kill Hippogryph Youth x8", q = 92516, o = 1, ic = "kill", n = "Hippogryph Youth", e = "npc", id = 251291, m = 2521, x = 37.85, y = 55.74, spots = { { m = 2521, x = 38.63, y = 50.8 }, { m = 2521, x = 38.82, y = 59.68 } }, mobs = { "Hippogryph Youth" }, mi = { 251291 }, lvl = 8, wp = { 2998, 1858, 3013, 1838, 3054, 1838, 3063, 1846, 3063, 1871, 2888, 2046 } },
         { k = "objective", t = "Kill Hippogryph Protector x6", q = 92516, o = 2, ic = "kill", n = "Hippogryph Protector", e = "npc", id = 251284, m = 2521, x = 36.15, y = 54.78, spots = { { m = 2521, x = 37.35, y = 50.35 } }, mobs = { "Hippogryph Protector" }, mi = { 251284 }, lvl = 8, wp = { 2889, 2126, 2896, 2196 } },
         { k = "objective", t = "Kill Hippogryph Matriarch", q = 92516, o = 3, ic = "kill", n = "Hippogryph Matriarch", e = "npc", id = 251261, m = 2521, x = 34.13, y = 54.36, mobs = { "Hippogryph Matriarch" }, mi = { 251261 }, lvl = 8, wp = { 2925, 2220, 2938, 2238, 2929, 2254, 2929, 2288, 2938, 2296 } },
