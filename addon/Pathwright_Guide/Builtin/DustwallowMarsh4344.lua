@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795625819,
     next = "Tanaris (44-44)",
-    carry = { 1118, 1261, 94895 },
+    carry = { 1118, 1261, 95033 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

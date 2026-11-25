@@ -7,7 +7,7 @@
 # from the game data (data/forever.sqlite), checked against outof.games (Feralas, area 357).
 # The guide's quest list is section 8 of addon/guides/horde_40_60_allocation.md; the higher
 # Feralas quests are in Feralas & Un'Goro Crater (49-50).
-# Carried in: On the Other Side (95033), taken from Tan'jani in Rog'mar, Riverglades.
+# Carried in: On the Other Side (95033), taken from Tan'jani in Rog'mar, in Riverglades (40-43).
 # Deadmire (1205) and Mirrorscale (97378) come from Melor Stonehoof in Thunder Bluff: Deadmire is a
 # crocolisk of Dustwallow Marsh, so the guide flies there before it goes to Feralas, and Mirrorscale
 # (its follow-up) is a wind serpent of the Forgotten Coast.
@@ -15,7 +15,7 @@
 # Stranglethorn Vale, where the next guide begins.
 # No auction house stop: none of the quest items is sold there.
 #
-# The route: the zeppelin to Orgrimmar; Thunder Bluff; a flight to Brackenwall for Deadmire and back;
+# The route: Orgrimmar, where Tanaris (44-44) ends; Thunder Bluff; a flight to Brackenwall for Deadmire and back;
 # Freewind Post and the ride west to Camp Mojache; four loops from the camp (the ogres and gnolls to
 # the north, the Grimtotem camps and the Woodpaw alphas, the gnoll battle plans, then the Zukk'ash
 # hive, the southern Gordunni, Feral Scar Vale, OOX-22/FE and Mirrorscale on the coast); Thunder
@@ -25,15 +25,14 @@
 guide Feralas (45-46)
 faction horde
 levels 45 46
-carry 1118 2741 3520 95033 95295 95296
-leave 1118 2741 3520 95295 95296
+carry 1118 2741 3520 95033
+leave 1118 2741 3520
 next Stranglethorn Vale (46-47)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
 
-map Durotar
-note "Take the zeppelin to Durotar: from the tower outside Undercity, or from Grom'gol in Stranglethorn Vale" at 50.8,13.4
 map Orgrimmar
+note "You are in Orgrimmar, where Tanaris (44-44) ended" at 45.1,63.9
 accept 2981
 tip Belgrom Rockmaul stands in the Valley of Honor.
 fly "Thunder Bluff, Mulgore" npc 3310

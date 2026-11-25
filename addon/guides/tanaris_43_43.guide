@@ -20,8 +20,8 @@
 guide Tanaris (43-43)
 faction horde
 levels 43 43
-carry 243 1117 1137 1183 1261 2864 2872 94895
-leave 1118 1261 94895
+carry 243 1117 1137 1183 1261 2864 2872 95033 95296
+leave 1118 1261 95033
 next Dustwallow Marsh (43-44)
 # Marg Speaks (1261): taken in Stranglethorn (guide 2), handed in at Brackenwall (guide 5).
 
@@ -73,6 +73,8 @@ do 97534 bg
 tip The Gnomish Garbage piles lie all over the sand around Gadgetzan: loot them whenever you pass one.
 turnin 2872
 tip Stoley is inside the building. His shipment quest is for a later guide.
+turnin 95296
+tip Shipping and Handling, from Friz Frazzlespark at Powderfuse Port. Its follow-up is for Tanaris & Dustwallow Marsh (47-48).
 do 379 bg at 64.4,32.8
 do 1690
 tip The bandits and thieves fill the camp south of Steamwheedle Port. The shadow mages and assassins further south-west hit harder and are not needed.

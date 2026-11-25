@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795617002,
+    created = 1795625955,
     next = "Dustwallow Marsh (37-38)",
     carry = { 1106, 1136, 1373, 1712, 1714, 5762, 5763 },
     variants = {
@@ -112,7 +112,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Supply and Demand to Drizzlik", q = 575, n = "Drizzlik", e = "npc", id = 2495, m = 1434, x = 28.26, y = 77.54, lvl = 36, wp = { -14456, 492, -14438, 454, -14446, 438, -14438, 429 } },
         { k = "turnin", t = "Turn in Anything of Value to Wharfmaster Lozgil", q = 97328, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, nt = { { l = 2, t = "Wharfmaster Lozgil stands on the docks at the north of the bay." } }, lvl = 36, wp = { -14467, 417, -14454, 429, -14404, 421, -14379, 438, -14363, 438, -14304, 496 } },
         { k = "turnin", t = "Turn in Zimmix's Great Escape to Wharfmaster Lozgil", q = 97331, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, lvl = 36 },
-        { k = "accept", t = "Accept Twice Misplaced Trust from Wharfmaster Lozgil", q = 97332, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, min = 36, pre = { 97328, 97331 }, nt = { { l = 2, t = "Lozgil hands you a package for Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades: keep it, Riverglades (40-41) delivers it." } }, lvl = 36 },
+        { k = "accept", t = "Accept Twice Misplaced Trust from Wharfmaster Lozgil", q = 97332, n = "Wharfmaster Lozgil", e = "npc", id = 4631, m = 1434, x = 26.47, y = 73.57, min = 36, pre = { 97328, 97331 }, nt = { { l = 2, t = "Lozgil hands you a package for Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades: keep it, Riverglades (40-43) delivers it." } }, lvl = 36 },
         { k = "fly", t = "Fly to Grom'gol", n = "Grom'gol", e = "taxi", id = 20, m = 1434, x = 26.87, y = 77.1, lvl = 36 },
         { k = "turnin", t = "Turn in The Defense of Grom'gol to Commander Aggro'gosh", q = 568, n = "Commander Aggro'gosh", e = "npc", id = 2464, m = 1434, x = 32.17, y = 28.9, lvl = 36 },
         { k = "turnin", t = "Turn in Hunt for Yenniku to Nimboya", q = 581, n = "Nimboya", e = "npc", id = 2497, m = 1434, x = 32.16, y = 27.72, lvl = 36 },

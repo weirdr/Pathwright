@@ -24,14 +24,15 @@
 # the boat to Ratchet and a flight to Orgrimmar.
 
 # Carried from earlier guides (skipped by those who lack them): The Troll Witchdoctor, Sunken
-# Treasure, Report to Helgrum, Stinky's Escape. Left to later guides: The Visiting Mage, Rumors for
+# Treasure, Report to Helgrum, Stinky's Escape, and from Riverglades (40-43) I Know a Guy (95295,
+# handed in at Booty Bay), Shipping and Handling (95296) and On the Other Side (95033), passing through. Left to later guides: The Visiting Mage, Rumors for
 # Kravel, Goblin Sponsorship (1183), Tran'rek, Stoley's Debt, Marg Speaks.
 
 guide Stranglethorn Vale & Swamp of Sorrows (41-43)
 faction horde
 levels 41 43
-carry 243 669 1137 1240 1270 1373 1420
-leave 243 1117 1137 1183 1261 1373 2864 2872 93464
+carry 243 669 1137 1240 1270 1373 1420 95033 95295 95296
+leave 243 1117 1137 1183 1261 1373 2864 2872 93464 95033 95296
 next Desolace & Shen'dralas (43-43)
 
 map Stranglethorn Vale
@@ -97,6 +98,8 @@ accept 585
 # Booty Bay: its quests and the hearthstone ---------------------------------------------------------
 
 fly "Booty Bay, Stranglethorn" npc 1387
+turnin 95295
+tip I Know a Guy, from Friz Frazzlespark at Powderfuse Port. Its follow-up is for Stranglethorn Vale (46-47).
 accept 1181
 tip Wharfmaster Lozgil is on the docks at the north of the bay.
 turnin 1181

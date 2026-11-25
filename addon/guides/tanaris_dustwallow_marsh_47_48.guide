@@ -10,8 +10,7 @@
 # addon/guides/horde_40_60_allocation.md.
 #
 # Carried in: Zanzil's Mixture and a Fool's Stout (1119, Booty Bay, a two-hour timer: the first
-# stop), The Sunken Temple (3380, Witch Doctor Uzer'i in Feralas), Shipping and Handling (95296,
-# Friz Frazzlespark in Riverglades), Screecher Spirits (3520, Yeh'kinya; its screechers are in
+# stop), The Sunken Temple (3380, Witch Doctor Uzer'i in Feralas), Screecher Spirits (3520, Yeh'kinya; its screechers are in
 # Feralas) and The Super Egg-O-Matic (2741, Gadgetzan; its Hippogryph Egg is in Feralas).
 # Left out: the Zul'Farrak dungeon quests (Scarab Shells, Troll Temper, Divino-matic Rod, The
 # Prophecy of Mosh'aru, Tiara of the Deep), The Stone Watcher and Return to Thunder Bluff (they
@@ -29,7 +28,7 @@
 guide Tanaris & Dustwallow Marsh (47-48)
 faction horde
 levels 47 48
-carry 580 1119 1429 2741 2932 3123 3380 3520 95296
+carry 580 1119 1429 2741 2932 3123 3380 3520
 leave 580 650 864 1122 1429 2641 2874 2932 3123 3444
 next The Hinterlands (48-49)
 # Follow-ups for later guides: Report Back to Fizzlebub and Deliver to MacKinley (14), The Stone
@@ -77,7 +76,6 @@ tip Any mob in Tanaris can drop an OOX-17/TN Distress Beacon, about one in a hun
 # East: Steamwheedle Port, Lost Rigger Cove, the Wastewander camps ---------------------------------
 
 goto "Ride east to Steamwheedle Port on the coast" at 66.8,23.5 r 30
-turnin 95296
 accept 95383
 turnin 95383
 accept 95312

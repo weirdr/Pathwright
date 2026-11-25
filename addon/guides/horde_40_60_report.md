@@ -1,6 +1,6 @@
 # Horde guides 40-60: what is in them (November 2026)
 
-24 built-in guides, Riverglades (40-41) to Silithus (59-60), chained with `next`: each one opens the
+23 built-in guides, Riverglades (40-43) to Silithus (59-60), chained with `next`: each one opens the
 following when it ends. They are written for a Horde duo, so elite and WANTED quests are in. Every
 quest taken is handed in within the guide. The only exceptions are breadcrumbs into later zones,
 which `addon/tools/guide_chain.py` carries from guide to guide until the one that hands them in.
@@ -14,13 +14,13 @@ How they were made:
 
 | # | Guide | Quests | Dropped (why) | Added | Auction house |
 |---|---|---|---|---|---|
-| 1 | Riverglades (40-41) | 49 | Key Ingredients (its moulding drops only in the Krol'dok dungeon) | | Heavy Weightstone (Undercity) |
+| 1 | Riverglades (40-43) | 87 | Key Ingredients (its moulding drops only in the Krol'dok dungeon); 94975, 94972, 94968 (Krol'dok dungeon) | | Heavy Weightstone, Briny Seafood Stew (Undercity) |
 | 2 | Stranglethorn Vale & Swamp of Sorrows (41-43) | 46 | Drowned City quests (dungeon), 96078, 638, 670, 2932, 97332 (handed in off the route) | | |
 | 3 | Desolace & Shen'dralas (43-43) | 31 | 29: the Gelkis Valley of Bones chain behind Ongeku (shard in the Swamp of Sorrows), the Magram chain (crown from the Badlands), 79235/79236/79242, 93678, 93601, 93606 (dungeon prerequisites) | 5381, 1368, 1370 (prerequisites) | Barbaric Harness (note) |
 | 4 | Tanaris (43-43) | 14 | | | |
 | 5 | Dustwallow Marsh (43-44) | 12 | | | |
 | 6 | Tanaris (44-44) | 6 | | 2876 Ship Schedules | |
-| 7 | Riverglades (44-45) | 38 | 94975, 94972, 94968 (Krol'dok dungeon) | | Briny Seafood Stew (Undercity) |
+| 7 | (was Riverglades (44-45): joined with guide 1, the whole zone in one stay) | | | | |
 | 8 | Feralas (45-46) | 28 | | 92878 Lost for Words | |
 | 9 | Stranglethorn Vale (46-47) | 38 | 78823 (drawing only in the Badlands) | 583, 349 | the 15 Green Hills pages (Orgrimmar) |
 | 10 | Swamp of Sorrows (47-47) | 13 | | | |

@@ -1,0 +1,431 @@
+# Riverglades (40-43): every Horde quest of the Riverglades in one stay, for a Horde duo: Rog'mar,
+# Sunnyglade and Bolder'ok first, then Powderfuse Port and the Eastsea pirates, Na'zok's farm, the
+# Bloodmaster's Ring, Da'grosh and the Twilight's Shroud.
+#
+# Built into the addon with:
+#   python3 addon/tools/guide_build.py addon/guides/riverglades_40_43.guide --db data/forever.sqlite
+#
+# Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
+# from the game data (data/forever.sqlite), checked against outof.games (Riverglades, area 16591).
+# The guide's quest list is sections 1 and 7 of addon/guides/horde_40_60_allocation.md, which were
+# two visits (40-41 and 44-45) until they were joined here: every quest of the zone can be taken at
+# level 40, and the higher quests (levels 41 to 46, around Powderfuse Port and in the west) come
+# after the lower ones. The hardest fights are at the very end and can be skipped: Executioner Morg
+# and Overlord Kilgar (level 46 elites) in the Twilight's Shroud, Snufflesnout and Chub'chob (level
+# 44 and 45 elites) in the Bloodmaster's Ring. Their steps say so.
+# Left out: Key Ingredients (94974): it follows Krol'dok Moulding, a quest item dropped by Tunk in
+# the Krol'dok Stronghold dungeon. A Token of Vengeance (94975), Tome of Twilight (94972) and Eye of
+# Mugg (94968): dungeon quests, done inside Krol'dok Stronghold.
+# Carried in (skipped by those who lack them): Twice Misplaced Trust (97332, Wharfmaster Lozgil in
+# Booty Bay, from Stranglethorn Vale (36-37)), handed in to Wharfmaster Whizzbuzz at the goblin
+# docks (Powderfuse Port).
+# Not here: the two deliveries to Friz Frazzlespark from far away, Lost Shipping Crate (94895, a
+# crate at Shadowprey Village in Desolace, level 36 to take) and Overseas Delivery (95144, the
+# innkeeper of Gadgetzan). The route comes to their starts only after this guide (290 XP each).
+# Left to later guides: I Know a Guy (95295, Booty Bay: Stranglethorn Vale & Swamp of Sorrows
+# (41-43)), Shipping and Handling (95296, Steamwheedle Port: Tanaris (43-43)) and On the Other Side
+# (95033, Camp Mojache: Feralas (45-46)).
+# Data fixed here: Food for the Taking (93787) has no prerequisite (the data says A Message in
+# Blood; outof.games and the quest giver offer both at once). Smuggler's Paradise (95288) needs The
+# Goblin Trader (Horde) or A Few Furs for Friz (Alliance), not both. Paletusk Harvesting's Chunks of
+# Boar Meat drop from the Mature Paletusks here (outof.games), which the data lacks.
+#
+# The route, with the hearthstone at Rog'mar all along: Rog'mar, then a flight to Undercity
+# (Armory of Sunnyglade, the auction house, level 40 training) and the hearthstone back; the plains
+# south-east of Rog'mar; a long loop west (Meadowsbrook, Turner's Logging Camp, the Cinderscale cave,
+# the Bristle Hills); the river and Farholde; Sunnyglade twice; Bolder'ok and the first fights of the
+# Bloodmaster's Ring; Rog'mar and a second flight to Undercity and back (Armory of Sunnyglade, training,
+# the auction house); Powderfuse Port and three loops from it (the murloc shore, the Eastsea pirates,
+# then Windstead, Na'zok's farm, the Jom-jom cave and Bolder'ok); Admiral Lamora's ships; the sea
+# monster; Rog'mar; far west to Da'grosh and the Twilight's Shroud; the hearthstone to Rog'mar and
+# the last fights of the Bloodmaster's Ring; Rog'mar's flight to Undercity and the zeppelin to
+# Grom'gol, where Stranglethorn Vale & Swamp of Sorrows (41-43) starts.
+
+guide Riverglades (40-43)
+faction horde
+levels 40 43
+carry 243 669 1137 1240 1270 1373 1420 95141 95143 97332
+leave 243 669 1137 1240 1270 1373 1420 95033 95295 95296
+next Stranglethorn Vale & Swamp of Sorrows (41-43)
+
+map Riverglades
+
+# Rog'mar -------------------------------------------------------------------------------------------
+
+goto "Ride down the pass from the Badlands into the Riverglades and east along the road to Rog'mar, the Horde outpost" at 59.0,45.6 r 40
+turnin 95143
+tip Tan'jani stands indoors.
+accept 95951
+turnin 95141
+accept 93786
+accept 93787 nopre
+accept 93788
+accept 95992
+tip Ghostmaw is a level 42 elite white crocolisk that swims up and down the river; you will cross his path often.
+accept 95882
+tip Scoutmaster Vargas is a level 42 elite on an islet near Windstead, in the north-east: the guide reaches him much later, from Powderfuse Port.
+accept 95033
+tip Tan'jani stands indoors. This one is handed in at Camp Mojache, in Feralas: keep it, Feralas (45-46) takes it there.
+accept 96107
+bind 256675
+fpath 255993
+
+# Undercity: the start of Armory of Sunnyglade, the auction house, training -------------------------
+
+fly "Undercity, Tirisfal" npc 255993
+map Undercity
+accept 97884
+tip Mirelle Tremayne is a heavy armor merchant.
+ah 96026.1 npc 8672
+tip The ogre Hamur in Bolder'ok wants them later. Blacksmiths make them too.
+train 4593 260093 4582 4606 4566 4563
+tip Hunters, shamans and druids have no trainer here: train at your next visit to Orgrimmar or Thunder Bluff.
+hearth npc 256675
+
+# The plains south-east of Rog'mar ------------------------------------------------------------------
+
+map Riverglades
+do 95992 bg
+accept 96063
+do 96107 bg
+do 96063
+tip The vents puff green gas among the rocks; click one to fill a vial.
+accept 96103
+tip The carcass lies on the ground near the gas vents.
+do 96107
+turnin 96063
+accept 96067
+do 96067 at 68.2,49.2 icon kill "Fight G45-B4G, Sleebo's machine, until it gives up"
+turnin 96067
+turnin 96107 96103
+accept 96108 96104
+do 96108 bg
+do 96104 at 61.6,61.5
+do 96108
+turnin 96108 96104
+accept 96109 96105
+do 96109 bg
+do 96105
+tip Use the Tallstrider Call among the lions to bring out Ombassa, a level 41 pride leader.
+do 96109
+turnin 96109 96105
+accept 94532 94533
+accept 94535
+sell 260343
+
+# West: Meadowsbrook, Turner's Logging Camp, the Cinderscale cave, the Bristle Hills ----------------
+
+do 93786 bg
+do 93787
+tip The satchels lie around the barns of the Alliance farm.
+do 93786
+do 93788 bg
+do 95951 at 38.9,62.1 icon use "Take Bundles of Wood from the log piles and whittle them into 20 Makeshift Stickin' Spears"
+tip The logs lie at the foot of the trees in the camp; use each Bundle of Wood to make spears.
+do 93788
+accept 95792 95934
+tip Gelinda stands near the cave. Both factions take her quests.
+do 95792 bg
+do 95934
+tip The Cubic Draconia is up the path inside the cave.
+do 95792
+turnin 95792 95934
+do 94535 bg at 30.6,62.0
+do 94532 bg at 30.6,62.0
+do 94533
+tip Snargl, a level 40 elite, walks through the western gnoll camp.
+do 94532
+do 94535
+hearth npc 256675
+
+# Rog'mar ---------------------------------------------------------------------------------------------
+
+turnin 94532 94533
+turnin 93788 94535
+accept 93976
+turnin 93786 93787
+accept 94480 94483
+turnin 94480
+accept 94481
+turnin 95951
+accept 95955
+
+# North of Rog'mar: the training grounds and the river ---------------------------------------------
+
+do 95955 bg mobs 259046 at 58.1,41.9 icon use "Spear 10 Freshwater Crocolisks with the Makeshift Stickin' Spears"
+do 94481 mobs 256749 icon use "Give the Hearty Stew to 8 Rog'mar Trainees"
+do 95955 mobs 259046 at 59.2,34.5 icon use "Spear 10 Freshwater Crocolisks with the Makeshift Stickin' Spears"
+do 95992 at 61.4,38.3
+tip Ghostmaw follows the river; if he is not here, wait or look downstream toward Sunnyglade.
+turnin 94481
+turnin 95955 95992
+
+# South: Farholde --------------------------------------------------------------------------------------
+
+do 94483
+tip The priests and scouts camp on both banks of the river around Farholde.
+turnin 94483
+accept 94672 94680
+
+# Sunnyglade ----------------------------------------------------------------------------------------
+
+accept 94961
+do 94680 bg
+do 94961 bg
+do 94672 at 46.8,49.5
+do 94680
+do 94961
+turnin 94961
+accept 94963
+do 94963 at 41.6,47.8 "Follow Fuzzle out of Sunnyglade to his hoard, then fight him when he turns on you"
+tip If Fuzzle is missing, someone just took him: wait for him to come back.
+turnin 94963
+turnin 94672 94680
+accept 94727
+do 94727 at 49.6,46.8 icon talk "Talk to Clubtoe, the ogre digging in the cellar under Sunnyglade"
+tip Take the stairs down inside the building.
+turnin 94727
+accept 95417 95602
+turnin 95417
+accept 95601
+do 95601 bg
+do 95602 at 48.6,49.6 icon use "Destroy 5 Twilight Ritual Circles in the caves under Sunnyglade"
+tip The circles glow purple on the cave floor.
+do 95601
+turnin 95602 95601
+accept 95427
+do 95427
+tip Chogg'Zac is a level 41 elite two-headed ogre deep in the cave.
+do 97884
+tip The tome rests in the basement of the burnt-out armory.
+turnin 95427
+accept 95418
+turnin 95418
+accept 95420
+
+# Bolder'ok -----------------------------------------------------------------------------------------
+
+turnin 95420
+tip Clugfist is indoors at the north end of Bolder'ok.
+accept 95424 95425
+accept 95183 npc 263440
+do 95183
+tip The good rocks are piled by the river south of Bolder'ok.
+do 95424 bg
+do 95425
+tip Klunk, a level 42 ogre, is inside the cave.
+do 95424
+turnin 95183
+accept 96026
+do 96026 at 67.2,21.8 icon text "Give Hamur 10 Heavy Weightstones"
+turnin 96026
+turnin 95424 95425
+accept 95428 94668
+turnin 94668
+accept 94669
+turnin 94669
+tip Jezap takes a deposit before he lets you fight.
+accept 94670
+do 94670 at 65.8,19.9 icon kill "Step into the ring and defeat Buzzbeak"
+tip Every ring opponent is an elite: fight them together.
+turnin 94670
+accept 94739
+do 94739 at 65.8,19.9 icon kill "Step into the ring and defeat Kronk"
+turnin 94739
+accept 94962
+do 94962 at 65.8,19.9 icon kill "Step into the ring and defeat Bonegnaw"
+turnin 94962
+tip Jezap has more fights, but they are harder: the guide comes back for them.
+
+# Rog'mar, and Undercity to train ----------------------------------------------------------------------
+
+turnin 95428
+tip Ride south to Rog'mar: Krom'rosh takes Clugfist's Decree.
+accept 94744
+tip The Wayward Warrior is Da'grosh, far to the west: the guide goes to him near its end.
+fly "Undercity, Tirisfal" npc 255993
+map Undercity
+turnin 97884
+tip Mirelle Tremayne, the heavy armor merchant, takes the tome of the Sunnyglade armory.
+train 4593 260093 4582 4606 4566 4563
+tip Hunters, shamans and druids have no trainer here: train at your next visit to Orgrimmar or Thunder Bluff.
+ah 95982.1 npc 8672
+tip Jasper Geartoggle at Powderfuse Port wants 10 Briny Seafood Stew. Cooks can make them later instead (Cooking 200).
+fly "Rog'mar, Riverglades" npc 4551
+map Riverglades
+
+# Powderfuse Port, the goblin docks ---------------------------------------------------------------------
+
+goto "Ride east from Rog'mar along the road to Powderfuse Port, the goblin docks on the coast" at 77.0,52.8 r 30
+turnin 93976
+accept 95062
+tip Frazzlespark's Crate goes to Rog'mar: the guide hands it in when it next passes there.
+accept 95288 nopre
+turnin 97332
+tip Wharfmaster Whizzbuzz stands a little east of Friz, on the docks. He takes Lozgil's package from Booty Bay.
+accept 95119 95118
+accept 95120
+accept 95121
+tip Fimbo is indoors.
+accept 95254
+accept 95982
+
+# The murloc shore south of the port ----------------------------------------------------------------
+
+do 95118 bg
+do 95121.1 bg
+do 95121.2 bg mobs 255901 256807 at 74.0,63.4
+accept 95260
+tip The painted hide lies on the beach among the murlocs.
+do 95120
+tip Old Rot-Chum, a level 42 elite murloc, swims among the small islands south of the docks.
+do 95121.1
+do 95121.2 mobs 255901 256807 at 74.0,63.4
+tip Murloc Eyes drop from every kind of murloc here; the meat from Sand and Shore Crawlers.
+do 95118
+turnin 95118
+turnin 95120
+turnin 95260
+accept 95261
+turnin 95121
+do 95982 at 75.9,52.6 icon text "Give Jasper Geartoggle 10 Briny Seafood Stew"
+tip A Taste of the Sea teaches the stew (Cooking 200); Fimbo also sells the recipe. Without a cook, buy them at an auction house.
+turnin 95982
+
+# North along the shore: Trapclaw and the Eastsea pirates ------------------------------------------
+
+do 95261.1 bg mobs 256807 255901 255851 at 85.0,44.0
+tip Beast Entrails drop from crawlers, paletusks and other beasts all over the east.
+do 95254
+tip Trapclaw roams the water just east of the port, often below the surface.
+do 95119 bg
+do 95288
+do 95119
+tip The Buccaneers and Musketeers hold the shore camps north of the port.
+turnin 95254
+turnin 95119
+accept 95122 95123
+turnin 95288
+accept 95293
+
+# Windstead, Na'zok's farm, the Jom-jom cave and Bolder'ok ------------------------------------------
+
+turnin 95293
+tip Captain Bentcoin stands on the deck of the ship moored up the coast.
+accept 95294
+do 95122 bg
+do 95123
+tip The kegs stand by the buildings of Windstead, the farm the raiders took. The raiders and bombardiers are level 44-45: pull them one at a time.
+do 95882
+tip Vargas and his pet keep to the islet just west of Windstead.
+do 95122
+accept 95163 95162
+do 95162 bg mobs 255851 at 70.1,30.4
+do 95163 at 72.4,37.6 icon use "Use the Swineherd's Staff on 10 Young Paletusks to send them home"
+tip Young Paletusks graze south of the farm; only the ones that fight back need killing.
+do 95162 mobs 255851 at 70.1,30.4
+turnin 95163 95162
+do 95261.2
+tip The mushrooms grow inside the cave east of the farm.
+accept 94556
+tip Jom-jom waits in the same cave. Clear the ogres near him first.
+do 94556 at 64.6,15.0 "Escort Jom-jom to Clugfist in Bolder'ok"
+tip Keep him alive on the way to Bolder'ok.
+turnin 94556
+tip Clugfist is indoors at the north end of Bolder'ok.
+accept 94964
+do 94964 at 65.8,19.9 icon kill "Step into the ring and defeat Mog'thar"
+tip Mog'thar is a level 43 elite: fight him together.
+turnin 94964
+accept 94733
+turnin 94733
+accept 94734
+do 94734.1
+tip Look for the Freshly Picked Berries by the Windstead farmhouses.
+do 95261.1 mobs 256807 255851 at 81.3,49.2
+
+# Powderfuse Port -----------------------------------------------------------------------------------
+
+turnin 95122 95123
+accept 95124 95165
+turnin 95261
+accept 95267
+turnin 95294
+accept 95295 95296
+tip These two lead to Booty Bay and to Steamwheedle Port, in Tanaris: keep them, the next guide and Tanaris (43-43) hand them in.
+
+# Admiral Lamora's ships ----------------------------------------------------------------------------
+
+do 95165.3 at 90.9,39.4 icon use "Plant a charge by the cannons of the southern ship"
+tip The charges go in the hull, on the cannon deck.
+do 95124.1
+tip Lamora, level 45, walks the deck of the middle ship. Clear the deck around him before you pull him.
+do 95124.2
+tip His key opens the treasure chest below deck.
+do 95165.2 at 90.6,29.4 icon use "Plant a charge by the cannons of Lamora's ship"
+do 95165.1 at 88.3,25.8 icon use "Plant a charge by the cannons of the northern ship"
+turnin 95124 95165
+
+# The sea monster, the port, then west to Rog'mar ---------------------------------------------------
+
+do 95267 at 74.3,72.7 icon use "Throw the Big Ball o' Bait into the fresh wreckage, then kill the Monstrous Threshadon"
+tip The wreckage floats near the murloc islands where you found the painted hide.
+turnin 95267
+tip Back at Powderfuse Port, on your way north: the guide does not come back here.
+turnin 95882
+turnin 95062
+tip Krom'rosh takes Frazzlespark's Crate.
+
+# Da'grosh and the Twilight's Shroud ----------------------------------------------------------------
+
+turnin 94744
+tip Da'grosh camps far to the west, past Sunnyglade. The Twilight's Shroud he sends you into is the hardest part of the zone (levels 42-44, two level 46 elites): do as much of it as the two of you can.
+accept 94745 94748 95431
+turnin 95431
+tip Crag'rog is inside the mine west of Da'grosh.
+accept 95432
+do 95432
+tip Talk to the Ogre Miners working in the mine.
+turnin 95432
+accept 95433
+do 94745 bg
+do 94748 bg "Free 5 Rog'mar Scouts from the Twilight Cages"
+tip Twilight Champions drop Twilight Keys: each one opens a Twilight Cage and frees a scout.
+do 95433
+tip Executioner Morg is a level 46 elite who patrols the Shroud with guards: pull the guards first, and fight him together at full health. Too strong for the two of you? Skip Death to the Executioner: nothing follows it.
+do 94748 "Free 5 Rog'mar Scouts from the Twilight Cages"
+do 94745
+turnin 94745 94748
+accept 94768
+do 94768
+tip Overlord Kilgar, a level 46 elite, waits inside the stronghold building: the hardest fight of the guide. Clear the room first and keep your cooldowns for him. Too strong? Skip Bring Me His Head and its follow-up, It Is Time, Brother...
+turnin 94768
+accept 95278
+
+# Rog'mar and Bolder'ok ------------------------------------------------------------------------------
+
+hearth npc 256675
+tip Hearthstone not ready? Ride back east along the road to Rog'mar.
+turnin 95278
+do 94734.2 at 59.0,40.0
+tip Riverweed grows in the river between Rog'mar and Bolder'ok.
+turnin 94734
+accept 94737
+turnin 94737
+accept 94965
+do 94965 at 65.8,19.9 icon kill "Step into the ring and defeat Snufflesnout"
+tip Snufflesnout is a level 44 elite boar. The last two ring fights are optional: stop here if he is too much.
+turnin 94965
+accept 95063
+do 95063 at 65.8,19.9 icon kill "Step into the ring and defeat Chub'chob, the Bloodmaster"
+tip Chub'chob is a level 45 elite ogre, the last fight of the ring. Too strong? Skip him: nothing follows.
+turnin 95063 95433
+
+# Rog'mar, Undercity and the zeppelin ------------------------------------------------------------------
+
+fly "Undercity, Tirisfal" npc 255993
+tip Ride south from Bolder'ok to Rog'mar: Grakna, the wind rider master, stands in the outpost.
+map Undercity
+train 4593 260093 4582 4606 4566 4563
+tip Only if you gained a level since your last visit. Hunters, shamans and druids have no trainer here: train at your next visit to Orgrimmar or Thunder Bluff.
+note "Take the zeppelin from the tower outside Undercity to Grom'gol, in Stranglethorn Vale, for the next guide" at 61.0,58.9 in Tirisfal_Glades

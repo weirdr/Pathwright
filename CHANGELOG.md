@@ -16,6 +16,8 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 - Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains. It stays done after you bury them or hand in Marla's Last Wish.
 - Desolace (34-36), Ashenvale (26-28), Desolace & Shen'dralas (43) and Western & Eastern Plaguelands (56-58): the steps that ask you to kill for an item (the Flayed Demon Skin, the Etched Phial, the Tattered Journal, the Dalson Cabinet Key) now complete by themselves once you have looted it.
 - Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path after it has already had you fly there, because you already know it.
+- Riverglades is now one guide, Riverglades (40-43), instead of two visits (40-41 and 44-45): the whole zone in one stay after the Badlands. The hardest fights (the Twilight's Shroud elites, the last two of the Bloodmaster's Ring) come last, and their steps say they can be skipped.
+- Around the new Riverglades guide: I Know a Guy is handed in at Booty Bay in Stranglethorn Vale & Swamp of Sorrows (41-43), Shipping and Handling at Steamwheedle Port in Tanaris (43-43), and the Lost Shipping Crate is picked up in Desolace (34-36). Overseas Delivery is no longer taken in Tanaris (44-44), which now leads straight to Feralas (45-46).
 
 ### Addon
 

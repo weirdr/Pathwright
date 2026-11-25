@@ -38,6 +38,9 @@
 # - Abridged Notes on Draenethyst (93678): handed in to Magtoor in the Swamp of Sorrows.
 # - Passing the Blame (93601) and Not on Squealing Terms (93606): they follow Rot and Regret
 #   (Maraudon) and Agamaggan's Blood (Razorfen Downs), dungeon quests.
+# Left out: Lost Shipping Crate (94895, a crate on the shore at Shadowprey Village): Friz
+#   Frazzlespark takes it at Powderfuse Port in the Riverglades, which Riverglades (40-43) has left
+#   by now, and no later guide goes back there (290 XP).
 # The Corrupter (1488) follows Maurin Bonesplitter's Corrupter quests (1480-1484), which Desolace
 # (34-36) does; its steps are for those who have it.
 #
@@ -52,8 +55,8 @@
 guide Desolace & Shen'dralas (43-43)
 faction horde
 levels 43 43
-carry 243 1117 1137 1183 1261 1373 2864 2872 93464
-leave 243 1117 1137 1183 1261 2864 2872 94895
+carry 243 1117 1137 1183 1261 1373 2864 2872 93464 95033 95296
+leave 243 1117 1137 1183 1261 2864 2872 95033 95296
 next Tanaris (43-43)
 
 # Orgrimmar: the auction house ------------------------------------------------------------------------
@@ -72,8 +75,6 @@ fpath 6726
 bind 11106
 accept 5581
 tip Use the Hand of Iruxos at a portal of Mannoroc Coven once its guardian is dead.
-accept 94895
-tip The crate lies by the water south of the village. Its owner is in the Riverglades, for a later guide.
 
 # Ghost Walker Post ----------------------------------------------------------------------------------
 

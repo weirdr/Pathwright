@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795617002,
+    created = 1795625819,
     next = "Stranglethorn Vale (46-47)",
-    carry = { 1118, 2741, 3520, 95033, 95295, 95296 },
+    carry = { 1118, 2741, 3520, 95033 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },
@@ -42,8 +42,8 @@ Pathwright.Builtin.Register({
         { race = 96, class = 11, faction = "Horde" },
     },
     steps = {
-        { k = "note", t = "Take the zeppelin to Durotar: from the tower outside Undercity, or from Grom'gol in Stranglethorn Vale", m = 1411, x = 50.8, y = 13.4, lvl = 45 },
-        { k = "accept", t = "Accept A Threat in Feralas from Belgrom Rockmaul", q = 2981, n = "Belgrom Rockmaul", e = "npc", id = 4485, m = 1454, x = 75.23, y = 34.24, min = 38, nt = { { l = 2, t = "Belgrom Rockmaul stands in the Valley of Honor." } }, lvl = 45 },
+        { k = "note", t = "You are in Orgrimmar, where Tanaris (44-44) ended", m = 1454, x = 45.1, y = 63.9, lvl = 45 },
+        { k = "accept", t = "Accept A Threat in Feralas from Belgrom Rockmaul", q = 2981, n = "Belgrom Rockmaul", e = "npc", id = 4485, m = 1454, x = 75.23, y = 34.24, min = 38, nt = { { l = 2, t = "Belgrom Rockmaul stands in the Valley of Honor." } }, lvl = 45, wp = { 1676, -4313, 1688, -4304, 1738, -4363, 1738, -4471, 1763, -4504, 1796, -4538, 1854, -4546, 1871, -4563, 1896, -4563, 1921, -4588, 1896, -4613, 1954, -4671 } },
         { k = "fly", t = "Fly to Thunder Bluff", n = "Thunder Bluff", e = "taxi", id = 22, m = 1454, x = 45.12, y = 63.89, lvl = 45, wp = { 1954, -4736, 1904, -4688, 1904, -4629, 1896, -4613, 1921, -4588, 1854, -4521, 1779, -4521, 1738, -4479, 1729, -4421, 1704, -4396, 1704, -4321, 1688, -4304 } },
         { k = "accept", t = "Accept Deadmire from Melor Stonehoof", q = 1205, n = "Melor Stonehoof", e = "npc", id = 3441, m = 1456, x = 61.54, y = 80.92, min = 35, nt = { { l = 2, t = "Melor Stonehoof is on Hunter Rise." } }, lvl = 45, wp = { -1197, 30, -1229, -4, -1238, -79, -1279, -121, -1313, -129 } },
         { k = "fly", t = "Fly to Brackenwall Village", n = "Brackenwall Village", e = "taxi", id = 55, m = 1456, x = 47, y = 49.83, lvl = 45, wp = { -1413, -126, -1388, -104, -1388, -63, -1379, -46, -1313, 29, -1279, 54, -1238, 54 } },

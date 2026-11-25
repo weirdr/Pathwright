@@ -8,8 +8,9 @@
 # The guide's quest list is section 9 of addon/guides/horde_40_60_allocation.md; the earlier
 # Stranglethorn quests are in Stranglethorn Vale & Swamp of Sorrows (41-43), the later ones (608,
 # Whiskey Slim, Cortello, the Monogrammed Sash...) in Stranglethorn Vale & Swamp of Sorrows (50-50).
-# Carried in: I Know a Guy (95295, Friz Frazzlespark at Powderfuse Port, Riverglades (44-45)) and
-# Back to Booty Bay (1118, Kravel Koalbeard at the Mirage Raceway, Tanaris (43-43)).
+# Carried in: Back to Booty Bay (1118, Kravel Koalbeard at the Mirage Raceway, Tanaris (43-43)).
+# Smuggler's Run (95322) follows I Know a Guy (95295, from Riverglades (40-43)), which Stranglethorn
+# Vale & Swamp of Sorrows (41-43) hands in at Booty Bay.
 # Added: Unbagwa's Stranglethorn Fever (349): ten Gorilla Fangs make him summon Mokk the Savage for Fin Fizracket's
 # Stranglethorn Fever (348).
 # Added: Grim Message (2932), taken from Nimboya at Grom'gol and left to The Hinterlands (48-49),
@@ -30,8 +31,8 @@
 guide Stranglethorn Vale (46-47)
 faction horde
 levels 46 47
-carry 1118 2741 3520 95295 95296
-leave 580 2741 2932 3520 95296
+carry 1118 2741 3520
+leave 580 2741 2932 3520
 next Swamp of Sorrows (47-47)
 
 # Orgrimmar: the auction house and training -----------------------------------------------------------
@@ -98,7 +99,6 @@ tip Keep the shards for later: the basilisks are on the way back from the Zanzil
 fly "Booty Bay, Stranglethorn" npc 1387
 accept 580
 tip Whiskey Slim's Lost Grog: its bottles are on the Hinterlands beaches (a later guide), and it is handed in back here in the Stranglethorn Vale & Swamp of Sorrows (50-50) guide.
-turnin 95295
 accept 95322
 turnin 1118
 tip Bring Kravel's Scheme with you.

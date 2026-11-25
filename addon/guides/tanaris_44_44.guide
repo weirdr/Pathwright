@@ -15,15 +15,17 @@
 #
 # The route: the flight from Brackenwall Village to Gadgetzan; one loop south and west of Gadgetzan
 # to Sandsorrow Watch for the samples and the water; Lost Rigger Cove and Steamwheedle Port; the
-# flight to Orgrimmar (training) and the zeppelin to the Eastern Kingdoms.
+# flight to Orgrimmar (training), where Feralas (45-46) starts.
 
 guide Tanaris (44-44)
 faction horde
 levels 44 44
-carry 1118 94895
-leave 1118 2741 3520 94895 95144
-next Riverglades (44-45)
-# Overseas Delivery (95144): taken at the Gadgetzan inn, handed in by Riverglades (44-45).
+carry 1118 95033
+leave 1118 2741 3520 95033
+next Feralas (45-46)
+# Left out: Overseas Delivery (95144, Innkeeper Fizzgrimble in Gadgetzan): it is handed in at
+#   Powderfuse Port in the Riverglades, which Riverglades (40-43) leaves before the route first
+#   comes to Gadgetzan, and no later guide goes back there (290 XP).
 
 # Brackenwall Village to Gadgetzan -----------------------------------------------------------------
 
@@ -34,10 +36,8 @@ fly "Gadgetzan, Tanaris" npc 11899
 
 map Tanaris
 accept 992
-accept 95144
 accept 2741
 tip The Super Egg-O-Matic is the machine in Gadgetzan; its Hippogryph Egg is found in Feralas in a later guide, so keep the quest.
-tip Overseas Delivery is handed in at the start of the next guide, in Riverglades: keep it.
 accept 654 at 53.2,31.2 "Just south of Gadgetzan, use the Model 4711-FTZ Power Source to start Tanaris Field Sampling"
 tip Using the Power Source starts a two-hour timer: use it only once outside the town, ready to hunt. Each of you needs your own Power Source and Field Testing Kit (the kit from Into the Field).
 
@@ -76,4 +76,3 @@ fly "Orgrimmar, Durotar" npc 7824
 map Orgrimmar
 train 3353 3352 3401 3344 5882 3324 6014
 tip Paladins train in Undercity, druids in Thunder Bluff.
-note "Take the zeppelin from the tower outside Orgrimmar to Undercity and fly to Rog'mar, or to Grom'gol and fly to Stonard, then ride north-east to Rog'mar, for the next guide" at 50.8,13.5 in Durotar

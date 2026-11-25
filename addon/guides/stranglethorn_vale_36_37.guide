@@ -13,11 +13,11 @@
 #   Shimmering Flats, Thousand Needles), Hunting in Stranglethorn (5763, from Roon Wildmane in
 #   Desolace), and for warriors Cyclonian (1712, from Bath'rah in the Alterac Mountains): its 30
 #   Bloodscalp Tusks drop only here; Alterac Mountains & Arathi Highlands (38-39) hands it in.
-# Left to later guides: Report to Rog'mar (95141), handed in by Riverglades (40-41), Cyclonian
+# Left to later guides: Report to Rog'mar (95141), handed in by Riverglades (40-43), Cyclonian
 #   (1712), handed in by Alterac Mountains & Arathi Highlands (38-39), Trollbane (638, Nimboya's
 #   errand to Zengu in Hammerfall), handed in by Alterac Mountains & Arathi Highlands (38-39), and
 #   Twice Misplaced Trust (97332, Wharfmaster Lozgil's package for Powderfuse Port), handed in by
-#   Riverglades (40-41).
+#   Riverglades (40-43).
 #
 # The route: the zeppelin to Grom'gol; the road south to Booty Bay for its quests, the hearthstone
 # and the flight path; a flight back and the ride north to Nesingwary's camp; a loop around the camp
@@ -146,7 +146,7 @@ turnin 97328
 tip Wharfmaster Lozgil stands on the docks at the north of the bay.
 turnin 97331
 accept 97332
-tip Lozgil hands you a package for Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades: keep it, Riverglades (40-41) delivers it.
+tip Lozgil hands you a package for Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades: keep it, Riverglades (40-43) delivers it.
 fly "Grom'gol, Stranglethorn" npc 2858
 turnin 568
 turnin 581

@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795625819,
     next = "Tanaris & Dustwallow Marsh (47-48)",
-    carry = { 580, 2741, 2932, 3520, 95296 },
+    carry = { 580, 2741, 2932, 3520 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },
