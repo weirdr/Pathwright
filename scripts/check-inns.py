@@ -37,7 +37,7 @@ for db in dbs:
     for i in known:
         if conn.execute(
             "select 1 from m_npc where id = ? and subname = 'Innkeeper' "
-            "and exists (select 1 from m_spawn where entity_id = m_npc.id)", (i,)
+            "and exists (select 1 from m_spawn where entity_type = 'npc' and entity_id = m_npc.id)", (i,)
         ).fetchone():
             seen_npc.add(i)
     for place in set(places.values()):
@@ -45,7 +45,7 @@ for db in dbs:
             seen_place.add(place)
     for i, name in conn.execute(
         "select id, name from m_npc where subname = 'Innkeeper' "
-        "and exists (select 1 from m_spawn where entity_id = m_npc.id)"
+        "and exists (select 1 from m_spawn where entity_type = 'npc' and entity_id = m_npc.id)"
     ):
         if i not in known:
             missing[i] = name
