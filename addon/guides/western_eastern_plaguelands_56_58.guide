@@ -98,7 +98,7 @@ do 5059
 tip The Wandering Skeleton walks the yard in front of the barn. Each of you needs your own key: take turns on its respawns.
 turnin 5059
 tip Opening the outhouse with the key calls Farmer Dalson out of it.
-note "Kill Farmer Dalson for the Dalson Cabinet Key" at 48.1,49.7
+note "Kill Farmer Dalson for the Dalson Cabinet Key" at 48.1,49.7 have 12739 5060
 tip Kill him at once: anyone nearby can take him. The second of you opens the outhouse after the first, for a second Dalson and a second key.
 accept 5060
 tip The locked cabinet is upstairs in the Dalson house. Clear the mobs inside first: the fearing Dark Casters send you into more of them.

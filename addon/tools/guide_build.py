@@ -62,8 +62,10 @@ Options after a step, in any order:
     only <who>...   alliance, horde, class names (warrior, mage...) and race names (orc, undead,
                     tauren, troll, windshaper...): who the step is for ("only priest troll")
     have <item> [quest]
-                    a note's item: the note is done once the bags hold it (a kill and loot), or
-                    once the quest the item starts is in the log or turned in
+                    a note's item: the note is done once the bags hold it (a kill and loot). With
+                    a quest (the one the item is used for), it stays done once that quest's
+                    objectives are complete or it is turned in, after the item is used up. Being
+                    on the quest alone does not count
     npc <npc>       the NPC of a note, or who takes a quest handed in (its name and place)
     "<text>"        the step's text (tip, note and goto take the rest of the line)
 

@@ -1784,7 +1784,12 @@ end
 -- A kill-and-loot note (`hv`): done once the item is in the bags, not before.
 do
     FG.Routes["loot-note-test"] = {
-        race = 7, class = 8, faction = "Horde", fromLevel = 1, toLevel = 60, time = 1,
+        race = 7,
+        class = 8,
+        faction = "Horde",
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
         steps = { { k = "note", t = "Kill Samuel Fipps and loot his remains", hv = 16333, lvl = 4 } },
     }
     useRoute("loot-note-test")
@@ -1827,6 +1832,46 @@ do
     completed[6395] = true
     assert(FG.Guide:IsDone(step, 1), "loot note: done once the quest is turned in")
     completed[6395] = nil
+end
+
+-- The kill-and-loot notes of the built-in guides, as the builder wrote them: done once the item is
+-- in the bags, and still done once the quest it is for is turned in.
+do
+    local notes = {
+        { "Desolace3436", "Flayed Demon Skin", 20310, 1480 },
+        { "Ashenvale2628", "Etched Phial", 5867, 1195 },
+        { "DesolaceShendralas4343", "Tattered Journal", 260347, 93644 },
+        { "WesternEasternPlaguelands5658", "Dalson Cabinet Key", 12739, 5060 },
+    }
+    local register = FG.Builtin.Register
+    for _, n in ipairs(notes) do
+        local def
+        FG.Builtin.Register = function(d) def = d end
+        assert(loadfile("addon/Pathwright_Guide/Builtin/" .. n[1] .. ".lua"))()
+        FG.Builtin.Register = register
+        local found
+        for _, st in ipairs(def.steps) do
+            if st.k == "note" and st.t:find(n[2], 1, true) then found = st end
+        end
+        assert(found and found.hv == n[3] and found.hq == n[4], n[1] .. ": the note carries hv and hq")
+        FG.Routes["builtin-loot-test"] = {
+            race = 7,
+            class = 8,
+            faction = "Horde",
+            fromLevel = 1,
+            toLevel = 60,
+            time = 1,
+            steps = { found },
+        }
+        useRoute("builtin-loot-test")
+        assert(not FG.Guide:IsDone(found, 1), n[1] .. ": not done without the item")
+        bags[n[3]] = 1
+        assert(FG.Guide:IsDone(found, 1), n[1] .. ": done with the item in the bags")
+        bags[n[3]] = nil
+        completed[n[4]] = true
+        assert(FG.Guide:IsDone(found, 1), n[1] .. ": still done once the quest is turned in")
+        completed[n[4]] = nil
+    end
 end
 
 -- Hearth steps: passed when the hearthstone is on a long cooldown, kept when it is ready or

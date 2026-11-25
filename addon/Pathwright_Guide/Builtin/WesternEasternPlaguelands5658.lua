@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795583051,
     next = "Winterspring (58-59)",
     carry = { 1123, 3564, 5601, 6029, 6030 },
     variants = {
@@ -79,7 +79,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept Locked Away from Outhouse", q = 5059, ic = "object", n = "Outhouse", e = "object", id = 175925, m = 1422, x = 48.11, y = 49.65, min = 52, nt = { { l = 2, t = "The outhouse stands behind the Dalson barn and house: its door offers the quest. Won't open for you yet? Get the key first." } }, lvl = 56 },
         { k = "objective", t = "Dalson Outhouse Key", q = 5059, o = 1, ic = "get", n = "Dalson Outhouse Key", e = "item", id = 12738, c = 1, m = 1422, x = 47.71, y = 49.87, mobs = { "Wandering Skeleton" }, mi = { 10816 }, nt = { { l = 2, t = "The Wandering Skeleton walks the yard in front of the barn. Each of you needs your own key: take turns on its respawns." } }, lvl = 56 },
         { k = "turnin", t = "Turn in Locked Away to Outhouse", q = 5059, ic = "object", n = "Outhouse", e = "object", id = 175925, m = 1422, x = 48.11, y = 49.65, nt = { { l = 2, t = "Opening the outhouse with the key calls Farmer Dalson out of it." } }, lvl = 56 },
-        { k = "note", t = "Kill Farmer Dalson for the Dalson Cabinet Key", m = 1422, x = 48.1, y = 49.7, nt = { { l = 2, t = "Kill him at once: anyone nearby can take him. The second of you opens the outhouse after the first, for a second Dalson and a second key." } }, lvl = 56 },
+        { k = "note", t = "Kill Farmer Dalson for the Dalson Cabinet Key", hv = 12739, hq = 5060, m = 1422, x = 48.1, y = 49.7, nt = { { l = 2, t = "Kill him at once: anyone nearby can take him. The second of you opens the outhouse after the first, for a second Dalson and a second key." } }, lvl = 56 },
         { k = "accept", t = "Accept Locked Away from Locked Cabinet", q = 5060, ic = "object", n = "Locked Cabinet", e = "object", id = 175924, m = 1422, x = 47.35, y = 49.63, min = 52, pre = { 5059 }, nt = { { l = 2, t = "The locked cabinet is upstairs in the Dalson house. Clear the mobs inside first: the fearing Dark Casters send you into more of them." } }, lvl = 56 },
         { k = "objective", t = "Dalson Cabinet Key", q = 5060, o = 1, ic = "get", n = "Dalson Cabinet Key", e = "item", id = 12739, c = 1, m = 1422, x = 48.23, y = 49.67, mobs = { "Farmer Dalson" }, mi = { 10836 }, nt = { { l = 2, t = "The key you carry opens the cabinet." } }, lvl = 56 },
         { k = "turnin", t = "Turn in Locked Away to Locked Cabinet", q = 5060, ic = "object", n = "Locked Cabinet", e = "object", id = 175924, m = 1422, x = 47.35, y = 49.63, lvl = 56 },
