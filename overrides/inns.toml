@@ -355,21 +355,6 @@ place = "Brackenwall Village"
 reason = "\"Little\" Logok; Brackenwall Village has no inn or tavern sub-area in AreaTable"
 
 [[inn]]
-npc = 6272
-place = "Theramore Isle"
-reason = "Innkeeper Janene; Theramore Isle (513) is a sub-area of Dustwallow Marsh with no inn or tavern sub-area in AreaTable (Foothold Citadel (514) is only a sibling area, as it is for the listed Brackenwall Village)"
-
-[[inn]]
-npc = 28687
-place = "Dalaran"
-reason = "Amisi Azuregaze; Dalaran (279) is a sub-area of Alterac Mountains with no inn or tavern sub-area in AreaTable (classic and tbc)"
-
-[[inn]]
-npc = 32413
-place = "Dalaran"
-reason = "Isirami Fairwind; Dalaran (279) is a sub-area of Alterac Mountains with no inn or tavern sub-area in AreaTable (classic and tbc)"
-
-[[inn]]
 npc = 257595
 place = "Farholde Keep"
 reason = "Barracks Master Harlan; Farholde Keep (16724) is a sub-area of Riverglades with no inn or tavern sub-area in forever.sqlite's AreaTable"
@@ -383,9 +368,9 @@ reason = "Caitir Flinthew; Elderwild (16848) is a sub-area of Mount Hyjal with n
 # name: a capital (it binds to the city's name), or a town with no inn or tavern sub-area of its own in
 # AreaTable (it binds to the town's name). It is left out, with the candidates in its `reason`, when
 # the town has an inn or tavern sub-area, when the data gives no town at the spawn, when the data does
-# not tell two places apart, or when the camp has no AreaTable row. Every name still unconfirmed in
-# game is held to this rule alone: no other fact (a map overlay, a keep next to the town) sets a town
-# apart, as Brackenwall Village, listed, has Foothold Citadel next to it too.
+# not tell two places apart (Theramore Isle and Dalaran: the spawn row gives only the zone, and
+# AreaTable holds more than one name the bind could say there), or when the camp has no AreaTable row.
+# A town is listed only when exactly one AreaTable name can be at the spawn.
 # Their bind steps carry neither `inn` nor `ia`, and the addon falls back to the marks and the bind's
 # position. Move one to an `[[inn]]` once its name is checked in game.
 
@@ -396,6 +381,10 @@ reason = "Innkeeper Belm; name not confirmed in game; candidates: Kharanos or Th
 [[left_out]]
 npc = 1464
 reason = "Innkeeper Helbrek; name not confirmed in game; candidates: Menethil Harbor or Deepwater Tavern (the inn sub-area of Wetlands in AreaTable)"
+
+[[left_out]]
+npc = 6272
+reason = "Innkeeper Janene; name not confirmed in game; candidates: Theramore Isle (513) or Foothold Citadel (514), both sub-areas of Dustwallow Marsh at the town; the spawn row gives only Dustwallow Marsh (15), so the data does not tell them apart"
 
 [[left_out]]
 npc = 6734
@@ -436,6 +425,14 @@ reason = "Axle; name not confirmed in game; candidates: Mudsprocket (a sub-area 
 [[left_out]]
 npc = 25036
 reason = "Caregiver Inaara; name not confirmed in game; candidates: Sun's Reach Harbor or Dawnstar Village (sub-areas of the Isle of Quel'Danas); the data gives no town at the spawn"
+
+[[left_out]]
+npc = 28687
+reason = "Amisi Azuregaze; name not confirmed in game; candidates: City of Dalaran (16544, a zone in forever.sqlite) or Dalaran (16558 under it, and 279 under Alterac Mountains); the spawn row gives only Alterac Mountains (36), so the data does not tell them apart"
+
+[[left_out]]
+npc = 32413
+reason = "Isirami Fairwind; name not confirmed in game; candidates: City of Dalaran (16544, a zone in forever.sqlite) or Dalaran (16558 under it, and 279 under Alterac Mountains); the spawn row gives only Alterac Mountains (36), so the data does not tell them apart"
 
 [[left_out]]
 npc = 240482

@@ -10,7 +10,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Guides
 
-- Bind steps in guides the app writes now name the inn at the capitals and at most towns for both factions, and for more Horde inns (Bloodhoof Village, Ratchet, Light's Hope Chapel...), and at Theramore Isle, Dalaran, Farholde Keep and Elderwild, so a hearthstone already set there passes the step.
+- Bind steps in guides the app writes now name the inn at the capitals and at most towns, so a hearthstone already set there passes the step.
 - Tauren Starter (1-13): the steps at Krang Stonehoof, the warrior trainer in Bloodhoof Village, now point to where he stands (48.3, 63.6) instead of a spot north of him.
 - Skyborne Starter (1-13): Vulgara's Head now warns that Vulgara is an elite who may need a group, and that the quest can be skipped if it is too hard.
 - Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains. It stays done after you bury them or hand in Marla's Last Wish.
