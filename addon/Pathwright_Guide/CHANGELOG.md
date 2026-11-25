@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- The danger alerts (elite or much higher target, low health) are now only given in the open world, never in a dungeon, a raid, a battleground or any other instanced content.
 - The dots of the path can be made larger or smaller: "Minimap path dot size" and "World map path dot size" under Path. Larger dots are spaced further apart, so the path stays dotted.
 - Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains.
 - A bind step is passed when your hearthstone is already set to that inn, instead of asking you to talk to the innkeeper again.

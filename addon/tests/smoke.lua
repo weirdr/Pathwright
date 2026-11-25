@@ -8024,6 +8024,74 @@ end
 ShareTest()
 ShareTest = nil
 
+-- The danger alerts (Safety.lua) are for the open world: an elite target and low health warn
+-- there, and neither does in instanced content. (In a function: the file has its 200 locals.)
+SafetyTest = function()
+    local saved = {
+        UIErrorsFrame = UIErrorsFrame,
+        IsInInstance = IsInInstance,
+        UnitExists = UnitExists,
+        UnitIsDead = UnitIsDead,
+        UnitCanAttack = UnitCanAttack,
+        UnitIsPlayer = UnitIsPlayer,
+        UnitLevel = UnitLevel,
+        UnitClassification = UnitClassification,
+        UnitName = UnitName,
+        UnitHealth = UnitHealth,
+        UnitHealthMax = UnitHealthMax,
+        UnitIsDeadOrGhost = UnitIsDeadOrGhost,
+    }
+    local said = {}
+    UIErrorsFrame = { AddMessage = function(_, text) said[#said + 1] = text end }
+    local inside, health = false, 100
+    IsInInstance = function() return inside end
+    UnitExists, UnitIsDead, UnitCanAttack =
+        function() return true end, function() return false end, function() return true end
+    UnitIsPlayer, UnitIsDeadOrGhost = function() return false end, function() return false end
+    UnitLevel = function(unit) return unit == "player" and 20 or 22 end
+    UnitClassification, UnitName = function() return "elite" end, function() return "Mogrosh Brute" end
+    UnitHealth, UnitHealthMax = function() return health end, function() return 100 end
+    local function Health(now)
+        health = now
+        fire("UNIT_HEALTH", "player")
+    end
+
+    fire("PLAYER_TARGET_CHANGED")
+    assert(#said == 1 and said[1]:find("Mogrosh Brute", 1, true), "an elite target warns in the open world")
+    Health(100) -- whatever the tests before left: not warned yet
+    Health(20)
+    assert(#said == 2 and said[2]:find("20", 1, true), "low health warns in the open world")
+    Health(100)
+
+    inside = true
+    fire("PLAYER_TARGET_CHANGED")
+    Health(20)
+    assert(#said == 2, "no warning in instanced content: " .. tostring(said[3]))
+    Health(100)
+
+    inside = false
+    fire("PLAYER_TARGET_CHANGED")
+    Health(20)
+    assert(#said == 4, "back in the open world, both warn again")
+    Health(100)
+    FG:Save("safetyAlerts", false)
+    fire("PLAYER_TARGET_CHANGED")
+    Health(20)
+    assert(#said == 4, "nothing when the alerts are off")
+    FG:Save("safetyAlerts", nil)
+    Health(100)
+
+    for name in pairs(saved) do
+        _G[name] = saved[name]
+    end
+    for _, name in ipairs({ "UnitHealth", "UnitHealthMax", "UnitIsDeadOrGhost", "UIErrorsFrame" }) do
+        if saved[name] == nil then _G[name] = nil end
+    end
+    print("danger alerts ok")
+end
+SafetyTest()
+SafetyTest = nil
+
 -- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
 -- then written on the text too, and the suite's comes back with the default. Last: once a suite
 -- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)

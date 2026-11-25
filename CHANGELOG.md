@@ -17,6 +17,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Addon
 
+- The danger alerts (elite or much higher target, low health) are now only given in the open world, never in a dungeon, a raid, a battleground or any other instanced content.
 - The dots of the path can be made larger or smaller: "Minimap path dot size" and "World map path dot size" under Path. Larger dots are spaced further apart, so the path stays dotted.
 - A bind step is passed when your hearthstone is already set to that inn, instead of asking you to talk to the innkeeper again.
 - A quest you take in a party is shared with it at once. Two settings under World map and group, both on by default: "Share the quests you take with the party" and "Only when the whole party uses Pathwright". `/pw party` says who in your party runs the addon.
