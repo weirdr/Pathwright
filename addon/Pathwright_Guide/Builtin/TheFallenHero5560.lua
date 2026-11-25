@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795581256,
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },
@@ -60,7 +60,7 @@ Pathwright.Builtin.Register({
         { k = "accept", t = "Accept The Demon Hunter from Fallen Hero of the Horde", q = 2744, n = "Fallen Hero of the Horde", e = "npc", id = 7572, m = 1435, x = 34.29, y = 66.14, min = 45, pa = { 2743 }, lvl = 55 },
         { k = "fly", t = "Fly to Grom'gol", n = "Grom'gol", e = "taxi", id = 20, m = 1435, x = 46.07, y = 54.83, lvl = 55, wp = { -10632, -3009, -10463, -3171 } },
         { k = "note", t = "Take the zeppelin to Orgrimmar from the tower at Grom'gol", n = "Squibby Overspeck", e = "npc", id = 12137, m = 1434, x = 31.55, y = 29.37, lvl = 55, wp = { -12414, 146, -12413, 213, -12421, 221, -12429, 213 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, nt = { { l = 2, t = "Set your hearthstone in Orgrimmar: it brings you back from the far end of Azshara later." } }, lvl = 55 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, inn = "Orgrimmar", ia = { 1637 }, nt = { { l = 2, t = "Set your hearthstone in Orgrimmar: it brings you back from the far end of Azshara later." } }, lvl = 55 },
         { k = "fly", t = "Fly to Valormok", n = "Valormok", e = "taxi", id = 44, m = 1454, x = 45.12, y = 63.89, nt = { { l = 2, t = "No flight path to Valormok yet? Ride east out of Orgrimmar through the Ashenvale road and north-east into Azshara." } }, lvl = 55, wp = { 1634, -4439, 1629, -4429, 1654, -4404, 1654, -4329 } },
         { k = "turnin", t = "Turn in The Demon Hunter to Loramus Thalipedes", q = 2744, n = "Loramus Thalipedes", e = "npc", id = 7783, m = 1447, x = 60.82, y = 66.35, nt = { { l = 2, t = "Loramus Thalipedes stands alone on an island in the bay south-east of the zone's middle: ride east from Valormok to the shore and swim out. Sons and Servants of Arkkoroc, elite water elementals (53-55), drift in the water around it: go around them." } }, lvl = 55, wp = { 3662, -4390, 3571, -4479, 3538, -4479, 3504, -4513, 3504, -4546, 3271, -4796, 3279, -4821, 3271, -4829, 3263, -4938, 3204, -5004, 3204, -5029, 3179, -5038, 3038, -5179, 3038, -5188, 2888, -5346, 2888, -5638, 2896, -5646, 2904, -5779, 2921, -5804, 2921, -5871, 2938, -5888, 2938, -6004, 2963, -6029, 2963, -6063, 2979, -6088, 3071, -6196, 3071, -6213, 3088, -6229, 3088, -6321 } },
         { k = "accept", t = "Accept Loramus from Loramus Thalipedes", q = 3141, n = "Loramus Thalipedes", e = "npc", id = 7783, m = 1447, x = 60.82, y = 66.35, min = 45, pa = { 2744 }, lvl = 55 },

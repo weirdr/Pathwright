@@ -110,6 +110,21 @@ pub struct Bridge {
     pub to: (usize, usize),
 }
 
+/// The place of each innkeeper's inn (`overrides/inns.toml`), by NPC.
+static INN_PLACES: std::sync::LazyLock<HashMap<i64, String>> = std::sync::LazyLock::new(|| {
+    #[derive(serde::Deserialize)]
+    struct Inn {
+        npc: i64,
+        place: String,
+    }
+    #[derive(serde::Deserialize)]
+    struct Inns {
+        inn: Vec<Inn>,
+    }
+    let inns: Inns = toml::from_str(include_str!("../../../overrides/inns.toml")).expect("overrides/inns.toml parses");
+    inns.inn.into_iter().map(|i| (i.npc, i.place)).collect()
+});
+
 static NEXT_WORLD_ID: AtomicU32 = AtomicU32::new(1);
 
 /// Walks already worked out in this thread (`World::walk_distance_at`), by world
@@ -855,22 +870,18 @@ impl World {
         area
     }
 
-    /// The place an inn binds the hearthstone to, from the area the innkeeper stands in: its
-    /// English name (what `GetBindLocation` says) and the AreaTable IDs that carry it. Only a
-    /// subzone is a place of its own (a tavern, a village); a whole zone says nothing about
-    /// which of its inns it is, so none is given then rather than a nearby landmark's name.
-    pub fn inn_place(&self, area: i64) -> Option<(&str, Vec<i64>)> {
-        self.area_parents.contains_key(&area).then(|| {
-            let name = self.zone_name(area);
-            let mut ids: Vec<i64> = self
-                .zone_names
-                .iter()
-                .filter(|(_, n)| *n == name)
-                .map(|(&id, _)| id)
-                .collect();
-            ids.sort_unstable();
-            (name, ids)
-        })
+    /// The place the inn of an innkeeper (NPC `npc`) binds the hearthstone to: its English name
+    /// (what `GetBindLocation` says) and the AreaTable IDs that carry it. The names are listed by
+    /// hand in `overrides/inns.toml`, as the data holds no sub-area for a spawn (only its zone):
+    /// none for an innkeeper not listed, or whose place has no area in this world.
+    pub fn inn_place(&self, npc: i64) -> Option<(&str, Vec<i64>)> {
+        let name = INN_PLACES.get(&npc)?.as_str();
+        let mut ids: Vec<i64> = (self.zone_names.iter())
+            .filter(|(_, n)| *n == name)
+            .map(|(&id, _)| id)
+            .collect();
+        ids.sort_unstable();
+        (!ids.is_empty()).then_some((name, ids))
     }
 
     /// Nearest flight master node index within `radius` yards.

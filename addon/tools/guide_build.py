@@ -206,17 +206,17 @@ def place_of(kind, i, prefer_area):
     return None
 
 
-# The place each inn binds the hearthstone to: the English name GetBindLocation says after binding
-# with that innkeeper (the subzone he stands in, else the town). The data has no sub-area for a
-# spawn (only its zone), nor an overlay for a tavern, so the names are listed by hand; an innkeeper
-# missing here gets no `inn`, and the addon falls back to its marks and the binding's position.
-INN_PLACES = {
-    5688: "Gallows' End Tavern", 15174: "Cenarion Hold", 11116: "Freewind Post", 9501: "Hammerfall",
-    6739: "The Sepulcher", 3934: "The Crossroads", 7714: "Camp Taurajo", 7733: "Gadgetzan",
-    7737: "Camp Mojache", 6928: "Razor Hill", 7731: "Sun Rock Retreat", 6930: "Stonard",
-    12196: "Splintertree Post", 2388: "Tarren Mill", 9356: "Kargath", 11106: "Shadowprey Village",
-    6807: "Booty Bay", 5814: "Grom'gol Base Camp", 11118: "Everlook", 14731: "Revantusk Village",
-}
+# The place each inn binds the hearthstone to is listed in overrides/inns.toml (the guide writer of
+# the app reads the same file): the English name GetBindLocation says after binding with that
+# innkeeper. An innkeeper missing there gets no `inn`, and the addon falls back to its marks and the
+# binding's position, so a bind step without one must be a deliberate choice: NO_INN lists them.
+import tomllib
+
+with open(os.path.join(ROOT, "overrides", "inns.toml"), "rb") as f:
+    INN_PLACES = {i["npc"]: i["place"] for i in tomllib.load(f)["inn"]}
+
+# Innkeepers left without a place on purpose: WoW Forever's camps, which have no AreaTable row.
+NO_INN = {256675, 255894, 244512, 254089, 255940}
 
 
 def inn_place(step):
@@ -224,10 +224,12 @@ def inn_place(step):
     the AreaTable ids of that name (to match it in another language)."""
     name = INN_PLACES.get(step["id"])
     if not name:
+        if step["id"] not in NO_INN:
+            sys.exit(f"bind {step['id']}: add the inn's place to overrides/inns.toml (or to NO_INN)")
         return
     ids = [int(r[0]) for r in rows("select ID from client_areatable where AreaName_lang=? order by ID", name)]
     if not ids:
-        sys.exit(f"INN_PLACES: no area named {name!r} for npc {step['id']}")
+        sys.exit(f"overrides/inns.toml: no area named {name!r} for npc {step['id']}")
     step["inn"] = name
     step["ia"] = ids
 

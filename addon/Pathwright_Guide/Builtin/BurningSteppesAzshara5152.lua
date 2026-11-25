@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496220,
+    created = 1795581256,
     next = "Felwood & Winterspring (52-53)",
     carry = { 3568, 3821, 3908, 4120 },
     variants = {
@@ -73,7 +73,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in The Rise of the Machines to Hierophant Theodora Mulvadania", q = 4061, n = "Hierophant Theodora Mulvadania", e = "npc", id = 9079, m = 1418, x = 3.02, y = 47.81, lvl = 52, wp = { -6634, -2180, -6663, -2179 } },
         { k = "fly", t = "Fly to Grom'gol", n = "Grom'gol", e = "taxi", id = 20, m = 1418, x = 3.99, y = 44.78, lvl = 52, wp = { -6682, -2154, -6663, -2179 } },
         { k = "note", t = "Take the zeppelin from the Grom'gol tower to Orgrimmar", m = 1434, x = 31.5, y = 29.5, lvl = 52, wp = { -12414, 146, -12413, 213, -12421, 221 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, lvl = 52 },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, inn = "Orgrimmar", ia = { 1637 }, lvl = 52 },
         { k = "objective", t = "Buy 10 Winter Squid at the auction house (optional)", q = 91610, o = 1, ic = "buy", n = "Winter Squid", e = "item", id = 13755, c = 10, by = true, m = 1454, x = 55.9, y = 62.71, bg = true, nt = { { l = 1, t = "For Winter Frontier Fishery: nothing drops them, they are made by a craft. Buy them, or have a crafter make them." }, { l = 2, t = "Kurll in Azshara wants 10 Winter Squid for his fishing quest, which he offers only to those who know Fishing (Apprentice is enough). Buying the squid here saves the fishing; without Fishing, skip this." } }, lvl = 52 },
         { k = "accept", t = "Accept March of the Silithid from Zilzibin Drumlore", q = 4494, n = "Zilzibin Drumlore", e = "npc", id = 7010, m = 1454, x = 56.26, y = 46.68, min = 50, pa = { 32, 7732 }, nt = { { l = 2, t = "Zilzibin is in the Drag. This one is handed in at Gadgetzan in a later guide." } }, lvl = 52, wp = { 1634, -4439, 1629, -4429, 1663, -4396, 1704, -4396, 1746, -4438, 1746, -4463, 1771, -4496, 1838, -4488, 1846, -4479 } },
         { k = "accept", t = "Accept Remote Contact from Jes'rimon", q = 91735, n = "Jes'rimon", e = "npc", id = 8659, m = 1454, x = 55.52, y = 34.08, min = 44, nt = { { l = 2, t = "Jes'rimon hides upstairs in one of the tall buildings of the Drag." } }, lvl = 52, wp = { 1837, -4470, 1846, -4479, 1896, -4429, 1921, -4429, 1929, -4438, 1921, -4446, 1929, -4429, 1938, -4438, 1938, -4463, 1946, -4471 } },

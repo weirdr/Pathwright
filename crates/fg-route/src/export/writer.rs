@@ -809,10 +809,11 @@ impl StepWriter<'_> {
                         .arg("who", entity(loc))
                         .arg("zone", self.zone(loc.zone)),
                 );
-                // The inn's place as `GetBindLocation` names it, from the area the innkeeper
-                // stands in (not a landmark nearby): the addon passes the step when the
-                // hearthstone is bound there already. Left out when the area is a whole zone.
-                if let Some((name, areas)) = self.planner.world.inn_place(loc.zone) {
+                // The inn's place as `GetBindLocation` names it, listed by innkeeper in
+                // `overrides/inns.toml` (the data has no sub-area for a spawn): the addon passes
+                // the step when the hearthstone is bound there already. Left out for an
+                // innkeeper not listed.
+                if let Some((name, areas)) = self.planner.world.inn_place(loc.id) {
                     step.inn = Some(name.to_owned());
                     step.inn_areas = areas;
                 }

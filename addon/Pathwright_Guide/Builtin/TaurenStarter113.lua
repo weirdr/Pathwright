@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795581256,
     next = "Silverpine Forest (13-15)",
     variants = {
         { race = 6, class = 1, faction = "Horde" },
@@ -219,7 +219,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Heeding the Call to Turak Runetotem", q = 5928, n = "Turak Runetotem", e = "npc", id = 3033, m = 1456, x = 76.48, y = 27.22, lvl = 11, only = { 4 }, wp = { -1210, -113, -1196, -96, -1179, -96, -1129, -129, -1096, -188, -1054, -229, -1054, -254, -1038, -271 } },
         { k = "accept", t = "Accept Moonglade from Turak Runetotem", q = 5922, n = "Turak Runetotem", e = "npc", id = 3033, m = 1456, x = 76.48, y = 27.22, min = 10, lvl = 11, only = { 4 } },
         { k = "train", t = "Train with Turak Runetotem", n = "Turak Runetotem", e = "npc", id = 3033, m = 1456, x = 76.48, y = 27.22, nt = { { l = 2, t = "Learn Teleport: Moonglade." } }, lvl = 11, only = { 4 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Pala", n = "Innkeeper Pala", e = "npc", id = 6746, m = 1456, x = 45.81, y = 64.71, lvl = 11, only = { 4 }, wp = { -1039, -282, -1096, -213, -1096, -196, -1129, -129, -1238, -29, -1279, -29, -1263, 38, -1271, 46 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Pala", n = "Innkeeper Pala", e = "npc", id = 6746, m = 1456, x = 45.81, y = 64.71, inn = "Thunder Bluff", ia = { 1638 }, lvl = 11, only = { 4 }, wp = { -1039, -282, -1096, -213, -1096, -196, -1129, -129, -1238, -29, -1279, -29, -1263, 38, -1271, 46 } },
         { k = "note", t = "Cast Teleport: Moonglade", lvl = 11, only = { 4 } },
         { k = "turnin", t = "Turn in Moonglade to Dendrite Starblaze", q = 5922, n = "Dendrite Starblaze", e = "npc", id = 11802, m = 1450, x = 56.21, y = 30.64, lvl = 11, only = { 4 } },
         { k = "accept", t = "Accept Great Bear Spirit from Dendrite Starblaze", q = 5930, n = "Dendrite Starblaze", e = "npc", id = 11802, m = 1450, x = 56.21, y = 30.64, min = 10, pa = { 5922 }, lvl = 11, only = { 4 } },

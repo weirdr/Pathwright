@@ -198,13 +198,33 @@ fn capitals_are_known_from_the_area_flags() {
     }
 }
 
-/// A bind step is given the inn's place from the area the innkeeper stands in: the tavern of
-/// Brill by its own name and ID, never a subzone nearby, and nothing for a whole zone.
+/// A guide written by the app gives a bind step the place of its innkeeper, as `overrides/inns.toml`
+/// lists it (what the builder gives the built-in guides): the name `GetBindLocation` says and the
+/// AreaTable ids carrying it. An innkeeper not listed gets neither.
 #[test]
-fn an_inn_place_is_the_area_of_the_innkeeper() {
-    let world = world(Faction::Horde);
-    let (name, ids) = world.inn_place(2119).unwrap();
-    assert_eq!(name, "Gallows' End Tavern");
-    assert!(ids.contains(&2119));
-    assert!(world.inn_place(85).is_none(), "Tirisfal Glades is a zone, not an inn");
+fn a_bind_step_of_a_guide_has_the_place_of_its_innkeeper() {
+    use crate::common::leveling;
+    use fg_route::export::{StepKind, build};
+    use fg_route::plan::Planner;
+    let bind_step = |npc: i64| {
+        let mut p = leveling(5)
+            .zone(2119, "Gallows' End Tavern")
+            .zone(2120, "Gallows' End Tavern")
+            .inn("Start Inn", 2, 60.0, 60.0)
+            .inn("Inn", 2119, 50.0, 50.0)
+            .build();
+        p.model.inns[1].id = npc;
+        let planner = Planner::new(&p.model, &p.world, &p.params, &p.profile);
+        let route = [fg_route::plan::Stop {
+            index: 1,
+            kind: fg_route::plan::Kind::Bind,
+        }];
+        let guide = build(&planner, &p.profile, &route);
+        guide.steps.into_iter().find(|s| s.kind == StepKind::Bind).unwrap()
+    };
+    let listed = bind_step(5688);
+    assert_eq!(listed.inn.as_deref(), Some("Gallows' End Tavern"));
+    assert_eq!(listed.inn_areas, [2119, 2120]);
+    let unlisted = bind_step(1);
+    assert_eq!((unlisted.inn, unlisted.inn_areas), (None, Vec::new()));
 }

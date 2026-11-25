@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795581256,
     next = "Hillsbrad Foothills (30-32)",
     carry = { 529, 546, 567, 1534, 5881 },
     variants = {
@@ -44,7 +44,7 @@ Pathwright.Builtin.Register({
     steps = {
         { k = "accept", t = "Accept The Sacred Flame from Zangen Stonehoof", q = 1196, n = "Zangen Stonehoof", e = "npc", id = 4721, m = 1456, x = 54.97, y = 51.41, min = 20, pa = { 1195 }, nt = { { l = 2, t = "Zangen Stonehoof stands on the central rise. He has this for those who brought him the moonwell water (The Sacred Flame) in Ashenvale." } }, lvl = 28 },
         { k = "accept", t = "Accept Steelsnap from Melor Stonehoof", q = 1131, n = "Melor Stonehoof", e = "npc", id = 3441, m = 1456, x = 61.54, y = 80.92, min = 20, nt = { { l = 2, t = "Melor Stonehoof is on Hunter Rise." } }, lvl = 28, wp = { -1208, -57, -1279, -121, -1313, -129 } },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Pala", n = "Innkeeper Pala", e = "npc", id = 6746, m = 1456, x = 45.81, y = 64.71, nt = { { l = 2, t = "Set your hearthstone here: it brings you back from the far west of Thousand Needles halfway through the guide." } }, lvl = 28, wp = { -1413, -126, -1388, -104, -1388, -63, -1379, -46 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Pala", n = "Innkeeper Pala", e = "npc", id = 6746, m = 1456, x = 45.81, y = 64.71, inn = "Thunder Bluff", ia = { 1638 }, nt = { { l = 2, t = "Set your hearthstone here: it brings you back from the far west of Thousand Needles halfway through the guide." } }, lvl = 28, wp = { -1413, -126, -1388, -104, -1388, -63, -1379, -46 } },
         { k = "goto", t = "Ride down a lift and round the bluffs to the foot of the path north of Thunder Bluff", m = 1412, x = 40.2, y = 17.3, r = 8, nt = { { l = 2, t = "The path starts among the Windfury harpies at the foot of the cliffs and winds up west onto Skywatcher Plateau, where the Earthen Ring camp is." } }, lvl = 28, wp = { -1300, 39, -1279, 54, -1246, 54, -1229, 38, -1188, 29, -1146, 63, -1164, 72, -1072, 110, -1054, 96, -1038, 96, -938, 4 } },
         { k = "accept", t = "Accept Defending the Dead from Muln Earthfury", q = 96259, n = "Muln Earthfury", e = "npc", id = 259118, m = 1412, x = 33.41, y = 22.59, min = 23, nt = { { l = 2, t = "Muln Earthfury stands at the south end of the camp." } }, lvl = 28, wp = { -443, 5, -413, 54, -396, 29, -379, 46, -371, 113, -663, 404 } },
         { k = "accept", t = "Accept Talkin' bout Toxins, Mon from Mazu'kon", q = 96241, n = "Mazu'kon", e = "npc", id = 264074, m = 1412, x = 32.5, y = 20.66, min = 23, nt = { { l = 2, t = "Mazu'kon stands at the north end of the camp. Keep the Toxin Extractor he gives you." } }, lvl = 28 },

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795496219,
+    created = 1795581256,
     next = "Silithus (59-60)",
     carry = { 1123, 4987, 8276 },
     variants = {
@@ -43,7 +43,7 @@ Pathwright.Builtin.Register({
     },
     steps = {
         { k = "fly", t = "Fly to Orgrimmar", n = "Orgrimmar", e = "taxi", id = 23, m = 1447, x = 21.96, y = 49.62, nt = { { l = 2, t = "The last guide ends at Valormok in Azshara." } }, lvl = 58 },
-        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, nt = { { l = 2, t = "The hearthstone brings you back here from the Burning Steppes near the end of the guide." } }, lvl = 58, wp = { 1678, -4316, 1671, -4329, 1679, -4338, 1671, -4329, 1679, -4338, 1646, -4371, 1646, -4388, 1629, -4404 } },
+        { k = "bind", t = "Set your hearthstone with Innkeeper Gryshka", n = "Innkeeper Gryshka", e = "npc", id = 6929, m = 1454, x = 54.1, y = 68.41, inn = "Orgrimmar", ia = { 1637 }, nt = { { l = 2, t = "The hearthstone brings you back here from the Burning Steppes near the end of the guide." } }, lvl = 58, wp = { 1678, -4316, 1671, -4329, 1679, -4338, 1671, -4329, 1679, -4338, 1646, -4371, 1646, -4388, 1629, -4404 } },
         { k = "train", t = "Train with Grezz Ragefist", n = "Grezz Ragefist", e = "npc", id = 3353, m = 1454, x = 79.79, y = 31.42, lvl = 58, only = { 1, 7, 13, 17, 24 }, wp = { 1634, -4439, 1629, -4429, 1663, -4396, 1704, -4396, 1738, -4429, 1738, -4471, 1796, -4538, 1854, -4546, 1871, -4563, 1896, -4563, 1921, -4588, 1896, -4613, 1963, -4679, 1971, -4771, 1963, -4788 } },
         { k = "train", t = "Train with Ormak Grimshot", n = "Ormak Grimshot", e = "npc", id = 3352, m = 1454, x = 66.05, y = 18.53, lvl = 58, only = { 2, 14, 18, 25 }, wp = { 1634, -4439, 1629, -4429, 1663, -4396, 1704, -4396, 1738, -4429, 1738, -4471, 1796, -4538, 1854, -4546, 1871, -4563, 1896, -4563, 1921, -4588, 1896, -4613, 1979, -4696, 2063, -4696, 2079, -4671, 2063, -4654, 2063, -4621, 2079, -4604 } },
         { k = "train", t = "Train with Shenthul", n = "Shenthul", e = "npc", id = 3401, m = 1454, x = 43.05, y = 53.74, lvl = 58, only = { 3, 9, 19, 26 }, wp = { 1634, -4439, 1629, -4429, 1721, -4338, 1696, -4296, 1704, -4263, 1696, -4271, 1688, -4263, 1729, -4221, 1754, -4221, 1763, -4238, 1738, -4263, 1738, -4279, 1754, -4296, 1771, -4296, 1779, -4288 } },
