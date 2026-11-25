@@ -1330,8 +1330,8 @@ function Guide:Refresh()
     -- The next steps after the current ones (those done already greyed, those done along the way
     -- left out), with the place where the guide plans the next level.
     local index, last = group[#group] + 1, group[#group] + PICKUP_AHEAD
-    -- A guide without levels on its steps (a dungeon's quests): no level planned, no marker.
-    local level, marked, nextTurnIn = view.planned or math.huge, false, nil
+    -- A step without a level (a dungeon's quests): later levels are marked against our own.
+    local level, marked, nextTurnIn = view.planned or view.level, false, nil
     while #view.next < 12 and route.steps[index] and index <= last do
         local step = route.steps[index]
         if not step.bg and not listed[index] then
