@@ -146,6 +146,17 @@ impl StepWriter<'_> {
             && let Some((x, y)) = crate::world::npc_place(t.id, step.quest, map.ui_map)
         {
             (map.x, map.y) = (x, y);
+            // The step's walk ends at its world position: it moves with the map point, and the
+            // spawn's height no longer belongs to it.
+            let zone = step.zone_id.or_else(|| self.planner.world.zone_of_ui_map(map.ui_map));
+            if let Some(p) = zone.and_then(|z| self.planner.world.to_world(z, x, y)) {
+                step.world = Some([
+                    p.continent as f64,
+                    (p.x * 10.0).round() / 10.0,
+                    (p.y * 10.0).round() / 10.0,
+                ]);
+                step.height = None;
+            }
         }
         // In a dungeon (entering it, or a stop inside): a zone of its own, the dungeon.
         let dungeon = match &t.event {

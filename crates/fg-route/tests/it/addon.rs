@@ -254,6 +254,29 @@ fn a_step_at_an_npc_of_npc_places_stands_where_the_file_says() {
         let guide = build(&planner, &p.profile, &route);
         let step = guide.steps.into_iter().find(|s| s.kind == StepKind::Accept).unwrap();
         let map = step.map.unwrap();
+        // The walk ends where the arrow points: the world position converts back to the map point.
+        let zone = step.zone_id.unwrap();
+        let w = step.world.unwrap();
+        let back = p
+            .world
+            .to_map(
+                zone,
+                &fg_route::world::Pos {
+                    continent: w[0] as i64,
+                    x: w[1],
+                    y: w[2],
+                    zone,
+                    z: None,
+                },
+            )
+            .unwrap();
+        if npc != 1 {
+            assert!(
+                (back.x - map.x).abs() < 0.2 && (back.y - map.y).abs() < 0.2,
+                "{back:?} vs {map:?}"
+            );
+            assert_eq!(step.height, None);
+        }
         (map.ui_map, map.x, map.y)
     };
     assert_eq!(accept_map(3063), (1412, 48.3, 63.6));

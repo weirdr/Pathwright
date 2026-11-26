@@ -139,34 +139,81 @@ pub struct NpcPlace {
 
 /// The places of `overrides/npc_places.toml`, by NPC. A file that does not parse fails the
 /// build's tests rather than being ignored.
-static NPC_PLACES: std::sync::LazyLock<HashMap<i64, Vec<NpcPlace>>> = std::sync::LazyLock::new(|| {
+static NPC_PLACES: std::sync::LazyLock<HashMap<i64, Vec<NpcPlace>>> =
+    std::sync::LazyLock::new(|| parse_npc_places(include_str!("../../../overrides/npc_places.toml")));
+
+/// The places of a file in the format of `overrides/npc_places.toml`, by NPC; the places of some
+/// quests come before the one without quests, as `guide_build.py` does: that one is for the rest.
+fn parse_npc_places(text: &str) -> HashMap<i64, Vec<NpcPlace>> {
     #[derive(serde::Deserialize)]
     struct File {
         #[serde(default)]
         npc: Vec<NpcPlace>,
     }
-    let file: File =
-        toml::from_str(include_str!("../../../overrides/npc_places.toml")).expect("overrides/npc_places.toml parses");
+    let file: File = toml::from_str(text).expect("overrides/npc_places.toml parses");
     let mut places: HashMap<i64, Vec<NpcPlace>> = HashMap::new();
     for n in file.npc {
         places.entry(n.id).or_default().push(n);
     }
-    // The places of some quests first, as `guide_build.py` does: the one without quests is for the rest.
     for list in places.values_mut() {
         list.sort_by_key(|n| n.quests.is_empty());
     }
     places
-});
+}
+
+/// The map point `places` give NPC `id` for a step of `quest` on map `ui_map`, when one fits.
+fn npc_place_in(places: &HashMap<i64, Vec<NpcPlace>>, id: i64, quest: Option<i64>, ui_map: i64) -> Option<(f64, f64)> {
+    places
+        .get(&id)?
+        .iter()
+        .find(|n| n.map == ui_map && (n.quests.is_empty() || quest.is_some_and(|q| n.quests.contains(&q))))
+        .map(|n| (n.x, n.y))
+}
 
 /// The place `overrides/npc_places.toml` gives NPC `id` for a step of `quest` on map `ui_map`:
 /// its map point, when the file lists one for that map.
 #[must_use]
 pub fn npc_place(id: i64, quest: Option<i64>, ui_map: i64) -> Option<(f64, f64)> {
-    NPC_PLACES
-        .get(&id)?
-        .iter()
-        .find(|n| n.map == ui_map && (n.quests.is_empty() || quest.is_some_and(|q| n.quests.contains(&q))))
-        .map(|n| (n.x, n.y))
+    npc_place_in(&NPC_PLACES, id, quest, ui_map)
+}
+
+#[cfg(test)]
+mod npc_place_tests {
+    use super::{npc_place_in, parse_npc_places};
+
+    #[test]
+    fn a_place_limited_to_quests_wins_for_them_whatever_the_order() {
+        let places = parse_npc_places(
+            r"
+[[npc]]
+id = 1
+map = 10
+x = 1.0
+y = 1.0
+[[npc]]
+id = 1
+map = 10
+x = 2.0
+y = 2.0
+quests = [751]
+[[npc]]
+id = 2
+map = 10
+x = 3.0
+y = 3.0
+quests = [751]
+",
+        );
+        let at = |id, quest, map| npc_place_in(&places, id, quest, map);
+        assert_eq!(at(1, Some(751), 10), Some((2.0, 2.0)));
+        assert_eq!(at(1, Some(752), 10), Some((1.0, 1.0)));
+        assert_eq!(at(1, None, 10), Some((1.0, 1.0)));
+        assert_eq!(at(1, Some(751), 11), None);
+        assert_eq!(at(2, Some(751), 10), Some((3.0, 3.0)));
+        assert_eq!(at(2, Some(752), 10), None);
+        assert_eq!(at(2, None, 10), None);
+        assert_eq!(at(3, None, 10), None);
+    }
 }
 
 static NEXT_WORLD_ID: AtomicU32 = AtomicU32::new(1);
