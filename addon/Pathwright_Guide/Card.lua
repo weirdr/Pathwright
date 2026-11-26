@@ -557,7 +557,7 @@ function Card:Create(guideState)
         self.over = over
         self.tools:SetShown(over)
         self.level:SetShown(not over)
-        self.planned:SetShown(not over)
+        self.planned:SetShown(not over and self.hasPlan == true)
     end)
     frame:SetScale(FG:Get("scale"))
     FG:OnSetting("scale", function(v) frame:SetScale(v) end)
@@ -598,6 +598,7 @@ function Card:Render(view)
     if FG.Compass then FG.Compass:Free() end
 
     local sections = not view.message
+    frame.hasPlan = sections and type(view.planned) == "number"
     for _, f in ipairs({
         frame.stepLine,
         frame.level,
@@ -638,18 +639,18 @@ function Card:Render(view)
     -- Header.
     frame.zone:SetText(view.zone or "")
     frame.stepLine:SetText(string.format(L.stepOf, view.step, view.total))
-    -- A guide without levels on its steps (a dungeon's quests) plans none: the level uncoloured.
-    local planned = view.planned
-    local levelColor = not planned and "text"
-        or view.level >= planned and "green"
-        or (view.level + 1 >= planned and "gold" or "red")
+    local levelColor = "text"
+    if frame.hasPlan then
+        levelColor = view.level >= view.planned and "green" or (view.level + 1 >= view.planned and "gold" or "red")
+        frame.planned:SetText(
+            string.format(L.planned, view.planned) .. (view.timing ~= "" and (" • " .. view.timing) or "")
+        )
+    else
+        frame.planned:SetText("")
+    end
     frame.level:SetText(Skin.Hex(levelColor) .. string.format(L.level, view.level) .. "|r")
-    local parts = {}
-    if planned then parts[#parts + 1] = string.format(L.planned, planned) end
-    if view.timing ~= "" then parts[#parts + 1] = view.timing end
-    frame.planned:SetText(table.concat(parts, " • "))
     frame.level:SetShown(not frame.over)
-    frame.planned:SetShown(not frame.over)
+    frame.planned:SetShown(not frame.over and frame.hasPlan)
 
     local y = -42
     -- XP against the guide's.

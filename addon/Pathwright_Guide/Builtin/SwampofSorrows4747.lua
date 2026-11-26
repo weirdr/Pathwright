@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625819,
+    created = 1795636385,
     next = "Tanaris & Dustwallow Marsh (47-48)",
     carry = { 580, 2741, 2932, 3520 },
     variants = {

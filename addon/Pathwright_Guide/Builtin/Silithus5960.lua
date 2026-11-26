@@ -8,8 +8,8 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
-    carry = { 1124, 5527, 8276 },
+    created = 1795652283,
+    carry = { 1124, 5163, 5527, 8276 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },
@@ -161,6 +161,7 @@ Pathwright.Builtin.Register({
         { k = "fly", t = "Fly to Moonglade", n = "Moonglade", e = "taxi", id = 69, m = 1451, x = 48.68, y = 36.67, lvl = 60 },
         { k = "turnin", t = "Turn in A Reliquary of Purity to Rabine Saturna", q = 5527, n = "Rabine Saturna", e = "npc", id = 11801, m = 1450, x = 51.69, y = 45.1, lvl = 60, wp = { 7470, -2123, 7479, -2129, 7488, -2171, 7721, -2413, 7738, -2463, 7738, -2563, 7771, -2588, 7788, -2571 } },
         { k = "turnin", t = "Turn in Umber, Archivist to Umber", q = 6844, n = "Umber", e = "npc", id = 11939, m = 1450, x = 44.88, y = 35.6, nt = { { l = 2, t = "Umber, the Cenarion Circle's archivist, is in Nighthaven." } }, lvl = 60, wp = { 7797, -2574, 7788, -2563, 7821, -2521, 7821, -2496, 7829, -2488, 7838, -2496, 7871, -2496 } },
-        { k = "note", t = "Every quest of the Horde 40-60 guides is done: the sequence is complete", m = 1450, x = 51.7, y = 45.1, lvl = 60, wp = { 7944, -2417, 7946, -2479, 7854, -2563, 7796, -2563, 7788, -2571 } },
+        { k = "note", t = "Every quest of the Horde 40-60 guides is done but Are We There, Yeti?: if you have it, take a flight to Everlook to hand it in", m = 1450, x = 51.7, y = 45.1, lvl = 60, wp = { 7944, -2417, 7946, -2479, 7854, -2563, 7796, -2563, 7788, -2571 } },
+        { k = "turnin", t = "Turn in Are We There, Yeti? to Umi Rumplesnicker", q = 5163, n = "Umi Rumplesnicker", e = "npc", id = 10305, m = 1452, x = 60.88, y = 37.62, nt = { { l = 2, t = "Only if you scared the three goblins with the Mechanical Yeti in Winterspring (58-59): Umi Rumplesnicker stands in Everlook. Without the quest, this step passes and the sequence is complete." } }, lvl = 60 },
     },
 })

@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625819,
+    created = 1795636385,
     next = "Feralas (45-46)",
     carry = { 1118, 95033 },
     variants = {

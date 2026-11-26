@@ -11,7 +11,20 @@
 # done inside Blackrock Depths. Sisters In Duty (98096): its giver is in Darnassus and it follows an
 # Alliance quest. Remote Contact 91734 (Undercity) and 91737 (Thunder Bluff): the same quest as
 # 91735 from Orgrimmar, only one of the three can be done.
-# Carried: Dreadmaul Rock (3821), taken from Thal'trak Proudtusk in Kargath.
+# Class quests for hunters, mages and priests, all from the trainers in Orgrimmar: The Hunter's Charm
+#   (8151) and Cenarion Aid (8254) go to Ogtinc on the cliffs of central Azshara, who gives priests Of
+#   Coursers We Know (8255, glands from the Mosshoof Coursers by Ursolan) and The Ichor of Undeath
+#   (8256, its ichor bought at the auction house: it drops in the Plaguelands and Winterspring);
+#   Magecraft (8250) goes to Sanath Lim-yo at the foot of Archmage Xylem's mountain, who teleports
+#   you up to Xylem's Magic Dust (8251, dust from the Thalassian Base Camp). Their next tasks
+#   (Courser Antlers 8153, The Siren's Coral 8252, Blood of Morphaz 8257) are left out. Sanath's
+#   teleport up and Nyrill's teleport down are gossip, not quests (the data lists them as Meeting
+#   with the Master 3503 and Return Trip 3421, which are not in the game client).
+# Carried: Dreadmaul Rock (3821), taken from Thal'trak Proudtusk in Kargath, and Disharmony of Flame
+# (3906, Thunderheart in Kargath): Overmaster Pyron stands outside the Blackrock Depths portal, on
+# the way in. It opens Commander Gor'shak (3981, Galamav the Marksman in Kargath), handed in to
+# Gor'shak inside Blackrock Depths: optional, for a group, after the Ruins of Thaurissan. Their next
+# tasks, Disharmony of Fire (3907) and What Is Going On? (3982), are deeper in the dungeon.
 # Left to later guides: Felnok Steelspring (4808, Everlook) and Delivery to Jes'rimon (3541,
 # Orgrimmar) for Felwood & Winterspring (52-53); Delivery to Magatha (3518, Thunder Bluff) and March
 # of the Silithid (4494, Gadgetzan) for Un'Goro Crater (53-54).
@@ -25,7 +38,7 @@
 guide Burning Steppes & Azshara (51-52)
 faction horde
 levels 51 52
-carry 3568 3821 3908 4120
+carry 3568 3821 3906 3908 4120
 leave 3518 3541 3568 3908 4120 4494 4808
 next Felwood & Winterspring (52-53)
 
@@ -36,6 +49,8 @@ accept 3801
 tip Franclorn's spirit stands on his monument in the middle of Blackrock Mountain and only the dead see him: fall into the lava, release, and walk back as a ghost.
 turnin 3801
 tip His next task is inside Blackrock Depths: leave it. Resurrect at your body and step out of the lava quickly.
+do 3906 at 34.8,85.3 in Searing_Gorge
+tip Overmaster Pyron, a level 52 elite fire elemental, stands outside the Blackrock Depths portal, down on the lowest level of the mountain: fight him together.
 
 # Flame Crest ----------------------------------------------------------------------------------------
 
@@ -78,6 +93,10 @@ fly "Kargath, Badlands" npc 13177
 map Badlands
 turnin 3822
 accept 4061
+turnin 3906
+tip Thunderheart patrols around Kargath. Leave his next task, Disharmony of Fire: Lord Incendius is deep inside Blackrock Depths.
+accept 3981
+tip Galamav the Marksman, near Thunderheart, sends you to Commander Gor'shak, a prisoner inside Blackrock Depths: optional, for a group, after the reavers.
 fly "Flame Crest, Burning Steppes" npc 2861
 
 # The reavers and the Ruins of Thaurissan ---------------------------------------------------------------
@@ -88,6 +107,11 @@ tip War Reavers walk the slopes just south of Flame Crest; the Greater Obsidian 
 do 4296 icon use "Transcribe the Tablet of the Seven"
 tip The tablet stands in the Ruins of Thaurissan, west of the reavers.
 turnin 4296
+
+# Blackrock Depths (optional, a dungeon) -----------------------------------------------------------
+
+turnin 3981 at 34.8,85.3 in Searing_Gorge
+tip Blackrock Depths is a dungeon for five players of about level 52-60, its portal on the lowest level of Blackrock Mountain. Commander Gor'shak is locked in a cell of the Detention Block, past High Interrogator Gerstahn: a rogue can pick the lock, or Gerstahn drops the key. Leave his next task, What Is Going On?, an escort deeper in. Not going? Right-click this step.
 
 # Kargath, Grom'gol and Orgrimmar --------------------------------------------------------------------
 
@@ -106,6 +130,14 @@ tip Zilzibin is in the Drag. This one is handed in at Gadgetzan in a later guide
 accept 91735
 tip Jes'rimon hides upstairs in one of the tall buildings of the Drag.
 accept 3504
+accept 8151
+tip Hunters only: Ormak Grimshot, the hunter trainer in the Valley of Honor, sends you to Ogtinc in Azshara.
+accept 8250
+tip Mages only: Uthel'nay, in the Darkbriar Lodge of the Valley of Spirits, sends you to Sanath Lim-yo, at the foot of Archmage Xylem's tower in Azshara.
+accept 8254
+tip Priests only: Ur'kyo, with the priest trainers in the Valley of Spirits, sends you to Ogtinc in Azshara.
+ah 8256.1 npc 8673
+tip Priests only: Ogtinc's third task wants an Ichor of Undeath, which drops from the undead of the Plaguelands and Winterspring, none on this route. Buy one here if it's cheap; without it, skip The Ichor of Undeath when Ogtinc offers it.
 train 3353 3352 3401 6014 3344 5882 3326
 tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
 fly "Splintertree Post, Ashenvale" npc 3310
@@ -157,9 +189,19 @@ tip Jes'rimon and Magatha are handed in by later guides, in Orgrimmar and Thunde
 
 # Archmage Xylem and Ursolan ------------------------------------------------------------------------------
 
+turnin 8250
+tip Mages only: Sanath Lim-yo stands at the foot of Xylem's mountain. Speak to him again and he teleports you up to the tower; Nyrill, at the top, sends you back down.
 turnin 3561
 tip Xylem walks the floors of his tower north of Valormok.
 accept 3565
+accept 8251
+tip Mages only: ten Glittering Dust from the Blood Elf Surveyors and Reclaimers of the Thalassian Base Camp, beside the Legashi camps.
+turnin 8151
+tip Hunters only: Ogtinc sits on a narrow ledge high on the cliffs: mind the drop on the way up. Leave his next task, Courser Antlers: no guide follows the rest of his chain.
+turnin 8254
+tip Priests only.
+accept 8255
+tip Four Healthy Courser Glands from the Mosshoof Coursers that roam east of Ursolan.
 note "Ursolan: if Gatekeeper Rageroar, Furze and Elder Bramblesnap offer you nothing, your Timbermaw standing is too low for them. Skip their quests: right-click the first step of each (Encroaching Corruption, An Unlikely Source and so on), and that quest's other steps go with it. The Legashi Threat and Blue Gold don't need them" npc 236573
 turnin 86752
 accept 86791
@@ -195,6 +237,8 @@ do 86746
 tip The last satyrs are in the camp north-east of Korsa.
 do 91569
 tip The Blood Elf Arcanists camp along the cliffs east of Korsa. They hit like elites with Arcane Bolt and a near-instant Arcane Explosion: interrupt them. The wand is rare and drops for only one of you at a time (players report anything from a dozen kills to over a hundred): give it a few kills, then skip Blue Gold if it won't come.
+do 8251 at 56.5,28.0
+tip Mages only: the Surveyors and Reclaimers work the Thalassian Base Camp, just west of the Arcanists. Nearly every one drops Glittering Dust.
 
 # Ursolan ------------------------------------------------------------------------------------------------
 
@@ -207,9 +251,18 @@ turnin 86812
 accept 86813
 do 86813 at 45.3,22.4 icon use "Give Bramblesnap's Panacea to Furze"
 turnin 86813
+do 8255 at 50.0,27.0
+tip Priests only: the Mosshoof Coursers graze south-east of Ursolan; not every one has a healthy gland.
 
 # Back south: Ekkal, Valormok and Loh'atu ------------------------------------------------------------------
 
+turnin 8255
+tip Priests only: back to Ogtinc on his ledge, on the way south.
+accept 8256
+turnin 8256
+tip Only with an Ichor of Undeath in your bags; otherwise right-click this step. Leave his next task, Blood of Morphaz: it is done inside the Temple of Atal'Hakkar.
+turnin 8251
+tip Mages only: Xylem again, up in his tower (Sanath Lim-yo's teleport). Leave his next task, The Siren's Coral: no guide follows the rest of his chain.
 turnin 86746
 turnin 3565
 turnin 91569

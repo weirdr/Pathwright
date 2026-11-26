@@ -448,7 +448,7 @@ guide: it is taken and handed in there.
 - 1092 Gerenzo's Orders (level 22) **(added)**; level 22 vs guide 15-21
 - 1530 Call of Water (level 22)
 - 1535 Call of Water (level 22)
-- 79007 ... and that note you found (level 22) **(added)**; level 22 vs guide 15-21
+- 79007 ... and that note you found (level 22) **(added)**; level 22 vs guide 15-21 (now in The Barrens (24-25), handed in by Stranglethorn Vale (36-37))
 - 1095 Further Instructions (level 27)
 
 ## 6. Ashenvale (21-22) — 13 quests
@@ -1037,7 +1037,7 @@ guide: it is taken and handed in there.
 - 92867 Ground to Keep (level 39, Arathi Highlands): Alliance only
 - 92872 Dutiful Steps (level 38, Arathi Highlands): Alliance only
 - 95315 The Riverglades Report (level 38, Arathi Highlands): Alliance only
-- 95663 Dragonmaw Rumors (level 31, Arathi Highlands): dungeon quest
+- 95663 Dragonmaw Rumors (level 31, Arathi Highlands): dungeon quest (now in Arathi Highlands (32-33))
 - 96016 The Tempest's Weapons (level 40, Arathi Highlands): Alliance only
 - 96135 Heed My Call (level 40, Arathi Highlands): Alliance only
 - 96264 Elemental Aid (level 33, Arathi Highlands): Alliance only
@@ -1188,9 +1188,9 @@ guide: it is taken and handed in there.
 - 2203 Badlands Reagent Run II (level 44, Badlands): profession quest
 - 2339 Find the Gems and Power Source (level 44, Badlands): level 44: no visit of these guides fits (an earlier guide's quest)
 - 2340 Deliver the Gems (level 44, Badlands): level 44: no visit of these guides fits (an earlier guide's quest)
-- 3906 Disharmony of Flame (level 52, Badlands): level 52: no visit of these guides fits (an earlier guide's quest)
+- 3906 Disharmony of Flame (level 52, Badlands): level 52: no visit of these guides fits (an earlier guide's quest) (now in Searing Gorge (51-51) and Burning Steppes & Azshara (51-52))
 - 3907 Disharmony of Fire (level 56, Badlands): level 56: no visit of these guides fits (an earlier guide's quest)
-- 3981 Commander Gor'shak (level 52, Badlands): level 52: no visit of these guides fits (an earlier guide's quest)
+- 3981 Commander Gor'shak (level 52, Badlands): level 52: no visit of these guides fits (an earlier guide's quest) (now in Burning Steppes & Azshara (51-52))
 - 4062 The Rise of the Machines (level 54, Badlands): level 54: no visit of these guides fits (an earlier guide's quest)
 - 4063 The Rise of the Machines (level 58, Badlands): level 58: no visit of these guides fits (an earlier guide's quest)
 - 4081 KILL ON SIGHT: Dark Iron Dwarves (level 52, Badlands): level 52: no visit of these guides fits (an earlier guide's quest)
@@ -1363,16 +1363,16 @@ guide: it is taken and handed in there.
 - 95198 The Return of the King? (level 53, Dustwallow Marsh): Alliance only
 - 95262 The Secret Prison (level 53, Dustwallow Marsh): Alliance only
 - 95264 Shaw Needs To Know (level 53, Dustwallow Marsh): Alliance only
-- 95284 The Elite of the Elite (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 95285 Right Place, Wrong Time (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 95309 No Orc Left Behind (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 96332 A Little Payback (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 96334 Blood Red Bandanas (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 95284 The Elite of the Elite (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 95285 Right Place, Wrong Time (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 95309 No Orc Left Behind (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 96332 A Little Payback (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 96334 Blood Red Bandanas (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
 - 96381 A Bit of Wet Work (level 53, Dustwallow Marsh): Alliance only
 - 98166 Your First Horse (level 40, Dustwallow Marsh): Alliance only
 - 98233 Sword in the Slime (level 42, Dustwallow Marsh): Alliance only
 - 3861 CLUCK! (level 1, Dustwallow Marsh, Hillsbrad Foothills, The Barrens, Tirisfal Glades): not in the game client
-- 95283 The Missing Kor'kron (level 53, Dustwallow Marsh, Orgrimmar): level 53: no visit of these guides fits (an earlier guide's quest)
+- 95283 The Missing Kor'kron (level 53, Dustwallow Marsh, Orgrimmar): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
 - 518 The Crown of Will (level 39, Hillsbrad Foothills): level 39: no visit of these guides fits (an earlier guide's quest)
 - 519 The Crown of Will (level 41, Hillsbrad Foothills): level 41: no visit of these guides fits (an earlier guide's quest)
 - 520 The Crown of Will (level 43, Hillsbrad Foothills): level 43: no visit of these guides fits (an earlier guide's quest)
@@ -1510,7 +1510,7 @@ guide: it is taken and handed in there.
 - 1800 Lordaeron Throne Room (level 60, Orgrimmar): not available (removed)
 - 1944 Waters of Xavian (level 26, Orgrimmar): class quest
 - 1945 Laughing Sisters (level 26, Orgrimmar): class quest
-- 2283 Necklace Recovery (level 41, Orgrimmar): level 41: no visit of these guides fits (an earlier guide's quest)
+- 2283 Necklace Recovery (level 41, Orgrimmar): level 41: no visit of these guides fits (an earlier guide's quest) (now in Stranglethorn Vale & Swamp of Sorrows (41-43))
 - 2284 Necklace Recovery, Take 2 (level 41, Orgrimmar): level 41: no visit of these guides fits (an earlier guide's quest)
 - 2341 Necklace Recovery, Take 3 (level 44, Orgrimmar): level 44: no visit of these guides fits (an earlier guide's quest)
 - 2751 Barbaric Battlements (level 32, Orgrimmar): profession quest
@@ -1525,7 +1525,7 @@ guide: it is taken and handed in there.
 - 3631 Summon Felsteed (level 40, Orgrimmar): class quest
 - 4002 The Eastern Kingdoms (level 54, Orgrimmar): level 54: no visit of these guides fits (an earlier guide's quest)
 - 4003 The Royal Rescue (level 59, Orgrimmar): level 59: no visit of these guides fits (an earlier guide's quest)
-- 4511 Calm Before the Storm (level 54, Orgrimmar): level 54: no visit of these guides fits (an earlier guide's quest)
+- 4511 Calm Before the Storm (level 54, Orgrimmar): level 54: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
 - 4737 In Search of Menara Voidrender (level 31, Orgrimmar): class quest
 - 4967 Knowledge of the Orb of Orahil (level 35, Orgrimmar): class quest
 - 4974 For The Horde! (level 60, Orgrimmar): level 60: no visit of these guides fits (an earlier guide's quest)
@@ -1553,7 +1553,7 @@ guide: it is taken and handed in there.
 - 6964 The Reason for the Season (level 60, Orgrimmar): not available (removed)
 - 6984 A Smokywood Pastures' Thank You! (level 60, Orgrimmar): not available (removed)
 - 7061 The Feast of Winter Veil (level 60, Orgrimmar): not available (removed)
-- 7068 Shadowshard Fragments (level 42, Orgrimmar): dungeon quest
+- 7068 Shadowshard Fragments (level 42, Orgrimmar): dungeon quest (now in Stranglethorn Vale & Swamp of Sorrows (41-43) to Dustwallow Marsh (43-44))
 - 7241 In Defense of Frostwolf (level 60, Orgrimmar): level 60: no visit of these guides fits (an earlier guide's quest)
 - 7341 A Fair Trade (level 60, Orgrimmar): not in the game client
 - 7490 Victory for the Horde (level 60, Orgrimmar): level 60: no visit of these guides fits (an earlier guide's quest)
@@ -1714,16 +1714,16 @@ guide: it is taken and handed in there.
 - 99204 Swift as the Wind (level 60, Orgrimmar): level 60: no visit of these guides fits (an earlier guide's quest)
 - 99215 An Epic Ride (level 60, Orgrimmar): level 60: no visit of these guides fits (an earlier guide's quest)
 - 1883 Speak with Un'thuwa (level 10, Orgrimmar, Thunder Bluff): class quest
-- 8151 The Hunter's Charm (level 52, Orgrimmar, Thunder Bluff): class quest
-- 8254 Cenarion Aid (level 52, Orgrimmar, Thunder Bluff): class quest
+- 8151 The Hunter's Charm (level 52, Orgrimmar, Thunder Bluff): class quest (now in Burning Steppes & Azshara (51-52))
+- 8254 Cenarion Aid (level 52, Orgrimmar, Thunder Bluff): class quest (now in Burning Steppes & Azshara (51-52))
 - 8410 Elemental Mastery (level 52, Orgrimmar, Thunder Bluff): class quest
 - 8817 One Commendation Signet (level 60, Orgrimmar, Thunder Bluff): not in the game client
 - 8825 Ten Commendation Signets (level 60, Orgrimmar, Thunder Bluff): not in the game client
-- 1823 Speak with Ruga (level 20, Orgrimmar, Thunder Bluff, Undercity): class quest
+- 1823 Speak with Ruga (level 20, Orgrimmar, Thunder Bluff, Undercity): class quest (now in The Barrens (24-25))
 - 1947 Journey to the Marsh (level 38, Orgrimmar, Thunder Bluff, Undercity): class quest
 - 1953 Return to the Marsh (level 40, Orgrimmar, Thunder Bluff, Undercity): class quest
-- 8250 Magecraft (level 52, Orgrimmar, Thunder Bluff, Undercity): class quest
-- 8417 A Troubled Spirit (level 52, Orgrimmar, Thunder Bluff, Undercity): class quest
+- 8250 Magecraft (level 52, Orgrimmar, Thunder Bluff, Undercity): class quest (now in Burning Steppes & Azshara (51-52))
+- 8417 A Troubled Spirit (level 52, Orgrimmar, Thunder Bluff, Undercity): class quest (now in Stranglethorn Vale & Swamp of Sorrows (50-50))
 - 8867 Lunar Fireworks (level 60, Orgrimmar, Thunder Bluff, Undercity): not available (removed)
 - 8873 The Lunar Festival (level 60, Orgrimmar, Thunder Bluff, Undercity): not available (removed)
 - 8874 The Lunar Festival (level 60, Orgrimmar, Thunder Bluff, Undercity): not available (removed)
@@ -1968,7 +1968,7 @@ guide: it is taken and handed in there.
 - 1796 Components for the Enchanted Gold Bloodrobe (level 31, The Barrens): class quest
 - 1799 Fragments of the Orb of Orahil (level 40, The Barrens): class quest
 - 1801 Tome of the Cabal (level 30, The Barrens): class quest
-- 1824 Trial at the Field of Giants (level 20, The Barrens): class quest
+- 1824 Trial at the Field of Giants (level 20, The Barrens): class quest (now in The Barrens (24-25))
 - 1825 Speak with Thun'grim (level 20, The Barrens): class quest
 - 1838 Brutal Armor (level 30, The Barrens): class quest
 - 1839 Ula'elek and the Brutal Gauntlets (level 30, The Barrens): class quest
@@ -2080,7 +2080,7 @@ guide: it is taken and handed in there.
 - 3581 Plainsrunning (level 60, Thunder Bluff): not available (removed)
 - 3786 Morrowgrain Research (level 50, Thunder Bluff): level 50: no visit of these guides fits (an earlier guide's quest)
 - 3804 Morrowgrain to Thunder Bluff (level 55, Thunder Bluff): not in the game client
-- 5095 A Call to Arms: The Plaguelands! (level 50, Thunder Bluff): level 50: no visit of these guides fits (an earlier guide's quest)
+- 5095 A Call to Arms: The Plaguelands! (level 50, Thunder Bluff): level 50: no visit of these guides fits (an earlier guide's quest) (covered: the same quest as 5094 from Undercity, which Western & Eastern Plaguelands (56-58) does)
 - 5656 Hex of Weakness (level 10, Thunder Bluff): class quest
 - 5663 Touch of Weakness (level 10, Thunder Bluff): class quest
 - 5722 Searching for the Lost Satchel (level 16, Thunder Bluff): dungeon quest
@@ -2181,9 +2181,9 @@ guide: it is taken and handed in there.
 - 4969 Knowledge of the Orb of Orahil (level 35, Undercity): class quest
 - 5643 Shadowguard (level 20, Undercity): class quest
 - 5657 Hex of Weakness (level 10, Undercity): class quest
-- 5679 Dark Sacrifice (level 20, Undercity): class quest
+- 5679 Dark Sacrifice (level 20, Undercity): class quest (now in Hillsbrad Foothills (22-24))
 - 5725 The Power to Destroy... (level 16, Undercity): dungeon quest
-- 5961 The Champion of the Banshee Queen (level 56, Undercity): level 56: no visit of these guides fits (an earlier guide's quest)
+- 5961 The Champion of the Banshee Queen (level 56, Undercity): level 56: no visit of these guides fits (an earlier guide's quest) (now in Western & Eastern Plaguelands (56-58))
 - 6003 <nyi> <txt> Green With Envy (level None, Undercity): not available (removed)
 - 6521 An Unholy Alliance (level 36, Undercity): dungeon quest
 - 6841 <UNUSED> (level 55, Undercity): not available (removed)
@@ -2257,3 +2257,16 @@ guide: it is taken and handed in there.
 - 97292 Unending Torment (level 21, Undercity): level 21: no visit of these guides fits (an earlier guide's quest)
 - 97583 WRIGGLE. (level 1, Undercity): not in the game client
 - 97985 Thundering Hearts (level 33, Undercity): level 33: no visit of these guides fits (an earlier guide's quest)
+
+## Added after the comparison with RestedXP's Horde guides (November 2026)
+
+The Horde quests RestedXP's guides hand in and these guides did not: each line says which guide
+has it now ("now in"). The class quests are shown only to their class; the dungeon quests
+(Gnomeregan, Razorfen Downs, Zul'Farrak, Blackrock Depths, Uldaman, Alcaz Prison, Stratholme) are
+optional steps with a tip saying they need a group, skipped with a right-click. Still left out:
+Eye of the Emberseer (6821: it needs Duke Hydraxis' Poisoned Water and Stormers and Rumblers, level
+55 to take, and Upper Blackrock Spire), Menethil's Gift (5463: it needs The Dying, Ras Frostwhisper,
+the middle of a Scholomance chain) and Elven Legends (7482: Alliance only; the Horde one is 7481).
+Zamek's Distraction (1191), Return Trip (3421) and Meeting with the Master (3503) are gossip, not
+quests in the game client: Tanaris (43-43) has Zamek's as a note, Burning Steppes & Azshara (51-52)
+the two teleports as a tip.

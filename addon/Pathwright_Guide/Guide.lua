@@ -1335,7 +1335,7 @@ function Guide:Refresh()
     while #view.next < 12 and route.steps[index] and index <= last do
         local step = route.steps[index]
         if not step.bg and not listed[index] then
-            if not marked and step.lvl and step.lvl > level then
+            if not marked and level and step.lvl and step.lvl > level then
                 table.insert(view.next, { marker = step.lvl })
                 marked = true
             end

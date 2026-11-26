@@ -232,7 +232,7 @@ do 758 at 44.2,51.1 icon use "Use the Thunderhorn Cleansing Totem at the Thunder
 turnin 772
 tip You can drink the Water of the Seers by the village fire for the vision, but there's no need to follow it: Seer Wiserunner waits in a small cave south of Thunder Bluff.
 accept 773
-do 746
+do 746 at 33.1,54.8 mobs 2989 2990 useitem 4702
 tip The Bael'dun dwarves drop the Prospector's Picks. Use them by the forge in the digsite to break them into Broken Tools.
 
 # Back to the village

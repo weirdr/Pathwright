@@ -17,6 +17,10 @@
 #     93685, the end of the Draenethyst chain from the Swamp of Sorrows, level 55), and its Flawless
 #     Draenethyst Sphere is a drop of a level 60 elite dragon or one in thousands from anything else.
 #
+# Class quests for warriors: Warrior Kinship (8423, carried in), its Helboars killed with the boars,
+#   and War on the Shadowsworn (8424) after it, both handed in to the Fallen Hero of the Horde at the
+#   Swamp of Sorrows end of the pass. Voodoo Feathers (8425) after them is left out: its trolls are
+#   inside the Temple of Atal'Hakkar.
 # The route: from Stonard south into the Blasted Lands; the Bloodmages; the scorpid valley south of
 # them; Kum'isha and the plateau around her; the hyenas, vultures and boars of the east; back to
 # Kum'isha and north to the Bloodmages; the Dreadmaul ogres; Stonard and a flight to Kargath.
@@ -24,7 +28,7 @@
 guide Blasted Lands (50-51)
 faction horde
 levels 50 51
-carry 3568 3908 4120
+carry 3568 3908 4120 8423
 leave 3568 3908 4120
 next Searing Gorge (51-51)
 
@@ -60,6 +64,8 @@ do 2583.1 bg mobs 5993 5992 8303 "Kill boars for 6 Blasted Boar Lungs in all"
 do 2601.1 at 52.9,38.3 mobs 5991 5990 8302 "Kill Redstone Crystalhides for 11 Basilisk Brains in all"
 tip Crystalhides and Helboars graze together around Kum'isha and west of her, around 47,36. They share spawn points: killing one kind brings the other back, so kill both.
 do 2583.1 at 46.4,36.0 mobs 5993 5992 8303 "Kill Helboars for 6 Blasted Boar Lungs in all"
+do 8423 at 46.4,36.0
+tip Warriors only: seven Helboars for the Fallen Hero, from the same herd.
 
 # The hyenas, vultures and boars of the east ---------------------------------------------------------
 
@@ -82,6 +88,20 @@ turnin 2581 2583 2585
 
 accept 87451 at 42.6,13.2 icon kill "Kill Dreadmaul ogres at Dreadmaul Hold until one drops a Carved Stone Trinket, then use it to start Memories of Rockard"
 tip The ogre camp is just west of the Bloodmages; its ogres are level 45 to 47.
+
+# Warriors: the Fallen Hero and the Shadowsworn --------------------------------------------------------
+
+map Swamp of Sorrows
+turnin 8423
+tip Warriors only: ride north up the pass to the Fallen Hero of the Horde, at its Swamp of Sorrows end.
+accept 8424
+tip Twenty Adepts, ten Cultists and twenty Thugs of the Shadowsworn, back in the Blasted Lands.
+map Blasted Lands
+do 8424 at 63.6,39.2
+tip Warriors only: the Shadowsworn camp lies east of Kum'isha. Pull a few at a time: the camp is crowded.
+map Swamp of Sorrows
+turnin 8424
+tip Warriors only: the Fallen Hero again, on the way north to Stonard. Leave his next task, Voodoo Feathers: its trolls are inside the Temple of Atal'Hakkar.
 
 # Stonard, and on to Searing Gorge ---------------------------------------------------------------------
 

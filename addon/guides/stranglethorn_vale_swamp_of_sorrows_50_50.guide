@@ -17,6 +17,9 @@
 # Hinterlands), handed in to Oglethorpe in Booty Bay before An OOX of Your Own, and Grim Message
 # (2932, taken from Nimboya at Grom'gol in Stranglethorn Vale (46-47), its pike planted in the
 # Hinterlands), handed back to Nimboya as the zeppelin lands at Grom'gol.
+# Class quests for warriors: A Troubled Spirit (8417, Sorek in Orgrimmar) is handed in to the Fallen
+#   Hero of the Horde, who gives Warrior Kinship (8423, Helboars in the Blasted Lands), left to the
+#   next guide.
 # Cortello's Riddle (626) is left out: its treasure is in the Hinterlands, which no later guide visits.
 # Data fixed here: State Secrets (96379) is taken without More Valuable Than Gold (96337), a quest of
 #   the Alcaz Prison dungeon whose reward is the Document Box that State Secrets wants. Only ATT links
@@ -38,7 +41,7 @@ guide Stranglethorn Vale & Swamp of Sorrows (50-50)
 faction horde
 levels 50 50
 carry 580 1122 1444 2874 2932 3568 3908 4120
-leave 3568 3908 4120
+leave 3568 3908 4120 8423
 next Blasted Lands (50-51)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
@@ -48,6 +51,8 @@ ah 96379.1 npc 8673
 tip State Secrets, in Booty Bay, wants a Document Box: no mob in these zones drops it, so buy one here (about 27 gold, more than the quest pays). Rix may offer the quest only to those who found the box themselves: if he doesn't, a vendor buys the box back for 25 gold. Skip State Secrets if you would rather keep the gold.
 note "Buy 10 Barbecued Buzzard Wings at the auction house, for Negolash (optional)" npc 8673
 tip Negolash only comes when someone puts 10 Barbecued Buzzard Wings and 5 Junglevine Wine (sold in Booty Bay) in Captain Smotts' lifeboat. One of you brings them. A cook can make the wings from Buzzard Wings with the recipe instead. No wings? Skip Facing Negolash.
+accept 8417
+tip Warriors only: Sorek, the warrior trainer in the Valley of Honor, sends you to the Fallen Hero of the Horde in the Swamp of Sorrows.
 
 # Nesingwary's camp ---------------------------------------------------------------------------------
 
@@ -137,6 +142,10 @@ tip The Fallen Hero of the Horde stands alone in the south-west of the swamp.
 accept 2801
 do 2801 icon talk "Listen to the Fallen Hero of the Horde tell his tale"
 turnin 2801
+turnin 8417
+tip Warriors only.
+accept 8423
+tip Seven Helboars, in the Blasted Lands: the next guide kills them among the boars it hunts, and brings this back to the Fallen Hero on its way.
 turnin 624
 tip The Soggy Scroll is under water, below the bridge on the road west to Deadwind Pass.
 accept 625

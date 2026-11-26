@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795582230,
+    created = 1795636385,
     next = "Western & Eastern Plaguelands (56-58)",
     carry = { 980, 1123, 3542, 3568, 3909, 5084, 5159 },
     variants = {

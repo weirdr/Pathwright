@@ -28,14 +28,20 @@
 # - from Thunder Bluff: The Sacred Flame (1195, Zangen Stonehoof), for Ashenvale (26-28); The Flying
 #   Machine Airport (1086, Apothecary Zamah) and Pigments for Paints (97538, Tah Winterhoof): Stonetalon
 #   Mountains (25-26) does their objectives, Ashenvale (26-28) hands them in.
+# Class quests for warriors: Speak with Ruga (1823, Sorek in Orgrimmar) and Trial at the Field of
+#   Giants (1824, Ruga Ragetotem at Camp Taurajo), whose antennae drop from the silithid gathered
+#   with the eggs. Its follow-up, Speak with Thun'grim (1825), is left out: it opens a longer
+#   warrior chain no guide follows.
 # - The Ashenvale Hunt (6382, Jorn Skyseer) and Report to Kadrak (6541, Thork), for Ashenvale (26-28).
 # - for shamans, Call of Water (1534, Brine): Ashenvale (26-28) fills it, Thousand Needles (28-30)
 #   hands it in.
 # Left out:
 # - In Nightmares (3369): Falla Sagewind gives it only after The Glowing Shard (6981), which starts
 #   from a drop of Mutanus the Devourer inside Wailing Caverns (a dungeon).
-# - Stepping Stones (79192): it needs ... and that note you found (79007) first, which ends in
-#   Westfall.
+# - Stepping Stones (79192): it starts in Westfall, where ... and that note you found (79007) ends,
+#   and is handed in in Stonetalon Mountains, which no guide visits after it.
+# Left to a later guide: ... and that note you found (79007, the Burned-Out Remains at the south edge
+#   of the Field of Giants), carried to Stranglethorn Vale (36-37), the first guide near Westfall.
 # - Blueleaf Tubers (1221): the tubers grow only inside Razorfen Kraul (a dungeon).
 # The auction house: none of this guide's quest items is sold there. Thunder Bluff, the last city
 #   of the guide, gets the note for The Lost Pages (6504) of Ashenvale (26-28).
@@ -56,7 +62,7 @@ guide The Barrens (24-25)
 faction horde
 levels 24 25
 carry 529 546 567 1067 1536 6543
-leave 529 546 567 1086 1195 1534 6382 6541 6543 97538
+leave 529 546 567 1086 1195 1534 6382 6541 6543 79007 97538
 next Stonetalon Mountains (25-26)
 
 # Orgrimmar -----------------------------------------------------------------------------------------
@@ -65,6 +71,8 @@ map Orgrimmar
 goto "Off the zeppelin from Undercity, walk into Orgrimmar by its front gate" at 49.5,93.0 r 15
 train 3328 3324
 tip Thunder Bluff has no rogue or warlock trainer, so both train here, in the Cleft of Shadow: Ormok for rogues, Grol'dar further in for warlocks.
+accept 1823
+tip Warriors only: Sorek, the warrior trainer in the Valley of Honor, sends you to Ruga Ragetotem at Camp Taurajo.
 fly "Crossroads" npc 3310
 tip Doras is at the top of the tower in the Valley of Strength.
 
@@ -105,6 +113,10 @@ tip Keep The Ashenvale Hunt for Ashenvale (26-28). Mahren Skyseer waits on the c
 accept 893
 accept 879
 tip Mangletooth trades buffs for Blood Shards: spend any you carry on the way out.
+turnin 1823
+tip Warriors only: Ruga Ragetotem is inside the big hut of the camp.
+accept 1824
+tip Her trial: five Twitching Antennae from the silithid of the Field of Giants, gathered with Korran's eggs.
 
 # Owatanka and the Field of Giants ------------------------------------------------------------------
 
@@ -112,10 +124,14 @@ accept 884 at 46.5,61.3 "Kill Owatanka and open the Tailspike it drops: it start
 tip Owatanka, a blue thunder lizard, has a few spots on the plain just south and east of the camp. One Tailspike drops per kill, for one of you: it comes back in about seven minutes, maybe at another spot, for the second. Not found? Right-click this step to skip the quest.
 do 868
 tip The Silithid Mounds are spread over the Field of Giants, most of them in its west half and a cluster to the east. Each mound gives one egg: each of you digs twelve.
+do 1824
+tip Warriors only: every silithid of the Field of Giants (Creepers, Swarmers, Grubs, Protectors) can drop a Twitching Antenna.
 accept 897 at 45.0,71.0 "Kill the Silithid Harvester and open the head it drops: it starts a quest"
 tip The Silithid Harvester is a rare that comes back only after hours: if you see it, kill it, and the one who loots its head gets the quest. Not up? Right-click this step to skip it.
 accept 3513 at 46.4,72.0 "Kill Aean Swiftriver and read the Runed Scroll it drops: it starts a quest"
 tip Aean Swiftriver, a rare elite night elf (level 25), sometimes stands in the south of the Field of Giants. Easy for the two of you, but one scroll drops, for one of you, and the elf returns only after an hour or more. Not there? Right-click this step to skip it.
+accept 79007
+tip Click the Burned-Out Remains on the ground at the south edge of the Field of Giants. The charred note leads to Westfall, far away in the Eastern Kingdoms: keep it, Stranglethorn Vale (36-37) hands it in on a detour north of Nesingwary's camp.
 
 # Sulhasa, Gann Stonespire and Brine ----------------------------------------------------------------
 
@@ -177,6 +193,8 @@ tip Jorn Skyseer stands in the middle of the camp. Each turn-in shows only for t
 turnin 879
 accept 906
 tip Keep Lok's Skull: Thork at the Crossroads wants it.
+turnin 1824
+tip Warriors only: back to Ruga in her hut. Leave her next task, Speak with Thun'grim: it opens a longer warrior chain that no guide follows.
 fly "Crossroads" npc 10378
 
 # The Crossroads and Mor'shan Rampart ---------------------------------------------------------------
