@@ -10,6 +10,7 @@ mod completion;
 mod draft;
 mod edit;
 mod inns;
+mod npc_places;
 mod required;
 mod routes;
 mod timeline;

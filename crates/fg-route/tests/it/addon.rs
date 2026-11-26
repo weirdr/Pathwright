@@ -270,11 +270,11 @@ fn a_step_at_an_npc_of_npc_places_stands_where_the_file_says() {
                 },
             )
             .unwrap();
+        assert!(
+            (back.x - map.x).abs() < 0.2 && (back.y - map.y).abs() < 0.2,
+            "{back:?} vs {map:?}"
+        );
         if npc != 1 {
-            assert!(
-                (back.x - map.x).abs() < 0.2 && (back.y - map.y).abs() < 0.2,
-                "{back:?} vs {map:?}"
-            );
             assert_eq!(step.height, None);
         }
         (map.ui_map, map.x, map.y)
@@ -283,5 +283,9 @@ fn a_step_at_an_npc_of_npc_places_stands_where_the_file_says() {
     assert_eq!(accept_map(2988), (1412, 50.4, 62.8));
     let unlisted = accept_map(1);
     assert_eq!(unlisted.0, 1412);
-    assert_ne!((unlisted.1, unlisted.2), (48.3, 63.6));
+    // The place the data gives it, where the quest's giver stands.
+    assert!(
+        (unlisted.1 - 49.12).abs() < 0.01 && (unlisted.2 - 61.58).abs() < 0.01,
+        "{unlisted:?}"
+    );
 }
