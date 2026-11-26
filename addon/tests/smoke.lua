@@ -8693,10 +8693,14 @@ SuiteFontTest()
     assert(card.planned._shown and card.planned:GetText() ~= "", "numeric plan shown")
     assert(view.next[1].marker == playerLevel + 1, "numeric next-level marker kept")
     choose("mixed-plan")
-    assert(view.next[1] and view.next[1].index == 2 and not view.next[1].marker, "upcoming step without a fabricated marker")
+    -- A current step without a plan: later levels are marked against the character's own level
+    -- (commit aefd22b), using the later step's own planned level, never an invented one.
+    assert(view.next[1] and view.next[1].marker == playerLevel + 1, "later planned level marked against the character's")
+    assert(view.next[2] and view.next[2].index == 2, "upcoming step follows its marker")
     assert(not card.planned._shown and card.planned:GetText() == "", "mixed route hides an absent current plan")
     choose("unknown-plan")
     assert(not card.planned._shown and card.planned:GetText() == "", "missing plan hidden and cleared")
+    for _, v in ipairs(view.next) do assert(not v.marker, "no level marker invented for steps without a level") end
     assert(card.level:GetText():find(FG.Skin.Hex("text"), 1, true) == 1, "actual level neutral")
     hover(true)
     hover(false)
