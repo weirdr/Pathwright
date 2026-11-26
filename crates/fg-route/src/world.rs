@@ -127,6 +127,7 @@ static INN_PLACES: std::sync::LazyLock<HashMap<i64, String>> = std::sync::LazyLo
 
 /// Where an NPC stands when the data's spawns put it elsewhere (`overrides/npc_places.toml`).
 #[derive(Debug, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct NpcPlace {
     pub id: i64,
     pub map: i64,
@@ -135,6 +136,30 @@ pub struct NpcPlace {
     /// Only the steps of these quests; none: the steps of the other quests.
     #[serde(default)]
     pub quests: Vec<i64>,
+    /// Why this place is right. The file is edited by hand, and a place nobody explains is one
+    /// nobody can check; the tests of `overrides/npc_places.toml` require it.
+    pub reason: String,
+}
+
+/// The entries of `overrides/npc_places.toml`, for the tests that check them.
+///
+/// # Errors
+/// When the file does not parse, or has a key this format does not know.
+#[doc(hidden)]
+pub fn npc_place_entries() -> Result<Vec<NpcPlace>, String> {
+    read_npc_places(include_str!("../../../overrides/npc_places.toml"))
+}
+
+/// The entries of a file in the format of `overrides/npc_places.toml`. An unknown key is an
+/// error: a typo such as `quest` for `quests` would otherwise apply the entry to every quest.
+fn read_npc_places(text: &str) -> Result<Vec<NpcPlace>, String> {
+    #[derive(serde::Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct File {
+        #[serde(default)]
+        npc: Vec<NpcPlace>,
+    }
+    toml::from_str::<File>(text).map(|f| f.npc).map_err(|e| e.to_string())
 }
 
 /// The places of `overrides/npc_places.toml`, by NPC. A file that does not parse fails the
@@ -145,14 +170,8 @@ static NPC_PLACES: std::sync::LazyLock<HashMap<i64, Vec<NpcPlace>>> =
 /// The places of a file in the format of `overrides/npc_places.toml`, by NPC; the places of some
 /// quests come before the one without quests, as `guide_build.py` does: that one is for the rest.
 fn parse_npc_places(text: &str) -> HashMap<i64, Vec<NpcPlace>> {
-    #[derive(serde::Deserialize)]
-    struct File {
-        #[serde(default)]
-        npc: Vec<NpcPlace>,
-    }
-    let file: File = toml::from_str(text).expect("overrides/npc_places.toml parses");
     let mut places: HashMap<i64, Vec<NpcPlace>> = HashMap::new();
-    for n in file.npc {
+    for n in read_npc_places(text).expect("overrides/npc_places.toml parses") {
         places.entry(n.id).or_default().push(n);
     }
     for list in places.values_mut() {
@@ -179,7 +198,20 @@ pub fn npc_place(id: i64, quest: Option<i64>, ui_map: i64) -> Option<(f64, f64)>
 
 #[cfg(test)]
 mod npc_place_tests {
-    use super::{npc_place_in, parse_npc_places};
+    use super::{npc_place_in, parse_npc_places, read_npc_places};
+
+    #[test]
+    fn an_unknown_key_is_rejected() {
+        let entry = |extra: &str| format!("[[npc]]\nid = 1\nmap = 10\nx = 1.0\ny = 1.0\nreason = \"r\"\n{extra}\n");
+        assert!(read_npc_places(&entry("quests = [751]")).is_ok());
+        let err = read_npc_places(&entry("quest = [751]")).unwrap_err();
+        assert!(err.contains("quest"), "{err}");
+        assert!(read_npc_places("other = 1\n").is_err());
+        assert!(
+            read_npc_places("[[npc]]\nid = 1\nmap = 10\nx = 1.0\ny = 1.0\n").is_err(),
+            "no reason"
+        );
+    }
 
     #[test]
     fn a_place_limited_to_quests_wins_for_them_whatever_the_order() {
@@ -190,18 +222,21 @@ id = 1
 map = 10
 x = 1.0
 y = 1.0
+reason = 'r'
 [[npc]]
 id = 1
 map = 10
 x = 2.0
 y = 2.0
 quests = [751]
+reason = 'r'
 [[npc]]
 id = 2
 map = 10
 x = 3.0
 y = 3.0
 quests = [751]
+reason = 'r'
 ",
         );
         let at = |id, quest, map| npc_place_in(&places, id, quest, map);
