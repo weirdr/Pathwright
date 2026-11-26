@@ -15,6 +15,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 - Tauren Starter (1-13): the Broken Tools step now also offers the Bael'dun Appraiser as a target button after the Digger, and the Prospector's Pick button follows the quest item button setting.
 - Tauren Starter (1-13): the steps with Morin Cloudstalker now point to where he stands (50.4, 62.8).
 - Tauren Starter (1-13): the steps at Krang Stonehoof, the warrior trainer in Bloodhoof Village, now point to where he stands (48.3, 63.6) instead of a spot north of him.
+- Guides the app writes now point to where Krang Stonehoof (48.3, 63.6) and Morin Cloudstalker (50.4, 62.8) stand in Bloodhoof Village, as the built-in guides do.
 - Skyborne Starter (1-13): Vulgara's Head now warns that Vulgara is an elite who may need a group, and that the quest can be skipped if it is too hard.
 - Undead Starter (1-13): the Samuel Fipps step now completes by itself once you have looted his remains. It stays done after you bury them or hand in Marla's Last Wish.
 - Desolace (34-36), Ashenvale (26-28), Desolace & Shen'dralas (43) and Western & Eastern Plaguelands (56-58): the steps that ask you to kill for an item (the Flayed Demon Skin, the Etched Phial, the Tattered Journal, the Dalson Cabinet Key) now complete by themselves once you have looted it.

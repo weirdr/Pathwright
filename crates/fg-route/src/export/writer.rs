@@ -140,6 +140,13 @@ impl StepWriter<'_> {
             }
         };
         Self::set_place(&mut step, place, self.planner.world);
+        // An NPC the data places wrongly stands where `overrides/npc_places.toml` says.
+        if let (Some(t), Some(map)) = (&step.target, &mut step.map)
+            && t.kind == TargetKind::Npc
+            && let Some((x, y)) = crate::world::npc_place(t.id, step.quest, map.ui_map)
+        {
+            (map.x, map.y) = (x, y);
+        }
         // In a dungeon (entering it, or a stop inside): a zone of its own, the dungeon.
         let dungeon = match &t.event {
             Event::Enter { dungeon } => Some(*dungeon),

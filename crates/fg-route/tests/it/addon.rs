@@ -228,3 +228,37 @@ fn a_bind_step_of_a_guide_has_the_place_of_its_innkeeper() {
     let unlisted = bind_step(1);
     assert_eq!((unlisted.inn, unlisted.inn_areas), (None, Vec::new()));
 }
+
+/// A guide written by the app places the NPCs of `overrides/npc_places.toml` where it says, and
+/// not where the spawns of the data put them: Krang Stonehoof at 48.3, 63.6, Morin Cloudstalker at
+/// 50.4, 62.8. An NPC not listed keeps its place.
+#[test]
+fn a_step_at_an_npc_of_npc_places_stands_where_the_file_says() {
+    use crate::common::leveling;
+    use fg_route::export::{StepKind, build};
+    use fg_route::model::testing::Q;
+    use fg_route::plan::{Kind, Planner, Stop};
+    let accept_map = |npc: i64| {
+        // The zone's id is its map's in the test world.
+        let mut p = leveling(5)
+            .zone(1412, "Mulgore")
+            .quest(Q::new(900, "Krang's Errand").giver(1412, 49.12, 61.58))
+            .build();
+        let index = p.model.quests.iter().position(|q| q.id == 900).unwrap();
+        p.model.quests[index].starts[0].id = npc;
+        let planner = Planner::new(&p.model, &p.world, &p.params, &p.profile);
+        let route = [Stop {
+            index: index as u32,
+            kind: Kind::Accept,
+        }];
+        let guide = build(&planner, &p.profile, &route);
+        let step = guide.steps.into_iter().find(|s| s.kind == StepKind::Accept).unwrap();
+        let map = step.map.unwrap();
+        (map.ui_map, map.x, map.y)
+    };
+    assert_eq!(accept_map(3063), (1412, 48.3, 63.6));
+    assert_eq!(accept_map(2988), (1412, 50.4, 62.8));
+    let unlisted = accept_map(1);
+    assert_eq!(unlisted.0, 1412);
+    assert_ne!((unlisted.1, unlisted.2), (48.3, 63.6));
+}

@@ -125,6 +125,50 @@ static INN_PLACES: std::sync::LazyLock<HashMap<i64, String>> = std::sync::LazyLo
     inns.inn.into_iter().map(|i| (i.npc, i.place)).collect()
 });
 
+/// Where an NPC stands when the data's spawns put it elsewhere (`overrides/npc_places.toml`).
+#[derive(Debug, serde::Deserialize)]
+pub struct NpcPlace {
+    pub id: i64,
+    pub map: i64,
+    pub x: f64,
+    pub y: f64,
+    /// Only the steps of these quests; none: the steps of the other quests.
+    #[serde(default)]
+    pub quests: Vec<i64>,
+}
+
+/// The places of `overrides/npc_places.toml`, by NPC. A file that does not parse fails the
+/// build's tests rather than being ignored.
+static NPC_PLACES: std::sync::LazyLock<HashMap<i64, Vec<NpcPlace>>> = std::sync::LazyLock::new(|| {
+    #[derive(serde::Deserialize)]
+    struct File {
+        #[serde(default)]
+        npc: Vec<NpcPlace>,
+    }
+    let file: File =
+        toml::from_str(include_str!("../../../overrides/npc_places.toml")).expect("overrides/npc_places.toml parses");
+    let mut places: HashMap<i64, Vec<NpcPlace>> = HashMap::new();
+    for n in file.npc {
+        places.entry(n.id).or_default().push(n);
+    }
+    // The places of some quests first, as `guide_build.py` does: the one without quests is for the rest.
+    for list in places.values_mut() {
+        list.sort_by_key(|n| n.quests.is_empty());
+    }
+    places
+});
+
+/// The place `overrides/npc_places.toml` gives NPC `id` for a step of `quest` on map `ui_map`:
+/// its map point, when the file lists one for that map.
+#[must_use]
+pub fn npc_place(id: i64, quest: Option<i64>, ui_map: i64) -> Option<(f64, f64)> {
+    NPC_PLACES
+        .get(&id)?
+        .iter()
+        .find(|n| n.map == ui_map && (n.quests.is_empty() || quest.is_some_and(|q| n.quests.contains(&q))))
+        .map(|n| (n.x, n.y))
+}
+
 static NEXT_WORLD_ID: AtomicU32 = AtomicU32::new(1);
 
 /// Walks already worked out in this thread (`World::walk_distance_at`), by world
