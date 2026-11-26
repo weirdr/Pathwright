@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625819,
+    created = 1795636385,
     next = "Swamp of Sorrows (47-47)",
     carry = { 1118, 2741, 3520 },
     variants = {

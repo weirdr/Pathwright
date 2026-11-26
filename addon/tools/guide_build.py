@@ -52,6 +52,7 @@ Options after a step, in any order:
 
     at <x>,<y>      the place (else the data's: the NPC, the main group of its mobs)
     in <uiMap>      the map of "at" for this step only
+    useitem <id>    an item to use on this step: the toolstrip offers it as a button
     mobs <npc>...   the mobs of an objective (else the data's); makes a count-less one a kill
     r <yards>       how close a "goto" is reached
     bg              an objective done along the way, while doing the steps after it
@@ -202,14 +203,22 @@ def best_area(kind, i):
 # NPCs whose place the data gets wrong are listed in overrides/npc_places.toml.
 with open(os.path.join(ROOT, "overrides", "npc_places.toml"), "rb") as f:
     import tomllib as _toml
-    NPC_PLACES = {n["id"]: (n["map"], float(n["x"]), float(n["y"])) for n in _toml.load(f).get("npc", [])}
+    NPC_PLACES = {}
+    for _n in _toml.load(f).get("npc", []):
+        # `quests`, when given, limits the place to the steps of those quests.
+        NPC_PLACES.setdefault(_n["id"], []).append(
+            (set(_n.get("quests", [])), (_n["map"], float(_n["x"]), float(_n["y"])))
+        )
 
 
-def place_of(kind, i, prefer_area):
+def place_of(kind, i, prefer_area, quest=None):
     """(uiMap, x, y) of an NPC or object: in the zone of the moment when it spawns there, else
-    where it spawns the most. An NPC of overrides/npc_places.toml stands where that file says."""
+    where it spawns the most. An NPC of overrides/npc_places.toml stands where that file says (for
+    the steps of its `quests` only, when it lists some; the place with no `quests` is for the rest)."""
     if kind == "npc" and i in NPC_PLACES:
-        return NPC_PLACES[i]
+        for quests, where in sorted(NPC_PLACES[i], key=lambda e: not e[0]):
+            if not quests or quest in quests:
+                return where
     for a in (prefer_area, best_area(kind, i)):
         if a is None:
             continue
@@ -347,6 +356,10 @@ def parse_opts(n, words, quiet=False):
             i += 1
             while i < len(words) and words[i].isdigit():
                 o["mobs"].append(int(words[i])); i += 1
+        elif w == "useitem":
+            if i + 1 >= len(words) or not words[i + 1].isdigit():
+                fail(n, "useitem <item id>")
+            o["useitem"] = int(words[i + 1]); i += 2
         elif w == "only":
             i += 1
             start = i
@@ -361,7 +374,7 @@ def parse_opts(n, words, quiet=False):
     return o
 
 
-OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only", "have"}
+OPTION_WORDS = {"at", "in", "r", "bg", "nopre", "late", "skill", "after", "icon", "npc", "mobs", "only", "have", "useitem"}
 
 
 def opts_ok(words):
@@ -441,6 +454,8 @@ def emit(step, n, opts, filt):
         step["x"], step["y"] = opts["at"]
     if opts.get("bg"):
         step["bg"] = True
+    if opts.get("useitem"):
+        step["ui"] = opts["useitem"]
     if opts.get("icon"):
         # Not a kill: no mobs for the target buttons.
         step["ic"] = opts["icon"]
@@ -633,7 +648,7 @@ for n, text in lines:
                     step["line"], step["sk"] = opts["skill"]
             emit(step, n, opts, lambda v, a=filt, b=qf: a(v) and b(v))
             if kind in ("npc", "object"):
-                place(step, place_of(kind, eid, area))
+                place(step, place_of(kind, eid, area, q["id"]))
             if "m" not in step and len(steps) > 1:
                 # Started by an item (looted on the step before) or by no one known: where the step
                 # before is.
@@ -1271,7 +1286,7 @@ def lua(v):
     raise TypeError(v)
 
 
-ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
+ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "ui", "min",
          "inn", "ia", "pre", "pa", "alt", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")

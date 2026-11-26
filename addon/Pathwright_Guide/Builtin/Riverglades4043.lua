@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625955,
+    created = 1795636385,
     next = "Stranglethorn Vale & Swamp of Sorrows (41-43)",
     carry = { 243, 669, 1137, 1240, 1270, 1373, 1420, 95141, 95143, 97332 },
     variants = {
