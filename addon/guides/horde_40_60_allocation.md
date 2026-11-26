@@ -341,10 +341,10 @@ guide: it is taken and handed in there.
 - 1691 More Wastewander Justice (level 44)
 - 3520 Screecher Spirits (level 44); Zygor takes it in guide 4, hands it in in guide 11
 - 1172 The Brood of Onyxia (level 45)
-- 2865 Scarab Shells (level 45)
+- 2865 Scarab Shells (level 45) (now in Tanaris & Dustwallow Marsh (47-48))
 - 2873 Stoley's Shipment (level 45)
 - 2875 WANTED: Andre Firebeard (level 45)
-- 3042 Troll Temper (level 45)
+- 3042 Troll Temper (level 45) (now in Tanaris & Dustwallow Marsh (47-48))
 - 8365 Pirate Hats Ahoy! (level 45)
 - 8366 Southsea Shakedown (level 45)
 - 2781 WANTED: Caliph Scorpidsting (level 46)
@@ -597,7 +597,7 @@ guide: it is taken and handed in there.
 - 4502 Volcanic Activity (level 55); Zygor takes it in guide 13, hands it in in guide 19
 - 87492 Uncanny Crystal (level 55) **(added)**; level 55 vs guide 53-54
 - 92020 Hol'anyee's Big Book of Big Lizards (level 55) **(added)**; level 55 vs guide 53-54
-- 3962 It's Dangerous to Go Alone (level 56) **(added)**; level 56 vs guide 53-54
+- 3962 It's Dangerous to Go Alone (level 56) **(added)**; level 56 vs guide 53-54 (now in Winterspring (58-59))
 - 4292 The Bait for Lar'korwi (level 56); Zygor takes it in guide 13, hands it in in guide 19
 
 ## 20. Azshara (54-54) — 22 quests
@@ -879,7 +879,7 @@ guide: it is taken and handed in there.
 - 6844 Umber, Archivist (level 57) **(added)**; level 57 vs guide 59-60
 - 8278 Noggle's Last Hope (level 57)
 - 8281 Stepping Up Security (level 57)
-- 5163 Are We There, Yeti? (level 58); Zygor takes it in guide 23, hands it in in guide 24
+- 5163 Are We There, Yeti? (level 58); Zygor takes it in guide 23, hands it in in guide 24 (now in Winterspring (58-59), handed in by Silithus (59-60))
 - 8282 Noggle's Lost Satchel (level 58) **(added)**; level 58 vs guide 59-60
 - 8284 The Twilight Mystery (level 58)
 - 8283 Wanted - Deathclasp, Terror of the Sands (level 59) **(added)**
@@ -930,13 +930,13 @@ guide: it is taken and handed in there.
 - 3403 <UNUSED> (level 48, Azshara): not available (removed)
 - 3404 <UNUSED> (level 48, Azshara): not available (removed)
 - 3405 <UNUSED> (level 48, Azshara): not available (removed)
-- 3421 Return Trip (level 55, Azshara): not in the game client
+- 3421 Return Trip (level 55, Azshara): not in the game client (covered: Nyrill's teleport down, a gossip: a tip in Burning Steppes & Azshara (51-52))
 - 3422 <UNUSED> (level 45, Azshara): not available (removed)
 - 3423 <UNUSED> (level 45, Azshara): not available (removed)
 - 3424 <UNUSED> (level 45, Azshara): not available (removed)
 - 3425 <UNUSED> (level 48, Azshara): not available (removed)
 - 3461 Return to Tymor (level 52, Azshara): Alliance only
-- 3503 Meeting with the Master (level 55, Azshara): not in the game client
+- 3503 Meeting with the Master (level 55, Azshara): not in the game client (covered: Sanath Lim-yo's teleport up, a gossip: a tip in Burning Steppes & Azshara (51-52))
 - 3508 Breaking the Ward (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
 - 3509 The Name of the Beast (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
 - 3510 The Name of the Beast (level 58, Azshara): level 58: no visit of these guides fits (an earlier guide's quest)
@@ -956,11 +956,11 @@ guide: it is taken and handed in there.
 - 8232 The Green Drake (level 52, Azshara): class quest
 - 8235 Encoded Fragments (level 52, Azshara): class quest
 - 8236 The Azure Key (level 52, Azshara): class quest
-- 8251 Magic Dust (level 52, Azshara): class quest
+- 8251 Magic Dust (level 52, Azshara): class quest (now in Burning Steppes & Azshara (51-52))
 - 8252 The Siren's Coral (level 52, Azshara): class quest
 - 8253 Destroy Morphaz (level 52, Azshara): class quest
-- 8255 Of Coursers We Know (level 52, Azshara): class quest
-- 8256 The Ichor of Undeath (level 52, Azshara): class quest
+- 8255 Of Coursers We Know (level 52, Azshara): class quest (now in Burning Steppes & Azshara (51-52))
+- 8256 The Ichor of Undeath (level 52, Azshara): class quest (now in Burning Steppes & Azshara (51-52))
 - 8257 Blood of Morphaz (level 52, Azshara): class quest
 - 8575 Azuregos's Magical Ledger (level 60, Azshara): level 60: no visit of these guides fits (an earlier guide's quest)
 - 8720 Skygleam the Elder (level 60, Azshara): not available (removed)
@@ -1236,12 +1236,12 @@ guide: it is taken and handed in there.
 - 95198 The Return of the King? (level 53, Dustwallow Marsh): Alliance only
 - 95262 The Secret Prison (level 53, Dustwallow Marsh): Alliance only
 - 95264 Shaw Needs To Know (level 53, Dustwallow Marsh): Alliance only
-- 95283 The Missing Kor'kron (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 95284 The Elite of the Elite (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 95285 Right Place, Wrong Time (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 95309 No Orc Left Behind (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 96332 A Little Payback (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
-- 96334 Blood Red Bandanas (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest)
+- 95283 The Missing Kor'kron (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 95284 The Elite of the Elite (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 95285 Right Place, Wrong Time (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 95309 No Orc Left Behind (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 96332 A Little Payback (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
+- 96334 Blood Red Bandanas (level 53, Dustwallow Marsh): level 53: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
 - 96381 A Bit of Wet Work (level 53, Dustwallow Marsh): Alliance only
 - 98166 Your First Horse (level 40, Dustwallow Marsh): Alliance only
 - 98233 Sword in the Slime (level 42, Dustwallow Marsh): Alliance only
@@ -1253,7 +1253,7 @@ guide: it is taken and handed in there.
 - 5246 Fragments of the Past (level 56, Eastern Plaguelands): Alliance only
 - 5247 Fragments of the Past (level 57, Eastern Plaguelands): Alliance only
 - 5248 Tormented By the Past (level 58, Eastern Plaguelands): Alliance only
-- 5251 The Archivist (level 60, Eastern Plaguelands): dungeon quest
+- 5251 The Archivist (level 60, Eastern Plaguelands): dungeon quest (now in Western & Eastern Plaguelands (56-58))
 - 5263 Above and Beyond (level 60, Eastern Plaguelands): dungeon quest
 - 5282 The Restless Souls (level 60, Eastern Plaguelands): dungeon quest
 - 5463 Menethil's Gift (level 60, Eastern Plaguelands): dungeon quest
@@ -2058,8 +2058,8 @@ guide: it is taken and handed in there.
 - 3374 The Essence of Eranikus (level 55, Swamp of Sorrows): level 55: no visit of these guides fits (an earlier guide's quest)
 - 3512 In Eranikus' Own Words (level 55, Swamp of Sorrows): level 55: no visit of these guides fits (an earlier guide's quest)
 - 7562 Mor'zul Bloodbringer (level 58, Swamp of Sorrows): class quest
-- 8423 Warrior Kinship (level 52, Swamp of Sorrows): class quest
-- 8424 War on the Shadowsworn (level 52, Swamp of Sorrows): class quest
+- 8423 Warrior Kinship (level 52, Swamp of Sorrows): class quest (now in Stranglethorn Vale & Swamp of Sorrows (50-50) and Blasted Lands (50-51))
+- 8424 War on the Shadowsworn (level 52, Swamp of Sorrows): class quest (now in Blasted Lands (50-51))
 - 8425 Voodoo Feathers (level 52, Swamp of Sorrows): class quest
 - 8713 Starsong the Elder (level 60, Swamp of Sorrows): not available (removed)
 - 93176 My Little Friends (level 35, Swamp of Sorrows): level 35: no visit of these guides fits (an earlier guide's quest)
@@ -2086,9 +2086,9 @@ guide: it is taken and handed in there.
 - 3639 Show Your Work (level 47, Tanaris): profession quest
 - 3644 Membership Card Renewal (level 47, Tanaris): not in the game client
 - 4324 Yuka Screwspigot (level 53, Tanaris): level 53: no visit of these guides fits (an earlier guide's quest)
-- 4507 Pawn Captures Queen (level 54, Tanaris): level 54: no visit of these guides fits (an earlier guide's quest)
+- 4507 Pawn Captures Queen (level 54, Tanaris): level 54: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
 - 4508 Calm Before the Storm (level 54, Tanaris): Alliance only
-- 4509 Calm Before the Storm (level 54, Tanaris): level 54: no visit of these guides fits (an earlier guide's quest)
+- 4509 Calm Before the Storm (level 54, Tanaris): level 54: no visit of these guides fits (an earlier guide's quest) (now in Un'Goro Crater (53-54))
 - 4788 The Final Tablets (level 58, Tanaris): level 58: no visit of these guides fits (an earlier guide's quest)
 - 5801 Fire Plume Forged (level 57, Tanaris): Alliance only
 - 5802 Fire Plume Forged (level 57, Tanaris): level 57: no visit of these guides fits (an earlier guide's quest)
@@ -2257,7 +2257,7 @@ guide: it is taken and handed in there.
 - 5059 Locked Away (level 55, Western Plaguelands): not in the game client
 - 5092 Clear the Way (level 52, Western Plaguelands): Alliance only
 - 5093 A Call to Arms: The Plaguelands! (level 50, Western Plaguelands): level 50: no visit of these guides fits (an earlier guide's quest)
-- 5095 A Call to Arms: The Plaguelands! (level 50, Western Plaguelands): level 50: no visit of these guides fits (an earlier guide's quest)
+- 5095 A Call to Arms: The Plaguelands! (level 50, Western Plaguelands): level 50: no visit of these guides fits (an earlier guide's quest) (covered: the same quest as 5094 from Undercity, which Western & Eastern Plaguelands (56-58) does)
 - 5097 All Along the Watchtowers (level 56, Western Plaguelands): Alliance only
 - 5215 The Scourge Cauldrons (level 53, Western Plaguelands): Alliance only
 - 5216 Target: Felstone Field (level 53, Western Plaguelands): Alliance only
@@ -2343,3 +2343,16 @@ guide: it is taken and handed in there.
 - 9266 Making Amends (level 60, Winterspring): not in the game client
 - 96265 Secret of the Barrow Deeps (level 60, Winterspring): not available (incomplete)
 - 98462 Shroud of the Winter Wilds (level 60, Winterspring): not in the game client
+
+## Added after the comparison with RestedXP's Horde guides (November 2026)
+
+The Horde quests RestedXP's guides hand in and these guides did not: each line says which guide
+has it now ("now in"). The class quests are shown only to their class; the dungeon quests
+(Gnomeregan, Razorfen Downs, Zul'Farrak, Blackrock Depths, Uldaman, Alcaz Prison, Stratholme) are
+optional steps with a tip saying they need a group, skipped with a right-click. Still left out:
+Eye of the Emberseer (6821: it needs Duke Hydraxis' Poisoned Water and Stormers and Rumblers, level
+55 to take, and Upper Blackrock Spire), Menethil's Gift (5463: it needs The Dying, Ras Frostwhisper,
+the middle of a Scholomance chain) and Elven Legends (7482: Alliance only; the Horde one is 7481).
+Zamek's Distraction (1191), Return Trip (3421) and Meeting with the Master (3503) are gossip, not
+quests in the game client: Tanaris (43-43) has Zamek's as a note, Burning Steppes & Azshara (51-52)
+the two teleports as a tip.

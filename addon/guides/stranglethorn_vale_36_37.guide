@@ -11,7 +11,8 @@
 # & Swamp of Sorrows (41-43) and the guides after it.
 # Carried in (skipped by those who lack them): Hemet Nesingwary (5762, from Kravel Koalbeard at the
 #   Shimmering Flats, Thousand Needles), Hunting in Stranglethorn (5763, from Roon Wildmane in
-#   Desolace), and for warriors Cyclonian (1712, from Bath'rah in the Alterac Mountains): its 30
+#   Desolace), ... and that note you found (79007, the Burned-Out Remains in the Barrens), handed in
+#   on a detour north into Westfall, and for warriors Cyclonian (1712, from Bath'rah in the Alterac Mountains): its 30
 #   Bloodscalp Tusks drop only here; Alterac Mountains & Arathi Highlands (38-39) hands it in.
 # Left to later guides: Report to Rog'mar (95141), handed in by Riverglades (40-43), Cyclonian
 #   (1712), handed in by Alterac Mountains & Arathi Highlands (38-39), Trollbane (638, Nimboya's
@@ -29,7 +30,7 @@
 guide Stranglethorn Vale (36-37)
 faction horde
 levels 36 37
-carry 1106 1136 1373 1712 1714 5762 5763
+carry 1106 1136 1373 1712 1714 5762 5763 79007
 leave 638 1106 1136 1373 1712 1714 95141 97332
 next Dustwallow Marsh (37-38)
 
@@ -71,6 +72,8 @@ turnin 583
 accept 194
 accept 185
 accept 190
+turnin 79007
+tip Optional, a long walk: follow the road north past the Rebel Camp into Westfall and find the Burned-Out Remains on the ground west of Sentinel Hill. Don't take the Stepping Stones note there: it ends in Stonetalon Mountains. Short on time? Right-click to skip it.
 
 # Around the camp: young tigers, young panthers, crocolisks -------------------------------------------
 

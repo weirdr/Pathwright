@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795638324,
+    created = 1795636385,
     next = "Badlands (39-40)",
     carry = { 243, 638, 1106, 1136, 1240, 1270, 1276, 1373, 1712, 1714, 95141, 97332 },
     variants = {

@@ -26,7 +26,8 @@
 #   Runetotem at the Crossroads): The Barrens & Stonetalon Mountain (15-21) should take them.
 # - Journey to Tarren Mill (1065, Apothecary Zamah in Thunder Bluff, after Forsaken Aid 1064) and,
 #   for Undead priests, Dark Sacrifice (5644, Miles Welsh in Thunder Bluff): Ashenvale (21-22)
-#   should take them at its visit to Thunder Bluff.
+#   should take them at its visit to Thunder Bluff. Undead priests without it take and hand in
+#   Aelthalyste's own Dark Sacrifice (5679, exclusive with 5644) at Undercity instead.
 # - for shamans, Call of Water (1536, Brine in the Barrens): The Barrens & Stonetalon Mountain
 #   (15-21) should take it. Its waterskin is filled at the well of Tarren Mill here, and it is left
 #   to The Barrens (24-25), which hands it in to Brine.
@@ -73,6 +74,10 @@ goto "Off the zeppelin, walk into Undercity through the ruins of Lordaeron" at 6
 map Undercity
 turnin 5644
 tip Undead priests only: Aelthalyste is in the War Quarter, with the priest trainers.
+accept 5679
+tip Undead priests who never took Dark Sacrifice from Miles Welsh in Thunder Bluff: Aelthalyste gives it herself. The guide passes it once you have handed in the other one.
+turnin 5679
+tip She teaches Devouring Plague as its reward.
 accept 530
 tip Raleigh Andrean, the ex-chef, is in the Trade Quarter. He offers this to those who brought him Deliah's Ring in Silverpine Forest (13-15). Valdred Moray is at the Greymane Wall, on your way.
 fly "The Sepulcher, Silverpine Forest" npc 4551

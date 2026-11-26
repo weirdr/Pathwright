@@ -15,6 +15,21 @@
 # from Greta Mosshoof in Felwood).
 # Left to later guides: Magatha's Payment to Jediga (3562, Azshara), Cleansed Water Returns to
 # Felwood (5159), The New Springs (980, Winterspring) and Rabine Saturna (1123, Moonglade).
+# Pawn Captures Queen (4507, after Bungle in the Jungle) is taken at the hand-in of Bungle in the
+# Jungle in Gadgetzan, after the hearthstone: an optional second trip into the Gorishi hive for its
+# queen (three waves of Gorishi, then the queen) and the ride back. Calm Before the Storm
+# (4509, then 4511) follows it to Zilzibin Drumlore and Karus in Orgrimmar, the last stop.
+# Optional, for a group: the Kor'kron of Alcaz Prison, a dungeon on Alcaz Island off Dustwallow Marsh.
+# The Missing Kor'kron (95283, Eitrigg in Orgrimmar), The Elite of the Elite (95284, Nazeer Bloodpike
+# in Brackenwall) and Right Place, Wrong Time (95285, Sergeant Ulka) lead to the prison, between
+# Ratchet and Gadgetzan. Inside: No Orc Left Behind (95309, finding Commander Folkar: outof.games
+# lists no turn-in, and it is handed in to Folkar, not to Ulka as the data says), The Honor of the
+# Kor'kron (95454, Blazeroar, then the Perfumed Note), Bad News for Folkar (96369, from the note),
+# The Man in the Iron Chains (96335, Mason Connery and The Questioner's key), A Little Payback (96332,
+# the Strashaz naga and Tidemistress Ca'zass, handed in to Ulka) and Blood Red Bandanas (96334, the
+# human guards). Thrall Needs to Know (95483, Folkar to Thrall) and Blood Red Bandanas are handed in
+# in Orgrimmar at the end. The data has no giver for 95454, 95483, 96335 and 96369 nor a place for
+# the NPCs inside: the steps name them ("npc") and point at the prison's door by Ulka.
 # Left out: Zapper Fuel (4146) and Bloodpetal Zapper (4148): the Atal'ai Haze drops only inside the
 # Temple of Atal'Hakkar dungeon. It's Dangerous to Go Alone (3962): it needs Linken's Adventure
 # (3961), the end of Linken's chain done in Winterspring (58-59). Hol'anyee's Big Book of Big Lizards
@@ -41,6 +56,8 @@ tip A-Me 01, a robot in Un'Goro Crater, needs a Mithril Casing. Nothing in the c
 ah 4496.2 npc 8673
 ah 3761.1 npc 8673
 tip Un'Goro Soil: 5 for Alchemist Pestlezugg and 20 for Thunder Bluff, so 25 in all. It also comes from the dirt piles all over the crater.
+accept 95283
+tip Optional, for Alcaz Prison, a dungeon off Dustwallow Marsh: Eitrigg, in Grommash Hold, has lost a Kor'kron squad there. The guide goes on the way, between Ratchet and Gadgetzan. Not going? Right-click this step: the whole chain goes with it.
 fly "Ratchet, The Barrens" npc 3310
 
 # Ratchet -------------------------------------------------------------------------------------------
@@ -50,7 +67,55 @@ accept 4502
 turnin 5158
 accept 5159
 tip Cleansed Water Returns to Felwood is handed in by a later guide.
+
+# Alcaz Island and Alcaz Prison (optional, a dungeon) ------------------------------------------------
+
+note "Optional, for Alcaz Prison: take the flight from Ratchet to Brackenwall Village, Dustwallow Marsh" npc 16227
+tip Not doing Alcaz Prison? Click this step and the note after the prison to pass them; the quests between pass themselves.
+map Dustwallow Marsh
+turnin 95283
+tip Nazeer Bloodpike stands in Brackenwall Village.
+accept 95284
+turnin 95284
+tip Sergeant Ulka waits on Alcaz Island, off the north-east coast of the marsh: ride east along the north shore and swim across.
+accept 95285
+do 95285 icon talk "Talk to Sergeant Ulka"
+turnin 95285
+accept 95309 96332 96334
+tip Alcaz Prison is a dungeon for five players (its quests are level 53), its door on the island by Ulka. The three tasks are all done inside.
+do 96334 bg at 70.3,18.9
+tip The Defias Bounty Hunters, Alcaz Jailers, Chaplains and the other human guards drop Blood Red Bandanas, all through the prison.
+turnin 95309 npc 260386 at 70.3,18.9
+tip Inside, take the first right, down the stairs, then keep left to Commander Folkar. Leave The Questioner, on the way, for later: his key is for another task.
+accept 95454 npc 260386 at 70.3,18.9
+do 95454 at 70.3,18.9
+tip Go left again to Zarla Ober: at 30% health she turns into Blazeroar. Kill it.
+accept 96335 npc 264770 at 70.3,18.9
+tip Mason Connery, near where Blazeroar fell, asks for the key to his shackles.
+turnin 95454 at 70.3,18.9 "Read the Perfumed Note on the floor in the middle of the room"
+accept 96369 at 70.3,18.9 "Pick up the Perfumed Note again: it starts Bad News for Folkar"
+turnin 96369 npc 260386 at 70.3,18.9
+tip Back to Commander Folkar in the room before.
+accept 95483 npc 260386 at 70.3,18.9
+tip Folkar's report goes to Thrall in Orgrimmar, at the end of this guide.
+do 96335 mobs 256236 at 70.3,18.9
+tip Go back toward the entrance and kill The Questioner, whom you passed on the way in, for the Ornate Shackle Key.
+turnin 96335 npc 264770 at 70.3,18.9
+tip Back to Mason Connery.
+do 96332.1 mobs 255995 at 70.3,18.9 "Kill 15 Strashaz Soldiers"
+tip From the entrance, the middle hallway leads to the Strashaz naga.
+do 96332.2 mobs 255373 at 70.3,18.9 "Kill 8 Strashaz Enchantresses"
+do 96332.3 at 70.3,18.9
+tip Tidemistress Ca'zass holds the end of the naga's hall. Short of kills afterwards? Your group can reset the dungeon.
+do 96334 at 70.3,18.9
+tip Short of bandanas? Any of the human guards still drops them.
+turnin 96332
+tip Sergeant Ulka is outside the door. Blood Red Bandanas goes to Eitrigg, Thrall Needs to Know to Thrall: both in Orgrimmar, at the end of this guide.
+note "Swim back to the shore, ride west to Brackenwall Village and take the flight to Gadgetzan" npc 11899
+tip Click this step once you are on your way: taking off passes the flight step after it.
+map The Barrens
 fly "Gadgetzan, Tanaris" npc 16227
+tip Skipped Alcaz Prison? Fly from Ratchet to Gadgetzan.
 
 # Gadgetzan ------------------------------------------------------------------------------------------
 
@@ -191,6 +256,19 @@ grind 54 at 69.0,72.0
 tip The New Frontier in Thunder Bluff needs level 54. Most duos are there by now; if not, the ravasaurs around Torwa are a quick finish.
 hearth npc 7733
 turnin 4496
+accept 4507
+tip Pestlezugg's next task hands you a Gorishi Queen Lure. Optional and hard: the queen comes out only after three waves of Gorishi. Skipping it? Right-click this step: its other steps go with it.
+
+# Optional: the Gorishi Hive Queen -------------------------------------------------------------------
+
+map Un'Goro Crater
+do 4507 at 43.9,81.4
+tip Ride back down into the crater and deep into the Gorishi hive in the south. By the tall crystal in its last chamber, use the Gorishi Queen Lure: three waves of Gorishi come first (step back into the room outside to rest between them), then the Gorishi Hive Queen, level 56. Loot her brain.
+map Tanaris
+goto "Ride back up the slope out of the crater and north to Gadgetzan" at 52.0,27.5 r 30
+turnin 4507
+accept 4509
+tip Pestlezugg sends a report to Zilzibin Drumlore in Orgrimmar, at the end of this guide.
 
 # Camp Mojache --------------------------------------------------------------------------------------
 
@@ -226,5 +304,14 @@ map The Barrens
 turnin 4147 4502
 fly "Orgrimmar, Durotar" npc 16227
 map Orgrimmar
+turnin 96334
+tip Eitrigg is in Grommash Hold.
+turnin 95483
+tip Thrall, in Grommash Hold too.
+turnin 4509
+tip Zilzibin Drumlore is in the Drag, upstairs.
+accept 4511
+turnin 4511
+tip Karus, the banker of the Valley of Strength, takes the last report.
 train 3353 3352 3401 6014 3344 5882 3326
 note "The next guide, Azshara: from Doras, fly to Valormok" npc 3310

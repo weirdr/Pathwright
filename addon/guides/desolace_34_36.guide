@@ -39,8 +39,8 @@
 guide Desolace (34-36)
 faction horde
 levels 34 36
-carry 1106 1136 1362 1432 1712 1714 5361 5762
-leave 1106 1136 1373 1712 1714 5762 5763
+carry 1106 1136 1362 1432 1712 1714 5361 5762 79007
+leave 1106 1136 1373 1712 1714 5762 5763 79007
 next Stranglethorn Vale (36-37)
 
 # Thunder Bluff: the auction house, if you pass it --------------------------------------------------

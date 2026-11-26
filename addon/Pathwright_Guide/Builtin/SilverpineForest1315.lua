@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795638324,
+    created = 1795636385,
     next = "The Barrens & Stonetalon Mountain (15-21)",
     carry = { 93739, 94913, 98024 },
     variants = {

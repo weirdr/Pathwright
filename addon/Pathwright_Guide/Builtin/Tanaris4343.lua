@@ -8,9 +8,9 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795638324,
+    created = 1795639183,
     next = "Dustwallow Marsh (43-44)",
-    carry = { 243, 1117, 1137, 1183, 1261, 2864, 2872, 95033, 95296 },
+    carry = { 243, 1117, 1137, 1183, 1261, 2864, 2872, 7068, 95033, 95296 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },
         { race = 2, class = 3, faction = "Horde" },

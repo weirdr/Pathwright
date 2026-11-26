@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795638324,
+    created = 1795636385,
     carry = { 91877, 92011, 92020, 92171, 92609, 93269, 93827, 94504, 94782, 96830, 96931, 97000 },
     variants = {
         { race = 2, class = 1, faction = "Horde" },

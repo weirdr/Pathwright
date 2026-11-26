@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795638324,
+    created = 1795636385,
     next = "Mount Hyjal 2 (59-60)",
     carry = { 91952, 97319 },
     variants = {

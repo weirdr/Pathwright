@@ -7,11 +7,14 @@
 # Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
 # from the game data (data/forever.sqlite), checked against outof.games (Searing Gorge, area 51).
 # The guide's quest list is section 16 of addon/guides/horde_40_60_allocation.md.
+# Optional, for a group: The Platinum Discs (2278), at the end of Uldaman in the north of the
+# Badlands, on the way out of Kargath. Return to Thunder Bluff (2280) after it is left out.
 # Left out: The Burning Beast (81900). Its Weathered Etching stands in the Twilight camp here, but it
 # is handed in to Bloodmage Lynnore in the Blasted Lands, which neither this guide nor any later one
 # visits (and its follow-up, Chains That Bind, sits in the Blasted Lands guide before this one).
 # Left to the next guide: Dreadmaul Rock (3821), taken from Thal'trak Proudtusk in Kargath and handed
-# in to Sha'ni Proudtusk in the Burning Steppes.
+# in to Sha'ni Proudtusk in the Burning Steppes, and Disharmony of Flame (3906, Thunderheart in
+# Kargath), whose Overmaster Pyron stands by the Blackrock Depths portal in Blackrock Mountain.
 #
 # The route: a flight from Stonard to Kargath (Dreadmaul Rock) and the gate into the Gorge; Thorium
 # Point (flight path, the bounty board, Hansel and Burninate); Velarok Windblade at the Cauldron and
@@ -24,7 +27,7 @@ guide Searing Gorge (51-51)
 faction horde
 levels 51 51
 carry 3568 3908 4120
-leave 3568 3821 3908 4120
+leave 3568 3821 3906 3908 4120
 next Burning Steppes & Azshara (51-52)
 
 # Stonard and Kargath ------------------------------------------------------------------------------
@@ -36,6 +39,17 @@ tip Even if you know Thorium Point, fly to Kargath: Dreadmaul Rock starts there.
 map Badlands
 accept 3821
 tip Thal'trak Proudtusk paces the road at the west end of Kargath and only offers the quest when he stops. Its hand-in is in the Burning Steppes, in the next guide.
+accept 3906
+tip Thunderheart patrols around Kargath: find him or wait for him to come back. Overmaster Pyron stands by the Blackrock Depths portal inside Blackrock Mountain, on the way into the Burning Steppes: the next guide kills him.
+
+# Uldaman (optional, a dungeon) --------------------------------------------------------------------
+
+accept 2278 at 44.6,12.1
+tip Optional, with a group: Uldaman is a dungeon for five players, its entrance in the north of the Badlands. The Discs of Norgannon lie in the chamber behind Archaedas, its last boss. Not going? Right-click this step: its other steps go with it.
+do 2278 at 44.6,12.1
+tip Talk to the Lore Keeper of Norgannon at the discs and hear him out to the end.
+turnin 2278 at 44.6,12.1
+tip Click the discs again. Leave the task after it, Return to Thunder Bluff: no guide follows the rest of the chain.
 
 # Into the Gorge and Thorium Point -----------------------------------------------------------------
 

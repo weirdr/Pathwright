@@ -44,8 +44,8 @@
 guide Hillsbrad Foothills (30-32)
 faction horde
 levels 30 32
-carry 63 529 546 567 1112 1791
-leave 96 1112 1712 1714
+carry 63 529 546 567 1112 1791 79007
+leave 96 1112 1712 1714 79007
 next Arathi Highlands (32-33)
 
 # Undercity -------------------------------------------------------------------------------------------

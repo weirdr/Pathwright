@@ -19,7 +19,7 @@
 guide Dustwallow Marsh (43-44)
 faction horde
 levels 43 44
-carry 1118 1261 95033
+carry 1118 1261 7068 95033
 leave 1118 95033
 next Tanaris (44-44)
 
@@ -107,6 +107,8 @@ turnin 1262
 tip Zor Lonetree stands in the Valley of Wisdom.
 accept 7541
 turnin 7541
+turnin 7068
+tip Uthel'nay is in the Darkbriar Lodge, in the Valley of Spirits.
 train 3353 3352 3401 6014 3344 5882 3326
 tip Paladins and druids have no trainer here: paladins train in Undercity or Thunder Bluff, druids in Thunder Bluff.
 hearth npc 7733

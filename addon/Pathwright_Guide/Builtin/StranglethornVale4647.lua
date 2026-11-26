@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795638324,
+    created = 1795636385,
     next = "Swamp of Sorrows (47-47)",
     carry = { 1118, 2741, 3520 },
     variants = {
@@ -84,7 +84,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in The Fate of Yenniku to Kin'weelay", q = 588, n = "Kin'weelay", e = "npc", id = 2519, m = 1434, x = 32.27, y = 27.71, lvl = 46 },
         { k = "accept", t = "Accept The Singing Crystals from Kin'weelay", q = 589, n = "Kin'weelay", e = "npc", id = 2519, m = 1434, x = 32.27, y = 27.71, min = 30, pa = { 588 }, nt = { { l = 2, t = "Keep the shards for later: the basilisks are on the way back from the Zanzil camps." } }, lvl = 46 },
         { k = "fly", t = "Fly to Booty Bay", n = "Booty Bay", e = "taxi", id = 18, m = 1434, x = 32.47, y = 29.28, lvl = 46 },
-        { k = "accept", t = "Accept The Captain's Chest from Captain Hecklebury Smotts", q = 8551, n = "Captain Hecklebury Smotts", e = "npc", id = 2500, m = 1434, x = 26.89, y = 73.79, min = 35, lvl = 46, wp = { -14444, 510 } },
+        { k = "accept", t = "Accept The Captain's Chest from Captain Hecklebury Smotts", q = 8551, n = "Captain Hecklebury Smotts", e = "npc", id = 2500, m = 1434, x = 26.89, y = 73.79, min = 35, alt = { 614 }, lvl = 46, wp = { -14444, 510 } },
         { k = "accept", t = "Accept Get the Goods from Caravaneer Ruzzgot", q = 95322, n = "Caravaneer Ruzzgot", e = "npc", id = 3945, m = 1434, x = 27.57, y = 74.36, min = 36, pa = { 95295 }, lvl = 46 },
         { k = "accept", t = "Accept Akiris by the Bundle from Privateer Bloads", q = 617, n = "Privateer Bloads", e = "npc", id = 2494, m = 1434, x = 27.03, y = 76.69, min = 38, nt = { { l = 2, t = "Privateer Bloads walks around the docks." } }, lvl = 46 },
         { k = "turnin", t = "Turn in Back to Booty Bay to Crank Fizzlebub", q = 1118, n = "Crank Fizzlebub", e = "npc", id = 2498, m = 1434, x = 27.1, y = 77.28, nt = { { l = 2, t = "Bring Kravel's Scheme with you." } }, lvl = 46 },
