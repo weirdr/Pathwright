@@ -55,8 +55,8 @@
 guide Desolace & Shen'dralas (43-43)
 faction horde
 levels 43 43
-carry 243 1117 1137 1183 1261 1373 2864 2872 93464 95033 95296
-leave 243 1117 1137 1183 1261 2864 2872 95033 95296
+carry 243 1117 1137 1183 1261 1373 2864 2872 7068 93464 95033 95296
+leave 243 1117 1137 1183 1261 2864 2872 7068 95033 95296
 next Tanaris (43-43)
 
 # Orgrimmar: the auction house ------------------------------------------------------------------------
@@ -97,6 +97,8 @@ accept 93465
 
 do 96222 at 29.6,52.0 "Get a War Horn Mouthpiece from the Maraudine centaurs, sound it on the highest peak and kill Khan Hratha"
 tip The mouthpiece is a rare drop. Khan Hratha is elite; one summon is enough for both of you.
+do 7068
+tip The Shadowshard Rumblers and Smashers (level 40-42 elites) fill the caves outside the entrance of Maraudon, just west of the Valley of Spears: no need to enter the dungeon. They drop a fragment most of the time; each of you needs ten.
 accept 6132
 do 6132 at 34.0,53.5 "Escort Melizza Brimbuzzle out of the Valley of Spears"
 tip Melizza runs east out of the valley; keep the centaurs off her.

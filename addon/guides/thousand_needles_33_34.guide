@@ -17,6 +17,10 @@
 #   (1106) for Badlands (39-40), Frostmaw (1136) for Badlands (39-40).
 # Left out: the Gnomeregan quests, A Fine Mess (2904), Rig Wars (2841) and Grime-Encrusted Ring
 #   (2945): their objectives are inside the dungeon.
+# Optional, for a group: The Sparklematic 5200! (2951), a Grime-Encrusted Object from the troggs
+#   and Leper Gnomes washed in the machine of the Clean Zone, inside Gnomeregan, which Scooty's
+#   transponder reaches from Booty Bay. The other two Sparklematic quests (4601, 4602) are the same
+#   one for the Alliance; the guide passes the step for those who did one.
 #
 # The route: the zeppelin to Orgrimmar and a flight to Freewind Post; the Shimmering Flats, one loop
 # around them from the Mirage Raceway; a flight to Ratchet and the Crossroads, then Orgrimmar; the
@@ -27,8 +31,8 @@
 guide Thousand Needles (33-34)
 faction horde
 levels 33 34
-carry 96 1112 1712 1714
-leave 1106 1136 1362 1432 1712 1714 5361 5762
+carry 96 1112 1712 1714 79007
+leave 1106 1136 1362 1432 1712 1714 5361 5762 79007
 next Desolace (34-36)
 
 # Orgrimmar -------------------------------------------------------------------------------------------
@@ -162,7 +166,18 @@ turnin 2842
 accept 2843
 do 2843 at 27.6,77.4 icon text "Wait by Scooty while he calibrates the Goblin Transponder"
 turnin 2843
-tip The transponder takes you to Gnomeregan from Scooty's pad; you don't need it for this guide.
+tip The transponder on Scooty's pad now takes you to the entrance of Gnomeregan, a dungeon, in Dun Morogh.
+
+# Gnomeregan (optional, a dungeon) ---------------------------------------------------------------------
+
+note "Optional, with a group: step onto the Goblin Transponder to teleport to the entrance of Gnomeregan" at 27.6,77.4
+tip Gnomeregan is a dungeon for five players of about level 29-38. Not going? Right-click this step and the three after it, then use your hearthstone.
+accept 2951 at 24.3,39.8 in Dun_Morogh
+tip The Sparklematic 5200 is a cleaning machine in the Clean Zone, inside Gnomeregan, south-west of the round hall near the start: keep to the ramps rather than jumping down. Take its quest when you reach it.
+do 2951 at 24.3,39.8 in Dun_Morogh "Inside Gnomeregan, kill the troggs and Leper Gnomes until one drops a Grime-Encrusted Object"
+tip The Caverndeep troggs and the irradiated invaders on the way in drop the most: the one you loot on the way down is enough. Each of you needs one.
+turnin 2951 at 24.3,39.8 in Dun_Morogh
+tip It costs 3 copper per wash and gives a random item for the object you put in.
 hearth npc 11116
 
 # Freewind Post, the raceway and Thunder Bluff --------------------------------------------------------

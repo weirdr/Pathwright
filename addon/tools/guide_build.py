@@ -9,7 +9,9 @@ The script (addon/guides/*.guide) says the order: which quests to take, do and h
 train, sell or set the hearthstone. The game data (data/forever.sqlite.zst) fills in the rest: who
 gives and takes each quest and where they stand, what each objective needs, where its mobs or
 objects are, who drops its items, the levels, the prerequisites. A quest made for one faction or
-class is kept for those characters only.
+class is kept for those characters only. A quest taken that is the same quest as another one (the
+same name, linked as exclusive in the data) gets the other ids (`alt`): the addon passes it once
+one of them is done or in the log.
 
 Script lines (one step each, "#" starts a comment, blank lines are ignored):
 
@@ -614,6 +616,15 @@ for n, text in lines:
                     step["pre"] = q["pre"]
                 if q["pa"]:
                     step["pa"] = q["pa"]
+                # Its exclusive alternatives that are the same quest from another giver (same
+                # name): once one is done or in the log, this one cannot be taken, and the addon
+                # passes the step. The data's other exclusive links join different quests that
+                # can follow each other (Sister Pamela and Little Pamela), so they are not used.
+                alt = [o for (o,) in rows("""select l.other_id from m_quest_link l join m_quest o on o.id=l.other_id
+                                             where l.quest_id=? and l.kind='exclusive' and o.name=?
+                                             order by l.other_id""", q["id"], q["name"])]
+                if alt:
+                    step["alt"] = alt
                 # A profession's quest: only with that profession.
                 m = re.match(r"^Camping 101: (.+)$", q["name"])
                 if m and m.group(1) in PROFESSION_LINES:
@@ -1261,10 +1272,10 @@ def lua(v):
 
 
 ORDER = ["k", "t", "q", "o", "ic", "n", "e", "id", "c", "by", "hv", "hq", "m", "x", "y", "r", "spots", "mobs", "mi", "min",
-         "inn", "ia", "pre", "pa", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
+         "inn", "ia", "pre", "pa", "alt", "line", "sk", "bg", "path", "nt", "lvl", "only", "wp", "wv"]
 slug = re.sub(r"[^A-Za-z0-9]", "", guide["name"])
 path = os.path.join(args.out, slug + ".lua")
-src = os.path.relpath(args.script)
+src = os.path.relpath(args.script).replace(os.sep, "/")
 with open(path, "w", encoding="utf-8") as out:
     out.write(f"-- Built by addon/tools/guide_build.py from {src} and the game data. Do not edit:\n")
     out.write("-- change the script and build again.\n")

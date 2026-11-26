@@ -13,6 +13,8 @@
 #   Jarl Needs a Blade (81570): the other version of 1203 (they exclude each other and share one
 #   completion flag); it wants item 217281, which is not in the realm's item data, and it has never
 #   been seen in the game. The guide does 1203, the one seen in the game.
+# Optional, for a group: Scourge of the Downs (3523), Belnistrasz in Razorfen Downs, on a detour south
+#   from Camp Taurajo. The next task (3525) is the dungeon's fight at the idol and is left out.
 # Left to later guides: The Troll Witchdoctor (1240) and Stinky's Escape (1270), handed in by
 #   Stranglethorn Vale & Swamp of Sorrows (41-43); The Black Shield (1276), handed in by Badlands
 #   (39-40); Into the Field (243), handed in by Tanaris (43-43).
@@ -46,6 +48,14 @@ note "Buy 3 Soothing Spices each from Xen'to, the cooking supplier, for Jarl" np
 tip Keep the spices: no Horde vendor in Dustwallow Marsh sells them.
 fly "Camp Taurajo, The Barrens" npc 3310
 tip Already have the flight path to Brackenwall Village? Fly there instead, and take the Shady Rest Inn on your first ride south.
+
+# Razorfen Downs (optional, a dungeon) ---------------------------------------------------------------
+
+map The Barrens
+accept 3523 at 49.0,93.9
+tip Optional, with a group: Razorfen Downs is a dungeon for five players of about level 35-40, at the far south of the Barrens, where the road climbs into Thousand Needles. Belnistrasz waits past the Murder Pens: take the left path inside and keep left. Not going? Right-click this step and the next.
+turnin 3523 at 49.0,93.9
+tip Hand it straight back to Belnistrasz. Take Extinguishing the Idol, the next task, only when the whole group is ready: it starts a long fight to protect Belnistrasz at the idol.
 
 # The Shady Rest Inn ------------------------------------------------------------------------------
 

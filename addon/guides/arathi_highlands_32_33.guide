@@ -18,6 +18,9 @@
 #   Defiler's Basic Care Package (8263): it needs Friendly with the Defilers, earned in Arathi Basin.
 #   The Battle for Arathi Basin! (8170): its objectives are inside the Arathi Basin battleground.
 #   Crystal in the Mountains (635): it starts from the Pendant of Myzrael, a very rare world drop.
+# Dragonmaw Rumors (95663, Zaruk in Hammerfall): its Deathstalker Agent stands outside the
+#   Excavation Site dungeon in the Wetlands, an optional detour south over the Thandol Span. The
+#   agent's next task (95682) is done inside the dungeon and is left out.
 #
 # The route: Tarren Mill; a flight to Undercity and back for the hand-ins and the Dabyrie quest; the
 # road east through Thoradin's Wall, the Boulderfist Outpost and the Dabyrie Farmstead on the way to
@@ -28,8 +31,8 @@
 guide Arathi Highlands (32-33)
 faction horde
 levels 32 33
-carry 96 1112 1712 1714
-leave 96 1112 1712 1714
+carry 96 1112 1712 1714 79007
+leave 96 1112 1712 1714 79007
 next Thousand Needles (33-34)
 
 # Tarren Mill -----------------------------------------------------------------------------------------
@@ -73,6 +76,8 @@ turnin 655
 accept 672 671
 accept 97539
 tip Doctor Gregory Victor is inside the longhouse.
+accept 95663
+tip Zaruk sends you to a Deathstalker Agent outside the Excavation Site in the Wetlands, a dungeon. Handed in on a detour after the Witherbark trolls; skip it if you won't go.
 
 # South: the Witherbark trolls ------------------------------------------------------------------------
 
@@ -87,6 +92,8 @@ do 677.2
 accept 92707 at 68.5,79.6 icon kill "Kill the Witherbark Goliath for its Goliath's Wristguards, then use them: they start a quest"
 tip The Goliath, a level 35 elite, stands in the south of Witherbark Village: fight it together.
 do 92707
+turnin 95663
+tip Optional, a detour: ride west to the Thandol Span, cross the bridge south into the Wetlands and follow the road south to the Angerfang Encampment, the Dragonmaw camp in the middle of the marsh. The Deathstalker Agent waits near the entrance of the Excavation Site; leave the next task, which is done inside the dungeon. Skipping it? Right-click this step.
 goto "Return to Hammerfall" at 73.8,34.0 r 20
 turnin 677
 turnin 92707

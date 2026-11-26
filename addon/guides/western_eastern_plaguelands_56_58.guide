@@ -23,6 +23,15 @@
 # in Undercity), The Everlook Report (6029), Duke Nicholas Zverenhoff (6030) and Sister Pamela (5601),
 # from Everlook.
 # Left to later guides: Glyphed Oaken Branch (4987, Thunder Bluff) and Taking Back Silithus (8276).
+# The Champion of the Banshee Queen (5961): Sylvanas' errand to Nathanos, taken in Undercity at the
+#   start and handed in at Marris Stead.
+# Optional, for a group: The Archivist (5251, Duke Nicholas Zverenhoff at Light's Hope) and The Truth
+#   Comes Crashing Down (5262, the Head of Balnazzar), both in the living half of Stratholme, on the
+#   last visit of the Eastern Plaguelands; handed in at Light's Hope after Tyr's Hand. Above and
+#   Beyond (5263) after them is left out. Menethil's Gift (5463) is left out too: it needs The Dying,
+#   Ras Frostwhisper (5462), the middle of a Scholomance chain no guide follows.
+# A Call to Arms: The Plaguelands! is taken from Harbinger Balthazad in Undercity (5094); the same
+#   quest from Thunder Bluff (5095) and Orgrimmar (5093) is passed by the addon once 5094 is done.
 #
 # The route: Undercity (the auction house) and the Bulwark; four loops from the Bulwark
 # (the Scarlet tent; Felstone, Dalson's Tears and Andorhal; Dalson's cauldron; the Writhing Haunt,
@@ -45,6 +54,8 @@ next Winterspring (58-59)
 map Undercity
 accept 5094
 tip Harbinger Balthazad walks a slow circle around the Trade Quarter.
+accept 5961
+tip Lady Sylvanas Windrunner, in the Royal Quarter, sends you to Nathanos Blightcaller in the Eastern Plaguelands.
 bind 6741
 train 4593 260093 4582 4606 4566 4563
 ah 6026.1 npc 8672
@@ -191,8 +202,9 @@ accept 8152
 
 accept 5542 5543 5544 at 5.2,35.6
 tip Tirion lives in the little house by the river.
-accept 6022 6042 6133 at 22.4,63.8
+turnin 5961 at 22.4,63.8
 tip Nathanos Blightcaller keeps to the yard of Marris Stead.
+accept 6022 6042 6133 at 22.4,63.8
 accept 6024
 tip The Torn Scroll lies at the mouth of the Undercroft, the crypt south of Marris Stead. Its writer, Infiltrator Hameya, walks far to the north-east.
 turnin 5601 5142
@@ -233,6 +245,8 @@ accept 84398 at 71.9,48.3
 do 84398
 tip The book lies inside the chapel.
 turnin 6030
+accept 5251
+tip Optional, for Stratholme, a dungeon: Duke Nicholas Zverenhoff wants Archivist Galford dead and his archive burned. The guide goes there on its last visit of the Eastern Plaguelands. Not going? Right-click this step, and later the Head of Balnazzar.
 turnin 5241
 accept 5211
 accept 6021 5281 at 69.9,53.7
@@ -411,6 +425,15 @@ tip Scourge Champions drop Fetid Skulls: wave the Mystic Crystal over each one, 
 turnin 5206
 accept 5941
 
+# Stratholme (optional, a dungeon) ------------------------------------------------------------------
+
+do 5251.1 at 26.5,10.4 "Inside Stratholme, kill Archivist Galford"
+tip Stratholme is a dungeon for five players of level 58-60, through the main gate at the north end of the Plaguewood. Galford keeps the Scarlet archive in the living half of the city.
+do 5251.2 at 26.5,10.4 icon use "Set the Scarlet Archive on fire"
+tip The archive burns right where Galford falls.
+accept 5262 at 26.5,10.4 "Kill Balnazzar at the end of the living half and loot the Head of Balnazzar: it starts a quest"
+tip Balnazzar shows himself when Grand Crusader Dathrohan, the last boss of the living half, is beaten.
+
 # Nathanos' Scarlet missions -----------------------------------------------------------------------
 
 do 6145 mobs 12337 at 54.8,46.8
@@ -421,6 +444,10 @@ do 6146 at 22.4,63.8 icon use "Open Nathanos' Chest: the Grand Crusader's Comman
 turnin 6146 at 75.2,71.2
 tip Eat the Rotten Apple at the gate of Tyr's Hand: the guise lets you walk to Crusader Lord Valdelmar.
 accept 6147 at 75.2,71.2
+turnin 5251
+tip Back north to Duke Nicholas Zverenhoff at Light's Hope, only if you went into Stratholme.
+turnin 5262
+tip Leave his next task, Above and Beyond: it is for a later, harder trip into Stratholme.
 turnin 6147 at 22.4,63.8
 accept 6148 at 22.4,63.8
 do 6148 at 57.2,64.9

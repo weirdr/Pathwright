@@ -10,8 +10,11 @@
 # Carried in: Rabine Saturna (1123), from Hamuul Runetotem in Thunder Bluff (Un'Goro Crater 53-54);
 # Glyphed Oaken Branch (4987), from Mulgris Deepriver in the Western Plaguelands (56-58).
 # Left to Silithus (59-60): Wasteland (1124) and A Reliquary of Purity (5527), from Rabine Saturna;
-# Are We There, Yeti? (5163) is left out: it is handed in to Umi in Everlook, and the scares are
-# only on the way out of Winterspring.
+# Are We There, Yeti? (5163): taken from Umi in Everlook, Legacki scared there, Sprinkle and Quixxil
+# on the way out (Gadgetzan, Marshal's Refuge), and left to Silithus (59-60), which ends with a
+# flight from Moonglade to Everlook to hand it in.
+# It's Dangerous to Go Alone (3962): Linken's last task, after Linken's Adventure, done at Fire
+# Plume Ridge before the ride to Silithus.
 # Left out: Tinkee Steamboil (4907): it opens only once Return to Tinkee is handed in at Flame Crest,
 # starts back in Everlook and leads to a Blackrock Spire dungeon quest. Wrath of the Blue Flight
 # (5161, 5162): they need The Matron Protectorate, given by Awbee inside Blackrock Spire. Red Bag
@@ -33,7 +36,7 @@ guide Winterspring (58-59)
 faction horde
 levels 58 59
 carry 1123 4987 8276
-leave 1124 5527 8276
+leave 1124 5163 5527 8276
 next Silithus (59-60)
 
 # Orgrimmar ----------------------------------------------------------------------------------------
@@ -125,6 +128,10 @@ tip The Moontouched Owlbeasts live in Owl Wing Thicket, north-east of Everlook. 
 # Everlook -----------------------------------------------------------------------------------------
 
 turnin 977
+accept 5163
+tip Umi's Mechanical Yeti: scare three goblins with it. Legacki is here in Everlook; Sprinkle in Gadgetzan and Quixxil at Marshal's Refuge come at the end of this guide, and Silithus (59-60) brings it back to Umi.
+do 5163.1 icon use "Use the Mechanical Yeti on Legacki"
+tip Legacki is in Everlook.
 
 # West again: Donova, Salfa, Timbermaw Hold, Bloodvenom Post ----------------------------------------
 
@@ -249,6 +256,8 @@ turnin 7492
 tip Talo Thornhoof stands in the big tent.
 fly "Gadgetzan, Tanaris" npc 8020
 map Tanaris
+do 5163.2 icon use "Use the Mechanical Yeti on Sprinkle"
+tip Sprinkle is in Gadgetzan.
 do 4005
 tip Ride east to Lost Rigger Cove. Stand in the circle of stones on the easternmost point and read the Book of Aquor to call Aquementas; stay inside the circle until it is beaten.
 fly "Marshal's Refuge, Un'Goro Crater" npc 7824
@@ -260,4 +269,13 @@ turnin 4005
 accept 3961
 tip J.D. Collie is in the cave at the back of the refuge.
 turnin 3961
+do 5163.3 icon use "Use the Mechanical Yeti on Quixxil"
+tip Quixxil is at Marshal's Refuge.
+accept 3962
+tip Linken's last task: kill Blazerunner and bring back the Golden Flame. Carry the Silver Totem of Aquementas he gives you.
+do 3962.1 at 49.4,49.3
+tip Blazerunner, a level 56 elite, roams the top of Fire Plume Ridge in the middle of the crater, wrapped in a fire aura. Use the Silver Totem of Aquementas near him to put out the aura, then fight him together.
+do 3962.2 at 50.3,50.0 icon pickup "Take the Golden Flame from the Ornate Chest by Blazerunner's lair"
+turnin 3962
+tip Linken, back at Marshal's Refuge, gives Linken's Boomerang and a choice of Linken's Sword of Mastery or the Spirit of Aquementas.
 note "Silithus is next: ride west out of the crater through the pass in the north-west, then on to Valor's Rest. Or fly to Cenarion Hold if you know it" npc 10583

@@ -9,8 +9,8 @@
 # guide's quest list is section 24 of addon/guides/horde_40_60_allocation.md.
 # Carried in: Wasteland (1124) and A Reliquary of Purity (5527), from Rabine Saturna in Moonglade;
 # Taking Back Silithus (8276), from Cenarion Emissary Blackhoof in Orgrimmar.
-# Not handed in here: Are We There, Yeti? (5163), Umi Rumplesnicker in Everlook; this guide's route
-# does not go to Everlook.
+# Carried in too: Are We There, Yeti? (5163), from Umi Rumplesnicker in Everlook, handed in after a
+# last flight from Moonglade to Everlook.
 # Left out:
 # - The Calling (8315): a raid quest; the Qiraji emissary it summons is a level 63 boss.
 # - The Path of the Righteous (8301), Anachronos (8303), Long Forgotten Memories (8305) and A Pawn
@@ -36,7 +36,7 @@
 guide Silithus (59-60)
 faction horde
 levels 59 60
-carry 1124 8276 5527
+carry 1124 5163 5527 8276
 
 # Valor's Rest and Southwind Village ---------------------------------------------------------------
 
@@ -239,4 +239,8 @@ map Moonglade
 turnin 5527
 turnin 6844
 tip Umber, the Cenarion Circle's archivist, is in Nighthaven.
-note "Every quest of the Horde 40-60 guides is done: the sequence is complete" at 51.7,45.1
+fly "Everlook, Winterspring" npc 12740
+map Winterspring
+turnin 5163
+tip Only if you scared the three goblins with the Mechanical Yeti in Winterspring (58-59): Umi Rumplesnicker stands in Everlook.
+note "Every quest of the Horde 40-60 guides is done: the sequence is complete" at 60.9,37.6

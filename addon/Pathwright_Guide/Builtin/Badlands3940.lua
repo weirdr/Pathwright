@@ -8,7 +8,7 @@ Pathwright.Builtin.Register({
     locale = "enUS",
     version = 1,
     format = 2,
-    created = 1795625955,
+    created = 1795639183,
     next = "Riverglades (40-43)",
     carry = { 243, 669, 687, 1106, 1136, 1240, 1270, 1276, 1373, 95141, 97332 },
     variants = {
@@ -102,7 +102,7 @@ Pathwright.Builtin.Register({
         { k = "turnin", t = "Turn in Indurium to Martek the Exiled", q = 1108, n = "Martek the Exiled", e = "npc", id = 4618, m = 1418, x = 42.32, y = 52.71, lvl = 39 },
         { k = "accept", t = "Accept News for Fizzle from Martek the Exiled", q = 1137, n = "Martek the Exiled", e = "npc", id = 4618, m = 1418, x = 42.32, y = 52.71, min = 28, pa = { 1108 }, nt = { { l = 2, t = "Martek has news for Fizzle in Thousand Needles: a later guide takes it there." } }, lvl = 39 },
         { k = "objective", t = "Dentrium Power Stone x8", q = 2418, o = 1, ic = "get", n = "Dentrium Power Stone", e = "item", id = 8009, c = 8, m = 1418, x = 47.43, y = 10.8, spots = { { m = 1418, x = 51.04, y = 14.76 }, { m = 1418, x = 49.73, y = 7.53 } }, mobs = { "Shadowforge Digger", "Shadowforge Ruffian", "Shadowforge Surveyor" }, mi = { 4846, 4845, 4844 }, lvl = 39, wp = { -6764, -3132, -6746, -3146, -6729, -3196, -6563, -3363, -6171, -3363 } },
-        { k = "objective", t = "An'Alleum Power Stone x8", q = 2418, o = 2, ic = "get", n = "An'Alleum Power Stone", e = "item", id = 8052, c = 8, m = 1418, x = 47.43, y = 10.8, spots = { { m = 1418, x = 51.04, y = 14.76 }, { m = 1418, x = 49.73, y = 7.53 } }, mobs = { "Shadowforge Digger", "Shadowforge Ruffian", "Shadowforge Surveyor" }, mi = { 4846, 4845, 4844 }, nt = { { l = 2, t = "The Shadowforge dwarves (elites, level 35-37) work the dig site in the north. An'Alleum stones drop often, Dentrium stones about one time in five." } }, lvl = 39 },
+        { k = "objective", t = "An'Alleum Power Stone x8", q = 2418, o = 2, ic = "get", n = "An'Alleum Power Stone", e = "item", id = 8052, c = 8, m = 1418, x = 47.43, y = 10.8, spots = { { m = 1418, x = 51.04, y = 14.76 }, { m = 1418, x = 49.73, y = 7.53 } }, mobs = { "Shadowforge Digger", "Shadowforge Ruffian", "Shadowforge Surveyor" }, mi = { 4846, 4845, 4844 }, nt = { { l = 2, t = "The Shadowforge dwarves (elites, level 35-37) work the dig site in the north. An'Alleum stones drop often, Dentrium stones about one time in five." }, { l = 2, t = "They sometimes drop a Shattered Necklace too: keep it, Dran Droffers in Orgrimmar buys it back in Stranglethorn Vale & Swamp of Sorrows (41-43)." } }, lvl = 39 },
         { k = "turnin", t = "Turn in Power Stones to Rigglefuzz", q = 2418, n = "Rigglefuzz", e = "npc", id = 2817, m = 1418, x = 42.27, y = 52.94, lvl = 39, wp = { -6069, -3259, -6171, -3363, -6179, -3354, -6279, -3354, -6346, -3296, -6379, -3288, -6471, -3204, -6629, -3204, -6646, -3188, -6729, -3188, -6771, -3146 } },
         { k = "turnin", t = "Turn in Study of the Elements: Rock to Lotwil Veriatus", q = 711, n = "Lotwil Veriatus", e = "npc", id = 2921, m = 1418, x = 25.8, y = 45.15, lvl = 39, wp = { -6768, -3131, -6771, -3088, -6646, -2954 } },
         { k = "accept", t = "Accept Study of the Elements: Rock from Lotwil Veriatus", q = 712, n = "Lotwil Veriatus", e = "npc", id = 2921, m = 1418, x = 25.8, y = 45.15, min = 35, pa = { 711 }, lvl = 39 },

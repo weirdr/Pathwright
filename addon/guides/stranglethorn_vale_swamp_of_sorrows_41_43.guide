@@ -32,7 +32,7 @@ guide Stranglethorn Vale & Swamp of Sorrows (41-43)
 faction horde
 levels 41 43
 carry 243 669 1137 1240 1270 1373 1420 95033 95295 95296
-leave 243 1117 1137 1183 1261 1373 2864 2872 93464 95033 95296
+leave 243 1117 1137 1183 1261 1373 2864 2872 7068 93464 95033 95296
 next Desolace & Shen'dralas (43-43)
 
 map Stranglethorn Vale
@@ -261,4 +261,10 @@ tip Druids have no trainer here: train at your next visit to Thunder Bluff.
 accept 97194
 do 97194 at 69.4,13.1 icon talk "Pay Kildar to learn Apprentice Riding"
 turnin 97194
+accept 2283
+tip Only if a Shadowforge dwarf in the Badlands dropped you a Shattered Necklace: Dran Droffers takes it at once. No necklace? Right-click this step and the two after it. Leave his next task, Necklace Recovery, Take 2: it is done inside Uldaman.
+do 2283 at 59.5,36.6 icon text "Have the Shattered Necklace in your bags"
+turnin 2283
+accept 7068
+tip Uthel'nay, in the Darkbriar Lodge of the Valley of Spirits, wants ten Shadowshard Fragments from the elementals outside Maraudon, in Desolace: the next guide gets them, Dustwallow Marsh (43-44) brings them back.
 note "You are in Orgrimmar for the next guide, in Desolace: fly to Shadowprey Village if you know it, otherwise to Sun Rock Retreat in the Stonetalon Mountains and ride south-west into Desolace"

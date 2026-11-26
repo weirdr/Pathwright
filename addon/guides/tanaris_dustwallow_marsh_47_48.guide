@@ -12,8 +12,10 @@
 # Carried in: Zanzil's Mixture and a Fool's Stout (1119, Booty Bay, a two-hour timer: the first
 # stop), The Sunken Temple (3380, Witch Doctor Uzer'i in Feralas), Screecher Spirits (3520, Yeh'kinya; its screechers are in
 # Feralas) and The Super Egg-O-Matic (2741, Gadgetzan; its Hippogryph Egg is in Feralas).
-# Left out: the Zul'Farrak dungeon quests (Scarab Shells, Troll Temper, Divino-matic Rod, The
-# Prophecy of Mosh'aru, Tiara of the Deep), The Stone Watcher and Return to Thunder Bluff (they
+# Optional, for a group: Scarab Shells (2865) and Troll Temper (3042), taken in Gadgetzan and done
+# in Zul'Farrak near the end of the guide.
+# Left out: the other Zul'Farrak dungeon quests (Divino-matic Rod, The Prophecy of Mosh'aru, Tiara
+# of the Deep), The Stone Watcher and Return to Thunder Bluff (they
 # follow The Platinum Discs from the Uldaman dungeon). The four egg quests of Curgle Cranklehop
 # (one random egg from the Egg Crate, repeatable) are a note.
 #
@@ -70,6 +72,8 @@ accept 1691
 accept 864
 tip Return to Apothecary Zinge goes to Undercity with the next guide: keep the Sealed Field Testing Kit.
 accept 2605
+accept 2865 3042
+tip Optional, for Zul'Farrak, a dungeon: Tran'rek wants Uncracked Scarab Shells and Trenton Lighthammer twenty Troll Temper. The guide goes there near its end; skip both if you won't.
 bind 7733
 tip Any mob in Tanaris can drop an OOX-17/TN Distress Beacon, about one in a hundred: keep it if one drops, this guide uses it later.
 
@@ -206,6 +210,16 @@ turnin 110
 accept 113
 turnin 113
 accept 32
+
+# Zul'Farrak (optional, a dungeon) -----------------------------------------------------------------
+
+do 3042 at 38.7,20.1 "Inside Zul'Farrak, kill the Sandfury trolls for 20 Troll Temper"
+tip Zul'Farrak is a dungeon for five players of about level 44-54, its entrance in the north-west of Tanaris. Nearly every Sandfury troll drops Troll Temper. Not going? Right-click this step, the next and the two turn-ins after the ride back.
+do 2865 at 38.7,20.1 "Inside Zul'Farrak, open Uncracked Scarab Shells from the scarabs"
+tip The Scarabs swarm by the graveyard and the pyramid; only some carry an uncracked shell. Area attacks clear them fast.
+goto "Ride back to Gadgetzan" at 52.0,27.5 r 30
+turnin 2865
+turnin 3042
 
 # The Shimmering Flats and Orgrimmar -------------------------------------------------------------
 
