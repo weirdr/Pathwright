@@ -10,6 +10,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 
 ### Guides
 
+- Swamp of Sorrows (47-47): Lack of Surplus now starts with Dar in Stonard (8 Unprepared Sawtooth Flanks, handed in at Tok'Kar), and Tok'Kar's part follows, instead of a step sending you to Tok'Kar for a quest he does not give first.
 - Bind steps in guides the app writes now name the inn at the capitals and at most towns, so a hearthstone already set there passes the step.
 - Tauren Starter (1-13): the Broken Tools step now offers the Bael'dun Digger as its first target button, and a button to use the Prospector's Pick once you carry one.
 - Tauren Starter (1-13): the Broken Tools step now also offers the Bael'dun Appraiser as a target button after the Digger, and the Prospector's Pick button follows the quest item button setting.

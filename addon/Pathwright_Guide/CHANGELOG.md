@@ -6,6 +6,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 
 ## Unreleased
 
+- Swamp of Sorrows (47-47): Lack of Surplus now starts with Dar in Stonard (8 Unprepared Sawtooth Flanks, handed in at Tok'Kar), and Tok'Kar's part follows, instead of a step sending you to Tok'Kar for a quest he does not give first.
 - The guide now plans the fastest journey to a step that is more than a walk away, from where you stand: the flight paths you know, boats, zeppelins and the hearthstone, with the walks between them found on the ground as inside a zone. The arrow and the compass lead to the next stop (a flight master, a dock) and say what to do there, the flight master's map marks the flight to take as it does for a fly step, the whole journey is said once in the chat, and `/pw way` says it again. Before, a step on another continent showed only "elsewhere". New setting under Path, on by default: "Fastest journey: flights, boats, zeppelins, hearthstone". Not while Shortest Path Forever guides.
 - The arrow over the flight to take on the flight master's map no longer has a dark border: it has a soft glow of its own green that fades out within a few pixels.
 - Tauren Starter (1-13): the Broken Tools step now offers the Bael'dun Digger as its first target button, and a button to use the Prospector's Pick once you carry one.
