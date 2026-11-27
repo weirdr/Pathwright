@@ -24,6 +24,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 - Stranglethorn Vale (46-47): the guide no longer asks for the Booty Bay flight path after it has already had you fly there, because you already know it.
 - Riverglades is now one guide, Riverglades (40-43), instead of two visits (40-41 and 44-45): the whole zone in one stay after the Badlands. The hardest fights (the Twilight's Shroud elites, the last two of the Bloodmaster's Ring) come last, and their steps say they can be skipped.
 - Around the new Riverglades guide: I Know a Guy is handed in at Booty Bay in Stranglethorn Vale & Swamp of Sorrows (41-43), Shipping and Handling at Steamwheedle Port in Tanaris (43-43), and the Lost Shipping Crate is picked up in Desolace (34-36). Overseas Delivery is no longer taken in Tanaris (44-44), which now leads straight to Feralas (45-46).
+- Riverglades (40-43): Step One: Rock is now taken from Hamur after Jom-jom's Escape, when he offers it, instead of on the first visit to Bolder'ok, when he does not.
 
 ### Addon
 
@@ -43,6 +44,7 @@ An addon change also goes, in the same words, under Unreleased in that addon's o
 - WoW Forever: the latest quest data, with named monsters and quest givers at the places they really stand instead of dozens of sightings, and more quests seen in game by players.
 - WoW Forever: more quest and creature names right in Spanish and French, and drop rates measured in game by players.
 - WoW Forever: Krol'dok Moulding for the Horde, begun by the mould Tunk drops in Krol'dok Stronghold.
+- WoW Forever: Step One: Rock needs Jom-jom's Escape first, as Hamur offers it in game.
 - WoW Forever: more Mount Hyjal quests in the guides (A Thorn in the Paw, Praise and Ends Meet), The Darkreaver Menace for Alliance shamans only, and the newest quests of the client.
 - WoW Forever: Just Compensation, Anthion's Parting Words and the epic riding quests now have their giver, the Magram clan quests of Desolace for the Horde only, and more Alterac Valley and Warsong Gulch names in French and Spanish.
 - WoW Forever: In Demand - Plague Records, In Demand - Titan Relics and Ott's Finest Work now have their giver, more quest and object names in French, German and Spanish, and fresher drop rates measured in game by players.

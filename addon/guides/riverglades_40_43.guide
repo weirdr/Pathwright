@@ -28,7 +28,9 @@
 # Data fixed here: Food for the Taking (93787) has no prerequisite (the data says A Message in
 # Blood; outof.games and the quest giver offer both at once). Smuggler's Paradise (95288) needs The
 # Goblin Trader (Horde) or A Few Furs for Friz (Alliance), not both. Paletusk Harvesting's Chunks of
-# Boar Meat drop from the Mature Paletusks here (outof.games), which the data lacks.
+# Boar Meat drop from the Mature Paletusks here (outof.games), which the data lacks. Step One:
+# Rock (95183) needs Jom-jom's Escape (seen in game; the sources give no prerequisite, see
+# overrides/database/forever/quests.toml): it is taken when Jom-jom reaches Bolder'ok.
 #
 # The route, with the hearthstone at Rog'mar all along: Rog'mar, then a flight to Undercity
 # (Armory of Sunnyglade, the auction house, level 40 training) and the hearthstone back; the plains
@@ -208,17 +210,10 @@ accept 95420
 turnin 95420
 tip Clugfist is indoors at the north end of Bolder'ok.
 accept 95424 95425
-accept 95183 npc 263440
-do 95183
-tip The good rocks are piled by the river south of Bolder'ok.
 do 95424 bg
 do 95425
 tip Klunk, a level 42 ogre, is inside the cave.
 do 95424
-turnin 95183
-accept 96026
-do 96026 at 67.2,21.8 icon text "Give Hamur 10 Heavy Weightstones"
-turnin 96026
 turnin 95424 95425
 accept 95428 94668
 turnin 94668
@@ -333,6 +328,8 @@ do 94556 at 64.6,15.0 "Escort Jom-jom to Clugfist in Bolder'ok"
 tip Keep him alive on the way to Bolder'ok.
 turnin 94556
 tip Clugfist is indoors at the north end of Bolder'ok.
+accept 95183 npc 263440
+tip Hamur stands south-east of Clugfist, near the ring. He offers it only once Jom-jom is safe.
 accept 94964
 do 94964 at 65.8,19.9 icon kill "Step into the ring and defeat Mog'thar"
 tip Mog'thar is a level 43 elite: fight him together.
@@ -340,6 +337,8 @@ turnin 94964
 accept 94733
 turnin 94733
 accept 94734
+do 95183
+tip The good rocks are piled by the river south of Bolder'ok.
 do 94734.1
 tip Look for the Freshly Picked Berries by the Windstead farmhouses.
 do 95261.1 mobs 256807 255851 at 81.3,49.2
@@ -412,6 +411,10 @@ tip Riverweed grows in the river between Rog'mar and Bolder'ok.
 turnin 94734
 accept 94737
 turnin 94737
+turnin 95183
+accept 96026
+do 96026 at 67.2,21.8 icon text "Give Hamur 10 Heavy Weightstones"
+turnin 96026
 accept 94965
 do 94965 at 65.8,19.9 icon kill "Step into the ring and defeat Snufflesnout"
 tip Snufflesnout is a level 44 elite boar. The last two ring fights are optional: stop here if he is too much.

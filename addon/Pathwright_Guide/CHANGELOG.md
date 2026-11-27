@@ -31,6 +31,7 @@ under Unreleased; `scripts/release.sh` gives them the release's version.
 - Tauren Starter (1-13): the Palemane Tanner step now points its marker at the Palemane camp south of the Winterhoof well (51.5, 73.5).
 - Riverglades is now one guide, Riverglades (40-43), instead of two visits (40-41 and 44-45): the whole zone in one stay after the Badlands. The hardest fights (the Twilight's Shroud elites, the last two of the Bloodmaster's Ring) come last, and their steps say they can be skipped.
 - Around the new Riverglades guide: I Know a Guy is handed in at Booty Bay in Stranglethorn Vale & Swamp of Sorrows (41-43), Shipping and Handling at Steamwheedle Port in Tanaris (43-43), and the Lost Shipping Crate is picked up in Desolace (34-36). Overseas Delivery is no longer taken in Tanaris (44-44), which now leads straight to Feralas (45-46).
+- Riverglades (40-43): Step One: Rock is now taken from Hamur after Jom-jom's Escape, when he offers it, instead of on the first visit to Bolder'ok, when he does not.
 - On the step that takes The Ravaged Caravan from Morin Cloudstalker, the world map draws the road he walks as a line, for as long as that step is the one to do.
 - Players' shared quest stats whose seal has the top bit set (about half of them) are no longer dropped with "integer overflow attempting to store".
 - WoW Forever: the merchant's automatic purchase of food, water and ammo works again, instead of raising an error at every merchant.

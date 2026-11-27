@@ -3499,3 +3499,10 @@ objectives = [{ type = "talk", id = 265375, amount = 1, text = "Veteran's story 
 # Ends Meet (93567) needs the quest first.
 id = 92102
 objectives = [{ type = "talk", id = 265375, amount = 1, text = "Veteran of the Third War met in Mount Hyjal" }]
+
+[[quest]]
+# Step One: Rock: Hamur in Bolder'ok offers it only once Jom-jom's Escape is done (seen in game:
+# not offered before, offered right after Jom-jom reached Clugfist). The sources give no
+# prerequisite.
+id = 95183
+pre_all = [94556]
