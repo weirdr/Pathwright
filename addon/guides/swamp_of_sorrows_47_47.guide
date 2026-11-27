@@ -4,6 +4,7 @@
 # Built into the addon with:
 #   python3 addon/tools/guide_build.py addon/guides/swamp_of_sorrows_47_47.guide --db data/forever.sqlite
 #
+# Lack of Surplus is two quests: Dar in Stonard gives 698 (flanks), Tok'Kar takes it and gives 699 (claws).
 # Research (November 2026): givers, objectives, prerequisites and the places of mobs and objects
 # from the game data (data/forever.sqlite), checked against outof.games (Swamp of Sorrows, area 8:
 # all 32 of its quests). The guide's quest list is section 10 of addon/guides/horde_40_60_allocation.md;
@@ -53,13 +54,17 @@ tip Dispatch Commander Ruag is upstairs in the big building.
 accept 2622
 turnin 2622
 tip Bengor stands inside a building by the south gate. Leave his next quest, The Swamp Talker, for a later guide.
+accept 698
+tip Dar stands in Stonard by the south gate, near Bengor. Lack of Surplus comes in two parts: he gives the first (8 Unprepared Sawtooth Flanks), Tok'Kar the second.
 
 # The Tok'Kar camp on the south-east coast ---------------------------------------------------------
 
+do 698 at 81.9,71.4
+tip Tok'Kar and Katar camp on the shore at the south-east corner of the swamp. The Sawtooth Snappers lie along the shore north of the camp; about three in ten drop a flank.
+turnin 698
 accept 699
-tip Tok'Kar and Katar camp on the shore at the south-east corner of the swamp.
-do 699 at 81.9,71.4
-tip The Sawtooth Snappers lie along the shore north of the camp; about one in four drops a claw. More of them swim along the south coast, around 89,95.
+do 699
+tip The same Sawtooth Snappers drop the claws, about one in four. More of them swim along the south coast, around 89,95.
 turnin 699
 accept 1422
 turnin 1422
