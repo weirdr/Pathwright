@@ -54,6 +54,15 @@ local function Send()
     if chunk ~= "" then C_ChatInfo.SendAddonMessage(PREFIX, chunk, "PARTY") end
 end
 
+--- The party's progress changed: the guide shows it, and moves on from an objective that waited
+--- for a member (the "partyWait" setting).
+local function GuideChanged()
+    local guide = FG.Guide
+    if not guide then return end
+    if FG:Get("partyWait") and guide.Advance then return guide:Advance() end
+    if guide.Refresh then guide:Refresh() end
+end
+
 local scheduled = false
 local function SendSoon()
     if scheduled or not C_Timer then return end
@@ -106,6 +115,8 @@ FG:On("GROUP_ROSTER_UPDATE", function()
     end
     SendSoon()
     if newcomer then AskSoon() end
+    -- A member who left holds the guide no more.
+    if FG:Get("partyWait") then GuideChanged() end
 end)
 
 FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
@@ -128,7 +139,7 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
                     Party.progress[name] = {}
                     if FG.Tracker then FG.Tracker:Refresh() end
                     if FG.Nameplates then FG.Nameplates:Refresh() end
-                    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
+                    GuideChanged()
                 end
             end)
         end
@@ -149,7 +160,7 @@ FG:On("CHAT_MSG_ADDON", function(prefix, message, _, sender)
     end
     if FG.Tracker then FG.Tracker:Refresh() end
     if FG.Nameplates then FG.Nameplates:Refresh() end
-    if FG.Guide and FG.Guide.Refresh then FG.Guide:Refresh() end
+    GuideChanged()
 end)
 
 --- Keep a party member's progress on a quest (from Questie: counts, "x" when finished).
@@ -181,6 +192,34 @@ function Party:Members(questID, objective, need)
     while #out > 4 do
         table.remove(out)
     end
+    return out
+end
+
+--- Names of the party members running the addon who have the quest and have not finished its
+--- objective `objective` (its index in the log; nil: any of its objectives), `need` being the
+--- objective's count: the guide waits for them on an objective we finished (the "partyWait"
+--- setting). A member who is offline holds nobody, nor one who has not the quest (not taken yet,
+--- or handed in), nor one heard through Questie only.
+function Party:Behind(questID, objective, need)
+    local out = {}
+    if not FG:Get("partyWait") or not FG:Get("partySync") then return out end
+    if not IsInGroup() or IsInRaid() then return out end
+    for name, quests in pairs(self.progress) do
+        local counts = quests[questID]
+        if counts and self:Uses(name) and not (UnitIsConnected and UnitIsConnected(name) == false) then
+            local behind = false
+            if objective then
+                local c = counts[objective]
+                behind = c ~= nil and c ~= "x" and not (need and tonumber(c) and tonumber(c) >= need)
+            else
+                for _, c in ipairs(counts) do
+                    if c ~= "x" then behind = true end
+                end
+            end
+            if behind then out[#out + 1] = name end
+        end
+    end
+    table.sort(out)
     return out
 end
 
@@ -398,7 +437,7 @@ function Party:Say()
         end
     end
     if not FG:Get("questShare") then
-        FG:Print(FG.T("party: sharing the quests you take is turned off (Options, World map and group)"))
+        FG:Print(FG.T("party: sharing the quests you take is turned off (Options, Party and Sync)"))
     elseif FG:Get("questShareAll") and not self:Everyone() then
         FG:Print(FG.T("party: quests are not shared until every member runs Pathwright"))
     else

@@ -8657,6 +8657,162 @@ JourneyTest = nil
 -- A UI suite writes its font on a text itself, which pins it: the font chosen in the settings is
 -- then written on the text too, and the suite's comes back with the default. Last: once a suite
 -- is ready the addon's windows have its look. (In a function: the file has its 200 locals.)
+-- Waiting for the party on objectives (the "partyWait" setting): an objective we finished holds the
+-- guide while a member running the addon has the quest and has not finished it; a member heard
+-- through Questie only, an accept step, a step passed by hand and the setting off hold nothing.
+function PartyWaitTest()
+    local P = FG.Party
+    local saved, users = P.progress, P.users
+    local objectives, isOn, titleOf = C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest, C_QuestLog.GetTitleForQuestID
+    local realParty, realGroup, realRaid, realAmb = UnitInParty, IsInGroup, IsInRaid, Ambiguate
+    local realChat, realConnected = C_ChatInfo, UnitIsConnected
+    local log = {
+        [8811] = { { text = "Wolf Pelt: 8/8", numFulfilled = 8, numRequired = 8, finished = true } },
+        [8813] = { { text = "Boar Tusk: 4/4", numFulfilled = 4, numRequired = 4, finished = true } },
+    }
+    C_QuestLog.GetQuestObjectives = function(q) return log[q] or objectives(q) end
+    C_QuestLog.IsOnQuest = function(q) return log[q] ~= nil or isOn(q) end
+    C_QuestLog.GetTitleForQuestID = function(q) return log[q] and ("Wait Quest " .. q) or titleOf(q) end
+    UnitInParty = function(name) return name == "Amy" or name == "Questy" end
+    IsInGroup, IsInRaid = function() return true end, function() return false end
+    Ambiguate = function(n) return (n:gsub("%-.*", "")) end
+    C_ChatInfo = { SendAddonMessage = function() end }
+    local online = true
+    UnitIsConnected = function() return online end
+    FG.Routes["partywait-test"] = {
+        race = 7,
+        class = 8,
+        faction = "Alliance",
+        fromLevel = 1,
+        toLevel = 60,
+        time = 1,
+        steps = {
+            {
+                k = "objective",
+                t = "Wolf Pelt x8",
+                q = 8811,
+                o = 1,
+                n = "Wolf Pelt",
+                m = 1426,
+                x = 10,
+                y = 10,
+                lvl = 1,
+            },
+            { k = "accept", t = "Accept", q = 8812, n = "Giver", m = 1426, x = 60, y = 60, lvl = 1 },
+            {
+                k = "objective",
+                t = "Boar Tusk x4",
+                q = 8813,
+                o = 1,
+                n = "Boar Tusk",
+                m = 1426,
+                x = 80,
+                y = 80,
+                lvl = 1,
+            },
+            { k = "grind", t = "Grind", lvl = 60 },
+        },
+    }
+    local function at() return FG.Guide:CurrentStep() end
+    -- On step `n`, its objective (quest `q`) just finished: as when the last of it is looted.
+    local function finish(n, q)
+        local o = log[q][1]
+        o.finished, o.numFulfilled = false, 0
+        FG.Guide:Go(n)
+        o.finished, o.numFulfilled = true, o.numRequired
+        FG.Guide:Advance()
+    end
+    local function chip()
+        for _, v in ipairs(FG.Guide.view.tasks) do
+            for _, c in ipairs(v.chips or {}) do
+                if c.color == "orange" and c.text:find("Amy", 1, true) then return v end
+            end
+        end
+    end
+    P.progress, P.users = {}, {}
+    -- Amy runs the addon and is 5/8 on our finished objective.
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "!", "PARTY", "Amy-Realm")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "8811:5", "PARTY", "Amy-Realm")
+    assert(P:Uses("Amy"), "Amy was heard running the addon")
+    -- Off (the default): our finished objective is passed.
+    assert(FG:Get("partyWait") == false, "off by default")
+    assert(#P:Behind(8811, 1, 8) == 0, "nobody holds with the setting off")
+    useRoute("partywait-test")
+    finish(1, 8811)
+    assert(at() == 2, "off: the finished objective is passed, step " .. at())
+    -- On: the guide stays on it, and says for whom.
+    FG:Save("partyWait", true)
+    assert(P:Behind(8811, 1, 8)[1] == "Amy", "Amy is behind on the objective")
+    finish(1, 8811)
+    assert(at() == 1, "on: the guide waits on the finished objective, step " .. at())
+    local v = chip()
+    assert(v and v.step.q == 8811, "the finished objective says it waits for Amy")
+    -- Its row stays a task to do: the party's progress is drawn (not on a done row), and the
+    -- toolstrip keeps the step for its target buttons.
+    assert(not v.done, "the row waiting for the party is not greyed as done")
+    assert(v.party and v.party[1].name == "Amy" and v.party[1].have == 5, "it keeps the party line: Amy (5/8)")
+    assert(v.have == 8 and v.need == 8, "with our own count, 8/8")
+    local kept = false
+    for _, s in ipairs(FG.Toolstrip.steps or {}) do
+        if s.q == 8811 then kept = true end
+    end
+    assert(kept, "the toolstrip keeps the step waiting for the party")
+    -- Offline, in a raid, or the progress sync off: nobody is waited for.
+    online = false
+    assert(#P:Behind(8811, 1, 8) == 0, "a member offline holds nobody")
+    online = true
+    IsInRaid = function() return true end
+    assert(#P:Behind(8811, 1, 8) == 0, "nobody waits in a raid")
+    IsInRaid = function() return false end
+    FG:Save("partySync", false)
+    assert(#P:Behind(8811, 1, 8) == 0, "nobody waits with the progress sync off")
+    FG:Save("partySync", nil)
+    -- Amy's count moves: still waiting; she finishes: the guide moves on by itself.
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "8811:7", "PARTY", "Amy-Realm")
+    assert(at() == 1, "7/8: still waiting")
+    fire("CHAT_MSG_ADDON", "PWSYNC1", "8811:x", "PARTY", "Amy-Realm")
+    assert(at() == 2, "Amy finished: the guide moved on, step " .. at())
+    assert(not chip(), "and nothing waits any more")
+    -- An accept step waits for nobody, whatever the party's log says.
+    P:Store("Amy", 8812, { "0" })
+    onQuest[8812] = true
+    FG.Guide:Advance()
+    assert(at() == 3 or at() == 4, "the accept is passed without Amy, step " .. at())
+    -- A member heard through Questie only holds nothing.
+    P.progress = {}
+    P:Store("Questy", 8813, { "1" })
+    assert(#P:Behind(8813, 1, 4) == 0, "a member without the addon holds nobody")
+    -- Amy is behind on the next objective: held, until we mark the step done by hand.
+    P:Store("Amy", 8813, { "1" })
+    finish(3, 8813)
+    assert(at() == 3 and chip(), "held on the next objective")
+    FG.Guide:SkipCurrent()
+    FG.Guide:Advance()
+    assert(at() == 4, "marked done by hand: on without Amy, step " .. at())
+    FG.Guide:UndoLastMark()
+    -- Amy handed the quest in (it left her log): nothing to wait for.
+    finish(3, 8813)
+    assert(at() == 3, "held again once unmarked")
+    P:Forget("Amy", 8813)
+    FG.Guide:Advance()
+    assert(at() == 4, "the quest left Amy's log: the guide moved on")
+    -- Turning the setting off lets a held step go.
+    P:Store("Amy", 8813, { "1" })
+    finish(3, 8813)
+    assert(at() == 3, "held")
+    FG:Save("partyWait", nil)
+    assert(at() == 4, "the setting turned off: the guide moved on")
+    C_QuestLog.GetQuestObjectives, C_QuestLog.IsOnQuest, C_QuestLog.GetTitleForQuestID = objectives, isOn, titleOf
+    UnitInParty, IsInGroup, IsInRaid, Ambiguate, C_ChatInfo = realParty, realGroup, realRaid, realAmb, realChat
+    UnitIsConnected = realConnected
+    P.progress, P.users = saved, users
+    onQuest[8812] = nil
+    FG.Routes["partywait-test"] = nil
+    useRoute("skip-test")
+    print("party wait ok")
+end
+PartyWaitTest()
+PartyWaitTest = nil
 local function SuiteFontTest()
     local Skin = FG.Skin
     local facade = {

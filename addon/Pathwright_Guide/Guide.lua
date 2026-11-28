@@ -44,6 +44,7 @@ local L = {
         "You reached this checkpoint's level earlier than planned: the steps up to it are skipped, except chains going on after it, class quests, planned rewards and training."
     ),
     alongTheWay = T("along the way"),
+    partyWaits = T("done, waiting for %s"),
     elite = T("elite"),
     skipHint = T("Right-click: mark as already done (or undo)"),
     skipped = T("quest marked as done: %s (to undo: the “Undo the last mark” key)"),
@@ -626,6 +627,19 @@ local function WaitsForGroup(step, index, passed)
         and not FG.Group:Passed(step, index)
 end
 
+--- Names of the party members an objective we finished waits for: those running the addon who
+--- have the quest and have not finished that objective (the "partyWait" setting, Party.lua). Not
+--- a step passed by hand, nor a quest we handed in: taking and turning in wait for nobody.
+local function PartyBehind(step, passed)
+    if passed or step.k ~= "objective" or not step.q or not FG.Party or not FG.Party.Behind then return nil end
+    if not FG:Get("partyWait") or not QuestLog.IsOnQuest(step.q) then return nil end
+    local o, at = FindObjectiveIndex(step)
+    local names = FG.Party:Behind(step.q, at, o and tonumber(o.numRequired))
+    return names[1] and names or nil
+end
+
+local function WaitsForParty(step, passed) return PartyBehind(step, passed) ~= nil end
+
 --- Whether an accept step's quest can be taken now: the quests it needs are done and the
 --- character has its level (routes made before these were exported: always).
 local function CanTake(step)
@@ -1038,7 +1052,11 @@ local function TaskView(step, index, withProgress)
     else
         v.name = step.t
     end
-    FG.Group:Chips(step, index, function(text, color) Chip(v, text, color) end, IsDone(step, index))
+    local done, passed = IsDone(step, index)
+    FG.Group:Chips(step, index, function(text, color) Chip(v, text, color) end, done)
+    -- An objective we finished that waits for the party (the "partyWait" setting).
+    local behind = done and PartyBehind(step, passed)
+    if behind then Chip(v, string.format(L.partyWaits, table.concat(behind, ", ")), "orange") end
     -- Drawn after the name (the name alone goes to the compass and the arrow).
     v.mark = NoteMark(step)
     -- Your time on its quest, the drop rate of its item, the score (Stats.lua): small, under the count.
@@ -1276,6 +1294,9 @@ function Guide:Refresh()
             })
         end
         listed[index] = true
+        -- An objective we finished that waits for the party stays a task to do: its row keeps the
+        -- party's progress, and the toolstrip its target buttons, to help the member finish.
+        if done and not step.bg and WaitsForParty(step, select(2, IsDone(step, index))) then done = false end
         if not done then table.insert(todo, step) end
         local v = TaskView(step, index, true)
         v.done = done
@@ -1460,7 +1481,7 @@ local function SkipDone()
         if not done then
             done, passed = IsDone(step, state.step)
         end
-        if not done or WaitsForGroup(step, state.step, passed) then break end
+        if not done or WaitsForGroup(step, state.step, passed) or WaitsForParty(step, passed) then break end
         state.step = state.step + 1
     end
     arrivedDone = false
@@ -1496,7 +1517,7 @@ function Guide:Advance()
             wasDone[i] = done and true or false
             -- The group's checkpoints come last (see Refresh).
             if
-                (not done or WaitsForGroup(step, i, passed))
+                (not done or WaitsForGroup(step, i, passed) or WaitsForParty(step, passed))
                 and (not pending or Checkpoint(route.steps[pending]) and not Checkpoint(step))
             then
                 pending = i
@@ -1896,6 +1917,8 @@ FG:On("PLAYER_LOGIN", function()
     for _, key in ipairs({ "guideMode", "nextTab", "questPanel", "compassShown", "arrowShown" }) do
         FG:OnSetting(key, function() Guide:Refresh() end)
     end
+    -- Waiting for the party on objectives, turned on or off: the step held moves on, or holds.
+    FG:OnSetting("partyWait", function() Guide:Advance() end)
     -- However the guide is shown (key binding, options, slash command), ask for what is missing.
     FG:OnSetting("guideShown", function(shown)
         Guide:Refresh()
