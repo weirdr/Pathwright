@@ -446,6 +446,17 @@ end
 local function Sections()
     frame.nowLabel = Skin:Text(frame, 9, "muted")
     frame.nowLabel:SetText(L.now)
+    local option = FG.settingOptions.autoAccept
+    local auto = FG:DragHandle(CreateFrame("CheckButton", nil, frame, "UICheckButtonTemplate"))
+    auto:SetSize(16, 16)
+    auto.label = Skin:Text(auto, 9, "text2")
+    auto.label:SetPoint("LEFT", auto, "RIGHT", 2, 0)
+    auto.label:SetText(T(option.label))
+    FG.Options.Tooltip(auto, T(option.label), T(option.help))
+    auto:SetChecked(FG:Get("autoAccept"))
+    auto:SetScript("OnClick", function(self) FG:Save("autoAccept", self:GetChecked() and true or false) end)
+    FG:OnSetting("autoAccept", function(enabled) auto:SetChecked(enabled) end)
+    frame.autoAccept = auto
     frame.nextLabel = Skin:Text(frame, 9, "muted")
     frame.nextLabel:SetText(L.next)
     frame.tabs = {}
@@ -607,6 +618,7 @@ function Card:Render(view)
         frame.xpFill,
         frame.xpMark,
         frame.nowLabel,
+        frame.autoAccept,
         frame.nextLabel,
         frame.footLine,
         frame.coords,
@@ -692,6 +704,10 @@ function Card:Render(view)
 
     frame.nowLabel:ClearAllPoints()
     frame.nowLabel:SetPoint("TOPLEFT", PAD, y)
+    local labelWidth = math.ceil(frame.autoAccept.label:GetStringWidth()) + 2
+    frame.autoAccept:ClearAllPoints()
+    frame.autoAccept:SetPoint("TOPRIGHT", -PAD - labelWidth, y + 3)
+    frame.autoAccept:SetHitRectInsets(0, -labelWidth, 0, 0)
     y = y - 14
     for i, v in ipairs(view.tasks) do
         local row = TaskRow(i)

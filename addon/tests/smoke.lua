@@ -41,6 +41,10 @@ end
 CreateFrame = function(kind, name, parent, template)
     local f = stub()
     f._name, f._parent, f._shown, f._button = name, parent, true, kind == "Button"
+    if kind == "CheckButton" then
+        function f:SetChecked(value) self._checked = value end
+        function f:GetChecked() return self._checked == true end
+    end
     function f:SetBackdrop()
         assert(template and template:find("BackdropTemplate", 1, true), (name or kind) .. " needs BackdropTemplate")
     end
@@ -7716,13 +7720,23 @@ local function SettingsTest()
     -- A check box: its setting reads FG:Get, writes FG:Save (saved, applied at once; the default
     -- saves nothing).
     local autoAccept = Option("Pathwright_autoAccept")
+    local cardCheck = FG.Card:Frame().autoAccept
     assert(autoAccept:GetValue() == true, "read")
+    assert(cardCheck:GetChecked(), "guide checkbox reflects auto-accept")
+    cardCheck:SetChecked(false)
+    cardCheck:OnClick()
+    assert(autoAccept:GetValue() == false and PathwrightDB.settings.autoAccept == false, "guide checkbox disables auto-accept")
+    cardCheck:SetChecked(true)
+    cardCheck:OnClick()
+    assert(autoAccept:GetValue() == true, "guide checkbox enables auto-accept")
     autoAccept:SetValue(false)
+    assert(not cardCheck:GetChecked(), "settings change updates guide checkbox")
     assert(PathwrightDB.settings.autoAccept == false and FG:Get("autoAccept") == false, "unchecked: saved")
     calls.AcceptQuest = nil
     fire("QUEST_DETAIL", 0)
     assert(not calls.AcceptQuest, "applied at once")
     autoAccept:SetValueToDefault()
+    assert(cardCheck:GetChecked(), "reset updates guide checkbox")
     assert(PathwrightDB.settings.autoAccept == nil and FG:Get("autoAccept") == true, "the default: nothing saved")
     -- A number: a slider within its bounds, on its steps; a percent shown as such.
     local scale = controls.scale.data.options
