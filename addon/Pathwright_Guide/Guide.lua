@@ -1185,6 +1185,15 @@ local TALKS = { accept = true, turnin = true, train = true, bind = true, flight_
 -- The compass shows the quests to pick up closer than this (yards).
 local PICKUP_NEAR = 100
 
+-- A route can introduce a quest objective along the way and revisit it at a different spot.
+local function ObjectiveKey(step)
+    if step.k ~= "objective" or not step.q then return nil end
+    local index = step.o or select(2, FindObjectiveIndex(step))
+    if index then return step.q .. ":o:" .. index end
+    if step.e and step.id then return step.q .. ":" .. step.e .. ":" .. step.id end
+    if step.n then return step.q .. ":name:" .. step.n end
+end
+
 function Guide:Refresh()
     local ui = self:UI()
     if not ui then return end
@@ -1224,8 +1233,19 @@ function Guide:Refresh()
     local target, targetIndex
     local todo = {}
     local listed = {}
+    local preferred = {}
     local function Add(index, done)
         local step = route.steps[index]
+        if step.bg then
+            local key = ObjectiveKey(step)
+            if key then
+                if preferred[key] and preferred[key] ~= index then
+                    if pointed == index then pointed = preferred[key] end
+                    return
+                end
+                preferred[key] = index
+            end
+        end
         -- The mobs to kill on the way to a step: a line of their own before it, counted while it
         -- is the current step, greyed with it once it is done (the XP bar's box still holds
         -- their XP).
@@ -1269,6 +1289,9 @@ function Guide:Refresh()
     local turnedIn = {}
     for _, index in ipairs(group) do
         local step = route.steps[index]
+        -- Reserve current objectives before either pass adds unfinished background steps.
+        local key = ObjectiveKey(step)
+        if key and (not preferred[key] or not step.bg) then preferred[key] = index end
         if step.k == "turnin" and step.q then turnedIn[step.q] = true end
     end
     local function AlongTheWay(first)

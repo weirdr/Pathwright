@@ -1123,6 +1123,33 @@ do
 end
 print("in progress ok")
 
+-- Riverglades introduces kills and drops as background tasks before making them current.
+do
+    local function objective(q, o, name, bg, x)
+        return { k = "objective", t = name, n = name, q = q, o = o, bg = bg, m = 1429, x = x, y = 45 }
+    end
+    local steps = {
+        objective(94535, 1, "Stolen Ore", true, 30),
+        objective(94532, 2, "Redridge Trapper", true, 30),
+        objective(94532, 3, "Redridge Brute", true, 30),
+        objective(94532, 3, "Redridge Brute", true, 30),
+        objective(94536, 1, "Stolen Ore", true, 30),
+        objective(94535, 1, "Stolen Ore", nil, 19),
+        objective(94532, 2, "Redridge Trapper", nil, 19),
+    }
+    FG.Routes["repeated-objectives-test"] = { steps = steps, fromLevel = 1, toLevel = 60 }
+    onQuest[94535], onQuest[94532], onQuest[94536] = true, true, true
+    useRoute("repeated-objectives-test")
+    local tasks = FG.Guide.view.tasks
+    assert(#tasks == 4 and tasks[1].index == 6 and tasks[2].index == 7, "current objectives appear once, first")
+    assert(tasks[3].index == 3 and tasks[4].index == 5, "distinct background objectives stay in order")
+    FG.Guide:PointToStep(1)
+    assert(FG.Guide.view.targetIndex == 6, "pointing to the older copy selects the visible current step")
+    onQuest[94535], onQuest[94532], onQuest[94536] = nil, nil, nil
+    FG.Routes["repeated-objectives-test"] = nil
+end
+print("repeated objectives ok")
+
 -- Toolstrip: a sword per mob of the current step, a speech bubble for its NPC, the trash can.
 playerLevel = 5
 FG.Routes["macro-test"] = {
